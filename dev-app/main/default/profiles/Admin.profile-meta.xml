@@ -187,14 +187,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Form_Question__c.Label__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Form_Question__c.Sort_Order__c</field>
-        <readable>false</readable>
+        <editable>true</editable>
+        <field>Form_Response__c.Question__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -203,7 +198,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Form_Response__c.Value__c</field>
+        <field>Form_Response__c.String_Value__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
@@ -218,9 +213,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Drug__c-Drug Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Form_Question__c-Form Question Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Form_Response__c-Form Response Layout</layout>
@@ -261,15 +253,6 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>Form_Question__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
         <object>Form_Response__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -296,10 +279,6 @@
     </recordTypeVisibilities>
     <tabVisibilities>
         <tab>Drug__c</tab>
-        <visibility>Hidden</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>Form_Question__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
