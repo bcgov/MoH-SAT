@@ -1,4 +1,4 @@
-call sfdx force:org:create -v devhub -a sat-dev -f config/project-scratch-def.json -d 30 -s
+call sfdx force:org:create -v devhub -a sat-dev -f config/project-scratch-def.json -d 7 -s
 call sfdx force:source:push -u sat-dev
 call sfdx force:user:permset:assign -u sat-dev -n SA_Administrator
 call sfdx force:apex:execute -u sat-dev -f scripts/apex/set-user-role.apex
