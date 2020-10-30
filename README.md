@@ -7,25 +7,40 @@ This requires [SFDX CLI](https://developer.salesforce.com/tools/sfdxcli) install
 $ ./dev-setup.bat
 ```
 
-## Common Commands
+## Common Salesforce CLI Commands
 Delete scratch org.
 ```
 $ sfdx force:org:delete -u sat-dev
 ```
 
-List changes between project and scratch org (command must be executed at the project root directory).
+List changes between project and scratch org.
 ```
-$ ..\project-root> sfdx force:source:status
+$ ..\MoH-SAT> sfdx force:source:status
 ```
 
 Pull changes from scratch org into project.
 ```
-$ ..\project-root> sfdx force:source:pull
+$ ..\MoH-SAT> sfdx force:source:pull
 ```
 
 Push changes in project to scratch org.
 ```
-$ ..\project-root> sfdx force:source:push
+$ ..\MoH-SAT> sfdx force:source:push
+```
+
+## Miscellaneous Commands
+Reset local main branch. This wipes out any local changes in `main`.
+```
+$ ../MoH-SAT> git fetch --all
+$ ../MoH-SAT> git checkout main
+$ ../MoH-SAT> git reset --hard origin/main
+```
+
+Create a new feature branch from `main`.
+```
+$ ../MoH-SAT> git checkout main
+$ ../MoH-SAT> git pull
+$ ../MoH-SAT> git checkout -b <name_of_branch>
 ```
 
 ## References
