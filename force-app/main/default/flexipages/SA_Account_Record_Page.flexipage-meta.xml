@@ -26,19 +26,6 @@
                 <componentName>force:highlightsPanel</componentName>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>hideUpdateButton</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>variant</name>
-                    <value>linear</value>
-                </componentInstanceProperties>
-                <componentName>runtime_sales_pathassistant:pathAssistant</componentName>
-            </componentInstance>
-        </itemInstances>
         <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
@@ -48,20 +35,21 @@
                 <componentName>force:detailPanel</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-ed76e5ed-21b8-41fd-9173-d42725e0e589</name>
+        <name>Facet-519af28f-a64c-4540-8675-4b5f680cff45</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.ContactId</value>
+                    <name>displayOption</name>
+                    <value>BOTH</value>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>Cases</value>
-                </componentInstanceProperties>
+                <componentName>runtime_sales_merge:mergeCandidatesPreviewCard</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
                     <value>ADVGRID</value>
@@ -72,24 +60,20 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
+                <componentName>force:relatedListContainer</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-33632381-ab6d-4ee2-ae44-5c8c0ac8e04e</name>
+        <name>Facet-89947bc6-ce99-48a6-98d5-76fa3f705f6b</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>active</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-ed76e5ed-21b8-41fd-9173-d42725e0e589</value>
+                    <value>Facet-519af28f-a64c-4540-8675-4b5f680cff45</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -101,17 +85,21 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>active</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-33632381-ab6d-4ee2-ae44-5c8c0ac8e04e</value>
+                    <value>Facet-89947bc6-ce99-48a6-98d5-76fa3f705f6b</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Patient History</value>
+                    <value>Standard.Tab.relatedLists</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-01f93c8b-18ec-4bc8-b396-50f0cea8cae8</name>
+        <name>Facet-703d43f7-56e1-423e-8d0b-5be9eed805b6</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -119,34 +107,9 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>tabs</name>
-                    <value>Facet-01f93c8b-18ec-4bc8-b396-50f0cea8cae8</value>
+                    <value>Facet-703d43f7-56e1-423e-8d0b-5be9eed805b6</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>Form_Responses__r</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
             </componentInstance>
         </itemInstances>
         <name>main</name>
@@ -158,7 +121,7 @@
                 <componentName>runtime_sales_activities:activityPanel</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-ca1d8a06-950e-4bf9-8fef-13001d8a722c</name>
+        <name>Facet-c6bf7bba-8cfd-432e-bdd8-f5ae4f23f3d1</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -167,7 +130,7 @@
                 <componentName>forceChatter:recordFeedContainer</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-d1f5f632-04a8-4694-8101-bc89e2c6496b</name>
+        <name>Facet-c63e7084-88d8-4951-8142-83fbd86ff41a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -179,7 +142,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-ca1d8a06-950e-4bf9-8fef-13001d8a722c</value>
+                    <value>Facet-c6bf7bba-8cfd-432e-bdd8-f5ae4f23f3d1</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -192,7 +155,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-d1f5f632-04a8-4694-8101-bc89e2c6496b</value>
+                    <value>Facet-c63e7084-88d8-4951-8142-83fbd86ff41a</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
@@ -201,41 +164,15 @@
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-86f673bb-cbe5-4da9-8f79-b268442cce0f</name>
+        <name>Facet-101e692e-1aaf-4663-9860-c5b20d8d3caa</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>decorate</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Patient Coverage History&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://energy-force-5053-dev-ed--c.cs94.content.force.com/servlet/rtaImage?refid=0EM0R0000001cdQ&quot; alt=&quot;image.png&quot;&gt;&lt;/p&gt;</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:richText</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>decorate</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;Provider Verification&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;img src=&quot;https://energy-force-5053-dev-ed--c.cs94.content.force.com/servlet/rtaImage?refid=0EM0R0000001cdG&quot; alt=&quot;image.png&quot;&gt;&lt;/p&gt;</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:richText</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>tabs</name>
-                    <value>Facet-86f673bb-cbe5-4da9-8f79-b268442cce0f</value>
+                    <value>Facet-101e692e-1aaf-4663-9860-c5b20d8d3caa</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
             </componentInstance>
@@ -243,8 +180,8 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>SA Case Record Page</masterLabel>
-    <sobjectType>Case</sobjectType>
+    <masterLabel>SA Account Record Page</masterLabel>
+    <sobjectType>Account</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
         <properties>
