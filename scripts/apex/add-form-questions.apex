@@ -16,7 +16,7 @@ for (Case c : cases) {
         
         Form_Response__c formResponse = new Form_Response__c();
         formResponse.Question__c = formResponseSrc.question;
-        formResponse.String_Value__c = formResponseSrc.stringValue;
+        formResponse.Response__c = formResponseSrc.stringValue;
         formResponse.Sort_Order__c = (i+1)*10;
         formResponse.Case__c = c.Id;
         formResponse.API_Name__c = formResponseSrc.question.left(10);
