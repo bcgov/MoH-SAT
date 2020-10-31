@@ -5,7 +5,7 @@ const columns = [
   { label: 'RX Number', fieldName: 'rxNumber', initialWidth: 120 },
   { label: 'RX Status', fieldName: 'rxStatus', initialWidth: 110 },
   { label: 'Name', fieldName: 'genericName' },
-  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date', initialWidth: 140 }
+  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, initialWidth: 140 }
 ];
 
 export default class PatientHistory extends LightningElement {
