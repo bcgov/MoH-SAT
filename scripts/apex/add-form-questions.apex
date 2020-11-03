@@ -7,14 +7,14 @@ String jsonString = '[{"question":"Displ oblique fx shaft of unsp fibula, 7thD",
 
 List<FormResponse> formResponsesSource = (List<FormResponse>) JSON.deserialize(jsonString, List<FormResponse>.class);
 List<Case> cases = [select Id from Case];
-List<Form_Response__c> formResponses = new List<Form_Response__c>();
+List<Request_Detail__c> formResponses = new List<Request_Detail__c>();
 
 for (Case c : cases) {
     for (Integer i = 0; i < 3; i++) {
         Integer randomNumber = Integer.valueof((Math.random() * formResponsesSource.size()));
         FormResponse formResponseSrc = formResponsesSource[randomNumber];
         
-        Form_Response__c formResponse = new Form_Response__c();
+        Request_Detail__c formResponse = new Request_Detail__c();
         formResponse.Question__c = formResponseSrc.question;
         formResponse.Response__c = formResponseSrc.stringValue;
         formResponse.Sort_Order__c = (i+1)*10;
