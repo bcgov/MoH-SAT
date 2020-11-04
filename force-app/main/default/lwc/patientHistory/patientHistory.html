@@ -1,9 +1,8 @@
 <template>
-  <lightning-card variant="Narrow" icon-name="action:share_poll" title="Patient History">
+    <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
     <lightning-datatable
-            key-field="id"
+            key-field="rxNumber"
             data={data}
             columns={columns}>
     </lightning-datatable>
-  </lightning-card>
 </template>
