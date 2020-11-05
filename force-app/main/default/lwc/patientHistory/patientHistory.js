@@ -17,24 +17,31 @@ export default class PatientHistory extends LightningElement {
   data = [];
   loaded = false;
 
-  @wire(fetchData, { page: '0', count: '100'}) mapObjectToData(payload) {
-    if (payload.data) {
-      let dataArray = [];
-      const dataObj = JSON.parse(payload.data);
-      dataObj.forEach(element => {
-        let item = {};
-        item['rxNumber'] = element.rxNumber;
-        item['rxStatus'] = element.rxStatus;
-        item['genericName'] = element.genericName;
-        item['dispensingPharmacyName'] = element.dispensingPharmacy.name;
-        item['dateDispensed'] = element.dateDispensed;
-        item['dinpin'] = element.dinpin;
-        item['quantity'] = element.quantity;
-        item['refills'] = element.refills;
-        dataArray.push(item);
-      });
-      this.data = dataArray;
-      this.loaded = true;
+  @wire(fetchData, { page: '0', count: '100'}) mapObjectToData({error,data}) {
+    console.log("error:", error);
+    console.log("data:", data);
+
+    if (data) {
+      // console.log("medHistory:", data.medHistory);
+      // console.log("medRecords:", data.medHistory.medRecords);
+      const records = data.medHistory.medRecords;
+      if (records.length) {
+        let dataArray = [];
+        records.forEach(record => {
+          let item = {};
+          item['rxNumber'] = record.rxNumber;
+          item['rxStatus'] = record.rxStatus;
+          item['genericName'] = record.genericName;
+          item['dispensingPharmacyName'] = record.dispensingPharmacy.name;
+          item['dateDispensed'] = record.dateDispensed;
+          item['dinpin'] = record.dinpin;
+          item['quantity'] = record.quantity;
+          item['refills'] = record.refills;
+          dataArray.push(item);
+        });
+        this.data = dataArray;
+        this.loaded = true;
+      }
     }
   };
 }
