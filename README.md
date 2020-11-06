@@ -43,6 +43,10 @@ $ ../MoH-SAT> git pull
 $ ../MoH-SAT> git checkout -b <name_of_branch>
 ```
 
+## Package Upgrade
+```
+sfdx force:package:version:create -v devhub -d force-app -f config\project-scratch-def.json -x -p "Special Authority - Case Management" -w 15
+```
 ## References
 [Salesforce Development with Visual Studio Code](https://developer.salesforce.com/tools/vscode/)
 
