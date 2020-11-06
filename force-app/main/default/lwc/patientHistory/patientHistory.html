@@ -1,8 +1,24 @@
 <template>
+  <lightning-card variant="Narrow" icon-name="action:share_poll" title="Pharmanet History">
+    <div class="slds-m-top_x-small slds-m-bottom_medium">
+      <lightning-layout>
+        <lightning-layout-item padding="slds-p-left_none">
+          <lightning-combobox
+            name="count"
+            label="Results to show"
+            value={value}
+            placeholder="25"
+            options={countOptions}
+            onchange={handleCountChange} ></lightning-combobox>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+
     <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
     <lightning-datatable
             key-field="rxNumber"
             data={data}
             columns={columns}>
     </lightning-datatable>
+  </lightning-card>
 </template>
