@@ -13,12 +13,19 @@
         </lightning-layout-item>
       </lightning-layout>
     </div>
-
     <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
     <lightning-datatable
             key-field="rxNumber"
             data={data}
             columns={columns}>
     </lightning-datatable>
+    <div class="nav-buttons">
+        <button disabled={isFirstPage} onclick={handlePrevPage}>Previous Page</button>
+        <button disabled={isLastPage} onclick={handleNextPage}>Next Page</button>
+    </div>
+    <div class="page-info">
+      Total Records: {totalRecordCount}
+      Page ({pageNumber} of {totalPageCount})
+    </div>
   </lightning-card>
 </template>
