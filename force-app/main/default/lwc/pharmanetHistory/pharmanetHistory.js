@@ -12,12 +12,67 @@ const columns = [
   { label: 'DIN', fieldName: 'dinpin' },
 ];
 
-export default class PatientHistory extends LightningElement {
+export default class PharmanetHistory extends LightningElement {
   columns = columns;
   data = [];
   loaded = false;
+  count = '25';
+  isFirstPage = true;
+  isLastPage = false;
+  totalRecordCount = 111;
+  pageNumber = 1;
+  totalPageCount = 11;
 
-  @wire(fetchData, { page: '0', count: '100'}) mapObjectToData({error,data}) {
+  handleNextPage(event) {
+    console.log('handle previous page', event);
+    console.log(this.pageNumber, this.totalPageCount);
+    if (this.pageNumber < this.totalPageCount) {
+      this.pageNumber = this.pageNumber + 1;
+    }
+    this.handlePageChange();
+  }
+  handlePrevPage(event) {
+    console.log('handle next page', event);
+    console.log(this.pageNumber, this.totalPageCount);
+    if (this.pageNumber > 1) {
+      this.pageNumber = this.pageNumber - 1;
+    }
+    this.handlePageChange();
+  }
+  handlePageChange() {
+    // Call the service and update stuff.
+    this.updatePageButtons();
+  }
+
+  updatePageButtons() {
+    console.log('PageNumber:', this.pageNumber, 'total', this.totalPageCount);
+    if (this.pageNumber === 1) {
+      this.isFirstPage = true;
+    } else {
+      this.isFirstPage = false;
+    }
+    if (this.pageNumber >= this.totalPageCount) {
+      this.isLastPage = true;
+    } else {
+      this.isLastPage = false;
+    }
+  }
+
+  // Count Options
+  get countOptions() {
+    return [
+        { label: '25', value: '25' },
+        { label: '50', value: '50' },
+        { label: '75', value: '75' },
+        { label: '100', value: '100' },
+    ];
+  }
+  // Count change handler
+  handleCountChange(event) {
+    this.count = event.detail.value;
+  }
+
+  @wire(fetchData, { page: '1', count: '$count'}) mapObjectToData({error,data}) {
     console.log("error:", error);
     console.log("data:", data);
 
