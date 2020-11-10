@@ -7,7 +7,8 @@ General configuration steps:
 * PFX to JKS conversion
 * Import JKS
 * Configure Named Credential Certificate
-
+* Enable Identity Provider
+* Testing
 
 ##### Setup a Named Credential:
 
@@ -69,6 +70,12 @@ You can now load the `keystorefile.jks` file created above into *Certificate and
 ##### Add Cert to Named Credential:
 
 Make sure to go back to the named credential you configured in the first step, and select the cert you just created.
+
+##### Enable Identity Provider
+
+In Salesforce, go to Setup -> Identity -> Identity Provider -> Enable.  Select the certificate you named when importing the JKS.
+
+##### Testing
 
 At this point, your SSL cert and named credential should be linked up, and you will be able to call your named credential in Apex code easily.  See below for an example:
 
