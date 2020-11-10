@@ -2,7 +2,7 @@ public with sharing class ODRIntegration {
     public ODRIntegration() { }
 
     @AuraEnabled(cacheable=true)
-    public static SpecialAuthorityResponse fetchData(String page, String count) {
+    public static SpecialAuthorityResponse fetchData(Id caseId, String page, String count) {
         System.debug('Fetch Data');
         System.debug(page);
         System.debug(count);
@@ -16,6 +16,14 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.SubString(16,20)
                     + '-' + hexString.substring(20);
 
+        // Get PHN
+        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
+        System.debug('PATIENT DATA');
+        System.debug(c.contact.patient_identifier__c);
+
+        // PHN that works in dev
+        // caseId = '9735352567';
+
         try {
             HttpRequest req = new HttpRequest();
             req.setHeader('Content-Type','application/json');
@@ -28,7 +36,7 @@ public with sharing class ODRIntegration {
             // &searchStartDate=2001-01-01
             // &searchEndDate=2020-01-01
             String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
-            queryParams += '&phn=9735352567';
+            queryParams += '&phn=' + c.contact.patient_identifier__c;
             queryParams += '&pageSize=' + count;
             queryParams += '&pageNo=' + page;
             // TODO

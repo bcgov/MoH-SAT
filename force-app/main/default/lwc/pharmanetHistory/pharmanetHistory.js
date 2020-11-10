@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
 import fetchData from '@salesforce/apex/ODRIntegration.fetchData';
 
 const columns = [
@@ -13,6 +13,7 @@ const columns = [
 ];
 
 export default class PharmanetHistory extends LightningElement {
+  @api recordId;
   columns = columns;
   data = [];
   loaded = false;
@@ -74,7 +75,7 @@ export default class PharmanetHistory extends LightningElement {
     this.count = event.detail.value;
   }
 
-  @wire(fetchData, { page: '$pageNumber', count: '$count'}) mapObjectToData({error,data}) {
+  @wire(fetchData, { caseId: '$recordId', page: '$pageNumber', count: '$count'}) mapObjectToData({error,data}) {
     console.log("error:", error);
     console.log("data:", data);
 
