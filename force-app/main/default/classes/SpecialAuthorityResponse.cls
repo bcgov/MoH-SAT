@@ -45,8 +45,28 @@ public class SpecialAuthorityResponse {
 		@AuraEnabled public Integer totalPages {get;set;} 
 		@AuraEnabled public List<MedRecords> medRecords {get;set;} 
 	}
-	
-	@AuraEnabled public String clientName {get;set;} 
-	@AuraEnabled public String requestUUID {get;set;} 
-	@AuraEnabled public MedHistory medHistory {get;set;} 
+
+	public class Comment {
+		@AuraEnabled public String dateEntered {get;set;}
+		@AuraEnabled public String pracitionerName {get;set;}
+		@AuraEnabled public String text {get;set;}
+		@AuraEnabled public String practitionerRefId {get;set;}
+		@AuraEnabled public String practitionerId {get;set;}
+	}
+
+	public class AdverseReactions {
+		@AuraEnabled public Integer dinpin {get;set;}
+		@AuraEnabled public String drugStrength {get;set;}
+		@AuraEnabled public String genericName {get;set;}
+		@AuraEnabled public String doseForm {get;set;}
+		@AuraEnabled public String dateReported {get;set;}
+		@AuraEnabled public Comment comment {get;set;}
+		@AuraEnabled public String reportedBy {get;set;}
+
+	}
+
+	@AuraEnabled public String clientName {get;set;}
+	@AuraEnabled public String requestUUID {get;set;}
+	@AuraEnabled public MedHistory medHistory {get;set;}
+	@AuraEnabled public List<AdverseReactions> adverseReactions {get;set;}
 }

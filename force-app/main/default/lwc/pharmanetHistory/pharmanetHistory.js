@@ -10,6 +10,7 @@ const columns = [
   { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, initialWidth: 140 },
   { label: 'Dispenser', fieldName: 'dispensingPharmacyName', type: 'text', wrapText: true },
   { label: 'DIN', fieldName: 'dinpin' },
+  { label: 'Adverse Reactions', fieldName: 'adverseReactions' }
 ];
 
 export default class PharmanetHistory extends LightningElement {
@@ -99,6 +100,7 @@ export default class PharmanetHistory extends LightningElement {
           item['dinpin'] = record.dinpin;
           item['quantity'] = record.quantity;
           item['refills'] = record.refills;
+          item['adverseReactions'] = data.adverseReactions.length;
           dataArray.push(item);
         });
         this.data = dataArray;
