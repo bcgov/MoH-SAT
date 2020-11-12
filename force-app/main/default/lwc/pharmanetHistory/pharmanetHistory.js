@@ -81,9 +81,9 @@ export default class PharmanetHistory extends LightningElement {
 
     if (data) {
       console.log("medHistory:", data.medHistory);
-      const records = data.medHistory.medRecords;
-      this.totalRecords = data.medHistory.totalRecords;
-      this.totalPages = data.medHistory.totalPages;
+      const records = data.medHistory && data.medHistory.medRecords;
+      this.totalRecords = data.medHistory && data.medHistory.totalRecords;
+      this.totalPages = data.medHistory && data.medHistory.totalPages;
 
       if (this.totalRecords > 0) {
         this.completeAndNoResults = false;
