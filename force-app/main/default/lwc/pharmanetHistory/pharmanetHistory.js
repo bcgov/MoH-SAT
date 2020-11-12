@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
 import fetchData from '@salesforce/apex/ODRIntegration.fetchData';
 
 const columns = [
@@ -13,27 +13,30 @@ const columns = [
 ];
 
 export default class PharmanetHistory extends LightningElement {
+  @api recordId;
   columns = columns;
   data = [];
   loaded = false;
-  count = '25';
+  count = '10';
+  hasResults = false;
+  completeAndNoResults = false;
   isFirstPage = true;
   isLastPage = false;
-  totalRecordCount = 111;
+  totalRecords = 0;
   pageNumber = 1;
-  totalPageCount = 11;
+  totalPages = 0;
 
   handleNextPage(event) {
     console.log('handle previous page', event);
-    console.log(this.pageNumber, this.totalPageCount);
-    if (this.pageNumber < this.totalPageCount) {
+    console.log(this.pageNumber, this.totalPages);
+    if (this.pageNumber < this.totalPages) {
       this.pageNumber = this.pageNumber + 1;
     }
     this.handlePageChange();
   }
   handlePrevPage(event) {
     console.log('handle next page', event);
-    console.log(this.pageNumber, this.totalPageCount);
+    console.log(this.pageNumber, this.totalPages);
     if (this.pageNumber > 1) {
       this.pageNumber = this.pageNumber - 1;
     }
@@ -45,13 +48,13 @@ export default class PharmanetHistory extends LightningElement {
   }
 
   updatePageButtons() {
-    console.log('PageNumber:', this.pageNumber, 'total', this.totalPageCount);
+    console.log('PageNumber:', this.pageNumber, 'total', this.totalPages);
     if (this.pageNumber === 1) {
       this.isFirstPage = true;
     } else {
       this.isFirstPage = false;
     }
-    if (this.pageNumber >= this.totalPageCount) {
+    if (this.pageNumber >= this.totalPages) {
       this.isLastPage = true;
     } else {
       this.isLastPage = false;
@@ -61,7 +64,7 @@ export default class PharmanetHistory extends LightningElement {
   // Count Options
   get countOptions() {
     return [
-        { label: '25', value: '25' },
+        { label: '10', value: '10' },
         { label: '50', value: '50' },
         { label: '75', value: '75' },
         { label: '100', value: '100' },
@@ -72,15 +75,19 @@ export default class PharmanetHistory extends LightningElement {
     this.count = event.detail.value;
   }
 
-  @wire(fetchData, { page: '1', count: '$count'}) mapObjectToData({error,data}) {
+  @wire(fetchData, { caseId: '$recordId', page: '$pageNumber', count: '$count'}) mapObjectToData({error,data}) {
     console.log("error:", error);
     console.log("data:", data);
 
     if (data) {
-      // console.log("medHistory:", data.medHistory);
-      // console.log("medRecords:", data.medHistory.medRecords);
-      const records = data.medHistory.medRecords;
-      if (records.length) {
+      console.log("medHistory:", data.medHistory);
+      const records = data.medHistory && data.medHistory.medRecords;
+      this.totalRecords = data.medHistory && data.medHistory.totalRecords;
+      this.totalPages = data.medHistory && data.medHistory.totalPages;
+
+      if (this.totalRecords > 0) {
+        this.completeAndNoResults = false;
+        this.hasResults = true;
         let dataArray = [];
         records.forEach(record => {
           let item = {};
@@ -95,8 +102,13 @@ export default class PharmanetHistory extends LightningElement {
           dataArray.push(item);
         });
         this.data = dataArray;
-        this.loaded = true;
+      } else {
+        this.hasResults = false;
+        this.completeAndNoResults = true;
+        this.pageNumber = 1;
       }
+      this.loaded = true;
+      this.updatePageButtons();
     }
   };
 }
