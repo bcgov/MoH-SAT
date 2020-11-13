@@ -1,18 +1,31 @@
 import { LightningElement, wire, api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
+
 import findCases from '@salesforce/apex/SimilarCases.find';
 
-export default class SimilarCases extends LightningElement {
+const columns = [
+    { label: 'Question', fieldName: 'Question__c', wrapText: true, hideDefaultActions: true },
+    { label: 'Response', fieldName: 'Response__c', wrapText: true, hideDefaultActions: true }
+]
+export default class SimilarCases extends NavigationMixin(LightningElement) {
     @api recordId;
-    cases;
     
     @wire(findCases, { caseId : '$recordId' })
-    loadCases({error, data}) {
-        console.log("recordId " + this.recordId);
-        console.log("cases: " + data);
-        if (data) {
-            this.cases = data;
-            console.log("this.cases" + this.cases);
-        }
+    cases;
+
+    get hasCases() {
+        return this.cases && this.cases.data && this.cases.data.length > 0;
     }
 
+    requestDetailsCols = columns;
+
+    viewCase(event) {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: event.currentTarget.dataset.caseId,
+                actionName: 'view'
+            },
+        });
+    }
 }

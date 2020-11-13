@@ -1,34 +1,56 @@
 <template>
-    <div>similar cases</div>
-    <template if:true={cases}>
-        <template for:each={cases} for:item="c">
-            <div key={c.Id}>
-                <div>{c.Subject}</div>
-                <template for:each={c.Request_Details__r} for:item="rd">
-                    <div key={rd.Id}>
-                        <div>{rd.Question__c}</div>
-                        <div>{rd.Response__c}</div>
-                        <div></div>
-                    </div>
-                </template>
+    <template if:false={hasCases}>
+        <div class="slds-box slds-text-align_center">
+            <div class="slds-m-vertical_small">
+                <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                <p>No similar cases found.</p>
             </div>
-        </template>
-        <!-- <lightning-accordion allow-multiple-sections-open>
-
-            <template for:each={cases.data} for:item="c">
-                <lightning-accordion-section key={c.Id} name={c.Id} label={c.Subject}>
-                    <div class="slds-grid">
-                        <template for:each={c.Request_Details__r} for:item="rd">
-                            <div key={rd.Id}>
-                                <div>{rd.Question__c}</div>
-                                <div>{rd.Response__c}</div>
-                                <div></div>
-                            </div>
-                        </template>
-                    </div>
-                </lightning-accordion-section>
-            </template>
-        
-        </lightning-accordion> -->
+        </div>
     </template>
+    <template if:true={hasCases} for:each={cases.data} for:item="c">
+        <div key={c.Id} class="slds-box slds-m-bottom_medium">
+            <lightning-card icon-name="standard:case">
+                <div slot="title">
+                    <span class="slds-m-right_medium">{c.CaseNumber}</span>
+                    <lightning-button label="View" data-case-id={c.Id} onclick={viewCase}></lightning-button>
+                </div>
+                
+                <div class='slds-grid'>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Status</p>
+                        <p>{c.Status}</p>
+                    </div>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Closed Date</p>
+                        <p>
+                            <lightning-formatted-date-time value={c.ClosedDate}></lightning-formatted-date-time>
+                        </p>
+                    </div>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Patient</p>
+                        <p>{c.Contact.Name}</p>
+                    </div>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Provider</p>
+                        <p>{c.Provider__r.Name}</p>
+                    </div>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Owner</p>
+                        <p>{c.Owner.Name}</p>
+                    </div>
+                </div>
+                
+                <div class="slds-text-title_caps slds-m-top_small">Request Details</div>
+
+                <lightning-datatable 
+                    key-field="Id"
+                    data={c.Request_Details__r} 
+                    columns={requestDetailsCols}
+                    hide-checkbox-column
+                    resize-column-disabled>
+                </lightning-datatable>
+            </lightning-card>
+        </div>
+    </template>
+
 </template>
