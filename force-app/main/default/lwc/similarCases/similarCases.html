@@ -1,0 +1,34 @@
+<template>
+    <div>similar cases</div>
+    <template if:true={cases}>
+        <template for:each={cases} for:item="c">
+            <div key={c.Id}>
+                <div>{c.Subject}</div>
+                <template for:each={c.Request_Details__r} for:item="rd">
+                    <div key={rd.Id}>
+                        <div>{rd.Question__c}</div>
+                        <div>{rd.Response__c}</div>
+                        <div></div>
+                    </div>
+                </template>
+            </div>
+        </template>
+        <!-- <lightning-accordion allow-multiple-sections-open>
+
+            <template for:each={cases.data} for:item="c">
+                <lightning-accordion-section key={c.Id} name={c.Id} label={c.Subject}>
+                    <div class="slds-grid">
+                        <template for:each={c.Request_Details__r} for:item="rd">
+                            <div key={rd.Id}>
+                                <div>{rd.Question__c}</div>
+                                <div>{rd.Response__c}</div>
+                                <div></div>
+                            </div>
+                        </template>
+                    </div>
+                </lightning-accordion-section>
+            </template>
+        
+        </lightning-accordion> -->
+    </template>
+</template>
