@@ -2,15 +2,15 @@ import { LightningElement, wire, api } from 'lwc';
 import fetchData from '@salesforce/apex/ODRIntegration.fetchData';
 
 const columns = [
-  { label: 'RX Number', fieldName: 'rxNumber', initialWidth: 120 },
-  { label: 'RX Status', fieldName: 'rxStatus', initialWidth: 110 },
-  { label: 'Name', fieldName: 'genericName', type: 'text', wrapText: true },
-  { label: 'Quantity', fieldName: 'quantity', initialWidth: 80 },
-  { label: 'Refills', fieldName: 'refills', initialWidth: 80 },
-  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, initialWidth: 140 },
-  { label: 'Dispenser', fieldName: 'dispensingPharmacyName', type: 'text', wrapText: true },
-  { label: 'DIN', fieldName: 'dinpin' },
-  { label: 'Adverse Reactions', fieldName: 'adverseReactions' }
+  { label: 'RX Number', fieldName: 'rxNumber', initialWidth: 120, hideDefaultActions: true },
+  { label: 'RX Status', fieldName: 'rxStatus', initialWidth: 110, hideDefaultActions: true },
+  { label: 'Name', fieldName: 'genericName', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Quantity', fieldName: 'quantity', initialWidth: 80, hideDefaultActions: true },
+  { label: 'Refills', fieldName: 'refills', initialWidth: 80, hideDefaultActions: true },
+  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, initialWidth: 140, hideDefaultActions: true },
+  { label: 'Dispenser', fieldName: 'dispensingPharmacyName', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'DIN', fieldName: 'dinpin', hideDefaultActions: true },
+  { label: 'Adverse Reactions', fieldName: 'adverseReactions', hideDefaultActions: true }
 ];
 
 export default class PharmanetHistory extends LightningElement {
