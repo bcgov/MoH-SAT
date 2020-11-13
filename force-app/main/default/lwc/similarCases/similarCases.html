@@ -42,13 +42,17 @@
                 
                 <div class="slds-text-title_caps slds-m-top_small">Request Details</div>
 
-                <lightning-datatable 
-                    key-field="Id"
-                    data={c.Request_Details__r} 
-                    columns={requestDetailsCols}
-                    hide-checkbox-column
-                    resize-column-disabled>
-                </lightning-datatable>
+                <div>
+                    <lightning-datatable 
+                        key-field="Id"
+                        data={c.Request_Details__r} 
+                        columns={requestDetailsCols}
+                        hide-checkbox-column
+                        resize-column-disabled>
+                    </lightning-datatable>
+                </div>
+
+
             </lightning-card>
         </div>
     </template>

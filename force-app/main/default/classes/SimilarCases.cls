@@ -15,7 +15,9 @@ public with sharing class SimilarCases {
             where Drug_Name__c = :record.Drug_Name__c
             and IsClosed=true
             and Id != :caseId
-            limit 10
+            order by ClosedDate desc
+            limit 20
         ];
     }
+    
 }
