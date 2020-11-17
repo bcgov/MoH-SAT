@@ -1,0 +1,19 @@
+<template>
+    <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
+    <lightning-card if:true={loaded}>
+      <h3 slot="title">
+          <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+          &nbsp;Provider Information
+      </h3>
+      <div slot="footer">
+        <lightning-badge if:true={data.verified} label="Verified" icon-name="action:check" style="background: #46D447"></lightning-badge>
+        <lightning-badge if:false={data.verified} label="Unverified" icon-name="action:close" style="background: red"></lightning-badge>
+      </div>
+      <div class="slds-p-left_small">
+        <p><strong>Name:</strong> {data.name}</p>
+        <p><strong>College Number:</strong> {data.collegeNumber}</p>
+        <p><strong>Phone:</strong> <lightning-formatted-phone value={data.phoneNumber}></lightning-formatted-phone></p>
+        <p><strong>Fax:</strong> <lightning-formatted-phone value={data.faxNumber}></lightning-formatted-phone></p>
+      </div>
+  </lightning-card>
+</template>
