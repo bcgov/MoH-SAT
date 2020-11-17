@@ -15,7 +15,7 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled(cacheable=true)
-    public static Boolean verifyCollegeInformation(Id recordId, String collegeNumber, String collegeName) {
+    public static Provider verifyCollegeInformation(Id recordId, String collegeNumber, String collegeName) {
         System.debug('verifyCollegeInformation');
 
         // Verify PHN, Name and College ID
@@ -24,7 +24,13 @@ public with sharing class ODRIntegration {
         // System.debug(c.contact.patient_identifier__c);
 
         // TODO: Verify name matches what is returned by the ODR
-        return true;
+        Provider p = new Provider();
+        p.name = 'Provider Name';
+        p.collegeNumber = '4G3Q0';
+        p.phoneNumber = '+12505555555';
+        p.faxNumber = '+12505555555';
+        p.verified = true;
+        return p;
     }
 
     @AuraEnabled(cacheable=true)
