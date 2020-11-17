@@ -1,5 +1,5 @@
 import { LightningElement, wire, api } from 'lwc';
-import fetchData from '@salesforce/apex/ODRIntegration.fetchData';
+import fetchSAHistory from '@salesforce/apex/ODRIntegration.fetchSAHistory';
 
 const columns = [
   { label: 'RX Number', fieldName: 'rxNumber', initialWidth: 120, hideDefaultActions: true },
@@ -76,7 +76,7 @@ export default class PharmanetHistory extends LightningElement {
     this.count = event.detail.value;
   }
 
-  @wire(fetchData, { caseId: '$recordId', page: '$pageNumber', count: '$count'}) mapObjectToData({error,data}) {
+  @wire(fetchSAHistory, { caseId: '$recordId', page: '$pageNumber', count: '$count'}) mapObjectToData({error,data}) {
     console.log("error:", error);
     console.log("data:", data);
 
