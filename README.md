@@ -47,6 +47,27 @@ $ ../MoH-SAT> git checkout -b <name_of_branch>
 ```
 sfdx force:package:version:create -v devhub -d force-app -f config\project-scratch-def.json -x -p "Special Authority - Case Management App" -w 15
 ```
+
+## Package Installation
+Run any manual pre-install steps.
+
+Deploy package dependencies in source control.
+```
+$ ../MoH-SAT> sfdx force:source:deploy -p dev-app-pre -u <sandbox>
+```
+
+Install package version.
+```
+$ ../MoH-SAT> sfdx force:package:install -p 04t... -u <sandbox> -b 15 -w 15
+```
+
+Deploy post-install package configuration in source control. 
+```
+$ ../MoH-SAT> sfdx force:source:deploy -p dev-app-post -u <sandbox>
+```
+
+Run any manual post-install steps.
+
 ## References
 [Salesforce Development with Visual Studio Code](https://developer.salesforce.com/tools/vscode/)
 
