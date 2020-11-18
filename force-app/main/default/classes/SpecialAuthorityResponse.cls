@@ -1,6 +1,6 @@
 public class SpecialAuthorityResponse {
 
-	public class PresciberInfo {
+	public class PrescriberInfo {
 		@AuraEnabled public PaymentAddress paymentAddress {get;set;} 
 		@AuraEnabled public String licenseNo {get;set;} 
 		@AuraEnabled public String code {get;set;} 
@@ -19,7 +19,7 @@ public class SpecialAuthorityResponse {
 		@AuraEnabled public String genericName {get;set;} 
 		@AuraEnabled public Integer daysSupply {get;set;} 
 		@AuraEnabled public String dateDispensed {get;set;} 
-		@AuraEnabled public PresciberInfo presciberInfo {get;set;} 
+		@AuraEnabled public PrescriberInfo prescriberInfo {get;set;} 
 		@AuraEnabled public String rxStatus {get;set;} 
 		@AuraEnabled public DispensingPharmacy dispensingPharmacy {get;set;} 
 	}
@@ -48,7 +48,7 @@ public class SpecialAuthorityResponse {
 
 	public class Comment {
 		@AuraEnabled public String dateEntered {get;set;}
-		@AuraEnabled public String pracitionerName {get;set;}
+		@AuraEnabled public String practitionerName {get;set;}
 		@AuraEnabled public String text {get;set;}
 		@AuraEnabled public String practitionerRefId {get;set;}
 		@AuraEnabled public String practitionerId {get;set;}

@@ -60,7 +60,7 @@ public with sharing class ODRIntegration {
             // &phn=9999999999
             String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
             queryParams += '&phn=' + c.contact.patient_identifier__c;
-            req.setEndpoint('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/getBenefits' + queryParams);
+            req.setEndpoint('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/benefits' + queryParams);
             req.setMethod('GET');
             Http http = new Http();
             HTTPResponse res = http.send(req);
@@ -109,16 +109,16 @@ public with sharing class ODRIntegration {
             // &phn=9999999999
             // &pageSize=10
             // &pageNo=1
-            // &searchStartDate=2001-01-01
-            // &searchEndDate=2020-01-01
+            // &startDate=2001-01-01
+            // &endDate=2020-01-01
             String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
             queryParams += '&phn=' + c.contact.patient_identifier__c;
             queryParams += '&pageSize=' + count;
             queryParams += '&pageNo=' + page;
             // TODO
-            // queryParams += '&searchStartDate=2001-01-01';
-            // queryParams += '&searchEndDate=2020-01-01';
-            req.setEndpoint('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/getMedHistory' + queryParams);
+            // queryParams += '&startDate=2001-01-01';
+            // queryParams += '&endDate=2020-01-01';
+            req.setEndpoint('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/medHistory' + queryParams);
             req.setMethod('GET');
             Http http = new Http();
             HTTPResponse res = http.send(req);
@@ -129,8 +129,7 @@ public with sharing class ODRIntegration {
         } catch (Exception e) {
             // TODO remove stubbed data.
             System.debug('ERROR');
-            // String resBody = '{ "clientName": "SpecAuth", "requestUUID": "63d5bb9c-cbc9-4718-a11d-d651f7e72345", "medHistory": { "totalRecords": 7, "totalPages": 7, "medRecords": [ { "rxNumber": 445566, "quantity": 90, "refills": 0, "dinpin": 1234567, "directions": "TAKE 1/2 TABLET TWICE A DAY", "drugStrength": "25 MG", "genericName": "Generic thing", "daysSupply": 90, "dateDispensed": "2019-05-15", "presciberInfo": { "paymentAddress": { "country": "BC", "province": "BC", "city": "Somewhere", "addrLine1": "DH", "postalCode": "VVVVVV" }, "licenseNo": "99999", "code": "91", "phoneNumber": "+12505555555", "name": "MYNAME", "faxNumber": "+12505555555" }, "rxStatus": "F", "dispensingPharmacy": { "pharmacyId": "abc123", "phoneNumber": "+12505555555", "name": "EDDHBFDZATZOCI", "faxNumber": "+12505555555", "siteAddress": { "country": "BC", "province": "BC", "city": "COMOX", "addrLine1": "333 Street", "postalCode": "TFDFSL" } } } ] } }';
-            sar = new SpecialAuthorityResponse(); //(SpecialAuthorityResponse) JSON.deserialize(resBody, SpecialAuthorityResponse.class);
+            sar = new SpecialAuthorityResponse();
             System.debug(sar);
         }
         return sar;
