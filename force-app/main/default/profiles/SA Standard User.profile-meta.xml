@@ -2,14 +2,50 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
         <application>Case_Management</application>
-        <default>false</default>
-        <visible>false</visible>
+        <default>true</default>
+        <visible>true</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>Drug_Management</application>
         <default>false</default>
-        <visible>false</visible>
+        <visible>true</visible>
     </applicationVisibilities>
+    <classAccesses>
+        <apexClass>EForm</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EFormResponse</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ODRIntegration</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ODRIntegrationTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SAResponse</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SimilarCases</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SimilarCasesTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SpecialAuthorityResponse</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>saRestResource</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <custom>true</custom>
     <fieldPermissions>
         <editable>false</editable>
@@ -42,24 +78,24 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.ContactId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Description</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Drug_Name__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Drug__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -77,7 +113,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Origin</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -87,27 +123,27 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Priority</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Provider__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Reason</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Renewal__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Subject</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -119,7 +155,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.SuppliedEmail</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -137,33 +173,38 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.Verbal_Order__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Application_Date__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Patient_Identifier__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Provider_Identifier__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Provider_Type__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Drug__c.Brand_Drug_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Drug__c.Contextual_Help__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -209,12 +250,12 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Request_Detail__c.Question__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Request_Detail__c.Response__c</field>
-        <readable>false</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -240,18 +281,37 @@
         <layout>Request_Detail__c-Request Detail Layout</layout>
     </layoutAssignments>
     <objectPermissions>
-        <allowCreate>false</allowCreate>
+        <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
+        <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Drug__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Request_Detail__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
     <recordTypeVisibilities>
-        <default>false</default>
+        <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
         <recordType>Case.Special_Authority_Request</recordType>
-        <visible>false</visible>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
@@ -279,6 +339,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ActivitiesAccess</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>AddDirectMessageMembers</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -326,6 +390,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ConvertLeads</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>CreateCustomizeFilters</name>
     </userPermissions>
     <userPermissions>
@@ -335,6 +403,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>CreateTopics</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>DistributeFromPersWksp</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -354,6 +426,14 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>EmailMass</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EmailSingle</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>EnableCommunityAppLauncher</name>
     </userPermissions>
     <userPermissions>
@@ -370,6 +450,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ImportPersonal</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>LightningConsoleAllowedForUser</name>
     </userPermissions>
     <userPermissions>
@@ -378,11 +462,27 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ListEmailSend</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>MassInlineEdit</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>RemoveDirectMessageMembers</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>RunReports</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
         <name>SelectFilesFromSalesforce</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>SendExternalEmailAvailable</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -402,6 +502,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>TransactionalEmailSend</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>UseWebLink</name>
     </userPermissions>
     <userPermissions>
@@ -411,9 +515,5 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ViewRoles</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ViewSetup</name>
     </userPermissions>
 </Profile>
