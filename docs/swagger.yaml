@@ -1,0 +1,107 @@
+swagger: "2.0"
+info:
+  description: "Documentation for Salesforce Special Authority REST Service"
+  version: "1.0.0"
+  title: "Special Authority API"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "bchealth.my.salesforce.com"
+basePath: "/"
+tags:
+- name: "SA"
+  description: "Special Authority"
+  externalDocs:
+    description: "Find out more"
+    url: "https://github.com/bcgov/MoH-SAT.git"
+schemes:
+- "https"
+paths:
+  /services/apexrest/SA:
+    get:
+      tags:
+      - "SA"
+      summary: "Get Special Authority Status"
+      description: "This endpoint delivers the status of a given Special Authority Request."
+      operationId: "getSpecialAuthorityStatus"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "query"
+        type: "string"
+        name: "saId"
+        description: "Special Authority Request Id"
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/SpecialAuthorityRequestResponse"
+        "400":
+          description: "Invalid ID supplied"
+        "403":
+          description: "Not Authorized"
+        "404":
+          description: "Special Authority Request not found"
+        "405":
+          description: "Validation exception"
+      security:
+      - sa_auth:
+        - "service"
+    post:
+      tags:
+      - "SA"
+      summary: "Add a new Special Authority Request"
+      description: "This endpoint is meant for 3rd party services, such as eForms, the ability to push data into Salesforce for Automatic or Manual adjudication."
+      operationId: "addSARequest"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Payload will be generic JSON"
+        required: true
+        schema:
+          $ref: "#/definitions/SpecialAuthorityRequest"
+      responses:
+        "200":
+          description: "Request received."
+        "403":
+          description: "Not Authorized"
+        "405":
+          description: "Invalid input"
+      security:
+      - sa_auth:
+        - "service"
+securityDefinitions:
+  sa_auth:
+    type: "oauth2"
+    authorizationUrl: "https://salesforce.com/oauth"
+    flow: "implicit"
+    scopes:
+      service: "service account role"
+definitions:
+  SpecialAuthorityRequest:
+    type: "object"
+    required:
+    - "id"
+    - "payload"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      payload:
+        type: "object"
+        description: "eForm Data"
+  SpecialAuthorityRequestResponse:
+    type: "object"
+    properties:
+      caseId:
+        type: "integer"
+        format: "int32"
+      adjudicationStatus:
+        type: "string"
