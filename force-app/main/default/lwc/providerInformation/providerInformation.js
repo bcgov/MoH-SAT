@@ -9,7 +9,7 @@ export default class ProviderInformation extends LightningElement {
 
   @wire(verifyCollegeInformation, { recordId: '$recordId', collegeNumber: '', collegeName: '' }) mapObjectToData({error,data}) {
     if (data) {
-      console.log("DATA:", data);
+      console.log("ProviderInformation:", data);
       this.data = data;
       this.loaded = true;
     }

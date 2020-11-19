@@ -36,7 +36,7 @@ public class BenefitsResponse {
 
 	@AuraEnabled public String clientName {get;set;}
 	@AuraEnabled public String requestUUID {get;set;}
-    @AuraEnabled public PlanIExpenditure planIExpenditure {get;set;}
+  @AuraEnabled public PlanIExpenditure planIExpenditure {get;set;}
 	@AuraEnabled public List<PlanEligibility> planEligibility {get;set;}
 	@AuraEnabled public RestrctedClaimant restrictedClaimant {get;set;}
 }

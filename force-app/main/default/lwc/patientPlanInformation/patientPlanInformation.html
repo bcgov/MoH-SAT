@@ -1,0 +1,26 @@
+<template>
+  <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
+  <lightning-card if:true={loaded}>
+    <h3 slot="title">
+        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+        &nbsp;Patient Benefits
+    </h3>
+  </lightning-card>
+  <lightning-card if:false={hasBenefits}>
+      <div class="slds-text-align_center">
+          <div class="slds-m-vertical_small">
+              <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+              <p>No benefits found.</p>
+          </div>
+      </div>
+  </lightning-card>
+  <template if:true={hasBenefits}>
+    <lightning-datatable
+      key-field="authorityCode"
+      hide-checkbox-column
+      data={benefitPlans}
+      columns={columns}>
+    </lightning-datatable>
+  </template>
+
+</template>
