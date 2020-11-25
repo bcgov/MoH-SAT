@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Special_Authority_Category__c</fullName>
+    <fullName>Adjudication_Strategy__c</fullName>
+    <description>Method of adjudication for Special Authority cases associated with this drug.</description>
     <externalId>false</externalId>
-    <label>Special Authority Category</label>
+    <inlineHelpText>Method of adjudication for Special Authority cases associated with this drug.</inlineHelpText>
+    <label>Adjudication Strategy</label>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
@@ -13,14 +15,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>LCD</fullName>
-                <default>false</default>
-                <label>LCD</label>
+                <fullName>Manual</fullName>
+                <default>true</default>
+                <label>Manual</label>
             </value>
             <value>
-                <fullName>RDP</fullName>
+                <fullName>Criteria</fullName>
                 <default>false</default>
-                <label>RDP</label>
+                <label>Criteria</label>
+            </value>
+            <value>
+                <fullName>Apex</fullName>
+                <default>false</default>
+                <label>Apex</label>
             </value>
         </valueSetDefinition>
     </valueSet>
