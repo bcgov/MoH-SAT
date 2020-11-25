@@ -99,11 +99,19 @@
                 <behavior>Edit</behavior>
                 <field>ContactId</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Patient_Validated__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Provider__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Provider_Validated__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -201,17 +209,17 @@
         <platformActionListItems>
             <actionName>MassAccept</actionName>
             <actionType>StandardButton</actionType>
-            <sortOrder>7</sortOrder>
+            <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>ChangeOwnerOne</actionName>
             <actionType>StandardButton</actionType>
-            <sortOrder>8</sortOrder>
+            <sortOrder>7</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
             <actionName>CloseCase</actionName>
             <actionType>StandardButton</actionType>
-            <sortOrder>9</sortOrder>
+            <sortOrder>8</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <quickActionList>
@@ -235,7 +243,6 @@
     </relatedContent>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>Question__c</fields>
         <fields>Response__c</fields>
@@ -261,7 +268,7 @@
     <showRunAssignmentRulesCheckbox>true</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h11000002n1sB</masterLabel>
+        <masterLabel>00h1f000000YFh5</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
