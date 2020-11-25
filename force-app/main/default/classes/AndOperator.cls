@@ -6,7 +6,7 @@ public class AndOperator extends Operator {
                 return false;
             }
         }
-
+        
         return true;
     }
 
