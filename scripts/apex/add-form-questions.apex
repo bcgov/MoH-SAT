@@ -19,7 +19,7 @@ for (Case c : cases) {
         formResponse.Response__c = formResponseSrc.stringValue;
         formResponse.Sort_Order__c = (i+1)*10;
         formResponse.Case__c = c.Id;
-        formResponse.API_Name__c = formResponseSrc.question.left(10);
+        formResponse.Question_ID__c = formResponseSrc.question.left(10);
         formResponses.add(formResponse);
     }
 }
