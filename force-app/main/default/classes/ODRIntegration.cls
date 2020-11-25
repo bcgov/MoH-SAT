@@ -48,6 +48,10 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.SubString(16,20)
                     + '-' + hexString.substring(20);
 
+        // PHN that works in dev
+        // caseId = '9314565383'; // No records as of 2020-11-25
+        // caseId = '9388284866'; // One record as of 2020-11-25
+
         // Get PHN
         Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
         System.debug('PATIENT DATA');
@@ -69,14 +73,10 @@ public with sharing class ODRIntegration {
             bres = (BenefitsResponse) JSON.deserialize(resBody, BenefitsResponse.class);
             System.debug(bres);
         } catch (Exception e) {
-            // TODO remove stubbed data.
             System.debug('ERROR');
             bres = new BenefitsResponse();
             System.debug(bres);
         }
-        // TODO: Get PHN that returns responses.
-        String resBody = '{ "clientName": "SpecAuth", "requestUUID": "d2e44d88-52d6-4f24-b4f3-ef4f40c1cf59", "planIExpenditure": { "amount": 233.00, "year": 2020 }, "planEligibility": [ { "terminationDate": "3000-01-01", "authorityCode": "MSS", "authorityValue": "C", "authorityDesc": "MINISTRY OF SOCIAL SERVICES", "effectiveDate": "1998-12-22" } ], "restrictedClaimant": { "pracRestricts": [ { "terminationDate": "3000-01-01", "practitionerName": "YLNYMU, FRNWCKX", "practitionerDesc": "CPSBC - PHYSICIANS & SURGEONS", "pracitionerId": "91", "effectiveDate": "2012-05-04", "pracitionerRefId": "7F7S0" } ], "pharmRestricts": [ { "terminationDate": "3000-01-01", "pharmacyId": "BC00006509", "pharmacyName": "BNYLRPLXWJPUIPKWVZXJWFTTMZEDQ", "effectiveDate": "2012-07-20" } ] } }';
-        bres = (BenefitsResponse) JSON.deserialize(resBody, BenefitsResponse.class);
         return bres;
     }
 
@@ -102,6 +102,7 @@ public with sharing class ODRIntegration {
 
         // PHN that works in dev
         // caseId = '9735352567';
+        // caseId = '9388284866'; // 65 pages of data as of 2020-11-25
 
         try {
             HttpRequest req = new HttpRequest();
@@ -130,7 +131,6 @@ public with sharing class ODRIntegration {
             sar = (SpecialAuthorityResponse) JSON.deserialize(resBody, SpecialAuthorityResponse.class);
             System.debug(sar);
         } catch (Exception e) {
-            // TODO remove stubbed data.
             System.debug('ERROR');
             sar = new SpecialAuthorityResponse();
             System.debug(sar);
