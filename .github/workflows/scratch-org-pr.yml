@@ -31,6 +31,19 @@ jobs:
     - name: Deploy source
       run: node_modules/sfdx-cli/bin/run force:source:push -u ciorg
 
+    - name: Setup Org
+      run: |
+        node_modules/sfdx-cli/bin/run force:user:permset:assign -u sat-dev -n SA_Administrator
+        node_modules/sfdx-cli/bin/run force:apex:execute -u sat-dev -f scripts/apex/set-user-role.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u sat-dev -f scripts/apex/assign-cases-to-queue.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u sat-dev -f scripts/apex/add-form-questions.apex
+
+    - name: Create Data
+      run: |
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u sat-dev -s Drug__c -f data/drugs.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u sat-dev -s Account -f data/accounts.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u sat-dev -s Case -f data/cases.csv -i Id -w 5
+
     - name: Run Apex test
       run: node_modules/sfdx-cli/bin/run force:apex:test:run -c -r human
 
@@ -39,5 +52,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PULL_REQUEST_COMMENT_URL:  ${{ github.event.pull_request._links.comments.href }}
       run: |
-        CIORG_LOGIN_URL=$(node_modules/sfdx-cli/bin/run force:org:open -u ciorg -r) 
-        curl -X POST -H 'Content-Type:application/json' -d "{\"body\":\"${CIORG_LOGIN_URL}\"}" ${PULL_REQUEST_COMMENT_URL}?access_token=${GITHUB_TOKEN}
+        sfdx force:user:password:generate -u ciorg
+        CIORG_LOGIN_DETAILS=$(node_modules/sfdx-cli/bin/run force:org:display -u ciorg --verbose) 
+        curl -X POST -H 'Content-Type:application/json' -d "{\"body\":\"${CIORG_LOGIN_DETAILS}\"}" ${PULL_REQUEST_COMMENT_URL}?access_token=${GITHUB_TOKEN}
