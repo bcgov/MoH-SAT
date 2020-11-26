@@ -52,6 +52,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PULL_REQUEST_COMMENT_URL:  ${{ github.event.pull_request._links.comments.href }}
       run: |
-        sfdx force:user:password:generate -u ciorg
+        node_modules/sfdx-cli/bin/run force:user:password:generate -u ciorg
         CIORG_LOGIN_DETAILS=$(node_modules/sfdx-cli/bin/run force:org:display -u ciorg --verbose) 
         curl -X POST -H 'Content-Type:application/json' -d "{\"body\":\"${CIORG_LOGIN_DETAILS}\"}" ${PULL_REQUEST_COMMENT_URL}?access_token=${GITHUB_TOKEN}
