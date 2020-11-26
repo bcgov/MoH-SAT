@@ -21,12 +21,12 @@ export default class PatientPlanInformation extends LightningElement {
     if (data) {
       console.log("PatientPlanInformation:", data);
 
-      if (data.planEligibility.length > 0) {
+      if (data.planEligibility && data.planEligibility.length > 0) {
         this.benefitPlans = data.planEligibility;
         console.log("benefitPlans:", this.benefitPlans);
+        this.hasBenefits = true;
       }
 
-      this.hasBenefits = true;
       this.loaded = true;
     }
   }
