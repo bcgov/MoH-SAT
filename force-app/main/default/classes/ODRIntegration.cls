@@ -34,6 +34,32 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled(cacheable=true)
+    public static SAResponse postSAApproval(Id recordId) {
+        System.debug('postSAApproval');
+        String hexString = EncodingUtil.convertToHex(Crypto.generateDigest('MD5', Blob.valueOf(DateTime.now().getTime().format())));
+        String UUID = hexString.SubString(0,8)
+                    + '-' + hexString.SubString(8,12)
+                    + '-' + hexString.SubString(12,16)
+                    + '-' + hexString.SubString(16,20)
+                    + '-' + hexString.substring(20);
+
+        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
+        System.debug(c.contact.patient_identifier__c);
+
+        // Send SA Approval into Pharmanet
+        SAApprovalRequest sarBody = new SAApprovalRequest();
+        sarBody.requestUUID = UUID;
+        sarBody.clientName = 'SpecAuth';
+        sarBody.phn = c.contact.patient_identifier__c;
+
+        // TODO: call out to named credential
+
+        System.debug(sarBody);
+        // Post to ODR
+        return new SAResponse();
+    }
+
+    @AuraEnabled(cacheable=true)
     public static BenefitsResponse fetchBenefits(Id recordId, String page, string count) {
         System.debug('Fetch Benefits');
         System.debug(page);
@@ -47,10 +73,6 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.SubString(12,16)
                     + '-' + hexString.SubString(16,20)
                     + '-' + hexString.substring(20);
-
-        // PHN that works in dev
-        // caseId = '9314565383'; // No records as of 2020-11-25
-        // caseId = '9388284866'; // One record as of 2020-11-25
 
         // Get PHN
         Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];

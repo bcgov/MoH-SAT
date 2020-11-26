@@ -1,5 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
 import fetchBenefits from '@salesforce/apex/ODRIntegration.fetchBenefits';
+import postSAApproval from '@salesforce/apex/ODRIntegration.postSAApproval';
 
 const columns = [
   { label: 'Code', initialWidth: 80, fieldName: 'authorityCode', initialWidth: 60, hideDefaultActions: true },
@@ -29,5 +30,10 @@ export default class PatientPlanInformation extends LightningElement {
 
       this.loaded = true;
     }
+  }
+
+  handleClick(event) {
+    console.log("SA APPROVAL", this.recordId);
+    postSAApproval({recordId: this.recordId});
   }
 }
