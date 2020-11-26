@@ -2,15 +2,15 @@ import { LightningElement, wire, api } from 'lwc';
 import fetchSAHistory from '@salesforce/apex/ODRIntegration.fetchSAHistory';
 
 const columns = [
-  { label: 'RX Number', fieldName: 'rxNumber', initialWidth: 120, hideDefaultActions: true },
-  { label: 'RX Status', fieldName: 'rxStatus', initialWidth: 110, hideDefaultActions: true },
+  { label: 'Pharmacy', fieldName: 'dispensingPharmacyName', type: 'text',  initialWidth: 120, hideDefaultActions: true },
+  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'DIN', fieldName: 'dinpin', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Name', fieldName: 'genericName', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Quantity', fieldName: 'quantity', initialWidth: 80, hideDefaultActions: true },
-  { label: 'Refills', fieldName: 'refills', initialWidth: 80, hideDefaultActions: true },
-  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, initialWidth: 140, hideDefaultActions: true },
-  { label: 'Dispenser', fieldName: 'dispensingPharmacyName', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'DIN', fieldName: 'dinpin', hideDefaultActions: true },
-  { label: 'Adverse Reactions', fieldName: 'adverseReactions', hideDefaultActions: true }
+  { label: 'Strength', fieldName: 'drugStrength', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Direction', fieldName: 'directions', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
+  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
 ];
 
 export default class PharmanetHistory extends LightningElement {
@@ -92,15 +92,19 @@ export default class PharmanetHistory extends LightningElement {
         let dataArray = [];
         records.forEach(record => {
           let item = {};
-          item['rxNumber'] = record.rxNumber;
-          item['rxStatus'] = record.rxStatus;
-          item['genericName'] = record.genericName;
+
           item['dispensingPharmacyName'] = record.dispensingPharmacy.name;
           item['dateDispensed'] = record.dateDispensed;
           item['dinpin'] = record.dinpin;
-          item['quantity'] = record.quantity;
-          item['refills'] = record.refills;
-          item['adverseReactions'] = data.adverseReactions.length;
+          item['genericName'] = record.genericName;
+          item['drugStrength'] = record.drugStrength;
+          item['directions'] = record.directions;
+          item['daysSupply'] = record.daysSupply;
+          // cost claimed  N/A
+          // cost accepted N/A
+          item['prescriberName'] = record.prescriberInfo.name;
+          // benefit plan N/A
+          item['rxStatus'] = record.rxStatus;
           dataArray.push(item);
         });
         this.data = dataArray;

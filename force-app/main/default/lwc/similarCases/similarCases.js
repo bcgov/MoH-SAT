@@ -5,7 +5,7 @@ import findCases from '@salesforce/apex/SimilarCases.find';
 
 const columns = [
     { label: 'Question', fieldName: 'Question__c', wrapText: true, hideDefaultActions: true },
-    { label: 'Response', fieldName: 'Response__c', wrapText: true, hideDefaultActions: true }
+    { label: 'Response', fieldName: 'String_Value__c', wrapText: true, hideDefaultActions: true }
 ]
 export default class SimilarCases extends NavigationMixin(LightningElement) {
     @api recordId;

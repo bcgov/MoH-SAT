@@ -16,10 +16,10 @@ for (Case c : cases) {
         
         Request_Detail__c formResponse = new Request_Detail__c();
         formResponse.Question__c = formResponseSrc.question;
-        formResponse.Response__c = formResponseSrc.stringValue;
+        formResponse.String_Value__c = formResponseSrc.stringValue;
         formResponse.Sort_Order__c = (i+1)*10;
         formResponse.Case__c = c.Id;
-        formResponse.API_Name__c = formResponseSrc.question.left(10);
+        formResponse.Question_ID__c = formResponseSrc.question.left(10);
         formResponses.add(formResponse);
     }
 }

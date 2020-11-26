@@ -141,32 +141,26 @@
         <type>Default</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>SA_Drug_Compact</compactLayoutAssignment>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <enableActivities>true</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>true</enableFeeds>
-    <enableHistory>true</enableHistory>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>false</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
-    <enableReports>true</enableReports>
+    <enableReports>false</enableReports>
     <enableSearch>true</enableSearch>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
-    <label>Drug</label>
+    <enableSharing>false</enableSharing>
+    <enableStreamingApi>false</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>Adjudication Criteria</label>
     <nameField>
-        <label>Drug Name</label>
-        <trackFeedHistory>false</trackFeedHistory>
-        <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <displayFormat>AC-{00000}</displayFormat>
+        <label>Adjudication Criteria</label>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>Drugs</pluralLabel>
-    <searchLayouts>
-        <customTabListAdditionalFields>Brand_Drug_Name__c</customTabListAdditionalFields>
-        <lookupDialogsAdditionalFields>Brand_Drug_Name__c</lookupDialogsAdditionalFields>
-        <lookupPhoneDialogsAdditionalFields>Brand_Drug_Name__c</lookupPhoneDialogsAdditionalFields>
-        <searchResultsAdditionalFields>Brand_Drug_Name__c</searchResultsAdditionalFields>
-    </searchLayouts>
-    <sharingModel>ReadWrite</sharingModel>
+    <pluralLabel>Adjudication Criteria</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
