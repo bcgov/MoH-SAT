@@ -33,16 +33,16 @@ jobs:
 
     - name: Setup Org
       run: |
-        node_modules/sfdx-cli/bin/run force:user:permset:assign -u sat-dev -n SA_Administrator
-        node_modules/sfdx-cli/bin/run force:apex:execute -u sat-dev -f scripts/apex/set-user-role.apex
-        node_modules/sfdx-cli/bin/run force:apex:execute -u sat-dev -f scripts/apex/assign-cases-to-queue.apex
-        node_modules/sfdx-cli/bin/run force:apex:execute -u sat-dev -f scripts/apex/add-form-questions.apex
+        node_modules/sfdx-cli/bin/run force:user:permset:assign -u ciorg -n SA_Administrator
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/set-user-role.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/assign-cases-to-queue.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/add-form-questions.apex
 
     - name: Create Data
       run: |
-        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u sat-dev -s Drug__c -f data/drugs.csv -i Id -w 5
-        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u sat-dev -s Account -f data/accounts.csv -i Id -w 5
-        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u sat-dev -s Case -f data/cases.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Drug__c -f data/drugs.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Account -f data/accounts.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Case -f data/cases.csv -i Id -w 5
 
     - name: Run Apex test
       run: node_modules/sfdx-cli/bin/run force:apex:test:run -c -r human
