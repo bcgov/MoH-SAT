@@ -1,0 +1,56 @@
+#.github/workflows/main.yml
+name: PR Scratch org
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      if: github.event.action == 'opened' || github.event.action == 'synchronize'
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    - name: Install Salesforce CLI
+      run: |
+        npm install sfdx-cli
+        node_modules/sfdx-cli/bin/run --version
+        node_modules/sfdx-cli/bin/run plugins --core
+      
+    - name: Authenticate DevHub
+      run: |
+        echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
+        node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
+      env:
+        SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
+      
+    - name: Define CI org
+      run: node_modules/sfdx-cli/bin/run force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
+
+    - name: Deploy source
+      run: node_modules/sfdx-cli/bin/run force:source:push -u ciorg
+
+    - name: Setup Org
+      run: |
+        node_modules/sfdx-cli/bin/run force:user:permset:assign -u ciorg -n SA_Administrator
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/set-user-role.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/assign-cases-to-queue.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/add-form-questions.apex
+
+    - name: Create Data
+      run: |
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Drug__c -f data/drugs.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Account -f data/accounts.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Case -f data/cases.csv -i Id -w 5
+
+    - name: Run Apex test
+      run: node_modules/sfdx-cli/bin/run force:apex:test:run -c -r human
+
+    - name: Login URL
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PULL_REQUEST_COMMENT_URL:  ${{ github.event.pull_request._links.comments.href }}
+      run: |
+        node_modules/sfdx-cli/bin/run force:user:password:generate -u ciorg
+        node_modules/sfdx-cli/bin/run force:org:display -u ciorg --verbose
