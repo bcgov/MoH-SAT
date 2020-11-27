@@ -115,12 +115,12 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled(cacheable=true)
-    public static SpecialAuthorityResponse fetchSAHistory(Id caseId, String page, String count) {
+    public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id caseId, String page, String count) {
         System.debug('Fetch Data');
         System.debug(page);
         System.debug(count);
 
-        SpecialAuthorityResponse sar = null;
+        PrescriptionHistoryResponse sar = null;
         String UUID = getUUIDString();
 
         // Get PHN
@@ -144,11 +144,11 @@ public with sharing class ODRIntegration {
             // queryParams += '&startDate=2001-01-01';
             // queryParams += '&endDate=2020-01-01';
             String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/medHistory', queryParams, 'GET', null);
-            sar = (SpecialAuthorityResponse) JSON.deserialize(resBody, SpecialAuthorityResponse.class);
+            sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
             System.debug(sar);
         } catch (APIException e) {
             System.debug('ERROR');
-            sar = new SpecialAuthorityResponse();
+            sar = new PrescriptionHistoryResponse();
             System.debug(sar);
         }
         return sar;
