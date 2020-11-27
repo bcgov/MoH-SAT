@@ -1,4 +1,4 @@
-public class SpecialAuthorityResponse {
+public class PrescriptionHistoryResponse {
 
 	public class PrescriberInfo {
 		@AuraEnabled public PaymentAddress paymentAddress {get;set;} 
