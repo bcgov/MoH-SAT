@@ -3,16 +3,16 @@ global with sharing class saRestResource {
     // Class for exposing API interface on Special Authority Cases
     // POST: Incoming from eForms
     // GET: Check on status of SA
-    @HttpGet
-    global static SAResponse doGet() {
-        RestRequest req = RestContext.request;
-        System.debug('Incoming GET SA request');
-        System.debug(req);
-        // TODO: Get an SA status and return it
-        SAResponse sar = new SAResponse();
-        sar.status = 'Approved';
-        return sar;
-    }
+    // @HttpGet
+    // global static SAResponse doGet() {
+    //     RestRequest req = RestContext.request;
+    //     System.debug('Incoming GET SA request');
+    //     System.debug(req);
+    //     // TODO: Get an SA status and return it
+    //     SAResponse sar = new SAResponse();
+    //     sar.status = 'Approved';
+    //     return sar;
+    // }
 
     @HttpPost
     global static EFormResponse doPost(EForm eForm) {
