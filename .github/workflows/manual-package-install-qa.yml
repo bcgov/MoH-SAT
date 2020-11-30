@@ -1,10 +1,11 @@
 #.github/workflows/main.yml
 name: Package Install QA
-on: workflow_dispatch
-  inputs:
-    package:
-      description: 'The ID (starts with 04t) or alias of the package version to install'     
-      required: true
+on: 
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'The ID (starts with 04t) or alias of the package version to install'     
+        required: true
 
 jobs:
   build:
