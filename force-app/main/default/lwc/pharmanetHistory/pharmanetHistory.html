@@ -1,39 +1,49 @@
 <template>
-  <lightning-card variant="Narrow" icon-name="action:share_poll" title="Prescription History">
-    <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
-    <!-- IF RESULTS -->
-    <div if:true={hasResults}>
-      <div class="slds-m-top_x-small slds-m-bottom_medium">
-        <lightning-layout>
-          <lightning-layout-item padding="slds-p-left_none">
-            <lightning-combobox
-              name="count"
-              label="Results to show"
-              value={value}
-              placeholder="10"
-              options={countOptions}
-              onchange={handleCountChange} ></lightning-combobox>
-          </lightning-layout-item>
-        </lightning-layout>
-      </div>
-      <lightning-datatable
-              key-field="rxNumber"
-              hide-checkbox-column
-              data={data}
-              columns={columns}>
-      </lightning-datatable>
-      <div class="nav-buttons">
-          <button disabled={isFirstPage} onclick={handlePrevPage}>Previous Page</button>
-          <button disabled={isLastPage} onclick={handleNextPage}>Next Page</button>
-      </div>
-      <div class="page-info">
-        Total Records: {totalRecords}
-        Page ({pageNumber} of {totalPages})
-      </div>
+  <lightning-card if:true={loaded}>
+    <h3 slot="title">
+        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+        &nbsp;Prescription History
+    </h3>
+  </lightning-card>
+  &nbsp;
+  <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
+  <!-- IF RESULTS -->
+  <lightning-card if:true={hasResults}>
+    <div class="slds-m-top_x-small slds-m-bottom_medium">
+      <lightning-layout>
+        <lightning-layout-item padding="slds-p-left_none">
+          <lightning-combobox
+            name="count"
+            label="Results to show"
+            value={value}
+            placeholder="10"
+            options={countOptions}
+            onchange={handleCountChange} ></lightning-combobox>
+        </lightning-layout-item>
+      </lightning-layout>
     </div>
-    <!-- NO RESULTS FOUND -->
-    <div if:true={completeAndNoResults}>
-      <p><lightning-formatted-text value="No pharmanet history." ></lightning-formatted-text></p>
+    <lightning-datatable
+            key-field="rxNumber"
+            hide-checkbox-column
+            data={data}
+            columns={columns}>
+    </lightning-datatable>
+    <div class="nav-buttons">
+        <button disabled={isFirstPage} onclick={handlePrevPage}>Previous Page</button>
+        <button disabled={isLastPage} onclick={handleNextPage}>Next Page</button>
+    </div>
+    <div class="page-info">
+      Total Records: {totalRecords}
+      Page ({pageNumber} of {totalPages})
+    </div>
+  </lightning-card>
+  <!-- NO RESULTS FOUND -->
+  <lightning-card if:true={completeAndNoResults}>
+    <div class="slds-text-align_center">
+        <div class="slds-m-vertical_small">
+            <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+            <p>No prescription history.</p>
+        </div>
     </div>
   </lightning-card>
 </template>
