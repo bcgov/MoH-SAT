@@ -52,7 +52,7 @@ public with sharing class ODRIntegration {
         return true;
     }
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static SAApprovalRequestResponse postSAApproval(Id recordId) {
         System.debug('postSAApproval');
         String UUID = getUUIDString();
@@ -76,11 +76,17 @@ public with sharing class ODRIntegration {
             saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
             System.debug('saarr');
             System.debug(saarr);
+
+            // Write the successful approval into the DB
+            if (saarr.statusMessage == 'Success') {
+                c.Pushed_to_Pnet__c = true;
+                c.Pushed_to_Pnet_Date__c = Datetime.now();
+                update c;
+            }
         } catch (APIException e) {
             System.debug('Error in API');
             System.debug(e);
         }
-
         return saarr;
     }
 
