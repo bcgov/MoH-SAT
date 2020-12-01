@@ -2,9 +2,90 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <apiVersion>50.0</apiVersion>
     <assignments>
+        <name>Assign_Buproprion_Drug_Id</name>
+        <label>Assign Buproprion Drug Id</label>
+        <locationX>578</locationX>
+        <locationY>2750</locationY>
+        <assignmentItems>
+            <assignToReference>DrugId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>a010U000006t099QAA</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Drug_Id</name>
+        <label>Assign Drug Id</label>
+        <locationX>50</locationX>
+        <locationY>2870</locationY>
+        <assignmentItems>
+            <assignToReference>DrugId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Rabeprazole_Drug_Id.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Glicazide_Drug_Id</name>
+        <label>Assign Glicazide Drug Id</label>
+        <locationX>842</locationX>
+        <locationY>2750</locationY>
+        <assignmentItems>
+            <assignToReference>DrugId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>a010U000006t0AaQAI</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Pantoprazole_Magnesium_Drug_Id</name>
+        <label>Assign Pantoprazole Magnesium Drug Id</label>
+        <locationX>314</locationX>
+        <locationY>2750</locationY>
+        <assignmentItems>
+            <assignToReference>DrugId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>a010U000006t0C5QAI</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Assign string value for AA logic</description>
+        <name>Assign_String_Value_Assignment</name>
+        <label>Assign String Value Assignment</label>
+        <locationX>578</locationX>
+        <locationY>2150</locationY>
+        <assignmentItems>
+            <assignToReference>Assign_String_Value</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_SA_Request</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Store_Created_Patient_ID</name>
         <label>Store Created Patient ID</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>1814</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -20,7 +101,7 @@
     <assignments>
         <name>Store_Created_Provider_ID</name>
         <label>Store Created Provider ID</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>1118</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
@@ -36,7 +117,7 @@
     <assignments>
         <name>Store_Patient_ID</name>
         <label>Store Patient ID</label>
-        <locationX>314</locationX>
+        <locationX>710</locationX>
         <locationY>1454</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -52,7 +133,7 @@
     <assignments>
         <name>Store_Provider_ID</name>
         <label>Store Provider ID</label>
-        <locationX>314</locationX>
+        <locationX>710</locationX>
         <locationY>758</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
@@ -68,10 +149,10 @@
     <decisions>
         <name>Auto_Adjudication</name>
         <label>Auto Adjudication</label>
-        <locationX>182</locationX>
-        <locationY>2390</locationY>
+        <locationX>578</locationX>
+        <locationY>2510</locationY>
         <defaultConnector>
-            <targetReference>Thank_You_Screen</targetReference>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Other</defaultConnectorLabel>
         <rules>
@@ -92,7 +173,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Thank_You_Screen</targetReference>
+                <targetReference>Rabeprazole_Creation</targetReference>
             </connector>
             <label>Rabeprazole</label>
         </rules>
@@ -114,7 +195,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Thank_You_Screen</targetReference>
+                <targetReference>Pantoprazole_Magnesium_Creation</targetReference>
             </connector>
             <label>Pantoprazole Magnesium</label>
         </rules>
@@ -136,7 +217,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Thank_You_Screen</targetReference>
+                <targetReference>Buproprion_Creation</targetReference>
             </connector>
             <label>Bupropion</label>
         </rules>
@@ -158,7 +239,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Thank_You_Screen</targetReference>
+                <targetReference>Glicazide_Creation</targetReference>
             </connector>
             <label>Gliclazide</label>
         </rules>
@@ -166,7 +247,7 @@
     <decisions>
         <name>Create_Patient</name>
         <label>Create Patient</label>
-        <locationX>182</locationX>
+        <locationX>578</locationX>
         <locationY>1334</locationY>
         <defaultConnector>
             <targetReference>Store_Patient_ID</targetReference>
@@ -191,7 +272,7 @@
     <decisions>
         <name>Create_Provider</name>
         <label>Create Provider</label>
-        <locationX>182</locationX>
+        <locationX>578</locationX>
         <locationY>638</locationY>
         <defaultConnector>
             <targetReference>Store_Provider_ID</targetReference>
@@ -270,7 +351,7 @@
     <recordCreates>
         <name>Create_New_Patient_Record</name>
         <label>Create New Patient Record</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>1574</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID</targetReference>
@@ -308,7 +389,7 @@
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
-                <stringValue>0120i000000QZsVAAW</stringValue>
+                <stringValue>0120U000001aacwQAA</stringValue>
             </value>
         </inputAssignments>
         <object>Account</object>
@@ -317,7 +398,7 @@
     <recordCreates>
         <name>Create_New_Provider_Record</name>
         <label>Create New Provider Record</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>878</locationY>
         <connector>
             <targetReference>Get_Final_Provider_ID</targetReference>
@@ -361,7 +442,7 @@
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
-                <stringValue>0120i000000QZsWAAW</stringValue>
+                <stringValue>0120U000001aacxQAA</stringValue>
             </value>
         </inputAssignments>
         <object>Account</object>
@@ -370,8 +451,8 @@
     <recordCreates>
         <name>Create_SA_Request</name>
         <label>Create SA Request</label>
-        <locationX>182</locationX>
-        <locationY>2150</locationY>
+        <locationX>578</locationX>
+        <locationY>2270</locationY>
         <connector>
             <targetReference>Upload_Files</targetReference>
         </connector>
@@ -408,7 +489,7 @@
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
-                <stringValue>0120i000000QZsUAAW</stringValue>
+                <stringValue>0120U000001aacvQAA</stringValue>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -417,7 +498,7 @@
     <recordLookups>
         <name>Get_Final_Patient_ID</name>
         <label>Get Final Patient ID</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>1694</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -438,7 +519,7 @@
     <recordLookups>
         <name>Get_Final_Provider_ID</name>
         <label>Get Final Provider ID</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>998</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -459,7 +540,7 @@
     <recordLookups>
         <name>Get_Patient_Record</name>
         <label>Get Patient Record</label>
-        <locationX>182</locationX>
+        <locationX>578</locationX>
         <locationY>398</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -480,7 +561,7 @@
     <recordLookups>
         <name>Get_Provider_Record</name>
         <label>Get Provider Record</label>
-        <locationX>182</locationX>
+        <locationX>578</locationX>
         <locationY>278</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -505,10 +586,56 @@
         <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Rabeprazole_Drug_Id</name>
+        <label>Get Rabeprazole Drug Id</label>
+        <locationX>50</locationX>
+        <locationY>2750</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Drug_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>rabeprazole 10, 20 mg   NB4</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Drug__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_SA_Request_with_Drug_Id</name>
+        <label>Update SA Request with Drug Id</label>
+        <locationX>578</locationX>
+        <locationY>3086</locationY>
+        <connector>
+            <targetReference>Thank_You_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Drug__c</field>
+            <value>
+                <elementReference>DrugId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>Create_New_Patient_Screen</name>
         <label>Create New Patient Screen</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>1454</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -569,7 +696,7 @@
     <screens>
         <name>Create_New_Provider_Screen</name>
         <label>Create New Provider Screen</label>
-        <locationX>50</locationX>
+        <locationX>446</locationX>
         <locationY>758</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -638,13 +765,13 @@
     <screens>
         <name>Create_SA_Request_Screen</name>
         <label>Create SA Request Screen</label>
-        <locationX>182</locationX>
+        <locationX>578</locationX>
         <locationY>2030</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Create_SA_Request</targetReference>
+            <targetReference>Assign_String_Value_Assignment</targetReference>
         </connector>
         <fields>
             <name>Create_SA_Request_Title</name>
@@ -709,7 +836,7 @@
     <screens>
         <name>Get_Records_Summary_Screen</name>
         <label>Get Records Summary Screen</label>
-        <locationX>182</locationX>
+        <locationX>578</locationX>
         <locationY>518</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -724,7 +851,7 @@
         </fields>
         <fields>
             <name>Provider_Summary</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Provider Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Provider Name: {!Get_Provider_Record.Name}&lt;/p&gt;&lt;p&gt;Provider Type: {!Get_Provider_Record.Provider_Type__c}&lt;/p&gt;&lt;p&gt;Provider Identifier: {!Get_Provider_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Provider Phone: {!Get_Provider_Record.Phone}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Provider Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Provider Name: {!Get_Provider_Record.Name}&lt;/p&gt;&lt;p&gt;Provider Type: {!Get_Provider_Record.Provider_Type__c}&lt;/p&gt;&lt;p&gt;Provider Identifier: {!Get_Provider_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Provider Phone: {!Get_Provider_Record.Phone}&lt;/p&gt;&lt;p&gt;Provider Date of Birth: {!Get_Provider_Record.Birthdate}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -754,7 +881,7 @@
         </fields>
         <fields>
             <name>Patient_Summary</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Get_Patient_Record.Name}&lt;/p&gt;&lt;p&gt;Patient Identifier: {!Get_Patient_Record.Patient_Identifier__c}&lt;/p&gt;&lt;p&gt;Patient Phone: {!Get_Patient_Record.Phone}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Get_Patient_Record.Name}&lt;/p&gt;&lt;p&gt;Patient Identifier: {!Get_Patient_Record.Patient_Identifier__c}&lt;/p&gt;&lt;p&gt;Patient Phone: {!Get_Patient_Record.Phone}&lt;/p&gt;&lt;p&gt;Patient Date of Birth: &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!Get_Patient_Record.Birthdate}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -788,7 +915,7 @@
     <screens>
         <name>Provider_Details_Screen</name>
         <label>Provider Details Screen</label>
-        <locationX>182</locationX>
+        <locationX>578</locationX>
         <locationY>158</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -829,8 +956,8 @@
     <screens>
         <name>Thank_You_Screen</name>
         <label>Thank You Screen</label>
-        <locationX>182</locationX>
-        <locationY>2606</locationY>
+        <locationX>578</locationX>
+        <locationY>3206</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -845,8 +972,8 @@
     <screens>
         <name>Upload_Files</name>
         <label>Upload Files</label>
-        <locationX>182</locationX>
-        <locationY>2270</locationY>
+        <locationX>578</locationX>
+        <locationY>2390</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -887,13 +1014,111 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>56</locationX>
+        <locationX>452</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Provider_Details_Screen</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
+    <subflows>
+        <name>Buproprion_Creation</name>
+        <label>Buproprion Creation</label>
+        <locationX>578</locationX>
+        <locationY>2630</locationY>
+        <connector>
+            <targetReference>Assign_Buproprion_Drug_Id</targetReference>
+        </connector>
+        <flowName>Buproprion_Creation</flowName>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Glicazide_Creation</name>
+        <label>Glicazide Creation</label>
+        <locationX>842</locationX>
+        <locationY>2630</locationY>
+        <connector>
+            <targetReference>Assign_Glicazide_Drug_Id</targetReference>
+        </connector>
+        <flowName>Glicazide_Creation</flowName>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Drug_Diagnosis_Picklist.middleLabel</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Pantoprazole_Magnesium_Creation</name>
+        <label>Pantoprazole Magnesium Creation</label>
+        <locationX>314</locationX>
+        <locationY>2630</locationY>
+        <connector>
+            <targetReference>Assign_Pantoprazole_Magnesium_Drug_Id</targetReference>
+        </connector>
+        <flowName>Pantoprazole_Magnesium_Creation</flowName>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Rabeprazole_Creation</name>
+        <label>Rabeprazole Creation</label>
+        <locationX>50</locationX>
+        <locationY>2630</locationY>
+        <connector>
+            <targetReference>Get_Rabeprazole_Drug_Id</targetReference>
+        </connector>
+        <flowName>Rabeprazole_Creation</flowName>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <variables>
+        <name>Assign_String_Value</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
+        </value>
+    </variables>
     <variables>
         <name>Case_Object</name>
         <dataType>String</dataType>
@@ -925,6 +1150,13 @@
         </value>
     </variables>
     <variables>
+        <name>DrugId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>File_Upload_Text</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -935,14 +1167,14 @@
         <name>Final_Patient_ID</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
-        <isInput>true</isInput>
+        <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>Final_Provider_ID</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
-        <isInput>true</isInput>
+        <isInput>false</isInput>
         <isOutput>true</isOutput>
     </variables>
 </Flow>
