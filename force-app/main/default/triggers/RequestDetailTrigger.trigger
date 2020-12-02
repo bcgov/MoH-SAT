@@ -6,7 +6,9 @@ trigger RequestDetailTrigger on Request_Detail__c (after insert, after update) {
         caseIds.add(rd.Case__c);
     }
 
-    for (Id caseId : caseIds) {
-        AdjudicationService.evaluate(caseId);
+    if (caseIds.size() == 1) {
+        for (Id caseId : caseIds) {
+            AdjudicationService.evaluate(caseId);
+        }
     }
 }
