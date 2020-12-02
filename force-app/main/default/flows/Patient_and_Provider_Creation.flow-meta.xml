@@ -296,6 +296,14 @@
     </decisions>
     <description>Patient and Provider Creation</description>
     <dynamicChoiceSets>
+        <name>CaseOrigin</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Origin</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
         <name>Diagnosis_Manual_Choices</name>
         <dataType>Picklist</dataType>
         <displayField xsi:nil="true"/>
@@ -477,7 +485,7 @@
         <inputAssignments>
             <field>Origin</field>
             <value>
-                <stringValue>Fax</stringValue>
+                <elementReference>Case_Origin</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1044,6 +1052,14 @@
             <dataType>String</dataType>
             <fieldText>Patient Identifier</fieldText>
             <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Case_Origin</name>
+            <choiceReferences>CaseOrigin</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Case Origin</fieldText>
+            <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
