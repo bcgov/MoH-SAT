@@ -5,14 +5,14 @@ public abstract class Operator implements Expression {
         this.children = new List<Expression>();
     }
 
-    public Expression add(Expression expr) {
+    public virtual Expression add(Expression expr) {
         children.add(expr);
         return this;
     }
 
-    public Expression set(SObject obj) {
+    public virtual Expression set(String name, Boolean value) {
         for (Expression expr : children) {
-            expr.set(obj);
+            expr.set(name, value);
         }
         return this;
     }
