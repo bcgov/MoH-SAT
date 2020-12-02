@@ -55,11 +55,12 @@ public with sharing class ODRIntegration {
         try {
             HttpRequest req = new HttpRequest();
             req.setHeader('Content-Type','application/json');
+            String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
+            queryParams += '&phn=' + c.contact.patient_identifier__c;
+            queryParams += '&userid=12345';
             // ?clientName=SpecAuth
             // &requestUUID=51255567-9713-4ac1-a5aa-ec0e0bb951d6
             // &phn=9999999999
-            String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
-            queryParams += '&phn=' + c.contact.patient_identifier__c;
             req.setEndpoint('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/benefits' + queryParams);
             req.setMethod('GET');
             Http http = new Http();
@@ -104,6 +105,11 @@ public with sharing class ODRIntegration {
             HttpRequest req = new HttpRequest();
             req.setHeader('Content-Type','application/json');
             // req.setEndpoint('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/dummy');
+            String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
+            queryParams += '&userid=12345';
+            queryParams += '&phn=' + c.contact.patient_identifier__c;
+            queryParams += '&pageSize=' + count;
+            queryParams += '&pageNo=' + page;
             // ?clientName=SpecAuth
             // &requestUUID=51255567-9713-4ac1-a5aa-ec0e0bb951d6
             // &phn=9999999999
@@ -111,10 +117,6 @@ public with sharing class ODRIntegration {
             // &pageNo=1
             // &startDate=2001-01-01
             // &endDate=2020-01-01
-            String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
-            queryParams += '&phn=' + c.contact.patient_identifier__c;
-            queryParams += '&pageSize=' + count;
-            queryParams += '&pageNo=' + page;
             // TODO
             // queryParams += '&startDate=2001-01-01';
             // queryParams += '&endDate=2020-01-01';
