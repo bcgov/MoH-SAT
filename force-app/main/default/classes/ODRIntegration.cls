@@ -106,6 +106,7 @@ public with sharing class ODRIntegration {
         try {
             String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
             queryParams += '&phn=' + c.contact.patient_identifier__c;
+            queryParams += '&userid=12345';
             // ?clientName=SpecAuth
             // &requestUUID=51255567-9713-4ac1-a5aa-ec0e0bb951d6
             // &phn=9999999999
@@ -136,6 +137,7 @@ public with sharing class ODRIntegration {
 
         try {
             String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
+            queryParams += '&userid=12345';
             queryParams += '&phn=' + c.contact.patient_identifier__c;
             queryParams += '&pageSize=' + count;
             queryParams += '&pageNo=' + page;
