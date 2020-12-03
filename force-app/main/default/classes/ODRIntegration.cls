@@ -1,3 +1,4 @@
+
 public with sharing class ODRIntegration {
     public ODRIntegration() { }
 
@@ -5,11 +6,7 @@ public with sharing class ODRIntegration {
     public static Boolean verifyPHNInformation(Id recordId, String formData) {
         System.debug('verifyPHNInformation');
         String UUID = getUUIDString();
-
-        // Get PHN
-        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
-        System.debug('PATIENT DATA');
-        System.debug(c.contact.patient_identifier__c);
+        String patientIdentifier = getPatientIdentifier(recordId);
 
         // TODO: Verify name matches what is returned by the ODR and set the contact information.
         Boolean retValue = verifyPHNData('TODO', formData);
@@ -55,21 +52,18 @@ public with sharing class ODRIntegration {
     @AuraEnabled
     public static SAApprovalRequestResponse postSAApproval(Id recordId) {
         System.debug('postSAApproval');
-        String UUID = getUUIDString();
-
-        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
-        System.debug('c.contact.patient_identifier__c');
-        System.debug(c.contact.patient_identifier__c);
 
         // Send SA Approval into Pharmanet
         SAApprovalRequest sarBody = new SAApprovalRequest();
-        sarBody.requestUUID = UUID;
+        sarBody.requestUUID = getUUIDString();
         sarBody.clientName = 'SpecAuth';
-        sarBody.phn = c.contact.patient_identifier__c;
+        sarBody.userid = getUserIdentifier();
+        sarBody.phn = getPatientIdentifier(recordId);
 
         String saarObject = JSON.serialize(sarBody);
         System.debug('saarObject');
         System.debug(saarObject);
+
         SAApprovalRequestResponse saarr;
         try {
             String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/saApproval', null, 'POST', saarObject);
@@ -79,9 +73,7 @@ public with sharing class ODRIntegration {
 
             // Write the successful approval into the DB
             if (saarr.statusMessage == 'Success') {
-                c.Pushed_to_Pnet__c = true;
-                c.Pushed_to_Pnet_Date__c = Datetime.now();
-                update c;
+                updateCasePusedToPNet(recordId);
             }
         } catch (APIException e) {
             System.debug('Error in API');
@@ -97,19 +89,12 @@ public with sharing class ODRIntegration {
         System.debug(count);
 
         BenefitsResponse bres = null;
-        String UUID = getUUIDString();
 
-        // Get PHN
-        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
-        System.debug('PATIENT DATA');
-        System.debug(c.contact.patient_identifier__c);
         try {
-            String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
-            queryParams += '&phn=' + c.contact.patient_identifier__c;
-            queryParams += '&userid=12345';
-            // ?clientName=SpecAuth
-            // &requestUUID=51255567-9713-4ac1-a5aa-ec0e0bb951d6
-            // &phn=9999999999
+            String queryParams = '?clientName=SpecAuth';
+            queryParams += '&requestUUID=' + getUUIDString();
+            queryParams += '&phn=' + getPatientIdentifier(recordId);
+            queryParams += '&userid=' + getUserIdentifier();
             String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/benefits', queryParams, 'GET', null);
             bres = (BenefitsResponse) JSON.deserialize(resBody, BenefitsResponse.class);
             System.debug(bres);
@@ -128,27 +113,15 @@ public with sharing class ODRIntegration {
         System.debug(count);
 
         PrescriptionHistoryResponse sar = null;
-        String UUID = getUUIDString();
-
-        // Get PHN
-        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
-        System.debug('PATIENT DATA');
-        System.debug(c.contact.patient_identifier__c);
 
         try {
-            String queryParams = '?clientName=SpecAuth&requestUUID=' + UUID;
-            queryParams += '&userid=12345';
-            queryParams += '&phn=' + c.contact.patient_identifier__c;
+            String queryParams = '?clientName=SpecAuth';
+            queryParams += '&requestUUID=' + getUUIDString();
+            queryParams += '&userid=' + getUserIdentifier();
+            queryParams += '&phn=' + getPatientIdentifier(caseId);
             queryParams += '&pageSize=' + count;
             queryParams += '&pageNo=' + page;
-            // ?clientName=SpecAuth
-            // &requestUUID=51255567-9713-4ac1-a5aa-ec0e0bb951d6
-            // &phn=9999999999
-            // &pageSize=10
-            // &pageNo=1
-            // &startDate=2001-01-01
-            // &endDate=2020-01-01
-            // TODO
+            // TODO?
             // queryParams += '&startDate=2001-01-01';
             // queryParams += '&endDate=2020-01-01';
             String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/medHistory', queryParams, 'GET', null);
@@ -160,6 +133,28 @@ public with sharing class ODRIntegration {
             System.debug(sar);
         }
         return sar;
+    }
+
+    private static void updateCasePusedToPNet(Id caseId) {
+        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
+        c.Pushed_to_Pnet__c = true;
+        c.Pushed_to_Pnet_Date__c = Datetime.now();
+        update c;
+    }
+
+    private static String getPatientIdentifier(Id caseId) {
+        // Get PHN from DB
+        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
+        System.debug('PATIENT DATA');
+        System.debug(c.contact.patient_identifier__c);
+
+        return c.contact.patient_identifier__c;
+    }
+
+    private static String getUserIdentifier() {
+        // Who's calling this?
+        String userid = [Select FederationIdentifier From User Where Id = :UserInfo.getUserId()][0].FederationIdentifier;
+        return userid;
     }
 
     private static String getUUIDString() {
