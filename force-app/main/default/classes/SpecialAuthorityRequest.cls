@@ -4,6 +4,8 @@ public with sharing class SpecialAuthorityRequest {
     public Account provider { get; private set; }
     public Case saCase { get; private set; }
     public List<Request_Detail__c> requestDetails { get; private set; }
+    
+    private Boolean hasDrug;
 
     private SpecialAuthorityRequest(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails) {
         this.drug = drug;
@@ -11,6 +13,8 @@ public with sharing class SpecialAuthorityRequest {
         this.provider = provider;
         this.saCase = saCase;
         this.requestDetails = requestDetails;
+        
+        this.hasDrug = this.drug != null;
     }
 
     public static SpecialAuthorityRequest build(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails) {
@@ -47,8 +51,16 @@ public with sharing class SpecialAuthorityRequest {
         return sars;
     }
 
+    public Boolean hasDrug() {
+        return this.hasDrug;
+    }
+
     public String getAdjudicationStrategy() {
-        return this.drug == null ? null : drug.Adjudication_Strategy__c;
+        return hasDrug() ? drug.Adjudication_Strategy__c : null;
+    }
+
+    public Id getDefaultOwnerId() {
+        return hasDrug() ? drug.OwnerId : null;
     }
 
     private static List<Case> query(List<Id> caseIds) {
