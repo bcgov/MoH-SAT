@@ -67,8 +67,9 @@ public with sharing class SpecialAuthorityRequest {
         return [
             select 
                 Id, Origin, OwnerId, Priority, IsClosed, Status, 
-                Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c, 
-                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c,
+                Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
+
+                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId,
                 
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
@@ -102,7 +103,7 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     private static Drug__c queryDrug(Id drugId) {
-        return [select Id, Adjudication_Strategy__c from Drug__c where Id = :drugId];
+        return [select Id, Adjudication_Strategy__c, OwnerId from Drug__c where Id = :drugId];
     }
 
     private static List<Request_Detail__c> queryRequestDetails(Id caseId) {
