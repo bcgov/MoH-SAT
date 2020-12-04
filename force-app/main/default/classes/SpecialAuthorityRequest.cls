@@ -4,6 +4,8 @@ public with sharing class SpecialAuthorityRequest {
     public Account provider { get; private set; }
     public Case saCase { get; private set; }
     public List<Request_Detail__c> requestDetails { get; private set; }
+    
+    private Boolean hasDrug;
 
     private SpecialAuthorityRequest(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails) {
         this.drug = drug;
@@ -11,6 +13,8 @@ public with sharing class SpecialAuthorityRequest {
         this.provider = provider;
         this.saCase = saCase;
         this.requestDetails = requestDetails;
+        
+        this.hasDrug = this.drug != null;
     }
 
     public static SpecialAuthorityRequest build(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails) {
@@ -22,8 +26,8 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     public static SpecialAuthorityRequest build(Case saCase) {
-        Account patient = queryAccount(saCase.ContactId);
-        Account provider = queryAccount(saCase.Provider__c);
+        Account patient = saCase.ContactId == null ? null : queryAccount(saCase.ContactId);
+        Account provider = saCase.Provider__c == null ? null : queryAccount(saCase.Provider__c);
         Drug__c drug = saCase.Drug__c == null ? null : queryDrug(saCase.Drug__c);
 
         List<Request_Detail__c> requestDetails = saCase.Id == null ? new List<Request_Detail__c>() : queryRequestDetails(saCase.Id);
@@ -47,16 +51,25 @@ public with sharing class SpecialAuthorityRequest {
         return sars;
     }
 
+    public Boolean hasDrug() {
+        return this.hasDrug;
+    }
+
     public String getAdjudicationStrategy() {
-        return this.drug == null ? null : drug.Adjudication_Strategy__c;
+        return hasDrug() ? drug.Adjudication_Strategy__c : null;
+    }
+
+    public Id getDefaultOwnerId() {
+        return hasDrug() ? drug.OwnerId : null;
     }
 
     private static List<Case> query(List<Id> caseIds) {
         return [
             select 
                 Id, Origin, OwnerId, Priority, IsClosed, Status, 
-                Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c, 
-                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c,
+                Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
+
+                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId,
                 
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
@@ -90,7 +103,7 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     private static Drug__c queryDrug(Id drugId) {
-        return [select Id, Adjudication_Strategy__c from Drug__c where Id = :drugId];
+        return [select Id, Adjudication_Strategy__c, OwnerId from Drug__c where Id = :drugId];
     }
 
     private static List<Request_Detail__c> queryRequestDetails(Id caseId) {

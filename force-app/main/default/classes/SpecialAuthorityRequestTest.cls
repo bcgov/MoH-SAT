@@ -87,4 +87,39 @@ public class SpecialAuthorityRequestTest {
         system.assertEquals(saCase.Id, sar.saCase.Id);
         system.assertEquals(requestDetails.size(), sar.requestDetails.size());
     }
+
+    @isTest
+    static void test_get_adjudication_strategy() {
+        Drug__c drug = new Drug__c();
+        drug.Adjudication_Strategy__c = 'Manual';
+        
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(drug, null, null, null, null);
+        system.assertEquals(drug.Adjudication_Strategy__c, sar.getAdjudicationStrategy());
+        
+        sar = SpecialAuthorityRequest.build(null, null, null, null, null);
+        system.assertEquals(null, sar.getAdjudicationStrategy());
+    }
+
+    @isTest
+    static void test_has_drug() {
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(
+            new Drug__c(), 
+            new Account(), 
+            new Account(), 
+            new Case(), 
+            new List<Request_Detail__c>()
+        );
+        
+        system.assertEquals(true, sar.hasDrug());
+        
+        sar = SpecialAuthorityRequest.build(
+            null,
+            new Account(), 
+            new Account(), 
+            new Case(), 
+            new List<Request_Detail__c>()
+        );
+
+        system.assertEquals(false, sar.hasDrug());
+    }
 }
