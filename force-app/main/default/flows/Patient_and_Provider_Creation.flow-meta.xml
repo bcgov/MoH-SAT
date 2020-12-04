@@ -5,28 +5,12 @@
         <name>Assign_Buproprion_Drug_Id</name>
         <label>Assign Buproprion Drug Id</label>
         <locationX>578</locationX>
-        <locationY>3110</locationY>
-        <assignmentItems>
-            <assignToReference>DrugId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>a010U000006t099QAA</stringValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_Drug_Id</name>
-        <label>Assign Drug Id</label>
-        <locationX>50</locationX>
         <locationY>3230</locationY>
         <assignmentItems>
             <assignToReference>DrugId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Get_Rabeprazole_Drug_Id.Id</elementReference>
+                <elementReference>Get_Buproprion_Drug_Id.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -37,12 +21,12 @@
         <name>Assign_Glicazide_Drug_Id</name>
         <label>Assign Glicazide Drug Id</label>
         <locationX>842</locationX>
-        <locationY>3110</locationY>
+        <locationY>3230</locationY>
         <assignmentItems>
             <assignToReference>DrugId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>a010U000006t0AaQAI</stringValue>
+                <elementReference>Get_Glicazide_Drug_Id.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -53,12 +37,28 @@
         <name>Assign_Pantoprazole_Magnesium_Drug_Id</name>
         <label>Assign Pantoprazole Magnesium Drug Id</label>
         <locationX>314</locationX>
-        <locationY>3110</locationY>
+        <locationY>3230</locationY>
         <assignmentItems>
             <assignToReference>DrugId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>a010U000006t0C5QAI</stringValue>
+                <elementReference>Get_Pantoprazole_Magnesium_Drug_Id.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Rabeprazole_Drug_Id</name>
+        <label>Assign Rabeprazole Drug Id</label>
+        <locationX>50</locationX>
+        <locationY>3230</locationY>
+        <assignmentItems>
+            <assignToReference>DrugId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Rabeprazole_Drug_Id.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -510,6 +510,27 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
+        <name>Get_Buproprion_Drug_Id</name>
+        <label>Get Buproprion Drug Id</label>
+        <locationX>578</locationX>
+        <locationY>3110</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Buproprion_Drug_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Drug_Code__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>bupropion_[Wellbutrin_Type]</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Drug__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Final_Patient_ID</name>
         <label>Get Final Patient ID</label>
         <locationX>446</locationX>
@@ -549,6 +570,48 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Glicazide_Drug_Id</name>
+        <label>Get Glicazide Drug Id</label>
+        <locationX>842</locationX>
+        <locationY>3110</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Glicazide_Drug_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Drug_Code__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>gliclazide_30mg_&amp;_60mg_SR,_80mg</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Drug__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Pantoprazole_Magnesium_Drug_Id</name>
+        <label>Get Pantoprazole Magnesium Drug Id</label>
+        <locationX>314</locationX>
+        <locationY>3110</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Pantoprazole_Magnesium_Drug_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Drug_Code__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>pantoprazole_Mg_40mg_NB4</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Drug__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -663,14 +726,14 @@
         <locationY>3110</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_Drug_Id</targetReference>
+            <targetReference>Assign_Rabeprazole_Drug_Id</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Name</field>
+            <field>Drug_Code__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>rabeprazole 10, 20 mg   NB4</stringValue>
+                <stringValue>rabeprazole_10,_20_mg_NB4</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1132,14 +1195,14 @@
             <targetReference>Provider_Details_Screen</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>Buproprion_Creation</name>
         <label>Buproprion Creation</label>
         <locationX>578</locationX>
         <locationY>2990</locationY>
         <connector>
-            <targetReference>Assign_Buproprion_Drug_Id</targetReference>
+            <targetReference>Get_Buproprion_Drug_Id</targetReference>
         </connector>
         <flowName>Buproprion_Creation</flowName>
         <inputAssignments>
@@ -1161,7 +1224,7 @@
         <locationX>842</locationX>
         <locationY>2990</locationY>
         <connector>
-            <targetReference>Assign_Glicazide_Drug_Id</targetReference>
+            <targetReference>Get_Glicazide_Drug_Id</targetReference>
         </connector>
         <flowName>Glicazide_Creation</flowName>
         <inputAssignments>
@@ -1183,7 +1246,7 @@
         <locationX>314</locationX>
         <locationY>2990</locationY>
         <connector>
-            <targetReference>Assign_Pantoprazole_Magnesium_Drug_Id</targetReference>
+            <targetReference>Get_Pantoprazole_Magnesium_Drug_Id</targetReference>
         </connector>
         <flowName>Pantoprazole_Magnesium_Creation</flowName>
         <inputAssignments>
