@@ -26,8 +26,8 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     public static SpecialAuthorityRequest build(Case saCase) {
-        Account patient = queryAccount(saCase.ContactId);
-        Account provider = queryAccount(saCase.Provider__c);
+        Account patient = saCase.ContactId == null ? null : queryAccount(saCase.ContactId);
+        Account provider = saCase.Provider__c == null ? null : queryAccount(saCase.Provider__c);
         Drug__c drug = saCase.Drug__c == null ? null : queryDrug(saCase.Drug__c);
 
         List<Request_Detail__c> requestDetails = saCase.Id == null ? new List<Request_Detail__c>() : queryRequestDetails(saCase.Id);

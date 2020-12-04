@@ -27,11 +27,16 @@ public with sharing class TestFactory {
     }
     
     public static Case newCase(Drug__c drug, Account patient, Account provider, String subject) {
+        Case saCase = newCase(drug, subject);
+        saCase.ContactId = queryPersonContact(patient.Id).Id;
+        saCase.Provider__c = queryPersonContact(provider.Id).Id;
+        return saCase;
+    }
+
+    public static Case newCase(Drug__c drug, String subject) {
         Case saCase = new Case();
         saCase.RecordTypeId = getRecordTypeInfosByDeveloperName('Case', 'Special_Authority_Request').getRecordTypeId();
         saCase.Drug__c = drug.Id;
-        saCase.ContactId = queryPersonContact(patient.Id).Id;
-        saCase.Provider__c = queryPersonContact(provider.Id).Id;
         saCase.Subject = subject;
         return saCase;
     }

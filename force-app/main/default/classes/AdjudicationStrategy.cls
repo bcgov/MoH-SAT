@@ -4,6 +4,8 @@ public virtual class AdjudicationStrategy {
     }
 
     public virtual void runEvaluate(SpecialAuthorityRequest sar) {
+        if (sar.drug == null || sar.saCase.isClosed) return;
+        
         evaluate(sar);
     }
 
