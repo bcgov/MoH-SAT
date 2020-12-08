@@ -2,16 +2,16 @@
 <MatchingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <matchingRules>
         <fullName>Provider_Matching_Rule</fullName>
-        <description>Matching Rule to match providers based on provider identifier and provider type</description>
+        <description>Provider duplicate rule to match on provider type and provider identifier.</description>
         <label>Provider Matching Rule</label>
         <matchingRuleItems>
             <blankValueBehavior>NullNotAllowed</blankValueBehavior>
-            <fieldName>Provider_Identifier__c</fieldName>
+            <fieldName>Provider_Identifier__pc</fieldName>
             <matchingMethod>Exact</matchingMethod>
         </matchingRuleItems>
         <matchingRuleItems>
             <blankValueBehavior>NullNotAllowed</blankValueBehavior>
-            <fieldName>Provider_Type__c</fieldName>
+            <fieldName>Provider_Type__pc</fieldName>
             <matchingMethod>Exact</matchingMethod>
         </matchingRuleItems>
         <ruleStatus>Active</ruleStatus>
