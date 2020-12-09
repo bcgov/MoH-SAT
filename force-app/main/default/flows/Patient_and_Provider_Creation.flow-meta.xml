@@ -5,7 +5,7 @@
         <name>Assign_Buproprion_Drug_Id</name>
         <label>Assign Buproprion Drug Id</label>
         <locationX>578</locationX>
-        <locationY>3230</locationY>
+        <locationY>4694</locationY>
         <assignmentItems>
             <assignToReference>DrugId</assignToReference>
             <operator>Assign</operator>
@@ -21,7 +21,7 @@
         <name>Assign_Glicazide_Drug_Id</name>
         <label>Assign Glicazide Drug Id</label>
         <locationX>842</locationX>
-        <locationY>3230</locationY>
+        <locationY>4694</locationY>
         <assignmentItems>
             <assignToReference>DrugId</assignToReference>
             <operator>Assign</operator>
@@ -37,7 +37,7 @@
         <name>Assign_Pantoprazole_Magnesium_Drug_Id</name>
         <label>Assign Pantoprazole Magnesium Drug Id</label>
         <locationX>314</locationX>
-        <locationY>3230</locationY>
+        <locationY>4694</locationY>
         <assignmentItems>
             <assignToReference>DrugId</assignToReference>
             <operator>Assign</operator>
@@ -53,7 +53,7 @@
         <name>Assign_Rabeprazole_Drug_Id</name>
         <label>Assign Rabeprazole Drug Id</label>
         <locationX>50</locationX>
-        <locationY>3230</locationY>
+        <locationY>4694</locationY>
         <assignmentItems>
             <assignToReference>DrugId</assignToReference>
             <operator>Assign</operator>
@@ -70,7 +70,7 @@
         <name>Assign_String_Value_Assignment</name>
         <label>Assign String Value Assignment</label>
         <locationX>578</locationX>
-        <locationY>2390</locationY>
+        <locationY>3854</locationY>
         <assignmentItems>
             <assignToReference>Assign_String_Value</assignToReference>
             <operator>Assign</operator>
@@ -80,6 +80,29 @@
         </assignmentItems>
         <connector>
             <targetReference>Get_SA_Request_Record_Type_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>AssignLoopVariableActiveSARequest</name>
+        <label>AssignLoopVariableActiveSARequest</label>
+        <locationX>578</locationX>
+        <locationY>2750</locationY>
+        <assignmentItems>
+            <assignToReference>ActiveSARequestInformation</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>&lt;tr&gt;&lt;td&gt;{!LoopActiveSARequests.CaseNumber}&lt;/td&gt;&lt;td&gt;{!LoopActiveSARequests.Status}&lt;/td&gt;&lt;td&gt;{!LoopActiveSARequests.Drug__r.Name}&lt;/td&gt;&lt;td&gt;{!LoopActiveSARequests.CreatedDate}&lt;/td&gt;&lt;/tr&gt;</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CountActiveSARequests</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>LoopActiveSARequests</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -94,8 +117,22 @@
                 <elementReference>Get_Final_Patient_ID.Id</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Patient_Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Final_Patient_ID.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CheckActiveSARequestsPatient</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
         <connector>
-            <targetReference>Create_SA_Request_Screen</targetReference>
+            <targetReference>Check_Active_SA_Requests_Decision</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -108,6 +145,20 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Final_Provider_ID.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Provider_Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Final_Provider_ID.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CheckActiveSARequestsProvider</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
             </value>
         </assignmentItems>
         <connector>
@@ -126,8 +177,22 @@
                 <elementReference>Get_Patient_Record.Id</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CheckActiveSARequestsPatient</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Patient_Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Patient_Record.Name</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
-            <targetReference>Create_SA_Request_Screen</targetReference>
+            <targetReference>Check_Active_SA_Requests_Decision</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -142,15 +207,61 @@
                 <elementReference>Get_Provider_Record.Id</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CheckActiveSARequestsProvider</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Provider_Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Provider_Record.Name</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Create_Patient</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>ZeroAssignSARequestsCount</name>
+        <label>ZeroAssignSARequestsCount</label>
+        <locationX>138</locationX>
+        <locationY>2630</locationY>
+        <assignmentItems>
+            <assignToReference>CountActiveSARequests</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_SA_Request_Screen</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>No</name>
+        <choiceText>No</choiceText>
+        <dataType>Boolean</dataType>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Yes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>Boolean</dataType>
+        <value>
+            <booleanValue>true</booleanValue>
+        </value>
+    </choices>
     <decisions>
         <name>Auto_Adjudication</name>
         <label>Auto Adjudication</label>
         <locationX>578</locationX>
-        <locationY>2870</locationY>
+        <locationY>4334</locationY>
         <defaultConnector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </defaultConnector>
@@ -242,6 +353,85 @@
                 <targetReference>Glicazide_Creation</targetReference>
             </connector>
             <label>Gliclazide</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Active_SA_Requests_Decision</name>
+        <label>Check Active SA Requests Decision</label>
+        <locationX>578</locationX>
+        <locationY>2270</locationY>
+        <defaultConnector>
+            <targetReference>Create_SA_Request_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Skip Check Active SA Requests</defaultConnectorLabel>
+        <rules>
+            <name>Check_Active_SA_Requests</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CheckActiveSARequestsPatient</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>CheckActiveSARequestsProvider</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GetActiveSARequests</targetReference>
+            </connector>
+            <label>Check Active SA Requests</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>ContinueSACreationDecision</name>
+        <label>ContinueSACreationDecision</label>
+        <locationX>490</locationX>
+        <locationY>3206</locationY>
+        <defaultConnectorLabel>Stop SA Request Creation</defaultConnectorLabel>
+        <rules>
+            <name>Continue_SA_Request_Creation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Continue_SA_Request_Creation_Screen</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Yes</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_SA_Request_Screen</targetReference>
+            </connector>
+            <label>Continue SA Request Creation</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>CountSARequestsDecision</name>
+        <label>CountSARequestsDecision</label>
+        <locationX>314</locationX>
+        <locationY>2510</locationY>
+        <defaultConnector>
+            <targetReference>LoopActiveSARequests</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Active Cases</defaultConnectorLabel>
+        <rules>
+            <name>No_Active_Cases</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetActiveSARequests</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ZeroAssignSARequestsCount</targetReference>
+            </connector>
+            <label>No Active Cases</label>
         </rules>
     </decisions>
     <decisions>
@@ -337,6 +527,20 @@
     </dynamicChoiceSets>
     <interviewLabel>Patient and Provider Creation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Patient and Provider Creation</label>
+    <loops>
+        <name>LoopActiveSARequests</name>
+        <label>LoopActiveSARequests</label>
+        <locationX>490</locationX>
+        <locationY>2630</locationY>
+        <collectionReference>GetActiveSARequests</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>AssignLoopVariableActiveSARequest</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Active_SA_Requests_Screen</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -460,7 +664,7 @@
         <name>Create_SA_Request</name>
         <label>Create SA Request</label>
         <locationX>578</locationX>
-        <locationY>2630</locationY>
+        <locationY>4094</locationY>
         <connector>
             <targetReference>Upload_Files</targetReference>
         </connector>
@@ -513,7 +717,7 @@
         <name>Get_Buproprion_Drug_Id</name>
         <label>Get Buproprion Drug Id</label>
         <locationX>578</locationX>
-        <locationY>3110</locationY>
+        <locationY>4574</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Buproprion_Drug_Id</targetReference>
@@ -576,7 +780,7 @@
         <name>Get_Glicazide_Drug_Id</name>
         <label>Get Glicazide Drug Id</label>
         <locationX>842</locationX>
-        <locationY>3110</locationY>
+        <locationY>4574</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Glicazide_Drug_Id</targetReference>
@@ -597,7 +801,7 @@
         <name>Get_Pantoprazole_Magnesium_Drug_Id</name>
         <label>Get Pantoprazole Magnesium Drug Id</label>
         <locationX>314</locationX>
-        <locationY>3110</locationY>
+        <locationY>4574</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Pantoprazole_Magnesium_Drug_Id</targetReference>
@@ -723,7 +927,7 @@
         <name>Get_Rabeprazole_Drug_Id</name>
         <label>Get Rabeprazole Drug Id</label>
         <locationX>50</locationX>
-        <locationY>3110</locationY>
+        <locationY>4574</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Rabeprazole_Drug_Id</targetReference>
@@ -744,7 +948,7 @@
         <name>Get_SA_Request_Record_Type_Id</name>
         <label>Get SA Request Record Type Id</label>
         <locationX>578</locationX>
-        <locationY>2510</locationY>
+        <locationY>3974</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_SA_Request</targetReference>
@@ -768,11 +972,48 @@
         <object>RecordType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>GetActiveSARequests</name>
+        <label>GetActiveSARequests</label>
+        <locationX>314</locationX>
+        <locationY>2390</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CountSARequestsDecision</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Final_Patient_ID</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Provider__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Final_Provider_ID</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>IsClosed</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Case</object>
+        <sortField>CaseNumber</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Update_SA_Request_with_Drug_Id</name>
         <label>Update SA Request with Drug Id</label>
         <locationX>578</locationX>
-        <locationY>3446</locationY>
+        <locationY>4910</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -793,6 +1034,50 @@
         <object>Case</object>
     </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>Active_SA_Requests_Screen</name>
+        <label>Active SA Requests Screen</label>
+        <locationX>490</locationX>
+        <locationY>2966</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>ExitScreen</targetReference>
+        </connector>
+        <fields>
+            <name>ActiveSARequestsTitle</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;The following active SA Requests were found where &lt;/span&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!Final_Provider_Name}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the provider and &lt;/span&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!Final_Patient_Name}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the patient:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!ActiveSARequestInformation}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>CountActiveSARequests</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <numberValue>0.0</numberValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>NoResultsMessageTitle</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;There are NO ACTIVE SA Requests where&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;{!Final_Provider_Name} is the provider &amp;amp;&lt;/b&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;{!Final_Patient_Name} is the patient&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>CountActiveSARequests</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <numberValue>0.0</numberValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
     <screens>
         <name>Create_New_Patient_Screen</name>
         <label>Create New Patient Screen</label>
@@ -933,7 +1218,7 @@
         <name>Create_SA_Request_Screen</name>
         <label>Create SA Request Screen</label>
         <locationX>578</locationX>
-        <locationY>2270</locationY>
+        <locationY>3734</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -967,6 +1252,30 @@
                     <elementReference>Diagnosis_Manual_Picklist</elementReference>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>topRequired</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>topLabel</name>
+                <value>
+                    <stringValue>Drug</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middleLabel</name>
+                <value>
+                    <stringValue>Diagnosis</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middleRequired</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -995,6 +1304,35 @@
             </defaultValue>
             <fieldText>Verbal Order</fieldText>
             <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>ExitScreen</name>
+        <label>ExitScreen</label>
+        <locationX>490</locationX>
+        <locationY>3086</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>ContinueSACreationDecision</targetReference>
+        </connector>
+        <fields>
+            <name>ExitDisplay</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;There might be a possiblity this case is a duplicate, do you wish to continue creating the SA request case:&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Continue_SA_Request_Creation_Screen</name>
+            <choiceReferences>No</choiceReferences>
+            <choiceReferences>Yes</choiceReferences>
+            <dataType>Boolean</dataType>
+            <defaultSelectedChoiceReference>No</defaultSelectedChoiceReference>
+            <fieldText>Continue Creation of SA Request?</fieldText>
+            <fieldType>RadioButtons</fieldType>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
@@ -1132,7 +1470,7 @@
         <name>Thank_You_Screen</name>
         <label>Thank You Screen</label>
         <locationX>578</locationX>
-        <locationY>3566</locationY>
+        <locationY>5030</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1148,7 +1486,7 @@
         <name>Upload_Files</name>
         <label>Upload Files</label>
         <locationX>578</locationX>
-        <locationY>2750</locationY>
+        <locationY>4214</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1200,7 +1538,7 @@
         <name>Buproprion_Creation</name>
         <label>Buproprion Creation</label>
         <locationX>578</locationX>
-        <locationY>2990</locationY>
+        <locationY>4454</locationY>
         <connector>
             <targetReference>Get_Buproprion_Drug_Id</targetReference>
         </connector>
@@ -1222,7 +1560,7 @@
         <name>Glicazide_Creation</name>
         <label>Glicazide Creation</label>
         <locationX>842</locationX>
-        <locationY>2990</locationY>
+        <locationY>4454</locationY>
         <connector>
             <targetReference>Get_Glicazide_Drug_Id</targetReference>
         </connector>
@@ -1244,7 +1582,7 @@
         <name>Pantoprazole_Magnesium_Creation</name>
         <label>Pantoprazole Magnesium Creation</label>
         <locationX>314</locationX>
-        <locationY>2990</locationY>
+        <locationY>4454</locationY>
         <connector>
             <targetReference>Get_Pantoprazole_Magnesium_Drug_Id</targetReference>
         </connector>
@@ -1266,7 +1604,7 @@
         <name>Rabeprazole_Creation</name>
         <label>Rabeprazole Creation</label>
         <locationX>50</locationX>
-        <locationY>2990</locationY>
+        <locationY>4454</locationY>
         <connector>
             <targetReference>Get_Rabeprazole_Drug_Id</targetReference>
         </connector>
@@ -1285,6 +1623,16 @@
         </inputAssignments>
     </subflows>
     <variables>
+        <name>ActiveSARequestInformation</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>&lt;tr&gt;&lt;td&gt;&lt;b&gt;Case #&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Status&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Drug Name&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Created Date&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</stringValue>
+        </value>
+    </variables>
+    <variables>
         <name>Assign_String_Value</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -1302,6 +1650,37 @@
         <isOutput>false</isOutput>
         <value>
             <stringValue>Case</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>CheckActiveSARequestsPatient</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>CheckActiveSARequestsProvider</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>CountActiveSARequests</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
         </value>
     </variables>
     <variables>
@@ -1346,7 +1725,21 @@
         <isOutput>true</isOutput>
     </variables>
     <variables>
+        <name>Final_Patient_Name</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
         <name>Final_Provider_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>Final_Provider_Name</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
