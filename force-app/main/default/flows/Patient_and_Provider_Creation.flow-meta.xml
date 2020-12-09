@@ -91,7 +91,7 @@
             <assignToReference>ActiveSARequestInformation</assignToReference>
             <operator>Add</operator>
             <value>
-                <stringValue>&lt;tr&gt;{!LoopActiveSARequests.CaseNumber}&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{!LoopActiveSARequests.CreatedDate}&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{!LoopActiveSARequests.Status}&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{!LoopActiveSARequests.Drug__r.Name}&lt;/tr&gt;</stringValue>
+                <stringValue>&lt;tr&gt;&lt;td&gt;{!LoopActiveSARequests.CaseNumber}&lt;/td&gt;&lt;td&gt;{!LoopActiveSARequests.Status}&lt;/td&gt;&lt;td&gt;{!LoopActiveSARequests.Drug__r.Name}&lt;/td&gt;&lt;td&gt;{!LoopActiveSARequests.CreatedDate}&lt;/td&gt;&lt;/tr&gt;</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -1047,7 +1047,7 @@
         </connector>
         <fields>
             <name>ActiveSARequestsTitle</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;The following active SA Requests were found where {!Final_Provider_Name} is the provider and {!Final_Patient_Name} is the patient:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!ActiveSARequestInformation}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;The following active SA Requests were found where &lt;/span&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!Final_Provider_Name}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the provider and &lt;/span&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!Final_Patient_Name}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the patient:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!ActiveSARequestInformation}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -1629,7 +1629,7 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <value>
-            <stringValue>&lt;b&gt;Case #&lt;/b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;b&gt;&amp;nbsp;Created Date&lt;/b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Status&lt;/b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;b&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Drug Name&lt;/b&gt;</stringValue>
+            <stringValue>&lt;tr&gt;&lt;td&gt;&lt;b&gt;Case #&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Status&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Drug Name&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Created Date&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</stringValue>
         </value>
     </variables>
     <variables>
