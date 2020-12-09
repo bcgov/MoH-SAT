@@ -15,17 +15,17 @@ $ sfdx force:org:delete -u sat-dev
 
 List changes between project and scratch org.
 ```
-$ ..\MoH-SAT> sfdx force:source:status
+$ ../MoH-SAT> sfdx force:source:status
 ```
 
 Pull changes from scratch org into project.
 ```
-$ ..\MoH-SAT> sfdx force:source:pull
+$ ../MoH-SAT> sfdx force:source:pull
 ```
 
 Push changes in project to scratch org.
 ```
-$ ..\MoH-SAT> sfdx force:source:push
+$ ../MoH-SAT> sfdx force:source:push
 ```
 
 ## Miscellaneous Commands
@@ -45,7 +45,7 @@ $ ../MoH-SAT> git checkout -b <name_of_branch>
 
 ## Package Upgrade
 ```
-sfdx force:package:version:create -v devhub -d force-app -f config\project-scratch-def.json -x -p "Special Authority - Case Management App" -w 15
+sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority - Case Management App" -w 15
 ```
 
 ## Package Installation
