@@ -66,7 +66,7 @@ public with sharing class ODRIntegration {
 
         SAApprovalRequestResponse saarr;
         try {
-            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/saApproval', null, 'POST', saarObject);
+            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/odr/sat/pnetsa/saApproval', null, 'POST', saarObject);
             saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
             System.debug('saarr');
             System.debug(saarr);
@@ -95,7 +95,7 @@ public with sharing class ODRIntegration {
             queryParams += '&requestUUID=' + getUUIDString();
             queryParams += '&phn=' + getPatientIdentifier(recordId);
             queryParams += '&userid=' + getUserIdentifier();
-            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/benefits', queryParams, 'GET', null);
+            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/odr/sat/pnetsa/benefits', queryParams, 'GET', null);
             bres = (BenefitsResponse) JSON.deserialize(resBody, BenefitsResponse.class);
             System.debug(bres);
         } catch (APIException e) {
@@ -124,7 +124,7 @@ public with sharing class ODRIntegration {
             // TODO?
             // queryParams += '&startDate=2001-01-01';
             // queryParams += '&endDate=2020-01-01';
-            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/ords/edwdev1/sat/pnetsa/medHistory', queryParams, 'GET', null);
+            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/odr/sat/pnetsa/medHistory', queryParams, 'GET', null);
             sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
             System.debug(sar);
         } catch (APIException e) {
