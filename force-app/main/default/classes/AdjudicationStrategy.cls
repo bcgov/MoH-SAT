@@ -1,4 +1,4 @@
-public virtual class AdjudicationStrategy {
+public virtual with sharing class AdjudicationStrategy {
 
     public AdjudicationStrategy() {
     }
