@@ -107,16 +107,12 @@
                 <componentName>pharmanetHistory</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-rdmj0u403wo</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentName>patientPlanInformation</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-73cac505-af77-4dc6-a597-a47e40388cfa</name>
+        <name>Facet-3dfe3d7c-fce4-45fb-a18c-149d05e9619e</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -126,6 +122,35 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-262bfd27-6b1c-40cb-b171-a1c0e751999c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Case.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Integration_Logs__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-f4c3bc71-3a1c-427c-b60f-4903daf7e92a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -150,24 +175,11 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-rdmj0u403wo</value>
+                    <value>Facet-3dfe3d7c-fce4-45fb-a18c-149d05e9619e</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Prescription History</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-73cac505-af77-4dc6-a597-a47e40388cfa</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Benefit Plan</value>
+                    <value>Patient Data</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -181,6 +193,19 @@
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Similar Cases</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f4c3bc71-3a1c-427c-b60f-4903daf7e92a</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Integration Logs</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
