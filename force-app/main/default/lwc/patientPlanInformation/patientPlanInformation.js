@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import fetchBenefits from '@salesforce/apex/ODRIntegration.fetchBenefits';
 import postSAApproval from '@salesforce/apex/ODRIntegration.postSAApproval';
 
@@ -14,22 +14,35 @@ export default class PatientPlanInformation extends LightningElement {
   @api recordId;
   columns = columns;
   verified = false;
-  loaded = false;
+  loaded = true;
   benefitPlans = [];
-  hasBenefits = false;
+  completeAndNoResults = false;
+  error = {};
+  isError = false;
 
-  @wire(fetchBenefits, { recordId: '$recordId' }) mapObjectToData({error,data}) {
-    if (data) {
-      console.log("PatientPlanInformation:", data);
+  @track error;
+  connectedCallback() {
+    fetchBenefits({recordId: this.recordId})
+    .then(data => {
+      if (data) {
+        console.log("PatientPlanInformation:", data);
 
-      if (data.planEligibility && data.planEligibility.length > 0) {
-        this.benefitPlans = data.planEligibility;
-        console.log("benefitPlans:", this.benefitPlans);
-        this.hasBenefits = true;
+        if (data.planEligibility && data.planEligibility.length > 0) {
+          this.completeAndNoResults = false;
+          this.hasBenefits = true;
+          this.benefitPlans = data.planEligibility;
+          console.log("benefitPlans:", this.benefitPlans);
+        } else {
+          this.completeAndNoResults = true;
+        }
+        this.loaded = true;
       }
-
+    })
+    .catch(error => {
+      this.isError = true;
       this.loaded = true;
-    }
+      this.error = error.body.message;
+    });
   }
 
   handleClick(event) {

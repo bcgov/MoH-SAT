@@ -1,4 +1,4 @@
-import { LightningElement, wire, api } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import fetchPrescriptionHistory from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistory';
 
 const columns = [
@@ -11,6 +11,7 @@ const columns = [
   { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
   { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
+  // { label: 'Upload', type: 'fileUpload', fieldName: 'Id', typeAttributes: { acceptedFormats: '.jpg,.jpeg,.pdf,.png' } }
 ];
 
 export default class PharmanetHistory extends LightningElement {
@@ -26,6 +27,8 @@ export default class PharmanetHistory extends LightningElement {
   totalRecords = 0;
   pageNumber = 1;
   totalPages = 0;
+  error = {};
+  isError = false;
 
   handleNextPage(event) {
     console.log('handle previous page', event);
@@ -45,7 +48,7 @@ export default class PharmanetHistory extends LightningElement {
   }
   handlePageChange() {
     // Call the service and update stuff.
-    this.updatePageButtons();
+    this.fetchItems();
   }
 
   updatePageButtons() {
@@ -74,47 +77,57 @@ export default class PharmanetHistory extends LightningElement {
   // Count change handler
   handleCountChange(event) {
     this.count = event.detail.value;
+    this.fetchItems();
   }
 
-  @wire(fetchPrescriptionHistory, { caseId: '$recordId', page: '$pageNumber', count: '$count'}) mapObjectToData({error,data}) {
-    console.log("error:", error);
-    console.log("data:", data);
+  connectedCallback() {
+    this.fetchItems();
+  }
 
-    if (data) {
-      console.log("medHistory:", data.medHistory);
-      const records = data.medHistory && data.medHistory.medRecords;
-      this.totalRecords = data.medHistory && data.medHistory.totalRecords;
-      this.totalPages = data.medHistory && data.medHistory.totalPages;
+  fetchItems() {
+    fetchPrescriptionHistory({recordId: this.recordId, page: this.pageNumber, count: this.count})
+    .then(data => {
+      if (data) {
+        console.log("medHistory:", data.medHistory);
+        const records = data.medHistory && data.medHistory.medRecords;
+        this.totalRecords = data.medHistory && data.medHistory.totalRecords;
+        this.totalPages = data.medHistory && data.medHistory.totalPages;
 
-      if (this.totalRecords > 0) {
-        this.completeAndNoResults = false;
-        this.hasResults = true;
-        let dataArray = [];
-        records.forEach(record => {
-          let item = {};
+        if (this.totalRecords > 0) {
+          this.completeAndNoResults = false;
+          this.hasResults = true;
+          let dataArray = [];
+          records.forEach(record => {
+            let item = {};
 
-          item['dispensingPharmacyName'] = record.dispensingPharmacy.name;
-          item['dateDispensed'] = record.dateDispensed;
-          item['dinpin'] = record.dinpin;
-          item['genericName'] = record.genericName;
-          item['drugStrength'] = record.drugStrength;
-          item['directions'] = record.directions;
-          item['daysSupply'] = record.daysSupply;
-          // cost claimed  N/A
-          // cost accepted N/A
-          item['prescriberName'] = record.prescriberInfo.name;
-          // benefit plan N/A
-          item['rxStatus'] = record.rxStatus;
-          dataArray.push(item);
-        });
-        this.data = dataArray;
-      } else {
-        this.hasResults = false;
-        this.completeAndNoResults = true;
-        this.pageNumber = 1;
+            item['dispensingPharmacyName'] = record.dispensingPharmacy.name;
+            item['dateDispensed'] = record.dateDispensed;
+            item['dinpin'] = record.dinpin;
+            item['genericName'] = record.genericName;
+            item['drugStrength'] = record.drugStrength;
+            item['directions'] = record.directions;
+            item['daysSupply'] = record.daysSupply;
+            // cost claimed  N/A
+            // cost accepted N/A
+            item['prescriberName'] = record.prescriberInfo.name;
+            // benefit plan N/A
+            item['rxStatus'] = record.rxStatus;
+            dataArray.push(item);
+          });
+          this.data = dataArray;
+        } else {
+          this.hasResults = false;
+          this.completeAndNoResults = true;
+          this.pageNumber = 1;
+        }
+        this.loaded = true;
+        this.updatePageButtons();
       }
+    })
+    .catch(error => {
+      this.isError = true;
       this.loaded = true;
-      this.updatePageButtons();
-    }
-  };
+      this.error = error.body.message;
+    });
+  }
 }

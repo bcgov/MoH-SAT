@@ -7,16 +7,7 @@
     </h3>
   </lightning-card>
   &nbsp;
-  <!-- Simulates this record to be approved in the ODR -->
-  <!-- <lightning-button label="Neutral" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button> -->
-  <lightning-card if:false={hasBenefits}>
-      <div class="slds-text-align_center">
-          <div class="slds-m-vertical_small">
-              <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
-              <p>No benefits found.</p>
-          </div>
-      </div>
-  </lightning-card>
+
   <template if:true={hasBenefits}>
     <lightning-datatable
       key-field="authorityCode"
@@ -26,4 +17,17 @@
     </lightning-datatable>
   </template>
 
+  <!-- Simulates this record to be approved in the ODR -->
+  <!-- <lightning-button label="Neutral" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button> -->
+  <lightning-card if:true={completeAndNoResults}>
+      <div class="slds-text-align_center">
+          <div class="slds-m-vertical_small">
+              <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+              <p>No benefits found.</p>
+          </div>
+      </div>
+  </lightning-card>
+
+  <!-- ERROR CASE -->
+  <c-error-display if:true={isError} error={error}></c-error-display>
 </template>
