@@ -1,4 +1,5 @@
 <template>
+  <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
   <lightning-card if:true={loaded}>
     <h3 slot="title">
         <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
@@ -6,7 +7,6 @@
     </h3>
   </lightning-card>
   &nbsp;
-  <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
   <!-- IF RESULTS -->
   <lightning-card if:true={hasResults}>
     <div class="slds-m-top_x-small slds-m-bottom_medium">
@@ -37,6 +37,7 @@
       Page ({pageNumber} of {totalPages})
     </div>
   </lightning-card>
+
   <!-- NO RESULTS FOUND -->
   <lightning-card if:true={completeAndNoResults}>
     <div class="slds-text-align_center">
@@ -46,4 +47,7 @@
         </div>
     </div>
   </lightning-card>
+
+  <!-- ERROR CASE -->
+  <c-error-display if:true={isError} error={error}></c-error-display>
 </template>

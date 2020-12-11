@@ -58,7 +58,14 @@ public with sharing class ODRIntegration {
         sarBody.requestUUID = getUUIDString();
         sarBody.clientName = 'SpecAuth';
         sarBody.userid = getUserIdentifier();
-        sarBody.phn = getPatientIdentifier(recordId);
+
+        // SA Unique Identifier
+        sarBody.phn = getPatientIdentifier(recordId); // PHN
+        // sarBody.authType = // Auth Type  TBD? API Doc says required, but N/A?
+        // sarBody.specialItem = // DIN or RDP Cat/Subcat, but we don't know the web service parameter.. says N/A
+        // sarBody.specialType = // D or R
+        // sarBody.effectiveDate = // Effective Date 3000/01/01
+        // sarBody.typeSA = // Special Auth Type: B,L,R
 
         String saarObject = JSON.serialize(sarBody);
         System.debug('saarObject');
@@ -66,7 +73,7 @@ public with sharing class ODRIntegration {
 
         SAApprovalRequestResponse saarr;
         try {
-            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/odr/sat/pnetsa/saApproval', null, 'POST', saarObject);
+            String resBody = sendRequestAndReturnBody(recordId, 'callout:ODR_Credentials/odr/sat/pnetsa/saApproval', null, 'POST', saarObject);
             saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
             System.debug('saarr');
             System.debug(saarr);
@@ -76,17 +83,16 @@ public with sharing class ODRIntegration {
                 updateCasePusedToPNet(recordId);
             }
         } catch (APIException e) {
-            System.debug('Error in API');
+            System.debug('ERROR');
             System.debug(e);
+            throw e;
         }
         return saarr;
     }
 
-    @AuraEnabled(cacheable=true)
-    public static BenefitsResponse fetchBenefits(Id recordId, String page, string count) {
+    @AuraEnabled
+    public static BenefitsResponse fetchBenefits(Id recordId) {
         System.debug('Fetch Benefits');
-        System.debug(page);
-        System.debug(count);
 
         BenefitsResponse bres = null;
 
@@ -95,19 +101,20 @@ public with sharing class ODRIntegration {
             queryParams += '&requestUUID=' + getUUIDString();
             queryParams += '&phn=' + getPatientIdentifier(recordId);
             queryParams += '&userid=' + getUserIdentifier();
-            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/odr/sat/pnetsa/benefits', queryParams, 'GET', null);
+            String resBody = sendRequestAndReturnBody(recordId, 'callout:ODR_Credentials/odr/sat/pnetsa/benefits', queryParams, 'GET', null);
             bres = (BenefitsResponse) JSON.deserialize(resBody, BenefitsResponse.class);
             System.debug(bres);
         } catch (APIException e) {
             System.debug('ERROR');
-            bres = new BenefitsResponse();
-            System.debug(bres);
+            System.debug(e);
+            throw e;
         }
+        logIntegration('200', 'fetchBenefits', recordId);
         return bres;
     }
 
-    @AuraEnabled(cacheable=true)
-    public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id caseId, String page, String count) {
+    @AuraEnabled
+    public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count) {
         System.debug('Fetch Data');
         System.debug(page);
         System.debug(count);
@@ -118,20 +125,21 @@ public with sharing class ODRIntegration {
             String queryParams = '?clientName=SpecAuth';
             queryParams += '&requestUUID=' + getUUIDString();
             queryParams += '&userid=' + getUserIdentifier();
-            queryParams += '&phn=' + getPatientIdentifier(caseId);
+            queryParams += '&phn=' + getPatientIdentifier(recordId);
             queryParams += '&pageSize=' + count;
             queryParams += '&pageNo=' + page;
             // TODO?
             // queryParams += '&startDate=2001-01-01';
             // queryParams += '&endDate=2020-01-01';
-            String resBody = sendRequestAndReturnBody('callout:ODR_Credentials/odr/sat/pnetsa/medHistory', queryParams, 'GET', null);
+            String resBody = sendRequestAndReturnBody(recordId, 'callout:ODR_Credentials/odr/sat/pnetsa/medHistory', queryParams, 'GET', null);
             sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
             System.debug(sar);
         } catch (APIException e) {
             System.debug('ERROR');
-            sar = new PrescriptionHistoryResponse();
-            System.debug(sar);
+            System.debug(e);
+            throw e;
         }
+        logIntegration('200', 'fetchPrescriptionHistory', recordId);
         return sar;
     }
 
@@ -142,10 +150,21 @@ public with sharing class ODRIntegration {
         update c;
     }
 
-    private static String getPatientIdentifier(Id caseId) {
-        // Get PHN from DB
-        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
+    private static void logIntegration(String code, String message, Id recordId) {
+        System.debug('LOGGING');
+        Integration_Log__c integrationLogObject = new Integration_Log__c (
+            Code__c = code,
+            Message__c = message,
+            SA_Request__c = recordId,
+            Timestamp__c  = Datetime.now()
+        );
+        insert integrationLogObject;
+    }
+
+    private static String getPatientIdentifier(Id recordId) {
         System.debug('PATIENT DATA');
+        // Get PHN from DB
+        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
         System.debug(c.contact.patient_identifier__c);
 
         return c.contact.patient_identifier__c;
@@ -166,7 +185,7 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.substring(20);
     }
 
-    private static String sendRequestAndReturnBody(String endpoint, String queryParams, String method, String methodBody) {
+    private static String sendRequestAndReturnBody(Id recordId, String endpoint, String queryParams, String method, String methodBody) {
         String uri = endpoint;
         if (queryParams != null) {
             uri += queryParams;
@@ -182,17 +201,17 @@ public with sharing class ODRIntegration {
         if (method == 'POST') {
             req.setBody(methodBody);
         }
-
         Http http = new Http();
         HTTPResponse res = http.send(req);
         String resBody = res.getBody();
         if (res.getStatusCode() == 200) {
+            // Log here
             System.debug(resBody);
         } else {
-            throw new APIException(resBody);
+            // TODO: Fix this
+            logIntegration(String.valueOf(res.getStatusCode()), resBody, recordId);
+            throw new APIException('API Error: ' + res.getStatusCode() + ' ' + resBody);
         }
         return resBody;
     }
 }
-
-
