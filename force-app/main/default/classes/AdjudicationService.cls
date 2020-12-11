@@ -26,8 +26,6 @@ public with sharing class AdjudicationService {
     private static void evaluate(SpecialAuthorityRequest sar, Boolean assignOwner) {
         AdjudicationStrategy strategy = buildAdjudicationStrategy(sar.getAdjudicationStrategy());
         
-        system.debug(String.valueOf(strategy).split(':')[0]);
-
         strategy.runEvaluate(sar);
 
         if (assignOwner) {
