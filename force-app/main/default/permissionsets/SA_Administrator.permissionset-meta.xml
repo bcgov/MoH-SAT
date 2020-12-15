@@ -172,6 +172,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.External_Committee__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.Has_Drug__c</field>
         <readable>true</readable>
@@ -526,6 +531,16 @@
         <field>Request_Detail__c.String_Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>External_Committee__c.End_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>External_Committee__c.Start_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>SA Administrator</label>
     <objectPermissions>
@@ -579,6 +594,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>External_Committee__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>Request_Detail__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -600,6 +624,10 @@
     </tabSettings>
     <tabSettings>
         <tab>Drug__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>External_Committee__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
