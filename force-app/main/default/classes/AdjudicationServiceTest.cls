@@ -52,7 +52,6 @@ public class AdjudicationServiceTest {
         }
 
         public override void evaluate() {
-            system.debug('here');
             sar.saCase.Subject = 'Mock strategy executed';
         }
     }
