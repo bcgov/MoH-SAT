@@ -1,8 +1,5 @@
 public with sharing class AdjudicationService {
     
-    @TestVisible
-    private static AdjudicationStrategy ADJUDICATION_STRATEGY = new AdjudicationStrategy();
-    
     public static void evaluate(Id caseId) {
         evaluate(caseId, false);
     }
@@ -24,29 +21,13 @@ public with sharing class AdjudicationService {
     }
 
     private static void evaluate(SpecialAuthorityRequest sar, Boolean assignOwner) {
-        AdjudicationStrategy strategy = buildAdjudicationStrategy(sar.getAdjudicationStrategy());
+        AdjudicationStrategy strategy = AdjudicationStrategyFactory.getStrategy(sar);
         
-        system.debug(String.valueOf(strategy).split(':')[0]);
-
-        strategy.runEvaluate(sar);
+        strategy.runEvaluate();
 
         if (assignOwner) {
             sar.saCase.OwnerId = sar.getDefaultOwnerId();
         }
-    }
-
-    @TestVisible
-    private static AdjudicationStrategy buildAdjudicationStrategy(String drugStrategy) {
-        switch on drugStrategy {
-            when 'Criteria' {
-                ADJUDICATION_STRATEGY = new CriteriaBasedAdjudication();
-            }
-            when 'Apex' {
-                ADJUDICATION_STRATEGY = new ApexBasedAdjudication();
-            } 
-        }
-        
-        return ADJUDICATION_STRATEGY;
     }
 
 }

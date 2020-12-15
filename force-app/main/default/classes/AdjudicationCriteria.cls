@@ -115,8 +115,7 @@ public class AdjudicationCriteria {
         
         Boolean isQuestionIdEqual = 
             isRequestDetailValue 
-            && String.isNotBlank(questionId) 
-            && record.get(Request_Detail__c.Question_ID__c).equals(questionId);
+            && questionId.equalsIgnoreCase((String) record.get(Request_Detail__c.Question_ID__c));
 
         if (isRequestDetailValue && !isQuestionIdEqual) return false;
         

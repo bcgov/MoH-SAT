@@ -21,54 +21,45 @@ public class AdjudicationServiceTest {
     }
 
     @isTest
-    static void test_adjudication_strategy() {
-        AdjudicationStrategy strategy = AdjudicationService.buildAdjudicationStrategy(null);
-        system.assert((Object) strategy instanceof AdjudicationStrategy);
-
-        strategy = AdjudicationService.buildAdjudicationStrategy('Criteria');
-        system.assert(strategy instanceof CriteriaBasedAdjudication);
-
-        strategy = AdjudicationService.buildAdjudicationStrategy('Apex');
-        system.assert(strategy instanceof ApexBasedAdjudication);
-    }
-
-    @isTest
     static void test_evaluate() {
-        AdjudicationService.ADJUDICATION_STRATEGY = new MockAdjudicationStrategy();
-        
-        Case saCase = queryCase('Test case 1');
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1'));
+        AdjudicationStrategyFactory.mockStrategy = new MockAdjudicationStrategy(sar);
                 
-        AdjudicationService.evaluate(saCase);
-        system.assertEquals('Mock strategy executed', saCase.Description);
+        AdjudicationService.evaluate(sar.saCase);
+        system.assertEquals('Mock strategy executed', sar.saCase.Subject);
         
-        AdjudicationService.evaluate(saCase.Id);
-        system.assertEquals('Mock strategy executed', saCase.Description);
+        AdjudicationService.evaluate(sar.saCase.Id);
+        system.assertEquals('Mock strategy executed', sar.saCase.Subject);
     }
 
     @isTest
     static void test_evaluate_set_owner() {
-        AdjudicationService.ADJUDICATION_STRATEGY = new MockAdjudicationStrategy();
-
         Drug__c drug = [select Id, OwnerId from Drug__c where Name = 'Drug 1' limit 1][0];
-        Case saCase = queryCase('Test case 1');
         
-        AdjudicationService.evaluate(saCase, true);
-        system.assertEquals(drug.OwnerId, saCase.OwnerId);
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1'));
+        AdjudicationStrategyFactory.mockStrategy = new MockAdjudicationStrategy(sar);
         
-        AdjudicationService.evaluate(saCase.Id, true);
-        system.assertEquals(drug.OwnerId, saCase.OwnerId);
+        AdjudicationService.evaluate(sar.saCase, true);
+        system.assertEquals(drug.OwnerId, sar.saCase.OwnerId);
+        
+        AdjudicationService.evaluate(sar.saCase.Id, true);
+        system.assertEquals(drug.OwnerId, sar.saCase.OwnerId);
     }
 
     private class MockAdjudicationStrategy extends AdjudicationStrategy {
-        public override void evaluate(SpecialAuthorityRequest sar) {
-            sar.saCase.Description = 'Mock strategy executed';
+        public MockAdjudicationStrategy(SpecialAuthorityRequest sar) {
+            super(sar);
+        }
+
+        public override void evaluate() {
+            sar.saCase.Subject = 'Mock strategy executed';
         }
     }
 
     private static Case queryCase(String subject) {
         return [
             select 
-                Id, RecordTypeId, Drug__c, ContactId, Provider__c, IsClosed
+                Id, RecordTypeId, Drug__c, ContactId, Provider__c, IsClosed, Subject
             from Case
             where Subject = :subject
             limit 1

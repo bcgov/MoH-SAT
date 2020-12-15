@@ -28,6 +28,14 @@ public class AdjudicationCriteriaTest {
     }
 
     @isTest
+    static void test_null_safe_request_detail_question_id() {
+        AdjudicationCriteria ac = new AdjudicationCriteria(TestFactory.newCriteria('Request_Detail__c', 'String_Value__c', 'data.diagnosis', 'equals', 'gerd'));
+        Request_Detail__c record = new Request_Detail__c();
+        record.Question_ID__c = null;
+        system.assertEquals(false, ac.set(record).evaluate());
+    }
+
+    @isTest
     static void test_string_equals() {
         AdjudicationCriteria ac = new AdjudicationCriteria(TestFactory.newCriteria('Case', 'Origin', null, 'equals', 'Fax'));
         Case record = new Case();

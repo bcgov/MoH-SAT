@@ -1,16 +1,67 @@
-public virtual class AdjudicationStrategy {
+public virtual with sharing class AdjudicationStrategy {
 
-    public AdjudicationStrategy() {
+    public SpecialAuthorityRequest sar { get; private set; }
+
+    public Drug__c drug { get; private set; }
+
+    public AdjudicationStrategy(SpecialAuthorityRequest sar) {
+        this.sar = sar;
+        this.drug = sar.hasDrug() ? queryDrug(sar.drug.Id) : null;
     }
 
-    public virtual void runEvaluate(SpecialAuthorityRequest sar) {
-        if (sar.drug == null || sar.saCase.isClosed) return;
+    public virtual void runEvaluate() {
+        if (this.drug == null || sar.saCase.isClosed) return;
         
-        evaluate(sar);
+        handleBeforeEvaluation();
+        evaluate();
+        handleAfterEvaluation();
     }
 
-    public virtual void evaluate(SpecialAuthorityRequest sar) {
-        system.debug('default strategy');
-        return;
+    /**
+     * Base handler for events that execute before adjudication evaluation. 
+     */
+    public virtual void handleBeforeEvaluation() {
+        runAction(drug.Auto_Run_Apex__c);
+
+        onBeforeEvaluate();
+    }
+    
+    private void runAction(String className) {
+        if (String.isBlank(className)) return;
+
+        Type actionType = Type.forName(className);
+        
+        if (actionType != null) {
+            AdjudicationAction action = (AdjudicationAction) actionType.newInstance();
+            
+            action.execute(sar);
+        }
+    }
+
+    /**
+     * Base handler for events that execute after adjudication evaluation. 
+     */
+    public virtual void handleAfterEvaluation() {
+        onAfterEvaluate();
+    }
+
+    public virtual void onBeforeEvaluate() {} 
+    
+    public virtual void onAfterEvaluate() {}
+
+    public virtual void evaluate() {}
+
+    private Drug__c queryDrug(Id drugId) {
+        return [
+            select Id, Auto_Run_Apex__c, Criteria_Logic__c, (
+                select 
+                    Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
+                    String_Value__c, Boolean_Value__c, Decimal_Value__c, Date_Value__c, Datetime_Value__c
+                    from Adjudication_Criteria__r
+                    order by Order__c asc 
+            )            
+            from Drug__c 
+            where Id = :drugId
+        ];
     }
 }
