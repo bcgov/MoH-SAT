@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>49.0</apiVersion>
     <decisions>
         <name>isChangedDecision4_myRule_3_Verbal_Order_c</name>
         <label>isChangedDecision4_myRule_3_Verbal_Order_c</label>
@@ -235,6 +236,7 @@
         <connector>
             <targetReference>myDecision2</targetReference>
         </connector>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>
@@ -315,6 +317,7 @@
         <label>Set Priority to High</label>
         <locationX>300</locationX>
         <locationY>200</locationY>
+        <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
                 <name>implicit</name>
