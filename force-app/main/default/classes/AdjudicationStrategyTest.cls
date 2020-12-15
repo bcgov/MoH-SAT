@@ -13,7 +13,7 @@ public class AdjudicationStrategyTest {
     @isTest
     static void test_run_mock_action() {
         Drug__c drug = queryDrug('Drug 1');
-        drug.Auto_Run_Apex__c = 'AdjudicationStrategyTest.MockAdjudicationAction';
+        drug.Pre_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAdjudicationAction';
         update drug;
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
@@ -23,7 +23,7 @@ public class AdjudicationStrategyTest {
     }
 
     private static Drug__c queryDrug(String name) {
-        return [select Id, Name, Auto_Run_Apex__c from Drug__c where Name = :name limit 1][0];
+        return [select Id, Name, Pre_Adjudication_Apex__c from Drug__c where Name = :name limit 1][0];
     }
 
     private static Case queryCase(String subject) {
