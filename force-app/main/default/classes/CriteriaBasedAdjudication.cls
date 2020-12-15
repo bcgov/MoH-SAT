@@ -4,10 +4,6 @@ public with sharing class CriteriaBasedAdjudication extends AdjudicationStrategy
         super(sar);
     }
 
-    public override void onBeforeEvaluate() {
-
-    }
-
     public override void evaluate() {
         Map<Integer, AdjudicationCriteria> criteriaMap = buildAdjudicationCriteria();
 

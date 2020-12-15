@@ -66,7 +66,7 @@ public with sharing class SpecialAuthorityRequest {
     private static List<Case> query(List<Id> caseIds) {
         return [
             select 
-                Id, Origin, OwnerId, Priority, IsClosed, Status, 
+                Id, Origin, OwnerId, Priority, IsClosed, Status, Subject,
                 Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
 
                 Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId,

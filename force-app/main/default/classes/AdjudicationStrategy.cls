@@ -21,7 +21,21 @@ public virtual with sharing class AdjudicationStrategy {
      * Base handler for events that execute before adjudication evaluation. 
      */
     public virtual void handleBeforeEvaluation() {
+        runAction(drug.Auto_Run_Apex__c);
+
         onBeforeEvaluate();
+    }
+    
+    private void runAction(String className) {
+        if (String.isBlank(className)) return;
+
+        Type actionType = Type.forName(className);
+        
+        if (actionType != null) {
+            AdjudicationAction action = (AdjudicationAction) actionType.newInstance();
+            
+            action.execute(sar);
+        }
     }
 
     /**
@@ -31,22 +45,15 @@ public virtual with sharing class AdjudicationStrategy {
         onAfterEvaluate();
     }
 
-    public virtual void onBeforeEvaluate() {
-        system.debug('on before eval');
-    } 
+    public virtual void onBeforeEvaluate() {} 
     
-    public virtual void onAfterEvaluate() {
-        system.debug('on after eval');
-    }
+    public virtual void onAfterEvaluate() {}
 
-    public virtual void evaluate() {
-        system.debug('default strategy');
-        return;
-    }
+    public virtual void evaluate() {}
 
     private Drug__c queryDrug(Id drugId) {
         return [
-            select Id, Criteria_Logic__c, (
+            select Id, Auto_Run_Apex__c, Criteria_Logic__c, (
                 select 
                     Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
                     String_Value__c, Boolean_Value__c, Decimal_Value__c, Date_Value__c, Datetime_Value__c
