@@ -2,6 +2,7 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>My_Cases</fullName>
     <columns>CASES.CASE_NUMBER</columns>
+    <columns>Patient_Identifier__c</columns>
     <columns>NAME</columns>
     <columns>Provider__c</columns>
     <columns>Drug_Name__c</columns>
@@ -12,6 +13,11 @@
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.Special_Authority_Request</value>
+    </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Approved,Not Approved</value>
     </filters>
     <label>My Cases</label>
 </ListView>
