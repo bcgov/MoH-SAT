@@ -24,7 +24,7 @@ export default class PatientPlanInformation extends LightningElement {
   connectedCallback() {
     fetchBenefits({recordId: this.recordId})
     .then(data => {
-      if (data) {
+      if (data && data.error == null) {
         console.log("PatientPlanInformation:", data);
 
         if (data.planEligibility && data.planEligibility.length > 0) {
@@ -36,12 +36,11 @@ export default class PatientPlanInformation extends LightningElement {
           this.completeAndNoResults = true;
         }
         this.loaded = true;
+      } else {
+        this.isError = true;
+        this.loaded = true;
+        this.error = data.error.errorMessage;
       }
-    })
-    .catch(error => {
-      this.isError = true;
-      this.loaded = true;
-      this.error = error.body.message;
     });
   }
 

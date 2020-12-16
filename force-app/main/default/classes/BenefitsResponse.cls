@@ -39,4 +39,5 @@ public class BenefitsResponse {
   @AuraEnabled public PlanIExpenditure planIExpenditure {get;set;}
 	@AuraEnabled public List<PlanEligibility> planEligibility {get;set;}
 	@AuraEnabled public RestrctedClaimant restrictedClaimant {get;set;}
+	@AuraEnabled public CalloutResponse error {get;set;}
 }
