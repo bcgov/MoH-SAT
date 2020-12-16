@@ -1,4 +1,5 @@
 public virtual with sharing class AdjudicationStrategy {
+    public class AdjudicationException extends Exception {}
 
     public SpecialAuthorityRequest sar { get; private set; }
 
@@ -21,7 +22,7 @@ public virtual with sharing class AdjudicationStrategy {
      * Base handler for events that execute before adjudication evaluation. 
      */
     public virtual void handleBeforeEvaluation() {
-        runAction(drug.Auto_Run_Apex__c);
+        runAction(drug.Pre_Adjudication_Apex__c);
 
         onBeforeEvaluate();
     }
@@ -32,9 +33,7 @@ public virtual with sharing class AdjudicationStrategy {
         Type actionType = Type.forName(className);
         
         if (actionType != null) {
-            AdjudicationAction action = (AdjudicationAction) actionType.newInstance();
-            
-            action.execute(sar);
+            ((AdjudicationAction) actionType.newInstance()).execute(sar);
         }
     }
 
@@ -42,6 +41,8 @@ public virtual with sharing class AdjudicationStrategy {
      * Base handler for events that execute after adjudication evaluation. 
      */
     public virtual void handleAfterEvaluation() {
+        runAction(drug.Post_Adjudication_Apex__c);
+
         onAfterEvaluate();
     }
 
@@ -53,7 +54,7 @@ public virtual with sharing class AdjudicationStrategy {
 
     private Drug__c queryDrug(Id drugId) {
         return [
-            select Id, Auto_Run_Apex__c, Criteria_Logic__c, (
+            select Id, Pre_Adjudication_Apex__c, Post_Adjudication_Apex__c, Criteria_Logic__c, (
                 select 
                     Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
                     String_Value__c, Boolean_Value__c, Decimal_Value__c, Date_Value__c, Datetime_Value__c
