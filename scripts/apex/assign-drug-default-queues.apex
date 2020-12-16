@@ -1,7 +1,7 @@
 Map<String, String> drugQueueMap = new Map<String, String>{
     'rabeprazole 10, 20 mg   NB4' => 'Regular',
     'pantoprazole Mg 40mg  NB4' => 'Regular',
-    'bupropion [Wellbutrin Type]' => 'Regular',
+    'bupropion [Wellbutrin Type]' => 'Urgent',
     'gliclazide 30mg & 60mg SR, 80mg' => 'Regular'
 };
 

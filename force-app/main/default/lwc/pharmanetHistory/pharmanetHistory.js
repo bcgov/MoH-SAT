@@ -87,7 +87,7 @@ export default class PharmanetHistory extends LightningElement {
   fetchItems() {
     fetchPrescriptionHistory({recordId: this.recordId, page: this.pageNumber, count: this.count})
     .then(data => {
-      if (data) {
+      if (data && data.error == null) {
         console.log("medHistory:", data.medHistory);
         const records = data.medHistory && data.medHistory.medRecords;
         this.totalRecords = data.medHistory && data.medHistory.totalRecords;
@@ -122,12 +122,11 @@ export default class PharmanetHistory extends LightningElement {
         }
         this.loaded = true;
         this.updatePageButtons();
+      } else {
+        this.isError = true;
+        this.loaded = true;
+        this.error = data.error.errorMessage;
       }
-    })
-    .catch(error => {
-      this.isError = true;
-      this.loaded = true;
-      this.error = error.body.message;
     });
   }
 }

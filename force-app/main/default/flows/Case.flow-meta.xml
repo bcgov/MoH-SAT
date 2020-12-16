@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>50.0</apiVersion>
     <decisions>
         <name>isChangedDecision4_myRule_3_Verbal_Order_c</name>
         <label>isChangedDecision4_myRule_3_Verbal_Order_c</label>
@@ -177,7 +177,7 @@
             <label>Is Verbal Order?</label>
         </rules>
     </decisions>
-    <interviewLabel>Case-3_InterviewLabel</interviewLabel>
+    <interviewLabel>Case-2_InterviewLabel</interviewLabel>
     <label>Case</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -234,7 +234,7 @@
         <locationX>100</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision2</targetReference>
+            <targetReference>myRule_1_A2</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -284,6 +284,90 @@
             <field>Drug_Name__c</field>
             <value>
                 <elementReference>myVariable_current.Drug__r.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Case]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>Set SA Type</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
+        <connector>
+            <targetReference>myDecision2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>Picklist</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>SA Type</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue/>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>SA_Type__c</field>
+            <value>
+                <elementReference>myVariable_current.Drug__r.Default_SA_Type__c</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
