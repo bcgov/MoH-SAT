@@ -69,5 +69,5 @@ public class PrescriptionHistoryResponse {
 	@AuraEnabled public String requestUUID {get;set;}
 	@AuraEnabled public MedHistory medHistory {get;set;}
 	@AuraEnabled public List<AdverseReactions> adverseReactions {get;set;}
-	@AuraEnabled public String error {get;set;}
+	@AuraEnabled public CalloutResponse error {get;set;}
 }
