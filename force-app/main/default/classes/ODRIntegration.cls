@@ -20,6 +20,20 @@ public with sharing class ODRIntegration {
         return true;
     }
 
+    @AuraEnabled(cacheable=true)
+    public static PatientInformation verifyPatientInformation(Id recordId) {
+        Case c = [select Id, Patient_Date_of_Birth__c, contact.patient_identifier__c ,contact.name FROM case WHERE Id =:recordId];
+
+        PatientInformation p = new PatientInformation();
+        p.name = c.contact.name;
+        p.phn = c.contact.patient_identifier__c;
+        p.verified = true;
+        p.verifiedDate = Datetime.now();
+        p.dob = c.Patient_Date_of_Birth__c;
+
+        return p;
+    }
+
     private static void updateCasePHNStatus(Id recordId, Boolean value) {
         Case caseToUpdate = [select Id, patient_validated__c FROM case WHERE Id =:recordId];
         caseToUpdate.patient_validated__c = value;
