@@ -42,6 +42,26 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>decorate</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value>&lt;p style=&quot;text-align: center;&quot;&gt;✅ &lt;b style=&quot;font-size: 14px; color: rgb(255, 0, 0);&quot;&gt;THE SELECTED DRUG IS ELIGIBLE FOR AUTO-ADJUDICATION &lt;/b&gt;✅&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;Reference the Auto-Adjudication Requirements in the Adjudication Information tab for more information&lt;/span&gt;&lt;/p&gt;</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Drug__r.Auto_Adjudicated__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Case.Id</value>
                 </componentInstanceProperties>
