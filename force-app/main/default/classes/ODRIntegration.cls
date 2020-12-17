@@ -71,7 +71,12 @@ public with sharing class ODRIntegration {
         System.debug(saarObject);
 
         SAApprovalRequestResponse saarr;
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId, 'callout:ODR_Credentials/odr/sat/pnetsa/saApproval', null, 'POST', saarObject);
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+                                                                         null,
+                                                                         'POST',
+                                                                         saarObject,
+                                                                         '3A');
 
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
@@ -101,7 +106,12 @@ public with sharing class ODRIntegration {
         queryParams += '&phn=' + getPatientIdentifier(recordId);
         queryParams += '&userid=' + getUserIdentifier();
 
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId, 'callout:ODR_Credentials/odr/sat/pnetsa/benefits', queryParams, 'GET', null);
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/benefits',
+                                                                         queryParams,
+                                                                         'GET',
+                                                                         null,
+                                                                         '2');
 
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
@@ -133,7 +143,12 @@ public with sharing class ODRIntegration {
         // TODO?
         // queryParams += '&startDate=2001-01-01';
         // queryParams += '&endDate=2020-01-01';
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId, 'callout:ODR_Credentials/odr/sat/pnetsa/medHistory', queryParams, 'GET', null);
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                         queryParams,
+                                                                         'GET',
+                                                                         null,
+                                                                         '1');
 
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
@@ -179,7 +194,12 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.substring(20);
     }
 
-    private static CalloutResponse sendRequestAndReturnBody(Id recordId, String endpoint, String queryParams, String method, String methodBody) {
+    private static CalloutResponse sendRequestAndReturnBody(Id recordId,
+                                                            String endpoint,
+                                                            String queryParams,
+                                                            String method,
+                                                            String methodBody,
+                                                            String integrationName) {
         System.debug('SRARB:' + recordId + endpoint);
         String uri = endpoint;
         if (queryParams != null) {
@@ -207,14 +227,20 @@ public with sharing class ODRIntegration {
                 // Log here
                 System.debug(resObject.response);
                 List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
-                loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode, message__c='Success', caseId__c=recordId));
+                loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
+                                                       message__c='Success',
+                                                       caseId__c=recordId,
+                                                       type__c=integrationName));
                 EventBus.publish(loggingEvents);
                 return resObject;
             } else {
                 resObject.errorMessage = 'API Error';
 
                 List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
-                loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode, message__c=resObject.errorMessage, caseId__c=recordId));
+                loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
+                                                       message__c=resObject.errorMessage,
+                                                       caseId__c=recordId,
+                                                       type__c=integrationName));
                 EventBus.publish(loggingEvents);
                 System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
             }
@@ -223,7 +249,10 @@ public with sharing class ODRIntegration {
             resObject.errorMessage = e.getMessage();
 
             List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
-            loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode, message__c=resObject.errorMessage, caseId__c=recordId));
+            loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
+                                                   message__c=resObject.errorMessage,
+                                                   caseId__c=recordId,
+                                                   type__c=integrationName));
             EventBus.publish(loggingEvents);
             System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
         }
