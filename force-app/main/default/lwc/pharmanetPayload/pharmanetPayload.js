@@ -19,13 +19,12 @@ export default class PharmanetPayload extends LightningElement {
         if (data) {
           console.log("PharmanetPayload:", data);
           this.data = data;
-          this.loaded = true;
         }
       } else {
         this.isError = true;
-        this.loaded = true;
         this.error = data.error.errorMessage;
       }
+      this.loaded = true;
     })
   }
 
