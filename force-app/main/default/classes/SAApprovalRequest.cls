@@ -9,8 +9,8 @@ public class SAApprovalRequest {
     }
 
     public class SARequester {
-        @AuraEnabled public String pracIdRef {get;set;}
-        @AuraEnabled public String pracId {get;set;}
+        @AuraEnabled public String practIdRef {get;set;}
+        @AuraEnabled public String practId {get;set;}
     }
 
     public class SpecialItem {

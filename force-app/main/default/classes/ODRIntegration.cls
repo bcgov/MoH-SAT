@@ -81,8 +81,8 @@ public with sharing class ODRIntegration {
         sarBody.saRecord.specAuthType = 'B'; // Special Auth Type: B,L,R
         sarBody.saRecord.justificationCodes.add('D'); // D or R
         sarBody.saRecord.excludedPlans.add('B'); // ['B','C','CN','D',]
-        sarBody.saRecord.saRequester.pracIdRef = '91'; // 91
-        sarBody.saRecord.saRequester.pracId = '12345'; // 12345
+        sarBody.saRecord.saRequester.practIdRef = '91'; // 91
+        sarBody.saRecord.saRequester.practId = '12345'; // 12345
         sarBody.saRecord.effectiveDate = '3000/01/01'; // Effective Date 3000/01/01
         sarBody.saRecord.terminationDate = '3000/01/01'; // Termination Date 3000/01/01
         sarBody.saRecord.maxDaysSupply = 999; // 999
@@ -265,11 +265,22 @@ public with sharing class ODRIntegration {
                 return resObject;
             } else {
                 System.debug('*********************************************');
+                System.debug(resObject.response);
 
                 ODRErrorResponse errResp = (ODRErrorResponse) JSON.deserialize(resObject.response, ODRErrorResponse.class);
+                ODRBusinessErrorResponse businessErrorResp = (ODRBusinessErrorResponse) JSON.deserialize(resObject.response, ODRBusinessErrorResponse.class);
+
+                System.debug(businessErrorResp);
+
+                if (businessErrorResp.status == '-1') {
+                    // business error
+                    resObject.errorMessage = 'Error: ' + businessErrorResp.statusMessage;
+                } else {
+                    // Oracle error
+                    resObject.errorMessage = 'API Error: ' + errResp.message;
+                }
 
                 System.debug(errResp);
-                resObject.errorMessage = 'API Error: ' + errResp.message;
 
                 List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
                 loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
