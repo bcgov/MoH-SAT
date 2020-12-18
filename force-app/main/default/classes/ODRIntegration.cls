@@ -63,22 +63,39 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
-    public static SAApprovalRequestResponse postSAApproval(Id recordId) {
-        System.debug('postSAApproval');
-
+    public static SAApprovalRequest getSAApprovalRequest(Id recordId) {
         // Send SA Approval into Pharmanet
         SAApprovalRequest sarBody = new SAApprovalRequest();
         sarBody.requestUUID = getUUIDString();
         sarBody.clientName = 'SpecAuth';
-        sarBody.userid = getUserIdentifier();
+        sarBody.userid = 'SALESFORCE';//getUserIdentifier();
+        sarBody.saRecord.phn = getPatientIdentifier(recordId);
+        System.debug('SAR');
+        System.debug(sarBody);
 
-        // SA Unique Identifier
-        sarBody.phn = getPatientIdentifier(recordId); // PHN
-        // sarBody.authType = // Auth Type  TBD? API Doc says required, but N/A?
-        // sarBody.specialItem = // DIN or RDP Cat/Subcat, but we don't know the web service parameter.. says N/A
-        // sarBody.specialType = // D or R
-        // sarBody.effectiveDate = // Effective Date 3000/01/01
-        // sarBody.typeSA = // Special Auth Type: B,L,R
+        if (true) {
+            sarBody.saRecord.specialItem.din = '98789';
+        } else {
+            sarBody.saRecord.specialItem.rdp = '99010146';
+        }
+        sarBody.saRecord.specAuthType = 'B'; // Special Auth Type: B,L,R
+        sarBody.saRecord.justificationCodes.add('D'); // D or R
+        sarBody.saRecord.excludedPlans.add('B'); // ['B','C','CN','D',]
+        sarBody.saRecord.saRequester.pracIdRef = '91'; // 91
+        sarBody.saRecord.saRequester.pracId = '12345'; // 12345
+        sarBody.saRecord.effectiveDate = '3000/01/01'; // Effective Date 3000/01/01
+        sarBody.saRecord.terminationDate = '3000/01/01'; // Termination Date 3000/01/01
+        sarBody.saRecord.maxDaysSupply = 999; // 999
+        sarBody.saRecord.maxPricePct = 100.0; // 100.0
+
+        return sarBody;
+    }
+
+    @AuraEnabled
+    public static SAApprovalRequestResponse postSAApproval(Id recordId) {
+        System.debug('postSAApproval');
+
+        SAApprovalRequest sarBody = getSAApprovalRequest(recordId);
 
         String saarObject = JSON.serialize(sarBody);
         System.debug('saarObject');
@@ -224,7 +241,6 @@ public with sharing class ODRIntegration {
         req.setHeader('Content-Type','application/json');
         req.setEndpoint(uri);
         req.setMethod(method);
-        req.setCompressed(true);
         
         // If post, construct postBody
         if (method == 'POST') {
@@ -248,6 +264,8 @@ public with sharing class ODRIntegration {
                 EventBus.publish(loggingEvents);
                 return resObject;
             } else {
+                System.debug('*********************************************');
+                System.debug(resObject.response);
                 resObject.errorMessage = 'API Error';
 
                 List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();

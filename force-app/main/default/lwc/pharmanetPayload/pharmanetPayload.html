@@ -1,0 +1,28 @@
+<template>
+  <lightning-card if:true={loaded}>
+    <h3 slot="title">
+        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+        &nbsp;Payload
+    </h3>
+    <div class="slds-p-left_small">
+      <p><strong>PHN: </strong>{data.saRecord.phn}</p>
+      <p><strong>Special Item (DIN): </strong>{data.saRecord.specialItem.din}</p>
+      <p><strong>Special Item (RDP): </strong>{data.saRecord.specialItem.rdp}</p>
+      <p><strong>Auth Type: </strong>{data.saRecord.specAuthType}</p>
+      <p><strong>Justification Code: </strong>{data.saRecord.justificationCodes}</p>
+      <p><strong>Excluded Plans: </strong>{data.saRecord.excludedPlans}</p>
+      <p><strong>Practitioner ID: </strong>{data.saRecord.saRequester.pracId}</p>
+      <p><strong>Practitioner ID Ref: </strong>{data.saRecord.saRequester.pracIdRef}</p>
+      <p><strong>Effective Date: </strong>{data.saRecord.effectiveDate}</p>
+      <p><strong>Termination Date: </strong>{data.saRecord.terminationDate}</p>
+      <p><strong>Max Days Supply: </strong>{data.saRecord.maxDaysSupply}</p>
+      <p><strong>Max Price Pct: </strong>{data.saRecord.maxPricePct}</p>
+    </div>
+    <!-- Simulates this record to be approved in the ODR -->
+    <h3 slot="title">
+      <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+        &nbsp;Submit Payload To Pharmanet
+    </h3>
+    <lightning-button label="Submit" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+</lightning-card>
+</template>
