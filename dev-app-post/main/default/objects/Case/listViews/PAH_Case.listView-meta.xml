@@ -6,9 +6,15 @@
     <columns>Provider__c</columns>
     <columns>Drug_Name__c</columns>
     <columns>CASES.STATUS</columns>
+    <columns>External_Committee__c</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Special_Authority_Request</value>
+    </filters>
     <label>PAH Queue</label>
     <queue>PAH</queue>
     <sharedTo>
