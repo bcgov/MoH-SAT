@@ -8,14 +8,12 @@
   </lightning-card>
   &nbsp;
 
-  <template if:true={hasBenefits}>
-    <lightning-datatable
-      key-field="authorityCode"
-      hide-checkbox-column
-      data={benefitPlans}
-      columns={columns}>
-    </lightning-datatable>
-  </template>
+  <lightning-datatable
+    key-field="authorityCode"
+    hide-checkbox-column
+    data={benefitPlans}
+    columns={columns}>
+  </lightning-datatable>
 
   <lightning-card if:true={completeAndNoResults}>
       <div class="slds-text-align_center">

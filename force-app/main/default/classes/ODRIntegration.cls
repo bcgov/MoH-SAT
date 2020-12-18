@@ -265,8 +265,11 @@ public with sharing class ODRIntegration {
                 return resObject;
             } else {
                 System.debug('*********************************************');
-                System.debug(resObject.response);
-                resObject.errorMessage = 'API Error';
+
+                ODRErrorResponse errResp = (ODRErrorResponse) JSON.deserialize(resObject.response, ODRErrorResponse.class);
+
+                System.debug(errResp);
+                resObject.errorMessage = 'API Error: ' + errResp.message;
 
                 List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
                 loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,

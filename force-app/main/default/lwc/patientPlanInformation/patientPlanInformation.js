@@ -1,5 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import fetchBenefits from '@salesforce/apex/ODRIntegration.fetchBenefits';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
   { label: 'Code', initialWidth: 80, fieldName: 'authorityCode', initialWidth: 60, hideDefaultActions: true },
@@ -39,6 +40,11 @@ export default class PatientPlanInformation extends LightningElement {
         this.isError = true;
         this.loaded = true;
         this.error = data.error.errorMessage;
+        const event = new ShowToastEvent({
+          title: 'Pharmanet Error',
+          message: data.error.errorMessage
+        });
+        this.dispatchEvent(event);
       }
     });
   }
