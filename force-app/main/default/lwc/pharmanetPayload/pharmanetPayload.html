@@ -2,7 +2,7 @@
   <lightning-card if:true={loaded}>
     <h3 slot="title">
         <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
-        &nbsp;Payload
+        &nbsp;Pharmanet Payload
     </h3>
     <div class="slds-p-left_small">
       <p><strong>PHN: </strong>{data.saRecord.phn}</p>
@@ -19,10 +19,6 @@
       <p><strong>Max Price Pct: </strong>{data.saRecord.maxPricePct}</p>
     </div>
     <!-- Simulates this record to be approved in the ODR -->
-    <h3 slot="title">
-      <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
-        &nbsp;Submit Payload To Pharmanet
-    </h3>
     <lightning-button label="Submit" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
 </lightning-card>
 </template>
