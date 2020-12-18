@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import fetchPrescriptionHistory from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistory';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
   { label: 'Pharmacy', fieldName: 'dispensingPharmacyName', type: 'text',  initialWidth: 120, hideDefaultActions: true },
@@ -126,6 +127,11 @@ export default class PharmanetHistory extends LightningElement {
         this.isError = true;
         this.loaded = true;
         this.error = data.error.errorMessage;
+        const event = new ShowToastEvent({
+          title: 'Pharmanet Error',
+          message: data.error.errorMessage
+        });
+        this.dispatchEvent(event);
       }
     });
   }
