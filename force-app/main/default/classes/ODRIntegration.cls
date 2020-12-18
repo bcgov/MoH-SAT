@@ -64,12 +64,18 @@ public with sharing class ODRIntegration {
 
     @AuraEnabled
     public static SAApprovalRequest getSAApprovalRequest(Id recordId) {
+
+        Case c = [select Id, Termination_Date__c, Effective_Date__c, contact.patient_identifier__c ,contact.name FROM case WHERE Id =:recordId];
+        System.debug('---------------------------');
+        System.debug(c.Termination_Date__c);
+        System.debug(c.Effective_Date__c);
+
         // Send SA Approval into Pharmanet
         SAApprovalRequest sarBody = new SAApprovalRequest();
         sarBody.requestUUID = getUUIDString();
         sarBody.clientName = 'SpecAuth';
         sarBody.userid = 'SALESFORCE';//getUserIdentifier();
-        sarBody.saRecord.phn = getPatientIdentifier(recordId);
+        sarBody.saRecord.phn = c.contact.patient_identifier__c;
         System.debug('SAR');
         System.debug(sarBody);
 
@@ -83,8 +89,14 @@ public with sharing class ODRIntegration {
         sarBody.saRecord.excludedPlans.add('B'); // ['B','C','CN','D',]
         sarBody.saRecord.saRequester.practIdRef = '91'; // 91
         sarBody.saRecord.saRequester.practId = '12345'; // 12345
-        sarBody.saRecord.effectiveDate = '3000/01/01'; // Effective Date 3000/01/01
-        sarBody.saRecord.terminationDate = '3000/01/01'; // Termination Date 3000/01/01
+        if (c.Effective_Date__c != null) {
+            String effectiveDate = c.Effective_Date__c.year() + '' + c.Effective_Date__c.month() + '' + c.Effective_Date__c.day();
+            sarBody.saRecord.effectiveDate = effectiveDate; // Effective Date 3000/01/01
+        }
+        if (c.Termination_Date__c != null) {
+            String terminationDate = c.Termination_Date__c.year() + '' + c.Termination_Date__c.month() + '' + c.Termination_Date__c.day();
+            sarBody.saRecord.terminationDate = terminationDate; // Termination Date 3000/01/01
+        }
         sarBody.saRecord.maxDaysSupply = 999; // 999
         sarBody.saRecord.maxPricePct = 100.0; // 100.0
 
