@@ -30,10 +30,3 @@ jobs:
 
     - name: Install Package
       run: node_modules/sfdx-cli/bin/run force:package:install --package "${{ github.event.inputs.package }}" -u ${{ secrets.SALESFORCE_STAGING_USERNAME }} --noprompt --wait 10
-
-    - name: Setup Org
-      run: |
-        node_modules/sfdx-cli/bin/run force:user:permset:assign -u STAGING -n SA_Administrator
-        node_modules/sfdx-cli/bin/run force:apex:execute -u STAGING -f scripts/apex/set-user-role.apex
-        node_modules/sfdx-cli/bin/run force:apex:execute -u STAGING -f scripts/apex/assign-cases-to-queue.apex
-        node_modules/sfdx-cli/bin/run force:apex:execute -u STAGING -f scripts/apex/add-form-questions.apex
