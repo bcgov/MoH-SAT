@@ -1,4 +1,4 @@
-name: Package Install QA
+name: Package Install STAGING
 on: 
   workflow_dispatch:
     inputs:
@@ -24,12 +24,12 @@ jobs:
     - name: Authenticate DevHub
       run: |
         echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
-        node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_STAGING_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_STAGING_USERNAME}} --setdefaultdevhubusername --setalias STAGING --instanceurl $SALESFORCE_SANDBOX_URL
+        node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_STAGING_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_STAGING_USERNAME}} --setdefaultdevhubusername --setalias STAGING --instanceurl ${{ SALESFORCE_SANDBOX_URL }}
       env:
         SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
 
     - name: Install Package
-      run: node_modules/sfdx-cli/bin/run force:package:install --package ${{ github.event.inputs.package }}"
+      run: node_modules/sfdx-cli/bin/run force:package:install --package "${{ github.event.inputs.package }}"
 
     - name: Setup Org
       run: |
