@@ -65,11 +65,10 @@ public with sharing class ODRIntegration {
     @AuraEnabled
     public static SAApprovalRequest getSAApprovalRequest(Id recordId) {
 
-        Case c = [select Id, Termination_Date__c, Effective_Date__c, contact.patient_identifier__c ,contact.name FROM case WHERE Id =:recordId];
+        Case c = [select Id, Drug__r.Pharmanet_Code__c, Provider__r.Provider_Type__c, SA_Type__c, Termination_Date__c, Effective_Date__c, contact.patient_identifier__c, contact.name FROM case WHERE Id =:recordId];
         System.debug('---------------------------');
         System.debug(c.Termination_Date__c);
         System.debug(c.Effective_Date__c);
-
         // Send SA Approval into Pharmanet
         SAApprovalRequest sarBody = new SAApprovalRequest();
         sarBody.requestUUID = getUUIDString();
@@ -79,28 +78,38 @@ public with sharing class ODRIntegration {
         System.debug('SAR');
         System.debug(sarBody);
 
-        if (true) {
-            sarBody.saRecord.specialItem.din = '98789';
-        } else {
-            sarBody.saRecord.specialItem.rdp = '99010146';
-        }
-        sarBody.saRecord.specAuthType = 'B'; // Special Auth Type: B,L,R
-        sarBody.saRecord.justificationCodes.add('D'); // D or R
+        // sarBody.saRecord.specialItem.din = '98789';
+        // Drug__r.Pharmanet_Code__c for supercode
+        sarBody.saRecord.specialItem.rdp = c.Drug__r.Pharmanet_Code__c.replaceAll('[^0-9]+', ''); //'99010146';
+
+        // contact.account.Provider_Type__c to 2 digit prac_id_ref
+        String practId = '12345';
+        String practIdRef = '91'; // Maps to picklist type. TODO convert to appropriate.  if contact.account.Provider_Type__c == "Physician" then return 91.. etc.
+
+        sarBody.saRecord.specAuthType = c.SA_Type__c; // Special Auth Type: B,L,R
+        sarBody.saRecord.justificationCodes.add('R'); // D or R
         sarBody.saRecord.excludedPlans.add('B'); // ['B','C','CN','D',]
-        sarBody.saRecord.saRequester.practIdRef = '91'; // 91
-        sarBody.saRecord.saRequester.practId = '12345'; // 12345
+        sarBody.saRecord.saRequester.practIdRef = practIdRef; // 91
+        sarBody.saRecord.saRequester.practId = practId; // 12345
         if (c.Effective_Date__c != null) {
-            String effectiveDate = c.Effective_Date__c.year() + '' + c.Effective_Date__c.month() + '' + c.Effective_Date__c.day();
-            sarBody.saRecord.effectiveDate = effectiveDate; // Effective Date 3000/01/01
+            sarBody.saRecord.effectiveDate = formatToODRDate(c.Effective_Date__c); // Effective Date 3000/01/01
         }
         if (c.Termination_Date__c != null) {
-            String terminationDate = c.Termination_Date__c.year() + '' + c.Termination_Date__c.month() + '' + c.Termination_Date__c.day();
-            sarBody.saRecord.terminationDate = terminationDate; // Termination Date 3000/01/01
+            sarBody.saRecord.terminationDate = formatToODRDate(c.Termination_Date__c); // Termination Date 3000/01/01
         }
         sarBody.saRecord.maxDaysSupply = 999; // 999
         sarBody.saRecord.maxPricePct = 100.0; // 100.0
 
         return sarBody;
+    }
+
+    // Formats a date in what the ODR wants.
+    private static String formatToODRDate(Date dateItem) {
+        Date d = dateItem;
+        Datetime dt = Datetime.newInstance(d, Time.newInstance(0, 0, 0, 0));
+        String dateString = dt.format('yyyy/MM/dd');
+        System.debug(dateString);
+        return dateString;
     }
 
     @AuraEnabled
