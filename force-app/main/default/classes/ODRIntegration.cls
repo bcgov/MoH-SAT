@@ -43,23 +43,72 @@ public with sharing class ODRIntegration {
     @AuraEnabled(cacheable=true)
     public static Provider verifyCollegeInformation(Id recordId, String formData) {
         System.debug('verifyCollegeInformation');
-        String UUID = getUUIDString();
 
-        Boolean retValue = verifyCollegeData('TODO', formData);
+        GetPractitioner getPractitionerObject = new GetPractitioner();
+        getPractitionerObject.applicationUUID = getUUIDString();
+        // TODO: Spec says this, but they're not allowing it yet and will make the call 400
+        // even if it's good.
+        // getPractitionerObject.userid = 'SALESFORCE';//getUserIdentifier();
+        getPractitionerObject.programArea = 'SpecAuth';
 
-        // TODO: Verify name matches what is returned by the ODR
-        Provider p = new Provider();
-        p.name = 'Provider Name';
-        p.collegeNumber = '4G3Q0';
-        p.phoneNumber = '+12505555555';
-        p.faxNumber = '+12505555555';
-        p.verified = true;
+        // TODO: De-hardcode
+        getPractitionerObject.licenceNumber = '0A0P1';
+        getPractitionerObject.collegeReferenceId = '91';
+
+
+        String saarObject = JSON.serialize(getPractitionerObject);
+
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                         'callout:ODR_Credentials/primesvc/getPractitioner',
+                                                                         null,
+                                                                         'POST',
+                                                                         saarObject,
+                                                                         '4');
+        Provider p = null;
+        if (calloutResponseObject.errorCode != 200) {
+            // ERROR
+            System.debug('*******************xxx');
+            System.debug(calloutResponseObject.errorCode);
+            // saarr = new SAApprovalRequestResponse();
+            // saarr.error = calloutResponseObject;
+            p = new Provider();
+            p.verified = false;
+        } else {
+            String resBody = calloutResponseObject.response;
+            System.debug('*******************');
+            System.debug(resBody);
+
+            // {
+            //     applicationUUID: "",
+            //     firstName: "",
+            //     middleInitial: "",
+            //     lastName: "",
+            //     dateofBirth: "",
+            //     status: "",
+            //     effectiveDate: "",
+            // }
+
+            // TODO: This should really be receiving an object, but using this for now as the API is returning
+            // an array instead of a list.
+            List<Provider> providers = (List<Provider>) JSON.deserialize(resBody, List<Provider>.class);
+            // Sometimes this is empty!
+            if (!providers.isEmpty()) {
+                p = providers[0];
+                if (p.status == 'P') {
+                    // Practising
+                    p.verified = true;
+                } else {
+                    p.verified = true;
+                }
+            } else {
+                // Invalid Provider
+                p = new Provider();
+                p.verified = false;
+            }
+
+        }
+        System.debug('saarr');
         return p;
-    }
-
-    public static Boolean verifyCollegeData(String odrData, String formData) {
-        // Validate what they sent and what we got from the DB
-        return true;
     }
 
     @AuraEnabled
@@ -80,13 +129,16 @@ public with sharing class ODRIntegration {
 
         // sarBody.saRecord.specialItem.din = '98789';
         // Drug__r.Pharmanet_Code__c for supercode
-        sarBody.saRecord.specialItem.rdp = c.Drug__r.Pharmanet_Code__c.replaceAll('[^0-9]+', ''); //'99010146';
+        // TODO: This isn't working OOTB
+        sarBody.saRecord.specialItem.rdp = '99010146'; //c.Drug__r.Pharmanet_Code__c.replaceAll('[^0-9]+', ''); 
 
         // contact.account.Provider_Type__c to 2 digit prac_id_ref
-        String practId = '12345';
+        // TODO: Calc on provider 
+        String practId = '0A0P1';
         String practIdRef = '91'; // Maps to picklist type. TODO convert to appropriate.  if contact.account.Provider_Type__c == "Physician" then return 91.. etc.
 
-        sarBody.saRecord.specAuthType = c.SA_Type__c; // Special Auth Type: B,L,R
+        // TODO: This isn't working OOTB
+        sarBody.saRecord.specAuthType = 'B';//c.SA_Type__c; // Special Auth Type: B,L,R
         sarBody.saRecord.justificationCodes.add('R'); // D or R
         sarBody.saRecord.excludedPlans.add('B'); // ['B','C','CN','D',]
         sarBody.saRecord.saRequester.practIdRef = practIdRef; // 91
@@ -117,6 +169,7 @@ public with sharing class ODRIntegration {
         System.debug('postSAApproval');
 
         SAApprovalRequest sarBody = getSAApprovalRequest(recordId);
+
 
         String saarObject = JSON.serialize(sarBody);
         System.debug('saarObject');
@@ -274,7 +327,8 @@ public with sharing class ODRIntegration {
             resObject.response = res.getBody();
 
             resObject.errorCode = res.getStatusCode();
-            if (resObject.errorCode == 200) {
+            if (resObject.errorCode == 200
+                || resObject.errorCode == 201) {
                 // Log here
                 System.debug(resObject.response);
                 List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
@@ -288,28 +342,40 @@ public with sharing class ODRIntegration {
                 System.debug('*********************************************');
                 System.debug(resObject.response);
 
-                ODRErrorResponse errResp = (ODRErrorResponse) JSON.deserialize(resObject.response, ODRErrorResponse.class);
-                ODRBusinessErrorResponse businessErrorResp = (ODRBusinessErrorResponse) JSON.deserialize(resObject.response, ODRBusinessErrorResponse.class);
+                if (resObject.response != '') {
+                    ODRErrorResponse errResp = (ODRErrorResponse) JSON.deserialize(resObject.response, ODRErrorResponse.class);
+                    ODRBusinessErrorResponse businessErrorResp = (ODRBusinessErrorResponse) JSON.deserialize(resObject.response, ODRBusinessErrorResponse.class);
 
-                System.debug(businessErrorResp);
+                    System.debug(businessErrorResp);
 
-                if (businessErrorResp.status == '-1') {
-                    // business error
-                    resObject.errorMessage = 'Error: ' + businessErrorResp.statusMessage;
+                    if (businessErrorResp.status == '-1') {
+                        // business error
+                        resObject.errorMessage = 'Error: ' + businessErrorResp.statusMessage;
+                    } else {
+                        // Oracle error
+                        resObject.errorMessage = 'API Error: ' + errResp.message;
+                    }
+
+                    System.debug(errResp);
+
+                    List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+                    loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
+                                                        message__c=resObject.errorMessage,
+                                                        caseId__c=recordId,
+                                                        type__c=integrationName));
+                    EventBus.publish(loggingEvents);
+                    System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
                 } else {
-                    // Oracle error
-                    resObject.errorMessage = 'API Error: ' + errResp.message;
+                    // error, but no response
+                    resObject.errorMessage = 'Error in call, no response text given';
+                    System.debug('Error in call, no response text given.');
+                    List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+                    loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
+                                                        message__c=resObject.errorMessage,
+                                                        caseId__c=recordId,
+                                                        type__c=integrationName));
+                    EventBus.publish(loggingEvents);
                 }
-
-                System.debug(errResp);
-
-                List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
-                loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
-                                                       message__c=resObject.errorMessage,
-                                                       caseId__c=recordId,
-                                                       type__c=integrationName));
-                EventBus.publish(loggingEvents);
-                System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
             }
         } catch (CalloutException e) {
             resObject.errorCode = 500;
