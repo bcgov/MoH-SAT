@@ -273,104 +273,6 @@
         </value>
     </constants>
     <decisions>
-        <name>Auto_Adjudication</name>
-        <label>Auto Adjudication</label>
-        <locationX>578</locationX>
-        <locationY>5150</locationY>
-        <defaultConnector>
-            <targetReference>Thank_You_Screen</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>AA Criteria Not Met</defaultConnectorLabel>
-        <rules>
-            <name>Rabeprazole</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Rabeprazole_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.middleValue</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Rabeprazole_Creation</targetReference>
-            </connector>
-            <label>Rabeprazole</label>
-        </rules>
-        <rules>
-            <name>Pantoprazole_Magnesium</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Pantoprazole_Magnesium_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.middleValue</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Pantoprazole_Magnesium_Creation</targetReference>
-            </connector>
-            <label>Pantoprazole Magnesium</label>
-        </rules>
-        <rules>
-            <name>Bupropion</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Bupropion_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.middleValue</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Bupropion_Creation</targetReference>
-            </connector>
-            <label>Bupropion</label>
-        </rules>
-        <rules>
-            <name>Gliclazide</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Gliclazide_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.middleValue</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Gliclazide_Creation</targetReference>
-            </connector>
-            <label>Gliclazide</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Check_Active_SA_Requests_Decision</name>
         <label>Check Active SA Requests Decision</label>
         <locationX>578</locationX>
@@ -497,6 +399,76 @@
                 <targetReference>Create_New_Provider_Screen</targetReference>
             </connector>
             <label>Create Provider Record</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Request_Detail_Creation</name>
+        <label>Request Detail Creation</label>
+        <locationX>578</locationX>
+        <locationY>5150</locationY>
+        <defaultConnector>
+            <targetReference>Thank_You_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Other Drug</defaultConnectorLabel>
+        <rules>
+            <name>Rabeprazole</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Rabeprazole_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Rabeprazole_Creation</targetReference>
+            </connector>
+            <label>Rabeprazole</label>
+        </rules>
+        <rules>
+            <name>Pantoprazole_Magnesium</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Pantoprazole_Magnesium_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Pantoprazole_Magnesium_Creation</targetReference>
+            </connector>
+            <label>Pantoprazole Magnesium</label>
+        </rules>
+        <rules>
+            <name>Bupropion</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Bupropion_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Bupropion_Creation</targetReference>
+            </connector>
+            <label>Bupropion</label>
+        </rules>
+        <rules>
+            <name>Gliclazide</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Gliclazide_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Gliclazide_Creation</targetReference>
+            </connector>
+            <label>Gliclazide</label>
         </rules>
     </decisions>
     <decisions>
@@ -700,6 +672,12 @@
         <connector>
             <targetReference>Get_Final_Provider_ID</targetReference>
         </connector>
+        <inputAssignments>
+            <field>Fax</field>
+            <value>
+                <elementReference>Provider_Fax.value</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>FirstName</field>
             <value>
@@ -1016,7 +994,7 @@
         <locationX>578</locationX>
         <locationY>5030</locationY>
         <connector>
-            <targetReference>Auto_Adjudication</targetReference>
+            <targetReference>Request_Detail_Creation</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1125,7 +1103,7 @@
             <dataType>Date</dataType>
             <fieldText>Patient Date of Birth</fieldText>
             <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
+            <isRequired>false</isRequired>
         </fields>
         <fields>
             <name>Patient_Phone</name>
@@ -1198,6 +1176,19 @@
             <fieldText>Provider Date of Birth</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Provider_Fax</name>
+            <extensionName>flowruntime:phone</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Provider Fax</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
             <name>Provider_Phone</name>
@@ -1303,16 +1294,6 @@
                 </conditions>
             </visibilityRule>
         </fields>
-        <fields>
-            <name>Verbal_Order</name>
-            <dataType>Boolean</dataType>
-            <defaultValue>
-                <booleanValue>true</booleanValue>
-            </defaultValue>
-            <fieldText>Verbal Order</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -1363,7 +1344,7 @@
         </fields>
         <fields>
             <name>Provider_Summary</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Provider Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Provider Name: {!Get_Provider_Record.Name}&lt;/p&gt;&lt;p&gt;Provider Type: {!Get_Provider_Record.Provider_Type__c}&lt;/p&gt;&lt;p&gt;Provider Identifier: {!Get_Provider_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Provider Phone: {!Get_Provider_Record.Phone}&lt;/p&gt;&lt;p&gt;Provider Date of Birth: {!Get_Provider_Record.Birthdate}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Provider Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Provider Name: {!Get_Provider_Record.Name}&lt;/p&gt;&lt;p&gt;Provider Type: {!Get_Provider_Record.Provider_Type__c}&lt;/p&gt;&lt;p&gt;Provider Identifier: {!Get_Provider_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Provider Fax: {!Get_Provider_Record.Fax}&lt;/p&gt;&lt;p&gt;Provider Phone: {!Get_Provider_Record.Phone}&lt;/p&gt;&lt;p&gt;Provider Date of Birth: {!Get_Provider_Record.Birthdate}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -1575,6 +1556,12 @@
         </connector>
         <flowName>Buproprion_Creation</flowName>
         <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>SARequestId</name>
             <value>
                 <elementReference>Create_SA_Request</elementReference>
@@ -1697,6 +1684,12 @@
         </connector>
         <flowName>Glicazide_Creation</flowName>
         <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>SARequestId</name>
             <value>
                 <elementReference>Create_SA_Request</elementReference>
@@ -1719,6 +1712,12 @@
         </connector>
         <flowName>Pantoprazole_Magnesium_Creation</flowName>
         <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <name>SARequestId</name>
             <value>
                 <elementReference>Create_SA_Request</elementReference>
@@ -1740,6 +1739,12 @@
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
         <flowName>Rabeprazole_Creation</flowName>
+        <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <name>SARequestId</name>
             <value>
