@@ -1,0 +1,13 @@
+<template>
+  <lightning-card>
+    <lightning-combobox
+            name="progress"
+            label="PDF Template Selection"
+            value={value}
+            placeholder="Pick a template"
+            options={options}
+            onchange={handleChange} ></lightning-combobox>
+    <br>
+    <lightning-button disabled={isDisabled} label="Generate PDF" title="Non-primary action" onclick={generatePDF} class="slds-m-left_none"></lightning-button>
+  </lightning-card>
+</template>

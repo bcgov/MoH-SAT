@@ -1,0 +1,48 @@
+<div>
+  <img src="https://www2.gov.bc.ca/assets/gov/british-columbians-our-governments/services-policies-for-government/policies-procedures-standards/web-content-development-guides/corporate-identity-assets/visid-illustrations/visid_download_img_bcmark.png"> PharmaCare Contact Information
+  <p>
+  Response to Request for Special Authority Coverage <span style="color: #ff0000">received on date at time</span>
+  </p>
+  <table style="width: 100%;">
+	<tbody>
+		<tr>
+			<td>Provider Information</td>
+			<td>Patient Information</td>
+		</tr>
+    <tr>
+			<td>{!Case.Provider__c}</td>
+			<td>{!Case.Contact}</td>
+		</tr>
+    <tr>
+			<td>CPSID</td>
+			<td>PHN: {!Case.Patient_Identifier__c}, DOB: {!Case.Patient_Date_of_Birth__c}</td>
+		</tr>
+    <tr>
+			<td>Address Phone/Fax</td>
+			<td>Address</td>
+		</tr>
+	</tbody>
+  </table>
+  <p>
+  Medication requested
+  </p>
+  <p>
+  Subject: {!Case.Drug_Name__c}
+  </p>
+  <p>
+  Description: {!Case.Description}
+  </p>
+  <ul>
+  <li>Decision: {!Case.Status}</li>
+  <li>Effective date: {!Case.Effective_Date__c}</li>
+  <li>Termination date: {!Case.Termination_Date__c}</li>
+  <p>
+  Internal Comments: {!Case.Comments}
+  </p>
+  <p>
+  <span style="color: #ff0000">Response provided on <i>date</i> at time</span>
+  </p>
+  <p>
+  SF/SA User ID: {!User.Username}
+  </p>
+</div>
