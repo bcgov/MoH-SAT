@@ -232,7 +232,7 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
-    public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count) {
+    public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count, List<Integer> dinList) {
         System.debug('Fetch Data');
         System.debug(page);
         System.debug(count);
@@ -245,6 +245,10 @@ public with sharing class ODRIntegration {
         queryParams += '&phn=' + getPatientIdentifier(recordId);
         queryParams += '&pageSize=' + count;
         queryParams += '&pageNo=' + page;
+        if (dinList.size() > 0) {
+            queryParams += '&dinList=' + JSON.serialize(dinList);
+        }
+        System.debug(queryParams);
         // TODO?
         // queryParams += '&startDate=2001-01-01';
         // queryParams += '&endDate=2020-01-01';

@@ -28,6 +28,9 @@ export default class PharmanetHistory extends LightningElement {
   totalRecords = 0;
   pageNumber = 1;
   totalPages = 0;
+
+  // TODO: Populate via din list picker.
+  dinList = [];
   error = {};
   isError = false;
 
@@ -86,7 +89,7 @@ export default class PharmanetHistory extends LightningElement {
   }
 
   fetchItems() {
-    fetchPrescriptionHistory({recordId: this.recordId, page: this.pageNumber, count: this.count})
+    fetchPrescriptionHistory({recordId: this.recordId, page: this.pageNumber, count: this.count, dinList: this.dinList})
     .then(data => {
       if (data && data.error == null) {
         console.log("medHistory:", data.medHistory);
