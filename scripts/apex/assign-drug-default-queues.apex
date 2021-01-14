@@ -8,10 +8,10 @@ Map<String, String> drugQueueMap = new Map<String, String>{
     'losartan (ARBs)  NB4' => 'Regular',
     'losartan + hctz (ARBs)' => 'Regular',
     'telmisartan + hctz (ARBs)   NB4' => 'Regular',
-    'telmisartan 40,80 mg (ARBs)   NB4' => 'Regular',
+    'telmisartan 40,80 mg (ARBs)  NB4' => 'Regular',
     'telmisartan + amlodipine combo NB4   NB4' => 'Regular',
     'valsartan + hctz   NB4' => 'Regular',
-    'valsartan 40,80,160,320mg   NB4' => 'Regular'
+    'valsartan 40,80,160,320mg  NB4' => 'Regular'
 };
 
 Map<String, Group> queues = new Map<String, Group>();
