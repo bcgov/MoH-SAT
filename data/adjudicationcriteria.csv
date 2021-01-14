@@ -1,9 +1,19 @@
 Drug__r.Name,Order__c,Object_Name__c,Field_Name__c,Question_ID__c,Operator__c,String_Value__c,Decimal_Value__c,Datetime_Value__c,Date_Value__c,Boolean_Value__c
-"gliclazide 30mg & 60mg SR, 80mg",1,Case,Origin,,equals,eForm,,,,false
-"gliclazide 30mg & 60mg SR, 80mg",2,Request_Detail__c,String_Value__c,gliclazide.criteriaGliclazide,not equal to,other,,,,false
-pantoprazole Mg 40mg  NB4,1,Case,Origin,,equals,eForm,,,,false
-pantoprazole Mg 40mg  NB4,2,Request_Detail__c,String_Value__c,stLinePpIs.diagnosis,not equal to,other,,,,false
-"rabeprazole 10, 20 mg   NB4",1,Case,Origin,,equals,eForm,,,,false
-"rabeprazole 10, 20 mg   NB4",2,Request_Detail__c,String_Value__c,stLinePpIs.diagnosis,not equal to,other,,,,false
-bupropion [Wellbutrin Type],1,Case,Origin,,equals,eForm,,,,false
-bupropion [Wellbutrin Type],2,Request_Detail__c,String_Value__c,bupropionDepression.diagnosis,not equal to,other,,,,false
+"gliclazide 30mg & 60mg SR, 80mg",1,Case,Origin,,equals,eForm,,,,FALSE
+"gliclazide 30mg & 60mg SR, 80mg",2,Request_Detail__c,String_Value__c,gliclazide.criteriaGliclazide,not equal to,other,,,,FALSE
+pantoprazole Mg 40mg  NB4,1,Case,Origin,,equals,eForm,,,,FALSE
+pantoprazole Mg 40mg  NB4,2,Request_Detail__c,String_Value__c,stLinePpIs.diagnosis,not equal to,other,,,,FALSE
+"rabeprazole 10, 20 mg   NB4",1,Case,Origin,,equals,eForm,,,,FALSE
+"rabeprazole 10, 20 mg   NB4",2,Request_Detail__c,String_Value__c,stLinePpIs.diagnosis,not equal to,other,,,,FALSE
+bupropion [Wellbutrin Type],1,Case,Origin,,equals,eForm,,,,FALSE
+bupropion [Wellbutrin Type],2,Request_Detail__c,String_Value__c,bupropionDepression.diagnosis,not equal to,other,,,,FALSE
+candesartan + hctz 9901-0057 NB4+  NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+"candesartan 8,16,32mg  NB4",1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+losartan (ARBs)  NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+losartan + hctz (ARBs),1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+telmisartan + hctz (ARBs)   NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+"telmisartan 40,80 mg (ARBs)  NB4",1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+telmisartan + amlodipine combo NB4   NB4,1,Request_Detail__c,Boolean_Value__c,Twynsta.specialAuthorityCriteria.patientHasExperiencedIntractableCoughOrAngioedemaOnAnAngiotensinConvertingEnzymeInhibitorAceI,equals,,,,,TRUE
+telmisartan + amlodipine combo NB4   NB4,2,Request_Detail__c,Boolean_Value__c,Twynsta.specialAuthorityCriteria.patientIsCurrentlyTakingStableDosesOfBothTelmisartanAndAmlodipine,equals,,,,,TRUE
+valsartan + hctz   NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+"valsartan 40,80,160,320mg  NB4",1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
