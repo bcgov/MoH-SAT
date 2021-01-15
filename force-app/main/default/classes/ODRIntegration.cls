@@ -166,7 +166,7 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
-    public static SAApprovalRequestResponse postSAApproval(Id recordId) {
+    public static SAApprovalRequestResponse postSAApproval(Id recordId, Boolean dmlUpdate) {
         System.debug('postSAApproval');
 
         SAApprovalRequest sarBody = getSAApprovalRequest(recordId);
@@ -193,7 +193,10 @@ public with sharing class ODRIntegration {
             saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
             // Write the successful approval into the DB
             if (saarr.statusMessage == 'Success') {
-                updateCasePusedToPNet(recordId);
+                // Only store if DML param is true
+                if (dmlUpdate == true) {
+                    updateCasePusedToPNet(recordId);
+                }
             }
         }
         System.debug('saarr');
