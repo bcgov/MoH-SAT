@@ -68,7 +68,7 @@ public with sharing class SpecialAuthorityRequest {
             select 
                 Id, Origin, OwnerId, Priority, IsClosed, Status, Subject,
                 Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
-
+                Patient_Validated_Date__c, Patient_Identifier__c,
                 Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId,
                 
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
