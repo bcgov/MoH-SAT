@@ -367,6 +367,18 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>faxTemplateChooser</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IsClosed}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>lookupFieldName</name>
                     <value>Case.Drug__c</value>
@@ -387,12 +399,17 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>pharmanetPayload</componentName>
+                <componentName>providerInformation</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>faxTemplateChooser</componentName>
+                <componentName>patientInformation</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>pharmanetPayload</componentName>
             </componentInstance>
         </itemInstances>
         <name>Facet-b2455243-bc7f-4492-a6b6-d0ed88453aa4</name>
