@@ -30,7 +30,7 @@ export default class PharmanetPayload extends LightningElement {
 
   handleClick(event) {
     console.log("SA APPROVAL", this.recordId);
-    postSAApproval({recordId: this.recordId})
+    postSAApproval({recordId: this.recordId, dmlUpdate: true})
     .then(data => {
       if (data.error) {
         const event = new ShowToastEvent({
