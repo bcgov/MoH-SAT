@@ -21,9 +21,10 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled(cacheable=true)
-    public static PatientInformation verifyPatientInformation(Id recordId) {
+    public static PatientInformation verifyPatientInformation(Id recordId, Boolean dmlUpdate) {
         Case c = [select Id, Patient_Date_of_Birth__c, contact.patient_identifier__c ,contact.name FROM case WHERE Id =:recordId];
 
+        // TODO: de-harcode
         PatientInformation p = new PatientInformation();
         p.name = c.contact.name;
         p.phn = c.contact.patient_identifier__c;
@@ -41,7 +42,7 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled(cacheable=true)
-    public static Provider verifyCollegeInformation(Id recordId, String formData) {
+    public static Provider verifyCollegeInformation(Id recordId, Boolean dmlUpdate) {
         System.debug('verifyCollegeInformation');
 
         GetPractitioner getPractitionerObject = new GetPractitioner();
