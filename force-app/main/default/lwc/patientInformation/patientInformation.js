@@ -7,7 +7,7 @@ export default class PatientInformation extends LightningElement {
   loaded = false;
   data = null;
 
-  @wire(verifyPatientInformation, { recordId: '$recordId' }) mapObjectToData({error,data}) {
+  @wire(verifyPatientInformation, { recordId: '$recordId', dmlUpdate: false }) mapObjectToData({error,data}) {
     if (data) {
       console.log("PatientInformation:", data);
       this.data = data;
