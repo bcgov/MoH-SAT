@@ -1,9 +1,9 @@
-public abstract class SAPush implements AdjudicationAction {
+public class SAPush implements AdjudicationAction {
     public void execute(SpecialAuthorityRequest sar) {
 
         // TODO: Business rules
 
-        SAApprovalRequestResponse saarr = ODRIntegration.postSAApproval(sar.provider.Id, false);
+        SAApprovalRequestResponse saarr = ODRIntegration.postSAApproval(sar);
 
         if (saarr.error != null) {
             // Success
