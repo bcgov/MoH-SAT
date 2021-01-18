@@ -68,14 +68,15 @@ public with sharing class SpecialAuthorityRequest {
             select 
                 Id, Origin, OwnerId, Priority, IsClosed, Status, Subject,
                 Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
-                Patient_Validated_Date__c, Patient_Identifier__c,
-                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId,
+                Patient_Validated_Date__c, Patient_Identifier__c, Patient_Date_of_Birth__c,
+                Provider_Validated_Date__c, Termination_Date__c, Effective_Date__c, SA_Type__c,
+                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId, Drug__r.Pharmanet_Code__c,
                 
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
                 Contact.Account.PersonMailingState, Contact.Account.PersonMailingPostalCode, Contact.Account.PersonMailingCountry,
                 
-                Provider__r.Account.FirstName, Provider__r.Account.LastName, 
+                Provider__r.Account.FirstName, Provider__r.Account.LastName, Provider__r.Provider_Identifier__c,
                 Provider__r.Account.Provider_Identifier__pc, Provider__r.Account.Provider_Type__pc, 
                 Provider__r.Account.PersonBirthdate, Provider__r.Account.PersonMailingStreet, Provider__r.Account.PersonMailingCity,
                 Provider__r.Account.PersonMailingState, Provider__r.Account.PersonMailingPostalCode, Provider__r.Account.PersonMailingCountry,
