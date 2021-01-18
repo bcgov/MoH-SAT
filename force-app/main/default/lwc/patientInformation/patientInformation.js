@@ -1,5 +1,5 @@
 import { LightningElement, api, wire } from 'lwc';
-import verifyPatientInformation from '@salesforce/apex/ODRIntegration.verifyPatientInformation';
+import verifyPatientInformationx from '@salesforce/apex/ODRIntegration.verifyPatientInformationx';
 
 export default class PatientInformation extends LightningElement {
   @api recordId;
@@ -7,7 +7,7 @@ export default class PatientInformation extends LightningElement {
   loaded = false;
   data = null;
 
-  @wire(verifyPatientInformation, { recordId: '$recordId', dmlUpdate: false }) mapObjectToData({error,data}) {
+  @wire(verifyPatientInformationx, { recordId: '$recordId' }) mapObjectToData({error,data}) {
     if (data) {
       console.log("PatientInformation:", data);
       this.data = data;

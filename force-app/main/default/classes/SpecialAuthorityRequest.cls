@@ -30,6 +30,9 @@ public with sharing class SpecialAuthorityRequest {
         Account provider = saCase.Provider__c == null ? null : queryAccount(saCase.Provider__c);
         Drug__c drug = saCase.Drug__c == null ? null : queryDrug(saCase.Drug__c);
 
+        System.debug('+++++++++++++++++++++++++++++');
+        System.debug(drug.Drug_Templates__r);
+
         List<Request_Detail__c> requestDetails = saCase.Id == null ? new List<Request_Detail__c>() : queryRequestDetails(saCase.Id);
 
         return new SpecialAuthorityRequest(drug, patient, provider, saCase, requestDetails);
@@ -40,7 +43,7 @@ public with sharing class SpecialAuthorityRequest {
 
         for (Case sacase : query(caseIds)) {
             sars.add(new SpecialAuthorityRequest(
-                String.isBlank(saCase.Drug__c) ? null : saCase.Drug__r,
+                saCase.Drug__c == null ? null : queryDrug(saCase.Drug__c),
                 String.isBlank(saCase.ContactId) ? null : saCase.Contact.Account, 
                 String.isBlank(saCase.Provider__c) ? null : saCase.Provider__r.Account, 
                 saCase, 
@@ -71,13 +74,16 @@ public with sharing class SpecialAuthorityRequest {
                 Patient_Validated_Date__c, Patient_Identifier__c, Patient_Date_of_Birth__c,
                 Provider_Validated_Date__c, Termination_Date__c, Effective_Date__c, SA_Type__c,
                 Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId, Drug__r.Pharmanet_Code__c,
-                
+
+                // Drug_Templates__r.Days_Supply__c, Drug_Templates__r.Excluded_Plans__c, Drug_Templates__r.Justification_Codes__c,
+                // Drug_Templates__r.Key_Type__c, Drug_Templates__r.Price_Percent__c, Drug_Templates__r.SA_Type__c, Drug_Templates__r.Pharmanet_Code__c,
+
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
                 Contact.Account.PersonMailingState, Contact.Account.PersonMailingPostalCode, Contact.Account.PersonMailingCountry,
                 
-                Provider__r.Account.FirstName, Provider__r.Account.LastName, Provider__r.Provider_Identifier__c,
-                Provider__r.Account.Provider_Identifier__pc, Provider__r.Account.Provider_Type__pc, 
+                Provider__r.Account.FirstName, Provider__r.Account.LastName, Provider__r.Provider_Identifier__c, 
+                Provider__r.Account.Provider_Identifier__pc, Provider__r.Account.Provider_Type__pc, Provider__r.Provider_Type__c,
                 Provider__r.Account.PersonBirthdate, Provider__r.Account.PersonMailingStreet, Provider__r.Account.PersonMailingCity,
                 Provider__r.Account.PersonMailingState, Provider__r.Account.PersonMailingPostalCode, Provider__r.Account.PersonMailingCountry,
                 
@@ -104,7 +110,10 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     private static Drug__c queryDrug(Id drugId) {
-        return [select Id, Adjudication_Strategy__c, OwnerId from Drug__c where Id = :drugId];
+        return [select Id, Adjudication_Strategy__c, OwnerId,
+                    (select Id, Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, Key_Type__c, Pharmanet_Code__c,
+                    Price_Percent__c, SA_Type__c from Drug_Templates__r)
+                from Drug__c where Id = :drugId];
     }
 
     private static List<Request_Detail__c> queryRequestDetails(Id caseId) {

@@ -3,9 +3,9 @@ public class SAPush implements AdjudicationAction {
 
         // TODO: Business rules
 
-        SAApprovalRequestResponse saarr = ODRIntegration.postSAApproval(sar);
+        Boolean boolean_success = ODRIntegration.postSAApproval(sar);
 
-        if (saarr.error != null) {
+        if (boolean_success) {
             // Success
             sar.saCase.Pushed_to_Pnet__c = true;
             sar.saCase.Pushed_to_Pnet_Date__c = DateTime.now();
