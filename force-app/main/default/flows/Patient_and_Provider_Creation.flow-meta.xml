@@ -705,6 +705,14 @@
         <picklistField>Provider_Type__c</picklistField>
         <picklistObject>Contact</picklistObject>
     </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>Request_Type_Picklist</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Request_Type__c</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
     <interviewLabel>Patient and Provider Creation {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Patient and Provider Creation</label>
     <loops>
@@ -953,6 +961,12 @@
             <field>RecordTypeId</field>
             <value>
                 <elementReference>Get_SA_Request_Record_Type_Id.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Request_Type__c</field>
+            <value>
+                <elementReference>Request_Type</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1887,6 +1901,14 @@
             <choiceReferences>CaseOrigin</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Case Origin</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Request_Type</name>
+            <choiceReferences>Request_Type_Picklist</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Request Type</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
         </fields>

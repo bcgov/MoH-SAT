@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Patient_Validated</name>
+        <label>Patient Validated</label>
+        <locationX>50</locationX>
+        <locationY>854</locationY>
+        <actionName>Case.Patient_Validated</actionName>
+        <actionType>quickAction</actionType>
+        <connector>
+            <targetReference>Patient_Validated_Task</targetReference>
+        </connector>
+        <inputParameters>
+            <name>Patient_Validated__c</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Patient_Validated_Date__c</name>
+            <value>
+                <elementReference>$Flow.InterviewStartTime</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>contextId</name>
+            <value>
+                <elementReference>SARequestId</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Patient_Validated_Task</name>
+        <label>Patient Validated Task</label>
+        <locationX>50</locationX>
+        <locationY>974</locationY>
+        <actionName>Case.Provider_Validated_Task</actionName>
+        <actionType>quickAction</actionType>
+        <inputParameters>
+            <name>contextId</name>
+            <value>
+                <elementReference>SARequestId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Subject</name>
+            <value>
+                <stringValue>Patient Manually Validated</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Provider_Validated</name>
+        <label>Provider Validated</label>
+        <locationX>50</locationX>
+        <locationY>398</locationY>
+        <actionName>Case.Provider_Validated</actionName>
+        <actionType>quickAction</actionType>
+        <connector>
+            <targetReference>Provider_Validated_Task</targetReference>
+        </connector>
+        <inputParameters>
+            <name>Provider_Validated__c</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Provider_Validated_Date__c</name>
+            <value>
+                <elementReference>$Flow.InterviewStartTime</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>contextId</name>
+            <value>
+                <elementReference>SARequestId</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <name>Provider_Validated_Task</name>
+        <label>Provider Validated Task</label>
+        <locationX>50</locationX>
+        <locationY>518</locationY>
+        <actionName>Case.Provider_Validated_Task</actionName>
+        <actionType>quickAction</actionType>
+        <connector>
+            <targetReference>Patient_Validated_Decision</targetReference>
+        </connector>
+        <inputParameters>
+            <name>contextId</name>
+            <value>
+                <elementReference>SARequestId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>Subject</name>
+            <value>
+                <stringValue>Provider Manually Validated</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>50.0</apiVersion>
+    <decisions>
+        <name>Patient_Validated_Decision</name>
+        <label>Patient Validated Decision</label>
+        <locationX>182</locationX>
+        <locationY>734</locationY>
+        <defaultConnectorLabel>Patient Validated - False</defaultConnectorLabel>
+        <rules>
+            <name>Patient_Validated_True</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Patient_Manually_Validated</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Patient_Validated</targetReference>
+            </connector>
+            <label>Patient Validated - True</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Provider_Validated_Decision</name>
+        <label>Provider Validated Decision</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <defaultConnector>
+            <targetReference>Patient_Validated_Decision</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Provider Validated - False</defaultConnectorLabel>
+        <rules>
+            <name>Provider_Validated_True</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Provider_Manually_Validated</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Provider_Validated</targetReference>
+            </connector>
+            <label>Provider Validated - True</label>
+        </rules>
+    </decisions>
+    <interviewLabel>Case Actions {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Actions</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <runInMode>SystemModeWithoutSharing</runInMode>
+    <screens>
+        <name>Case_Actions</name>
+        <label>Case Actions</label>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Provider_Validated_Decision</targetReference>
+        </connector>
+        <fields>
+            <name>Case_Actions_Screen</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;What actions would you like to take on this SA request?&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Provider_Manually_Validated</name>
+            <dataType>Boolean</dataType>
+            <defaultValue>
+                <booleanValue>false</booleanValue>
+            </defaultValue>
+            <fieldText>Provider Manually Validated</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;Confirm you have manually verified the provider&lt;/p&gt;</helpText>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Patient_Manually_Validated</name>
+            <dataType>Boolean</dataType>
+            <defaultValue>
+                <booleanValue>false</booleanValue>
+            </defaultValue>
+            <fieldText>Patient Manually Validated</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Confirm you have manually verified the patient&lt;/span&gt;&lt;/p&gt;</helpText>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Case_Actions</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>SARequestId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
