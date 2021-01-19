@@ -5,7 +5,7 @@ public class PatientValidator implements AdjudicationAction {
             return;
         }
 
-        PatientInformation p = ODRIntegration.verifyPatientInformation(sar.saCase.Id, false);
+        PatientInformation p = ODRIntegration.verifyPatientInformation(sar);
 
         sar.saCase.Patient_Validated__c = p.verified;
         sar.saCase.Patient_Validated_Date__c = DateTime.now();

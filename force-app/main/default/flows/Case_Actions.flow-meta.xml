@@ -4,12 +4,9 @@
         <name>Patient_Validated</name>
         <label>Patient Validated</label>
         <locationX>50</locationX>
-        <locationY>854</locationY>
+        <locationY>734</locationY>
         <actionName>Case.Patient_Validated</actionName>
         <actionType>quickAction</actionType>
-        <connector>
-            <targetReference>Patient_Validated_Task</targetReference>
-        </connector>
         <inputParameters>
             <name>Patient_Validated__c</name>
             <value>
@@ -25,27 +22,7 @@
         <inputParameters>
             <name>contextId</name>
             <value>
-                <elementReference>SARequestId</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>Patient_Validated_Task</name>
-        <label>Patient Validated Task</label>
-        <locationX>50</locationX>
-        <locationY>974</locationY>
-        <actionName>Case.Provider_Validated_Task</actionName>
-        <actionType>quickAction</actionType>
-        <inputParameters>
-            <name>contextId</name>
-            <value>
-                <elementReference>SARequestId</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>Subject</name>
-            <value>
-                <stringValue>Patient Manually Validated</stringValue>
+                <elementReference>CaseId.Id</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -57,7 +34,7 @@
         <actionName>Case.Provider_Validated</actionName>
         <actionType>quickAction</actionType>
         <connector>
-            <targetReference>Provider_Validated_Task</targetReference>
+            <targetReference>Patient_Validated_Decision</targetReference>
         </connector>
         <inputParameters>
             <name>Provider_Validated__c</name>
@@ -74,30 +51,7 @@
         <inputParameters>
             <name>contextId</name>
             <value>
-                <elementReference>SARequestId</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>Provider_Validated_Task</name>
-        <label>Provider Validated Task</label>
-        <locationX>50</locationX>
-        <locationY>518</locationY>
-        <actionName>Case.Provider_Validated_Task</actionName>
-        <actionType>quickAction</actionType>
-        <connector>
-            <targetReference>Patient_Validated_Decision</targetReference>
-        </connector>
-        <inputParameters>
-            <name>contextId</name>
-            <value>
-                <elementReference>SARequestId</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>Subject</name>
-            <value>
-                <stringValue>Provider Manually Validated</stringValue>
+                <elementReference>CaseId.Id</elementReference>
             </value>
         </inputParameters>
     </actionCalls>
@@ -106,7 +60,7 @@
         <name>Patient_Validated_Decision</name>
         <label>Patient Validated Decision</label>
         <locationX>182</locationX>
-        <locationY>734</locationY>
+        <locationY>614</locationY>
         <defaultConnectorLabel>Patient Validated - False</defaultConnectorLabel>
         <rules>
             <name>Patient_Validated_True</name>

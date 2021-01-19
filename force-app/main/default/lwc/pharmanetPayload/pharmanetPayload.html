@@ -4,21 +4,24 @@
         <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
         &nbsp;Pharmanet Payload
     </h3>
-    <div class="slds-p-left_small">
-      <p><strong>PHN: </strong>{data.saRecord.phn}</p>
-      <p><strong>Special Item (DIN): </strong>{data.saRecord.specialItem.din}</p>
-      <p><strong>Special Item (RDP): </strong>{data.saRecord.specialItem.rdp}</p>
-      <p><strong>Auth Type: </strong>{data.saRecord.specAuthType}</p>
-      <p><strong>Justification Code: </strong>{data.saRecord.justificationCodes}</p>
-      <p><strong>Excluded Plans: </strong>{data.saRecord.excludedPlans}</p>
-      <p><strong>Practitioner ID: </strong>{data.saRecord.saRequester.practId}</p>
-      <p><strong>Practitioner ID Ref: </strong>{data.saRecord.saRequester.practIdRef}</p>
-      <p><strong>Effective Date: </strong>{data.saRecord.effectiveDate}</p>
-      <p><strong>Termination Date: </strong>{data.saRecord.terminationDate}</p>
-      <p><strong>Max Days Supply: </strong>{data.saRecord.maxDaysSupply}</p>
-      <p><strong>Max Price Pct: </strong>{data.saRecord.maxPricePct}</p>
-    </div>
+    <template for:each={data} for:item="item">
+      <div key={item.key} class="slds-p-left_small">
+        <p><strong>PHN: </strong>{item.saRecord.phn}</p>
+        <p><strong>Special Item (DIN): </strong>{item.saRecord.specialItem.din}</p>
+        <p><strong>Special Item (RDP): </strong>{item.saRecord.specialItem.rdp}</p>
+        <p><strong>Auth Type: </strong>{item.saRecord.specAuthType}</p>
+        <p><strong>Justification Code: </strong>{item.saRecord.justificationCodes}</p>
+        <p><strong>Excluded Plans: </strong>{item.saRecord.excludedPlans}</p>
+        <p><strong>Practitioner ID: </strong>{item.saRecord.saRequester.practId}</p>
+        <p><strong>Practitioner ID Ref: </strong>{item.saRecord.saRequester.practIdRef}</p>
+        <p><strong>Effective Date: </strong>{item.saRecord.effectiveDate}</p>
+        <p><strong>Termination Date: </strong>{item.saRecord.terminationDate}</p>
+        <p><strong>Max Days Supply: </strong>{item.saRecord.maxDaysSupply}</p>
+        <p><strong>Max Price Pct: </strong>{item.saRecord.maxPricePct}</p>
+        <hr>
+      </div>
+    </template>
     <!-- Simulates this record to be approved in the ODR -->
-    <lightning-button label="Submit" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+    <lightning-button if:true={hasData} label="Submit" title="Non-primary action" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
 </lightning-card>
 </template>
