@@ -19,7 +19,7 @@ public with sharing class SimilarCasesTest {
         List<Case> similarCases = SimilarCases.find(case3.Id);
         Test.stopTest();
 
-        system.assertEquals(1, similarCases.size());
+        system.assertEquals(2, similarCases.size());
         system.assertEquals(case1.Id, similarCases[0].Id);
         
     }
