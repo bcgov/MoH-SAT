@@ -64,16 +64,16 @@ public with sharing class ODRIntegration {
     public static Provider verifyCollegeInformation(Id recordId, Boolean dmlUpdate) {
         System.debug('verifyCollegeInformation');
 
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+
         GetPractitioner getPractitionerObject = new GetPractitioner();
         getPractitionerObject.applicationUUID = getUUIDString();
         // TODO: Spec says this, but they're not allowing it yet and will make the call 400
         // even if it's good.
         // getPractitionerObject.userid = 'SALESFORCE';//getUserIdentifier();
         getPractitionerObject.programArea = 'SpecAuth';
-
-        // TODO: De-hardcode
-        getPractitionerObject.licenceNumber = '0A0P1';
-        getPractitionerObject.collegeReferenceId = '91';
+        getPractitionerObject.licenceNumber    = sar.saCase.Provider__r.Provider_Identifier__c; // 0A0P1
+        getPractitionerObject.collegeReferenceId = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
 
         String saarObject = JSON.serialize(getPractitionerObject);
 
