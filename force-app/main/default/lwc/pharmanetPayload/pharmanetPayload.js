@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
-import getSAApprovalRequest from '@salesforce/apex/ODRIntegration.getSAApprovalRequest';
-import postSAApproval from '@salesforce/apex/ODRIntegration.postSAApproval';
+import getSAApprovalRequestsx from '@salesforce/apex/ODRIntegration.getSAApprovalRequestsx';
+import postSAApprovalx from '@salesforce/apex/ODRIntegration.postSAApprovalx';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class PharmanetPayload extends LightningElement {
@@ -8,13 +8,15 @@ export default class PharmanetPayload extends LightningElement {
   verified = false;
   loaded = false;
   data = null;
+  hasData = false;
   isError = false;
   error = {};
 
   @track error;
   connectedCallback() {
-    getSAApprovalRequest({recordId: this.recordId})
+    getSAApprovalRequestsx({recordId: this.recordId})
     .then(data => {
+      console.log("PAY:", data);
       if (data && data.error == null) {
         if (data) {
           console.log("PharmanetPayload:", data);
@@ -24,20 +26,26 @@ export default class PharmanetPayload extends LightningElement {
         this.isError = true;
         this.error = data.error.errorMessage;
       }
+      this.hasData = this.data.length > 0;
+      console.log("hasData", this.hasData);
       this.loaded = true;
     })
   }
 
   handleClick(event) {
     console.log("SA APPROVAL", this.recordId);
-    postSAApproval({recordId: this.recordId, dmlUpdate: true})
+    postSAApprovalx({recordId: this.recordId})
     .then(data => {
-      if (data.error) {
-        const event = new ShowToastEvent({
-          title: 'Pharmanet Error',
-          message: data.error.errorMessage
-        });
-        this.dispatchEvent(event);
+      // Iterate through all the errors
+      console.log('data:', data);
+      for(let i = 0;i<data.length;i++) {
+        if (data[i].error) {
+          const event = new ShowToastEvent({
+            title: 'Pharmanet Error',
+            message: data[i].error.errorMessage
+          });
+          this.dispatchEvent(event);
+        }
       }
     })
   }

@@ -5,14 +5,14 @@
           <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
           &nbsp;Provider Information
       </h3>
-      <div slot="footer">
-        <lightning-badge if:true={data.verified} label="Verified" icon-name="action:check" style="background: #46D447"></lightning-badge>
-        <lightning-badge if:false={data.verified} label="Unverified" icon-name="action:close" style="background: red"></lightning-badge>
-      </div>
       <div class="slds-p-left_small">
         <p><strong>Name:</strong> {data.name}</p>
         <p><strong>DOB:</strong> {data.dateofBirth}</p>
         <p><strong>Effective Date:</strong> {data.effectiveDate}</p>
+        <p class="slds-p-top_small"></p>
+        <lightning-badge if:true={data.verified} label="Verified" icon-name="action:check" style="background: #46D447"></lightning-badge>
+        <lightning-badge if:false={data.verified} label="Unverified" icon-name="action:close" style="background: red"></lightning-badge>
       </div>
+    <div slot="footer"></div>
   </lightning-card>
 </template>

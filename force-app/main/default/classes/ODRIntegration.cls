@@ -22,7 +22,7 @@ public with sharing class ODRIntegration {
 
     // LWC Path
     @AuraEnabled(cacheable=true)
-    public static PatientInformation verifyPatientInformation(Id recordId, Boolean dmlUpdate) {
+    public static PatientInformation verifyPatientInformationx(Id recordId) {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
 
         // TODO: dmlUpdate
@@ -49,6 +49,17 @@ public with sharing class ODRIntegration {
         update caseToUpdate;
     }
 
+
+    // Make an ODR class that encapsulated the provider/patient information
+    // TODO
+    public static Provider getProvider(String practId, String practIdRef) {
+      return new Provider();
+    }
+     // TODO
+     public static PatientInformation getPatient(String phn) {
+      return new PatientInformation();
+    }
+
     @AuraEnabled(cacheable=true)
     public static Provider verifyCollegeInformation(Id recordId, Boolean dmlUpdate) {
         System.debug('verifyCollegeInformation');
@@ -63,7 +74,6 @@ public with sharing class ODRIntegration {
         // TODO: De-hardcode
         getPractitionerObject.licenceNumber = '0A0P1';
         getPractitionerObject.collegeReferenceId = '91';
-
 
         String saarObject = JSON.serialize(getPractitionerObject);
 
@@ -121,99 +131,105 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
-    public static SAApprovalRequest getSAApprovalRequest(Id recordId) {
+    public static List<SAApprovalRequest> getSAApprovalRequestsx(Id recordId) {
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
 
-        Case c = [select Id, Drug__r.Pharmanet_Code__c, Provider__r.Provider_Type__c, SA_Type__c, Termination_Date__c, Effective_Date__c, contact.patient_identifier__c, contact.name FROM case WHERE Id =:recordId];
-        System.debug('---------------------------');
-        System.debug(c.Termination_Date__c);
-        System.debug(c.Effective_Date__c);
-        // Send SA Approval into Pharmanet
-        SAApprovalRequest sarBody = new SAApprovalRequest();
-        sarBody.requestUUID = getUUIDString();
-        sarBody.clientName = 'SpecAuth';
-        sarBody.userid = 'SALESFORCE';//getUserIdentifier();
-        sarBody.saRecord.phn = c.contact.patient_identifier__c;
-        System.debug('SAR');
-        System.debug(sarBody);
-
-        // sarBody.saRecord.specialItem.din = '98789';
-        // Drug__r.Pharmanet_Code__c for supercode
-        // TODO: Need fields / switching logic on rdp/din
-        sarBody.saRecord.specialItem.rdp = c.Drug__r.Pharmanet_Code__c.replaceAll('[^0-9]+', ''); 
-
-        // contact.account.Provider_Type__c to 2 digit prac_id_ref
-        // TODO: Calc on provider type/identifier
-        String practId = c.Provider__r.Provider_Identifier__c;//'0A0P1';
-
-        // TODO: Fields lookup
-        // Provider__r.Account.Provider_Type__c
-
-        String practIdRef = '91'; // Maps to picklist type. TODO convert to appropriate.  if contact.account.Provider_Type__c == "Physician" then return 91.. etc.
-
-        // TODO: Need fields
-        sarBody.saRecord.specAuthType = 'B';//c.SA_Type__c; // Special Auth Type: B,L,R
-
-        // TODO: Need fields
-        sarBody.saRecord.justificationCodes.add('R'); // D or R
-        sarBody.saRecord.excludedPlans.add('B'); // ['B','C','CN','D',]
-        sarBody.saRecord.saRequester.practIdRef = practIdRef; // 91
-        sarBody.saRecord.saRequester.practId = practId; // 12345
-        if (c.Effective_Date__c != null) {
-            sarBody.saRecord.effectiveDate = formatToODRDate(c.Effective_Date__c); // Effective Date 3000/01/01
-        }
-        if (c.Termination_Date__c != null) {
-            sarBody.saRecord.terminationDate = formatToODRDate(c.Termination_Date__c); // Termination Date 3000/01/01
-        }
-        // TODO: Need fields
-        sarBody.saRecord.maxDaysSupply = 999; // 999
-        sarBody.saRecord.maxPricePct = 100.0; // 100.0
-
-        return sarBody;
+        return getSAApprovalRequests(sar);
     }
 
-    public static SAApprovalRequest getSAApprovalRequest(SpecialAuthorityRequest sar) {
+    public static List<SAApprovalRequest> getSAApprovalRequests(SpecialAuthorityRequest sar) {
         System.debug('---------------------------');
         System.debug(sar.saCase.Termination_Date__c);
         System.debug(sar.saCase.Effective_Date__c);
-        // Send SA Approval into Pharmanet
-        SAApprovalRequest sarBody = new SAApprovalRequest();
-        sarBody.requestUUID = getUUIDString();
-        sarBody.clientName = 'SpecAuth';
-        sarBody.userid = 'SALESFORCE';//getUserIdentifier();
-        sarBody.saRecord.phn = sar.saCase.Patient_Identifier__c;
-        System.debug('SAR');
-        System.debug(sarBody);
 
-        // sarBody.saRecord.specialItem.din = '98789';
-        // Drug__r.Pharmanet_Code__c for supercode
-        // TODO: This isn't working OOTB
-        // Not currently a thing?
-        sarBody.saRecord.specialItem.rdp = sar.saCase.Drug__r.Pharmanet_Code__c.replaceAll('[^0-9]+', ''); 
+        List<SAApprovalRequest> saarList = new List<SAApprovalRequest>();
 
-        // contact.account.Provider_Type__c to 2 digit prac_id_ref
-        // TODO: Calc on provider
-        String practId = sar.saCase.Provider__r.Provider_Identifier__c;// '0A0P1';
-        String practIdRef = '91'; // Maps to picklist type. TODO convert to appropriate.  if contact.account.Provider_Type__c == "Physician" then return 91.. etc.
+        if (sar.drug != null && sar.drug.Drug_Templates__r != null) {
+        System.debug(sar.drug.Drug_Templates__r.size());
+          for (Drug_Template__c drugTemplate : sar.drug.Drug_Templates__r){
+              SAApprovalRequest sarBody = new SAApprovalRequest();
+              sarBody.requestUUID = getUUIDString();
+              sarBody.clientName = 'SpecAuth';
+              sarBody.userid = 'SALESFORCE';//getUserIdentifier();
+              sarBody.saRecord.phn = sar.saCase.Patient_Identifier__c;
+              System.debug('SAR');
+              System.debug(sarBody);
 
-        // TODO: This isn't working OOTB
-        sarBody.saRecord.specAuthType = sar.saCase.SA_Type__c; // Special Auth Type: B,L,R
-        sarBody.saRecord.justificationCodes.add('6'); // D or R
-        sarBody.saRecord.excludedPlans.add('B'); // ['B','C','CN','D',]
-        sarBody.saRecord.saRequester.practIdRef = practIdRef; // 91
-        sarBody.saRecord.saRequester.practId = practId; // 12345
-        if (sar.saCase.Effective_Date__c != null) {
-            sarBody.saRecord.effectiveDate = formatToODRDate(sar.saCase.Effective_Date__c); // Effective Date 3000/01/01
+              if (sar.saCase.Effective_Date__c != null) {
+                  sarBody.saRecord.effectiveDate = formatToODRDate(sar.saCase.Effective_Date__c); // Effective Date 3000/01/01
+              }
+              if (sar.saCase.Termination_Date__c != null) {
+                  sarBody.saRecord.terminationDate = formatToODRDate(sar.saCase.Termination_Date__c); // Termination Date 3000/01/01
+              }
+
+              sarBody.saRecord.saRequester.practId    = sar.saCase.Provider__r.Provider_Identifier__c; // 0A0P1
+              sarBody.saRecord.saRequester.practIdRef = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
+
+              if (drugTemplate.Key_Type__c == 'RDP') {
+                  sarBody.saRecord.specAuthType = 'R';
+                  // Add the RDP type
+                  sarBody.saRecord.specialItem.rdp = drugtemplate.Pharmanet_Code__c.replaceAll('[^0-9]+', '');
+
+                  // Add excluded plans
+                  List<String> thePlans = drugtemplate.Excluded_Plans__c.split(';');
+                  for (string sPlan: thePlans) {
+                      sarBody.saRecord.excludedPlans.add(sPlan);
+                  }
+
+                  // Add justification codes
+                  List<String> theCodes = drugtemplate.Justification_Codes__c.split(';');
+                  for (string sCode: theCodes) {
+                      sarBody.saRecord.justificationCodes.add(sCode);
+                  }
+
+                  // TODO: Needs a field
+                  sarBody.saRecord.maxDaysSupply = Integer.valueOf(drugtemplate.Days_Supply__c); // 999
+                  // TODO: Needs a field
+                  sarBody.saRecord.maxPricePct = drugtemplate.Price_Percent__c; // 100.0
+
+                  // Loop body
+                  System.debug(drugtemplate.Key_Type__c);
+                  System.debug(drugtemplate.Pharmanet_Code__c);
+                  System.debug(drugtemplate.SA_Type__c);
+              } else if (drugTemplate.Key_Type__c == 'DIN') {
+                  sarBody.saRecord.specAuthType = 'D';
+                  // TODO: DIN never has dashes
+              } else {
+                  // R type
+              }
+              System.debug('sarBody--------------------------------');
+              System.debug(sarBody);
+
+              saarList.add(sarBody);
+          }
         }
-        if (sar.saCase.Termination_Date__c != null) {
-            sarBody.saRecord.terminationDate = formatToODRDate(sar.saCase.Termination_Date__c); // Termination Date 3000/01/01
+        return saarList;
+    }
+
+    private static String getPractitionerCode(String name) {
+        String practIdCode = '';
+        switch on name {
+            when 'Physician' {
+                practIdCode = '91';
+            } when 'Nurse Practitioner' {
+                practIdCode = '96';
+            } when 'Dentist' {
+                practIdCode = '95';
+            } when 'Midwife' {
+                practIdCode = '98';
+            } when 'Podiatrist' {
+                practIdCode = '93';
+            } when 'Naturopathic Practitioner' {
+                practIdCode = '97';
+            } when 'Pharmacist' {
+                practIdCode = 'P1';
+            } when 'Optometrist' {
+                practIdCode = '94';
+            } when 'Out of province provider' {
+                practIdCode = 'OOP';
+            }
         }
-        sarBody.saRecord.maxDaysSupply = 999; // 999
-        sarBody.saRecord.maxPricePct = 100.0; // 100.0
-
-        System.debug('--------------------------------');
-        System.debug(sarBody);
-
-        return sarBody;
+        return practIdCode;
     }
 
     // Formats a date in what the ODR wants.
@@ -225,72 +241,71 @@ public with sharing class ODRIntegration {
         return dateString;
     }
 
-    public static SAApprovalRequestResponse postSAApproval(SpecialAuthorityRequest sar) {
-        System.debug('postSAApproval');
+    @AuraEnabled
+    public static List<SAApprovalRequestResponse> postSAApprovalx(Id recordId) {
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        List<SAApprovalRequest> sarBodies = getSAApprovalRequests(sar);
+        List<SAApprovalRequestResponse> responses = new List<SAApprovalRequestResponse>();
 
-        SAApprovalRequest sarBody = getSAApprovalRequest(sar);
+        for(SAApprovalRequest sarBody: sarBodies) {
+          String saarObject = JSON.serialize(sarBody);
+          System.debug('saarObject');
+          System.debug(saarObject);
 
-        String saarObject = JSON.serialize(sarBody);
-        System.debug('saarObject');
-        System.debug(saarObject);
+          SAApprovalRequestResponse saarr;
+          CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
+                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+                                                                          null,
+                                                                          'POST',
+                                                                          saarObject,
+                                                                          '3A');
 
-        SAApprovalRequestResponse saarr;
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
-                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
-                                                                         null,
-                                                                         'POST',
-                                                                         saarObject,
-                                                                         '3A');
-
-        if (calloutResponseObject.errorCode != 200) {
-            // ERROR
-            saarr = new SAApprovalRequestResponse();
-            saarr.error = calloutResponseObject;
-        } else {
-            String resBody = calloutResponseObject.response;
-            saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
-        }
-        System.debug('saarr');
-        System.debug(saarr);
-        return saarr;
+          if (calloutResponseObject.errorCode != 200) {
+              // // ERROR
+              saarr = new SAApprovalRequestResponse();
+              saarr.error = calloutResponseObject;
+          } else {
+              String resBody = calloutResponseObject.response;
+              saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
+          }
+          System.debug('saarr');
+          System.debug(saarr);
+          responses.add(saarr);
+      }
+      return responses;
     }
 
-    @AuraEnabled
-    public static SAApprovalRequestResponse postSAApproval(Id recordId, Boolean dmlUpdate) {
+    public static Boolean postSAApproval(SpecialAuthorityRequest sar) {
         System.debug('postSAApproval');
 
-        SAApprovalRequest sarBody = getSAApprovalRequest(recordId);
+        List<SAApprovalRequest> sarBodies = getSAApprovalRequests(sar);
 
-        String saarObject = JSON.serialize(sarBody);
-        System.debug('saarObject');
-        System.debug(saarObject);
+        for(SAApprovalRequest sarBody: sarBodies) {
+            String saarObject = JSON.serialize(sarBody);
+            System.debug('saarObject');
+            System.debug(saarObject);
 
-        SAApprovalRequestResponse saarr;
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
-                                                                         null,
-                                                                         'POST',
-                                                                         saarObject,
-                                                                         '3A');
+            SAApprovalRequestResponse saarr;
+            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
+                                                                            'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+                                                                            null,
+                                                                            'POST',
+                                                                            saarObject,
+                                                                            '3A');
 
-        if (calloutResponseObject.errorCode != 200) {
-            // ERROR
-            saarr = new SAApprovalRequestResponse();
-            saarr.error = calloutResponseObject;
-        } else {
-            String resBody = calloutResponseObject.response;
-            saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
-            // Write the successful approval into the DB
-            if (saarr.statusMessage == 'Success') {
-                // Only store if DML param is true
-                if (dmlUpdate == true) {
-                    updateCasePusedToPNet(recordId);
-                }
+            if (calloutResponseObject.errorCode != 200) {
+                return false;
+                // // ERROR
+                // saarr = new SAApprovalRequestResponse();
+                // saarr.error = calloutResponseObject;
+            } else {
+                String resBody = calloutResponseObject.response;
+                saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
             }
+            System.debug('saarr');
+            System.debug(saarr);
         }
-        System.debug('saarr');
-        System.debug(saarr);
-        return saarr;
+        return true;
     }
 
     @AuraEnabled
