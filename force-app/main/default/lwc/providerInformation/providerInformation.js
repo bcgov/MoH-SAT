@@ -7,7 +7,7 @@ export default class ProviderInformation extends LightningElement {
   loaded = false;
   data = null;
 
-  @wire(verifyCollegeInformation, { recordId: '$recordId', dmlUpdate: false }) mapObjectToData({error,data}) {
+  @wire(verifyCollegeInformation, { recordId: '$recordId' }) mapObjectToData({error,data}) {
     if (data) {
       console.log("ProviderInformation:", data);
       this.data = {};

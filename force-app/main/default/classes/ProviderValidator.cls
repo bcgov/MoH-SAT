@@ -5,9 +5,11 @@ public class ProviderValidator implements AdjudicationAction {
             return;
         }
 
-        Provider p = ODRIntegration.verifyCollegeInformation(sar.provider.Id, false);
+        Provider p = ODRIntegration.verifyCollegeInformation(sar.saCase.Id);
 
-        sar.saCase.Provider_Validated__c = p.verified;
-        sar.saCase.Provider_Validated_Date__c = DateTime.now();
+        if (p != null) {
+            sar.saCase.Provider_Validated__c = p.verified;
+            sar.saCase.Provider_Validated_Date__c = DateTime.now();
+        }
     }
 }
