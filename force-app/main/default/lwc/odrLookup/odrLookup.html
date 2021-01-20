@@ -1,16 +1,40 @@
 <template>
-    <lightning:card title="Provider Lookup">
-        <div class="slds-grid">
-            <div class="slds-col">
-                <lightning-combobox if:true={providerTypeInfo.data} 
-                    name="providerType"
-                    label="Provider Type"
-                    options={providerTypeOptions}
-                ></lightning-combobox>
+    <lightning-card if:true={ready} title="ODR Lookup">
+        <div class="slds-p-around_x-small">
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+                <div class="slds-col slds-size-1_of_3">
+                    <lightning-combobox 
+                        name="providerType"
+                        label={providerTypeLabel}
+                        options={providerTypeOptions}
+                        value={provider.Provider_Type__pc}
+                        class="fld-providerType"
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size-1_of_3">
+                    <lightning-input 
+                        name="providerIdentifier" 
+                        type="text" 
+                        label={providerIdLabel}
+                        value={provider.Provider_Type__pc}
+                        class="fld-providerId"></lightning-input>
+                </div>
+                <div class="slds-col slds-size-1_of_3">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Lookup provider" 
+                        title="Lookup provider" 
+                        onclick={handleLookupProvider}
+                        class="btn-lookupProvider">
+                    </lightning-button>
+                </div>
+            </div> 
+            <div >
+                <lightning-input type="text" label="First name" value={provider.FirstName} disabled={hasOdrProvider}></lightning-input>
+                <lightning-input type="text" label="Last name" value={provider.LastName} disabled={hasOdrProvider}></lightning-input>
+                <lightning-input type="date" label="Date of birth" value={provider.PersonBirthdate} disabled={hasOdrProvider}></lightning-input>
+                <lightning-input type="text" label="Status" value={odrProvider.status} read-only="true"></lightning-input>
             </div>
-            <div class="slds-col">
-
-            </div>
-        </div>    
-    </lightning:card>
+        </div>
+    </lightning-card>
 </template>
