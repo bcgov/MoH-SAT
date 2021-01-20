@@ -1,0 +1,72 @@
+<template>
+    <lightning-card if:true={ready} title={title} icon-name={iconName} variant="narrow">
+        <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+            <div class="slds-col slds-size-1_of_3">
+                <lightning-combobox 
+                    name="providerType"
+                    label={providerTypeLabel}
+                    options={providerTypeOptions}
+                    value={provider.Provider_Type__pc}
+                    class="fld-providerType"
+                    data-field="Provider_Identifier__pc"
+                    onchange={handleFormChange}
+                ></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size-1_of_3">
+                <lightning-input 
+                    name="providerIdentifier" 
+                    type="text" 
+                    label={providerIdLabel}
+                    value={provider.Provider_Identifier__pc}
+                    class="fld-providerId"
+                    data-field="Provider_Type__pc"
+                    onchange={handleFormChange}
+                    oncommit={handleCommit}
+                ></lightning-input>
+            </div>
+            <div class="slds-col slds-size-1_of_3">
+                <lightning-button 
+                    variant="brand" 
+                    label="Lookup" 
+                    title="Lookup" 
+                    onclick={handleLookup}
+                    class="btn-lookup">
+                </lightning-button>
+            </div>
+        </div> 
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col">
+                <lightning-input 
+                    type="text" 
+                    label="First name" 
+                    value={provider.FirstName} 
+                    disabled={hasOdrProvider} 
+                    data-field="FirstName"
+                    onchange={handleFormChange}></lightning-input>
+                <lightning-input 
+                    type="text" 
+                    label="Last name" 
+                    value={provider.LastName} 
+                    disabled={hasOdrProvider}
+                    data-field="LastName"
+                    onchange={handleFormChange}></lightning-input>
+            </div>
+            <div class="slds-col">
+                <lightning-input 
+                    type="date" 
+                    label="Date of birth" 
+                    data-field="PersonBirthdate"
+                    value={provider.PersonBirthdate} 
+                    disabled={hasOdrProvider}
+                    onchange={handleFormChange}></lightning-input>
+                <lightning-input 
+                    type="text" 
+                    label="Status" 
+                    value={odrProvider.status} 
+                    read-only="true">
+                </lightning-input>
+            </div>
+        </div>
+    </lightning-card>
+
+</template>
