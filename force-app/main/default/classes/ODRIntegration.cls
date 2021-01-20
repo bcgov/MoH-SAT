@@ -52,29 +52,17 @@ public with sharing class ODRIntegration {
 
     // Make an ODR class that encapsulated the provider/patient information
     // TODO
-    public static Provider getProvider(String practId, String practIdRef) {
-      return new Provider();
-    }
-     // TODO
-     public static PatientInformation getPatient(String phn) {
-      return new PatientInformation();
-    }
-
-    @AuraEnabled(cacheable=true)
-    public static Provider verifyCollegeInformation(Id recordId, Boolean dmlUpdate) {
-        System.debug('verifyCollegeInformation');
-
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
-
+    public static Provider getProvider(Id recordId, String practId, String practIdRef) {
         GetPractitioner getPractitionerObject = new GetPractitioner();
         getPractitionerObject.applicationUUID = getUUIDString();
         // TODO: Spec says this, but they're not allowing it yet and will make the call 400
         // even if it's good.
         // getPractitionerObject.userid = 'SALESFORCE';//getUserIdentifier();
         getPractitionerObject.programArea = 'SpecAuth';
-        getPractitionerObject.licenceNumber    = sar.saCase.Provider__r.Provider_Identifier__c; // 0A0P1
-        getPractitionerObject.collegeReferenceId = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
+        getPractitionerObject.licenceNumber    = practId;
+        getPractitionerObject.collegeReferenceId = getPractitionerCode(practIdRef);
 
+        Provider p = null;
         String saarObject = JSON.serialize(getPractitionerObject);
 
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
@@ -83,7 +71,6 @@ public with sharing class ODRIntegration {
                                                                          'POST',
                                                                          saarObject,
                                                                          '4');
-        Provider p = null;
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
             System.debug('*******************xxx');
@@ -126,6 +113,20 @@ public with sharing class ODRIntegration {
             }
 
         }
+        return p;
+    }
+     // TODO
+     public static PatientInformation getPatient(String phn) {
+      return new PatientInformation();
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static Provider verifyCollegeInformation(Id recordId) {
+        System.debug('verifyCollegeInformation');
+        System.debug(recordId);
+
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        Provider p = getProvider(recordId, sar.saCase.Provider__r.Provider_Identifier__c, sar.saCase.Provider__r.Provider_Type__c);
         System.debug('saarr');
         return p;
     }
@@ -275,37 +276,38 @@ public with sharing class ODRIntegration {
       return responses;
     }
 
-    public static Boolean postSAApproval(SpecialAuthorityRequest sar) {
+    public static List<SAApprovalRequestResponse> postSAApproval(SpecialAuthorityRequest sar) {
         System.debug('postSAApproval');
 
         List<SAApprovalRequest> sarBodies = getSAApprovalRequests(sar);
+        List<SAApprovalRequestResponse> responses = new List<SAApprovalRequestResponse>();
 
         for(SAApprovalRequest sarBody: sarBodies) {
-            String saarObject = JSON.serialize(sarBody);
-            System.debug('saarObject');
-            System.debug(saarObject);
+          String saarObject = JSON.serialize(sarBody);
+          System.debug('saarObject');
+          System.debug(saarObject);
 
-            SAApprovalRequestResponse saarr;
-            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
-                                                                            'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
-                                                                            null,
-                                                                            'POST',
-                                                                            saarObject,
-                                                                            '3A');
+          SAApprovalRequestResponse saarr;
+          CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
+                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+                                                                          null,
+                                                                          'POST',
+                                                                          saarObject,
+                                                                          '3A');
 
-            if (calloutResponseObject.errorCode != 200) {
-                return false;
-                // // ERROR
-                // saarr = new SAApprovalRequestResponse();
-                // saarr.error = calloutResponseObject;
-            } else {
-                String resBody = calloutResponseObject.response;
-                saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
-            }
-            System.debug('saarr');
-            System.debug(saarr);
-        }
-        return true;
+          if (calloutResponseObject.errorCode != 200) {
+              // // ERROR
+              saarr = new SAApprovalRequestResponse();
+              saarr.error = calloutResponseObject;
+          } else {
+              String resBody = calloutResponseObject.response;
+              saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
+          }
+          System.debug('saarr');
+          System.debug(saarr);
+          responses.add(saarr);
+      }
+      return responses;
     }
 
     @AuraEnabled
