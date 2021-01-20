@@ -1,5 +1,157 @@
 @isTest
 public class ODRIntegrationTest {
+    @isTest static void verifyPHNDataTest() {
+        Boolean isVerified = ODRIntegration.verifyPHNData('','');
+        System.assertEquals(true, isVerified);
+    }
+    @isTest static void verifyPatientInformationTest() {
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(
+            new Drug__c(),
+            new Account(),
+            new Account(),
+            new Case(),
+            new List<Request_Detail__c>()
+        );
+        Patient p = ODRIntegration.verifyPatientInformation(sar);
+        System.assertEquals(true, p.verified);
+    }
+    @isTest static void updateCasePHNStatusTest() {
+        Drug__c drug = TestFactory.newDrug('Drug 1');
+        insert drug;
+
+        Account patient = TestFactory.newPatient('Patient 1');
+        Account provider = TestFactory.newProvider('Provider 1');
+        insert new Account[] { patient, provider };
+
+        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+        insert saCase;
+
+        List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question1', 'response1'));
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question2', 'response2'));
+        insert requestDetails;
+
+        ODRIntegration.updateCasePHNStatus(saCase.Id, true);
+
+        Test.startTest();
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        Test.stopTest();
+
+        System.assertEquals(true, sar.saCase.patient_validated__c);
+    }
+    @isTest static void getPatientTest() {
+        Patient p = ODRIntegration.getPatient('phn');
+
+        System.assertEquals(true, p != null);
+    }
+    @isTest static void getSAApprovalRequestsTest() {
+        Drug__c drug = TestFactory.newDrug('Drug 1');
+        insert drug;
+
+        Drug_Template__c drugTemplate = TestFactory.newDrugTemplate(drug, 'Drug Template');
+        insert drugTemplate;
+
+        Account patient = TestFactory.newPatient('Patient 1');
+        Account provider = TestFactory.newProvider('Provider 1');
+        insert new Account[] { patient, provider };
+
+        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+        insert saCase;
+
+        List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question1', 'response1'));
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question2', 'response2'));
+        insert requestDetails;
+
+        Test.startTest();
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        List<SAApprovalRequest> saarList = ODRIntegration.getSAApprovalRequests(sar);
+        Test.stopTest();
+
+        System.assertEquals(saarList.size(), 1);
+    }
+    @isTest static void getPractitionerCodeTest() {
+        String Physician = ODRIntegration.getPractitionerCode('Physician');
+        System.assertEquals(Physician, '91');
+        String Nurse = ODRIntegration.getPractitionerCode('Nurse Practitioner');
+        System.assertEquals(Nurse, '96');
+        String Dentist = ODRIntegration.getPractitionerCode('Dentist');
+        System.assertEquals(Dentist, '95');
+        String Midwife = ODRIntegration.getPractitionerCode('Midwife');
+        System.assertEquals(Midwife, '98');
+        String Podiatrist = ODRIntegration.getPractitionerCode('Podiatrist');
+        System.assertEquals(Podiatrist, '93');
+        String Naturopathic = ODRIntegration.getPractitionerCode('Naturopathic Practitioner');
+        System.assertEquals(Naturopathic, '97');
+        String Pharmacist = ODRIntegration.getPractitionerCode('Pharmacist');
+        System.assertEquals(Pharmacist, 'P1');
+        String Optometrist = ODRIntegration.getPractitionerCode('Optometrist');
+        System.assertEquals(Optometrist, '94');
+        String oop = ODRIntegration.getPractitionerCode('Out of province provider');
+        System.assertEquals(oop, 'OOP');
+    }
+    @isTest static void formatToODRDateTest() {
+        Date theDate = Date.newInstance(1960, 2, 17);
+        String dateStringFormat = ODRIntegration.formatToODRDate(theDate);
+        System.assertEquals(dateStringFormat, '1960/02/17');
+    }
+    @isTest static void updateCasePusedToPNetTest() {
+        Drug__c drug = TestFactory.newDrug('Drug 1');
+        insert drug;
+
+        Account patient = TestFactory.newPatient('Patient 1');
+        Account provider = TestFactory.newProvider('Provider 1');
+        insert new Account[] { patient, provider };
+
+        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+        insert saCase;
+
+        List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question1', 'response1'));
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question2', 'response2'));
+        insert requestDetails;
+
+        ODRIntegration.updateCasePusedToPNet(saCase.Id);
+
+        Test.startTest();
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        Test.stopTest();
+
+        System.assertEquals(true, sar.saCase.Pushed_to_Pnet__c);
+    }
+    @isTest static void getPatientIdentifierTest() {
+        Drug__c drug = TestFactory.newDrug('Drug 1');
+        insert drug;
+
+        Account patient = TestFactory.newPatient('Patient 1');
+        Account provider = TestFactory.newProvider('Provider 1');
+        insert new Account[] { patient, provider };
+
+        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+        insert saCase;
+
+        List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question1', 'response1'));
+        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question2', 'response2'));
+        insert requestDetails;
+
+        String identifier = ODRIntegration.getPatientIdentifier(saCase.Id);
+
+        Test.startTest();
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        Test.stopTest();
+
+        System.assertEquals(identifier, sar.saCase.Contact.Account.Patient_Identifier__pc);
+    }
+    @isTest static void getUserIdentifierTest() {
+        String fedId = ODRIntegration.getUserIdentifier();
+        System.assertEquals(fedId, null);
+    }
+    @isTest static void getUUIDStringTest() {
+        String uuidString = ODRIntegration.getUUIDString();
+        Boolean notZero = uuidString.length() > 0;
+        System.assertEquals(true, notZero);
+    }
     @isTest static void verifyPHNInformationTest() {
         Contact myContact = new Contact(Firstname='Test', Lastname='Contact');
         insert myContact;
@@ -10,8 +162,6 @@ public class ODRIntegrationTest {
         String formData = '{"example":"test"}';
         String odrData = '{"example":"test"}';
 
-        // bres = (BenefitsResponse) JSON.serialize(formData, BenefitsResponse.class);
-        
         Boolean isValidated = ODRIntegration.verifyPHNData(odrData, formData);
         System.assertEquals(true, isValidated);
     }

@@ -22,7 +22,7 @@ public with sharing class ODRIntegration {
 
     // LWC Path
     @AuraEnabled(cacheable=true)
-    public static PatientInformation verifyPatientInformationx(Id recordId) {
+    public static Patient verifyPatientInformationx(Id recordId) {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
 
         // TODO: dmlUpdate
@@ -30,10 +30,10 @@ public with sharing class ODRIntegration {
     }
 
     // AA Path
-    public static PatientInformation verifyPatientInformation(SpecialAuthorityRequest sar) {
+    public static Patient verifyPatientInformation(SpecialAuthorityRequest sar) {
         // TODO: Webservice call here
 
-        PatientInformation p = new PatientInformation();
+        Patient p = new Patient();
         p.name = sar.saCase.Contact.Account.FirstName;
         p.phn = sar.saCase.Patient_Identifier__c;
         p.verified = true;
@@ -43,7 +43,7 @@ public with sharing class ODRIntegration {
         return p;
     }
 
-    private static void updateCasePHNStatus(Id recordId, Boolean value) {
+    public static void updateCasePHNStatus(Id recordId, Boolean value) {
         Case caseToUpdate = [select Id, patient_validated__c FROM case WHERE Id =:recordId];
         caseToUpdate.patient_validated__c = value;
         update caseToUpdate;
@@ -117,8 +117,8 @@ public with sharing class ODRIntegration {
     }
 
      // TODO
-     public static PatientInformation getPatient(String phn) {
-      return new PatientInformation();
+     public static Patient getPatient(String phn) {
+      return new Patient();
     }
 
     @AuraEnabled(cacheable=true)
@@ -147,7 +147,7 @@ public with sharing class ODRIntegration {
         List<SAApprovalRequest> saarList = new List<SAApprovalRequest>();
 
         if (sar.drug != null && sar.drug.Drug_Templates__r != null) {
-        System.debug(sar.drug.Drug_Templates__r.size());
+          System.debug(sar.drug.Drug_Templates__r.size());
           for (Drug_Template__c drugTemplate : sar.drug.Drug_Templates__r){
               SAApprovalRequest sarBody = new SAApprovalRequest();
               sarBody.requestUUID = getUUIDString();
@@ -208,7 +208,7 @@ public with sharing class ODRIntegration {
         return saarList;
     }
 
-    private static String getPractitionerCode(String name) {
+    public static String getPractitionerCode(String name) {
         String practIdCode = '';
         switch on name {
             when 'Physician' {
@@ -228,6 +228,7 @@ public with sharing class ODRIntegration {
             } when 'Optometrist' {
                 practIdCode = '94';
             } when 'Out of province provider' {
+                // TODO: Check OOP vs 81...
                 practIdCode = 'OOP';
             }
         }
@@ -235,7 +236,7 @@ public with sharing class ODRIntegration {
     }
 
     // Formats a date in what the ODR wants.
-    private static String formatToODRDate(Date dateItem) {
+    public static String formatToODRDate(Date dateItem) {
         Date d = dateItem;
         Datetime dt = Datetime.newInstance(d, Time.newInstance(0, 0, 0, 0));
         String dateString = dt.format('yyyy/MM/dd');
@@ -376,6 +377,10 @@ public with sharing class ODRIntegration {
             sar.error = calloutResponseObject;
         } else {
             String resBody = calloutResponseObject.response;
+            // for (Integer i = 0; i < resBody.length(); i=i+300) {
+            //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
+            //     System.debug(resBody.substring(i,iEffectiveEnd));
+            // }
             sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
         }
         System.debug(sar);
@@ -383,14 +388,14 @@ public with sharing class ODRIntegration {
         return sar;
     }
 
-    private static void updateCasePusedToPNet(Id caseId) {
+    public static void updateCasePusedToPNet(Id caseId) {
         Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
         c.Pushed_to_Pnet__c = true;
         c.Pushed_to_Pnet_Date__c = Datetime.now();
         update c;
     }
 
-    private static String getPatientIdentifier(Id recordId) {
+    public static String getPatientIdentifier(Id recordId) {
         System.debug('PATIENT DATA');
         // Get PHN from DB
         Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
@@ -399,13 +404,13 @@ public with sharing class ODRIntegration {
         return c.contact.patient_identifier__c;
     }
 
-    private static String getUserIdentifier() {
+    public static String getUserIdentifier() {
         // Who's calling this?
         String userid = [Select FederationIdentifier From User Where Id = :UserInfo.getUserId()][0].FederationIdentifier;
         return userid;
     }
 
-    private static String getUUIDString() {
+    public static String getUUIDString() {
         String hexString = EncodingUtil.convertToHex(Crypto.generateDigest('MD5', Blob.valueOf(DateTime.now().getTime().format())));
         return hexString.SubString(0,8)
                     + '-' + hexString.SubString(8,12)

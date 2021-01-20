@@ -25,6 +25,12 @@ public with sharing class TestFactory {
         drug.Name = name;
         return drug;
     }
+
+    public static Drug_Template__c newDrugTemplate(Drug__c drug, String name) {
+        Drug_Template__c drugTemplate = new Drug_Template__c();
+        drugTemplate.Drug__c = drug.Id;
+        return drugTemplate;
+    }
     
     public static Case newCase(Drug__c drug, Account patient, Account provider, String subject) {
         Case saCase = newCase(drug, subject);
