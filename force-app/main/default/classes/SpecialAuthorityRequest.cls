@@ -75,7 +75,7 @@ public with sharing class SpecialAuthorityRequest {
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
                 Contact.Account.PersonMailingState, Contact.Account.PersonMailingPostalCode, Contact.Account.PersonMailingCountry,
                 
-                Provider__r.Account.FirstName, Provider__r.Account.LastName, 
+                Provider__r.Account.FirstName, Provider__r.Account.LastName, Provider__r.Provider_Identifier__c, Provider__r.Provider_Type__c,
                 Provider__r.Account.Provider_Identifier__pc, Provider__r.Account.Provider_Type__pc, 
                 Provider__r.Account.PersonBirthdate, Provider__r.Account.PersonMailingStreet, Provider__r.Account.PersonMailingCity,
                 Provider__r.Account.PersonMailingState, Provider__r.Account.PersonMailingPostalCode, Provider__r.Account.PersonMailingCountry,

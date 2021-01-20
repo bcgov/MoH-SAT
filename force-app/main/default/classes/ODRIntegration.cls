@@ -45,6 +45,8 @@ public with sharing class ODRIntegration {
     public static Provider verifyCollegeInformation(Id recordId, Boolean dmlUpdate) {
         System.debug('verifyCollegeInformation');
 
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+
         GetPractitioner getPractitionerObject = new GetPractitioner();
         getPractitionerObject.applicationUUID = getUUIDString();
         // TODO: Spec says this, but they're not allowing it yet and will make the call 400
@@ -52,10 +54,8 @@ public with sharing class ODRIntegration {
         // getPractitionerObject.userid = 'SALESFORCE';//getUserIdentifier();
         getPractitionerObject.programArea = 'SpecAuth';
 
-        // TODO: De-hardcode
-        getPractitionerObject.licenceNumber = '0A0P1';
-        getPractitionerObject.collegeReferenceId = '91';
-
+        getPractitionerObject.licenceNumber = sar.saCase.Provider__r.Provider_Identifier__c;
+        getPractitionerObject.collegeReferenceId = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
 
         String saarObject = JSON.serialize(getPractitionerObject);
 
@@ -112,6 +112,32 @@ public with sharing class ODRIntegration {
         return p;
     }
 
+    private static String getPractitionerCode(String name) {
+      String practIdCode = '';
+      switch on name {
+          when 'Physician' {
+              practIdCode = '91';
+          } when 'Nurse Practitioner' {
+              practIdCode = '96';
+          } when 'Dentist' {
+              practIdCode = '95';
+          } when 'Midwife' {
+              practIdCode = '98';
+          } when 'Podiatrist' {
+              practIdCode = '93';
+          } when 'Naturopathic Practitioner' {
+              practIdCode = '97';
+          } when 'Pharmacist' {
+              practIdCode = 'P1';
+          } when 'Optometrist' {
+              practIdCode = '94';
+          } when 'Out of province provider' {
+              practIdCode = 'OOP';
+          }
+      }
+      return practIdCode;
+    }
+
     @AuraEnabled
     public static SAApprovalRequest getSAApprovalRequest(Id recordId) {
 
@@ -133,10 +159,15 @@ public with sharing class ODRIntegration {
         // TODO: This isn't working OOTB
         sarBody.saRecord.specialItem.rdp = '99010146'; //c.Drug__r.Pharmanet_Code__c.replaceAll('[^0-9]+', ''); 
 
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+
         // contact.account.Provider_Type__c to 2 digit prac_id_ref
-        // TODO: Calc on provider 
-        String practId = '0A0P1';
-        String practIdRef = '91'; // Maps to picklist type. TODO convert to appropriate.  if contact.account.Provider_Type__c == "Physician" then return 91.. etc.
+        String practId = sar.saCase.Provider__r.Provider_Identifier__c;
+        String practIdRef = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
+
+        System.debug('99999999999');
+        System.debug(practId);
+        System.debug(practIdRef);
 
         // TODO: This isn't working OOTB
         sarBody.saRecord.specAuthType = 'B';//c.SA_Type__c; // Special Auth Type: B,L,R
@@ -213,7 +244,7 @@ public with sharing class ODRIntegration {
         String queryParams = '?clientName=SpecAuth';
         queryParams += '&requestUUID=' + getUUIDString();
         queryParams += '&phn=' + getPatientIdentifier(recordId);
-        queryParams += '&userid=' + getUserIdentifier();
+        queryParams += '&userid=SALESFORCE';// + getUserIdentifier();
 
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/benefits',
@@ -245,7 +276,7 @@ public with sharing class ODRIntegration {
 
         String queryParams = '?clientName=SpecAuth';
         queryParams += '&requestUUID=' + getUUIDString();
-        queryParams += '&userid=' + getUserIdentifier();
+        queryParams += '&userid=SALESFORCE';// + getUserIdentifier();
         queryParams += '&phn=' + getPatientIdentifier(recordId);
         queryParams += '&pageSize=' + count;
         queryParams += '&pageNo=' + page;
