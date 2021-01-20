@@ -129,6 +129,85 @@ public with sharing class ODRIntegration {
         return p;
     }
 
+    public static Provider getProvider(String pracId, String pracIdRef) {
+        GetPractitioner getPractitionerObject = new GetPractitioner();
+        getPractitionerObject.applicationUUID = getUUIDString();
+        // TODO: Spec says this, but they're not allowing it yet and will make the call 400
+        // even if it's good.
+        // getPractitionerObject.userid = 'SALESFORCE';//getUserIdentifier();
+        getPractitionerObject.programArea = 'SpecAuth';
+
+        // TODO: De-hardcode
+        getPractitionerObject.licenceNumber = pracId;
+        getPractitionerObject.collegeReferenceId = pracIdRef;
+
+        HttpRequest req = new HttpRequest();
+        req.setHeader('Content-Type','application/json');
+        req.setEndpoint('callout:ODR_Credentials/primesvc/getPractitioner');
+        req.setMethod('POST');
+        req.setBody(JSON.serialize(getPractitionerObject));
+        
+        Http http = new Http();
+        CalloutResponse resObject = new CalloutResponse();
+        try {
+            HTTPResponse res = http.send(req);
+            resObject.response = res.getBody();
+
+            resObject.errorCode = res.getStatusCode();
+        } catch (CalloutException e) {
+            resObject.errorCode = 500;
+            resObject.errorMessage = e.getMessage();
+        }
+
+
+                                                                         
+        Provider p = null;
+        if (resObject.errorCode != 200) {
+            // ERROR
+            System.debug('*******************xxx');
+            System.debug(resObject.errorCode);
+            // saarr = new SAApprovalRequestResponse();
+            // saarr.error = resObject;
+            p = new Provider();
+            p.verified = false;
+        } else {
+            String resBody = resObject.response;
+            System.debug('*******************');
+            System.debug(resBody);
+
+            // {
+            //     applicationUUID: "",
+            //     firstName: "",
+            //     middleInitial: "",
+            //     lastName: "",
+            //     dateofBirth: "",
+            //     status: "",
+            //     effectiveDate: "",
+            // }
+
+            // TODO: This should really be receiving an object, but using this for now as the API is returning
+            // an array instead of a list.
+            List<Provider> providers = (List<Provider>) JSON.deserialize(resBody, List<Provider>.class);
+            // Sometimes this is empty!
+            if (!providers.isEmpty()) {
+                p = providers[0];
+                if (p.status == 'P') {
+                    // Practising
+                    p.verified = true;
+                } else {
+                    p.verified = true;
+                }
+            } else {
+                // Invalid Provider
+                p = new Provider();
+                p.verified = false;
+            }
+
+        }
+        System.debug('saarr');
+        return p;
+    }
+
     @AuraEnabled
     public static List<SAApprovalRequest> getSAApprovalRequestsx(Id recordId) {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
