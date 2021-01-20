@@ -49,10 +49,7 @@ public with sharing class ODRIntegration {
         update caseToUpdate;
     }
 
-
-    // Make an ODR class that encapsulated the provider/patient information
-    // TODO
-    public static Provider getProvider(Id recordId, String practId, String practIdRef) {
+    public static Provider getProviderWithRecordId(Id recordId, String practId, String practIdRef) {
         GetPractitioner getPractitionerObject = new GetPractitioner();
         getPractitionerObject.applicationUUID = getUUIDString();
         // TODO: Spec says this, but they're not allowing it yet and will make the call 400
@@ -111,10 +108,14 @@ public with sharing class ODRIntegration {
                 p = new Provider();
                 p.verified = false;
             }
-
         }
         return p;
     }
+
+    public static Provider getProvider(String practId, String practIdRef) {
+        return getProviderWithRecordId(null, practId, practIdRef);
+    }
+
      // TODO
      public static PatientInformation getPatient(String phn) {
       return new PatientInformation();
@@ -126,7 +127,7 @@ public with sharing class ODRIntegration {
         System.debug(recordId);
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
-        Provider p = getProvider(recordId, sar.saCase.Provider__r.Provider_Identifier__c, sar.saCase.Provider__r.Provider_Type__c);
+        Provider p = getProviderWithRecordId(recordId, sar.saCase.Provider__r.Provider_Identifier__c, sar.saCase.Provider__r.Provider_Type__c);
         System.debug('saarr');
         return p;
     }
