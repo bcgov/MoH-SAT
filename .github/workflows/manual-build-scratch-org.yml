@@ -29,19 +29,27 @@ jobs:
     - name: Deploy source
       run: node_modules/sfdx-cli/bin/run force:source:push -u ciorg
 
-    - name: Setup Org
+    - name: Assign permission set and set user role
       run: |
         node_modules/sfdx-cli/bin/run force:user:permset:assign -u ciorg -n SA_Administrator
         node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/set-user-role.apex
-        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/assign-cases-to-queue.apex
-        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/add-form-questions.apex
 
-    - name: Create Data
+    - name: Import mock data for drugs, accounts, and case
       run: |
         node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Drug__c -f data/drugs.csv -i Id -w 5
         node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Account -f data/accounts.csv -i Id -w 5
         node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Case -f data/cases.csv -i Id -w 5
+          
+    - name: Assign cases to queues and seed mock question details
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/assign-cases-to-queue.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/add-form-questions.apex
 
+    - name: Import mock adjudication settings.
+      run: |
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Drug__c -f data/drug-settings.csv -i Name -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Adjudication_Criteria__c -f data/adjudicationcriteria.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/assign-drug-default-queues.apex
+        
     - name: Run Apex test
       run: node_modules/sfdx-cli/bin/run force:apex:test:run -c -r human
 
