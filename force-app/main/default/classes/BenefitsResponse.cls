@@ -1,7 +1,7 @@
 public class BenefitsResponse {
 
 	public class PlanIExpenditure {
-		@AuraEnabled public String amount {get;set;}
+		@AuraEnabled public Double amount {get;set;}
 		@AuraEnabled public String year {get;set;}
 	}
 
