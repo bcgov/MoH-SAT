@@ -228,8 +228,7 @@ public with sharing class ODRIntegration {
             } when 'Optometrist' {
                 practIdCode = '94';
             } when 'Out of province provider' {
-                // TODO: Check OOP vs 81...
-                practIdCode = 'OOP';
+                practIdCode = '81';
             }
         }
         return practIdCode;
