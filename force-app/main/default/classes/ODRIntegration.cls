@@ -263,13 +263,13 @@ public with sharing class ODRIntegration {
                                                                           saarObject,
                                                                           '3A');
 
-          if (calloutResponseObject.errorCode != 200) {
-              // // ERROR
+          if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
+              String resBody = calloutResponseObject.response;
+              saarr = (SAApprovalRequestResponse) JSON.deserialize(calloutResponseObject.response, SAApprovalRequestResponse.class);
+          } else {
+			  // ERROR
               saarr = new SAApprovalRequestResponse();
               saarr.error = calloutResponseObject;
-          } else {
-              String resBody = calloutResponseObject.response;
-              saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
           }
           System.debug('saarr');
           System.debug(saarr);
@@ -297,13 +297,15 @@ public with sharing class ODRIntegration {
                                                                           saarObject,
                                                                           '3A');
 
-          if (calloutResponseObject.errorCode != 200 && calloutResponseObject.errorCode != 201) {
-              // // ERROR
-              saarr = new SAApprovalRequestResponse();
-              saarr.error = calloutResponseObject;
+          if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
+            System.debug('SA Created');
+            System.debug(calloutResponseObject);
+            String resBody = calloutResponseObject.response;
+            saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
           } else {
-              String resBody = calloutResponseObject.response;
-              saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
+            // // ERROR
+            saarr = new SAApprovalRequestResponse();
+            saarr.error = calloutResponseObject;
           }
           System.debug('saarr');
           System.debug(saarr);

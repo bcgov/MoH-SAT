@@ -44,8 +44,13 @@ export default class PharmanetPayload extends LightningElement {
             title: 'Pharmanet Error',
             message: data[i].error.errorMessage
           });
-          this.dispatchEvent(event);
+        } else {
+          const event = new ShowToastEvent({
+            title: 'Success',
+            message: JSON.parse(data[i].statusMessage)
+          });
         }
+        this.dispatchEvent(event);
       }
     })
   }
