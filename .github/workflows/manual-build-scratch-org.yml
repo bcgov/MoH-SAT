@@ -41,6 +41,7 @@ jobs:
         node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Case -f data/cases.csv -i Id -w 5
           
     - name: Assign cases to queues and seed mock question details
+      run: |
         node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/assign-cases-to-queue.apex
         node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/add-form-questions.apex
 
