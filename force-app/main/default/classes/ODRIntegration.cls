@@ -297,7 +297,7 @@ public with sharing class ODRIntegration {
                                                                           saarObject,
                                                                           '3A');
 
-          if (calloutResponseObject.errorCode != 200 || calloutResponseObject.errorCode != 201) {
+          if (calloutResponseObject.errorCode != 200 && calloutResponseObject.errorCode != 201) {
               // // ERROR
               saarr = new SAApprovalRequestResponse();
               saarr.error = calloutResponseObject;
