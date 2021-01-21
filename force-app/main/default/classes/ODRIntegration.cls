@@ -421,7 +421,7 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.substring(20);
     }
 
-    private static CalloutResponse sendRequestAndReturnBody(Id recordId,
+    public static CalloutResponse sendRequestAndReturnBody(Id recordId,
                                                             String endpoint,
                                                             String queryParams,
                                                             String method,
