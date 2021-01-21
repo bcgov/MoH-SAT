@@ -1,4 +1,4 @@
-public class PatientInformation {
+public class Patient {
     @AuraEnabled public String name {get;set;}
     @AuraEnabled public String phn {get;set;}
     @AuraEnabled public Datetime dob {get;set;}

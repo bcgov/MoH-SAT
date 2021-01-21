@@ -69,7 +69,7 @@ public with sharing class SpecialAuthorityRequest {
     private static List<Case> query(List<Id> caseIds) {
         return [
             select 
-                Id, Origin, OwnerId, Priority, IsClosed, Status, Subject,
+                Id, Origin, OwnerId, Priority, IsClosed, Status, Subject, Pushed_to_Pnet__c,
                 Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
                 Patient_Validated_Date__c, Patient_Identifier__c, Patient_Date_of_Birth__c,
                 Provider_Validated_Date__c, Termination_Date__c, Effective_Date__c, SA_Type__c,
