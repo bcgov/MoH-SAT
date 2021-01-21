@@ -124,7 +124,7 @@ public class ODRIntegrationTest {
         String Optometrist = ODRIntegration.getPractitionerCode('Optometrist');
         System.assertEquals(Optometrist, '94');
         String oop = ODRIntegration.getPractitionerCode('Out of province provider');
-        System.assertEquals(oop, 'OOP');
+        System.assertEquals(oop, '81');
     }
     @isTest static void formatToODRDateTest() {
         Date theDate = Date.newInstance(1960, 2, 17);
