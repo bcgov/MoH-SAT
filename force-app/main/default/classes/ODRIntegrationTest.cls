@@ -1,5 +1,41 @@
 @isTest
 public class ODRIntegrationTest {
+    @isTest
+    public static void getSFDCStopBlogsTest() {
+        Integer RESPONSE_CODE = 200;
+
+        Drug__c drug = TestFactory.newDrug('Drug 1');
+        insert drug;
+
+        Account patient = TestFactory.newPatient('Patient 1');
+        Account provider = TestFactory.newProvider('Provider 1');
+        insert new Account[] { patient, provider };
+
+        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+        insert saCase;
+
+        Test.startTest();
+        String queryParams = '?clientName=SpecAuth';
+        queryParams += '&requestUUID=' + ODRIntegration.getUUIDString();
+        queryParams += '&userid=' + ODRIntegration.getUserIdentifier();
+        queryParams += '&phn=' + ODRIntegration.getPatientIdentifier(saCase.Id);
+        queryParams += '&pageSize=10';
+        queryParams += '&pageNo=1';
+
+        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,
+                                                        'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                        '',
+                                                        null);
+        Test.setMock(HttpCalloutMock.class, fakeResponse);
+        CalloutResponse calloutResponseObject = ODRIntegration.sendRequestAndReturnBody(saCase.Id,
+                                                                                        'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                                        queryParams,
+                                                                                        'GET',
+                                                                                        null,
+                                                                                        '3A');
+        System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
+        Test.stopTest();
+    }
     @isTest static void verifyPHNDataTest() {
         Boolean isVerified = ODRIntegration.verifyPHNData('','');
         System.assertEquals(true, isVerified);
