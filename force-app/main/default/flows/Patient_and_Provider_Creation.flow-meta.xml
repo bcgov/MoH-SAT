@@ -1822,12 +1822,20 @@
             <fieldType>ComponentInstance</fieldType>
             <isRequired>true</isRequired>
             <outputParameters>
-                <assignToReference>providerRecord</assignToReference>
-                <name>provider</name>
+                <assignToReference>patientRecord</assignToReference>
+                <name>patient</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>prescriberRecord</assignToReference>
+                <name>prescriber</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>submitterRecord</assignToReference>
+                <name>submitter</name>
             </outputParameters>
         </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>Provider_Details_Screen</name>
@@ -1847,15 +1855,12 @@
         </fields>
         <fields>
             <name>providerRecord_Display</name>
-            <fieldText>&lt;p&gt;Provider Name: &lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;{!providerRecord.FirstName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Provider ID: {!providerRecord.Provider_Identifier__pc}&lt;/p&gt;&lt;p&gt;Provider Type: {!providerRecord.Provider_Type__pc}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;Prescriber:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Name &lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;{!prescriberRecord.FirstName} {!prescriberRecord.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;ID: {!prescriberRecord.Provider_Identifier__pc}&lt;/p&gt;&lt;p&gt;Type: {!prescriberRecord.Provider_Type__pc}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Submitter:&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Name &lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!submitterRecord.FirstName} {!submitterRecord.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;ID: {!submitterRecord.Provider_Identifier__pc}&lt;/p&gt;&lt;p&gt;Type: &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!submitterRecord.Provider_Type__pc}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Patient&lt;/b&gt;&lt;/p&gt;&lt;p&gt;ID: {!patientRecord.Patient_Identifier__pc}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
             <name>Provider_Identifier</name>
             <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>providerRecord.Provider_Identifier__pc</elementReference>
-            </defaultValue>
             <fieldText>Provider Identifier</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
@@ -2030,7 +2035,7 @@
             <targetReference>ODR_Lookup_Footer</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <subflows>
         <name>Bupropion_Creation</name>
         <label>Bupropion Creation</label>
@@ -2388,7 +2393,17 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>providerRecord</name>
+        <description>Variable for storing patient info retrieved as a patient-type account record.</description>
+        <name>patientRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <description>Variable for storing prescriber info retrieved from Pharmanet as a provider-type account record.</description>
+        <name>prescriberRecord</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -2404,5 +2419,14 @@
         <value>
             <stringValue>&lt;a href=&quot;/{!Create_SA_Request}&quot;target=&quot;_parent&quot;&gt;SA Request Created - Click Here&lt;/a&gt;</stringValue>
         </value>
+    </variables>
+    <variables>
+        <description>Variable for storing submitter info retrieved from Pharmanet as a provider-type account record.</description>
+        <name>submitterRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
     </variables>
 </Flow>
