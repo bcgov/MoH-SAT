@@ -1,39 +1,19 @@
 <template>
-    <lightning-card if:true={ready} title="ODR Lookup">
-        <div class="slds-p-around_x-small">
-            <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
-                <div class="slds-col slds-size-1_of_3">
-                    <lightning-combobox 
-                        name="providerType"
-                        label={providerTypeLabel}
-                        options={providerTypeOptions}
-                        value={provider.Provider_Type__pc}
-                        class="fld-providerType"
-                    ></lightning-combobox>
-                </div>
-                <div class="slds-col slds-size-1_of_3">
-                    <lightning-input 
-                        name="providerIdentifier" 
-                        type="text" 
-                        label={providerIdLabel}
-                        value={provider.Provider_Type__pc}
-                        class="fld-providerId"></lightning-input>
-                </div>
-                <div class="slds-col slds-size-1_of_3">
-                    <lightning-button 
-                        variant="brand" 
-                        label="Lookup provider" 
-                        title="Lookup provider" 
-                        onclick={handleLookupProvider}
-                        class="btn-lookupProvider">
-                    </lightning-button>
-                </div>
-            </div> 
-            <div >
-                <lightning-input type="text" label="First name" value={provider.FirstName} disabled={hasOdrProvider}></lightning-input>
-                <lightning-input type="text" label="Last name" value={provider.LastName} disabled={hasOdrProvider}></lightning-input>
-                <lightning-input type="date" label="Date of birth" value={provider.PersonBirthdate} disabled={hasOdrProvider}></lightning-input>
-                <lightning-input type="text" label="Status" value={odrProvider.status} read-only="true"></lightning-input>
+    <lightning-card title="ODR Lookup" icon-name="standard:search">
+        <div class="slds-box slds-box_x-small slds-m-around_x-small">
+            <c-provider-lookup onresult={handlePrescriber} title="Prescriber lookup" icon-name="utility:einstein"></c-provider-lookup>
+        </div>
+        <div class="slds-box slds-box_x-small slds-m-around_x-small">
+            <c-provider-lookup onresult={handleSubmitter} title="Submitter lookup" icon-name="utility:copy_to_clipboard"></c-provider-lookup>
+        </div>
+        <div class="slds-box slds-box_x-small slds-m-around_x-small">
+            <c-patient-lookup onresult={handlePatient} title="Patient lookup" icon-name="utility:user"></c-patient-lookup>
+        </div>
+
+        <div slot="footer" class="slds-grid">
+            <div class="slds-col_bump-left">
+                <lightning-button label="Cancel" class="slds-m-horizontal_small" onclick={handleCancel}></lightning-button>
+                <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
             </div>
         </div>
     </lightning-card>

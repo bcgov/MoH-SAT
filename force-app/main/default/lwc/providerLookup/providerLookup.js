@@ -14,8 +14,7 @@ export default class ProviderLookup extends LightningElement {
     @api
     iconName = 'utility:search';
 
-    @api
-    provider;
+    provider = {};
     odrProvider = {};
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
@@ -27,10 +26,6 @@ export default class ProviderLookup extends LightningElement {
     @wire(getPicklistValues, { fieldApiName: FLD_PROVIDER_TYPE, recordTypeId: '012000000000000AAA' })
     providerTypeFldInfo;
 
-    connectedCallback() {
-        this.provider = this.provider || {};
-    }
-    
     get ready() {
         return this.contactObjInfo && this.contactObjInfo.data && 
             this.providerTypeFldInfo && this.providerTypeFldInfo.data;
@@ -48,53 +43,49 @@ export default class ProviderLookup extends LightningElement {
         return this.contactObjInfo.data.fields['Provider_Identifier__c'].label;
     }
 
-    get providerId() {
-        return this.template.querySelector('.fld-providerId').value;
-    }
-
-    get providerType() {
-        return this.template.querySelector('.fld-providerType').value;
-    }
-
     get providerRecordTypeId() {
         return Object.values(this.accountObjInfo.data.recordTypeInfos).find(rti => rti.name=='Provider').recordTypeId;
     }
 
     handleFormChange(event) {
         this.provider[event.currentTarget.dataset.field] = event.target.value;
-        
-        // if (event.currentTarget.dataset.field == 'Provider_Identifier__pc')
-        
-        console.log(this.provider);
-    }
-
-    handleCommit(event) {
-        this.handleLookup();
+        this.sendResult(this.provider);
     }
 
     async handleLookup() {
         this.template.querySelector('.btn-lookup').disabled = true;
         
+        this.provider = {
+            RecordTypeId: this.providerRecordTypeId,
+            Provider_Identifier__pc: this.provider.Provider_Identifier__pc,
+            Provider_Type__pc: this.provider.Provider_Type__pc
+        };
+
         this.odrProvider = await findProvider({
-            providerId: this.providerId,
-            providerType: this.providerType,
+            providerId: this.provider.Provider_Identifier__pc,
+            providerType: this.provider.Provider_Type__pc,
         });
         
         this.provider = {
             FirstName: this.odrProvider.firstName,
             LastName: this.odrProvider.lastName,
             PersonBirthdate: this.parseDate(this.odrProvider.dateofBirth),
-            Provider_Identifier__pc: this.providerId,
-            Provider_Type__pc: this.providerType,
-            RecordTypeId: this.providerRecordTypeId
+            ...this.provider
         }
+        
+        this.sendResult(this.provider);
         
         this.hasOdrProvider = this.odrProvider && this.odrProvider.hasOwnProperty('firstName');
         
         this.template.querySelector('.btn-lookup').disabled = false;
     }
 
+    sendResult(record) {
+        this.dispatchEvent(new CustomEvent('result', { detail: record }));
+    }
+
     parseDate(odrDateStr) {
+        if (!odrDateStr) return null;
         var mdy = odrDateStr.split('/');
         return mdy[2] + '-' + mdy[0] + '-' + mdy[1];
     }

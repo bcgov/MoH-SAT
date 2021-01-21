@@ -11,8 +11,7 @@ export default class PatientLookup extends LightningElement {
     @api
     iconName = 'utility:search';
 
-    @api
-    patient;
+    patient = {};
     odrPatient = {};
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
@@ -20,10 +19,6 @@ export default class PatientLookup extends LightningElement {
 
     @wire(getObjectInfo, { objectApiName: OBJ_CONTACT })
     contactObjInfo;
-
-    connectedCallback() {
-        this.patient = this.patient || {};
-    }
 
     get ready() {
         return this.contactObjInfo && this.contactObjInfo.data;
@@ -41,7 +36,16 @@ export default class PatientLookup extends LightningElement {
         return Object.values(this.accountObjInfo.data.recordTypeInfos).find(rti => rti.name=='Patient').recordTypeId;
     }
 
+    handleFormChange(event) {
+        this.patient[event.currentTarget.dataset.field] = event.target.value;
+        this.sendResult(this.patient);
+    }
+
     handleLookup() {
 
+    }
+
+    sendResult(record) {
+        this.dispatchEvent(new CustomEvent('result', { detail: record }));
     }
 }

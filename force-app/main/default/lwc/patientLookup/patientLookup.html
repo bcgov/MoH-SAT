@@ -7,7 +7,8 @@
                     type="text" 
                     label={oatientIdLabel}
                     value={patient.Patient_Identifier__pc}
-                    class="fld-patientId"></lightning-input>
+                    data-field="Patient_Identifier__pc"
+                    onchange={handleFormChange}></lightning-input>
             </div>
             <div class="slds-col slds-size-1_of_3">
                 <lightning-button 

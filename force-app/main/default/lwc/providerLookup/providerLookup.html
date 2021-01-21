@@ -7,8 +7,7 @@
                     label={providerTypeLabel}
                     options={providerTypeOptions}
                     value={provider.Provider_Type__pc}
-                    class="fld-providerType"
-                    data-field="Provider_Identifier__pc"
+                    data-field="Provider_Type__pc"
                     onchange={handleFormChange}
                 ></lightning-combobox>
             </div>
@@ -18,10 +17,8 @@
                     type="text" 
                     label={providerIdLabel}
                     value={provider.Provider_Identifier__pc}
-                    class="fld-providerId"
-                    data-field="Provider_Type__pc"
+                    data-field="Provider_Identifier__pc"
                     onchange={handleFormChange}
-                    oncommit={handleCommit}
                 ></lightning-input>
             </div>
             <div class="slds-col slds-size-1_of_3">
