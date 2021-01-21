@@ -47,7 +47,7 @@ public class PrescriptionHistoryResponse {
 	}
 
 	public class Comment {
-		@AuraEnabled public String dateEntered {get;set;
+		@AuraEnabled public String dateEntered {get;set;}
 		@AuraEnabled public String practitionerName {get;set;}
 		@AuraEnabled public String text {get;set;}
 		@AuraEnabled public String practitionerRefId {get;set;}
