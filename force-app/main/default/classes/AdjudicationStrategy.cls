@@ -43,7 +43,9 @@ public virtual with sharing class AdjudicationStrategy {
 
         onAfterEvaluate();
         
-        runAction(SAPush.class);
+        if (drug.Auto_Push_To_Pharmanet__c) {
+            runAction(SAPush.class);
+        }
     }
 
     public virtual void onBeforeEvaluate() {} 
@@ -70,7 +72,7 @@ public virtual with sharing class AdjudicationStrategy {
         return [
             select 
                 Id, Pre_Adjudication_Apex__c, Post_Adjudication_Apex__c, Criteria_Logic__c,
-                Auto_Validate_Patient__c, Auto_Validate_Provider__c, 
+                Auto_Validate_Patient__c, Auto_Validate_Provider__c, Auto_Push_to_Pharmanet__c,
                 (
                     select 
                         Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
