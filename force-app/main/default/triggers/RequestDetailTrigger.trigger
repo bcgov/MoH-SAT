@@ -8,7 +8,7 @@ trigger RequestDetailTrigger on Request_Detail__c (after insert, after update) {
 
     if (caseIds.size() == 1) {
         for (Id caseId : caseIds) {
-            AdjudicationService.evaluate(caseId);
+            AdjudicationService.evaluateFuture(caseId, false);
         }
     }
 }

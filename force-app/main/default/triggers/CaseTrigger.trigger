@@ -9,7 +9,7 @@ trigger CaseTrigger on Case (before insert, before update) {
                     Trigger.isInsert || 
                     (Trigger.isUpdate && Trigger.oldMap.get(saCase.Id).Drug__c == null);
 
-                AdjudicationService.evaluate(saCase, setDefaultOwner);
+                AdjudicationService.evaluateFuture(saCase.Id, setDefaultOwner);
             }
         }
     }
