@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <available>true</available>
-    <description>SA Approved Template</description>
+    <description>SA MIR Template</description>
     <encodingKey>UTF-8</encodingKey>
-    <name>SA Approved Template</name>
+    <name>SA MIR Template</name>
     <style>none</style>
-    <subject>SA Not Approved Template</subject>
+    <subject>SA MIR Template</subject>
     <textOnly>Response to Request for Special Authority Coverage received on {!Case.Received_Date__c}
 
 Prescriber Information
@@ -26,9 +26,9 @@ Drug Name: {!Case.Drug_Name__c}
 Description: {!Case.Description}
 
 Adjudication Decision
-Decision: Approved
-Effective Date: {!Case.Effective_Date__c}
-Termination Date: {!Case.Termination_Date__c}
+Decision: More Information Required
+Effective Date: N/A
+Termination Date: N/A
 
 Rationale
 {!Case.Rationale__c}
