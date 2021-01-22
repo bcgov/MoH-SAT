@@ -1,5 +1,21 @@
 public with sharing class AdjudicationService {
     
+    private static Set<Id> queuedIds = new Set<Id>();
+    private static Set<Id> evaluatedIds = new Set<Id>();
+
+    public static void evaluateFuture(Id caseId, Boolean assignOwner) {
+        if (queuedIds.contains(caseId) || evaluatedIds.contains(caseId)) return;
+
+        runEvaluateFuture(caseId, assignOwner);
+        
+        queuedIds.add(caseId);
+    }
+
+    @future(callout=true)
+    private static void runEvaluateFuture(Id caseId, Boolean assignOwner) {
+        evaluate(caseId, assignOwner);
+    }
+
     public static void evaluate(Id caseId) {
         evaluate(caseId, false);
     }
@@ -8,6 +24,8 @@ public with sharing class AdjudicationService {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(caseId); 
         
         evaluate(sar, assignOwner);
+
+        evaluatedIds.add(caseId);
         
         update sar.saCase;
     }

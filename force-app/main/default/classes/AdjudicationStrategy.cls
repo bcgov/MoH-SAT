@@ -23,11 +23,11 @@ public virtual with sharing class AdjudicationStrategy {
      */
     public virtual void handleBeforeEvaluation() {
         if (drug.Auto_Validate_Patient__c) {
-            runAction(PatientValidator.class.getName()); 
+            runAction(PatientValidator.class); 
         }
 
         if (drug.Auto_Validate_Provider__c) {
-            runAction(ProviderValidator.class.getName()); 
+            runAction(ProviderValidator.class); 
         }
 
         runAction(drug.Pre_Adjudication_Apex__c);
@@ -42,6 +42,8 @@ public virtual with sharing class AdjudicationStrategy {
         runAction(drug.Post_Adjudication_Apex__c);
 
         onAfterEvaluate();
+        
+        runAction(SAPush.class);
     }
 
     public virtual void onBeforeEvaluate() {} 
@@ -49,6 +51,10 @@ public virtual with sharing class AdjudicationStrategy {
     public virtual void onAfterEvaluate() {}
 
     public virtual void evaluate() {}
+
+    private void runAction(System.Type apexType) {
+        runAction(apexType.getName());
+    }
 
     private void runAction(String className) {
         if (String.isBlank(className)) return;
