@@ -16,8 +16,12 @@ public class AdjudicationServiceTest {
         drug.OwnerId = testGroup.Id;
         insert drug;
 
+        AdjudicationSettings.disableTriggers();
+
         Case saCase = TestFactory.newCase(drug, 'Test case 1');
         insert saCase;
+        
+        AdjudicationSettings.enableTriggers();
     }
 
     @isTest
@@ -51,9 +55,13 @@ public class AdjudicationServiceTest {
             super(sar);
         }
 
+        public override void handleBeforeEvaluation() {}
+
         public override void evaluate() {
             sar.saCase.Subject = 'Mock strategy executed';
         }
+
+        public override void handleAfterEvaluation() {}
     }
 
     private static Case queryCase(String subject) {
