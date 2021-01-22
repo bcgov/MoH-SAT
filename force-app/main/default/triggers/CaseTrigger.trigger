@@ -1,4 +1,4 @@
-trigger CaseTrigger on Case (before insert, before update) {    
+trigger CaseTrigger on Case (after insert, after update) {    
     
     if (Trigger.size == 1) {
         for (Case saCase : Trigger.new) {
