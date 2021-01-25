@@ -285,36 +285,33 @@ public with sharing class ODRIntegration {
         for(SAApprovalRequest sarBody: sarBodies) {
 
           // Check if it's already Pushed_to_Pnet_Date__c
-          if (sarBody.Pushed_to_Pnet__c == true) {
-            // Skip
-            contiue;
+          if (sarBody.Pushed_to_Pnet__c != true) {
+            String saarObject = JSON.serialize(sarBody);
+            System.debug('saarObject');
+            System.debug(saarObject);
+
+            SAApprovalRequestResponse saarr;
+            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
+                                                                            'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+                                                                            null,
+                                                                            'POST',
+                                                                            saarObject,
+                                                                            '3A');
+
+            if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
+              System.debug('SA Created');
+              System.debug(calloutResponseObject);
+              String resBody = calloutResponseObject.response;
+              saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
+            } else {
+              // // ERROR
+              saarr = new SAApprovalRequestResponse();
+              saarr.error = calloutResponseObject;
+            }
+            System.debug('saarr');
+            System.debug(saarr);
+            responses.add(saarr);
           }
-
-          String saarObject = JSON.serialize(sarBody);
-          System.debug('saarObject');
-          System.debug(saarObject);
-
-          SAApprovalRequestResponse saarr;
-          CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
-                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
-                                                                          null,
-                                                                          'POST',
-                                                                          saarObject,
-                                                                          '3A');
-
-          if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
-            System.debug('SA Created');
-            System.debug(calloutResponseObject);
-            String resBody = calloutResponseObject.response;
-            saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
-          } else {
-            // // ERROR
-            saarr = new SAApprovalRequestResponse();
-            saarr.error = calloutResponseObject;
-          }
-          System.debug('saarr');
-          System.debug(saarr);
-          responses.add(saarr);
       }
       return responses;
     }
