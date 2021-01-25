@@ -279,6 +279,8 @@ public with sharing class ODRIntegration {
     @AuraEnabled
     public static SAApprovalRequestResponse postSingleSAApproval(Id caseId, SAApprovalRequest pnetSa) {
       // Attach the userid
+      pnetSa.requestUUID = getUUIDString();
+      pnetSa.clientName = 'SpecAuth';
       pnetSa.userid = getUserIdentifier();
       String saarObject = JSON.serialize(pnetSa);
 
