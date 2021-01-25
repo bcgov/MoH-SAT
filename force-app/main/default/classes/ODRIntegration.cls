@@ -52,7 +52,6 @@ public with sharing class ODRIntegration {
     public static Provider getProviderWithRecordId(Id recordId, String practId, String practIdRef) {
         GetPractitioner getPractitionerObject = new GetPractitioner();
         getPractitionerObject.applicationUUID = getUUIDString();
-        getPractitionerObject.userid = getUserIdentifier();
         getPractitionerObject.programArea = 'SpecAuth';
         getPractitionerObject.licenceNumber    = practId;
         getPractitionerObject.collegeReferenceId = getPractitionerCode(practIdRef);
