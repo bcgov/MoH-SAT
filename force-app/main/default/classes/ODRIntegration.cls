@@ -52,9 +52,7 @@ public with sharing class ODRIntegration {
     public static Provider getProviderWithRecordId(Id recordId, String practId, String practIdRef) {
         GetPractitioner getPractitionerObject = new GetPractitioner();
         getPractitionerObject.applicationUUID = getUUIDString();
-        // TODO: Spec says this, but they're not allowing it yet and will make the call 400
-        // even if it's good.
-        // getPractitionerObject.userid = 'SALESFORCE';//getUserIdentifier();
+        getPractitionerObject.userid = getUserIdentifier();
         getPractitionerObject.programArea = 'SpecAuth';
         getPractitionerObject.licenceNumber    = practId;
         getPractitionerObject.collegeReferenceId = getPractitionerCode(practIdRef);
@@ -152,7 +150,7 @@ public with sharing class ODRIntegration {
               SAApprovalRequest sarBody = new SAApprovalRequest();
               sarBody.requestUUID = getUUIDString();
               sarBody.clientName = 'SpecAuth';
-              sarBody.userid = 'SALESFORCE';//getUserIdentifier();
+              sarBody.userid = getUserIdentifier();
               sarBody.saRecord.phn = sar.saCase.Patient_Identifier__c;
               System.debug('SAR');
               System.debug(sarBody);
@@ -250,6 +248,7 @@ public with sharing class ODRIntegration {
         List<SAApprovalRequestResponse> responses = new List<SAApprovalRequestResponse>();
 
         for(SAApprovalRequest sarBody: sarBodies) {
+          sarBody.userid = getUserIdentifier();
           String saarObject = JSON.serialize(sarBody);
           System.debug('saarObject');
           System.debug(saarObject);
@@ -284,6 +283,13 @@ public with sharing class ODRIntegration {
         List<SAApprovalRequestResponse> responses = new List<SAApprovalRequestResponse>();
 
         for(SAApprovalRequest sarBody: sarBodies) {
+
+          // Check if it's already Pushed_to_Pnet_Date__c
+          if (sarBody.Pushed_to_Pnet__c == true) {
+            // Skip
+            contiue;
+          }
+
           String saarObject = JSON.serialize(sarBody);
           System.debug('saarObject');
           System.debug(saarObject);
