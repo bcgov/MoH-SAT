@@ -276,6 +276,37 @@ public with sharing class ODRIntegration {
       return responses;
     }
 
+    // Special submit case by case
+    @AuraEnabled
+    public static SAApprovalRequestResponse postSingleSAApproval(Id caseId, SAApprovalRequest pnetSa) {
+      // Attach the userid
+      pnetSa.userid = getUserIdentifier();
+      String saarObject = JSON.serialize(pnetSa);
+
+      SAApprovalRequestResponse saarr;
+      CalloutResponse calloutResponseObject = sendRequestAndReturnBody(caseId,
+                                                                      'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+                                                                      null,
+                                                                      'POST',
+                                                                      saarObject,
+                                                                      '3A');
+
+      if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
+        System.debug('SA Created');
+        System.debug(calloutResponseObject);
+        String resBody = calloutResponseObject.response;
+        saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
+      } else {
+        // // ERROR
+        saarr = new SAApprovalRequestResponse();
+        saarr.error = calloutResponseObject;
+        throw new AuraHandledException(calloutResponseObject.errorMessage);
+      }
+      System.debug('saarr');
+      System.debug(saarr);
+      return saarr;
+    }
+
     public static List<SAApprovalRequestResponse> postSAApproval(SpecialAuthorityRequest sar) {
         System.debug('postSAApproval');
 
