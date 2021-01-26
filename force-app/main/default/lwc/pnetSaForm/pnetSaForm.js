@@ -85,7 +85,7 @@ export default class PnetSaForm extends LightningElement {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Success',
                 message: 'Submitted to Pharmanet',
-                mode: "sticky",
+                mode: "dismissable",
                 variant: "success"
             }));
 
@@ -95,7 +95,7 @@ export default class PnetSaForm extends LightningElement {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Error',
                 message: error.body.message,
-                mode: "sticky",
+                mode: "dismissable",
                 variant: "error"
             }));
             this.template.querySelector('.btn-submit').disabled = false;
