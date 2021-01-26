@@ -1,7 +1,7 @@
 @isTest
 public class ODRIntegrationTest {
     @isTest
-    public static void getSFDCStopBlogsTest() {
+    public static void calloutTesting() {
         Integer RESPONSE_CODE = 200;
 
         Drug__c drug = TestFactory.newDrug('Drug 1');
