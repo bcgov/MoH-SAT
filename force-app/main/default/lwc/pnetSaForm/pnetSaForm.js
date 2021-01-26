@@ -8,6 +8,8 @@ export default class PnetSaForm extends LightningElement {
     
     _record;
 
+    formDisabled = false;
+
     get record() {
         return {
             saRecord: {
@@ -79,6 +81,16 @@ export default class PnetSaForm extends LightningElement {
                 caseId: this.caseId,
                 pnetSa: this.record
             });
+
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'Success',
+                message: 'Submitted to Pharmanet',
+                mode: "sticky",
+                variant: "success"
+            }));
+
+            this.disableForm();
+            
         } catch (error) {
             this.dispatchEvent(new ShowToastEvent({
                 title: 'Error',
@@ -88,6 +100,9 @@ export default class PnetSaForm extends LightningElement {
             }));
             this.template.querySelector('.btn-submit').disabled = false;
         }
-        
+    }
+
+    disableForm() {
+        this.formDisabled = true;
     }
 }
