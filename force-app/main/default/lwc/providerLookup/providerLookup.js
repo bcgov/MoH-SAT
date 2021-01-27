@@ -16,6 +16,7 @@ export default class ProviderLookup extends LightningElement {
 
     provider = {};
     odrProvider = {};
+    hasOdrProvider;
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
     accountObjInfo;
@@ -49,12 +50,17 @@ export default class ProviderLookup extends LightningElement {
 
     handleFormChange(event) {
         this.provider[event.currentTarget.dataset.field] = event.target.value;
-        this.sendResult(this.provider);
+
+        this.template.querySelector('.btn-lookup').disabled 
+            = !(this.provider.Provider_Type__pc 
+            && this.provider.Provider_Identifier__pc);
     }
 
     async handleLookup() {
         this.template.querySelector('.btn-lookup').disabled = true;
         
+        this.odrProvider = {};
+
         this.provider = {
             RecordTypeId: this.providerRecordTypeId,
             Provider_Identifier__pc: this.provider.Provider_Identifier__pc,
@@ -66,6 +72,8 @@ export default class ProviderLookup extends LightningElement {
             providerType: this.provider.Provider_Type__pc,
         });
         
+        this.hasOdrProvider = this.odrProvider && this.odrProvider.hasOwnProperty('status');
+
         this.provider = {
             FirstName: this.odrProvider.firstName,
             LastName: this.odrProvider.lastName,
@@ -74,9 +82,7 @@ export default class ProviderLookup extends LightningElement {
         }
         
         this.sendResult(this.provider);
-        
-        this.hasOdrProvider = this.odrProvider && this.odrProvider.hasOwnProperty('firstName');
-        
+                
         this.template.querySelector('.btn-lookup').disabled = false;
     }
 
@@ -88,5 +94,15 @@ export default class ProviderLookup extends LightningElement {
         if (!odrDateStr) return null;
         var mdy = odrDateStr.split('/');
         return mdy[2] + '-' + mdy[0] + '-' + mdy[1];
+    }
+
+    get statusCss() {
+        return this.odrProvider.status == 'P' 
+            ? 'slds-text-color_success' 
+            : 'slds-text-color_error';
+    }
+
+    get noRecord() {
+        return this.odrProvider && this.odrProvider.verified === false;
     }
 }

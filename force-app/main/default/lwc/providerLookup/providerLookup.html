@@ -1,6 +1,6 @@
 <template>
     <lightning-card if:true={ready} title={title} icon-name={iconName} variant="narrow">
-        <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+        <div class="slds-grid slds-gutters  slds-grid_vertical-align-start fix-vertical-alignment">
             <div class="slds-col slds-size-1_of_3">
                 <lightning-combobox 
                     name="providerType"
@@ -9,6 +9,7 @@
                     value={provider.Provider_Type__pc}
                     data-field="Provider_Type__pc"
                     onchange={handleFormChange}
+                    required
                 ></lightning-combobox>
             </div>
             <div class="slds-col slds-size-1_of_3">
@@ -19,49 +20,46 @@
                     value={provider.Provider_Identifier__pc}
                     data-field="Provider_Identifier__pc"
                     onchange={handleFormChange}
+                    required
                 ></lightning-input>
             </div>
-            <div class="slds-col slds-size-1_of_3">
+            <div class="slds-col slds-size-1_of_3 slds-align-middle">
                 <lightning-button 
                     variant="brand" 
                     label="Lookup" 
                     title="Lookup" 
                     onclick={handleLookup}
-                    class="btn-lookup">
+                    class="btn-lookup"
+                    disabled>
                 </lightning-button>
             </div>
         </div> 
-        <div class="slds-grid slds-gutters">
-            <div class="slds-col">
-                <lightning-input 
-                    type="text" 
-                    label="First name" 
-                    value={provider.FirstName} 
-                    disabled={hasOdrProvider} 
-                    data-field="FirstName"
-                    onchange={handleFormChange}></lightning-input>
-                <lightning-input 
-                    type="text" 
-                    label="Last name" 
-                    value={provider.LastName} 
-                    disabled={hasOdrProvider}
-                    data-field="LastName"
-                    onchange={handleFormChange}></lightning-input>
+        <div if:true={odrProvider.verified} class="slds-grid slds-gutters">
+            <div class="slds-col slds-form-element">
+                <span class="slds-form-element__label">Status</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static"><span class="slds-text-title_bold"><span class={statusCss}>{odrProvider.status}</span></span></div>
+                </div>
             </div>
-            <div class="slds-col">
-                <lightning-input 
-                    type="date" 
-                    label="Date of birth" 
-                    data-field="PersonBirthdate"
-                    value={provider.PersonBirthdate} 
-                    disabled={hasOdrProvider}
-                    onchange={handleFormChange}></lightning-input>
-                <lightning-input 
-                    type="text" 
-                    label="Status" 
-                    value={odrProvider.status} 
-                    read-only="true">
-                </lightning-input>
+            <div class="slds-col slds-form-element">
+                <span class="slds-form-element__label">Name</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">{provider.LastName}, {provider.FirstName}</div>
+                </div>
+            </div>
+            <div class="slds-col slds-form-element">
+                <span class="slds-form-element__label">Birthdate</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static"><lightning-formatted-date-time value={provider.PersonBirthdate}></lightning-formatted-date-time></div>
+                </div>
+            </div>
+        </div>
+        <div if:true={noRecord}>
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+                <div class="slds-m-vertical_small">
+                    <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                    <p>No record found.</p>
+                </div>
             </div>
         </div>
     </lightning-card>
