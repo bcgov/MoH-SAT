@@ -1,0 +1,49 @@
+name: BuildCheck
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    - name: Install Salesforce CLI
+      run: |
+        npm install sfdx-cli
+        node_modules/sfdx-cli/bin/run --version
+        node_modules/sfdx-cli/bin/run plugins --core
+      
+    - name: Authenticate DevHub
+      run: |
+        echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
+        node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_DEVHUB_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
+      env:
+        SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
+      
+    - name: Define CI org
+      run: node_modules/sfdx-cli/bin/run force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
+
+    - name: Deploy source
+      run: node_modules/sfdx-cli/bin/run force:source:push -u ciorg
+
+    - name: Assign permission set and set user role
+      run: |
+        node_modules/sfdx-cli/bin/run force:user:permset:assign -u ciorg -n SA_Administrator
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/set-user-role.apex
+        
+    - name: Run Apex test
+      run: node_modules/sfdx-cli/bin/run force:apex:test:run -c -r human
+
+    - name: Login URL
+      env: 
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PULL_REQUEST_COMMENT_URL:  ${{ github.event.pull_request._links.comments.href }}
+      run: |
+        node_modules/sfdx-cli/bin/run force:user:password:generate -u ciorg
+        node_modules/sfdx-cli/bin/run force:org:display -u ciorg --verbose
