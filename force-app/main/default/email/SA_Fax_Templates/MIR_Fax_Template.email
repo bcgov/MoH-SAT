@@ -1,34 +1,40 @@
 <img src="/resource/Logo"/><br><br>
 
-Response to Request for Special Authority Coverage (Case #: {!Case.CaseNumber}) received on {!Case.Received_Date__c} <br><br>
+Response to Request for Special Authority Coverage (Case # {!Case.CaseNumber}) received on {!Case.Received_Date__c} <br><br>
 
-<strong>Prescriber Information</strong><br>
-Name: {!Case.Prescriber_Name_Template__c}<br>
-College ID: {!Case.Prescriber_Identifier_Template__c}<br>
-Address: {!Case.Prescriber_Address_Template__c}<br>
-Fax: {!Case.Prescriber_Fax_Template__c}<br>
-Phone: {!Case.Prescriber_Phone_Template__c}<br><br>
+<center><strong>MORE INFORMATION REQUIRED</strong><br>
+<strong>Rationale:</strong><br>
+{!Case.Rationale__c}<br><br></center>
 
-<strong>Patient Information</strong><br>
-Name: {!Case.Patient_Name_Template__c}<br>
-PHN: {!Case.Patient_Identifier_Template__c}<br>
-Date of Birth: {!Case.Patient_DOB_Template__c}<br>
-Address: {!Case.Patient_Address_Template__c}<br><br>
+<table>
+<tr>
+<th>Patient Information</th>
+<th>Prescriber Information</th>
+</tr>
+<tr>
+<td>Name: {!Case.Patient_Name_Template__c}</td>
+<td>Name: {!Case.Prescriber_Name_Template__c}</td>
+</tr>
+<tr>
+<td>PHN: {!Case.Patient_Identifier_Template__c}</td>
+<td>College ID: {!Case.Prescriber_Identifier_Template__c}</td>
+</tr>
+<tr>
+<td>Date of Birth: {!Case.Patient_DOB_Template__c}</td>
+<td>Fax: {!Case.Prescriber_Fax_Template__c}</td>
+</tr>
+<tr>
+<td></td>
+<td>Phone: {!Case.Prescriber_Phone_Template__c}</td>
+</tr>
+</table>
+<br>
 
 <strong>Medication Requested</strong><br>
 Drug Name: {!Case.Drug_Name__c}<br>
-Description: {!Case.Description}<br><br>
+Description: {!Case.Description}<br><br><br><br>
 
-<strong>Adjudication Decision</strong><br>
-Decision: More Information Required<br>
-Effective Date: N/A<br>
-Termination Date: N/A<br><br>
+Special Authority BC Ministry of Health<br>
+Response provided on {!Case.ClosedDate}<br><br><br><br><br><br>
 
-<strong>Rationale</strong><br>
-{!Case.Rationale__c}<br><br>
-
-Response provided on {!Case.ClosedDate}<br><br>
-
-Special Authority BC Ministry of Health<br><br>
-
-<small>*This facsimile is Doctor-Patient privileged and contains confidential information intended only for PharmaCare.<br> Any other distribution, copying, or disclosure is strictly prohibited. If you have received this fax in error,<br> please write “MIS-DIRECTED across the front of the notification and fax toll-free to 1-800-609-4884,<br> then destroy the pages received in error.</small>
+<footer><small>*This facsimile is Doctor-Patient privileged and contains confidential information intended only for PharmaCare.<br> Any other distribution, copying, or disclosure is strictly prohibited. If you have received this fax in error,<br> please write “MIS-DIRECTED across the front of the notification and fax toll-free to 1-800-609-4884,<br> then destroy the pages received in error.</small></footer>
