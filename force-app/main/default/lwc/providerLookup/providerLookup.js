@@ -78,16 +78,17 @@ export default class ProviderLookup extends LightningElement {
             FirstName: this.odrProvider.firstName,
             LastName: this.odrProvider.lastName,
             PersonBirthdate: this.parseDate(this.odrProvider.dateofBirth),
+            verified: this.odrProvider.verified,
             ...this.provider
         }
         
-        this.sendResult(this.provider);
+        this.publishChange(this.provider);
                 
         this.template.querySelector('.btn-lookup').disabled = false;
     }
 
-    sendResult(record) {
-        this.dispatchEvent(new CustomEvent('result', { detail: record }));
+    publishChange(record) {
+        this.dispatchEvent(new CustomEvent('change', { detail: record }));
     }
 
     parseDate(odrDateStr) {

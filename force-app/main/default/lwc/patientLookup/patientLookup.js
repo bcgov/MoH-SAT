@@ -25,7 +25,7 @@ export default class PatientLookup extends LightningElement {
     }
 
     get patientIdLabel() {
-        return this.contactObjInfo.data.fields['Provider_Identifier__c'].label;
+        return this.contactObjInfo.data.fields['Patient_Identifier__c'].label;
     }
 
     get patientId() {
@@ -38,14 +38,14 @@ export default class PatientLookup extends LightningElement {
 
     handleFormChange(event) {
         this.patient[event.currentTarget.dataset.field] = event.target.value;
-        this.sendResult(this.patient);
+        this.publishChange(this.patient);
     }
 
     handleLookup() {
 
     }
 
-    sendResult(record) {
-        this.dispatchEvent(new CustomEvent('result', { detail: record }));
+    publishChange(record) {
+        this.dispatchEvent(new CustomEvent('change', { detail: record }));
     }
 }
