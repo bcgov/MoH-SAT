@@ -48,11 +48,11 @@ public with sharing class EmpiIntegration {
         sender = new Empi.MCCI_MT000100_Sender();
         sender.device = new Empi.MCCI_MT000100_Device();
         sender.device.id = new Empi.II();
-        sender.device.id.extension = System.URL.getSalesforceBaseURL().getHost() + ' (' + UserInfo.getOrganizationId() + ')';
+        sender.device.id.extension = 'MOH_CRS';
         sender.device.asAgent = new Empi.MCCI_MT000100_Agent();
         sender.device.asAgent.representedOrganization = new Empi.MCCI_MT000100_Organization();
         sender.device.asAgent.representedOrganization.id = new Empi.II();
-        sender.device.asAgent.representedOrganization.id.extension = 'Salesforce';
+        sender.device.asAgent.representedOrganization.id.extension = 'PHARM_SA';
 
         controlActProcess = new Empi.HCIM_IN_GetDemographics_QUQI_MT020001_ControlActProcess();
         controlActProcess.dataEnterer = new Empi.QUQI_MT020001_DataEnterer();
@@ -66,12 +66,12 @@ public with sharing class EmpiIntegration {
         controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.extension = phn;
         controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.assigningAuthorityName = 'MOH_CRS';
         
-        Empi.QUPA_AR101102_Port empi = new Empi.QUPA_AR101102_Port();
+        Empi.QUPA_AR101102_Port stub = new Empi.QUPA_AR101102_Port();
         
         // empi.endpoint_x = 'https://hcim.ehealth.gov.bc.ca/HCIM.Services.Secured/QUPA_AR101102.asmx'; // PROD
-        empi.endpoint_x = 'https://hiat2.hcim.ehealth.gov.bc.ca/HCIM.Services.Secured/QUPA_AR101102.asmx'; // TEST
-        empi.clientCertName_x = 'cert_empi';
-        empi.HCIM_IN_GetDemographics(id, creationTime, versionCode, interactionId, processingCode, processingModeCode, acceptAckCode, receiver, sender, controlActProcess);
+        stub.endpoint_x = 'https://hiat2.hcim.ehealth.gov.bc.ca/HCIM.Services.Secured/QUPA_AR101102.asmx'; // TEST
+        stub.clientCertName_x = 'cert_empi';
+        stub.HCIM_IN_GetDemographics(id, creationTime, versionCode, interactionId, processingCode, processingModeCode, acceptAckCode, receiver, sender, controlActProcess);
 
     }
     
