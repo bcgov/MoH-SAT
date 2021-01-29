@@ -12,6 +12,10 @@ export default class OdrLookup extends LightningElement {
     @api
     patient;
 
+    @api showPatient;
+    @api showPrescriber;
+    @api showSubmitter;
+
     @api
     availableActions = [];
 
@@ -32,8 +36,16 @@ export default class OdrLookup extends LightningElement {
     }
 
     handleNext() {
-        debugger;
-        if (this.availableActions.find(action => action === 'NEXT')) {
+        let validPrescriber = !this.showPrescriber || (this.prescriber && this.prescriber.verified);
+        let validPatient =  !this.showPatient || (this.patient && this.patient.verified);
+        let validSubmitter = !this.showSubmitter || 
+            (this.submitter === undefined || (this.submitter && this.submitter.verified));
+
+        let flowHasNext = this.availableActions.find(action => action === 'NEXT');
+
+        const allowNext = validPrescriber && validPatient && validSubmitter && flowHasNext;
+
+        if (allowNext) {
             this.dispatchEvent(new FlowNavigationNextEvent());
         }
     }

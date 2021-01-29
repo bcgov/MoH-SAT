@@ -8,6 +8,9 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
+            <property name="showPatient" label="showPatient" type="Boolean" role="inputOnly"/>
+            <property name="showPrescriber" label="showPrescriber" type="Boolean" role="inputOnly"/>
+            <property name="showSubmitter" label="showSubmitter" type="Boolean" role="inputOnly"/>
             <property name="prescriber" label="Prescriber Record" type="@salesforce/schema/Account" role="outputOnly"/>
             <property name="submitter" label="Submitter Record" type="@salesforce/schema/Account" role="outputOnly"/>
             <property name="patient" label="Patient Record" type="@salesforce/schema/Account" role="outputOnly"/>

@@ -1,12 +1,12 @@
 <template>
     <lightning-card title="ODR Lookup" icon-name="standard:search">
-        <div class="slds-box slds-box_x-small slds-m-around_small">
+        <div if:true={showPrescriber} class="slds-box slds-box_x-small slds-m-around_small">
             <c-provider-lookup onchange={handlePrescriber} title="Prescriber lookup" icon-name="utility:einstein"></c-provider-lookup>
         </div>
-        <div class="slds-box slds-box_x-small slds-m-around_small">
+        <div if:true={showPatient} class="slds-box slds-box_x-small slds-m-around_small">
             <c-patient-lookup onchange={handlePatient} title="Patient lookup" icon-name="utility:user"></c-patient-lookup>
         </div>
-        <div class="slds-box slds-box_x-small slds-m-around_small">
+        <div if:true={showSubmitter} class="slds-box slds-box_x-small slds-m-around_small">
             <c-provider-lookup onchange={handleSubmitter} title="Submitter lookup (Optional)" icon-name="utility:copy_to_clipboard"></c-provider-lookup>
         </div>
         
