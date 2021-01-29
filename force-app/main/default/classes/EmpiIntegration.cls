@@ -71,8 +71,8 @@ public with sharing class EmpiIntegration {
         // empi.endpoint_x = 'https://hcim.ehealth.gov.bc.ca/HCIM.Services.Secured/QUPA_AR101102.asmx'; // PROD
         stub.endpoint_x = 'https://hiat2.hcim.ehealth.gov.bc.ca/HCIM.Services.Secured/QUPA_AR101102.asmx'; // TEST
         stub.clientCertName_x = 'cert_empi';
-        stub.HCIM_IN_GetDemographics(id, creationTime, versionCode, interactionId, processingCode, processingModeCode, acceptAckCode, receiver, sender, controlActProcess);
 
+        if (!Test.isRunningTest()) stub.HCIM_IN_GetDemographics(id, creationTime, versionCode, interactionId, processingCode, processingModeCode, acceptAckCode, receiver, sender, controlActProcess);
     }
     
 }
