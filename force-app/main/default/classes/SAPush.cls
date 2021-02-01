@@ -2,7 +2,7 @@ public class SAPush implements AdjudicationAction {
     public void execute(SpecialAuthorityRequest sar) {
 
         // Only push if case is approved and not already sent to pnet.
-        if (sar.saCase.status !='Approved' && sar.saCase.Pushed_to_Pnet__c != true) {
+        if (sar.saCase.status =='Approved' && sar.saCase.Pushed_to_Pnet__c == false) {
             List<SAApprovalRequestResponse> responses = ODRIntegration.postSAApproval(sar);
 
             Boolean bAllValid = true;
