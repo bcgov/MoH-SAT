@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="ODR Lookup" icon-name="standard:search">
+        <div if:true={showPrescriber} class="slds-box slds-box_x-small slds-m-around_small">
+            <c-provider-lookup onchange={handlePrescriber} title="Prescriber lookup" icon-name="utility:einstein"></c-provider-lookup>
+        </div>
+        <div if:true={showPatient} class="slds-box slds-box_x-small slds-m-around_small">
+            <c-patient-lookup onchange={handlePatient} title="Patient lookup" icon-name="utility:user"></c-patient-lookup>
+        </div>
+        <div if:true={showSubmitter} class="slds-box slds-box_x-small slds-m-around_small">
+            <c-provider-lookup onchange={handleSubmitter} title="Submitter lookup (Optional)" icon-name="utility:copy_to_clipboard"></c-provider-lookup>
+        </div>
+        
+        <div slot="footer" class="slds-grid">
+            <div class="slds-col_bump-left">
+                <lightning-button label="Cancel" class="slds-m-horizontal_small" onclick={handleCancel}></lightning-button>
+                <lightning-button label="Next" variant="brand" onclick={handleNext}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

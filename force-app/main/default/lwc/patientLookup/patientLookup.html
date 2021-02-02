@@ -1,0 +1,27 @@
+<template>
+    <lightning-card if:true={ready} title={title} icon-name={iconName}>
+        <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
+            <div class="slds-col slds-size-1_of_3">
+                <lightning-input 
+                    name="patientIdentifier" 
+                    type="text" 
+                    label={patientIdLabel}
+                    value={patient.Patient_Identifier__pc}
+                    data-field="Patient_Identifier__pc"
+                    onchange={handleFormChange}></lightning-input>
+            </div>
+            <div class="slds-col slds-size-1_of_3">
+                <lightning-button 
+                    variant="brand" 
+                    label="Lookup" 
+                    title="Lookup" 
+                    onclick={handleLookup}
+                    class="btn-lookup">
+                </lightning-button>
+            </div>
+        </div> 
+        <div>
+            EMPI patient data here.
+        </div>
+    </lightning-card>
+</template>
