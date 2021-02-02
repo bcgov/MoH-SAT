@@ -18,9 +18,25 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Candesartan_as_Final_Drug_Code</name>
+        <label>Assign Candesartan as Final Drug Code</label>
+        <locationX>1106</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>Final_Drug_Code</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Candesartan_Drug_Code</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Drug_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Final_Drug_Id</name>
         <label>Assign Final Drug Id</label>
-        <locationX>578</locationX>
+        <locationX>1238</locationX>
         <locationY>614</locationY>
         <assignmentItems>
             <assignToReference>Output_Drug_Id</assignToReference>
@@ -40,6 +56,22 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Gliclazide_Drug_Code</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Drug_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Losartan_as_Final_Drug_Code</name>
+        <label>Assign Losartan as Final Drug Code</label>
+        <locationX>1370</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>Final_Drug_Code</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Losartan_Drug_Code</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -78,6 +110,54 @@
             <targetReference>Get_Drug_Record</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Assign_Telmisartan_as_Final_Drug_Code</name>
+        <label>Assign Telmisartan as Final Drug Code</label>
+        <locationX>1634</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>Final_Drug_Code</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Telmisartan_Drug_Code</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Drug_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Telmisartan_Twynsta_as_Final_Drug_Code</name>
+        <label>Assign Telmisartan Twynsta as Final Drug Code</label>
+        <locationX>1898</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>Final_Drug_Code</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>telmisartan + amlodipine combo NB4   NB4</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Drug_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Valsartan_as_Final_Drug_Code</name>
+        <label>Assign Valsartan as Final Drug Code</label>
+        <locationX>2162</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>Final_Drug_Code</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Valsartan_Drug_Code</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Drug_Record</targetReference>
+        </connector>
+    </assignments>
     <constants>
         <name>Bupropion_Drug_Code</name>
         <dataType>String</dataType>
@@ -90,6 +170,20 @@
         <dataType>String</dataType>
         <value>
             <stringValue>Bupropion</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Candesartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>candesartan 8,16,32mg  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Candesartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Candesartan</stringValue>
         </value>
     </constants>
     <constants>
@@ -108,6 +202,20 @@
         <dataType>String</dataType>
         <value>
             <stringValue>Gliclazide</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Losartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>losartan (ARBs)  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Losartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Losartan</stringValue>
         </value>
     </constants>
     <constants>
@@ -138,10 +246,52 @@
             <stringValue>Rabeprazole</stringValue>
         </value>
     </constants>
+    <constants>
+        <name>Telmisartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>telmisartan 40,80 mg (ARBs)  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Telmisartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Telmisartan</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Telmisartan_Twynsta_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>telmisartan + amlodipine combo NB4   NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Telmisartan_Twynsta_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Telmisartan Twynsta</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Valsartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>valsartan 40,80,160,320mg  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Valsartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Valsartan</stringValue>
+        </value>
+    </constants>
     <decisions>
         <name>Name_of_Drug</name>
         <label>Name of Drug</label>
-        <locationX>578</locationX>
+        <locationX>1238</locationX>
         <locationY>158</locationY>
         <defaultConnector>
             <targetReference>Get_Drug_Record</targetReference>
@@ -207,6 +357,81 @@
             </connector>
             <label>Gliclazide</label>
         </rules>
+        <rules>
+            <name>Candesartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Drug_Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Candesartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Candesartan_as_Final_Drug_Code</targetReference>
+            </connector>
+            <label>Candesartan</label>
+        </rules>
+        <rules>
+            <name>Losartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Drug_Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Losartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Losartan_as_Final_Drug_Code</targetReference>
+            </connector>
+            <label>Losartan</label>
+        </rules>
+        <rules>
+            <name>Telmisartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Drug_Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Telmisartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Telmisartan_as_Final_Drug_Code</targetReference>
+            </connector>
+            <label>Telmisartan</label>
+        </rules>
+        <rules>
+            <name>Telmisartan_Twynsta</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Drug_Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Telmisartan_Twynsta_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Telmisartan_Twynsta_as_Final_Drug_Code</targetReference>
+            </connector>
+            <label>Telmisartan Twynsta</label>
+        </rules>
+        <rules>
+            <name>Valsartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Input_Drug_Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Valsartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Valsartan_as_Final_Drug_Code</targetReference>
+            </connector>
+            <label>Valsartan</label>
+        </rules>
     </decisions>
     <interviewLabel>Get Drug Id {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Get Drug Id</label>
@@ -232,7 +457,7 @@
     <recordLookups>
         <name>Get_Drug_Record</name>
         <label>Get Drug Record</label>
-        <locationX>578</locationX>
+        <locationX>1238</locationX>
         <locationY>494</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -252,7 +477,7 @@
     </recordLookups>
     <runInMode>DefaultMode</runInMode>
     <start>
-        <locationX>452</locationX>
+        <locationX>1112</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Name_of_Drug</targetReference>
