@@ -5,7 +5,7 @@
         <description>Assign string value for AA logic</description>
         <name>Assign_String_Value_Assignment</name>
         <label>Assign String Value Assignment</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>5702</locationY>
         <assignmentItems>
             <assignToReference>Drug_Name</assignToReference>
@@ -28,7 +28,7 @@
     <assignments>
         <name>AssignLoopVariableActiveSARequest</name>
         <label>AssignLoopVariableActiveSARequest</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>4598</locationY>
         <assignmentItems>
             <assignToReference>ActiveSARequestInformation</assignToReference>
@@ -51,7 +51,7 @@
     <assignments>
         <name>Drug_Assignment</name>
         <label>Drug Assignment</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>1550</locationY>
         <assignmentItems>
             <assignToReference>Drug_Name</assignToReference>
@@ -67,7 +67,7 @@
     <assignments>
         <name>Store_Created_Patient_ID</name>
         <label>Store Created Patient ID</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>3446</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -97,7 +97,7 @@
     <assignments>
         <name>Store_Created_Provider_ID</name>
         <label>Store Created Provider ID</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>2630</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
@@ -127,7 +127,7 @@
     <assignments>
         <name>Store_Created_Submitter_ID</name>
         <label>Store Created Submitter ID</label>
-        <locationX>248</locationX>
+        <locationX>776</locationX>
         <locationY>1238</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
@@ -143,7 +143,7 @@
     <assignments>
         <name>Store_Patient_ID</name>
         <label>Store Patient ID</label>
-        <locationX>710</locationX>
+        <locationX>1238</locationX>
         <locationY>2966</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -173,7 +173,7 @@
     <assignments>
         <name>Store_Provider_ID</name>
         <label>Store Provider ID</label>
-        <locationX>710</locationX>
+        <locationX>1238</locationX>
         <locationY>2150</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
@@ -203,7 +203,7 @@
     <assignments>
         <name>Store_Submitter_Id</name>
         <label>Store Submitter Id</label>
-        <locationX>512</locationX>
+        <locationX>1040</locationX>
         <locationY>758</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
@@ -219,7 +219,7 @@
     <assignments>
         <name>Submitter_is_Prescriber_Assignment</name>
         <label>Submitter is Prescriber Assignment</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>3782</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
@@ -235,7 +235,7 @@
     <assignments>
         <name>ZeroAssignSARequestsCount</name>
         <label>ZeroAssignSARequestsCount</label>
-        <locationX>138</locationX>
+        <locationX>666</locationX>
         <locationY>4478</locationY>
         <assignmentItems>
             <assignToReference>CountActiveSARequests</assignToReference>
@@ -279,6 +279,20 @@
         </value>
     </constants>
     <constants>
+        <name>Candesartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>candesartan 8,16,32mg  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Candesartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Candesartan</stringValue>
+        </value>
+    </constants>
+    <constants>
         <name>Gliclazide_Drug_Code</name>
         <dataType>String</dataType>
         <value>
@@ -290,6 +304,20 @@
         <dataType>String</dataType>
         <value>
             <stringValue>Gliclazide</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Losartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>losartan (ARBs)  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Losartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Losartan</stringValue>
         </value>
     </constants>
     <constants>
@@ -320,10 +348,52 @@
             <stringValue>Rabeprazole</stringValue>
         </value>
     </constants>
+    <constants>
+        <name>Telmisartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>telmisartan 40,80 mg (ARBs)  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Telmisartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Telmisartan</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Telmisartan_Twynsta_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>telmisartan + amlodipine combo NB4   NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Telmisartan_Twynsta_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Telmisartan Twynsta</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Valsartan_Drug_Code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>valsartan 40,80,160,320mg  NB4</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Valsartan_Drug_Name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Valsartan</stringValue>
+        </value>
+    </constants>
     <decisions>
         <name>Check_Active_SA_Requests_Decision</name>
         <label>Check Active SA Requests Decision</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>3998</locationY>
         <defaultConnector>
             <targetReference>Create_SA_Request_Screen</targetReference>
@@ -355,7 +425,7 @@
     <decisions>
         <name>ContinueSACreationDecision</name>
         <label>ContinueSACreationDecision</label>
-        <locationX>490</locationX>
+        <locationX>1018</locationX>
         <locationY>5054</locationY>
         <defaultConnectorLabel>Stop SA Request Creation</defaultConnectorLabel>
         <rules>
@@ -377,7 +447,7 @@
     <decisions>
         <name>CountSARequestsDecision</name>
         <label>CountSARequestsDecision</label>
-        <locationX>314</locationX>
+        <locationX>842</locationX>
         <locationY>4358</locationY>
         <defaultConnector>
             <targetReference>LoopActiveSARequests</targetReference>
@@ -402,7 +472,7 @@
     <decisions>
         <name>Create_Patient</name>
         <label>Create Patient</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>2846</locationY>
         <defaultConnector>
             <targetReference>Store_Patient_ID</targetReference>
@@ -427,7 +497,7 @@
     <decisions>
         <name>Create_Provider</name>
         <label>Create Provider</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>2030</locationY>
         <defaultConnector>
             <targetReference>Store_Provider_ID</targetReference>
@@ -452,7 +522,7 @@
     <decisions>
         <name>Create_Submitter_Decision</name>
         <label>Create_Submitter_Decision</label>
-        <locationX>380</locationX>
+        <locationX>908</locationX>
         <locationY>638</locationY>
         <defaultConnector>
             <targetReference>Store_Submitter_Id</targetReference>
@@ -477,7 +547,7 @@
     <decisions>
         <name>Request_Detail_Creation</name>
         <label>Request Detail Creation</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>6758</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen</targetReference>
@@ -543,11 +613,71 @@
             </connector>
             <label>Gliclazide</label>
         </rules>
+        <rules>
+            <name>Candesartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Candesartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Candesartan_Creation</targetReference>
+            </connector>
+            <label>Candesartan</label>
+        </rules>
+        <rules>
+            <name>Losartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Losartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Losartan_Creation</targetReference>
+            </connector>
+            <label>Losartan</label>
+        </rules>
+        <rules>
+            <name>Telmisartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Telmisartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Telmisartan_Creation</targetReference>
+            </connector>
+            <label>Telmisartan</label>
+        </rules>
+        <rules>
+            <name>Valsartan</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Valsartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Valsartan_Creation</targetReference>
+            </connector>
+            <label>Valsartan</label>
+        </rules>
     </decisions>
     <decisions>
         <name>Submitter_is_Prescriber</name>
         <label>Submitter is Prescriber</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>3662</locationY>
         <defaultConnector>
             <targetReference>Check_Active_SA_Requests_Decision</targetReference>
@@ -572,7 +702,7 @@
     <decisions>
         <name>Update_Drug_Id_on_Case</name>
         <label>Update Drug Id on Case</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>6182</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen_0</targetReference>
@@ -638,11 +768,71 @@
             </connector>
             <label>Gliclazide</label>
         </rules>
+        <rules>
+            <name>Candesartan_Assignment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Candesartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Candesartan_ID</targetReference>
+            </connector>
+            <label>Candesartan</label>
+        </rules>
+        <rules>
+            <name>Losartan_Assignment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Losartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Losartan_ID</targetReference>
+            </connector>
+            <label>Losartan</label>
+        </rules>
+        <rules>
+            <name>Telmisartan_Assignment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Telmisartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Telmisartan_ID</targetReference>
+            </connector>
+            <label>Telmisartan</label>
+        </rules>
+        <rules>
+            <name>Valsartan_Assignemtn</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Valsartan_Drug_Name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Valsartan_ID</targetReference>
+            </connector>
+            <label>Valsartan</label>
+        </rules>
     </decisions>
     <decisions>
         <name>X3rd_Party_Submission_Decision</name>
         <label>3rd Party Submission Decision</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>278</locationY>
         <defaultConnector>
             <targetReference>Drug_Assignment</targetReference>
@@ -718,7 +908,7 @@
     <loops>
         <name>LoopActiveSARequests</name>
         <label>LoopActiveSARequests</label>
-        <locationX>490</locationX>
+        <locationX>1018</locationX>
         <locationY>4478</locationY>
         <collectionReference>GetActiveSARequests</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -751,7 +941,7 @@
     <recordCreates>
         <name>Create_New_Patient_Record</name>
         <label>Create New Patient Record</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>3206</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID</targetReference>
@@ -798,7 +988,7 @@
     <recordCreates>
         <name>Create_New_Provider_Record</name>
         <label>Create New Provider Record</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>2390</locationY>
         <connector>
             <targetReference>Get_Final_Provider_ID</targetReference>
@@ -857,7 +1047,7 @@
     <recordCreates>
         <name>Create_New_Submitter_Record</name>
         <label>Create New Submitter Record</label>
-        <locationX>248</locationX>
+        <locationX>776</locationX>
         <locationY>998</locationY>
         <connector>
             <targetReference>Get_Final_Submitter_ID</targetReference>
@@ -916,7 +1106,7 @@
     <recordCreates>
         <name>Create_SA_Request</name>
         <label>Create SA Request</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>5942</locationY>
         <connector>
             <targetReference>Upload_Files</targetReference>
@@ -981,7 +1171,7 @@
     <recordLookups>
         <name>Get_Final_Patient_ID</name>
         <label>Get Final Patient ID</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>3326</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1002,7 +1192,7 @@
     <recordLookups>
         <name>Get_Final_Provider_ID</name>
         <label>Get Final Provider ID</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>2510</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1023,7 +1213,7 @@
     <recordLookups>
         <name>Get_Final_Submitter_ID</name>
         <label>Get Final Submitter ID</label>
-        <locationX>248</locationX>
+        <locationX>776</locationX>
         <locationY>1118</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1044,7 +1234,7 @@
     <recordLookups>
         <name>Get_Patient_Record</name>
         <label>Get Patient Record</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>1790</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1065,7 +1255,7 @@
     <recordLookups>
         <name>Get_Patient_Record_Type_Id</name>
         <label>Get Patient Record Type Id</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>3086</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1093,7 +1283,7 @@
     <recordLookups>
         <name>Get_Provider_Record</name>
         <label>Get Provider Record</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>1670</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1121,7 +1311,7 @@
     <recordLookups>
         <name>Get_Provider_Record_Type_Id</name>
         <label>Get Provider Record Type Id</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>2270</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1149,7 +1339,7 @@
     <recordLookups>
         <name>Get_SA_Request_Record_Type_Id</name>
         <label>Get SA Request Record Type Id</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>5822</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1177,7 +1367,7 @@
     <recordLookups>
         <name>Get_Submitter_Record</name>
         <label>Get Submitter Record</label>
-        <locationX>380</locationX>
+        <locationX>908</locationX>
         <locationY>398</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1198,7 +1388,7 @@
     <recordLookups>
         <name>Get_Submitter_Record_Type_Id</name>
         <label>Get Submitter Record Type Id</label>
-        <locationX>248</locationX>
+        <locationX>776</locationX>
         <locationY>878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1226,7 +1416,7 @@
     <recordLookups>
         <name>GetActiveSARequests</name>
         <label>GetActiveSARequests</label>
-        <locationX>314</locationX>
+        <locationX>842</locationX>
         <locationY>4238</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1263,7 +1453,7 @@
     <recordUpdates>
         <name>Update_SA_Request_with_Drug_Id</name>
         <label>Update SA Request with Drug Id</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>6638</locationY>
         <connector>
             <targetReference>Request_Detail_Creation</targetReference>
@@ -1288,7 +1478,7 @@
     <screens>
         <name>Active_SA_Requests_Screen</name>
         <label>Active SA Requests Screen</label>
-        <locationX>490</locationX>
+        <locationX>1018</locationX>
         <locationY>4814</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1332,7 +1522,7 @@
     <screens>
         <name>Create_New_Patient_Screen</name>
         <label>Create New Patient Screen</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>2966</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1396,7 +1586,7 @@
     <screens>
         <name>Create_New_Provider_Screen</name>
         <label>Create New Provider Screen</label>
-        <locationX>446</locationX>
+        <locationX>974</locationX>
         <locationY>2150</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1481,7 +1671,7 @@
     <screens>
         <name>Create_New_Submitter_Screen</name>
         <label>Create New Submitter Screen</label>
-        <locationX>248</locationX>
+        <locationX>776</locationX>
         <locationY>758</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1565,7 +1755,7 @@
     <screens>
         <name>Create_SA_Request_Screen</name>
         <label>Create SA Request Screen</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>5582</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1656,7 +1846,7 @@
     <screens>
         <name>ExitScreen</name>
         <label>ExitScreen</label>
-        <locationX>490</locationX>
+        <locationX>1018</locationX>
         <locationY>4934</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1685,7 +1875,7 @@
     <screens>
         <name>Get_Records_Summary_Screen</name>
         <label>Get Records Summary Screen</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>1910</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1764,7 +1954,7 @@
     <screens>
         <name>Get_Submitter_Record_Summary_Screen</name>
         <label>Get Submitter Record Summary Screen</label>
-        <locationX>380</locationX>
+        <locationX>908</locationX>
         <locationY>518</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1808,7 +1998,7 @@
     <screens>
         <name>Provider_Details_Screen</name>
         <label>Provider Details Screen</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>158</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1918,7 +2108,7 @@
     <screens>
         <name>Thank_You_Screen</name>
         <label>Thank You Screen</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>7094</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1934,7 +2124,7 @@
     <screens>
         <name>Thank_You_Screen_0</name>
         <label>Thank You Screen</label>
-        <locationX>1106</locationX>
+        <locationX>2162</locationX>
         <locationY>6302</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1950,7 +2140,7 @@
     <screens>
         <name>Upload_Files</name>
         <label>Upload Files</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>6062</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1992,7 +2182,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>452</locationX>
+        <locationX>980</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Provider_Details_Screen</targetReference>
@@ -2008,6 +2198,34 @@
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
         <flowName>Buproprion_Creation</flowName>
+        <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Assign_String_Value</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Candesartan_Creation</name>
+        <label>Candesartan Creation</label>
+        <locationX>1106</locationX>
+        <locationY>6878</locationY>
+        <connector>
+            <targetReference>Thank_You_Screen</targetReference>
+        </connector>
+        <flowName>Candesartan_Creation</flowName>
         <inputAssignments>
             <name>OtherDiagnosis</name>
             <value>
@@ -2048,9 +2266,29 @@
         </outputAssignments>
     </subflows>
     <subflows>
+        <name>Get_Candesartan_ID</name>
+        <label>Get Candesartan ID</label>
+        <locationX>1106</locationX>
+        <locationY>6302</locationY>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+        <flowName>Get_Drug_Id</flowName>
+        <inputAssignments>
+            <name>Input_Drug_Name</name>
+            <value>
+                <elementReference>Candesartan_Drug_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>Final_Drug_Id</assignToReference>
+            <name>Output_Drug_Id</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
         <name>Get_Drug_Id</name>
         <label>Get Drug Id</label>
-        <locationX>314</locationX>
+        <locationX>842</locationX>
         <locationY>4118</locationY>
         <connector>
             <targetReference>GetActiveSARequests</targetReference>
@@ -2080,6 +2318,26 @@
             <name>Input_Drug_Name</name>
             <value>
                 <elementReference>Gliclazide_Drug_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>Final_Drug_Id</assignToReference>
+            <name>Output_Drug_Id</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>Get_Losartan_ID</name>
+        <label>Get Losartan ID</label>
+        <locationX>1370</locationX>
+        <locationY>6302</locationY>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+        <flowName>Get_Drug_Id</flowName>
+        <inputAssignments>
+            <name>Input_Drug_Name</name>
+            <value>
+                <elementReference>Losartan_Drug_Name</elementReference>
             </value>
         </inputAssignments>
         <outputAssignments>
@@ -2128,6 +2386,46 @@
         </outputAssignments>
     </subflows>
     <subflows>
+        <name>Get_Telmisartan_ID</name>
+        <label>Get Telmisartan ID</label>
+        <locationX>1634</locationX>
+        <locationY>6302</locationY>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+        <flowName>Get_Drug_Id</flowName>
+        <inputAssignments>
+            <name>Input_Drug_Name</name>
+            <value>
+                <elementReference>Telmisartan_Drug_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>Final_Drug_Id</assignToReference>
+            <name>Output_Drug_Id</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
+        <name>Get_Valsartan_ID</name>
+        <label>Get Valsartan ID</label>
+        <locationX>1898</locationX>
+        <locationY>6302</locationY>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+        <flowName>Get_Drug_Id</flowName>
+        <inputAssignments>
+            <name>Input_Drug_Name</name>
+            <value>
+                <elementReference>Valsartan_Drug_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>Final_Drug_Id</assignToReference>
+            <name>Output_Drug_Id</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
         <name>Gliclazide_Creation</name>
         <label>Gliclazide Creation</label>
         <locationX>842</locationX>
@@ -2136,6 +2434,34 @@
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
         <flowName>Glicazide_Creation</flowName>
+        <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Assign_String_Value</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Losartan_Creation</name>
+        <label>Losartan Creation</label>
+        <locationX>1370</locationX>
+        <locationY>6878</locationY>
+        <connector>
+            <targetReference>Thank_You_Screen</targetReference>
+        </connector>
+        <flowName>Losartan_Creation</flowName>
         <inputAssignments>
             <name>OtherDiagnosis</name>
             <value>
@@ -2211,6 +2537,62 @@
             </value>
         </inputAssignments>
     </subflows>
+    <subflows>
+        <name>Telmisartan_Creation</name>
+        <label>Telmisartan Creation</label>
+        <locationX>1634</locationX>
+        <locationY>6878</locationY>
+        <connector>
+            <targetReference>Thank_You_Screen</targetReference>
+        </connector>
+        <flowName>Telmisartan_Creation</flowName>
+        <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Assign_String_Value</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Valsartan_Creation</name>
+        <label>Valsartan Creation</label>
+        <locationX>1898</locationX>
+        <locationY>6878</locationY>
+        <connector>
+            <targetReference>Thank_You_Screen</targetReference>
+        </connector>
+        <flowName>Valsartan_Creation</flowName>
+        <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Assign_String_Value</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
     <variables>
         <name>ActiveSARequestInformation</name>
         <dataType>String</dataType>
@@ -2229,6 +2611,16 @@
         <isOutput>true</isOutput>
         <value>
             <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
+        </value>
+    </variables>
+    <variables>
+        <name>Boolean_Value</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>true</booleanValue>
         </value>
     </variables>
     <variables>
