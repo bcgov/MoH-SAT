@@ -6,7 +6,7 @@
         <name>Assign_String_Value_Assignment</name>
         <label>Assign String Value Assignment</label>
         <locationX>1106</locationX>
-        <locationY>5702</locationY>
+        <locationY>5342</locationY>
         <assignmentItems>
             <assignToReference>Drug_Name</assignToReference>
             <operator>Assign</operator>
@@ -29,7 +29,7 @@
         <name>AssignLoopVariableActiveSARequest</name>
         <label>AssignLoopVariableActiveSARequest</label>
         <locationX>1106</locationX>
-        <locationY>4598</locationY>
+        <locationY>4238</locationY>
         <assignmentItems>
             <assignToReference>ActiveSARequestInformation</assignToReference>
             <operator>Add</operator>
@@ -52,7 +52,7 @@
         <name>Drug_Assignment</name>
         <label>Drug Assignment</label>
         <locationX>1106</locationX>
-        <locationY>1550</locationY>
+        <locationY>1310</locationY>
         <assignmentItems>
             <assignToReference>Drug_Name</assignToReference>
             <operator>Assign</operator>
@@ -68,7 +68,7 @@
         <name>Store_Created_Patient_ID</name>
         <label>Store Created Patient ID</label>
         <locationX>974</locationX>
-        <locationY>3446</locationY>
+        <locationY>3086</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -98,7 +98,7 @@
         <name>Store_Created_Provider_ID</name>
         <label>Store Created Provider ID</label>
         <locationX>974</locationX>
-        <locationY>2630</locationY>
+        <locationY>2270</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -128,7 +128,7 @@
         <name>Store_Created_Submitter_ID</name>
         <label>Store Created Submitter ID</label>
         <locationX>776</locationX>
-        <locationY>1238</locationY>
+        <locationY>998</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
             <operator>Assign</operator>
@@ -144,7 +144,7 @@
         <name>Store_Patient_ID</name>
         <label>Store Patient ID</label>
         <locationX>1238</locationX>
-        <locationY>2966</locationY>
+        <locationY>2606</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -174,7 +174,7 @@
         <name>Store_Provider_ID</name>
         <label>Store Provider ID</label>
         <locationX>1238</locationX>
-        <locationY>2150</locationY>
+        <locationY>1910</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -204,7 +204,7 @@
         <name>Store_Submitter_Id</name>
         <label>Store Submitter Id</label>
         <locationX>1040</locationX>
-        <locationY>758</locationY>
+        <locationY>638</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
             <operator>Assign</operator>
@@ -220,7 +220,7 @@
         <name>Submitter_is_Prescriber_Assignment</name>
         <label>Submitter is Prescriber Assignment</label>
         <locationX>974</locationX>
-        <locationY>3782</locationY>
+        <locationY>3422</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
             <operator>Assign</operator>
@@ -236,7 +236,7 @@
         <name>ZeroAssignSARequestsCount</name>
         <label>ZeroAssignSARequestsCount</label>
         <locationX>666</locationX>
-        <locationY>4478</locationY>
+        <locationY>4118</locationY>
         <assignmentItems>
             <assignToReference>CountActiveSARequests</assignToReference>
             <operator>Assign</operator>
@@ -394,7 +394,7 @@
         <name>Check_Active_SA_Requests_Decision</name>
         <label>Check Active SA Requests Decision</label>
         <locationX>1106</locationX>
-        <locationY>3998</locationY>
+        <locationY>3638</locationY>
         <defaultConnector>
             <targetReference>Create_SA_Request_Screen</targetReference>
         </defaultConnector>
@@ -426,7 +426,7 @@
         <name>ContinueSACreationDecision</name>
         <label>ContinueSACreationDecision</label>
         <locationX>1018</locationX>
-        <locationY>5054</locationY>
+        <locationY>4694</locationY>
         <defaultConnectorLabel>Stop SA Request Creation</defaultConnectorLabel>
         <rules>
             <name>Continue_SA_Request_Creation</name>
@@ -448,7 +448,7 @@
         <name>CountSARequestsDecision</name>
         <label>CountSARequestsDecision</label>
         <locationX>842</locationX>
-        <locationY>4358</locationY>
+        <locationY>3998</locationY>
         <defaultConnector>
             <targetReference>LoopActiveSARequests</targetReference>
         </defaultConnector>
@@ -473,7 +473,7 @@
         <name>Create_Patient</name>
         <label>Create Patient</label>
         <locationX>1106</locationX>
-        <locationY>2846</locationY>
+        <locationY>2486</locationY>
         <defaultConnector>
             <targetReference>Store_Patient_ID</targetReference>
         </defaultConnector>
@@ -498,7 +498,7 @@
         <name>Create_Provider</name>
         <label>Create Provider</label>
         <locationX>1106</locationX>
-        <locationY>2030</locationY>
+        <locationY>1790</locationY>
         <defaultConnector>
             <targetReference>Store_Provider_ID</targetReference>
         </defaultConnector>
@@ -514,7 +514,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_New_Provider_Screen</targetReference>
+                <targetReference>Get_Provider_Record_Type_Id</targetReference>
             </connector>
             <label>Create Provider Record</label>
         </rules>
@@ -523,7 +523,7 @@
         <name>Create_Submitter_Decision</name>
         <label>Create_Submitter_Decision</label>
         <locationX>908</locationX>
-        <locationY>638</locationY>
+        <locationY>518</locationY>
         <defaultConnector>
             <targetReference>Store_Submitter_Id</targetReference>
         </defaultConnector>
@@ -539,7 +539,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_New_Submitter_Screen</targetReference>
+                <targetReference>Get_Submitter_Record_Type_Id</targetReference>
             </connector>
             <label>Create Submitter Record</label>
         </rules>
@@ -548,7 +548,7 @@
         <name>Request_Detail_Creation</name>
         <label>Request Detail Creation</label>
         <locationX>1106</locationX>
-        <locationY>6758</locationY>
+        <locationY>6398</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen</targetReference>
         </defaultConnector>
@@ -678,7 +678,7 @@
         <name>Submitter_is_Prescriber</name>
         <label>Submitter is Prescriber</label>
         <locationX>1106</locationX>
-        <locationY>3662</locationY>
+        <locationY>3302</locationY>
         <defaultConnector>
             <targetReference>Check_Active_SA_Requests_Decision</targetReference>
         </defaultConnector>
@@ -703,7 +703,7 @@
         <name>Update_Drug_Id_on_Case</name>
         <label>Update Drug Id on Case</label>
         <locationX>1106</locationX>
-        <locationY>6182</locationY>
+        <locationY>5822</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen_0</targetReference>
         </defaultConnector>
@@ -842,10 +842,10 @@
             <name>Yes_3rd_Party_Submission</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>X3rd_Party_Submission</leftValueReference>
-                <operator>EqualTo</operator>
+                <leftValueReference>ODRSubmitter.Id</leftValueReference>
+                <operator>IsNull</operator>
                 <rightValue>
-                    <elementReference>Yes</elementReference>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -909,7 +909,7 @@
         <name>LoopActiveSARequests</name>
         <label>LoopActiveSARequests</label>
         <locationX>1018</locationX>
-        <locationY>4478</locationY>
+        <locationY>4118</locationY>
         <collectionReference>GetActiveSARequests</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -942,7 +942,7 @@
         <name>Create_New_Patient_Record</name>
         <label>Create New Patient Record</label>
         <locationX>974</locationX>
-        <locationY>3206</locationY>
+        <locationY>2846</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID</targetReference>
         </connector>
@@ -989,50 +989,38 @@
         <name>Create_New_Provider_Record</name>
         <label>Create New Provider Record</label>
         <locationX>974</locationX>
-        <locationY>2390</locationY>
+        <locationY>2030</locationY>
         <connector>
             <targetReference>Get_Final_Provider_ID</targetReference>
         </connector>
         <inputAssignments>
-            <field>Fax</field>
-            <value>
-                <elementReference>Provider_Fax.value</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Provider_First_Name</elementReference>
+                <elementReference>ODRPrescriber.FirstName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>LastName</field>
             <value>
-                <elementReference>Provider_Last_Name</elementReference>
+                <elementReference>ODRPrescriber.LastName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>PersonBirthdate</field>
             <value>
-                <elementReference>Provider_Date_of_Birth</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Phone</field>
-            <value>
-                <elementReference>Provider_Phone.value</elementReference>
+                <elementReference>ODRPrescriber.PersonBirthdate</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Provider_Identifier__pc</field>
             <value>
-                <elementReference>Provider_Identifier_Create</elementReference>
+                <elementReference>ODRPrescriber.Provider_Identifier__pc</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Provider_Type__pc</field>
             <value>
-                <elementReference>Provider_Type</elementReference>
+                <elementReference>ODRPrescriber.Provider_Type__pc</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1048,50 +1036,38 @@
         <name>Create_New_Submitter_Record</name>
         <label>Create New Submitter Record</label>
         <locationX>776</locationX>
-        <locationY>998</locationY>
+        <locationY>758</locationY>
         <connector>
             <targetReference>Get_Final_Submitter_ID</targetReference>
         </connector>
         <inputAssignments>
-            <field>Fax</field>
-            <value>
-                <elementReference>Submitter_Fax.value</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Submitter_First_Name</elementReference>
+                <elementReference>ODRSubmitter.FirstName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>LastName</field>
             <value>
-                <elementReference>Submitter_Last_Name</elementReference>
+                <elementReference>ODRSubmitter.LastName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>PersonBirthdate</field>
             <value>
-                <elementReference>Submitter_Date_of_Birth</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Phone</field>
-            <value>
-                <elementReference>Submitter_Phone.value</elementReference>
+                <elementReference>ODRSubmitter.PersonBirthdate</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Provider_Identifier__pc</field>
             <value>
-                <elementReference>Submitter_Identifier_Create</elementReference>
+                <elementReference>ODRSubmitter.Provider_Identifier__pc</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Provider_Type__pc</field>
             <value>
-                <elementReference>Submitter_Type</elementReference>
+                <elementReference>ODRSubmitter.Provider_Type__pc</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1107,7 +1083,7 @@
         <name>Create_SA_Request</name>
         <label>Create SA Request</label>
         <locationX>1106</locationX>
-        <locationY>5942</locationY>
+        <locationY>5582</locationY>
         <connector>
             <targetReference>Upload_Files</targetReference>
         </connector>
@@ -1172,7 +1148,7 @@
         <name>Get_Final_Patient_ID</name>
         <label>Get Final Patient ID</label>
         <locationX>974</locationX>
-        <locationY>3326</locationY>
+        <locationY>2966</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Patient_ID</targetReference>
@@ -1193,7 +1169,7 @@
         <name>Get_Final_Provider_ID</name>
         <label>Get Final Provider ID</label>
         <locationX>974</locationX>
-        <locationY>2510</locationY>
+        <locationY>2150</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Provider_ID</targetReference>
@@ -1214,7 +1190,7 @@
         <name>Get_Final_Submitter_ID</name>
         <label>Get Final Submitter ID</label>
         <locationX>776</locationX>
-        <locationY>1118</locationY>
+        <locationY>878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Submitter_ID</targetReference>
@@ -1235,7 +1211,7 @@
         <name>Get_Patient_Record</name>
         <label>Get Patient Record</label>
         <locationX>1106</locationX>
-        <locationY>1790</locationY>
+        <locationY>1550</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Records_Summary_Screen</targetReference>
@@ -1256,7 +1232,7 @@
         <name>Get_Patient_Record_Type_Id</name>
         <label>Get Patient Record Type Id</label>
         <locationX>974</locationX>
-        <locationY>3086</locationY>
+        <locationY>2726</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Patient_Record</targetReference>
@@ -1284,7 +1260,7 @@
         <name>Get_Provider_Record</name>
         <label>Get Provider Record</label>
         <locationX>1106</locationX>
-        <locationY>1670</locationY>
+        <locationY>1430</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Patient_Record</targetReference>
@@ -1294,14 +1270,14 @@
             <field>Provider_Identifier__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Provider_Identifier</elementReference>
+                <elementReference>ODRPrescriber.Provider_Identifier__pc</elementReference>
             </value>
         </filters>
         <filters>
             <field>Provider_Type__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Provider_Type_Picklist</elementReference>
+                <elementReference>ODRPrescriber.Provider_Type__pc</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1312,7 +1288,7 @@
         <name>Get_Provider_Record_Type_Id</name>
         <label>Get Provider Record Type Id</label>
         <locationX>974</locationX>
-        <locationY>2270</locationY>
+        <locationY>1910</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Provider_Record</targetReference>
@@ -1340,7 +1316,7 @@
         <name>Get_SA_Request_Record_Type_Id</name>
         <label>Get SA Request Record Type Id</label>
         <locationX>1106</locationX>
-        <locationY>5822</locationY>
+        <locationY>5462</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_SA_Request</targetReference>
@@ -1371,14 +1347,21 @@
         <locationY>398</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Submitter_Record_Summary_Screen</targetReference>
+            <targetReference>Create_Submitter_Decision</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Provider_Identifier__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Submitter_Identifier</elementReference>
+                <elementReference>ODRSubmitter.Provider_Identifier__pc</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Provider_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ODRSubmitter.Provider_Type__pc</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1389,7 +1372,7 @@
         <name>Get_Submitter_Record_Type_Id</name>
         <label>Get Submitter Record Type Id</label>
         <locationX>776</locationX>
-        <locationY>878</locationY>
+        <locationY>638</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Submitter_Record</targetReference>
@@ -1417,7 +1400,7 @@
         <name>GetActiveSARequests</name>
         <label>GetActiveSARequests</label>
         <locationX>842</locationX>
-        <locationY>4238</locationY>
+        <locationY>3878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>CountSARequestsDecision</targetReference>
@@ -1454,7 +1437,7 @@
         <name>Update_SA_Request_with_Drug_Id</name>
         <label>Update SA Request with Drug Id</label>
         <locationX>1106</locationX>
-        <locationY>6638</locationY>
+        <locationY>6278</locationY>
         <connector>
             <targetReference>Request_Detail_Creation</targetReference>
         </connector>
@@ -1479,7 +1462,7 @@
         <name>Active_SA_Requests_Screen</name>
         <label>Active SA Requests Screen</label>
         <locationX>1018</locationX>
-        <locationY>4814</locationY>
+        <locationY>4454</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1523,7 +1506,7 @@
         <name>Create_New_Patient_Screen</name>
         <label>Create New Patient Screen</label>
         <locationX>974</locationX>
-        <locationY>2966</locationY>
+        <locationY>2606</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1584,179 +1567,10 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Create_New_Provider_Screen</name>
-        <label>Create New Provider Screen</label>
-        <locationX>974</locationX>
-        <locationY>2150</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Get_Provider_Record_Type_Id</targetReference>
-        </connector>
-        <fields>
-            <name>Create_New_Provider</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Create New Provider Record&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>Provider_First_Name</name>
-            <dataType>String</dataType>
-            <fieldText>Provider First Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Last_Name</name>
-            <dataType>String</dataType>
-            <fieldText>Provider Last Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Identifier_Create</name>
-            <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>Provider_Identifier</elementReference>
-            </defaultValue>
-            <fieldText>Provider Identifier</fieldText>
-            <fieldType>InputField</fieldType>
-            <helpText>&lt;p&gt;Enter Provider College ID&lt;/p&gt;</helpText>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Type</name>
-            <choiceReferences>Provider_Type_Choices</choiceReferences>
-            <dataType>String</dataType>
-            <fieldText>Provider Type</fieldText>
-            <fieldType>DropdownBox</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Date_of_Birth</name>
-            <dataType>Date</dataType>
-            <fieldText>Provider Date of Birth</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Fax</name>
-            <extensionName>flowruntime:phone</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Provider Fax</stringValue>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>Provider_Phone</name>
-            <extensionName>flowruntime:phone</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Provider Phone</stringValue>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Create_New_Submitter_Screen</name>
-        <label>Create New Submitter Screen</label>
-        <locationX>776</locationX>
-        <locationY>758</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Get_Submitter_Record_Type_Id</targetReference>
-        </connector>
-        <fields>
-            <name>Create_New_Submitter</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Create New Submitter Record&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>Submitter_First_Name</name>
-            <dataType>String</dataType>
-            <fieldText>Submitter First Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Submitter_Last_Name</name>
-            <dataType>String</dataType>
-            <fieldText>Submitter Last Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Submitter_Identifier_Create</name>
-            <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>Submitter_Identifier</elementReference>
-            </defaultValue>
-            <fieldText>Submitter Identifier</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Submitter_Type</name>
-            <choiceReferences>Provider_Type_Choices</choiceReferences>
-            <dataType>String</dataType>
-            <fieldText>Submitter Type</fieldText>
-            <fieldType>DropdownBox</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Submitter_Date_of_Birth</name>
-            <dataType>Date</dataType>
-            <fieldText>Submitter Date of Birth</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Submitter_Fax</name>
-            <extensionName>flowruntime:phone</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Submitter Fax</stringValue>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>Submitter_Phone</name>
-            <extensionName>flowruntime:phone</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Submitter Phone</stringValue>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
         <name>Create_SA_Request_Screen</name>
         <label>Create SA Request Screen</label>
         <locationX>1106</locationX>
-        <locationY>5582</locationY>
+        <locationY>5222</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1847,7 +1661,7 @@
         <name>ExitScreen</name>
         <label>ExitScreen</label>
         <locationX>1018</locationX>
-        <locationY>4934</locationY>
+        <locationY>4574</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1876,7 +1690,7 @@
         <name>Get_Records_Summary_Screen</name>
         <label>Get Records Summary Screen</label>
         <locationX>1106</locationX>
-        <locationY>1910</locationY>
+        <locationY>1670</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1905,12 +1719,42 @@
         </fields>
         <fields>
             <name>Provider_Summary_Null</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0);&quot;&gt;Provider information could not be found&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0);&quot;&gt;Provider information could not be found (Provider will be created Automatically)&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
                     <leftValueReference>Get_Provider_Record.Id</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Submitter_Summary</name>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Submitter Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Submitter Name: {!Get_Submitter_Record.Name}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Submitter Type: {!Get_Submitter_Record.Provider_Type__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Submitter Identifier: {!Get_Submitter_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Submitter Fax: {!Get_Submitter_Record.Fax}&lt;/p&gt;&lt;p&gt;Submitter Phone: {!Get_Submitter_Record.Phone}&lt;/p&gt;&lt;p&gt;Submitter Date of Birth: {!Get_Submitter_Record.Birthdate}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Submitter_Record.Id</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Submitter_Summary_Null</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Submitter information could not be found (Submitter will be created Automatically)&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Submitter_Record.Id</leftValueReference>
                     <operator>IsNull</operator>
                     <rightValue>
                         <booleanValue>true</booleanValue>
@@ -1952,55 +1796,11 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Get_Submitter_Record_Summary_Screen</name>
-        <label>Get Submitter Record Summary Screen</label>
-        <locationX>908</locationX>
-        <locationY>518</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Create_Submitter_Decision</targetReference>
-        </connector>
-        <fields>
-            <name>Submitter_Summary_Screen</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Submitter Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Submitter Name: {!Get_Submitter_Record.Name}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Submitter Type: {!Get_Submitter_Record.Provider_Type__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Submitter Identifier: {!Get_Submitter_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Submitter Fax: {!Get_Submitter_Record.Fax}&lt;/p&gt;&lt;p&gt;Submitter Phone: {!Get_Submitter_Record.Phone}&lt;/p&gt;&lt;p&gt;Submitter Date of Birth: {!Get_Submitter_Record.Birthdate}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>Get_Submitter_Record.Id</leftValueReference>
-                    <operator>IsNull</operator>
-                    <rightValue>
-                        <booleanValue>false</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Submitter_Summary_Null</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;Submitter information could not be found&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>Get_Submitter_Record.Id</leftValueReference>
-                    <operator>IsNull</operator>
-                    <rightValue>
-                        <booleanValue>true</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
         <name>Provider_Details_Screen</name>
         <label>Provider Details Screen</label>
         <locationX>1106</locationX>
         <locationY>158</locationY>
-        <allowBack>true</allowBack>
+        <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
@@ -2012,64 +1812,40 @@
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>Provider_Identifier</name>
-            <dataType>String</dataType>
-            <fieldText>Provider Identifier</fieldText>
-            <fieldType>InputField</fieldType>
+            <name>ODRLookup</name>
+            <extensionName>c:odrLookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>showPrescriber</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>showSubmitter</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>showPatient</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Type_Picklist</name>
-            <choiceReferences>Provider_Type_Picklist_Choices</choiceReferences>
-            <dataType>String</dataType>
-            <fieldText>Provider Type</fieldText>
-            <fieldType>DropdownBox</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>X3rd_Party_Submission</name>
-            <dataType>Boolean</dataType>
-            <defaultValue>
-                <elementReference>No</elementReference>
-            </defaultValue>
-            <fieldText>Submitted on behalf of Prescriber?</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Submitter_Identifier</name>
-            <dataType>String</dataType>
-            <fieldText>Submitter Identifier</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>X3rd_Party_Submission</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <elementReference>Yes</elementReference>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Submitter_Type_Picklist</name>
-            <choiceReferences>Provider_Type_Picklist_Choices</choiceReferences>
-            <dataType>String</dataType>
-            <fieldText>Submitter Type</fieldText>
-            <fieldType>DropdownBox</fieldType>
-            <isRequired>true</isRequired>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>X3rd_Party_Submission</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <elementReference>Yes</elementReference>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
+            <outputParameters>
+                <assignToReference>ODRPrescriber</assignToReference>
+                <name>prescriber</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>ODRSubmitter</assignToReference>
+                <name>submitter</name>
+            </outputParameters>
+            <outputParameters>
+                <assignToReference>ODRPatient</assignToReference>
+                <name>patient</name>
+            </outputParameters>
         </fields>
         <fields>
             <name>Patient_Identifier</name>
@@ -2109,7 +1885,7 @@
         <name>Thank_You_Screen</name>
         <label>Thank You Screen</label>
         <locationX>1106</locationX>
-        <locationY>7094</locationY>
+        <locationY>6734</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2125,7 +1901,7 @@
         <name>Thank_You_Screen_0</name>
         <label>Thank You Screen</label>
         <locationX>2162</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2141,7 +1917,7 @@
         <name>Upload_Files</name>
         <label>Upload Files</label>
         <locationX>1106</locationX>
-        <locationY>6062</locationY>
+        <locationY>5702</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2193,7 +1969,7 @@
         <name>Bupropion_Creation</name>
         <label>Bupropion Creation</label>
         <locationX>578</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2221,7 +1997,7 @@
         <name>Candesartan_Creation</name>
         <label>Candesartan Creation</label>
         <locationX>1106</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2249,7 +2025,7 @@
         <name>Get_Bupropion_Id</name>
         <label>Get Bupropion Id</label>
         <locationX>578</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2269,7 +2045,7 @@
         <name>Get_Candesartan_ID</name>
         <label>Get Candesartan ID</label>
         <locationX>1106</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2289,7 +2065,7 @@
         <name>Get_Drug_Id</name>
         <label>Get Drug Id</label>
         <locationX>842</locationX>
-        <locationY>4118</locationY>
+        <locationY>3758</locationY>
         <connector>
             <targetReference>GetActiveSARequests</targetReference>
         </connector>
@@ -2309,7 +2085,7 @@
         <name>Get_Gliclazide_Id</name>
         <label>Get Gliclazide Id</label>
         <locationX>842</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2329,7 +2105,7 @@
         <name>Get_Losartan_ID</name>
         <label>Get Losartan ID</label>
         <locationX>1370</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2349,7 +2125,7 @@
         <name>Get_Pantoprazole_Magnesium_Id</name>
         <label>Get Pantoprazole Magnesium Id</label>
         <locationX>314</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2369,7 +2145,7 @@
         <name>Get_Rabeprazole_Id</name>
         <label>Get Rabeprazole Id</label>
         <locationX>50</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2389,7 +2165,7 @@
         <name>Get_Telmisartan_ID</name>
         <label>Get Telmisartan ID</label>
         <locationX>1634</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2409,7 +2185,7 @@
         <name>Get_Valsartan_ID</name>
         <label>Get Valsartan ID</label>
         <locationX>1898</locationX>
-        <locationY>6302</locationY>
+        <locationY>5942</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -2429,7 +2205,7 @@
         <name>Gliclazide_Creation</name>
         <label>Gliclazide Creation</label>
         <locationX>842</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2457,7 +2233,7 @@
         <name>Losartan_Creation</name>
         <label>Losartan Creation</label>
         <locationX>1370</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2485,7 +2261,7 @@
         <name>Pantoprazole_Magnesium_Creation</name>
         <label>Pantoprazole Magnesium Creation</label>
         <locationX>314</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2513,7 +2289,7 @@
         <name>Rabeprazole_Creation</name>
         <label>Rabeprazole Creation</label>
         <locationX>50</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2541,7 +2317,7 @@
         <name>Telmisartan_Creation</name>
         <label>Telmisartan Creation</label>
         <locationX>1634</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2569,7 +2345,7 @@
         <name>Valsartan_Creation</name>
         <label>Valsartan Creation</label>
         <locationX>1898</locationX>
-        <locationY>6878</locationY>
+        <locationY>6518</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2746,6 +2522,30 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ODRPatient</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>ODRPrescriber</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>ODRSubmitter</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
     </variables>
     <variables>
         <name>SARequestURL</name>
