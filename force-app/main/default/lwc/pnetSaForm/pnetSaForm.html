@@ -18,8 +18,16 @@
             </div>
         </div>
         <div class="slds-grid slds-gutters slds-wrap">
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="text" label="Auth Type:" value={_record.specAuthType} data-field="specAuthType" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+            <div class="slds-col">
+                <lightning-combobox
+                        name="progress"
+                        label="Auth Type:"
+                        value=""
+                        placeholder="Select Progress"
+                        options={msOptions}
+                        onchange={handleComboItemSelected}
+                        required>
+                </lightning-combobox>
             </div>
             <div class="slds-col slds-size_1-of-2">
                 <lightning-input type="text" label="Justification Codes" value={_record.justificationCodes} data-field="justificationCodes" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
