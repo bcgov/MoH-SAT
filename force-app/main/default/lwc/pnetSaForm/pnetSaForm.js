@@ -10,6 +10,16 @@ export default class PnetSaForm extends LightningElement {
 
     formDisabled = false;
 
+    get msOptions () {
+        return [{'value':'B','label':'Non-Benfit'},
+                {'value':'L','label':'LCA',},
+                {'value':'R','label':'RDP'}];
+    }
+
+    handleComboItemSelected (event) {
+        this._record['specAuthType'] = event.target.value;
+    }
+
     get record() {
         return {
             saRecord: {
