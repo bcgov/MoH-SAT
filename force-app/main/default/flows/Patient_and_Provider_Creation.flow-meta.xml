@@ -994,12 +994,6 @@
             <targetReference>Get_Final_Provider_ID</targetReference>
         </connector>
         <inputAssignments>
-            <field>Fax</field>
-            <value>
-                <elementReference>ODRPrescriber.Fax</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>FirstName</field>
             <value>
                 <elementReference>ODRPrescriber.FirstName</elementReference>
@@ -1015,12 +1009,6 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>ODRPrescriber.PersonBirthdate</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Phone</field>
-            <value>
-                <elementReference>ODRPrescriber.Phone</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1053,12 +1041,6 @@
             <targetReference>Get_Final_Submitter_ID</targetReference>
         </connector>
         <inputAssignments>
-            <field>Fax</field>
-            <value>
-                <elementReference>ODRSubmitter.Fax</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>FirstName</field>
             <value>
                 <elementReference>ODRSubmitter.FirstName</elementReference>
@@ -1074,12 +1056,6 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>ODRSubmitter.PersonBirthdate</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Phone</field>
-            <value>
-                <elementReference>ODRSubmitter.Phone</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1824,7 +1800,7 @@
         <label>Provider Details Screen</label>
         <locationX>1106</locationX>
         <locationY>158</locationY>
-        <allowBack>true</allowBack>
+        <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
@@ -1866,16 +1842,10 @@
                 <assignToReference>ODRSubmitter</assignToReference>
                 <name>submitter</name>
             </outputParameters>
-        </fields>
-        <fields>
-            <name>X3rd_Party_Submission</name>
-            <dataType>Boolean</dataType>
-            <defaultValue>
-                <elementReference>No</elementReference>
-            </defaultValue>
-            <fieldText>Submitted on behalf of Prescriber?</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>ODRPatient</assignToReference>
+                <name>patient</name>
+            </outputParameters>
         </fields>
         <fields>
             <name>Patient_Identifier</name>
@@ -1994,7 +1964,7 @@
             <targetReference>Provider_Details_Screen</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>Bupropion_Creation</name>
         <label>Bupropion Creation</label>
@@ -2552,6 +2522,14 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ODRPatient</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
     </variables>
     <variables>
         <name>ODRPrescriber</name>
