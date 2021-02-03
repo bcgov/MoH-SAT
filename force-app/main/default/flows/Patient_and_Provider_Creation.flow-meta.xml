@@ -925,11 +925,8 @@
             <name>Yes_3rd_Party_Submission</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>ODRSubmitter.Id</leftValueReference>
+                <leftValueReference>ODRSubmitter</leftValueReference>
                 <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
             </conditions>
             <connector>
                 <targetReference>Get_Submitter_Record</targetReference>
@@ -1914,6 +1911,24 @@
                 <name>showPatient</name>
                 <value>
                     <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>patient</name>
+                <value>
+                    <elementReference>ODRPatient</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>prescriber</name>
+                <value>
+                    <elementReference>ODRPrescriber</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>submitter</name>
+                <value>
+                    <elementReference>ODRSubmitter</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>

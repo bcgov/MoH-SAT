@@ -30,12 +30,9 @@ export default class OdrLookup extends LightningElement {
     handlePatient(event) {
         this.patient = event.detail;
     }
-    
-    handleCancel() {
-        console.log('cancel');
-    }
 
-    handleNext() {
+    @api
+    validate() {
         let validPrescriber = !this.showPrescriber || (this.prescriber && this.prescriber.verified);
         let validPatient =  !this.showPatient || (this.patient && this.patient.verified);
         let validSubmitter = !this.showSubmitter || 
@@ -45,8 +42,9 @@ export default class OdrLookup extends LightningElement {
 
         const allowNext = validPrescriber && validPatient && validSubmitter && flowHasNext;
 
-        if (allowNext) {
-            this.dispatchEvent(new FlowNavigationNextEvent());
+        return {
+            isValid: allowNext,
+            errorMessage: allowNext ? undefined : 'Missing or invalid prescriber, submitter, or patient lookup.'
         }
     }
 
