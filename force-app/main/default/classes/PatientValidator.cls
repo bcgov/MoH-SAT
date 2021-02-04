@@ -7,7 +7,8 @@ public class PatientValidator implements AdjudicationAction {
 
         Patient p = ODRIntegration.verifyPatientInformation(sar);
 
-        if (p != null) {
+        // TODO: Enable timestamping when EMPI is available.
+        if (false && p != null) {
             sar.saCase.Patient_Validated__c = p.verified;
             sar.saCase.Patient_Validated_Date__c = DateTime.now();
         }
