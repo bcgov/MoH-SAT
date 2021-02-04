@@ -28,11 +28,11 @@
                     </div>
                     <div class='slds-col'>
                         <p class="slds-text-title">Patient</p>
-                        <p>{c.Contact.Name}</p>
+                        <p if:true={c.Contact}>{c.Contact.Name}</p>
                     </div>
                     <div class='slds-col'>
                         <p class="slds-text-title">Provider</p>
-                        <p>{c.Provider__r.Name}</p>
+                        <p if:true={c.Provider__c}>{c.Provider__r.Name}</p>
                     </div>
                     <div class='slds-col'>
                         <p class="slds-text-title">Owner</p>
