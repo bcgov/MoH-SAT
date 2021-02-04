@@ -6,7 +6,7 @@
     </h3>
     <template for:each={data} for:item="item">
       <div key={item.key} class="slds-m-vertical_small">
-        <c-pnet-sa-form case-id={recordId} record={item}></c-pnet-sa-form>
+        <c-pnet-sa-form form-disabled={isDisabled} case-id={recordId} record={item}></c-pnet-sa-form>
       </div>
     </template>
   </lightning-card>

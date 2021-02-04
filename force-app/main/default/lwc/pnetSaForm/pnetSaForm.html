@@ -25,6 +25,7 @@
                         value=""
                         placeholder="Select Progress"
                         options={msOptions}
+                        disabled={formDisabled}
                         onchange={handleComboItemSelected}
                         required>
                 </lightning-combobox>
@@ -53,6 +54,7 @@
                 label="Submit" 
                 title="Submit" 
                 variant="brand"
+                disabled={formDisabled}
                 onclick={handleSubmit}
                 class="btn-submit"></lightning-button>
         </div>
