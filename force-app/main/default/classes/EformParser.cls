@@ -1,6 +1,8 @@
 public with sharing class EformParser {
     
     public static Eform.Bundle parse(String jsonStr) {
+        system.debug(jsonStr);
+        
         EForm.Bundle bundle = new EForm.Bundle();  
         bundle.entry = new List<EForm.BundleEntry>();
         

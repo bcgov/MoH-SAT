@@ -104,8 +104,4 @@ public with sharing class SchemaUtil {
 	public static RecordTypeInfo getRecordTypeInfosByDeveloperName(String sObjectName, String recordTypeName) {
         return getDescribe(sObjectName).getRecordTypeInfosByDeveloperName().get(recordTypeName);
     }
-
-    public static RecordTypeInfo getRecordTypeInfoById(String sObjectName, Id recordTypeId) {
-        return getDescribe(sObjectName).getRecordTypeInfosById().get(recordTypeId);
-    }
 }

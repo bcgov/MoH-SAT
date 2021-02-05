@@ -20,21 +20,30 @@ public with sharing class SarBuilder {
                 requestDetails.addAll(buildRequestDetails((Eform.QuestionnaireResponse) bundleEntry.resource));
             }
         }
-        
+
+        save(provider, patient, saCase, requestDetails, contentVersions);
+
+        return null;
+    }
+
+    private static void save(Account provider, Account patient, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
         insert new Account[] {patient, provider};
+        
         Contact patientContact = [select Id from Contact where AccountId = :patient.Id];
         Contact providerContact = [select Id from Contact where AccountId = :provider.Id];
         
-        String drugCode = findDrugCode(requestDetails);
-        saCase = buildCase('SA - eForm - ' + drugCode);
+        Drug__c drug = [select Id, Name from Drug__c where Drug_Code__c = :findDrugCode(requestDetails)];
+
+        saCase = buildCase('SA - ' + drug.Name);
         saCase.ContactId = patientContact.Id;
         saCase.Provider__c = providerContact.Id;
-        saCase.Drug__r = new Drug__c(Drug_Code__c=drugCode);
+        saCase.Drug__c = drug.Id;
         insert saCase;
 
         for (Request_Detail__c rd : requestDetails) {
             rd.Case__c = saCase.Id;
         }
+
         insert requestDetails;
 
         insert contentVersions;
@@ -49,8 +58,6 @@ public with sharing class SarBuilder {
         }
 
         insert cdls;
-
-        return null;
     }
 
     public static Case buildCase(String subject) {

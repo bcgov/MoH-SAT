@@ -16,5 +16,6 @@ public class SchemaUtilTest {
     	system.assert(null != SchemaUtil.isTypeInteger('Account', 'Name'));
     	system.assert(null != SchemaUtil.isTypeString('Account', 'Name'));
     	system.assert(null != SchemaUtil.isTypeTime('Account', 'Name'));
+		system.assert(null != SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'PersonAccount'));
     }
 }
