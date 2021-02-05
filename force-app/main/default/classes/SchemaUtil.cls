@@ -99,5 +99,13 @@ public with sharing class SchemaUtil {
     
     public static Boolean isTypeTime(String objName, String fieldName) {
     	return Schema.SoapType.Time == getSOAPType(objName,fieldName);
+	}
+	
+	public static RecordTypeInfo getRecordTypeInfosByDeveloperName(String sObjectName, String recordTypeName) {
+        return getDescribe(sObjectName).getRecordTypeInfosByDeveloperName().get(recordTypeName);
+    }
+
+    public static RecordTypeInfo getRecordTypeInfoById(String sObjectName, Id recordTypeId) {
+        return getDescribe(sObjectName).getRecordTypeInfosById().get(recordTypeId);
     }
 }

@@ -12,7 +12,7 @@ global with sharing class Eform {
     }
 
     public abstract class Resource { }
-
+    
     global class Patient extends Resource {
         public String patientIdentifier;
         public Boolean active;
