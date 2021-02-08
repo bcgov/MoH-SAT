@@ -6,7 +6,9 @@ global with sharing class SaRestApi {
         
         Eform.Bundle bundle = EformParser.parse(req.requestBody.toString());
 
-        SarBuilder.build(bundle);
+        SpecialAuthorityRequest sar = SarBuilder.build(bundle);
+        
+        sar.save();
         
         return bundle;
     }

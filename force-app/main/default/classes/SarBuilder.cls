@@ -27,40 +27,7 @@ public with sharing class SarBuilder {
         saCase = buildCase(bundle, drug);
         saCase.Drug__c = drug.Id;
 
-        save(provider, patient, saCase, requestDetails, contentVersions);
-
-        return null;
-    }
-
-    private static void save(Account provider, Account patient, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
-        if (patient.Id == null) { insert patient; } else { upsert patient; }
-        if (provider.Id == null) { insert provider; } else { update provider; }
-        
-        Contact patientContact = [select Id from Contact where AccountId = :patient.Id];
-        Contact providerContact = [select Id from Contact where AccountId = :provider.Id];
-
-        saCase.ContactId = patientContact.Id;
-        saCase.Provider__c = providerContact.Id;
-        insert saCase;
-
-        for (Request_Detail__c rd : requestDetails) {
-            rd.Case__c = saCase.Id;
-        }
-
-        insert requestDetails;
-
-        insert contentVersions;
-
-        List<ContentDocumentLink> cdls = new List<ContentDocumentLink>();
-        for (ContentVersion cv : [select ContentDocumentId from ContentVersion where Id in :contentVersions]) {
-            ContentDocumentLink cdl = new ContentDocumentLink();
-            cdl.LinkedEntityId = saCase.Id;
-            cdl.ContentDocumentId = cv.ContentDocumentId;
-            cdl.ShareType = 'V';
-            cdls.add(cdl);
-        }
-
-        insert cdls;
+        return SpecialAuthorityRequest.build(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
 
     public static Case buildCase(Eform.Bundle bundle, Drug__c drug) {
@@ -79,8 +46,8 @@ public with sharing class SarBuilder {
     }
 
     public static Account buildPatient(Eform.Patient patient) {
-        Account existing = [select Id from Account where Patient_Identifier__pc = :patient.patientIdentifier];
-        Account account = existing == null ? new Account() : existing;
+        List<Account> existing = [select Id from Account where Patient_Identifier__pc = :patient.patientIdentifier];
+        Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
         account.Patient_Identifier__pc = patient.patientIdentifier;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
         account.FirstName = patient.firstName;
@@ -97,8 +64,8 @@ public with sharing class SarBuilder {
     }
 
     public static Account buildProvider(Eform.Provider provider) {
-        Account existing = [select Id from Account where Provider_Identifier__pc = :provider.providerIdentifier and Provider_Type__pc = :provider.providerIdentifierType];
-        Account account = existing == null ? new Account() : existing;
+        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :provider.providerIdentifier and Provider_Type__pc = :provider.providerIdentifierType];
+        Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
         account.Provider_Identifier__pc = provider.providerIdentifier;
         account.Provider_Type__pc = provider.providerIdentifierType;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
