@@ -16,12 +16,12 @@ public class AdjudicationServiceTest {
         drug.OwnerId = testGroup.Id;
         insert drug;
 
-        AdjudicationSettings.disableTriggers();
+        SaSettings.disableTriggers();
 
         Case saCase = TestFactory.newCase(drug, 'Test case 1');
         insert saCase;
         
-        AdjudicationSettings.enableTriggers();
+        SaSettings.enableTriggers();
     }
 
     @isTest
