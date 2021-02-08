@@ -255,7 +255,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Create_Patient</targetReference>
+            <targetReference>Update_Provider_Record_With_ODR_Info</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -271,7 +271,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Drug_Assignment</targetReference>
+            <targetReference>Update_Submitter_Record_With_ODR_Info</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -326,98 +326,98 @@
         <name>Bupropion_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>bupropion_[Wellbutrin_Type]</stringValue>
+            <stringValue>bupropiondepression</stringValue>
         </value>
     </constants>
     <constants>
         <name>Bupropion_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Bupropion</stringValue>
+            <stringValue>bupropion</stringValue>
         </value>
     </constants>
     <constants>
         <name>Candesartan_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>candesartan 8,16,32mg  NB4</stringValue>
+            <stringValue>ARBcand</stringValue>
         </value>
     </constants>
     <constants>
         <name>Candesartan_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Candesartan</stringValue>
+            <stringValue>candesartan</stringValue>
         </value>
     </constants>
     <constants>
         <name>Gliclazide_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>gliclazide_30mg_&amp;_60mg_SR,_80mg</stringValue>
+            <stringValue>glic</stringValue>
         </value>
     </constants>
     <constants>
         <name>Gliclazide_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Gliclazide</stringValue>
+            <stringValue>gliclazide</stringValue>
         </value>
     </constants>
     <constants>
         <name>Losartan_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>losartan (ARBs)  NB4</stringValue>
+            <stringValue>ARBlosa</stringValue>
         </value>
     </constants>
     <constants>
         <name>Losartan_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Losartan</stringValue>
+            <stringValue>losartan</stringValue>
         </value>
     </constants>
     <constants>
         <name>Pantoprazole_Magnesium_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>pantoprazole_Mg_40mg_NB4</stringValue>
+            <stringValue>1PPIpant</stringValue>
         </value>
     </constants>
     <constants>
         <name>Pantoprazole_Magnesium_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Pantoprazole Magnesium</stringValue>
+            <stringValue>pantoprazole magnesium</stringValue>
         </value>
     </constants>
     <constants>
         <name>Rabeprazole_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>rabeprazole_10,_20_mg_NB4</stringValue>
+            <stringValue>1PPIrabe</stringValue>
         </value>
     </constants>
     <constants>
         <name>Rabeprazole_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Rabeprazole</stringValue>
+            <stringValue>rabeprazole</stringValue>
         </value>
     </constants>
     <constants>
         <name>Telmisartan_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>telmisartan 40,80 mg (ARBs)  NB4</stringValue>
+            <stringValue>ARBtelm</stringValue>
         </value>
     </constants>
     <constants>
         <name>Telmisartan_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Telmisartan</stringValue>
+            <stringValue>telmisartan</stringValue>
         </value>
     </constants>
     <constants>
@@ -438,14 +438,14 @@
         <name>Valsartan_Drug_Code</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>valsartan 40,80,160,320mg  NB4</stringValue>
+            <stringValue>ARBvals</stringValue>
         </value>
     </constants>
     <constants>
         <name>Valsartan_Drug_Name</name>
         <dataType>String</dataType>
         <value>
-            <stringValue>Valsartan</stringValue>
+            <stringValue>valsartan</stringValue>
         </value>
     </constants>
     <decisions>
@@ -927,6 +927,9 @@
             <conditions>
                 <leftValueReference>ODRSubmitter</leftValueReference>
                 <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
             </conditions>
             <connector>
                 <targetReference>Get_Submitter_Record</targetReference>
@@ -1508,6 +1511,42 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>Update_Provider_Record_With_ODR_Info</name>
+        <label>Update Provider Record With ODR Info</label>
+        <locationX>1238</locationX>
+        <locationY>2030</locationY>
+        <connector>
+            <targetReference>Create_Patient</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Provider_Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Birthdate</field>
+            <value>
+                <elementReference>ODRPrescriber.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>ODRPrescriber.FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>ODRPrescriber.LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_SA_Request_with_Drug_Id</name>
         <label>Update SA Request with Drug Id</label>
         <locationX>1106</locationX>
@@ -1530,6 +1569,42 @@
             </value>
         </inputAssignments>
         <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Submitter_Record_With_ODR_Info</name>
+        <label>Update Submitter Record With ODR Info</label>
+        <locationX>1040</locationX>
+        <locationY>758</locationY>
+        <connector>
+            <targetReference>Drug_Assignment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Submitter_Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Birthdate</field>
+            <value>
+                <elementReference>ODRSubmitter.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>ODRSubmitter.FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>ODRSubmitter.LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
     </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
@@ -1792,7 +1867,7 @@
         </fields>
         <fields>
             <name>Provider_Summary_Null</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0);&quot;&gt;Provider information could not be found (Provider will be created Automatically)&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0);&quot;&gt;Provider information was not found on Salesforce and will be created automatically on Salesforce&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -1822,7 +1897,7 @@
         </fields>
         <fields>
             <name>Submitter_Summary_Null</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Submitter information could not be found (Submitter will be created Automatically)&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;Submitter information was not found on Salesforce and will be created automatically on Salesforce&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
