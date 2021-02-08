@@ -4,21 +4,27 @@ public with sharing class SpecialAuthorityRequest {
     public Account provider { get; private set; }
     public Case saCase { get; private set; }
     public List<Request_Detail__c> requestDetails { get; private set; }
+    public List<ContentVersion> contentVersions { get; private set; }
     
     private Boolean hasDrug;
 
-    private SpecialAuthorityRequest(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails) {
+    private SpecialAuthorityRequest(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
         this.drug = drug;
         this.patient = patient;
         this.provider = provider;
         this.saCase = saCase;
         this.requestDetails = requestDetails;
+        this.contentVersions = contentVersions;
         
         this.hasDrug = this.drug != null;
     }
 
     public static SpecialAuthorityRequest build(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails) {
-        return new SpecialAuthorityRequest(drug, patient, provider, saCase, requestDetails);
+        return build(drug, patient, provider, saCase, requestDetails, new List<ContentVersion>());
+    }
+
+    public static SpecialAuthorityRequest build(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
+        return new SpecialAuthorityRequest(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
 
     public static SpecialAuthorityRequest build(Id caseId) {
@@ -30,19 +36,16 @@ public with sharing class SpecialAuthorityRequest {
         Account provider = saCase.Provider__c == null ? null : queryAccount(saCase.Provider__c);
         Drug__c drug = saCase.Drug__c == null ? null : queryDrug(saCase.Drug__c);
 
-        System.debug('+++++++++++++++++++++++++++++');
-        System.debug(drug.Drug_Templates__r);
-
         List<Request_Detail__c> requestDetails = saCase.Id == null ? new List<Request_Detail__c>() : queryRequestDetails(saCase.Id);
 
-        return new SpecialAuthorityRequest(drug, patient, provider, saCase, requestDetails);
+        return build(drug, patient, provider, saCase, requestDetails);
     }
 
     private static List<SpecialAuthorityRequest> build(List<Id> caseIds) {
         List<SpecialAuthorityRequest> sars = new List<SpecialAuthorityRequest>();
 
         for (Case sacase : query(caseIds)) {
-            sars.add(new SpecialAuthorityRequest(
+            sars.add(build(
                 saCase.Drug__c == null ? null : queryDrug(saCase.Drug__c),
                 String.isBlank(saCase.ContactId) ? null : saCase.Contact.Account, 
                 String.isBlank(saCase.Provider__c) ? null : saCase.Provider__r.Account, 
@@ -73,10 +76,8 @@ public with sharing class SpecialAuthorityRequest {
                 Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
                 Patient_Validated_Date__c, Patient_Identifier__c, Patient_Date_of_Birth__c,
                 Provider_Validated_Date__c, Termination_Date__c, Effective_Date__c, SA_Type__c,
-                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId, Drug__r.Pharmanet_Code__c,
 
-                // Drug_Templates__r.Days_Supply__c, Drug_Templates__r.Excluded_Plans__c, Drug_Templates__r.Justification_Codes__c,
-                // Drug_Templates__r.Key_Type__c, Drug_Templates__r.Price_Percent__c, Drug_Templates__r.SA_Type__c, Drug_Templates__r.Pharmanet_Code__c,
+                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId, Drug__r.Pharmanet_Code__c,
 
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
@@ -125,5 +126,36 @@ public with sharing class SpecialAuthorityRequest {
             where Case__c = :caseId
             order by Sort_Order__c asc
         ];
+    }
+
+    public void save() {
+        if (patient.Id == null) { insert patient; } else { upsert patient; }
+        if (provider.Id == null) { insert provider; } else { update provider; }
+        
+        Contact patientContact = [select Id from Contact where AccountId = :patient.Id];
+        Contact providerContact = [select Id from Contact where AccountId = :provider.Id];
+
+        saCase.ContactId = patientContact.Id;
+        saCase.Provider__c = providerContact.Id;
+        insert saCase;
+
+        for (Request_Detail__c rd : requestDetails) {
+            rd.Case__c = saCase.Id;
+        }
+
+        insert requestDetails;
+
+        insert contentVersions;
+
+        List<ContentDocumentLink> cdls = new List<ContentDocumentLink>();
+        for (ContentVersion cv : [select ContentDocumentId from ContentVersion where Id in :contentVersions]) {
+            ContentDocumentLink cdl = new ContentDocumentLink();
+            cdl.LinkedEntityId = saCase.Id;
+            cdl.ContentDocumentId = cv.ContentDocumentId;
+            cdl.ShareType = 'V';
+            cdls.add(cdl);
+        }
+
+        insert cdls;
     }
 }

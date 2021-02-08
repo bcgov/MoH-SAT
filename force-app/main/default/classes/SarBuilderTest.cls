@@ -1,32 +1,29 @@
 @isTest
-public with sharing class EformParserTest {
+public with sharing class SarBuilderTest {
+    
+    @testSetup
+    static void test_setup() {
+        Drug__c drug1 = TestFactory.newDrug('test-drug');
+        insert new Drug__c[] {drug1};
+    }
 
     @isTest
-    static void test_parse() 
-    {
-        Eform.Bundle bundle = EformParser.parse(newBundleJson());
+    static void test_build() {
+        SpecialAuthorityRequest sar = SarBuilder.build(newBundle());
+        
+        system.assertEquals(queryDrug('test-drug').Id, sar.drug.Id);
+        system.assertEquals('9878507098', sar.patient.Patient_Identifier__pc);
+        system.assertEquals('10101', sar.provider.Provider_Identifier__pc);
+        system.assertEquals(3, sar.requestDetails.size());
+        system.assertEquals(1, sar.contentVersions.size());
+    }
 
-        Eform.Patient patient;
-        Eform.Provider provider;
-        List<Eform.QuestionnaireResponse> questionnaires = new List<Eform.QuestionnaireResponse>();
-        List<Eform.Binary> binaries = new List<Eform.Binary>();
+    private static Drug__c queryDrug(String drugName) {
+        return [select Id, Drug_Code__c from Drug__c where Name=:drugName limit 1];
+    }
 
-        for (Eform.BundleEntry bundleEntry : bundle.entry) {
-            if (bundleEntry.resource instanceof Eform.Patient) {
-                patient = (Eform.Patient) bundleEntry.resource;
-            } else if (bundleEntry.resource instanceof Eform.Provider) {
-                provider = (Eform.Provider) bundleEntry.resource;
-            } else if (bundleEntry.resource instanceof Eform.Binary) {
-                binaries.add((Eform.Binary) bundleEntry.resource);                
-            } else if (bundleEntry.resource instanceof Eform.QuestionnaireResponse) {
-                questionnaires.add((Eform.QuestionnaireResponse) bundleEntry.resource);
-            }
-        }
-
-        system.assertEquals('9878507098', patient.patientIdentifier);
-        system.assertEquals('10101', provider.providerIdentifier);
-        system.assertEquals(1, binaries.size());
-        system.assertEquals(false, questionnaires.isEmpty());
+    private static Eform.Bundle newBundle() {
+        return EformParser.parse(newBundleJson());
     }
 
     /**
