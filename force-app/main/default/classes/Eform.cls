@@ -1,6 +1,16 @@
 global with sharing class Eform {
     global class Bundle {
         public List<EForm.BundleEntry> entry;
+        public Meta meta;
+    }
+
+    global class Meta {
+        public List<Tag> tag;
+    }
+
+    global class Tag {
+        public String system_x;
+        public String code;
     }
 
     global class BundleEntry {

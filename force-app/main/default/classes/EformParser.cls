@@ -2,34 +2,56 @@ public with sharing class EformParser {
     
     public static Eform.Bundle parse(String jsonStr) {
         system.debug(jsonStr);
+
+        Map<String, Object> bundleMap = (Map<String, Object>) JSON.deserializeUntyped(jsonStr);
         
         EForm.Bundle bundle = new EForm.Bundle();  
-        bundle.entry = new List<EForm.BundleEntry>();
+        bundle.meta = parseMeta((Map<String, Object>) bundleMap.get('meta'));
+        bundle.entry = parseEntry((List<Object>) bundleMap.get('entry'));
         
-        Map<String, Object> bundleMap = (Map<String, Object>) JSON.deserializeUntyped(jsonStr);
-        List<Object> entryList = (List<Object>) bundleMap.get('entry');
+        return bundle;
+    }
 
-        for (Object entry : entryList) {
-            Map<String, Object> resource = (Map<String, Object>) ((Map<String, Object>) entry).get('resource');
+    private static Eform.Meta parseMeta(Map<String, Object> metaMap) {
+        List<Object> tagList = (List<Object>) metaMap.get('tag');
+
+        Eform.Meta meta = new Eform.Meta();
+        meta.tag = new List<Eform.Tag>();
+
+        for(Object tagObj : tagList) {
+            Map<String, Object> tagMap = (Map<String, Object>) tagObj;
+            Eform.Tag tag = new Eform.Tag();
+            tag.system_x = String.valueOf(tagMap.get('system'));
+            tag.code = String.valueOf(tagMap.get('code'));
+            meta.tag.add(tag);
+        }
+
+        return meta;
+    }
+
+    private static List<Eform.BundleEntry> parseEntry(List<Object> entryList) {
+        List<Eform.BundleEntry> entries = new List<Eform.BundleEntry>();
+
+        for (Object entryObj : entryList) {
+            Map<String, Object> resource = (Map<String, Object>) ((Map<String, Object>) entryObj).get('resource');
 
             if (resource.get('resourceType') == 'Patient') {
-                bundle.entry.add(new Eform.BundleEntry(buildPatient(resource)));
+                entries.add(new Eform.BundleEntry(buildPatient(resource)));
             }
 
             if (resource.get('resourceType') == 'Practitioner') {
-                bundle.entry.add(new Eform.BundleEntry(buildProvider(resource)));
+                entries.add(new Eform.BundleEntry(buildProvider(resource)));
             }
 
             if (resource.get('resourceType') == 'QuestionnaireResponse') {
-                bundle.entry.add(new Eform.BundleEntry(buildQuestionnaireResponse(resource)));
+                entries.add(new Eform.BundleEntry(buildQuestionnaireResponse(resource)));
             }
 
             if (resource.get('resourceType') == 'Binary' && resource.get('contentType') == 'application/pdf') {
-                bundle.entry.add(new Eform.BundleEntry(buildBinary(resource)));
+                entries.add(new Eform.BundleEntry(buildBinary(resource)));
             }
         }
-
-        return bundle;
+        return entries;
     }
 
     private static Eform.Patient buildPatient(Map<String, Object> resource) {
