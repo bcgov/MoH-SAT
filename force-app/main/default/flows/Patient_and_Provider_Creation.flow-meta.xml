@@ -1852,7 +1852,7 @@
         </fields>
         <fields>
             <name>Provider_Summary</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Provider Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;Provider Identifier: {!Get_Provider_Record.Provider_Identifier__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Provider Name: {!Get_Provider_Record.Name}&lt;/p&gt;&lt;p&gt;Provider Type: {!Get_Provider_Record.Provider_Type__c}&lt;/p&gt;&lt;p&gt;Provider Date of Birth: {!Get_Provider_Record.Birthdate}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Provider Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;Provider Identifier: {!Get_Provider_Record.Provider_Identifier__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Provider Name: &lt;span style=&quot;background-color: rgb(255, 255, 255); font-family: Roboto, arial, sans-serif; color: rgb(32, 33, 36);&quot;&gt;{!ODRPrescriber.FirstName} {!ODRPrescriber.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Provider Type: {!ODRPrescriber.Provider_Type__pc}&lt;/p&gt;&lt;p&gt;Provider Date of Birth: {!ODRPrescriber.PersonBirthdate}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -1867,7 +1867,7 @@
         </fields>
         <fields>
             <name>Provider_Summary_Null</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0);&quot;&gt;Provider information was not found on Salesforce and will be created automatically on Salesforce&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(0, 192, 48);&quot;&gt;Provider information was not found on Salesforce and will be created automatically on Salesforce&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -1882,7 +1882,7 @@
         </fields>
         <fields>
             <name>Submitter_Summary</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Submitter Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Submitter Identifier: {!Get_Submitter_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Submitter Name: {!Get_Submitter_Record.Name}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Submitter Type: {!Get_Submitter_Record.Provider_Type__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Submitter Date of Birth: {!Get_Submitter_Record.Birthdate}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Submitter Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Submitter Identifier: {!Get_Submitter_Record.Provider_Identifier__c}&lt;/p&gt;&lt;p&gt;Submitter Name: &lt;span style=&quot;background-color: rgb(255, 255, 255); font-family: Roboto, arial, sans-serif; color: rgb(32, 33, 36);&quot;&gt;{!ODRSubmitter.FirstName} {!ODRSubmitter.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Submitter Type: {!ODRSubmitter.Provider_Type__pc}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Submitter Date of Birth: {!ODRSubmitter.PersonBirthdate}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -1897,7 +1897,7 @@
         </fields>
         <fields>
             <name>Submitter_Summary_Null</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;Submitter information was not found on Salesforce and will be created automatically on Salesforce&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(0, 192, 48); background-color: rgb(255, 255, 255);&quot;&gt;Submitter information was not found on Salesforce and will be created automatically on Salesforce&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -1934,7 +1934,7 @@
         </fields>
         <fields>
             <name>Patient_Summary_Null</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Patient information could not be found&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;Patient information could not be found in Salesforce. The next screen will guide creation of the Patient record in Salesforce.&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>

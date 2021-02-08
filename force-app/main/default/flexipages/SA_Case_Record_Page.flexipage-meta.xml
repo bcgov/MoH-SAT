@@ -404,12 +404,14 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentName>patientInformation</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentName>pharmanetPayload</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.IsClosed}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-b2455243-bc7f-4492-a6b6-d0ed88453aa4</name>
