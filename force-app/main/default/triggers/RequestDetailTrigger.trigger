@@ -6,7 +6,7 @@ trigger RequestDetailTrigger on Request_Detail__c (after insert, after update) {
         caseIds.add(rd.Case__c);
     }
 
-    if (AdjudicationSettings.triggersEnabled() && caseIds.size() == 1) {
+    if (SaSettings.triggersEnabled() && caseIds.size() == 1) {
         for (Id caseId : caseIds) {
             AdjudicationService.evaluateFuture(caseId, false);
         }
