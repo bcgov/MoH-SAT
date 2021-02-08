@@ -21,23 +21,26 @@ public with sharing class SarBuilder {
             }
         }
 
+        List<Drug__c> drugs = [select Id, Name from Drug__c where Drug_Code__c = :findDrugCode(requestDetails)];
+        drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
+        
+        saCase = buildCase(bundle, drug);
+        saCase.Drug__c = drug.Id;
+
         save(provider, patient, saCase, requestDetails, contentVersions);
 
         return null;
     }
 
     private static void save(Account provider, Account patient, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
-        insert new Account[] {patient, provider};
+        if (patient.Id == null) { insert patient; } else { upsert patient; }
+        if (provider.Id == null) { insert provider; } else { update provider; }
         
         Contact patientContact = [select Id from Contact where AccountId = :patient.Id];
         Contact providerContact = [select Id from Contact where AccountId = :provider.Id];
-        
-        Drug__c drug = [select Id, Name from Drug__c where Drug_Code__c = :findDrugCode(requestDetails)];
 
-        saCase = buildCase('SA - ' + drug.Name);
         saCase.ContactId = patientContact.Id;
         saCase.Provider__c = providerContact.Id;
-        saCase.Drug__c = drug.Id;
         insert saCase;
 
         for (Request_Detail__c rd : requestDetails) {
@@ -60,18 +63,26 @@ public with sharing class SarBuilder {
         insert cdls;
     }
 
-    public static Case buildCase(String subject) {
+    public static Case buildCase(Eform.Bundle bundle, Drug__c drug) {
         Case caseRecord = new Case();
-        caseRecord.Subject = subject;
+        caseRecord.Subject = 'SA - ' + drug.Name;
         caseRecord.Origin = 'eForm';
         caseRecord.Status = 'Received';
+        
+        for (Eform.Tag tag : bundle.meta.tag) {
+            if (tag.system_x.contains('correlationId')) {
+                caseRecord.Description = 'Ref. No.: ' + tag.code;
+            }
+        }
+
         return caseRecord;
     }
 
     public static Account buildPatient(Eform.Patient patient) {
-        Account account = new Account();
-        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
+        Account existing = [select Id from Account where Patient_Identifier__pc = :patient.patientIdentifier];
+        Account account = existing == null ? new Account() : existing;
         account.Patient_Identifier__pc = patient.patientIdentifier;
+        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
         account.FirstName = patient.firstName;
         account.LastName = patient.lastName;
         account.PersonBirthdate = patient.birthdate;
@@ -86,10 +97,11 @@ public with sharing class SarBuilder {
     }
 
     public static Account buildProvider(Eform.Provider provider) {
-        Account account = new Account();
-        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
+        Account existing = [select Id from Account where Provider_Identifier__pc = :provider.providerIdentifier and Provider_Type__pc = :provider.providerIdentifierType];
+        Account account = existing == null ? new Account() : existing;
         account.Provider_Identifier__pc = provider.providerIdentifier;
         account.Provider_Type__pc = provider.providerIdentifierType;
+        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
         account.FirstName = provider.firstName;
         account.LastName = provider.lastName;
         account.PersonBirthdate = provider.birthdate;
