@@ -85,8 +85,6 @@ securityDefinitions:
     scopes:
       service: "service account role"
 definitions:
-  saObject:
-    type: object
   SpecialAuthorityRequest:
     type: "object"
     required:
@@ -106,5 +104,4 @@ definitions:
         type: "array"
         description: "List of Special Authority Requests"
         item:
-          type: string
-          enum: *saObject
+          type: object
