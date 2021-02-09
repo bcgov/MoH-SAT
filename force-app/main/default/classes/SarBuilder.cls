@@ -21,57 +21,35 @@ public with sharing class SarBuilder {
             }
         }
 
-        save(provider, patient, saCase, requestDetails, contentVersions);
-
-        return null;
-    }
-
-    private static void save(Account provider, Account patient, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
-        insert new Account[] {patient, provider};
+        List<Drug__c> drugs = [select Id, Name from Drug__c where Drug_Code__c = :findDrugCode(requestDetails)];
+        drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
         
-        Contact patientContact = [select Id from Contact where AccountId = :patient.Id];
-        Contact providerContact = [select Id from Contact where AccountId = :provider.Id];
-        
-        Drug__c drug = [select Id, Name from Drug__c where Drug_Code__c = :findDrugCode(requestDetails)];
-
-        saCase = buildCase('SA - ' + drug.Name);
-        saCase.ContactId = patientContact.Id;
-        saCase.Provider__c = providerContact.Id;
+        saCase = buildCase(bundle, drug);
         saCase.Drug__c = drug.Id;
-        insert saCase;
 
-        for (Request_Detail__c rd : requestDetails) {
-            rd.Case__c = saCase.Id;
-        }
-
-        insert requestDetails;
-
-        insert contentVersions;
-
-        List<ContentDocumentLink> cdls = new List<ContentDocumentLink>();
-        for (ContentVersion cv : [select ContentDocumentId from ContentVersion where Id in :contentVersions]) {
-            ContentDocumentLink cdl = new ContentDocumentLink();
-            cdl.LinkedEntityId = saCase.Id;
-            cdl.ContentDocumentId = cv.ContentDocumentId;
-            cdl.ShareType = 'V';
-            cdls.add(cdl);
-        }
-
-        insert cdls;
+        return SpecialAuthorityRequest.build(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
 
-    public static Case buildCase(String subject) {
+    public static Case buildCase(Eform.Bundle bundle, Drug__c drug) {
         Case caseRecord = new Case();
-        caseRecord.Subject = subject;
+        caseRecord.Subject = 'SA - ' + drug.Name;
         caseRecord.Origin = 'eForm';
         caseRecord.Status = 'Received';
+        
+        for (Eform.Tag tag : bundle.meta.tag) {
+            if (tag.system_x.contains('correlationId')) {
+                caseRecord.Description = 'Ref. No.: ' + tag.code;
+            }
+        }
+
         return caseRecord;
     }
 
     public static Account buildPatient(Eform.Patient patient) {
-        Account account = new Account();
-        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
+        List<Account> existing = [select Id from Account where Patient_Identifier__pc = :patient.patientIdentifier];
+        Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
         account.Patient_Identifier__pc = patient.patientIdentifier;
+        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
         account.FirstName = patient.firstName;
         account.LastName = patient.lastName;
         account.PersonBirthdate = patient.birthdate;
@@ -86,10 +64,11 @@ public with sharing class SarBuilder {
     }
 
     public static Account buildProvider(Eform.Provider provider) {
-        Account account = new Account();
-        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
+        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :provider.providerIdentifier and Provider_Type__pc = :provider.providerIdentifierType];
+        Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
         account.Provider_Identifier__pc = provider.providerIdentifier;
         account.Provider_Type__pc = provider.providerIdentifierType;
+        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
         account.FirstName = provider.firstName;
         account.LastName = provider.lastName;
         account.PersonBirthdate = provider.birthdate;

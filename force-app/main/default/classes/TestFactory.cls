@@ -23,6 +23,7 @@ public with sharing class TestFactory {
     public static Drug__c newDrug(String name) {
         Drug__c drug = new Drug__c();
         drug.Name = name;
+        drug.Drug_Code__c = name;
         return drug;
     }
 

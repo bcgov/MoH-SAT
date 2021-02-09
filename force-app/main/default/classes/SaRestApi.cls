@@ -1,12 +1,14 @@
 @RestResource(urlMapping='/SA/*')
-global with sharing class saRestResource {
+global with sharing class SaRestApi {
     @HttpPost
     global static EForm.Bundle doPost() {
         RestRequest req = RestContext.request;
         
         Eform.Bundle bundle = EformParser.parse(req.requestBody.toString());
 
-        SarBuilder.build(bundle);
+        SpecialAuthorityRequest sar = SarBuilder.build(bundle);
+        
+        sar.save();
         
         return bundle;
     }
