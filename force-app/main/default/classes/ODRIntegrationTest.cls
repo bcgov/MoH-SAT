@@ -193,6 +193,7 @@ public class ODRIntegrationTest {
         insert myContact;
 
         Case myCase = new Case(ContactId=myContact.Id, Status='Received', Origin='Test', patient_validated__c=false);
+        myCase.Effective_Date__c = Date.today();
         insert myCase;
 
         String formData = '{"example":"test"}';
@@ -206,6 +207,7 @@ public class ODRIntegrationTest {
         insert myContact;
 
         Case myCase = new Case(ContactId=myContact.Id, Status='Received', Origin='Test', provider_validated__c=false);
+        myCase.Effective_Date__c = Date.today();
         insert myCase;
 
         String formData = '{"example":"test"}';
@@ -221,6 +223,7 @@ public class ODRIntegrationTest {
         Case myCase = new Case(ContactId=myContact.Id, Status='Received', Origin='Test', Pushed_to_Pnet__c=false);
         myCase.Pushed_to_Pnet__c = true;
         myCase.Pushed_to_Pnet_Date__c = Datetime.now();
+        myCase.Effective_Date__c = Date.today();
         insert myCase;
 
         System.assertEquals(true, myCase.Pushed_to_Pnet__c);
