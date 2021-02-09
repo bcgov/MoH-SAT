@@ -31,8 +31,8 @@ paths:
       parameters:
       - in: "query"
         type: "string"
-        name: "saId"
-        description: "Special Authority Request Id"
+        name: "phn"
+        description: "PHN for Special Authority Request"
         required: true
       responses:
         "200":
@@ -40,7 +40,7 @@ paths:
           schema:
             $ref: "#/definitions/SpecialAuthorityRequestResponse"
         "400":
-          description: "Invalid ID supplied"
+          description: "Invalid PHN supplied"
         "403":
           description: "Not Authorized"
         "404":
@@ -85,6 +85,8 @@ securityDefinitions:
     scopes:
       service: "service account role"
 definitions:
+  saObject:
+    type: object
   SpecialAuthorityRequest:
     type: "object"
     required:
@@ -100,8 +102,9 @@ definitions:
   SpecialAuthorityRequestResponse:
     type: "object"
     properties:
-      caseId:
-        type: "integer"
-        format: "int32"
-      adjudicationStatus:
-        type: "string"
+      items:
+        type: "array"
+        description: "List of Special Authority Requests"
+        item:
+          type: string
+          enum: *saObject
