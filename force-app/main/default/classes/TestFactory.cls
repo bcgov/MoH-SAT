@@ -45,6 +45,8 @@ public with sharing class TestFactory {
         saCase.RecordTypeId = getRecordTypeInfosByDeveloperName('Case', 'Special_Authority_Request').getRecordTypeId();
         saCase.Drug__c = drug.Id;
         saCase.Subject = subject;
+        saCase.Effective_Date__c = Date.today();
+        saCase.Termination_Date__c = Date.today().addYears(1);
         return saCase;
     }
 
