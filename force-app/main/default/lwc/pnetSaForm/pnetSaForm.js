@@ -29,7 +29,7 @@ export default class PnetSaForm extends LightningElement {
                 justificationCodes: this.strToArr(this._record.justificationCodes),
                 excludedPlans: this.strToArr(this._record.excludedPlans),
                 effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate),
-                terminateDate: this.dateSfdcToOdr(this._record.terminateDate),
+                terminationDate: this.dateSfdcToOdr(this._record.terminationDate),
                 maxDaysSupply: this._record.maxDaysSupply,
                 maxPricePct: this._record.maxPricePct,
                 saRequester: {
