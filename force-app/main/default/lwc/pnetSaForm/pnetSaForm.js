@@ -12,7 +12,7 @@ export default class PnetSaForm extends LightningElement {
     formDisabled;
 
     get msOptions () {
-        return [{'value':'B','label':'Non-Benfit'},
+        return [{'value':'B','label':'Non-Benefit'},
                 {'value':'L','label':'LCA',},
                 {'value':'R','label':'RDP'}];
     }
