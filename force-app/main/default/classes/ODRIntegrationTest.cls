@@ -36,10 +36,6 @@ public class ODRIntegrationTest {
         System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
         Test.stopTest();
     }
-    @isTest static void verifyPHNDataTest() {
-        Boolean isVerified = ODRIntegration.verifyPHNData('','');
-        System.assertEquals(true, isVerified);
-    }
     @isTest static void verifyPatientInformationTest() {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(
             new Drug__c(),
@@ -187,34 +183,6 @@ public class ODRIntegrationTest {
         String uuidString = ODRIntegration.getUUIDString();
         Boolean notZero = uuidString.length() > 0;
         System.assertEquals(true, notZero);
-    }
-    @isTest static void verifyPHNInformationTest() {
-        Contact myContact = new Contact(Firstname='Test', Lastname='Contact');
-        insert myContact;
-
-        Case myCase = new Case(ContactId=myContact.Id, Status='Received', Origin='Test', patient_validated__c=false);
-        myCase.Effective_Date__c = Date.today();
-        insert myCase;
-
-        String formData = '{"example":"test"}';
-        String odrData = '{"example":"test"}';
-
-        Boolean isValidated = ODRIntegration.verifyPHNData(odrData, formData);
-        System.assertEquals(true, isValidated);
-    }
-    @isTest static void verifyCollegeInformationTest() {
-        Contact myContact = new Contact(Firstname='Test', Lastname='Contact');
-        insert myContact;
-
-        Case myCase = new Case(ContactId=myContact.Id, Status='Received', Origin='Test', provider_validated__c=false);
-        myCase.Effective_Date__c = Date.today();
-        insert myCase;
-
-        String formData = '{"example":"test"}';
-        String odrData = '{"example":"test"}';
-
-        Boolean isValidated = ODRIntegration.verifyPHNData(odrData, formData);
-        System.assertEquals(true, isValidated);
     }
     @isTest static void postSAApproval() {
         Contact myContact = new Contact(Firstname='Test', Lastname='Contact');

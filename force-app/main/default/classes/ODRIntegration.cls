@@ -1,25 +1,6 @@
 public with sharing class ODRIntegration {
     public ODRIntegration() { }
 
-    @AuraEnabled(cacheable=true)
-    public static Boolean verifyPHNInformation(Id recordId, String formData) {
-        System.debug('verifyPHNInformation');
-        String UUID = getUUIDString();
-        String patientIdentifier = getPatientIdentifier(recordId);
-
-        // TODO: Verify name matches what is returned by the ODR and set the contact information.
-        Boolean retValue = verifyPHNData('TODO', formData);
-
-        updateCasePHNStatus(recordId, retValue);
-
-        return retValue;
-    }
-
-    public static Boolean verifyPHNData(String odrData, String formData) {
-        // Validate what they sent and what we got from the DB
-        return true;
-    }
-
     // LWC Path
     @AuraEnabled(cacheable=true)
     public static Patient verifyPatientInformationx(Id recordId) {
@@ -31,16 +12,47 @@ public with sharing class ODRIntegration {
 
     // AA Path
     public static Patient verifyPatientInformation(SpecialAuthorityRequest sar) {
-        // TODO: Webservice call here
+        Patient p;
+        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+        try {
+            p = EmpiIntegration.getPatient(sar.saCase.Patient_Identifier__c);
 
-        Patient p = new Patient();
-        p.name = sar.saCase.Contact.Account.FirstName;
-        p.phn = sar.saCase.Patient_Identifier__c;
-        p.verified = true;
-        p.verifiedDate = Datetime.now();
-        p.dob = sar.saCase.Patient_Date_of_Birth__c;
+            p.verifiedDate = Datetime.now();
 
+            // Safety Checks
+            if (p.deceased
+               || checkValidBirthDate(p.dob, sar.saCase.Patient_Date_of_Birth__c)
+               || sar.saCase.Contact.Account.FirstName != p.givenName
+               || sar.saCase.Contact.Account.LastName != p.familyName)
+            {
+                p.verified = false;
+            } else {
+                p.verified = true;
+            }
+            loggingEvents.add(new Logging_Event__e(code__c=200,
+                                                message__c='Success',
+                                                caseId__c=sar.saCase.Id,
+                                                type__c='5'));
+        } catch (CalloutException e) {
+            System.debug('EMPI Callout Exception');
+            loggingEvents.add(new Logging_Event__e(code__c=500,
+                                                message__c='EMPI Callout Exception',
+                                                caseId__c=sar.saCase.Id,
+                                                type__c='5'));
+        }
+        EventBus.publish(loggingEvents);
         return p;
+    }
+
+    public static Boolean checkValidBirthDate(DateTime first, DateTime second) {
+        if (first == null || second == null) {
+            return false;
+        }
+        if (first.day() == second.day() && first.month() == second.month() && first.year() == second.year()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void updateCasePHNStatus(Id recordId, Boolean value) {
