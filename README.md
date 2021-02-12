@@ -47,7 +47,7 @@ $ ../MoH-SAT> git checkout -b <name_of_branch>
 
 ## Package Upgrade
 ```
-sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15
+sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15 -c
 ```
 
 ## Package Installation
