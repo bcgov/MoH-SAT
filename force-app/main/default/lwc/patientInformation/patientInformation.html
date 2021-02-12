@@ -6,9 +6,11 @@
         &nbsp;Patient Information
     </h3>
     <div class="slds-p-left_small">
-      <p><strong>Name: </strong>{data.name}</p>
+      <p><strong>Name: </strong>{data.givenName} {data.familyName}</p>
       <p><strong>PHN: </strong>{data.phn}</p>
+      <p><strong>Gender: </strong>{data.gender}</p>
       <p><strong>DOB: </strong><lightning-formatted-date-time value={data.dob}></lightning-formatted-date-time></p>
+      <p><strong>Deceased: </strong>{data.deceased}</p>
       <p><strong>Verified Date: </strong><lightning-formatted-date-time value={data.verifiedDate}></lightning-formatted-date-time></p>
       <p class="slds-p-top_small"></p>
       <lightning-badge if:true={data.verified} label="Verified" icon-name="action:check" style="background: #46D447"></lightning-badge>

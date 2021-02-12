@@ -565,7 +565,7 @@ public class Empi {
         private String[] classCode_att_info = new String[]{'classCode'};
         private String[] moodCode_att_info = new String[]{'moodCode'};
         private String[] apex_schema_type_info = new String[]{'urn:hl7-org:v3','true','false'};
-        private String[] field_order_type_info = new String[]{'effectiveTime','dataEnterer','queryByParameter'};
+        private String[] field_order_type_info = new String[]{'dataEnterer','queryByParameter'};
     }
     public class QUQI_MT020001_AuthorOrPerformer {
         public Empi.CS[] realmCode;
@@ -1755,7 +1755,7 @@ public class Empi {
         private String[] typeCode_att_info = new String[]{'typeCode'};
         private String[] contextControlCode_att_info = new String[]{'contextControlCode'};
         private String[] apex_schema_type_info = new String[]{'urn:hl7-org:v3','true','false'};
-        private String[] field_order_type_info = new String[]{'realmCode','typeId','templateId','time_x','assignedPerson'};
+        private String[] field_order_type_info = new String[]{'realmCode','templateId','assignedPerson'};
     }
     public class HCIM_MT_QueryResponse_Reason {
         public Empi.CS[] realmCode;
@@ -3306,8 +3306,10 @@ public class Empi {
         private String[] field_order_type_info = new String[]{'event','offset'};
     }
     public class PN {
-        public Empi.en_family family;
-        public Empi.en_given given;
+        public String family;
+        public String given;
+        // public Empi.en_family family;
+        // public Empi.en_given given;
         public Empi.IVL_TS validTime;
         public String use;
         private String[] family_type_info = new String[]{'family','urn:hl7-org:v3',null,'1','1','false'};
