@@ -22,7 +22,7 @@ global with sharing class HealthGateway {
             this.patientLastName = c.Contact.LastName;
             this.prescriberFirstName = c.Provider__r.FirstName;
             this.prescriberLastName = c.Provider__r.LastName;
-            this.drugName = c.Drug__r.Brand_Drug_Name__c;
+            this.drugName = c.Drug_Name__c;
             this.requestStatus = c.Status;
             this.referenceNumber = c.CaseNumber;
             this.requestedDate = c.CreatedDate.date();

@@ -32,9 +32,8 @@ global with sharing class SaRestApi {
     private static List<Case> queryCases(String patientIdentifier) {
         return [
             select
-                Contact.Patient_Identifier__c, Contact.FirstName, Contact.LastName,
-                Provider__r.FirstName, Provider__r.LastName,
-                Drug__r.Brand_Drug_Name__c,
+                Contact.Patient_Identifier__c, Contact.FirstName, Contact.LastName, Drug_Name__c,
+                Provider__r.FirstName, Provider__r.LastName, 
                 Status, CaseNumber, CreatedDate, Effective_Date__c, Termination_Date__c
             from Case
             where Contact.Patient_Identifier__c = :patientIdentifier
