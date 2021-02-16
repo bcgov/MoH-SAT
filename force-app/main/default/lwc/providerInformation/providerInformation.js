@@ -1,6 +1,5 @@
 import { LightningElement, api, wire } from 'lwc';
 import verifyCollegeInformation from '@salesforce/apex/ODRIntegration.verifyCollegeInformation';
-
 export default class ProviderInformation extends LightningElement {
   @api recordId;
   verified = false;
