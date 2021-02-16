@@ -124,7 +124,7 @@ public with sharing class SarBuilder {
 
     private static String findDrugCode(List<Request_Detail__c> requestDetails) {
         for (Request_Detail__c rd : requestDetails) {
-            if (rd.Question_ID__c == 'select') return rd.String_Value__c;
+            if ('medication'.equalsIgnoreCase(rd.Question_ID__c)) return rd.String_Value__c;
         }
 
         return null;
