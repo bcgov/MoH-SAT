@@ -129,7 +129,7 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     public void save() {
-        if (patient.Id == null) { insert patient; } else { upsert patient; }
+        if (patient.Id == null) { insert patient; } else { update patient; }
         if (provider.Id == null) { insert provider; } else { update provider; }
         
         Contact patientContact = [select Id from Contact where AccountId = :patient.Id];
