@@ -124,6 +124,8 @@ public with sharing class EformParser {
     }
 
     private static List<Map<String, Object>> toListOfMap(Object listObj) {
+        if (listObj == null) return new List<Map<String, Object>>();
+
         List<Map<String, Object>> listOfMap = new List<Map<String, Object>>();
 
         for (Object mapObj : (List<Object>) listObj) {
