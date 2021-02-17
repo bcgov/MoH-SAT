@@ -11,8 +11,8 @@ public with sharing class SarBuilder {
 
         Eform.Bundle bundle;
         
-        bundle = EformParser.parse(bundleJsonStr);
         try {
+            bundle = EformParser.parse(bundleJsonStr);
         } catch (Exception e) {
             system.debug(e.getMessage());
         }
@@ -31,20 +31,21 @@ public with sharing class SarBuilder {
             }
         }
 
-        contentVersions.add(buildFile('bundle.json', Blob.valueOf(bundleJsonStr)));
+        String drugCode = findDrugCode(requestDetails);
+        List<Drug__c> drugs = [select Id, Name, Drug_Code__c from Drug__c where Drug_Code__c = :drugCode];
+        String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
+        drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
 
-        saCase = buildCase(findDrugCode(requestDetails), findReferenceNumber(bundle?.meta?.tag));
+        saCase = buildCase(drug.Id, drugLabel, findReferenceNumber(bundle?.meta?.tag));
+        
+        contentVersions.add(buildFile('bundle.json', Blob.valueOf(bundleJsonStr)));
 
         return SpecialAuthorityRequest.build(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
 
-    public static Case buildCase(String drugCode, String refNo) {
-        List<Drug__c> drugs = [select Id, Name, Drug_Code__c from Drug__c where Drug_Code__c = :drugCode];
-
-        String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
-
+    public static Case buildCase(Id drugId, String drugLabel, String refNo) {
         Case caseRecord = new Case();
-        caseRecord.Drug__c = drugs.isEmpty() ? null : drugs[0].Id;
+        caseRecord.Drug__c = drugId;
         caseRecord.Drug_Name__c = drugLabel;
         caseRecord.Subject = 'SA - ' + drugLabel;
         caseRecord.Origin = 'eForm';
