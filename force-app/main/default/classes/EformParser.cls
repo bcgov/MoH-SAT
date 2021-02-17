@@ -1,4 +1,5 @@
 public with sharing class EformParser {
+    public class EformParserException extends Exception {}
     
     public static Eform.Bundle parse(String jsonStr) {
         system.debug(jsonStr);
@@ -61,11 +62,11 @@ public with sharing class EformParser {
         patient.birthdate = Date.valueOf((String) resource.get('birthDate'));
         
         List<Map<String, Object>> identifierResources = toListOfMap(resource.get('identifier'));
-        patient.patientIdentifier = String.valueOf(identifierResources[0].get('value'));
+        patient.patientIdentifier = String.valueOf(firstElem(identifierResources)?.get('value'));
         
         List<Map<String, Object>> nameResources = toListOfMap(resource.get('name'));
-        patient.lastName = String.valueOf(nameResources[0].get('family'));
-        patient.firstName = String.valueOf( ((List<Object>) nameResources[0].get('given'))[0] );
+        patient.lastName = String.valueOf(firstElem(nameResources)?.get('family'));
+        patient.firstName = String.valueOf( ((List<Object>) firstElem(nameResources)?.get('given'))[0] );
 
         List<Map<String, Object>> telecomResources = toListOfMap(resource.get('telecom'));
         for (Map<String, Object> telecomResource : telecomResources) {
@@ -89,11 +90,11 @@ public with sharing class EformParser {
         Eform.Provider provider = new Eform.Provider();
         
         List<Map<String, Object>> identifierResources = toListOfMap(resource.get('identifier'));
-        provider.providerIdentifier = String.valueOf(identifierResources[0].get('value'));
+        provider.providerIdentifier = String.valueOf(firstElem(identifierResources)?.get('value'));
         
         List<Map<String, Object>> nameResources = toListOfMap(resource.get('name'));
-        provider.lastName = String.valueOf(nameResources[0].get('family'));
-        provider.firstName = String.valueOf( ((List<Object>) nameResources[0].get('given'))[0] );
+        provider.lastName = String.valueOf(firstElem(nameResources)?.get('family'));
+        provider.firstName = String.valueOf( ((List<Object>) firstElem(nameResources)?.get('given'))[0] );
 
         List<Map<String, Object>> telecomResources = toListOfMap(resource.get('telecom'));
         for (Map<String, Object> telecomResource : telecomResources) {
@@ -124,6 +125,8 @@ public with sharing class EformParser {
     }
 
     private static List<Map<String, Object>> toListOfMap(Object listObj) {
+        if (listObj == null) return new List<Map<String, Object>>();
+
         List<Map<String, Object>> listOfMap = new List<Map<String, Object>>();
 
         for (Object mapObj : (List<Object>) listObj) {
@@ -131,5 +134,9 @@ public with sharing class EformParser {
         }
 
         return listOfMap;        
+    }
+
+    private static Map<String, Object> firstElem(List<Map<String, Object>> listOfMap) {
+        return listOfMap.isEmpty() ? null : listOfMap[0];
     }
 }

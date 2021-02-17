@@ -1,7 +1,7 @@
 public with sharing class SarBuilder {
     private static Integer SORT_ORDER = 100;
 
-    public static SpecialAuthorityRequest build(Eform.Bundle bundle) {
+    public static SpecialAuthorityRequest build(String bundleJsonStr) {
         Drug__c drug;
         Account provider;
         Account patient;
@@ -9,39 +9,47 @@ public with sharing class SarBuilder {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         List<ContentVersion> contentVersions = new List<ContentVersion>();
 
-        for (Eform.BundleEntry bundleEntry : bundle.entry) {
-            if (bundleEntry.resource instanceof Eform.Patient) {
-                patient = buildPatient((Eform.Patient) bundleEntry.resource);
-            } else if (bundleEntry.resource instanceof Eform.Provider) {
-                provider = buildProvider((Eform.Provider) bundleEntry.resource);
-            } else if (bundleEntry.resource instanceof Eform.Binary) {
-                contentVersions.add(buildFile((Eform.Binary) bundleEntry.resource));                
-            } else if (bundleEntry.resource instanceof Eform.QuestionnaireResponse) {
-                requestDetails.addAll(buildRequestDetails((Eform.QuestionnaireResponse) bundleEntry.resource));
+        Eform.Bundle bundle;
+        
+        bundle = EformParser.parse(bundleJsonStr);
+        try {
+        } catch (Exception e) {
+            system.debug(e.getMessage());
+        }
+
+        if (bundle != null && !bundle.entry.isEmpty()) {
+            for (Eform.BundleEntry bundleEntry : bundle.entry) {
+                if (bundleEntry.resource instanceof Eform.Patient) {
+                    patient = buildPatient((Eform.Patient) bundleEntry.resource);
+                } else if (bundleEntry.resource instanceof Eform.Provider) {
+                    provider = buildProvider((Eform.Provider) bundleEntry.resource);
+                } else if (bundleEntry.resource instanceof Eform.Binary) {
+                    contentVersions.add(buildFile((Eform.Binary) bundleEntry.resource));                
+                } else if (bundleEntry.resource instanceof Eform.QuestionnaireResponse) {
+                    requestDetails.addAll(buildRequestDetails((Eform.QuestionnaireResponse) bundleEntry.resource));
+                }
             }
         }
 
-        List<Drug__c> drugs = [select Id, Name from Drug__c where Drug_Code__c = :findDrugCode(requestDetails)];
-        drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
-        
-        saCase = buildCase(bundle, drug);
-        saCase.Drug__c = drug.Id;
+        contentVersions.add(buildFile('bundle.json', Blob.valueOf(bundleJsonStr)));
+
+        saCase = buildCase(findDrugCode(requestDetails), findReferenceNumber(bundle?.meta?.tag));
 
         return SpecialAuthorityRequest.build(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
 
-    public static Case buildCase(Eform.Bundle bundle, Drug__c drug) {
+    public static Case buildCase(String drugCode, String refNo) {
+        List<Drug__c> drugs = [select Id, Name, Drug_Code__c from Drug__c where Drug_Code__c = :drugCode];
+
+        String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
+
         Case caseRecord = new Case();
-        caseRecord.Subject = 'SA - ' + drug.Name;
+        caseRecord.Drug__c = drugs.isEmpty() ? null : drugs[0].Id;
+        caseRecord.Drug_Name__c = drugLabel;
+        caseRecord.Subject = 'SA - ' + drugLabel;
         caseRecord.Origin = 'eForm';
         caseRecord.Status = 'Received';
-        
-        for (Eform.Tag tag : bundle.meta.tag) {
-            if (tag.system_x.contains('correlationId')) {
-                caseRecord.Description = 'Ref. No.: ' + tag.code;
-            }
-        }
-
+        caseRecord.Description = 'Ref. No.: ' + refNo;
         return caseRecord;
     }
 
@@ -121,21 +129,39 @@ public with sharing class SarBuilder {
 
         return requestDetails;
     }
+    
+    public static ContentVersion buildFile(Eform.Binary binary) {
+        return buildFile(binary.id + '.pdf', EncodingUtil.base64Decode(binary.data));
+    }
+
+    private static ContentVersion buildFile(String fileNameAndExt, Blob data) {
+        ContentVersion contentVersion = new ContentVersion();
+        contentVersion.ContentLocation = 'S';
+        contentVersion.PathOnClient = fileNameAndExt;
+        contentVersion.Title = fileNameAndExt;
+        contentVersion.VersionData = data;
+        return contentVersion;
+    }
 
     private static String findDrugCode(List<Request_Detail__c> requestDetails) {
         for (Request_Detail__c rd : requestDetails) {
-            if (rd.Question_ID__c == 'select') return rd.String_Value__c;
+            if (String.isNotBlank(rd.Question_ID__c) && rd.Question_ID__c.endsWithIgnoreCase('medication')) return rd.String_Value__c;
         }
 
-        return null;
+        return 'No drug found.';
     } 
-    
-    public static ContentVersion buildFile(Eform.Binary binary) {
-        ContentVersion contentVersion = new ContentVersion();
-        contentVersion.ContentLocation = 'S';
-        contentVersion.PathOnClient = binary.id + '.pdf';
-        contentVersion.Title = binary.id + '.pdf';
-        contentVersion.VersionData = EncodingUtil.base64Decode(binary.data);
-        return contentVersion;
+
+    private static String findReferenceNumber(List<Eform.Tag> tags) {
+        String defaultCode = 'No reference number found.';
+
+        if (tags == null) return defaultCode;
+
+        for (Eform.Tag tag : tags) {
+            if (tag.system_x.contains('correlationId')) {
+                return tag.code;
+            }
+        }
+
+        return defaultCode;
     }
 }

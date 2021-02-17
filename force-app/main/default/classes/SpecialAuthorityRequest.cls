@@ -129,11 +129,14 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     public void save() {
-        if (patient.Id == null) { insert patient; } else { upsert patient; }
-        if (provider.Id == null) { insert provider; } else { update provider; }
+        Boolean hasPatient = patient != null;
+        Boolean hasProvider = provider != null;
+
+        if (hasPatient && patient.Id == null) { insert patient; } else if (hasPatient) { update patient; }
+        if (hasProvider && provider.Id == null) { insert provider; } else if (hasProvider) { update provider; }
         
-        Contact patientContact = [select Id from Contact where AccountId = :patient.Id];
-        Contact providerContact = [select Id from Contact where AccountId = :provider.Id];
+        Contact patientContact = hasPatient ? [select Id from Contact where AccountId = :patient.Id] : new Contact();
+        Contact providerContact = hasProvider ? [select Id from Contact where AccountId = :provider.Id] : new Contact();
 
         saCase.ContactId = patientContact.Id;
         saCase.Provider__c = providerContact.Id;
