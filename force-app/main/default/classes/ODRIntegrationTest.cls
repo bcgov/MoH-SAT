@@ -45,7 +45,7 @@ public class ODRIntegrationTest {
             new List<Request_Detail__c>()
         );
         Patient p = ODRIntegration.verifyPatientInformation(sar);
-        System.assertEquals(true, p.verified);
+        System.assertEquals(false, p.verified);
     }
     @isTest static void updateCasePHNStatusTest() {
         Drug__c drug = TestFactory.newDrug('Drug 1');
