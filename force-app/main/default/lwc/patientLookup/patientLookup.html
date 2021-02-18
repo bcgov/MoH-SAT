@@ -1,27 +1,62 @@
 <template>
-    <lightning-card if:true={ready} title={title} icon-name={iconName}>
-        <div class="slds-grid slds-gutters slds-grid_vertical-align-end">
-            <div class="slds-col slds-size-1_of_3">
+    <lightning-card if:true={ready} title={title} icon-name={iconName} variant="narrow">
+        <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
+            <div class="slds-col slds-size-1_of_2">
                 <lightning-input 
                     name="patientIdentifier" 
                     type="text" 
                     label={patientIdLabel}
                     value={patient.Patient_Identifier__pc}
                     data-field="Patient_Identifier__pc"
-                    onchange={handleFormChange}></lightning-input>
+                    onchange={handleFormChange}
+                    required
+                ></lightning-input>
             </div>
-            <div class="slds-col slds-size-1_of_3">
+            <div class="slds-col slds-size-1_of_2 slds-align-bottom">
                 <lightning-button 
                     variant="brand" 
                     label="Lookup" 
                     title="Lookup" 
                     onclick={handleLookup}
-                    class="btn-lookup">
+                    class="btn-lookup"
+                    disabled>
                 </lightning-button>
             </div>
         </div> 
-        <div>
-            EMPI patient data here.
+        <div if:true={hasData} class="slds-grid slds-gutters">
+            <div class="slds-col slds-form-element">
+                <span class="slds-form-element__label">Name</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">{patient.LastName}, {patient.FirstName}</div>
+                </div>
+            </div>
+            <div class="slds-col slds-form-element">
+                <span class="slds-form-element__label">Birthdate</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static"><lightning-formatted-date-time value={patient.PersonBirthdate}></lightning-formatted-date-time></div>
+                </div>
+            </div>
+            <div class="slds-col slds-form-element">
+                <span class="slds-form-element__label">Gender</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">{patient.Gender}</div>
+                </div>
+            </div>
+            <div class="slds-col slds-form-element">
+                <span class="slds-form-element__label">Deceased</span>
+                <div class="slds-form-element__control">
+                  <div class="slds-form-element__static">{patient.Deceased}</div>
+                </div>
+            </div>
+        </div>
+        <div if:true={completeAndNoResults}>
+            <div class="slds-box slds-box_x-small slds-text-align_center">
+                <div class="slds-m-vertical_small">
+                    <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                    <p>No record found.</p>
+                </div>
+            </div>
         </div>
     </lightning-card>
+
 </template>
