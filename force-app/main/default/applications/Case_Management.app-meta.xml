@@ -88,6 +88,14 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Request_Detail__c</pageOrSobjectType>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>SA_Home_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+    </actionOverrides>
     <brand>
         <headerColor>#234075</headerColor>
         <logo>BCID_H_cmyk_pos</logo>
@@ -100,6 +108,7 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <label>Case Management</label>
     <navType>Console</navType>
+    <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
     <tabs>standard-Account</tabs>
     <tabs>Drug__c</tabs>
@@ -119,6 +128,9 @@
         </mappings>
         <mappings>
             <tab>standard-Case</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-home</tab>
         </mappings>
         <mappings>
             <tab>standard-report</tab>
