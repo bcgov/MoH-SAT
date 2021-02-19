@@ -6,7 +6,7 @@
                     name="patientIdentifier" 
                     type="text" 
                     label={patientIdLabel}
-                    value={patient.Patient_Identifier__pc}
+                    value={odrPatient.Patient_Identifier__pc}
                     data-field="Patient_Identifier__pc"
                     onchange={handleFormChange}
                     required
@@ -27,25 +27,25 @@
             <div class="slds-col slds-form-element">
                 <span class="slds-form-element__label">Name</span>
                 <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{patient.LastName}, {patient.FirstName}</div>
+                  <div class="slds-form-element__static">{odrPatient.LastName}, {odrPatient.FirstName}</div>
                 </div>
             </div>
             <div class="slds-col slds-form-element">
                 <span class="slds-form-element__label">Birthdate</span>
                 <div class="slds-form-element__control">
-                  <div class="slds-form-element__static"><lightning-formatted-date-time value={patient.PersonBirthdate}></lightning-formatted-date-time></div>
+                  <div class="slds-form-element__static"><lightning-formatted-date-time value={odrPatient.PersonBirthdate}></lightning-formatted-date-time></div>
                 </div>
             </div>
             <div class="slds-col slds-form-element">
                 <span class="slds-form-element__label">Gender</span>
                 <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{patient.Gender}</div>
+                  <div class="slds-form-element__static">{odrPatient.Gender}</div>
                 </div>
             </div>
             <div class="slds-col slds-form-element">
                 <span class="slds-form-element__label">Deceased</span>
                 <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{patient.Deceased}</div>
+                  <div class="slds-form-element__static">{odrPatient.Deceased}</div>
                 </div>
             </div>
         </div>

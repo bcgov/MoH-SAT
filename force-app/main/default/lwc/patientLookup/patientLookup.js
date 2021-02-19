@@ -14,7 +14,6 @@ export default class PatientLookup extends LightningElement {
 
     completeAndNoResults = false;
     hasData = false;
-    patient = {};
     odrPatient = {};
 
     @wire(getObjectInfo, { objectApiName: OBJ_CONTACT })
@@ -37,22 +36,22 @@ export default class PatientLookup extends LightningElement {
     }
 
     handleFormChange(event) {
-        this.patient[event.currentTarget.dataset.field] = event.target.value;
+        this.odrPatient[event.currentTarget.dataset.field] = event.target.value;
 
         this.template.querySelector('.btn-lookup').disabled
-            = !this.patient.Patient_Identifier__pc;
+            = !this.odrPatient.Patient_Identifier__pc;
     }
 
     async handleLookup() {
         this.template.querySelector('.btn-lookup').disabled = true;
 
-        this.patient = {
+        this.odrPatient = {
             RecordTypeId: this.patientRecordTypeId,
-            Patient_Identifier__pc: this.patient.Patient_Identifier__pc
+            Patient_Identifier__pc: this.odrPatient.Patient_Identifier__pc
         };
 
         this.patientProvider = await findPatient({
-            phn: this.patient.Patient_Identifier__pc,
+            phn: this.odrPatient.Patient_Identifier__pc,
         });
 
         if (this.patientProvider.gender == undefined,
@@ -67,17 +66,17 @@ export default class PatientLookup extends LightningElement {
             this.completeAndNoResults = false;
             this.hasData = true;
 
-            this.patient = {
+            this.odrPatient = {
                 FirstName: this.patientProvider.givenName,
                 LastName: this.patientProvider.familyName,
                 Gender: this.patientProvider.gender,
                 Deceased: this.patientProvider.deceased,
                 PersonBirthdate: new Date(this.patientProvider.dob),
-                ...this.patient
+                ...this.odrPatient
             }
         }
 
-        this.publishChange(this.patient);
+        this.publishChange(this.odrPatient);
 
         this.template.querySelector('.btn-lookup').disabled = false;
     }
