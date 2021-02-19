@@ -72,6 +72,7 @@ export default class PatientLookup extends LightningElement {
                 Gender: this.patientProvider.gender,
                 Deceased: this.patientProvider.deceased,
                 PersonBirthdate: new Date(this.patientProvider.dob),
+                verified: true,
                 ...this.odrPatient
             }
         }
