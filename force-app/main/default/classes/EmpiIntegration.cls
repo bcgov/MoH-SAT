@@ -103,22 +103,29 @@ public with sharing class EmpiIntegration {
             Empi.HCIM_IN_GetDemographicsResponse res = stub.HCIM_IN_GetDemographics(id, creationTime, versionCode, interactionId, processingCode, processingModeCode, acceptAckCode, receiver, sender, controlActProcess);
 
             if (null != res.controlActProcess.subject) {
-                String birthTime = res.controlActProcess.subject[0].target.identifiedPerson.birthTime.value;
-                String year = birthTime.substring(0, 4);
-                String month = birthTime.substring(4, 6);
-                String day = birthTime.substring(6, 8);
-                p.dob = Datetime.valueOf(year + '-' + month + '-' +  day + ' 00:00:00');
-                p.gender = res.controlActProcess.subject[0].target.identifiedPerson.administrativeGenderCode.code;
+                System.debug(res.controlActProcess.subject[0].target.identifiedPerson.birthTime);
+                if (res.controlActProcess.subject[0].target.identifiedPerson.birthTime != null) {
+                    String birthTime = res.controlActProcess.subject[0].target.identifiedPerson.birthTime.value;
+                    String year = birthTime.substring(0, 4);
+                    String month = birthTime.substring(4, 6);
+                    String day = birthTime.substring(6, 8);
+                    p.dob = Datetime.newInstance(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+                }
+                if (res.controlActProcess.subject[0].target.identifiedPerson.administrativeGenderCode != null) {
+                    p.gender = res.controlActProcess.subject[0].target.identifiedPerson.administrativeGenderCode.code;
+                }
 
                 if (res.controlActProcess.subject[0].target.identifiedPerson.deceasedInd != null) {
                     p.deceased = res.controlActProcess.subject[0].target.identifiedPerson.deceasedInd.value == 'true' ? true : false;
                 }
 
-                for (Integer i =0;i < res.controlActProcess.subject[0].target.identifiedPerson.name.size();i++) {
-                    // Only pull legal names only for now
-                    if (res.controlActProcess.subject[0].target.identifiedPerson.name[i].use == 'L') {
-                        p.familyName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].family;
-                        p.givenName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].given;
+                if (res.controlActProcess.subject[0].target.identifiedPerson.name != null) {
+                    for (Integer i =0;i < res.controlActProcess.subject[0].target.identifiedPerson.name.size();i++) {
+                        // Only pull legal names only for now
+                        if (res.controlActProcess.subject[0].target.identifiedPerson.name[i].use == 'L') {
+                            p.familyName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].family;
+                            p.givenName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].given;
+                        }
                     }
                 }
             }
