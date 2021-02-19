@@ -9,7 +9,7 @@ public class ProviderTest {
         p.lastName = '';
         p.dateofBirth = '';
         p.status = '';
-        p.effectiveData = '';
+        p.effectiveDate = '';
         p.verified = true;
     }
 }
