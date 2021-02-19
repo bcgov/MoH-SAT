@@ -37,25 +37,25 @@ public with sharing class EformParser {
             Map<String, Object> resource = (Map<String, Object>) ((Map<String, Object>) entryObj).get('resource');
 
             if (resource.get('resourceType') == 'Patient') {
-                entries.add(new Eform.BundleEntry(buildPatient(resource)));
+                entries.add(new Eform.BundleEntry(parsePatient(resource)));
             }
 
             if (resource.get('resourceType') == 'Practitioner') {
-                entries.add(new Eform.BundleEntry(buildProvider(resource)));
+                entries.add(new Eform.BundleEntry(parseProvider(resource)));
             }
 
             if (resource.get('resourceType') == 'QuestionnaireResponse') {
-                entries.add(new Eform.BundleEntry(buildQuestionnaireResponse(resource)));
+                entries.add(new Eform.BundleEntry(parseQuestionnaireResponse(resource)));
             }
 
             if (resource.get('resourceType') == 'Binary' && resource.get('contentType') == 'application/pdf') {
-                entries.add(new Eform.BundleEntry(buildBinary(resource)));
+                entries.add(new Eform.BundleEntry(parseBinary(resource)));
             }
         }
         return entries;
     }
 
-    private static Eform.Patient buildPatient(Map<String, Object> resource) {
+    private static Eform.Patient parsePatient(Map<String, Object> resource) {
         Eform.Patient patient = new Eform.Patient();
         patient.active = Boolean.valueOf(resource.get('active'));
         patient.gender = String.valueOf(resource.get('gender'));
@@ -65,8 +65,12 @@ public with sharing class EformParser {
         patient.patientIdentifier = String.valueOf(firstElem(identifierResources)?.get('value'));
         
         List<Map<String, Object>> nameResources = toListOfMap(resource.get('name'));
-        patient.lastName = String.valueOf(firstElem(nameResources)?.get('family'));
-        patient.firstName = String.valueOf( ((List<Object>) firstElem(nameResources)?.get('given'))[0] );
+        Map<String, Object> nameResource = firstElem(nameResources);
+
+        if (nameResource != null) {
+            patient.lastName = String.valueOf(nameResource.get('family'));
+            patient.firstName = String.valueOf(nameResource.containsKey('given') ? ((List<Object>) nameResource.get('given'))[0] : '');
+        }
 
         List<Map<String, Object>> telecomResources = toListOfMap(resource.get('telecom'));
         for (Map<String, Object> telecomResource : telecomResources) {
@@ -86,15 +90,19 @@ public with sharing class EformParser {
         return patient;
     }
 
-    private static Eform.Provider buildProvider(Map<String, Object> resource) {
+    private static Eform.Provider parseProvider(Map<String, Object> resource) {
         Eform.Provider provider = new Eform.Provider();
         
         List<Map<String, Object>> identifierResources = toListOfMap(resource.get('identifier'));
         provider.providerIdentifier = String.valueOf(firstElem(identifierResources)?.get('value'));
         
         List<Map<String, Object>> nameResources = toListOfMap(resource.get('name'));
-        provider.lastName = String.valueOf(firstElem(nameResources)?.get('family'));
-        provider.firstName = String.valueOf( ((List<Object>) firstElem(nameResources)?.get('given'))[0] );
+        Map<String, Object> nameResource = firstElem(nameResources);
+
+        if (nameResource != null) {
+            provider.lastName = String.valueOf(nameResource.get('family'));
+            provider.firstName = String.valueOf(nameResource.containsKey('given') ? ((List<Object>) nameResource.get('given'))[0] : '');
+        }
 
         List<Map<String, Object>> telecomResources = toListOfMap(resource.get('telecom'));
         for (Map<String, Object> telecomResource : telecomResources) {
@@ -109,7 +117,7 @@ public with sharing class EformParser {
         return provider;
     }
     
-    private static Eform.Binary buildBinary(Map<String, Object> resource) {
+    private static Eform.Binary parseBinary(Map<String, Object> resource) {
         EForm.Binary binary = new EForm.Binary();
         binary.contentType = String.valueOf(resource.get('contentType'));
         binary.data = String.valueOf(resource.get('data'));
@@ -117,7 +125,7 @@ public with sharing class EformParser {
         return binary;
     }
 
-    private static Eform.QuestionnaireResponse buildQuestionnaireResponse(Map<String, Object> resource) {
+    private static Eform.QuestionnaireResponse parseQuestionnaireResponse(Map<String, Object> resource) {
         EForm.QuestionnaireResponse qr = new EForm.QuestionnaireResponse();
         qr.status = String.valueOf(resource.get('status'));
         qr.item = (List<EForm.QRItem>) JSON.deserialize(JSON.serialize(resource.get('item')), List<EForm.QRItem>.class);
@@ -137,6 +145,6 @@ public with sharing class EformParser {
     }
 
     private static Map<String, Object> firstElem(List<Map<String, Object>> listOfMap) {
-        return listOfMap.isEmpty() ? null : listOfMap[0];
+        return listOfMap == null || listOfMap.isEmpty() ? null : listOfMap[0];
     }
 }

@@ -55,12 +55,16 @@ public with sharing class SarBuilder {
     }
 
     public static Account buildPatient(Eform.Patient patient) {
-        List<Account> existing = [select Id from Account where Patient_Identifier__pc = :patient.patientIdentifier];
+        Boolean nullId = String.isBlank(patient.patientIdentifier);
+        String identifier = nullId ? 'NULL_IDENTIFIER' : patient.patientIdentifier;
+
+        List<Account> existing = [select Id from Account where Patient_Identifier__pc = :identifier];
         Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
-        account.Patient_Identifier__pc = patient.patientIdentifier;
+        
+        account.Patient_Identifier__pc = identifier;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
         account.FirstName = patient.firstName;
-        account.LastName = patient.lastName;
+        account.LastName = String.isBlank(patient.lastName) ? 'null' : patient.lastName;
         account.PersonBirthdate = patient.birthdate;
         account.PersonEmail = patient.primaryEmail;
         account.Phone = patient.primaryPhone;
@@ -73,13 +77,17 @@ public with sharing class SarBuilder {
     }
 
     public static Account buildProvider(Eform.Provider provider) {
-        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :provider.providerIdentifier and Provider_Type__pc = :provider.providerIdentifierType];
+        Boolean nullId = String.isBlank(provider.providerIdentifier);
+        String identifier = nullId ? 'NULL_IDENTIFIER' : provider.providerIdentifier;
+
+        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc = :provider.providerIdentifierType];
         Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
-        account.Provider_Identifier__pc = provider.providerIdentifier;
+        
+        account.Provider_Identifier__pc = identifier;
         account.Provider_Type__pc = provider.providerIdentifierType;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
         account.FirstName = provider.firstName;
-        account.LastName = provider.lastName;
+        account.LastName = String.isBlank(provider.lastName) ? 'NULL PROVIDER' : provider.lastName;
         account.PersonBirthdate = provider.birthdate;
         account.Phone = provider.primaryPhone;
         account.PersonMailingStreet = provider.streetLine1 + ' ' + provider.streetLine2;
