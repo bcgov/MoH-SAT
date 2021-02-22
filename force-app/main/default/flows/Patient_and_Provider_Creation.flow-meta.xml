@@ -1867,7 +1867,7 @@
         </fields>
         <fields>
             <name>Patient_Summary</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Patient Identifier: {!Get_Patient_Record.Patient_Identifier__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Get_Patient_Record.Name}&lt;/p&gt;&lt;p&gt;Patient Date of Birth: &lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Patient_Record.Birthdate}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;Patient Identifier: {!Get_Patient_Record.Patient_Identifier__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Name: &lt;span style=&quot;color: rgb(32, 33, 36); font-family: Roboto, arial, sans-serif; background-color: rgb(255, 255, 255);&quot;&gt;{!ODRPatient.FirstName} {!ODRPatient.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: &lt;span style=&quot;color: rgb(62, 62, 60); background-color: rgb(255, 255, 255);&quot;&gt;{!ODRPatient.PersonBirthdate}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
