@@ -67,16 +67,16 @@ public with sharing class SarBuilder {
         
         Eform.Name name = getName(resource.name);
         account.FirstName = name == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
-        account.LastName = name == null ? 'null' : name.family;
+        account.LastName = name == null ? '(EMPTY)' : name.family;
 
         Eform.Telecom telecom = getTelecom(resource.telecom);
-        account.Phone = telecom.value;
+        account.Phone = telecom?.value;
 
         Eform.Address address = getAddress(resource.address);
-        account.PersonMailingStreet = String.join(address.line, ' ');
-        account.PersonMailingCity = address.city;
-        account.PersonMailingState = address.state;
-        account.PersonMailingPostalCode = address.postalCode;
+        account.PersonMailingStreet = address == null ? null : String.join(address.line, ' ');
+        account.PersonMailingCity = address?.city;
+        account.PersonMailingState = address?.state;
+        account.PersonMailingPostalCode = address?.postalCode;
         return account;
     }
 
@@ -91,16 +91,16 @@ public with sharing class SarBuilder {
         
         Eform.Name name = getName(resource.name);
         account.FirstName = name == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
-        account.LastName = name == null ? 'null' : name.family;
+        account.LastName = name == null ? '(EMPTY)' : name.family;
 
         Eform.Telecom telecom = getTelecom(resource.telecom);
-        account.Phone = telecom.value;
+        account.Phone = telecom?.value;
 
         Eform.Address address = getAddress(resource.address);
-        account.PersonMailingStreet = String.join(address.line, ' ');
-        account.PersonMailingCity = address.city;
-        account.PersonMailingState = address.state;
-        account.PersonMailingPostalCode = address.postalCode;
+        account.PersonMailingStreet = address == null ? null : String.join(address.line, ' ');
+        account.PersonMailingCity = address?.city;
+        account.PersonMailingState = address?.state;
+        account.PersonMailingPostalCode = address?.postalCode;
         return account;
     }
 
@@ -162,26 +162,23 @@ public with sharing class SarBuilder {
         for (Request_Detail__c rd : requestDetails) {
             if (String.isNotBlank(rd.Question_ID__c) && rd.Question_ID__c.endsWithIgnoreCase('medication')) return rd.String_Value__c;
         }
-
         return 'No drug found.';
     } 
 
     private static String findReferenceNumber(List<Eform.Tag> tags) {
         String defaultCode = 'No reference number found.';
-
         if (tags == null) return defaultCode;
-
         for (Eform.Tag tag : tags) {
             if (tag.system_Z.contains('correlationId')) {
-                return tag.code;
+                defaultCode = tag.code;
             }
         }
-
         return defaultCode;
     }
 
     private static String getIdentifier(List<Eform.Identifier> identifiers) {
         String value = 'NULL_IDENTIFIER';
+        if (identifiers == null) return value;
         for (Eform.Identifier identifier : identifiers) {
             value = identifier.value;
         }
@@ -189,6 +186,7 @@ public with sharing class SarBuilder {
     }
 
     private static Eform.Name getName(List<Eform.Name> names) {
+        if (names == null) return null;
         for (Eform.Name name : names) {
             return name;
         }
@@ -196,6 +194,7 @@ public with sharing class SarBuilder {
     }
 
     private static Eform.Telecom getTelecom(List<Eform.Telecom> telecoms) {
+        if (telecoms == null) return null;
         for (Eform.Telecom telecom : telecoms) {
             return telecom;
         }
@@ -203,6 +202,7 @@ public with sharing class SarBuilder {
     }
 
     private static Eform.Address getAddress(List<Eform.Address> addresses) {
+        if (addresses == null) return null;
         for (Eform.Address address : addresses) {
             return address;
         }
