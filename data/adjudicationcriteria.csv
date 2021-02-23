@@ -1,19 +1,21 @@
-Drug__r.Name,Order__c,Object_Name__c,Field_Name__c,Question_ID__c,Operator__c,String_Value__c,Decimal_Value__c,Datetime_Value__c,Date_Value__c,Boolean_Value__c
-"gliclazide 30mg & 60mg SR, 80mg",1,Case,Origin,,equals,eForm,,,,FALSE
-"gliclazide 30mg & 60mg SR, 80mg",2,Request_Detail__c,String_Value__c,gliclazide.criteriaGliclazide,not equal to,other,,,,FALSE
-pantoprazole Mg 40mg  NB4,1,Case,Origin,,equals,eForm,,,,FALSE
-pantoprazole Mg 40mg  NB4,2,Request_Detail__c,String_Value__c,stLinePpIs.diagnosis,not equal to,other,,,,FALSE
-"rabeprazole 10, 20 mg   NB4",1,Case,Origin,,equals,eForm,,,,FALSE
-"rabeprazole 10, 20 mg   NB4",2,Request_Detail__c,String_Value__c,stLinePpIs.diagnosis,not equal to,other,,,,FALSE
-bupropion [Wellbutrin Type],1,Case,Origin,,equals,eForm,,,,FALSE
-bupropion [Wellbutrin Type],2,Request_Detail__c,String_Value__c,bupropionDepression.diagnosis,not equal to,other,,,,FALSE
-candesartan + hctz 9901-0057 NB4+  NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
-"candesartan 8,16,32mg  NB4",1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
-losartan (ARBs)  NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
-losartan + hctz (ARBs),1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
-telmisartan + hctz (ARBs)   NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
-"telmisartan 40,80 mg (ARBs)  NB4",1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
-telmisartan + amlodipine combo NB4   NB4,1,Request_Detail__c,Boolean_Value__c,Twynsta.specialAuthorityCriteria.patientHasExperiencedIntractableCoughOrAngioedemaOnAnAngiotensinConvertingEnzymeInhibitorAceI,equals,,,,,TRUE
-telmisartan + amlodipine combo NB4   NB4,2,Request_Detail__c,Boolean_Value__c,Twynsta.specialAuthorityCriteria.patientIsCurrentlyTakingStableDosesOfBothTelmisartanAndAmlodipine,equals,,,,,TRUE
-valsartan + hctz   NB4,1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
-"valsartan 40,80,160,320mg  NB4",1,Request_Detail__c,String_Value__c,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,equals,cough,,,,FALSE
+Drug__r.Drug_Code__c,Object_Name__c,Field_Name__c,Operator__c,Order__c,Question_ID__c,String_Value__c,Boolean_Value__c
+1PPIpant,Request_Detail__c,String_Value__c,not equal to,3,pantomg.manual.diagnosis.auto,Other,FALSE
+1PPIpant,Request_Detail__c,String_Value__c,not equal to,2,stLinePpIs.diagnosis,"Eradication of helicobacter pylori, as part of triple therapy (maximum 14 day approval)",FALSE
+1PPIpant,Request_Detail__c,String_Value__c,not equal to,1,stLinePpIs.diagnosis,Other,FALSE
+1PPIpant,Request_Detail__c,String_Value__c,not equal to,4,pantomg.manual.diagnosis.auto,"Eradication of helicobacter pylori, as part of triple therapy (maximum 14 day approval)",FALSE
+1PPIrabe,Request_Detail__c,String_Value__c,not equal to,4,rabeprazole.manual.diagnosis.auto,"Eradication of helicobacter pylori, as part of triple therapy (maximum 14 day approval)",FALSE
+1PPIrabe,Request_Detail__c,String_Value__c,not equal to,3,rabeprazole.manual.diagnosis.auto,Other,FALSE
+1PPIrabe,Request_Detail__c,String_Value__c,not equal to,2,stLinePpIs.diagnosis,"Eradication of helicobacter pylori, as part of triple therapy (maximum 14 day approval)",FALSE
+1PPIrabe,Request_Detail__c,String_Value__c,not equal to,1,stLinePpIs.diagnosis,other,FALSE
+ARBcand,Request_Detail__c,String_Value__c,not equal to,1,candesartan.manual.diagnosis.auto,Other,FALSE
+ARBcand,Request_Detail__c,String_Value__c,not equal to,2,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,Other,FALSE
+ARBlosa,Request_Detail__c,String_Value__c,not equal to,2,losartan.manual.diagnosis.auto,Other,FALSE
+ARBlosa,Request_Detail__c,String_Value__c,not equal to,1,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,Other,FALSE
+ARBtelm,Request_Detail__c,String_Value__c,not equal to,2,telmisartan.manual.diagnosis.auto,Other,FALSE
+ARBtelm,Request_Detail__c,String_Value__c,not equal to,1,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,Other,FALSE
+ARBvals,Request_Detail__c,String_Value__c,not equal to,2,valsartan.manual.diagnosis.auto,Other,FALSE
+ARBvals,Request_Detail__c,String_value__c,not equal to,1,arb1stLineReference.criteriaWell.IndicationForRequestedMedicationReferenceAngiotensionReceptorBlockerArbFullCoverage,Other,FALSE
+bupropiondepression,Request_Detail__c,String_Value__c,not equal to,2,bupropion.manual.diagnosis.auto,Other,FALSE
+bupropiondepression,Request_Detail__c,String_Value__c,not equal to,1,bupropionDepression.diagnosis,Other,FALSE
+glic,Request_Detail__c,String_Value__c,not equal to,1,gliclazide.criteriaGliclazide,Other,FALSE
+glic,Request_Detail__c,String_Value__c,not equal to,2,gliclazide.manual.diagnosis.auto,Other,FALSE
