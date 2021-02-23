@@ -16,6 +16,9 @@ export default class PatientLookup extends LightningElement {
     hasData = false;
     odrPatient = {};
 
+    @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
+    accountObjInfo;
+
     @wire(getObjectInfo, { objectApiName: OBJ_CONTACT })
     contactObjInfo;
 
@@ -32,7 +35,7 @@ export default class PatientLookup extends LightningElement {
     }
 
     get patientRecordTypeId() {
-        return Object.values(this.contactObjInfo.data.recordTypeInfos).find(rti => rti.name=='Master').recordTypeId;
+        return Object.values(this.accountObjInfo.data.recordTypeInfos).find(rti => rti.name=='Patient').recordTypeId;
     }
 
     handleFormChange(event) {
