@@ -1,5 +1,5 @@
 @isTest
-public inherited sharing class Eform2Test {
+public class EformTest {
     // This test method should give 100% coverage
 	static testMethod void testParse() {
 		String json = '{'+
@@ -173,22 +173,22 @@ public inherited sharing class Eform2Test {
 		'    ]'+
 		'}';
 		
-		Eform2.Bundle r = Eform2.parse(json);
+		Eform.Bundle r = Eform.parse(json);
 		System.assert(r != null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Meta objMeta = new Eform2.Meta(System.JSON.createParser(json));
+		Eform.Meta objMeta = new Eform.Meta(System.JSON.createParser(json));
 		System.assert(objMeta != null);
 		System.assert(objMeta.lastUpdated == null);
 		System.assert(objMeta.tag == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Type_Z objType_Z = new Eform2.Type_Z(System.JSON.createParser(json));
+		Eform.Type_Z objType_Z = new Eform.Type_Z(System.JSON.createParser(json));
 		System.assert(objType_Z != null);
 		System.assert(objType_Z.text == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Address objAddress = new Eform2.Address(System.JSON.createParser(json));
+		Eform.Address objAddress = new Eform.Address(System.JSON.createParser(json));
 		System.assert(objAddress != null);
 		System.assert(objAddress.use == null);
 		System.assert(objAddress.line == null);
@@ -198,42 +198,42 @@ public inherited sharing class Eform2Test {
 		System.assert(objAddress.period == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Period objPeriod = new Eform2.Period(System.JSON.createParser(json));
+		Eform.Period objPeriod = new Eform.Period(System.JSON.createParser(json));
 		System.assert(objPeriod != null);
 		System.assert(objPeriod.start == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Source objSource = new Eform2.Source(System.JSON.createParser(json));
+		Eform.Source objSource = new Eform.Source(System.JSON.createParser(json));
 		System.assert(objSource != null);
 		System.assert(objSource.reference == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Name objName = new Eform2.Name(System.JSON.createParser(json));
+		Eform.Name objName = new Eform.Name(System.JSON.createParser(json));
 		System.assert(objName != null);
 		System.assert(objName.use == null);
 		System.assert(objName.family == null);
 		System.assert(objName.given == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Extension objExtension = new Eform2.Extension(System.JSON.createParser(json));
+		Eform.Extension objExtension = new Eform.Extension(System.JSON.createParser(json));
 		System.assert(objExtension != null);
 		System.assert(objExtension.url == null);
 		System.assert(objExtension.valueString == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Entry objEntry = new Eform2.Entry(System.JSON.createParser(json));
+		Eform.Entry objEntry = new Eform.Entry(System.JSON.createParser(json));
 		System.assert(objEntry != null);
 		System.assert(objEntry.resource == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Identifier objIdentifier = new Eform2.Identifier(System.JSON.createParser(json));
+		Eform.Identifier objIdentifier = new Eform.Identifier(System.JSON.createParser(json));
 		System.assert(objIdentifier != null);
 		System.assert(objIdentifier.type_Z == null);
 		System.assert(objIdentifier.system_Z == null);
 		System.assert(objIdentifier.value == null);
 
         json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Resource objResource = new Eform2.Resource(System.JSON.createParser(json));
+		Eform.Resource objResource = new Eform.Resource(System.JSON.createParser(json));
 		System.assert(objResource != null);
 		System.assert(objResource.resourceType == null);
 		System.assert(objResource.id == null);
@@ -251,7 +251,7 @@ public inherited sharing class Eform2Test {
 		System.assert(objResource.item == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Bundle objEform = new Eform2.Bundle(System.JSON.createParser(json));
+		Eform.Bundle objEform = new Eform.Bundle(System.JSON.createParser(json));
 		System.assert(objEform != null);
 		System.assert(objEform.resourceType == null);
 		System.assert(objEform.id == null);
@@ -261,13 +261,13 @@ public inherited sharing class Eform2Test {
 		System.assert(objEform.entry == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Tag objTag = new Eform2.Tag(System.JSON.createParser(json));
+		Eform.Tag objTag = new Eform.Tag(System.JSON.createParser(json));
 		System.assert(objTag != null);
 		System.assert(objTag.system_Z == null);
 		System.assert(objTag.code == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform2.Telecom objTelecom = new Eform2.Telecom(System.JSON.createParser(json));
+		Eform.Telecom objTelecom = new Eform.Telecom(System.JSON.createParser(json));
 		System.assert(objTelecom != null);
 		System.assert(objTelecom.extension == null);
 		System.assert(objTelecom.system_Z == null);

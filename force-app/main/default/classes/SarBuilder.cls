@@ -12,22 +12,23 @@ public with sharing class SarBuilder {
         Eform.Bundle bundle;
         
         try {
-            bundle = EformParser.parse(bundleJsonStr);
+            bundle = Eform.parse(bundleJsonStr);
         } catch (Exception e) {
             system.debug(e.getMessage());
         }
 
-        if (bundle != null && !bundle.entry.isEmpty()) {
-            for (Eform.BundleEntry bundleEntry : bundle.entry) {
-                if (bundleEntry.resource instanceof Eform.Patient) {
-                    patient = buildPatient((Eform.Patient) bundleEntry.resource);
-                } else if (bundleEntry.resource instanceof Eform.Provider) {
-                    provider = buildProvider((Eform.Provider) bundleEntry.resource);
-                } else if (bundleEntry.resource instanceof Eform.Binary) {
-                    contentVersions.add(buildFile((Eform.Binary) bundleEntry.resource));                
-                } else if (bundleEntry.resource instanceof Eform.QuestionnaireResponse) {
-                    requestDetails.addAll(buildRequestDetails((Eform.QuestionnaireResponse) bundleEntry.resource));
-                }
+        if (bundle.entry.isEmpty()) return null;
+
+        for (Eform.Entry bundleEntry : bundle.entry) {
+            Eform.Resource resource = bundleEntry.resource;
+            if (resource.resourceType.equalsIgnoreCase('Patient')) {
+                patient = buildPatient(bundleEntry.resource);
+            } else if (resource.resourceType.equalsIgnoreCase('Practitioner')) {
+                provider = buildProvider(bundleEntry.resource);
+            } else if (resource.resourceType.equalsIgnoreCase('Binary') && resource.contentType == 'application/pdf') {
+                contentVersions.add(buildFile(bundleEntry.resource));
+            } else if (resource.resourceType.equalsIgnoreCase('QuestionnaireResponse')) {
+                requestDetails.addAll(buildRequestDetails(bundleEntry.resource));
             }
         }
 
@@ -36,7 +37,7 @@ public with sharing class SarBuilder {
         String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
         drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
 
-        saCase = buildCase(drug.Id, drugLabel, findReferenceNumber(bundle?.meta?.tag));
+        saCase = buildCase(drug.Id, drugLabel, findReferenceNumber(bundle.meta.tag));
         
         contentVersions.add(buildFile('bundle.json', Blob.valueOf(bundleJsonStr)));
 
@@ -54,58 +55,63 @@ public with sharing class SarBuilder {
         return caseRecord;
     }
 
-    public static Account buildPatient(Eform.Patient patient) {
-        Boolean nullId = String.isBlank(patient.patientIdentifier);
-        String identifier = nullId ? 'NULL_IDENTIFIER' : patient.patientIdentifier;
+    public static Account buildPatient(Eform.Resource resource) {
+        String identifier = getIdentifier(resource.identifier);
 
         List<Account> existing = [select Id from Account where Patient_Identifier__pc = :identifier];
         Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
         
         account.Patient_Identifier__pc = identifier;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
-        account.FirstName = patient.firstName;
-        account.LastName = String.isBlank(patient.lastName) ? 'null' : patient.lastName;
-        account.PersonBirthdate = patient.birthdate;
-        account.PersonEmail = patient.primaryEmail;
-        account.Phone = patient.primaryPhone;
-        account.PersonMailingStreet = patient.streetLine1 + ' ' + patient.streetLine2;
-        account.PersonMailingCity = patient.city;
-        account.PersonMailingCountry = patient.country;
-        account.PersonMailingState = patient.province;
-        account.PersonMailingPostalCode = patient.postalCode;
+        account.PersonBirthdate = Date.valueOf(resource.birthDate);
+        
+        Eform.Name name = getName(resource.name);
+        account.FirstName = name == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
+        account.LastName = name == null ? 'null' : name.family;
+
+        Eform.Telecom telecom = getTelecom(resource.telecom);
+        account.Phone = telecom.value;
+
+        Eform.Address address = getAddress(resource.address);
+        account.PersonMailingStreet = String.join(address.line, ' ');
+        account.PersonMailingCity = address.city;
+        account.PersonMailingState = address.state;
+        account.PersonMailingPostalCode = address.postalCode;
         return account;
     }
 
-    public static Account buildProvider(Eform.Provider provider) {
-        Boolean nullId = String.isBlank(provider.providerIdentifier);
-        String identifier = nullId ? 'NULL_IDENTIFIER' : provider.providerIdentifier;
+    public static Account buildProvider(Eform.Resource resource) {
+        String identifier = getIdentifier(resource.identifier);
 
-        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc = :provider.providerIdentifierType];
+        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier];
         Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
         
         account.Provider_Identifier__pc = identifier;
-        account.Provider_Type__pc = provider.providerIdentifierType;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
-        account.FirstName = provider.firstName;
-        account.LastName = String.isBlank(provider.lastName) ? 'NULL PROVIDER' : provider.lastName;
-        account.PersonBirthdate = provider.birthdate;
-        account.Phone = provider.primaryPhone;
-        account.PersonMailingStreet = provider.streetLine1 + ' ' + provider.streetLine2;
-        account.PersonMailingCity = provider.city;
-        account.PersonMailingCountry = provider.country;
-        account.PersonMailingState = provider.province;
-        account.PersonMailingPostalCode = provider.postalCode;
+        
+        Eform.Name name = getName(resource.name);
+        account.FirstName = name == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
+        account.LastName = name == null ? 'null' : name.family;
+
+        Eform.Telecom telecom = getTelecom(resource.telecom);
+        account.Phone = telecom.value;
+
+        Eform.Address address = getAddress(resource.address);
+        account.PersonMailingStreet = String.join(address.line, ' ');
+        account.PersonMailingCity = address.city;
+        account.PersonMailingState = address.state;
+        account.PersonMailingPostalCode = address.postalCode;
         return account;
     }
 
-    public static List<Request_Detail__c> buildRequestDetails(Eform.QuestionnaireResponse QR) {
-        return buildRequestDetails(new List<String>(), QR.item);
+    public static List<Request_Detail__c> buildRequestDetails(Eform.Resource resource) {
+        return buildRequestDetails(new List<String>(), resource.item);
     }
 
-    private static List<Request_Detail__c> buildRequestDetails(List<String> questionIds, List<Eform.QRItem> qrItems) {
+    private static List<Request_Detail__c> buildRequestDetails(List<String> questionIds, List<Eform.Item> qrItems) {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
 
-        for (Eform.QRItem qri : qrItems) {
+        for (Eform.Item qri : qrItems) {
             List<String> newQuestionIds = new List<String>(questionIds);
             newQuestionIds.add(qri.linkId);
 
@@ -119,12 +125,12 @@ public with sharing class SarBuilder {
         return requestDetails;
     }
 
-    private static List<Request_Detail__c> buildRequestDetails(List<String> questionIds, Eform.QRItem qrItem) {
+    private static List<Request_Detail__c> buildRequestDetails(List<String> questionIds, Eform.Item qrItem) {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         
         String newQuestionId = String.join(questionIds, '.');
 
-        for (Eform.QRAnswer qra : qrItem.answer) {
+        for (Eform.Answer qra : qrItem.answer) {
             Request_Detail__c rd = new Request_Detail__c();
             rd.Question__c = qrItem.text;
             rd.Question_ID__c = newQuestionId;
@@ -139,8 +145,8 @@ public with sharing class SarBuilder {
         return requestDetails;
     }
     
-    public static ContentVersion buildFile(Eform.Binary binary) {
-        return buildFile(binary.id + '.pdf', EncodingUtil.base64Decode(binary.data));
+    public static ContentVersion buildFile(Eform.Resource resource) {
+        return buildFile(resource.id + '.pdf', EncodingUtil.base64Decode(resource.data));
     }
 
     private static ContentVersion buildFile(String fileNameAndExt, Blob data) {
@@ -166,11 +172,40 @@ public with sharing class SarBuilder {
         if (tags == null) return defaultCode;
 
         for (Eform.Tag tag : tags) {
-            if (tag.system_x.contains('correlationId')) {
+            if (tag.system_Z.contains('correlationId')) {
                 return tag.code;
             }
         }
 
         return defaultCode;
+    }
+
+    private static String getIdentifier(List<Eform.Identifier> identifiers) {
+        String value = 'NULL_IDENTIFIER';
+        for (Eform.Identifier identifier : identifiers) {
+            value = identifier.value;
+        }
+        return value;
+    }
+
+    private static Eform.Name getName(List<Eform.Name> names) {
+        for (Eform.Name name : names) {
+            return name;
+        }
+        return null;
+    }
+
+    private static Eform.Telecom getTelecom(List<Eform.Telecom> telecoms) {
+        for (Eform.Telecom telecom : telecoms) {
+            return telecom;
+        }
+        return null;
+    }
+
+    private static Eform.Address getAddress(List<Eform.Address> addresses) {
+        for (Eform.Address address : addresses) {
+            return address;
+        }
+        return null;
     }
 }

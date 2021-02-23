@@ -4,9 +4,12 @@ global with sharing class SaRestApi {
     global static void doPost() {
         RestRequest req = RestContext.request;
         
-        SpecialAuthorityRequest sar = SarBuilder.build(req.requestBody.toString());
+        Eform2.Bundle bundle = Eform2.parse(req.requestBody.toString());
+        system.debug(bundle);
+
+        // SpecialAuthorityRequest sar = SarBuilder.build(req.requestBody.toString());
         
-        sar.save();
+        // sar.save();
     }
 
     @HttpGet
