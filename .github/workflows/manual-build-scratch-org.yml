@@ -32,7 +32,7 @@ jobs:
     - name: Assign permission set and set user role
       run: |
         node_modules/sfdx-cli/bin/run force:user:permset:assign -u ciorg -n SA_Administrator
-        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/set-user-role.apex
+        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/set-current-user.apex
 
     - name: Import mock data for drugs, accounts, and case
       run: |
@@ -47,8 +47,8 @@ jobs:
 
     - name: Import mock adjudication settings.
       run: |
-        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Drug__c -f data/drug-settings.csv -i Name -w 5
         node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Adjudication_Criteria__c -f data/adjudicationcriteria.csv -i Id -w 5
+        node_modules/sfdx-cli/bin/run force:data:bulk:upsert -u ciorg -s Drug_Template__c -f data/drugtemplates.csv -i Id -w 5
         node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/assign-drug-default-queues.apex
         
     - name: Run Apex test
