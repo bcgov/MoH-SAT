@@ -2,7 +2,7 @@ sfdx force:org:create -v devhub -a sat-dev -f config/project-scratch-def.json -d
 sfdx force:source:push -u sat-dev;
 sfdx force:user:permset:assign -u sat-dev -n SA_Administrator;
 sfdx force:apex:execute -u sat-dev -f scripts/apex/set-current-user.apex;
-sfdx force:data:bulk:upsert -u sat-dev -s Drug__c -f data/drugs.csv -i Id -w 5;
+sfdx force:data:bulk:upsert -u sat-dev -s Drug__c -f data/drugs.csv -i Drug_Code__c -w 5;
 sfdx force:data:bulk:upsert -u sat-dev -s Account -f data/accounts.csv -i Id -w 5;
 sfdx force:data:bulk:upsert -u sat-dev -s Case -f data/cases.csv -i Id -w 5;
 sfdx force:apex:execute -u sat-dev -f scripts/apex/assign-cases-to-queue.apex;
