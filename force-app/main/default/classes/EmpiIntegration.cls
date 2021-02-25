@@ -91,10 +91,7 @@ public with sharing class EmpiIntegration {
         controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.assigningAuthorityName = 'MOH_CRS';
         
         Empi.QUPA_AR101102_Port stub = new Empi.QUPA_AR101102_Port();
-        
-        // empi.endpoint_x = 'https://hcim.ehealth.gov.bc.ca/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc'; // PROD
-        stub.endpoint_x = 'https://hiat3.hcim.ehealth.gov.bc.ca/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc'; // TEST
-        stub.clientCertName_x = 'empi';
+        stub.endpoint_x = 'callout:empi/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc'; // TEST
         
         Patient p = new Patient();
         p.phn = phn;
