@@ -102,9 +102,13 @@ public with sharing class EmpiIntegration {
         if (!Test.isRunningTest()) {
             Empi.HCIM_IN_GetDemographicsResponse res = stub.HCIM_IN_GetDemographics(id, creationTime, versionCode, interactionId, processingCode, processingModeCode, acceptAckCode, receiver, sender, controlActProcess);
 
+            p.notes = res.controlActProcess.queryAck.queryResponseCode.code;
+            System.debug(p.notes);
+
             if (null != res.controlActProcess.subject) {
                 System.debug(res.controlActProcess.subject[0].target.identifiedPerson.birthTime);
-                if (res.controlActProcess.subject[0].target.identifiedPerson.birthTime != null) {
+                if (res.controlActProcess.subject[0].target.identifiedPerson.birthTime != null
+                    && res.controlActProcess.subject[0].target.identifiedPerson.birthTime.value != null) {
                     String birthTime = res.controlActProcess.subject[0].target.identifiedPerson.birthTime.value;
                     String year = birthTime.substring(0, 4);
                     String month = birthTime.substring(4, 6);
@@ -118,14 +122,19 @@ public with sharing class EmpiIntegration {
                 if (res.controlActProcess.subject[0].target.identifiedPerson.deceasedInd != null) {
                     p.deceased = res.controlActProcess.subject[0].target.identifiedPerson.deceasedInd.value == 'true' ? true : false;
                 }
-
+                p.names = new List<Patient.PersonName>();
                 if (res.controlActProcess.subject[0].target.identifiedPerson.name != null) {
                     for (Integer i =0;i < res.controlActProcess.subject[0].target.identifiedPerson.name.size();i++) {
-                        // Only pull legal names only for now
-                        if (res.controlActProcess.subject[0].target.identifiedPerson.name[i].use == 'L') {
-                            p.familyName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].family;
-                            p.givenName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].given;
-                        }
+                      Patient.PersonName personName = new Patient.PersonName();
+                      personName.familyName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].family;
+                      personName.givenName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].given;
+                      personName.type = res.controlActProcess.subject[0].target.identifiedPerson.name[i].use;
+                      if (res.controlActProcess.subject[0].target.identifiedPerson.name[i].use == 'L') {
+                        personName.declared = true;
+                      } else {
+                        personName.declared = false;
+                      }
+                      p.names.add(personName);
                     }
                 }
             }

@@ -4,6 +4,7 @@ import findPatient from '@salesforce/apex/EmpiLookup.findPatient';
 
 import OBJ_ACCOUNT from '@salesforce/schema/Account';
 import OBJ_CONTACT from '@salesforce/schema/Contact';
+import FirstName from '@salesforce/schema/Account.FirstName';
 
 export default class PatientLookup extends LightningElement {
     @api
@@ -15,6 +16,8 @@ export default class PatientLookup extends LightningElement {
     completeAndNoResults = false;
     hasData = false;
     odrPatient = {};
+    message = '';
+    messageExists = false;
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
     accountObjInfo;
@@ -46,6 +49,8 @@ export default class PatientLookup extends LightningElement {
     }
 
     async handleLookup() {
+        this.messageExists = false;
+        this.completeAndNoResults = false;
         this.template.querySelector('.btn-lookup').disabled = true;
 
         this.odrPatient = {
@@ -57,10 +62,9 @@ export default class PatientLookup extends LightningElement {
             phn: this.odrPatient.Patient_Identifier__pc,
         });
 
-        if (this.patientProvider.gender == undefined,
-            this.patientProvider.dob == undefined,
-            this.patientProvider.familyName == undefined,
-            this.patientProvider.givenName == undefined)
+        this.message = this.patientProvider.notes;
+
+        if (this.message.startsWith('BCHCIM.GD.2.0018') == true)
         {
             // No Data!
             this.hasData = false;
@@ -69,9 +73,32 @@ export default class PatientLookup extends LightningElement {
             this.completeAndNoResults = false;
             this.hasData = true;
 
+            if (this.message.startsWith('BCHCIM.GD.0.0013')) {
+              this.message = '';
+            } else {
+              this.messageExists = true;
+              // Cleanup UI
+              try {
+                this.message = this.message.split('Warning: ')[1];
+              } catch (e) {
+                console.log('Error splitting', e);
+              }
+            }
+
+            // Pack in the names.
+            let FirstName = "";
+            let LastName = "";
+            await this.patientProvider.names.forEach(async element => {
+              if (element.type == 'L') {
+                FirstName = element.givenName;
+                LastName = element.familyName;
+              }
+            });
+            // Detect masked
             this.odrPatient = {
-                FirstName: this.patientProvider.givenName,
-                LastName: this.patientProvider.familyName,
+                FirstName: FirstName, // Always pick their L name
+                LastName: LastName, // Always pick their L name
+                Names: this.patientProvider.names,
                 Gender: this.patientProvider.gender,
                 Deceased: this.patientProvider.deceased,
                 PersonBirthdate: new Date(this.patientProvider.dob),

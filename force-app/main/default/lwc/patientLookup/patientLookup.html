@@ -24,30 +24,37 @@
             </div>
         </div> 
         <div if:true={hasData} class="slds-grid slds-gutters">
-            <div class="slds-col slds-form-element">
-                <span class="slds-form-element__label">Name</span>
-                <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{odrPatient.LastName}, {odrPatient.FirstName}</div>
-                </div>
+          <template for:each={odrPatient.Names} for:item="item">
+            <div key={item.type} class="slds-m-vertical_small">
+              <div class="slds-col slds-form-element">
+                  <span if:true={item.declared} class="slds-form-element__label">Declared Name</span>
+                  <span if:false={item.declared} class="slds-form-element__label">Documented Name</span>
+                  <div class="slds-form-element__control">
+                    <div class="slds-form-element__static">{item.familyName}, {item.givenName}</div>
+                  </div>
+              </div>
             </div>
-            <div class="slds-col slds-form-element">
-                <span class="slds-form-element__label">Birthdate</span>
-                <div class="slds-form-element__control">
-                  <div class="slds-form-element__static"><lightning-formatted-date-time value={odrPatient.PersonBirthdate}></lightning-formatted-date-time></div>
-                </div>
-            </div>
-            <div class="slds-col slds-form-element">
-                <span class="slds-form-element__label">Gender</span>
-                <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{odrPatient.Gender}</div>
-                </div>
-            </div>
-            <div class="slds-col slds-form-element">
-                <span class="slds-form-element__label">Deceased</span>
-                <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{odrPatient.Deceased}</div>
-                </div>
-            </div>
+          </template>
+        </div>
+        <div if:true={hasData} class="slds-grid slds-gutters">
+          <div class="slds-col slds-form-element">
+              <span class="slds-form-element__label">Birthdate</span>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static"><lightning-formatted-date-time value={odrPatient.PersonBirthdate}></lightning-formatted-date-time></div>
+              </div>
+          </div>
+          <div class="slds-col slds-form-element">
+              <span class="slds-form-element__label">Gender</span>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{odrPatient.Gender}</div>
+              </div>
+          </div>
+          <div class="slds-col slds-form-element">
+              <span class="slds-form-element__label">Deceased</span>
+              <div class="slds-form-element__control">
+                <div class="slds-form-element__static">{odrPatient.Deceased}</div>
+              </div>
+          </div>
         </div>
         <div if:true={completeAndNoResults}>
             <div class="slds-box slds-box_x-small slds-text-align_center">
@@ -57,6 +64,14 @@
                 </div>
             </div>
         </div>
+        <div if:true={messageExists}>
+          <div class="slds-box slds-box_x-small slds-text-align_center">
+              <div class="slds-m-vertical_small">
+                  <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                  <p>{message}</p>
+              </div>
+          </div>
+      </div>
     </lightning-card>
 
 </template>
