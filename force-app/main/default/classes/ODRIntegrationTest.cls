@@ -177,7 +177,7 @@ public class ODRIntegrationTest {
     }
     @isTest static void getUserIdentifierTest() {
         String fedId = ODRIntegration.getUserIdentifier();
-        System.assertEquals(fedId, null);
+        System.assertEquals(fedId, [Select FederationIdentifier From User Where Id = :UserInfo.getUserId()][0].FederationIdentifier);
     }
     @isTest static void getUUIDStringTest() {
         String uuidString = ODRIntegration.getUUIDString();
