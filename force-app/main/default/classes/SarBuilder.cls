@@ -32,6 +32,7 @@ public with sharing class SarBuilder {
         drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
 
         saCase = buildCase(drug.Id, drugLabel, findReferenceNumber(bundle.meta.tag));
+        saCase.Provider_Fax__c = provider.Fax;
         
         contentVersions.add(buildFile('bundle.json', Blob.valueOf(bundleJsonStr)));
 
