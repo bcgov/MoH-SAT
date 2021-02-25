@@ -9,15 +9,9 @@ public with sharing class SarBuilder {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         List<ContentVersion> contentVersions = new List<ContentVersion>();
 
-        Eform.Bundle bundle;
-        
-        try {
-            bundle = Eform.parse(bundleJsonStr);
-        } catch (Exception e) {
-            system.debug(e.getMessage());
-        }
+        Eform.Bundle bundle = Eform.parse(bundleJsonStr);
 
-        if (bundle.entry.isEmpty()) return null;
+        if (bundle.entry == null || bundle.entry.isEmpty()) return null;
 
         for (Eform.Entry bundleEntry : bundle.entry) {
             Eform.Resource resource = bundleEntry.resource;
@@ -56,45 +50,40 @@ public with sharing class SarBuilder {
     }
 
     public static Account buildPatient(Eform.Resource resource) {
-        String identifier = getIdentifier(resource.identifier);
+        Account account = buildAccount(resource);
 
+        String identifier = getIdentifier(resource.identifier);
+        
         List<Account> existing = [select Id from Account where Patient_Identifier__pc = :identifier];
-        Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
+        account.Id = existing.isEmpty() ? null : existing[0].Id;
         
         account.Patient_Identifier__pc = identifier;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
         account.PersonBirthdate = Date.valueOf(resource.birthDate);
-        
-        Eform.Name name = getName(resource.name);
-        account.FirstName = name == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
-        account.LastName = name == null ? '(EMPTY)' : name.family;
-
-        Eform.Telecom telecom = getTelecom(resource.telecom);
-        account.Phone = telecom?.value;
-
-        Eform.Address address = getAddress(resource.address);
-        account.PersonMailingStreet = address == null ? null : String.join(address.line, ' ');
-        account.PersonMailingCity = address?.city;
-        account.PersonMailingState = address?.state;
-        account.PersonMailingPostalCode = address?.postalCode;
         return account;
     }
 
     public static Account buildProvider(Eform.Resource resource) {
-        String identifier = getIdentifier(resource.identifier);
+        Account account = buildAccount(resource);
 
+        String identifier = getIdentifier(resource.identifier);
+        
         List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier];
-        Account account = existing == null || existing.isEmpty() ? new Account() : existing[0];
+        account.Id = existing.isEmpty() ? null : existing[0].Id;
         
         account.Provider_Identifier__pc = identifier;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
-        
+        return account;
+    }
+
+    private static Account buildAccount(Eform.Resource resource) {
+        Account account = new Account();
         Eform.Name name = getName(resource.name);
         account.FirstName = name == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
         account.LastName = name == null ? '(EMPTY)' : name.family;
 
-        Eform.Telecom telecom = getTelecom(resource.telecom);
-        account.Phone = telecom?.value;
+        account.Phone = getTelecom(resource.telecom, 'phone')?.value;
+        account.Fax = getTelecom(resource.telecom, 'fax')?.value;
 
         Eform.Address address = getAddress(resource.address);
         account.PersonMailingStreet = address == null ? null : String.join(address.line, ' ');
@@ -193,10 +182,11 @@ public with sharing class SarBuilder {
         return null;
     }
 
-    private static Eform.Telecom getTelecom(List<Eform.Telecom> telecoms) {
+    private static Eform.Telecom getTelecom(List<Eform.Telecom> telecoms, String system_z) {
         if (telecoms == null) return null;
         for (Eform.Telecom telecom : telecoms) {
-            return telecom;
+            if (telecom.system_Z.equalsIgnoreCase(system_z))
+                return telecom;
         }
         return null;
     }

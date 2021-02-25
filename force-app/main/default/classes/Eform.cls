@@ -1,4 +1,4 @@
-global with sharing class Eform {
+public with sharing class Eform {
     public static Bundle parse(String json) {
         System.JSONParser parser = System.JSON.createParser(json);
         return new Bundle(parser);
@@ -98,6 +98,7 @@ global with sharing class Eform {
         public List<Identifier> identifier {get;set;} 
         public List<Item> item {get;set;} 
         public List<Telecom> telecom {get;set;} 
+        public List<Qualification> qualification {get;set;} 
 
         public Resource(JSONParser parser) {
             while (parser.nextToken() != System.JSONToken.END_OBJECT) {
@@ -132,7 +133,9 @@ global with sharing class Eform {
                             source = new Source(parser);
                         } else if (text == 'item') {
                             item = (List<Item>) parser.readValueAs(List<Item>.class);
-                        } else {
+                        } else if (text == 'qualification') {
+							qualification = arrayOfQualification(parser);
+						} else {
                             System.debug(LoggingLevel.WARN, 'Resource consuming unrecognized property: '+text);
                             consumeObject(parser);
                         }
@@ -161,6 +164,26 @@ global with sharing class Eform {
             }
         }
     }
+
+    public class Qualification {
+		public Code code {get;set;} 
+
+		public Qualification(JSONParser parser) {
+			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
+				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
+					String text = parser.getText();
+					if (parser.nextToken() != System.JSONToken.VALUE_NULL) {
+						if (text == 'code') {
+							code = new Code(parser);
+						} else {
+							System.debug(LoggingLevel.WARN, 'Qualification consuming unrecognized property: '+text);
+							consumeObject(parser);
+						}
+					}
+				}
+			}
+		}
+	}
         
     public class Address {
         public String use {get;set;} 
@@ -328,6 +351,26 @@ global with sharing class Eform {
             }
         }
     }
+
+    public class Code {
+		public List<Tag> coding {get;set;} 
+
+		public Code(JSONParser parser) {
+			while (parser.nextToken() != System.JSONToken.END_OBJECT) {
+				if (parser.getCurrentToken() == System.JSONToken.FIELD_NAME) {
+					String text = parser.getText();
+					if (parser.nextToken() != System.JSONToken.VALUE_NULL) {
+						if (text == 'coding') {
+							coding = arrayOfTag(parser);
+						} else {
+							System.debug(LoggingLevel.WARN, 'Code consuming unrecognized property: '+text);
+							consumeObject(parser);
+						}
+					}
+				}
+			}
+		}
+	}
         
     public class Tag {
         public String system_Z {get;set;} // in json: system
@@ -467,6 +510,15 @@ global with sharing class Eform {
         if (p.getCurrentToken() == null) p.nextToken();
         while (p.nextToken() != System.JSONToken.END_ARRAY) {
             res.add(new Tag(p));
+        }
+        return res;
+    }
+
+    private static List<Qualification> arrayOfQualification(System.JSONParser p) {
+        List<Qualification> res = new List<Qualification>();
+        if (p.getCurrentToken() == null) p.nextToken();
+        while (p.nextToken() != System.JSONToken.END_ARRAY) {
+            res.add(new Qualification(p));
         }
         return res;
     }

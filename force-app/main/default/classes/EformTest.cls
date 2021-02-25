@@ -3,129 +3,155 @@ public class EformTest {
     // This test method should give 100% coverage
 	static testMethod void testParse() {
 		String json = '{'+
-		'    \"resourceType\": \"Bundle\",'+
-		'    \"id\": \"cbe39adf-1a14-47bf-9172-214f0787ec2f\",'+
-		'    \"meta\": {'+
-		'        \"lastUpdated\": \"2021-02-19T22:26:34.6389344+00:00\",'+
-		'        \"tag\": ['+
-		'            {'+
-		'                \"system\": \"https://ehealthbc.ca/NamingSystem/eforms/correlationId\",'+
-		'                \"code\": \"d2a76bc5-6a61-4911-b069-fd72ec73b158\"'+
-		'            },'+
-		'            {'+
-		'                \"system\": \"https://ehealthbc.ca/NamingSystem/eforms/formName\",'+
-		'                \"code\": \"oneForm\"'+
-		'            },'+
-		'            {'+
-		'                \"system\": \"https://ehealthbc.ca/NamingSystem/eforms/formTitle\",'+
-		'                \"code\": \"* Request Special Authority (by Medication) *\"'+
-		'            },'+
-		'            {'+
-		'                \"system\": \"https://ehealthbc.ca/NamingSystem/eforms/formID\",'+
-		'                \"code\": \"5e84c9dc70e1762af1abc43b\"'+
-		'            },'+
-		'            {'+
-		'                \"system\": \"https://ehealthbc.ca/NamingSystem/eforms/referenceNum\",'+
-		'                \"code\": \"cbe39adf-1a14-47bf-9172-214f0787ec2f\"'+
-		'            },'+
-		'            {'+
-		'                \"system\": \"https://ehealthbc.ca/NamingSystem/eforms/formStatus\",'+
-		'                \"code\": \"Completed\"'+
-		'            }'+
-		'        ]'+
-		'    },'+
-		'    \"type\": \"message\",'+
-		'    \"timestamp\": \"2021-02-19T14:26:26.9283642-08:00\",'+
-		'    \"entry\": ['+
-		'        {'+
-		'            \"resource\": {'+
-		'                \"resourceType\": \"Patient\",'+
-		'                \"id\": \"Patient1\",'+
-		'                \"identifier\": ['+
-		'                    {'+
-		'                        \"type\": {'+
-		'                            \"text\": \"BC\"'+
-		'                        },'+
-		'                        \"system\": \"https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-patient-healthcare-id\",'+
-		'                        \"value\": \"123456789\"'+
-		'                    }'+
-		'                ],'+
-		'                \"active\": true,'+
-		'                \"name\": ['+
-		'                    {'+
-		'                        \"use\": \"official\",'+
-		'                        \"family\": \"Maximoff\",'+
-		'                        \"given\": ['+
-		'                            \"Wanda\",'+
-		'                            \"Uni\"'+
-		'                        ]'+
-		'                    }'+
-		'                ],'+
-		'                \"telecom\": ['+
-		'                    {'+
-		'                        \"system\": \"phone\",'+
-		'                        \"value\": \"250-111-1111\",'+
-		'                        \"use\": \"home\",'+
-		'                        \"period\": {'+
-		'                            \"start\": \"2021-02-19T14:26:26.92938-08:00\"'+
-		'                        }'+
-		'                    }'+
-		'                ],'+
-		'                \"birthDate\": \"1990-01-01\",'+
-		'                \"address\": ['+
-		'                    {'+
-		'                        \"use\": \"home\",'+
-		'                        \"line\": ['+
-		'                            \"123 1 Avenue\",'+
-		'                            \"111 Unit\"'+
-		'                        ],'+
-		'                        \"city\": \"Vancouver\",'+
-		'                        \"state\": \"BC\",'+
-		'                        \"postalCode\": \"A1A1A1\",'+
-		'                        \"period\": {'+
-		'                            \"start\": \"2021-02-19T14:26:26.9291202-08:00\"'+
-		'                        }'+
-		'                    }'+
-		'                ]'+
-		'            }'+
-		'        },'+
-		'        {'+
-		'            \"resource\": {'+
-		'                \"resourceType\": \"Practitioner\",'+
-		'                \"id\": \"Submitter1\",'+
-		'                \"identifier\": ['+
-		'                    {'+
-		'                        \"system\": \"https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-msp-billing-id\",'+
-		'                        \"value\": \"4444\"'+
-		'                    }'+
-		'                ],'+
-		'                \"name\": ['+
-		'                    {'+
-		'                        \"use\": \"official\",'+
-		'                        \"family\": \"Strange\",'+
-		'                        \"given\": ['+
-		'                            \"Stephen\"'+
-		'                        ]'+
-		'                    }'+
-		'                ],'+
-		'                \"telecom\": ['+
-		'                    {'+
+		'	\"resourceType\": \"Bundle\",'+
+		'	\"id\": \"de3f3df4-f256-4bd9-a5ff-8da50ac323cc\",'+
+		'	\"meta\": {'+
+		'		\"lastUpdated\": \"2021-02-23T20:22:50.4597289+00:00\",'+
+		'		\"tag\": ['+
+		'			{'+
+		'				\"system\": \"https://ehealthbc.ca/NamingSystem/eforms/correlationId\",'+
+		'				\"code\": \"4aa84313-2198-4226-8fa2-a3d8aeb4f82e\"'+
+		'			},'+
+		'			{'+
+		'				\"system\": \"https://ehealthbc.ca/NamingSystem/eforms/formSubmitterUserName\",'+
+		'				\"code\": \"TESTER0@PHSA.CA\"'+
+		'			}'+
+		'		]'+
+		'	},'+
+		'	\"type\": \"message\",'+
+		'	\"timestamp\": \"2021-02-23T12:22:50.4579911-08:00\",'+
+		'	\"entry\": ['+
+		'		{'+
+		'			\"resource\": {'+
+		'				\"resourceType\": \"Patient\",'+
+		'				\"id\": \"Patient1\",'+
+		'				\"identifier\": ['+
+		'					{'+
+		'						\"type\": {'+
+		'							\"text\": \"BC\"'+
+		'						},'+
+		'						\"system\": \"https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-patient-healthcare-id\",'+
+		'						\"value\": \"9875023209\"'+
+		'					}'+
+		'				],'+
+		'				\"active\": true,'+
+		'				\"name\": ['+
+		'					{'+
+		'						\"use\": \"official\",'+
+		'						\"family\": \"SNOW\",'+
+		'						\"given\": ['+
+		'							\"JON\"'+
+		'						]'+
+		'					}'+
+		'				],'+
+		'				\"telecom\": ['+
+		'					{'+
+		'						\"system\": \"phone\",'+
+		'						\"value\": \"604-987-2345\",'+
+		'						\"use\": \"home\",'+
+		'						\"period\": {'+
+		'							\"start\": \"2021-02-23T12:22:50.4584491-08:00\"'+
+		'						}'+
+		'					}'+
+		'				],'+
+		'				\"birthDate\": \"1995-10-23\",'+
+		'				\"address\": ['+
+		'					{'+
+		'						\"use\": \"home\",'+
+		'						\"line\": ['+
+		'							\"46-980 BEAUMONT DR\"'+
+		'						],'+
+		'						\"city\": \"VANCOUVER\",'+
+		'						\"state\": \"BC\",'+
+		'						\"postalCode\": \"V2Y 7G6\",'+
+		'						\"period\": {'+
+		'							\"start\": \"2021-02-23T12:22:50.4583389-08:00\"'+
+		'						}'+
+		'					}'+
+		'				]'+
+		'			}'+
+		'		},'+
+		'		{'+
+		'			\"resource\": {'+
+		'				\"resourceType\": \"Practitioner\",'+
+		'				\"id\": \"Submitter1\",'+
+		'				\"identifier\": ['+
+		'					{'+
+		'						\"system\": \"urn:PHID\",'+
+		'						\"value\": \"CP501\"'+
+		'					}'+
+		'				],'+
+		'				\"name\": ['+
+		'					{'+
+		'						\"use\": \"official\",'+
+		'						\"family\": \"Johnson\",'+
+		'						\"given\": ['+
+		'							\"Dale\"'+
+		'						]'+
+		'					}'+
+		'				],'+
+		'				\"telecom\": ['+
+		'					{'+
 		'                        \"extension\": ['+
 		'                            {'+
 		'                                \"url\": \"http://hl7.org/fhir/StructureDefinition/contactpoint-extension\",'+
 		'                                \"valueString\": \"123\"'+
 		'                            }'+
 		'                        ],'+
-		'                        \"system\": \"phone\",'+
-		'                        \"value\": \"950-553-3333\",'+
-		'                        \"use\": \"home\",'+
-		'                        \"period\": {'+
-		'                            \"start\": \"2021-02-19T14:26:26.9298924-08:00\"'+
-		'                        }'+
-		'                    }'+
-		'                ]'+
-		'            }'+
-		'        },'+
+		'						\"system\": \"phone\",'+
+		'						\"value\": \"647-222-9999\",'+
+		'						\"use\": \"home\",'+
+		'						\"period\": {'+
+		'							\"start\": \"2021-02-23T12:22:50.4588231-08:00\"'+
+		'						}'+
+		'					},'+
+		'					{'+
+		'						\"system\": \"fax\",'+
+		'						\"value\": \"647-222-9977\",'+
+		'						\"use\": \"work\",'+
+		'						\"period\": {'+
+		'							\"start\": \"2021-02-23T12:22:50.4588231-08:00\"'+
+		'						}'+
+		'					}'+
+		'				],'+
+		'				\"address\": ['+
+		'					{'+
+		'						\"use\": \"home\",'+
+		'						\"line\": ['+
+		'							\"1952 Bay st\"'+
+		'						],'+
+		'						\"city\": \"\",'+
+		'						\"state\": \"BC\",'+
+		'						\"postalCode\": \"V6P 7B8\",'+
+		'						\"period\": {'+
+		'							\"start\": \"2021-02-23T12:22:50.458756-08:00\"'+
+		'						}'+
+		'					}'+
+		'				],'+
+		'				\"qualification\": ['+
+		'					{'+
+		'						\"code\": {'+
+		'							\"coding\": ['+
+		'								{'+
+		'									\"system\": \"urn:role\",'+
+		'									\"code\": \"PHARM\"'+
+		'								}'+
+		'							]'+
+		'						}'+
+		'					},'+
+		'					{'+
+		'						\"code\": {'+
+		'							\"coding\": ['+
+		'								{'+
+		'									\"system\": \"urn:specialty\",'+
+		'									\"code\": \"Oncology Pharmacy\"'+
+		'								}'+
+		'							]'+
+		'						}'+
+		'					}'+
+		'				]'+
+		'			}'+
+		'		 },'+
 		'        {'+
 		'            \"resource\": {'+
 		'                \"resourceType\": \"Binary\",'+
@@ -177,6 +203,16 @@ public class EformTest {
 		System.assert(r != null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
+		Eform.Bundle objEform = new Eform.Bundle(System.JSON.createParser(json));
+		System.assert(objEform != null);
+		System.assert(objEform.resourceType == null);
+		System.assert(objEform.id == null);
+		System.assert(objEform.meta == null);
+		System.assert(objEform.type_Z == null);
+		System.assert(objEform.timestamp == null);
+		System.assert(objEform.entry == null);
+
+		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
 		Eform.Meta objMeta = new Eform.Meta(System.JSON.createParser(json));
 		System.assert(objMeta != null);
 		System.assert(objMeta.lastUpdated == null);
@@ -208,6 +244,11 @@ public class EformTest {
 		System.assert(objSource.reference == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
+		Eform.Code objCode = new Eform.Code(System.JSON.createParser(json));
+		System.assert(objCode != null);
+		System.assert(objCode.coding == null);
+
+		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
 		Eform.Name objName = new Eform.Name(System.JSON.createParser(json));
 		System.assert(objName != null);
 		System.assert(objName.use == null);
@@ -224,6 +265,11 @@ public class EformTest {
 		Eform.Entry objEntry = new Eform.Entry(System.JSON.createParser(json));
 		System.assert(objEntry != null);
 		System.assert(objEntry.resource == null);
+
+		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
+		Eform.Qualification objQualification = new Eform.Qualification(System.JSON.createParser(json));
+		System.assert(objQualification != null);
+		System.assert(objQualification.code == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
 		Eform.Identifier objIdentifier = new Eform.Identifier(System.JSON.createParser(json));
@@ -249,16 +295,6 @@ public class EformTest {
 		System.assert(objResource.authored == null);
 		System.assert(objResource.source == null);
 		System.assert(objResource.item == null);
-
-		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
-		Eform.Bundle objEform = new Eform.Bundle(System.JSON.createParser(json));
-		System.assert(objEform != null);
-		System.assert(objEform.resourceType == null);
-		System.assert(objEform.id == null);
-		System.assert(objEform.meta == null);
-		System.assert(objEform.type_Z == null);
-		System.assert(objEform.timestamp == null);
-		System.assert(objEform.entry == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
 		Eform.Tag objTag = new Eform.Tag(System.JSON.createParser(json));
