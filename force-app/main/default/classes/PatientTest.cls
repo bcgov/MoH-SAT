@@ -3,8 +3,7 @@ public class PatientTest {
     @isTest
     public static void PatientTest() {
         Patient p = new Patient();
-        p.givenName = '';
-        p.familyName = '';
+        p.names = new List<Patient.PersonName>();
         p.phn = '';
         p.dob = DateTime.now();
         p.verified = true;

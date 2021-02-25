@@ -19,11 +19,23 @@ public with sharing class ODRIntegration {
 
             p.verifiedDate = Datetime.now();
 
+            String givenName = '';
+            String familyName = '';
+
+            if (p.names != null) {
+              for (Integer i = 0;i < p.names.size();i++) {
+                if (p.names[i].type == 'L') {
+                  givenName = p.names[i].givenName;
+                  familyName = p.names[i].familyName;
+                }
+              }
+            }
+
             // Safety Checks
             if (p.deceased
                || !checkValidBirthDate(p.dob, sar.saCase.Patient_Date_of_Birth__c)
-               || sar.saCase.Contact.Account.FirstName != p.givenName
-               || sar.saCase.Contact.Account.LastName != p.familyName)
+               || sar.saCase.Contact.Account.FirstName != givenName
+               || sar.saCase.Contact.Account.LastName != familyName)
             {
                 p.verified = false;
             } else {
