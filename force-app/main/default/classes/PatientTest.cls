@@ -5,7 +5,7 @@ public class PatientTest {
         Patient p = new Patient();
         p.names = new List<Patient.PersonName>();
         p.phn = '';
-        p.dob = DateTime.now();
+        p.dob = Date.today();
         p.verified = true;
         p.verifiedDate = DateTime.now();
     }
