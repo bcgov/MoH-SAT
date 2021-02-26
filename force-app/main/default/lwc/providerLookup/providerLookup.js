@@ -79,7 +79,7 @@ export default class ProviderLookup extends LightningElement {
             LastName: this.odrProvider.lastName,
             PersonBirthdate: this.parseDate(this.odrProvider.dateofBirth),
             verified: this.odrProvider.status == 'P',
-            statusHumanReadable: this.odrProvider.status == 'P' ? 'Practicing' : this.odrProvider.status,
+            statusHumanReadable: this.odrProvider.status == 'P' ? 'Practicing' : 'Non-Practicing',
             ...this.provider
         }
         

@@ -196,7 +196,7 @@ public with sharing class ODRIntegration {
               sarBody.saRecord.saRequester.practIdRef = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
 
               if (drugTemplate.Key_Type__c == 'RDP') {
-                  sarBody.saRecord.specAuthType = 'R';
+                  sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
                   // Add the RDP type
                   sarBody.saRecord.specialItem.rdp = drugtemplate.Pharmanet_Code__c.replaceAll('[^0-9]+', '');
 
@@ -222,7 +222,7 @@ public with sharing class ODRIntegration {
                   System.debug(drugtemplate.Pharmanet_Code__c);
                   System.debug(drugtemplate.SA_Type__c);
               } else if (drugTemplate.Key_Type__c == 'DIN') {
-                  sarBody.saRecord.specAuthType = 'D';
+                  sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
                   // TODO: DIN never has dashes
               } else {
                   // R type
