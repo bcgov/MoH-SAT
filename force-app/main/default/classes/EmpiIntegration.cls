@@ -110,7 +110,7 @@ public with sharing class EmpiIntegration {
                     String year = birthTime.substring(0, 4);
                     String month = birthTime.substring(4, 6);
                     String day = birthTime.substring(6, 8);
-                    p.dob = Datetime.newInstance(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+                    p.dob = Date.newInstance(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
                 }
                 if (res.controlActProcess.subject[0].target.identifiedPerson.administrativeGenderCode != null) {
                     p.gender = res.controlActProcess.subject[0].target.identifiedPerson.administrativeGenderCode.code;

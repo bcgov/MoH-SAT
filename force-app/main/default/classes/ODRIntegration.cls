@@ -34,8 +34,8 @@ public with sharing class ODRIntegration {
             // Safety Checks
             if (p.deceased
                || !checkValidBirthDate(p.dob, sar.saCase.Patient_Date_of_Birth__c)
-               || sar.saCase.Contact.Account.FirstName != givenName
-               || sar.saCase.Contact.Account.LastName != familyName)
+               || sar.saCase.Contact.Account.FirstName.toLowercase() != givenName.toLowercase()
+               || sar.saCase.Contact.Account.LastName.toLowercase() != familyName.toLowercase())
             {
                 p.verified = false;
             } else {
