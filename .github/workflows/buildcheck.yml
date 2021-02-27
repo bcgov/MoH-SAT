@@ -2,12 +2,12 @@ name: Build and test
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-      branches:
-        - main
-      paths:
-        - 'dev-app-pre/**'
-        - 'force-app/**'
-        - 'dev-app-post/**'
+    branches:
+      - main
+    paths:
+      - 'dev-app-pre/**'
+      - 'force-app/**'
+      - 'dev-app-post/**'
 jobs:
   build:
     runs-on: ubuntu-latest
