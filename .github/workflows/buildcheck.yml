@@ -1,14 +1,20 @@
-name: BuildCheck
+name: Build and test
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-
+  pull_request:
+    types: [opened, synchronize, reopened]
+      branches:
+        - main
+      paths:
+        - 'dev-app-pre/**'
+        - 'force-app/**'
+        - 'dev-app-post/**'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+      with:
+        ref: ${{ github.ref }}
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
@@ -22,23 +28,9 @@ jobs:
     - name: Authenticate DevHub
       run: |
         echo "${SALESFORCE_JWT_SECRET_KEY}" > server.key
-        node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_DEVHUB_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} --setdefaultdevhubusername -a devhub
+        node_modules/sfdx-cli/bin/run force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_BUILD_CONSUMER_KEY }} --jwtkeyfile server.key --username ${{ secrets.SALESFORCE_BUILD_USERNAME }} --setdefaultdevhubusername --instanceurl ${{ secrets.SALESFORCE_BUILD_SANDBOX_URL }}
       env:
         SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
-      
-    - name: Define CI org
-      run: node_modules/sfdx-cli/bin/run force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
-    - name: Deploy source
-      run: node_modules/sfdx-cli/bin/run force:source:push -u ciorg
-
-    - name: Assign permission set and set user role
-      run: |
-        node_modules/sfdx-cli/bin/run force:user:permset:assign -u ciorg -n SA_Administrator
-        node_modules/sfdx-cli/bin/run force:apex:execute -u ciorg -f scripts/apex/set-current-user.apex
-        
-    - name: Run Apex test
-      run: node_modules/sfdx-cli/bin/run force:apex:test:run -c -r human
-    
-    - name: Delete scratch org
-      run: node_modules/sfdx-cli/bin/run force:org:delete -u ciorg
+    - name: Validate and run tests
+      run: node_modules/sfdx-cli/bin/run force:source:deploy --targetusername ${{ secrets.SALESFORCE_BUILD_USERNAME }} --sourcepath dev-app-pre,force-app,dev-app-post --testlevel RunAllTestsInOrg --checkonly --ignorewarnings
