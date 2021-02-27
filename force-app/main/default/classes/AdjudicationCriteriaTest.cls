@@ -16,7 +16,7 @@ public class AdjudicationCriteriaTest {
     static void test_set_inapplicable_record_type() {
         AdjudicationCriteria ac = new AdjudicationCriteria(TestFactory.newCriteria('Case', 'Origin', null, 'equals', 'Fax'));
         Request_Detail__c record = new Request_Detail__c();
-        system.assertEquals(false, ac.set(record).evaluate());
+        system.assertEquals(true, ac.set(record).evaluate());
     }
 
     @isTest
