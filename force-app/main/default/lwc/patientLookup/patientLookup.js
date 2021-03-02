@@ -100,7 +100,7 @@ export default class PatientLookup extends LightningElement {
                 LastName: LastName, // Always pick their L name
                 Names: this.patientProvider.names,
                 Gender: this.patientProvider.gender,
-                Deceased: this.patientProvider.deceased,
+                Deceased: this.patientProvider.deceased == true ? 'Yes' : 'No',
                 PersonBirthdate: new Date(this.patientProvider.dob),
                 verified: true,
                 ...this.odrPatient

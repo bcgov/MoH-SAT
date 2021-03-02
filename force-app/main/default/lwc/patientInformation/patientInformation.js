@@ -6,11 +6,16 @@ export default class PatientInformation extends LightningElement {
   verified = false;
   loaded = false;
   data = null;
+  deceased = false;
 
   @wire(verifyPatientInformationx, { recordId: '$recordId' }) mapObjectToData({error,data}) {
     if (data) {
       console.log("PatientInformation:", data);
       this.data = data;
+
+      // Re-work deceased
+      this.deceased = this.data.deceased == true ? 'Yes' : 'No';
+
       this.loaded = true;
     }
   }
