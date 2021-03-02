@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fax_Notification_Outstanding</fullName>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>Patient_Identifier__c</columns>
+    <columns>Provider__c</columns>
+    <columns>Drug_Name__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>Fax_Notification_Date__c</columns>
+    <columns>CORE.USERS.ALIAS</columns>
+    <columns>CASES.CLOSED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Fax_Notification_Date__c</field>
+        <operation>equals</operation>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Fax Notification Outstanding</label>
+</ListView>
