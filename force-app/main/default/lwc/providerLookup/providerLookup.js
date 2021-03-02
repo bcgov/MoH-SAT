@@ -82,7 +82,7 @@ export default class ProviderLookup extends LightningElement {
             statusHumanReadable: this.odrProvider.status == 'P' ? 'Practicing' : 'Non-Practicing',
             ...this.provider
         }
-        
+
         this.publishChange(this.provider);
                 
         this.template.querySelector('.btn-lookup').disabled = false;
