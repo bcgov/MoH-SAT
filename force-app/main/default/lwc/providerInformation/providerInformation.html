@@ -1,9 +1,9 @@
 <template>
-    <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
+  <div class="slds-is-relative">
     <lightning-card if:true={loaded}>
       <h3 slot="title">
-          <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
-          &nbsp;Provider Information
+        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+        &nbsp;Provider Information
       </h3>
       <div class="slds-p-left_small">
         <p><strong>Name:</strong> {data.name}</p>
@@ -13,6 +13,8 @@
         <lightning-badge if:true={data.verified} label="Verified" icon-name="action:check" style="background: #46D447"></lightning-badge>
         <lightning-badge if:false={data.verified} label="Unverified" icon-name="action:close" style="background: red"></lightning-badge>
       </div>
-    <div slot="footer"></div>
-  </lightning-card>
+      <div slot="footer"></div>
+    </lightning-card>
+    <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
+  </div>
 </template>
