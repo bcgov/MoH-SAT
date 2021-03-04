@@ -20,7 +20,7 @@ public with sharing class SaRestApiTest {
         RestRequest req = new RestRequest(); 
     	req.httpMethod = 'GET';
         req.requestURI = '/services/apexrest/SA/';  
-        req.addParameter('phn', '123456789');
+        req.headers.put('phn', '123456789');
         RestContext.request = req;
         
     	RestResponse res = new RestResponse();
