@@ -1,31 +1,33 @@
 <template>
-  <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
-  <lightning-card if:true={loaded}>
-    <h3 slot="title">
+  <div class="slds-is-relative">
+    <lightning-card if:true={loaded}>
+      <h3 slot="title">
         <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
         &nbsp;Patient Information
-    </h3>
-    <div class="slds-p-left_small">
-      <template for:each={data.names} for:item="item">
-        <div key={item.type} class="slds-m-vertical_small">
-          <div class="slds-col slds-form-element">
+      </h3>
+      <div class="slds-p-left_small">
+        <template for:each={data.names} for:item="item">
+          <div key={item.type} class="slds-m-vertical_small">
+            <div class="slds-col slds-form-element">
               <span if:true={item.declared} class="slds-form-element__label">Declared Name</span>
               <span if:false={item.declared} class="slds-form-element__label">Documented Name</span>
               <div class="slds-form-element__control">
                 <div class="slds-form-element__static">{item.familyName}, {item.givenName}</div>
               </div>
+            </div>
           </div>
-        </div>
-      </template>
-      <p><strong>PHN: </strong>{data.phn}</p>
-      <p><strong>Gender: </strong>{data.gender}</p>
-      <p><strong>DOB: </strong><lightning-formatted-date-time value={data.dob}></lightning-formatted-date-time></p>
-      <p><strong>Deceased: </strong>{deceased}</p>
-      <p><strong>Verified Date: </strong><lightning-formatted-date-time value={data.verifiedDate}></lightning-formatted-date-time></p>
-      <p class="slds-p-top_small"></p>
-      <lightning-badge if:true={data.verified} label="Verified" icon-name="action:check" style="background: #46D447"></lightning-badge>
-      <lightning-badge if:false={data.verified} label="Unverified" icon-name="action:close" style="background: red"></lightning-badge>
-    </div>
-    <div slot="footer"></div>
-</lightning-card>
+        </template>
+        <p><strong>PHN: </strong>{data.phn}</p>
+        <p><strong>Gender: </strong>{data.gender}</p>
+        <p><strong>DOB: </strong><lightning-formatted-date-time value={data.dob}></lightning-formatted-date-time></p>
+        <p><strong>Deceased: </strong>{deceased}</p>
+        <p><strong>Verified Date: </strong><lightning-formatted-date-time value={data.verifiedDate}></lightning-formatted-date-time></p>
+        <p class="slds-p-top_small"></p>
+        <lightning-badge if:true={data.verified} label="Verified" icon-name="action:check" style="background: #46D447"></lightning-badge>
+        <lightning-badge if:false={data.verified} label="Unverified" icon-name="action:close" style="background: red"></lightning-badge>
+      </div>
+      <div slot="footer"></div>
+    </lightning-card>
+    <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner>
+  </div>
 </template>
