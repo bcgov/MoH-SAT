@@ -129,6 +129,7 @@ public with sharing class SarBuilder {
             rd.Decimal_Value__c = qra.valueDecimal;
             rd.Date_Value__c = qra.valueDate;
             rd.Datetime_Value__c = qra.valueDatetime;
+            rd.Boolean_Value__c = qra.valueBoolean == true;
             requestDetails.add(rd);
         }
 
