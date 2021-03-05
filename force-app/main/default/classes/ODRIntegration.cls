@@ -451,6 +451,46 @@ public with sharing class ODRIntegration {
         return sar;
     }
 
+    @AuraEnabled
+    public static SAApprovalHistoryResponse fetchSAApprovalHistory(Id recordId, String page, String count) {
+        System.debug('Fetch Data');
+        System.debug(page);
+        System.debug(count);
+
+        SAApprovalHistoryResponse sar = null;
+
+        String queryParams = '?clientName=SpecAuth';
+        queryParams += '&requestUUID=' + getUUIDString();
+        queryParams += '&userid=' + getUserIdentifier();
+        queryParams += '&phn=' + getPatientIdentifier(recordId);
+        System.debug(queryParams);
+        // TODO?
+        // queryParams += '&startDate=2001-01-01';
+        // queryParams += '&endDate=2020-01-01';
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
+                                                                         queryParams,
+                                                                         'GET',
+                                                                         null,
+                                                                         '6');
+
+        if (calloutResponseObject.errorCode != 200) {
+            // ERROR
+            sar = new SAApprovalHistoryResponse();
+            sar.error = calloutResponseObject;
+        } else {
+            String resBody = calloutResponseObject.response;
+            // for (Integer i = 0; i < resBody.length(); i=i+300) {
+            //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
+            //     System.debug(resBody.substring(i,iEffectiveEnd));
+            // }
+            sar = (SAApprovalHistoryResponse) JSON.deserialize(resBody, SAApprovalHistoryResponse.class);
+        }
+        System.debug(sar);
+
+        return sar;
+    }
+
     public static void updateCasePusedToPNet(Id caseId) {
         Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
         c.Pushed_to_Pnet__c = true;
