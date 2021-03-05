@@ -22,7 +22,7 @@
                 <lightning-combobox
                         name="progress"
                         label="SA Type:"
-                        value=""
+                        value={_record.specAuthType}
                         placeholder="Select SA Type"
                         options={msOptions}
                         disabled={formDisabled}
@@ -45,11 +45,8 @@
             <div class="slds-col slds-size_1-of-2">
                 <lightning-input type="number" label="Max Days Supply:" value={_record.maxDaysSupply} data-field="maxDaysSupply" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
             </div>
-            <!-- <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="number" label="Max %:" value={_record.maxPricePct} data-field="maxPricePct" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
-            </div> -->
         </div>
-        <div class="slds-grid slds-grid_align-end">
+        <div class="slds-grid slds-grid_align-end slds-m-top_small">
             <lightning-button 
                 label="Submit" 
                 title="Submit" 

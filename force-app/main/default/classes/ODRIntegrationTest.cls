@@ -81,6 +81,7 @@ public class ODRIntegrationTest {
         insert drug;
 
         Drug_Template__c drugTemplate = TestFactory.newDrugTemplate(drug, 'Drug Template');
+        drugTemplate.Pharmanet_Code__c = '9901-9901';
         insert drugTemplate;
 
         Account patient = TestFactory.newPatient('Patient 1');
