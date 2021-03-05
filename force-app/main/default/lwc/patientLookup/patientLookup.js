@@ -75,6 +75,10 @@ export default class PatientLookup extends LightningElement {
 
             if (this.message.startsWith('BCHCIM.GD.0.0013')) {
               this.message = '';
+            } else if (this.message.startsWith('BCHCIM.GD.2.0006')) {
+              // Invalid message
+              this.message = 'Invalid PHN';
+              this.messageExists = true;
             } else {
               this.messageExists = true;
               // Cleanup UI
@@ -90,8 +94,12 @@ export default class PatientLookup extends LightningElement {
             let LastName = "";
             await this.patientProvider.names.forEach(async element => {
               if (element.type == 'L') {
-                FirstName = element.givenName;
                 LastName = element.familyName;
+
+                // Now pluck the given names
+                await element.givenNames.forEach(async given => {
+                  FirstName += given + ", ";
+                });
               }
             });
             // Detect masked

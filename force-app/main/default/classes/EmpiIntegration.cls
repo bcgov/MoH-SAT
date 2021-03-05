@@ -124,10 +124,15 @@ public with sharing class EmpiIntegration {
                     for (Integer i =0;i < res.controlActProcess.subject[0].target.identifiedPerson.name.size();i++) {
                       Patient.PersonName personName = new Patient.PersonName();
                       personName.familyName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].family;
-                      personName.givenName = res.controlActProcess.subject[0].target.identifiedPerson.name[i].given;
                       personName.type = res.controlActProcess.subject[0].target.identifiedPerson.name[i].use;
                       if (res.controlActProcess.subject[0].target.identifiedPerson.name[i].use == 'L') {
                         personName.declared = true;
+
+                        personName.givenNames = new List<String>();
+                        for (Integer s=0;s < res.controlActProcess.subject[0].target.identifiedPerson.name[i].given.size();s++) {
+                          String given = res.controlActProcess.subject[0].target.identifiedPerson.name[i].given[s];
+                          personName.givenNames.add(given);
+                        }
                       } else {
                         personName.declared = false;
                       }

@@ -3306,18 +3306,16 @@ public class Empi {
         private String[] field_order_type_info = new String[]{'event','offset'};
     }
     public class PN {
+        public String[] given;
         public String family;
-        public String given;
-        // public Empi.en_family family;
-        // public Empi.en_given given;
         public Empi.IVL_TS validTime;
         public String use;
-        private String[] family_type_info = new String[]{'family','urn:hl7-org:v3',null,'1','1','false'};
         private String[] given_type_info = new String[]{'given','urn:hl7-org:v3',null,'1','1','false'};
+        private String[] family_type_info = new String[]{'family','urn:hl7-org:v3',null,'1','1','false'};
         private String[] validTime_type_info = new String[]{'validTime','urn:hl7-org:v3',null,'0','1','false'};
         private String[] use_att_info = new String[]{'use'};
         private String[] apex_schema_type_info = new String[]{'urn:hl7-org:v3','true','false'};
-        private String[] field_order_type_info = new String[]{'family','given','validTime'};
+        private String[] field_order_type_info = new String[]{'given', 'family','validTime'};
     }
     public class QUPA_AR101102_Port {
         public String endpoint_x = 'http://localhost/hcim/QUPA_AR101102.asmx';
