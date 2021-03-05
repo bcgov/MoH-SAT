@@ -615,7 +615,7 @@
             <name>Deceased</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Override_Reason_Picklist</leftValueReference>
+                <leftValueReference>Patient_Override_Reason_Picklist</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <elementReference>Deceased</elementReference>
@@ -963,11 +963,19 @@
         <picklistObject>Case</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
-        <name>Override_Reason_Picklist</name>
+        <name>Patient_Override_Reason_Picklist</name>
         <dataType>Picklist</dataType>
         <displayField xsi:nil="true"/>
         <object xsi:nil="true"/>
-        <picklistField>Override_Reason__c</picklistField>
+        <picklistField>Patient_Override_Reason__c</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>Provider_Override_Reason_Picklist</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Prescriber_Override_Reason__c</picklistField>
         <picklistObject>Case</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
@@ -2017,10 +2025,18 @@
             </outputParameters>
         </fields>
         <fields>
-            <name>Override_Verification_Reason</name>
-            <choiceReferences>Override_Reason_Picklist</choiceReferences>
+            <name>Patient_Override_Reason</name>
+            <choiceReferences>Patient_Override_Reason_Picklist</choiceReferences>
             <dataType>String</dataType>
-            <fieldText>Override Verification Reason</fieldText>
+            <fieldText>Patient Override Reason</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Provider_Override_Reason</name>
+            <choiceReferences>Provider_Override_Reason_Picklist</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Provider Override Reason</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
         </fields>
