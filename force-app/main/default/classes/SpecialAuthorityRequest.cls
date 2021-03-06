@@ -112,8 +112,11 @@ public with sharing class SpecialAuthorityRequest {
 
     private static Drug__c queryDrug(Id drugId) {
         return [select Id, Adjudication_Strategy__c, OwnerId,
-                    (select Id, Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, Key_Type__c, Pharmanet_Code__c,
-                    Price_Percent__c, SA_Type__c from Drug_Templates__r)
+                    (select 
+                        Id, Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, 
+                        Key_Type__c, Pharmanet_Code__c, Price_Percent__c, SA_Type__c,
+                        Duration__c, Duration_Unit__c 
+                    from Drug_Templates__r)
                 from Drug__c where Id = :drugId];
     }
 

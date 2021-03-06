@@ -182,7 +182,13 @@ public with sharing class ODRIntegration {
                   sarBody.saRecord.effectiveDate = formatToODRDate(sar.saCase.Effective_Date__c); // Effective Date 3000/01/01
               }
               if (sar.saCase.Termination_Date__c != null) {
-                  sarBody.saRecord.terminationDate = formatToODRDate(sar.saCase.Termination_Date__c); // Termination Date 3000/01/01
+                  Date terminationDate = calculateTerminationDate(
+                    sar.saCase.Effective_Date__c, 
+                    Integer.valueOf(drugTemplate.Duration__c), 
+                    drugTemplate.Duration_Unit__c
+                  );
+
+                  sarBody.saRecord.terminationDate = formatToODRDate(terminationDate);
               }
 
               sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
@@ -201,6 +207,24 @@ public with sharing class ODRIntegration {
           }
         }
         return saarList;
+    }
+
+    public static Date calculateTerminationDate(Date startDate, Integer duration, String durationUnit) {
+        Date terminationDate = startDate;
+
+        if (String.isBlank(durationUnit) || durationUnit.equalsIgnoreCase('Indefinite')) {
+            terminationDate = Date.newInstance(3000, 1, 1);
+        } else if (durationUnit.equalsIgnoreCase('End of year')) {
+            terminationDate = Date.newInstance(terminationDate.year(), 12, 31);
+        } else if (durationUnit.equalsIgnoreCase('Days')) {
+            terminationDate = terminationDate.addDays(duration);
+        } else if (durationUnit.equalsIgnoreCase('Months')) {
+            terminationDate = terminationDate.addMonths(duration);
+        } else if (durationUnit.equalsIgnoreCase('Years')) {
+            terminationDate = terminationDate.addYears(duration);
+        }
+
+        return terminationDate;
     }
 
     public static String getPractitionerCode(String name) {
