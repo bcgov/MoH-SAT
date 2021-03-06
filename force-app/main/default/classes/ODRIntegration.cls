@@ -168,72 +168,63 @@ public with sharing class ODRIntegration {
     }
 
     public static List<SAApprovalRequest> getSAApprovalRequests(SpecialAuthorityRequest sar) {
-        System.debug('---------------------------');
-        System.debug(sar.saCase.Termination_Date__c);
-        System.debug(sar.saCase.Effective_Date__c);
-
         List<SAApprovalRequest> saarList = new List<SAApprovalRequest>();
 
         if (sar.drug != null && sar.drug.Drug_Templates__r != null) {
-          System.debug(sar.drug.Drug_Templates__r.size());
           for (Drug_Template__c drugTemplate : sar.drug.Drug_Templates__r){
               SAApprovalRequest sarBody = new SAApprovalRequest();
               sarBody.requestUUID = getUUIDString();
               sarBody.clientName = 'SpecAuth';
               sarBody.userid = getUserIdentifier();
               sarBody.saRecord.phn = sar.saCase.Patient_Identifier__c;
-              System.debug('SAR');
-              System.debug(sarBody);
 
               if (sar.saCase.Effective_Date__c != null) {
                   sarBody.saRecord.effectiveDate = formatToODRDate(sar.saCase.Effective_Date__c); // Effective Date 3000/01/01
               }
               if (sar.saCase.Termination_Date__c != null) {
-                  sarBody.saRecord.terminationDate = formatToODRDate(sar.saCase.Termination_Date__c); // Termination Date 3000/01/01
+                  Date terminationDate = calculateTerminationDate(
+                    sar.saCase.Effective_Date__c, 
+                    Integer.valueOf(drugTemplate.Duration__c), 
+                    drugTemplate.Duration_Unit__c
+                  );
+
+                  sarBody.saRecord.terminationDate = formatToODRDate(terminationDate);
               }
 
+              sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
               sarBody.saRecord.saRequester.practId    = sar.saCase.Provider__r.Provider_Identifier__c; // 0A0P1
               sarBody.saRecord.saRequester.practIdRef = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
-
-              if (drugTemplate.Key_Type__c == 'RDP') {
-                  sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
-                  // Add the RDP type
-                  sarBody.saRecord.specialItem.rdp = drugtemplate.Pharmanet_Code__c.replaceAll('[^0-9]+', '');
-
-                  // Add excluded plans
-                  List<String> thePlans = drugtemplate.Excluded_Plans__c.split(';');
-                  for (string sPlan: thePlans) {
-                      sarBody.saRecord.excludedPlans.add(sPlan);
-                  }
-
-                  // Add justification codes
-                  List<String> theCodes = drugtemplate.Justification_Codes__c.split(';');
-                  for (string sCode: theCodes) {
-                      sarBody.saRecord.justificationCodes.add(sCode);
-                  }
-
-                  // TODO: Needs a field
-                  sarBody.saRecord.maxDaysSupply = Integer.valueOf(drugtemplate.Days_Supply__c); // 999
-                  // TODO: Needs a field
-                  sarBody.saRecord.maxPricePct = drugtemplate.Price_Percent__c; // 100.0
-
-                  // Loop body
-                  System.debug(drugtemplate.Key_Type__c);
-                  System.debug(drugtemplate.Pharmanet_Code__c);
-                  System.debug(drugtemplate.SA_Type__c);
-              } else if (drugTemplate.Key_Type__c == 'DIN') {
-                  sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
-                  // TODO: DIN never has dashes
-              } else {
-                  // R type
-              }
-              System.debug('sarBody--------------------------------');
-              System.debug(sarBody);
-
+              sarBody.saRecord.maxDaysSupply = Integer.valueOf(drugtemplate.Days_Supply__c);
+              sarBody.saRecord.maxPricePct = drugtemplate.Price_Percent__c;
+              sarBody.saRecord.excludedPlans = drugtemplate.Excluded_Plans__c?.split(';');
+              sarBody.saRecord.justificationCodes = drugtemplate.Justification_Codes__c?.split(';');
+              
+              String dinOrRdp = drugtemplate.Pharmanet_Code__c?.replaceAll('[^0-9]+', '');
+              sarBody.saRecord.specialItem.rdp = drugTemplate.Key_Type__c == 'RDP' ? dinOrRdp : null;
+              sarBody.saRecord.specialItem.din = drugTemplate.Key_Type__c == 'DIN' ? dinOrRdp : null;
+              
               saarList.add(sarBody);
           }
         }
         return saarList;
+    }
+
+    public static Date calculateTerminationDate(Date startDate, Integer duration, String durationUnit) {
+        Date terminationDate = startDate;
+
+        if (String.isBlank(durationUnit) || durationUnit.equalsIgnoreCase('Indefinite')) {
+            terminationDate = Date.newInstance(3000, 1, 1);
+        } else if (durationUnit.equalsIgnoreCase('End of year')) {
+            terminationDate = Date.newInstance(terminationDate.year(), 12, 31);
+        } else if (durationUnit.equalsIgnoreCase('Days')) {
+            terminationDate = terminationDate.addDays(duration);
+        } else if (durationUnit.equalsIgnoreCase('Months')) {
+            terminationDate = terminationDate.addMonths(duration);
+        } else if (durationUnit.equalsIgnoreCase('Years')) {
+            terminationDate = terminationDate.addYears(duration);
+        }
+
+        return terminationDate;
     }
 
     public static String getPractitionerCode(String name) {
