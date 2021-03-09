@@ -19,22 +19,33 @@ public with sharing class ODRIntegration {
 
             p.verifiedDate = Datetime.now();
 
-            String givenName = '';
             String familyName = '';
+            List<String> givenList;
 
             if (p.names != null) {
               for (Integer i = 0;i < p.names.size();i++) {
                 if (p.names[i].type == 'L') {
-                  givenName = p.names[i].givenName;
                   familyName = p.names[i].familyName;
+                  givenList = p.names[i].givenNames.clone();
                 }
               }
+            }
+
+            Boolean bGivenNamesValid = false;
+            // Check if firstname exists in the EMPI given name list somewhere
+            try {
+              if (givenList.contains(sar.saCase.Contact.Account.FirstName.split(' ')[0])) {
+                bGivenNamesValid = true;
+              }
+            } catch (Exception e) {
+              System.debug('Error');
+              System.debug(e);
             }
 
             // Safety Checks
             if (p.deceased
                || !checkValidBirthDate(p.dob, sar.saCase.Patient_Date_of_Birth__c)
-               || sar.saCase.Contact.Account.FirstName.toLowercase() != givenName.toLowercase()
+               || !bGivenNamesValid
                || sar.saCase.Contact.Account.LastName.toLowercase() != familyName.toLowercase())
             {
                 p.verified = false;
