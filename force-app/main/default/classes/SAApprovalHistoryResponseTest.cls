@@ -11,7 +11,9 @@ public class SAApprovalHistoryResponseTest {
       SAApprovalHistoryResponse.SARecords sar = new SAApprovalHistoryResponse.SARecords();
       sar.createdBy = '';
       sar.effectiveDate = '';
+      sar.excludedPlans = new List<String>();
       sar.excludedPlans.add('123');
+      sar.justificationCodes = new List<String>();
       sar.justificationCodes.add('123');
       sar.maxDaysSupply = 25;
       sar.maxPricePct = 100;
