@@ -1,7 +1,7 @@
 public class Patient {
     public class PersonName {
       @AuraEnabled public String familyName {get;set;}
-      @AuraEnabled public String givenName {get;set;}
+      @AuraEnabled public List<String> givenNames {get;set;}
       @AuraEnabled public String type {get;set;}
       @AuraEnabled public Boolean declared {get;set;}
     }
