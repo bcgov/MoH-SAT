@@ -33,8 +33,8 @@ export default class OdrLookup extends LightningElement {
 
     @api
     validate() {
-        let validPrescriber = !this.showPrescriber || (this.prescriber && this.prescriber.verified);
-        let validPatient =  !this.showPatient || (this.patient && this.patient.verified);
+        let validPrescriber = !this.showPrescriber || (this.prescriber && this.prescriber.verified) || this.hasOverride(this.prescriber.overrideReason);
+        let validPatient =  !this.showPatient || (this.patient && this.patient.verified) || this.hasOverride(this.patient.overrideReason);
         let validSubmitter = !this.showSubmitter || 
             (this.submitter === undefined || (this.submitter && this.submitter.verified));
 
@@ -48,4 +48,7 @@ export default class OdrLookup extends LightningElement {
         }
     }
 
+    hasOverride(reason) {
+        return reason && reason != 'None';
+    }
 }

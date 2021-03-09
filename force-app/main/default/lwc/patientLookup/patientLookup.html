@@ -71,7 +71,21 @@
                   <p>{message}</p>
               </div>
           </div>
-      </div>
+        </div>
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size-1_of_3">
+            <lightning-combobox 
+                name="patientOverrideReason"
+                label={patientOverrideReasonLabel}
+                options={patientOverrideReasonOptions}
+                value={odrPatient.overrideReason}
+                data-field="overrideReason"
+                onchange={handleFormChange}
+            ></lightning-combobox>
+          </div>
+          <div class="slds-col slds-size-2_of_3">
+          </div>
+        </div>
     </lightning-card>
 
 </template>

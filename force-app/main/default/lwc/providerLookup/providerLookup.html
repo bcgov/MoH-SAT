@@ -62,6 +62,20 @@
                 </div>
             </div>
         </div>
+        <div if:false={hideOverride} class="slds-grid slds-gutters">
+            <div class="slds-col slds-size-1_of_3">
+                <lightning-combobox 
+                    name="providerOverrideReason"
+                    label={providerOverrideReasonLabel}
+                    options={providerOverrideReasonOptions}
+                    value={provider.overrideReason}
+                    data-field="overrideReason"
+                    onchange={handleFormChange}
+                ></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size-2_of_3">
+            </div>
+        </div>
     </lightning-card>
 
 </template>

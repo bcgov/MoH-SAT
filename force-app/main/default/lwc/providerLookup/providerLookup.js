@@ -2,17 +2,21 @@ import { LightningElement, wire, api } from 'lwc';
 import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
 
 import FLD_PROVIDER_TYPE from '@salesforce/schema/Contact.Provider_Type__c';
+import FLD_PROVIDER_OVERRIDE_REASON from '@salesforce/schema/Case.Prescriber_Override_Reason__c';
 import OBJ_ACCOUNT from '@salesforce/schema/Account';
 import OBJ_CONTACT from '@salesforce/schema/Contact';
+import OBJ_CASE from '@salesforce/schema/Case';
 
 import findProvider from '@salesforce/apex/OdrLookup.findProvider';
-
 export default class ProviderLookup extends LightningElement {
     @api
     title;
 
     @api
     iconName = 'utility:search';
+
+    @api
+    hideOverride = false;
 
     provider = {};
     odrProvider = {};
@@ -23,17 +27,29 @@ export default class ProviderLookup extends LightningElement {
 
     @wire(getObjectInfo, { objectApiName: OBJ_CONTACT })
     contactObjInfo;
+    
+    @wire(getObjectInfo, { objectApiName: OBJ_CASE })
+    caseObjInfo;
 
     @wire(getPicklistValues, { fieldApiName: FLD_PROVIDER_TYPE, recordTypeId: '012000000000000AAA' })
     providerTypeFldInfo;
 
+    @wire(getPicklistValues, { fieldApiName: FLD_PROVIDER_OVERRIDE_REASON, recordTypeId: '012000000000000AAA' })
+    providerOverrideReasonFldInfo;
+
     get ready() {
         return this.contactObjInfo && this.contactObjInfo.data && 
-            this.providerTypeFldInfo && this.providerTypeFldInfo.data;
+            this.caseObjInfo && this.caseObjInfo.data &&
+            this.providerTypeFldInfo && this.providerTypeFldInfo.data &&
+            this.providerOverrideReasonFldInfo && this.providerOverrideReasonFldInfo.data;
     }
 
     get providerTypeOptions() {
         return this.providerTypeFldInfo.data.values;
+    }
+
+    get providerOverrideReasonOptions() {
+        return this.providerOverrideReasonFldInfo.data.values;
     }
 
     get providerTypeLabel() {
@@ -43,6 +59,10 @@ export default class ProviderLookup extends LightningElement {
     get providerIdLabel() {
         return this.contactObjInfo.data.fields['Provider_Identifier__c'].label;
     }
+    
+    get providerOverrideReasonLabel() {
+        return this.caseObjInfo.data.fields['Prescriber_Override_Reason__c'].label;
+    }
 
     get providerRecordTypeId() {
         return Object.values(this.accountObjInfo.data.recordTypeInfos).find(rti => rti.name=='Provider').recordTypeId;
@@ -50,7 +70,9 @@ export default class ProviderLookup extends LightningElement {
 
     handleFormChange(event) {
         this.provider[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
-
+        
+        this.publishChange(this.provider);
+        
         this.template.querySelector('.btn-lookup').disabled 
             = !(this.provider.Provider_Type__pc 
             && this.provider.Provider_Identifier__pc);
@@ -89,7 +111,7 @@ export default class ProviderLookup extends LightningElement {
     }
 
     publishChange(record) {
-        this.dispatchEvent(new CustomEvent('change', { detail: record }));
+        this.dispatchEvent(new CustomEvent('recordchange', { detail: record }));
     }
 
     parseDate(odrDateStr) {

@@ -2,9 +2,11 @@ import { LightningElement, wire, api } from 'lwc';
 import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
 import findPatient from '@salesforce/apex/EmpiLookup.findPatient';
 
+import FLD_PATIENT_OVERRIDE_REASON from '@salesforce/schema/Case.Patient_Override_Reason__c';
+
 import OBJ_ACCOUNT from '@salesforce/schema/Account';
 import OBJ_CONTACT from '@salesforce/schema/Contact';
-import FirstName from '@salesforce/schema/Account.FirstName';
+import OBJ_CASE from '@salesforce/schema/Case';
 
 export default class PatientLookup extends LightningElement {
     @api
@@ -25,12 +27,28 @@ export default class PatientLookup extends LightningElement {
     @wire(getObjectInfo, { objectApiName: OBJ_CONTACT })
     contactObjInfo;
 
+    @wire(getObjectInfo, { objectApiName: OBJ_CASE })
+    caseObjInfo;
+
+    @wire(getPicklistValues, { fieldApiName: FLD_PATIENT_OVERRIDE_REASON, recordTypeId: '012000000000000AAA' })
+    patientOverrideReasonFldInfo;
+
     get ready() {
-        return this.contactObjInfo && this.contactObjInfo.data;
+        return this.contactObjInfo && this.contactObjInfo.data &&
+            this.caseObjInfo && this.caseObjInfo.data &&
+            this.patientOverrideReasonFldInfo && this.patientOverrideReasonFldInfo.data;
     }
 
     get patientIdLabel() {
         return this.contactObjInfo.data.fields['Patient_Identifier__c'].label;
+    }
+
+    get patientOverrideReasonLabel() {
+        return this.caseObjInfo.data.fields['Patient_Override_Reason__c'].label;
+    }
+
+    get patientOverrideReasonOptions() {
+        return this.patientOverrideReasonFldInfo.data.values;
     }
 
     get patientId() {
@@ -43,6 +61,8 @@ export default class PatientLookup extends LightningElement {
 
     handleFormChange(event) {
         this.odrPatient[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
+
+        this.publishChange(this.odrPatient);
 
         this.template.querySelector('.btn-lookup').disabled
             = !this.odrPatient.Patient_Identifier__pc;
@@ -121,7 +141,7 @@ export default class PatientLookup extends LightningElement {
     }
 
     publishChange(record) {
-        this.dispatchEvent(new CustomEvent('change', { detail: record }));
+        this.dispatchEvent(new CustomEvent('recordchange', { detail: record }));
     }
 
     get noRecord() {
