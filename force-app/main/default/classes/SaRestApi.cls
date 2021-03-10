@@ -5,8 +5,13 @@ global with sharing class SaRestApi {
         RestRequest req = RestContext.request;
         
         SpecialAuthorityRequest sar = SarBuilder.build(req.requestBody.toString());
-        
         sar.save();
+
+        Case c = [select Id, CaseNumber from Case where Id = :sar.saCase.Id];
+
+        RestResponse res = RestContext.response;
+        res.statusCode = 201;
+        res.headers.put('X-eForms-Message', c.CaseNumber);
     }
 
     @HttpGet
