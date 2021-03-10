@@ -31,10 +31,17 @@ public with sharing class SarBuilder {
         String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
         drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
 
-        saCase = buildCase(drug.Id, drugLabel, findReferenceNumber(bundle.meta.tag));
+        String refNo = findReferenceNumber(bundle);
+        
+        saCase = buildCase(drug.Id, drugLabel, refNo);
         saCase.Provider_Fax__c = provider.Fax;
         
-        contentVersions.add(buildFile('bundle.json', Blob.valueOf(bundleJsonStr)));
+        contentVersions.add(buildFile(String.format(
+            'bundle{0}.json', new String[] {
+                String.isBlank(refNo) ? '' : '-' + refNo
+            }), 
+            Blob.valueOf(bundleJsonStr)
+        ));
 
         return SpecialAuthorityRequest.build(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
@@ -101,6 +108,8 @@ public with sharing class SarBuilder {
     private static List<Request_Detail__c> buildRequestDetails(List<String> questionIds, List<Eform.Item> qrItems) {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
 
+        if (qrItems == null) return requestDetails;
+        
         for (Eform.Item qri : qrItems) {
             List<String> newQuestionIds = new List<String>(questionIds);
             newQuestionIds.add(qri.linkId);
@@ -156,9 +165,13 @@ public with sharing class SarBuilder {
         return 'No drug found.';
     } 
 
-    private static String findReferenceNumber(List<Eform.Tag> tags) {
+    private static String findReferenceNumber(Eform.Bundle bundle) {
+        List<Eform.Tag> tags = bundle?.meta?.tag;
+        
         String defaultCode = 'No reference number found.';
+        
         if (tags == null) return defaultCode;
+        
         for (Eform.Tag tag : tags) {
             if (tag.system_Z.contains('correlationId')) {
                 defaultCode = tag.code;
