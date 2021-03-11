@@ -1,30 +1,29 @@
 import { LightningElement, api } from 'lwc';
 export default class OdrLookup extends LightningElement {
-    
-    prescriberResult;
-    submitterResult;
-    patientResult;
-
-    prescriberOverrideReason;
-    patientOverrideReason;
-
     @api showPatient;
     @api showPrescriber;
     @api showSubmitter;
 
-    @api
-    availableActions = [];
+    prescriberResult;
+    submitterResult;
+    patientResult;
+    @api patient;
+    @api prescriber;
+    @api submitter;
 
     handlePrescriber(event) {
         this.prescriberResult = event.detail;
+        this.prescriber = this.prescriberResult?.sobject;
     }
     
     handleSubmitter(event) {
         this.submitterResult = event.detail;
+        this.submitter = this.submitterResult.sobject;
     }
     
     handlePatient(event) {
         this.patientResult = event.detail;
+        this.patient = this.patientResult.sobject;
     }
 
     @api
@@ -35,21 +34,6 @@ export default class OdrLookup extends LightningElement {
             isValid: allowNext,
             errorMessage: allowNext ? undefined : 'Missing or invalid prescriber, submitter, or patient lookup.'
         }
-    }
-
-    @api
-    get prescriber() {
-        return this.prescriberResult.sobject;
-    }
-    
-    @api
-    get submitter() {
-        return this.submitterResult?.sobject;
-    }
-
-    @api
-    get patient() {
-        return this.patientResult.sobject;
     }
 
     isPrescriberValid() {
