@@ -10,10 +10,13 @@ export default class OdrLookup extends LightningElement {
     @api patient;
     @api prescriber;
     @api submitter;
+    @api patientOverrideReason;
+    @api prescriberOverrideReason;
 
     handlePrescriber(event) {
         this.prescriberResult = event.detail;
         this.prescriber = this.prescriberResult?.sobject;
+        this.prescriberOverrideReason = this.prescriberResult?.overrideReason;
     }
     
     handleSubmitter(event) {
@@ -24,6 +27,7 @@ export default class OdrLookup extends LightningElement {
     handlePatient(event) {
         this.patientResult = event.detail;
         this.patient = this.patientResult.sobject;
+        this.patientOverrideReason = this.patientResult?.overrideReason;
     }
 
     @api
