@@ -2,12 +2,12 @@
     <lightning-card if:true={ready} title={title} icon-name={iconName} variant="narrow">
         <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
             <div class="slds-col slds-size-1_of_2">
-                <lightning-input 
-                    name="patientIdentifier" 
+                <lightning-input  
                     type="text" 
                     label={patientIdLabel}
-                    value={odrPatient.Patient_Identifier__pc}
-                    data-field="Patient_Identifier__pc"
+                    value={form.patientIdentifier}
+                    data-field="patientIdentifier"
+                    class="patientIdentifier"
                     onchange={handleFormChange}
                     required
                 ></lightning-input>
@@ -24,7 +24,7 @@
             </div>
         </div> 
         <div if:true={hasData} class="slds-grid slds-gutters">
-          <template for:each={odrPatient.Names} for:item="item">
+          <template for:each={form.Names} for:item="item">
             <div key={item.type} class="slds-m-vertical_small">
               <div class="slds-col slds-form-element">
                   <span if:true={item.declared} class="slds-form-element__label">Declared Name</span>
@@ -40,19 +40,19 @@
           <div class="slds-col slds-form-element">
               <span class="slds-form-element__label">Birthdate</span>
               <div class="slds-form-element__control">
-                <div class="slds-form-element__static"><lightning-formatted-date-time value={odrPatient.PersonBirthdate}></lightning-formatted-date-time></div>
+                <div class="slds-form-element__static"><lightning-formatted-date-time value={form.PersonBirthdate}></lightning-formatted-date-time></div>
               </div>
           </div>
           <div class="slds-col slds-form-element">
               <span class="slds-form-element__label">Gender</span>
               <div class="slds-form-element__control">
-                <div class="slds-form-element__static">{odrPatient.Gender}</div>
+                <div class="slds-form-element__static">{form.Gender}</div>
               </div>
           </div>
           <div class="slds-col slds-form-element">
               <span class="slds-form-element__label">Deceased</span>
               <div class="slds-form-element__control">
-                <div class="slds-form-element__static">{odrPatient.Deceased}</div>
+                <div class="slds-form-element__static">{form.Deceased}</div>
               </div>
           </div>
         </div>
@@ -75,10 +75,9 @@
         <div class="slds-grid slds-gutters">
           <div class="slds-col slds-size-1_of_3">
             <lightning-combobox 
-                name="patientOverrideReason"
                 label={patientOverrideReasonLabel}
                 options={patientOverrideReasonOptions}
-                value={odrPatient.overrideReason}
+                value={form.overrideReason}
                 data-field="overrideReason"
                 onchange={handleFormChange}
             ></lightning-combobox>

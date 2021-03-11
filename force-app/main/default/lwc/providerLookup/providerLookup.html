@@ -3,23 +3,23 @@
         <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
             <div class="slds-col slds-size-1_of_3">
                 <lightning-combobox 
-                    name="providerType"
                     label={providerTypeLabel}
                     options={providerTypeOptions}
-                    value={provider.Provider_Type__pc}
-                    data-field="Provider_Type__pc"
+                    value={form.providerIdType}
+                    data-field="providerIdType"
                     onchange={handleFormChange}
+                    class="providerIdType"
                     required
                 ></lightning-combobox>
             </div>
             <div class="slds-col slds-size-1_of_3">
                 <lightning-input 
-                    name="providerIdentifier" 
                     type="text" 
                     label={providerIdLabel}
-                    value={provider.Provider_Identifier__pc}
-                    data-field="Provider_Identifier__pc"
+                    value={form.providerIdentifier}
+                    data-field="providerIdentifier"
                     onchange={handleFormChange}
+                    class="providerIdentifier"
                     required
                 ></lightning-input>
             </div>
@@ -34,23 +34,23 @@
                 </lightning-button>
             </div>
         </div> 
-        <div if:true={odrProvider.verified} class="slds-grid slds-gutters">
+        <div if:true={form.verified} class="slds-grid slds-gutters">
             <div class="slds-col slds-form-element">
                 <span class="slds-form-element__label">Status</span>
                 <div class="slds-form-element__control">
-                  <div class="slds-form-element__static"><span class="slds-text-title_bold"><span class={statusCss}>{provider.statusHumanReadable}</span></span></div>
+                  <div class="slds-form-element__static"><span class="slds-text-title_bold"><span class={statusCss}>{form.statusHumanReadable}</span></span></div>
                 </div>
             </div>
             <div class="slds-col slds-form-element">
                 <span class="slds-form-element__label">Name</span>
                 <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{provider.LastName}, {provider.FirstName}</div>
+                  <div class="slds-form-element__static">{form.lastName}, {form.firstName}</div>
                 </div>
             </div>
             <div class="slds-col slds-form-element">
                 <span class="slds-form-element__label">Birthdate</span>
                 <div class="slds-form-element__control">
-                  <div class="slds-form-element__static"><lightning-formatted-date-time value={provider.PersonBirthdate}></lightning-formatted-date-time></div>
+                  <div class="slds-form-element__static"><lightning-formatted-date-time value={form.personBirthdate}></lightning-formatted-date-time></div>
                 </div>
             </div>
         </div>
@@ -65,10 +65,9 @@
         <div if:false={hideOverride} class="slds-grid slds-gutters">
             <div class="slds-col slds-size-1_of_3">
                 <lightning-combobox 
-                    name="providerOverrideReason"
                     label={providerOverrideReasonLabel}
                     options={providerOverrideReasonOptions}
-                    value={provider.overrideReason}
+                    value={form.overrideReason}
                     data-field="overrideReason"
                     onchange={handleFormChange}
                 ></lightning-combobox>

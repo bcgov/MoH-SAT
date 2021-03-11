@@ -1,16 +1,12 @@
-import { LightningElement, api} from 'lwc';
-import { FlowAttributeChangeEvent, FlowNavigationNextEvent } from 'lightning/flowSupport';
-
+import { LightningElement, api } from 'lwc';
 export default class OdrLookup extends LightningElement {
     
-    @api
-    prescriber;
+    prescriberResult;
+    submitterResult;
+    patientResult;
 
-    @api
-    submitter;
-
-    @api
-    patient;
+    prescriberOverrideReason;
+    patientOverrideReason;
 
     @api showPatient;
     @api showPrescriber;
@@ -20,32 +16,52 @@ export default class OdrLookup extends LightningElement {
     availableActions = [];
 
     handlePrescriber(event) {
-        this.prescriber = event.detail;
+        this.prescriberResult = event.detail;
     }
     
     handleSubmitter(event) {
-        this.submitter = event.detail;
+        this.submitterResult = event.detail;
     }
-
+    
     handlePatient(event) {
-        this.patient = event.detail;
+        this.patientResult = event.detail;
     }
 
     @api
     validate() {
-        let validPrescriber = !this.showPrescriber || (this.prescriber && this.prescriber.verified) || this.hasOverride(this.prescriber.overrideReason);
-        let validPatient =  !this.showPatient || (this.patient && this.patient.verified) || this.hasOverride(this.patient.overrideReason);
-        let validSubmitter = !this.showSubmitter || 
-            (this.submitter === undefined || (this.submitter && this.submitter.verified));
-
-        let flowHasNext = this.availableActions.find(action => action === 'NEXT');
-
-        const allowNext = validPrescriber && validPatient && validSubmitter && flowHasNext;
+        const allowNext = this.isPrescriberValid() && this.isPatientValid() && this.isSubmitterValid();
 
         return {
             isValid: allowNext,
             errorMessage: allowNext ? undefined : 'Missing or invalid prescriber, submitter, or patient lookup.'
         }
+    }
+
+    @api
+    get prescriber() {
+        return this.prescriberResult.sobject;
+    }
+    
+    @api
+    get submitter() {
+        return this.submitterResult?.sobject;
+    }
+
+    @api
+    get patient() {
+        return this.patientResult.sobject;
+    }
+
+    isPrescriberValid() {
+        return !this.showPrescriber || (this.prescriber && this.prescriberResult.verified) || this.hasOverride(this.prescriberResult.overrideReason);
+    }
+
+    isPatientValid() {
+        return !this.showPatient || (this.patient && this.patientResult.verified) || this.hasOverride(this.patientResult.overrideReason);
+    }
+
+    isSubmitterValid() {
+        return !this.showSubmitter || (this.submitter === undefined || (this.submitter && this.submitterResult.verified));
     }
 
     hasOverride(reason) {

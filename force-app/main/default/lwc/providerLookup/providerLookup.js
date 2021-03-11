@@ -18,9 +18,7 @@ export default class ProviderLookup extends LightningElement {
     @api
     hideOverride = false;
 
-    provider = {};
-    odrProvider = {};
-    hasOdrProvider;
+    form = {};
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
     accountObjInfo;
@@ -64,54 +62,75 @@ export default class ProviderLookup extends LightningElement {
         return this.caseObjInfo.data.fields['Prescriber_Override_Reason__c'].label;
     }
 
+    get providerId() {
+        return this.template.querySelector('.providerIdentifier').value;
+    }
+
+    get providerIdType() {
+        return this.template.querySelector('.providerIdType').value;
+    }
+
     get providerRecordTypeId() {
         return Object.values(this.accountObjInfo.data.recordTypeInfos).find(rti => rti.name=='Provider').recordTypeId;
     }
 
     handleFormChange(event) {
-        this.provider[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
-        
-        this.publishChange(this.provider);
-        
+        if (event.currentTarget.dataset.field == 'overrideReason') {
+            this.form[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
+            this.publishChange(this.form);
+        }
+
         this.template.querySelector('.btn-lookup').disabled 
-            = !(this.provider.Provider_Type__pc 
-            && this.provider.Provider_Identifier__pc);
+            = !(this.providerId && this.providerIdType);
     }
 
     async handleLookup() {
         this.template.querySelector('.btn-lookup').disabled = true;
         
-        this.odrProvider = {};
-
-        this.provider = {
-            RecordTypeId: this.providerRecordTypeId,
-            Provider_Identifier__pc: this.provider.Provider_Identifier__pc,
-            Provider_Type__pc: this.provider.Provider_Type__pc
-        };
-
-        this.odrProvider = await findProvider({
-            providerId: this.provider.Provider_Identifier__pc,
-            providerType: this.provider.Provider_Type__pc,
+        let odrProvider = await findProvider({
+            providerId: this.providerId,
+            providerType: this.providerIdType,
         });
         
-        this.hasOdrProvider = this.odrProvider && this.odrProvider.hasOwnProperty('status');
-
-        this.provider = {
-            FirstName: this.odrProvider.firstName,
-            LastName: this.odrProvider.lastName,
-            PersonBirthdate: this.parseDate(this.odrProvider.dateofBirth),
-            verified: this.odrProvider.status == 'P',
-            statusHumanReadable: this.odrProvider.status == 'P' ? 'Practicing' : 'Non-Practicing',
-            ...this.provider
+        this.resetForm();
+        
+        this.form = {
+            firstName: odrProvider.firstName,
+            lastName: odrProvider.lastName,
+            personBirthdate: this.parseDate(odrProvider.dateofBirth),
+            status: odrProvider.status,
+            verified: odrProvider.status == 'P',
+            statusHumanReadable: odrProvider.status == 'P' ? 'Practicing' : 'Non-Practicing',
+            ...this.form
         }
 
-        this.publishChange(this.provider);
+        this.publishChange(this.form);
                 
         this.template.querySelector('.btn-lookup').disabled = false;
     }
 
-    publishChange(record) {
-        this.dispatchEvent(new CustomEvent('recordchange', { detail: record }));
+    publishChange(form) {
+        let result = {
+            overrideReason: form.overrideReason,
+            verified: form.verified,
+            sobject : {
+                RecordTypeId: this.providerRecordTypeId,
+                Provider_Identifier__pc: form.providerIdentifier,
+                Provider_Type__pc: this.form.providerIdType,
+                FirstName: form.firstName,
+                LastName: form.lastName,
+                PersonBirthdate: form.personBirthdate,
+            }
+        }
+        this.dispatchEvent(new CustomEvent('result', { detail: result }));
+    }
+
+    resetForm() {
+        this.form = {
+            providerIdentifier: this.providerId,
+            providerIdType: this.providerIdType,
+            overrideReason: null
+        }
     }
 
     parseDate(odrDateStr) {
@@ -121,12 +140,12 @@ export default class ProviderLookup extends LightningElement {
     }
 
     get statusCss() {
-        return this.odrProvider.status == 'P' 
+        return this.form.status == 'P' 
             ? 'slds-text-color_success' 
             : 'slds-text-color_error';
     }
 
     get noRecord() {
-        return this.odrProvider && this.odrProvider.verified === false;
+        return this.form && this.form.verified === false;
     }
 }
