@@ -1,5 +1,5 @@
 name: Build Check
-on: [pull_request]
+on: [pull_request_target]
 
 jobs:
   build-check:
@@ -17,11 +17,6 @@ jobs:
         npm install sfdx-cli
         node_modules/sfdx-cli/bin/run --version
         node_modules/sfdx-cli/bin/run plugins --core
-
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
 
     - name: Authenticate DevHub
       run: |
