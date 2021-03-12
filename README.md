@@ -2,7 +2,7 @@
 
 # Special Authority Transformation
 
-## Developer setup 
+## Developer setup
 This requires [SFDX CLI](https://developer.salesforce.com/tools/sfdxcli) installed and authenticated with a DevHub org with the alias, `devhub`.
 
 ```
