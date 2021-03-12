@@ -49,7 +49,7 @@ export default class ProviderLookup extends LightningElement {
     }
 
     handleFormChange(event) {
-        this.provider[event.currentTarget.dataset.field] = event.target.value;
+        this.provider[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
 
         this.template.querySelector('.btn-lookup').disabled 
             = !(this.provider.Provider_Type__pc 

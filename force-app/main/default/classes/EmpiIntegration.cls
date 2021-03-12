@@ -1,6 +1,10 @@
 public with sharing class EmpiIntegration {
 
     public static Patient getPatient(String phn) {
+        String patientPHN = '';
+        if (phn != null) {
+          patientPHN = phn.deleteWhitespace();
+        }
         Empi.II id;
         Empi.TS creationTime;
         Empi.CS versionCode;
