@@ -75,19 +75,25 @@
                 <label>Patient has experienced angioedema on an Angiotensin Converting Enzyme Inhibitor (ACE-I). Full coverage will be provided for all First Line ARBs</label>
             </value>
             <value>
-                <fullName>Cough</fullName>
-                <default>false</default>
-                <label>Cough</label>
-            </value>
-            <value>
                 <fullName>Cough or angioedema AND patient is currently taking stable doses of telmisartan and amlodipine</fullName>
                 <default>false</default>
                 <label>Cough or angioedema AND patient is currently taking stable doses of telmisartan and amlodipine</label>
             </value>
             <value>
+                <fullName>Patient has experienced intractable cough on an Angiotensin Converting Enzyme Inhibitor (ACE-I) OR Patient has experienced angioedema on an Angiotensin Converting Enzyme Inhibitor (ACE-I). Full coverage will be provided for all First Line ARBs.</fullName>
+                <default>false</default>
+                <label>Patient has experienced intractable cough on an Angiotensin Converting Enzyme Inhibitor (ACE-I) OR Patient has experienced angioedema on an Angiotensin Converting Enzyme Inhibitor (ACE-I). Full coverage will be provided for all First Line ARBs.</label>
+            </value>
+            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>
+            </value>
+            <value>
+                <fullName>Cough</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cough</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -162,6 +168,13 @@
             <controllingFieldValue>Telmisartan</controllingFieldValue>
             <controllingFieldValue>Valsartan</controllingFieldValue>
             <valueName>Patient has experienced angioedema on an Angiotensin Converting Enzyme Inhibitor (ACE-I). Full coverage will be provided for all First Line ARBs</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Candesartan</controllingFieldValue>
+            <controllingFieldValue>Losartan</controllingFieldValue>
+            <controllingFieldValue>Telmisartan</controllingFieldValue>
+            <controllingFieldValue>Valsartan</controllingFieldValue>
+            <valueName>Patient has experienced intractable cough on an Angiotensin Converting Enzyme Inhibitor (ACE-I) OR Patient has experienced angioedema on an Angiotensin Converting Enzyme Inhibitor (ACE-I). Full coverage will be provided for all First Line ARBs.</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
