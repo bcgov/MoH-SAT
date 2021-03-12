@@ -42,7 +42,7 @@ export default class PatientLookup extends LightningElement {
     }
 
     handleFormChange(event) {
-        this.odrPatient[event.currentTarget.dataset.field] = event.target.value;
+        this.odrPatient[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
 
         this.template.querySelector('.btn-lookup').disabled
             = !this.odrPatient.Patient_Identifier__pc;

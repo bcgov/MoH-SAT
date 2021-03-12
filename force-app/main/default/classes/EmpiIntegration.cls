@@ -87,7 +87,7 @@ public with sharing class EmpiIntegration {
         controlActProcess.queryByParameter.queryByParameterPayload.person_id = new Empi.HCIM_IN_GetDemographics_Person_id();
         controlActProcess.queryByParameter.queryByParameterPayload.person_id.value = new Empi.II();
         controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.root = '2.16.840.1.113883.3.51.1.1.6.1';
-        controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.extension = phn;
+        controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.extension = phn.deleteWhitespace();
         controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.assigningAuthorityName = 'MOH_CRS';
         
         Empi.QUPA_AR101102_Port stub = new Empi.QUPA_AR101102_Port();
