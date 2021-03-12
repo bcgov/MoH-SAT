@@ -17,7 +17,11 @@ export default class PatientLookup extends LightningElement {
 
     completeAndNoResults = false;
     hasData = false;
-    form = {};
+    
+    form = {
+        overrideReason: 'None'
+    };
+
     message = '';
     messageExists = false;
 
@@ -140,7 +144,7 @@ export default class PatientLookup extends LightningElement {
     resetForm() {
         this.form = {
             patientIdentifier: this.patientId,
-            overrideReason: null
+            overrideReason: 'None'
         }
     }
 

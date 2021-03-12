@@ -18,7 +18,9 @@ export default class ProviderLookup extends LightningElement {
     @api
     hideOverride = false;
 
-    form = {};
+    form = {
+        overrideReason: 'None'
+    };
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
     accountObjInfo;
@@ -129,7 +131,7 @@ export default class ProviderLookup extends LightningElement {
         this.form = {
             providerIdentifier: this.providerId,
             providerIdType: this.providerIdType,
-            overrideReason: null
+            overrideReason: 'None'
         }
     }
 
