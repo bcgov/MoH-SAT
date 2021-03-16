@@ -3,16 +3,21 @@ import fetchPrescriptionHistory from '@salesforce/apex/ODRIntegration.fetchPresc
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
-  { label: 'Pharmacy', fieldName: 'dispensingPharmacyName', type: 'text',  initialWidth: 120, hideDefaultActions: true },
+  { label: 'RxNo', fieldName: 'rxNumber', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'DIN', fieldName: 'dinpin', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Name', fieldName: 'genericName', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Strength', fieldName: 'drugStrength', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
+  { label: 'Quantity', fieldName: 'quantity', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Refills', fieldName: 'refills', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'DINPIN', fieldName: 'dinpin', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Pharmacy', fieldName: 'dispensingPharmacyName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'Direction', fieldName: 'directions', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
-  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
-  // { label: 'Upload', type: 'fileUpload', fieldName: 'Id', typeAttributes: { acceptedFormats: '.jpg,.jpeg,.pdf,.png' } }
+  // Claims History** not available
+  { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
+  { label: 'Strength', fieldName: 'drugStrength', type: 'text', wrapText: true, hideDefaultActions: true },
+  // Pract id/contact/details
+  // Adverse
 ];
 
 export default class PharmanetHistory extends LightningElement {
@@ -104,7 +109,13 @@ export default class PharmanetHistory extends LightningElement {
           records.forEach(record => {
             let item = {};
 
-            item['dispensingPharmacyName'] = record.dispensingPharmacy.name;
+            item['rxNumber'] = record.rxNumber;
+            item['quantity'] = record.quantity;
+            item['refills'] = record.refills;
+            item['dispensingPharmacyName'] = record.dispensingPharmacy.pharmacyId
+              + ", " + record.dispensingPharmacy.name
+              + ", T:" + record.dispensingPharmacy.phoneNumber
+              + ", F:" + record.dispensingPharmacy.faxNumber;
             item['dateDispensed'] = record.dateDispensed;
             item['dinpin'] = record.dinpin;
             item['genericName'] = record.genericName;
@@ -113,7 +124,10 @@ export default class PharmanetHistory extends LightningElement {
             item['daysSupply'] = record.daysSupply;
             // cost claimed  N/A
             // cost accepted N/A
-            item['prescriberName'] = record.prescriberInfo.name;
+            item['prescriberName'] = record.prescriberInfo.name + ", "
+            + ", " + record.prescriberInfo.licenseNo
+            + ", T:" + record.prescriberInfo.phoneNumber
+            + ", F:" + record.prescriberInfo.faxNumber;
             // benefit plan N/A
             item['rxStatus'] = record.rxStatus;
             dataArray.push(item);
