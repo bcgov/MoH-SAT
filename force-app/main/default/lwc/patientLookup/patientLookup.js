@@ -2,9 +2,11 @@ import { LightningElement, wire, api } from 'lwc';
 import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
 import findPatient from '@salesforce/apex/EmpiLookup.findPatient';
 
+import FLD_PATIENT_OVERRIDE_REASON from '@salesforce/schema/Case.Patient_Override_Reason__c';
+
 import OBJ_ACCOUNT from '@salesforce/schema/Account';
 import OBJ_CONTACT from '@salesforce/schema/Contact';
-import FirstName from '@salesforce/schema/Account.FirstName';
+import OBJ_CASE from '@salesforce/schema/Case';
 
 export default class PatientLookup extends LightningElement {
     @api
@@ -15,7 +17,11 @@ export default class PatientLookup extends LightningElement {
 
     completeAndNoResults = false;
     hasData = false;
-    odrPatient = {};
+    
+    form = {
+        overrideReason: 'None'
+    };
+
     message = '';
     messageExists = false;
 
@@ -25,16 +31,32 @@ export default class PatientLookup extends LightningElement {
     @wire(getObjectInfo, { objectApiName: OBJ_CONTACT })
     contactObjInfo;
 
+    @wire(getObjectInfo, { objectApiName: OBJ_CASE })
+    caseObjInfo;
+
+    @wire(getPicklistValues, { fieldApiName: FLD_PATIENT_OVERRIDE_REASON, recordTypeId: '012000000000000AAA' })
+    patientOverrideReasonFldInfo;
+
     get ready() {
-        return this.contactObjInfo && this.contactObjInfo.data;
+        return this.contactObjInfo && this.contactObjInfo.data &&
+            this.caseObjInfo && this.caseObjInfo.data &&
+            this.patientOverrideReasonFldInfo && this.patientOverrideReasonFldInfo.data;
     }
 
     get patientIdLabel() {
         return this.contactObjInfo.data.fields['Patient_Identifier__c'].label;
     }
 
+    get patientOverrideReasonLabel() {
+        return this.caseObjInfo.data.fields['Patient_Override_Reason__c'].label;
+    }
+
+    get patientOverrideReasonOptions() {
+        return this.patientOverrideReasonFldInfo.data.values;
+    }
+
     get patientId() {
-        return this.template.querySelector('.fld-patientId').value;
+        return this.template.querySelector('.patientIdentifier').value;
     }
 
     get patientRecordTypeId() {
@@ -42,10 +64,12 @@ export default class PatientLookup extends LightningElement {
     }
 
     handleFormChange(event) {
-        this.odrPatient[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
-
-        this.template.querySelector('.btn-lookup').disabled
-            = !this.odrPatient.Patient_Identifier__pc;
+        if (event.currentTarget.dataset.field == 'overrideReason') {
+            this.form[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
+            this.publishChange(this.form);
+        }
+        
+        this.template.querySelector('.btn-lookup').disabled = !this.patientId
     }
 
     async handleLookup() {
@@ -53,14 +77,11 @@ export default class PatientLookup extends LightningElement {
         this.completeAndNoResults = false;
         this.template.querySelector('.btn-lookup').disabled = true;
 
-        this.odrPatient = {
-            RecordTypeId: this.patientRecordTypeId,
-            Patient_Identifier__pc: this.odrPatient.Patient_Identifier__pc
-        };
-
         this.patientProvider = await findPatient({
-            phn: this.odrPatient.Patient_Identifier__pc,
+            phn: this.patientId
         });
+
+        this.resetForm();
 
         this.message = this.patientProvider.notes;
 
@@ -92,7 +113,7 @@ export default class PatientLookup extends LightningElement {
             // Pack in the names.
             let FirstName = "";
             let LastName = "";
-            await this.patientProvider.names.forEach(async element => {
+            this.patientProvider.names.forEach(element => {
               if (element.type == 'L') {
                 LastName = element.familyName;
 
@@ -103,7 +124,7 @@ export default class PatientLookup extends LightningElement {
               }
             });
             // Detect masked
-            this.odrPatient = {
+            this.form = {
                 FirstName: FirstName, // Always pick their L name
                 LastName: LastName, // Always pick their L name
                 Names: this.patientProvider.names,
@@ -111,17 +132,36 @@ export default class PatientLookup extends LightningElement {
                 Deceased: this.patientProvider.deceased == true ? 'Yes' : 'No',
                 PersonBirthdate: this.patientProvider.dob,
                 verified: true,
-                ...this.odrPatient
+                ...this.form
             }
         }
 
-        this.publishChange(this.odrPatient);
+        this.publishChange(this.form);
 
         this.template.querySelector('.btn-lookup').disabled = false;
     }
 
-    publishChange(record) {
-        this.dispatchEvent(new CustomEvent('change', { detail: record }));
+    resetForm() {
+        this.form = {
+            patientIdentifier: this.patientId,
+            overrideReason: 'None'
+        }
+    }
+
+    publishChange(form) {
+        let result = {
+            overrideReason: form.overrideReason,
+            verified: form.verified,
+            sobject : {
+                RecordTypeId: this.patientRecordTypeId,
+                Patient_Identifier__pc: form.patientIdentifier,
+                FirstName: form.FirstName,
+                LastName: form.LastName,
+                Patient_is_Deceased__c: form.Deceased,
+                PersonBirthdate: form.PersonBirthdate            
+            }
+        }
+        this.dispatchEvent(new CustomEvent('result', { detail: result }));
     }
 
     get noRecord() {

@@ -1,11 +1,11 @@
 <template>
     <div if:true={showPrescriber} class="slds-box slds-box_x-small slds-m-vertical_small">
-        <c-provider-lookup onchange={handlePrescriber} title="Prescriber lookup" icon-name="utility:einstein"></c-provider-lookup>
+        <c-provider-lookup onresult={handlePrescriber} title="Prescriber lookup" icon-name="utility:einstein"></c-provider-lookup>
     </div>
     <div if:true={showPatient} class="slds-box slds-box_x-small slds-m-vertical_small">
-        <c-patient-lookup onchange={handlePatient} title="Patient lookup" icon-name="utility:user"></c-patient-lookup>
+        <c-patient-lookup onresult={handlePatient} title="Patient lookup" icon-name="utility:user"></c-patient-lookup>
     </div>
     <div if:true={showSubmitter} class="slds-box slds-box_x-small slds-m-vertical_small">
-        <c-provider-lookup onchange={handleSubmitter} title="Submitter lookup (Optional)" icon-name="utility:copy_to_clipboard"></c-provider-lookup>
+        <c-provider-lookup onresult={handleSubmitter} title="Submitter lookup (Optional)" icon-name="utility:copy_to_clipboard" hide-override></c-provider-lookup>
     </div>
 </template>
