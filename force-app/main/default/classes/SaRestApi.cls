@@ -18,10 +18,12 @@ global with sharing class SaRestApi {
     global static HealthGateway.SaList doGet() {
         RestRequest req = RestContext.request;
 
-        String patientIdentifier = req.headers.get('phn');
-        
         HealthGateway.SaList payload = new HealthGateway.SaList();
         payload.items = new List<HealthGateway.SaItem>();
+
+        String patientIdentifier = req.headers.get('phn');
+        
+        if (String.isBlank(patientIdentifier)) return payload;
 
         for (Case c : queryCases(patientIdentifier)) {
             payload.items.add(new HealthGateway.SaItem(c));
