@@ -1,5 +1,5 @@
 public with sharing class RequestDetails {
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static List<Request_Detail__c> getRequestDetails(Id caseId){
         return [
             select

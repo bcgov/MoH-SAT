@@ -1,0 +1,32 @@
+<template>
+    <template if:true={isString}>
+        <lightning-formatted-text value={record.String_Value__c}></lightning-formatted-text>
+    </template>
+    <template if:true={isDatetime}>
+        <lightning-formatted-date-time 
+            value={record.Datetime_Value__c}
+            month="long"
+            day="numeric"
+            year="numeric"
+            hour="numeric"
+            minute="numeric"
+            second="numeric"
+        ></lightning-formatted-date-time>
+    </template>
+    <template if:true={isDate}>
+        <lightning-formatted-date-time 
+            value={record.Date_Value__c}
+            month="long"
+            day="numeric"
+            year="numeric"
+        ></lightning-formatted-date-time>
+    </template>
+    <template if:true={isDecimal}>
+        <lightning-formatted-number 
+            value={record.Decimal_Value__c}
+        ></lightning-formatted-number>
+    </template>
+    <template if:true={isBoolean}>
+        <lightning-input type="checkbox" checked={record.Boolean_Value__c} disabled></lightning-input>
+    </template>
+</template>
