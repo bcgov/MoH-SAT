@@ -118,7 +118,7 @@ export default class PatientLookup extends LightningElement {
                 LastName = element.familyName;
 
                 // Now pluck the given names
-                await element.givenNames.forEach(async given => {
+                element.givenNames.forEach(given => {
                   FirstName += given + ", ";
                 });
               }
