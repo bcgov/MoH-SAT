@@ -6,12 +6,20 @@
         &nbsp;Prescription History
     </h3>
   </lightning-card>
-  &nbsp;
   <!-- IF RESULTS -->
   <lightning-card if:true={hasResults}>
     <div class="slds-m-top_x-small slds-m-bottom_medium">
       <lightning-layout>
-        <lightning-layout-item padding="slds-p-left_none">
+        <lightning-layout-item padding="slds-p-left_none horizontal-medium">
+          <lightning-combobox
+            name="count"
+            label="Filter by Product Health Category"
+            value={value}
+            placeholder="None"
+            options={categories}
+            onchange={handlephcFilterChange} ></lightning-combobox>
+        </lightning-layout-item>
+        <lightning-layout-item padding="horizontal-medium">
           <lightning-combobox
             name="count"
             label="Results to show"
