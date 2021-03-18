@@ -1,0 +1,186 @@
+public with sharing class InterfaxIntegration {
+    public InterfaxIntegration() {
+    }
+
+
+    /*
+         Send outbound Fax
+         URI: POST URI: GET https://rest.interfax.net/outbound/faxes?faxNumber={faxNumber}
+         Add application/pdf attachement as BLOB
+         Return FaxID if success or ERROR
+    */
+    public static String sendFax(Id recordId, String faxNumber, String content, String integrationName) {
+        
+        String result;
+        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('callout:Interfax/outbound/faxes?faxNumber='+faxNumber);
+        req.setMethod('POST');
+        req.setBodyAsBlob(Blob.toPdf(content));
+        req.setHeader('Content-Type', 'application/pdf');
+        
+        Http http = new Http();
+
+        HTTPResponse res = http.send(req);
+
+        if (res.getStatusCode() == 201) {
+                result = res.getHeader('Location').Substring(res.getHeader('Location').LastIndexOf('/')+1);             
+                loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                        message__c='Success',
+                                                        caseId__c=recordId,
+                                                        type__c=integrationName));
+                EventBus.publish(loggingEvents);
+            } else {
+                loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                        message__c=getJSONVariable('message',res.getBody()),
+                                                        caseId__c=recordId,
+                                                        type__c=integrationName));
+                result = 'ERROR CODE:'+res.getStatusCode()+' ERROR MESSAGE:'+getJSONVariable('message',res.getBody());
+            }
+    return result;
+    }
+
+    /*
+        Get Outbound Fax Status by ID
+        URI: GET https://rest.interfax.net/outbound/faxes/{faxid}
+        Return Status: 0= OK; less than 0 = in process; greater than 0 = Error
+    */
+    public static String getFaxOutboundStatus(Id recordid, String faxid, String integrationName) {
+
+        String result;
+        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('callout:Interfax/outbound/faxes/'+faxid);
+        req.setMethod('GET');
+
+        Http http = new Http();
+        HTTPResponse res = http.send(req);
+
+        if (res.getStatusCode() == 200) {
+            result = getJSONVariable('status', res.getBody());
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c='Success',
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+            EventBus.publish(loggingEvents);
+        } else {
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c=getJSONVariable('message',res.getBody()),
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+            result = 'ERROR CODE:'+res.getStatusCode()+' ERROR MESSAGE:'+getJSONVariable('message',res.getBody());
+        }
+
+        return result;
+
+    }
+
+    /*
+        Get unread Inbound faxes
+        URI: GET https://rest.interfax.net/inbound/faxes?unreadOnly=true
+        return List of InterFaxJSON.InboundFaxDetail objects
+    */
+    public static List<InterFaxJSON.InboundFaxDetail> getInboundFaxes(Id recordId, String integrationName) { 
+
+        List<InterFaxJSON.InboundFaxDetail > listInboundFaxes = new List<InterFaxJSON.InboundFaxDetail>();
+        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('callout:Interfax/inbound/faxes?unreadOnly=true');
+        req.setMethod('GET');
+
+        Http http = new Http();
+        HTTPResponse res = http.send(req);       
+        
+        if(res.getStatusCode() == 200) {
+            listInboundFaxes = InterFaxJSON.parseInboundFaxDetail(res.getBody());
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c='Success',
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+        } else {
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c=getJSONVariable('message',res.getBody()),
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+        }
+
+        return listInboundFaxes;
+    }
+
+
+    /*
+        Mark faxes as read
+        URI: GET https://rest.interfax.net/inbound/faxes/{faxid}/mark
+    */
+    public static void markFaxAsRead(Id recordid, String faxid, String integrationName) {
+        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('callout:Interfax/inbound/faxes/'+faxId+'/mark');
+        req.setMethod('POST');
+
+        Http http = new Http();
+        HTTPResponse res = http.send(req);       
+
+        if(res.getStatusCode() == 200) {
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c='Success',
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+        } else {
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c=getJSONVariable('message',res.getBody()),
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+        }
+    }
+
+    
+    /*
+        Get faxes image
+        URI: GET https://rest.interfax.net/inbound/faxes/{faxid}/image
+        return: BLOB
+    */
+    public static Blob getFaxImage(Id recordid, String faxid, String integrationName){
+        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+
+        Blob faxImage;
+
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('callout:Interfax/inbound/faxes/'+faxId+'/image');
+        req.setMethod('GET');
+
+        Http http = new Http();
+        HTTPResponse res = http.send(req);    
+
+        if(res.getStatusCode() == 200) {
+            faxImage = res.getBodyAsBlob();
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c='Success',
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+        } else {
+            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                    message__c=getJSONVariable('message',res.getBody()),
+                                                    caseId__c=recordId,
+                                                    type__c=integrationName));
+        }
+
+        return faxImage;
+
+    }
+
+    private static String getJSONVariable(String attr, String body) {
+        JSONParser parser = JSON.createParser(body);
+        String value;
+        while (parser.nextToken() != null) {
+            if ((parser.getCurrentToken() == JSONToken.FIELD_NAME) && 
+             (parser.getText() == 'attr')) {
+             parser.nextToken();
+             value = parser.getText();
+            }
+        }
+    return value;
+    }
+
+}
