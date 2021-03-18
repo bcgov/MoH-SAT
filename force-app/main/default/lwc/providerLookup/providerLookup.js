@@ -77,10 +77,8 @@ export default class ProviderLookup extends LightningElement {
     }
 
     handleFormChange(event) {
-        if (event.currentTarget.dataset.field == 'overrideReason') {
-            this.form[event.currentTarget.dataset.field] = event.target.value.replace(/\s/g,'');
-            this.publishChange(this.form);
-        }
+        this.form[event.currentTarget.dataset.field] = event.target.value?.trim();
+        this.publishChange(this.form);
 
         this.template.querySelector('.btn-lookup').disabled 
             = !(this.providerId && this.providerIdType);
