@@ -127,7 +127,7 @@ public with sharing class SarBuilder {
     private static List<Request_Detail__c> buildRequestDetails(List<String> questionIds, Eform.Item qrItem) {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         
-        String newQuestionId = String.join(questionIds, '.');
+        String newQuestionId = String.join(questionIds, '.')?.right(255);
 
         for (Eform.Answer qra : qrItem.answer) {
             Request_Detail__c rd = new Request_Detail__c();
