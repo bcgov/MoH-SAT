@@ -131,6 +131,13 @@ public with sharing class TestFactory {
         return ac;
     }
 
+    public static Product_Health_Category__c newProductHealthCategory(String name, String DINs) {
+      Product_Health_Category__c c = new Product_Health_Category__c();
+      c.Name = name;
+      c.DINs__c = DINs;
+      return c;
+    }
+
     public static RecordTypeInfo getRecordTypeInfosByDeveloperName(String sObjectName, String recordTypeName) {
         return getDescribe(sObjectName).getRecordTypeInfosByDeveloperName().get(recordTypeName);
     }

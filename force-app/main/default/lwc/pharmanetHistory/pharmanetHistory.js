@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import fetchPrescriptionHistory from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistory';
+import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.getProductHealthCategories';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
@@ -24,6 +25,8 @@ export default class PharmanetHistory extends LightningElement {
   @api recordId;
   columns = columns;
   data = [];
+  categories = [];
+  categoryFilter = "";
   loaded = false;
   count = '10';
   hasResults = false;
@@ -74,6 +77,42 @@ export default class PharmanetHistory extends LightningElement {
     }
   }
 
+
+  phcFilterOptions() {
+    return getProductHealthCategories()
+    .then(data => {
+      this.categories = [ ...this.categories, { label: 'None', value: 'None' } ];
+      data.forEach(item => {
+        this.categories = [ ...this.categories, { label: item.Name, value: item.DINs__c }];
+      });
+      return this.categories;
+    })
+  }
+
+  handlephcFilterChange(event) {
+    this.categoryFilter = event.detail.value;
+    let filter = null;
+    if (this.categoryFilter == "None") {
+      filter = "";
+    } else {
+      filter = this.categoryFilter;
+    }
+    this.fetchProductHealthCategories(filter);
+  }
+
+  fetchProductHealthCategories(filter) {
+    let list = [];
+    if (filter) {
+      list = filter.split(',');
+    }
+    if (list.length > 0) {
+      this.dinList = list;
+    } else {
+      this.dinList = [];
+    }
+    this.fetchItems();
+  }
+
   // Count Options
   get countOptions() {
     return [
@@ -90,6 +129,7 @@ export default class PharmanetHistory extends LightningElement {
   }
 
   connectedCallback() {
+    this.phcFilterOptions();
     this.fetchItems();
   }
 
@@ -97,7 +137,7 @@ export default class PharmanetHistory extends LightningElement {
     fetchPrescriptionHistory({recordId: this.recordId, page: this.pageNumber, count: this.count, dinList: this.dinList})
     .then(data => {
       if (data && data.error == null) {
-        console.log("medHistory:", data.medHistory);
+        // console.log("medHistory:", data.medHistory);
         const records = data.medHistory && data.medHistory.medRecords;
         this.totalRecords = data.medHistory && data.medHistory.totalRecords;
         this.totalPages = data.medHistory && data.medHistory.totalPages;
