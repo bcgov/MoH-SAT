@@ -9,10 +9,16 @@ public with sharing class InterfaxIntegration {
          Add application/pdf attachement as BLOB
          Return FaxID if success or ERROR
     */
-    public static String sendFax(Id recordId, String faxNumber, String content, String integrationName) {
+    @AuraEnabled(cacheable=true)
+    public static String sendFax(Id recordId, String faxNumber, String templateId, String integrationName) {
         
         String result;
         List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+
+        Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(templateId, UserInfo.getUserId(), recordId);
+
+        String content = email.getHTMLBody().replaceall('src','');
+
         HttpRequest req = new HttpRequest();
         req.setEndpoint('callout:Interfax/outbound/faxes?faxNumber='+faxNumber);
         req.setMethod('POST');
@@ -168,6 +174,12 @@ public with sharing class InterfaxIntegration {
 
         return faxImage;
 
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static String getOutboudImage(Id recordId, String templateId) {
+        Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(templateId, UserInfo.getUserId(), recordId);
+        return email.getHTMLBody();
     }
 
     private static String getJSONVariable(String attr, String body) {
