@@ -1,6 +1,7 @@
 <template>
-  <lightning-card if:true={loaded} title="Pharmanet Payload" icon-name="custom:custom58">
-    <template for:each={data} for:item="item">
+  <lightning-card if:true={pnetSars} title="Pharmanet Payload" icon-name="custom:custom58">
+    <lightning-button label="Submit" slot="actions" onclick={handleSubmit} disabled={isDisabled}></lightning-button>
+    <template for:each={pnetSars} for:item="item">
       <div key={item.key} class="slds-m-vertical_small">
         <c-pnet-sa-form form-disabled={isDisabled} case-id={recordId} record={item}></c-pnet-sa-form>
       </div>

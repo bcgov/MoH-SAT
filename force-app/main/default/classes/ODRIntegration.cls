@@ -165,13 +165,7 @@ public with sharing class ODRIntegration {
         return p;
     }
 
-    @AuraEnabled
-    public static Boolean getSAStatus(Id recordId) {
-        Case c = [select Id, Pushed_to_Pnet__c FROM case WHERE Id =:recordId];
-        return c.Pushed_to_Pnet__c;
-    }
-
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static List<SAApprovalRequest> getSAApprovalRequestsx(Id recordId) {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
 

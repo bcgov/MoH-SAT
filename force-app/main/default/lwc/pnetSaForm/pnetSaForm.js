@@ -84,9 +84,8 @@ export default class PnetSaForm extends LightningElement {
         this._record[event.currentTarget.dataset.field] = event.target.value;
     }
 
-    async handleSubmit() {
-        this.template.querySelector('.btn-submit').disabled = true;
-
+    @api
+    async submit() {
         try {
             let saResponse = await postSingleSAApproval({
                 caseId: this.caseId,
@@ -109,7 +108,6 @@ export default class PnetSaForm extends LightningElement {
                 mode: "dismissable",
                 variant: "error"
             }));
-            this.template.querySelector('.btn-submit').disabled = false;
         }
     }
 

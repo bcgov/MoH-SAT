@@ -1,31 +1,43 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getSAApprovalRequestsx from '@salesforce/apex/ODRIntegration.getSAApprovalRequestsx';
-import getSAStatus from '@salesforce/apex/ODRIntegration.getSAStatus';
-
+import FLD_PUSHED_TO_PNET from '@salesforce/schema/Case.Pushed_to_Pnet__c';
 export default class PharmanetPayload extends LightningElement {
   @api recordId;
-  verified = false;
-  loaded = false;
-  data = null;
-  hasData = false;
-  isError = false;
-  isDisabled = false;
-  error = {};
 
-  @track error;
-  async connectedCallback() {
-    // Check if SA Status for this record is already submitted to PNET
-    this.isDisabled = await getSAStatus({recordId: this.recordId});
+  @wire(getRecord, {recordId: '$recordId', fields: [FLD_PUSHED_TO_PNET]})
+  record;
 
-    let data = await getSAApprovalRequestsx({recordId: this.recordId});
-    if (data && data.error == null) {
-      this.data = data;
-    } else {
-      this.isError = true;
-      this.error = data.error.errorMessage;
+  pnetSars;
+
+  @wire(getSAApprovalRequestsx, {recordId: '$recordId'})
+  wireRecords({ error, data }) {
+    if (data) {
+      this.pnetSars = data;
     }
-    
-    this.hasData = this.data.length > 0;
-    this.loaded = true;
+    if (error) {
+      this.showError(error.body.message);
+    }
+  }
+
+  get isDisabled() {
+    return this.record && this.record.data.fields.Pushed_to_Pnet__c.value;
+  }
+
+  async handleSubmit() {
+    await this.template.querySelectorAll('c-pnet-sa-form').forEach(async form => {
+      await form.submit();
+    });
+  }
+
+  showError(message) {
+    console.log(message);
+    this.dispatchEvent(new ShowToastEvent({
+        title: 'Error',
+        message: message,
+        mode: "dismissable",
+        variant: "error"
+    }));
   }
 }
