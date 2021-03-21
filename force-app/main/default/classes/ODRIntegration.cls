@@ -325,10 +325,17 @@ public with sharing class ODRIntegration {
         String resBody = calloutResponseObject.response;
         saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
       } else {
-        // // ERROR
         saarr = new SAApprovalRequestResponse();
         saarr.error = calloutResponseObject;
-        throw new AuraHandledException(calloutResponseObject.errorMessage);
+        
+        String errorMessage = String.format('{0} ({1}).', new String[] {
+            calloutResponseObject.errorMessage,
+            String.isBlank(pnetSa.saRecord.specialItem.din) ? 
+                pnetSa.saRecord.specialItem.rdp : 
+                pnetSa.saRecord.specialItem.din 
+        });
+        
+        throw new AuraHandledException(errorMessage);
       }
       System.debug('saarr');
       System.debug(saarr);

@@ -86,32 +86,35 @@ export default class PnetSaForm extends LightningElement {
 
     @api
     async submit() {
+        let subject = this._record.rdp || this._record.din;
         try {
-            let saResponse = await postSingleSAApproval({
-                caseId: this.caseId,
-                pnetSa: this.record
-            });
-
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Success',
-                message: 'Submitted to Pharmanet',
-                mode: "dismissable",
-                variant: "success"
-            }));
-
-            this.disableForm();
-            
+            await postSingleSAApproval({caseId: this.caseId, pnetSa: this.record });
+            this.showSuccess(`Submitted to Pharmanet (${subject}).`);
+            this.disableForm();            
         } catch (error) {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error.body.message,
-                mode: "dismissable",
-                variant: "error"
-            }));
+            this.showError(error.body.message);
         }
     }
 
     disableForm() {
         this.formDisabled = true;
+    }
+
+    showSuccess(message) {
+        this.showToast('Success', message, 'success');
+    }
+
+    showError(message) {
+        console.log(message);
+        this.showToast('Error', message, 'error');
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: title,
+            message: message,
+            mode: "dismissable",
+            variant: variant
+        }));
     }
 }
