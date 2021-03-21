@@ -1,9 +1,5 @@
 <template>
-  <lightning-card if:true={loaded}>
-    <h3 slot="title">
-        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
-        &nbsp;Pharmanet Payload
-    </h3>
+  <lightning-card if:true={loaded} title="Pharmanet Payload" icon-name="custom:custom58">
     <template for:each={data} for:item="item">
       <div key={item.key} class="slds-m-vertical_small">
         <c-pnet-sa-form form-disabled={isDisabled} case-id={recordId} record={item}></c-pnet-sa-form>
