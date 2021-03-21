@@ -1,7 +1,7 @@
 import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-import postSingleSAApproval from '@salesforce/apex/ODRIntegration.postSingleSAApproval';
+import submitSinglePnetSar from '@salesforce/apex/PharmanetPayloadController.submitSinglePnetSar';
 export default class PnetSaForm extends LightningElement {
     @api
     caseId;
@@ -88,7 +88,7 @@ export default class PnetSaForm extends LightningElement {
     async submit() {
         let subject = this._record.rdp || this._record.din;
         try {
-            await postSingleSAApproval({caseId: this.caseId, pnetSa: this.record });
+            await submitSinglePnetSar({caseId: this.caseId, pnetSa: this.record });
             this.showSuccess(`Submitted to Pharmanet (${subject}).`);
             this.disableForm();            
         } catch (error) {

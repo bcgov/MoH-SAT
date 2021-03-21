@@ -1,7 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getSAApprovalRequestsx from '@salesforce/apex/ODRIntegration.getSAApprovalRequestsx';
+import getPnetSars from '@salesforce/apex/PharmanetPayloadController.getPnetSars';
 import FLD_PUSHED_TO_PNET from '@salesforce/schema/Case.Pushed_to_Pnet__c';
 export default class PharmanetPayload extends LightningElement {
   @api recordId;
@@ -11,7 +11,7 @@ export default class PharmanetPayload extends LightningElement {
 
   pnetSars;
 
-  @wire(getSAApprovalRequestsx, {recordId: '$recordId'})
+  @wire(getPnetSars, {recordId: '$recordId'})
   wireRecords({ error, data }) {
     if (data) {
       this.pnetSars = data;
