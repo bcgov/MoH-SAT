@@ -1,21 +1,10 @@
 <template>
     <div if:true={record} class="slds-box">
-        <div class="slds-grid slds-gutters slds-wrap">
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-input type="text" label="PHN" value={_record.phn} data-field="phn" disabled></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-input type="text" label="Prac ID" value={_record.practId} data-field="practId" disabled></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-input type="text" label="Prac ID Ref" value={_record.practIdRef} data-field="practIdRef" disabled></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-input type="text" label="DIN" value={_record.din} data-field="din" disabled></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-3">
-                <lightning-input type="text" label="RDP" value={_record.rdp} data-field="rdp" disabled></lightning-input>
-            </div>
+        <div>
+            <span class="slds-text-heading_small">
+                <span if:true={isRdp}>RDP: {_record.rdp}</span>
+                <span if:true={isDin}>DIN: {_record.din}</span>
+            </span>
         </div>
         <div class="slds-grid slds-gutters slds-wrap">
             <div class="slds-col">

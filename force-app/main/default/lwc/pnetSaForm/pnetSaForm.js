@@ -62,6 +62,14 @@ export default class PnetSaForm extends LightningElement {
         };
     }
 
+    get isDin() {
+        return this._record.din && this._record.din.length > 0;
+    }
+
+    get isRdp() {
+        return this._record.rdp && this._record.rdp.length > 0
+    }
+
     dateOdrToSfdc(odrDateStr) {
         if (!odrDateStr) return null;
         return odrDateStr.replaceAll('/', '-');

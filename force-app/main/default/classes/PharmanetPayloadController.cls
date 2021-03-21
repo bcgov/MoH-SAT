@@ -1,8 +1,12 @@
 public with sharing class PharmanetPayloadController {
 
     @AuraEnabled
-    public static void markAsPushedToPharmanet(Id recordId) {
-
+    public static void markPushedToPharmanet(Id recordId) {
+        Case record = new Case();
+        record.Id = recordId;
+        record.Pushed_to_Pnet__c = true;
+        record.Pushed_to_Pnet_Date__c = Datetime.now();
+        update record;
     }
 
     @AuraEnabled(cacheable=true)
