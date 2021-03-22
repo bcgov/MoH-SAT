@@ -17,25 +17,16 @@ public with sharing class PharmanetPayloadController {
 
     @AuraEnabled
     public static void submitSinglePnetSar(Id caseId, SAApprovalRequest pnetSa) {
-        pnetSa.requestUUID = OdrIntegration.getUUIDString();
-        pnetSa.clientName = 'SpecAuth';
-        pnetSa.userid = OdrIntegration.getUserIdentifier();
+        SAApprovalRequestResponse saaResponse = OdrIntegration.postSAApproval(caseId, pnetSa);
 
-        CalloutResponse calloutResponseObject = OdrIntegration.sendRequestAndReturnBody(
-            caseId,
-            'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
-            null,
-            'POST',
-            JSON.serialize(pnetSa),
-            '3A'
-        );
-
-        if (calloutResponseObject.errorCode != 200 && calloutResponseObject.errorCode != 201) {
+        Boolean isError = saaResponse.error != null;
+        
+        if (isError) {
             String errorMessage = String.format('[{0}] {1}.', new String[] {
                 String.isBlank(pnetSa.saRecord.specialItem.din) ? 
                     pnetSa.saRecord.specialItem.rdp : 
                     pnetSa.saRecord.specialItem.din, 
-                calloutResponseObject.errorMessage
+                saaResponse.error.errorMessage
             });
 
             throw new AuraHandledException(errorMessage);

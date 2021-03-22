@@ -259,41 +259,44 @@ public with sharing class ODRIntegration {
         System.debug(dateString);
         return dateString;
     }
-
+    
     public static List<SAApprovalRequestResponse> postSAApproval(SpecialAuthorityRequest sar) {
-        System.debug('postSAApproval');
-
-        List<SAApprovalRequest> sarBodies = getSAApprovalRequests(sar);
+        List<SAApprovalRequest> saaRequests = getSAApprovalRequests(sar);
         List<SAApprovalRequestResponse> responses = new List<SAApprovalRequestResponse>();
 
-        for(SAApprovalRequest sarBody: sarBodies) {
-          String saarObject = JSON.serialize(sarBody);
-          System.debug('saarObject');
-          System.debug(saarObject);
+        for(SAApprovalRequest saaRequest: saaRequests) {
+            SAApprovalRequestResponse saarResponse = postSAApproval(sar.saCase.Id, saaRequest);
+            responses.add(saarResponse);
+        }
+        
+        return responses;
+    }
 
-          SAApprovalRequestResponse saarr;
-          CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
-                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
-                                                                          null,
-                                                                          'POST',
-                                                                          saarObject,
-                                                                          '3A');
+    public static SAApprovalRequestResponse postSAApproval(Id caseId, SAApprovalRequest saaRequest) {
+        saaRequest.requestUUID = OdrIntegration.getUUIDString();
+        saaRequest.clientName = 'SpecAuth';
+        saaRequest.userid = OdrIntegration.getUserIdentifier();
 
-          if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
-            System.debug('SA Created');
-            System.debug(calloutResponseObject);
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(
+            caseId,
+            'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+            null,
+            'POST',
+            JSON.serialize(saaRequest),
+            '3A'
+        );
+
+        SAApprovalRequestResponse saaResponse;
+
+        if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
             String resBody = calloutResponseObject.response;
-            saarr = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
-          } else {
-            // // ERROR
-            saarr = new SAApprovalRequestResponse();
-            saarr.error = calloutResponseObject;
-          }
-          System.debug('saarr');
-          System.debug(saarr);
-          responses.add(saarr);
-      }
-      return responses;
+            saaResponse = (SAApprovalRequestResponse) JSON.deserialize(resBody, SAApprovalRequestResponse.class);
+        } else {
+            saaResponse = new SAApprovalRequestResponse();
+            saaResponse.error = calloutResponseObject;
+        }
+
+        return saaResponse;
     }
 
     @AuraEnabled
