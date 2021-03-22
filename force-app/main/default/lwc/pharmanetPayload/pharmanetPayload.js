@@ -24,7 +24,11 @@ export default class PharmanetPayload extends LightningElement {
   }
 
   get isDisabled() {
-    return !this.hasPnetSars || getFieldValue(this.record.data, FLD_PUSHED_TO_PNET);
+    return !this.hasPnetSars || this.isPushedToPnet;
+  }
+
+  get isPushedToPnet() {
+    return getFieldValue(this.record.data, FLD_PUSHED_TO_PNET);
   }
 
   get hasPnetSars() {

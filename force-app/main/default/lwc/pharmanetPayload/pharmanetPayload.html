@@ -3,7 +3,7 @@
     <lightning-button-group slot="actions">
       <lightning-button label="Submit All" onclick={handleSubmit} disabled={isDisabled} variant="brand"></lightning-button>
       <lightning-button-menu alternative-text="Show menu" menu-alignment="right">
-        <lightning-menu-item label="Mark as Pushed to Pharmanet" onclick={markPushedToPnet} ></lightning-menu-item>
+        <lightning-menu-item label="Mark as Pushed to Pharmanet" onclick={markPushedToPnet} disabled={isPushedToPnet}></lightning-menu-item>
       </lightning-button-menu>
     </lightning-button-group>
 

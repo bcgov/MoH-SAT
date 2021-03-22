@@ -112,14 +112,16 @@ export default class PnetSaForm extends LightningElement {
 
     showSuccess(message) {
         this.hasError = false;
-        this.template.querySelector('.slds-box').classList.remove('hasError');
+        this.template.querySelector('.slds-box').classList.remove('submit-error');
+        this.template.querySelector('.slds-box').classList.add('submit-success');
         this.showToast('Success', message, 'success');
     }
     
     showError(message) {
         console.log(message);
         this.hasError = true;
-        this.template.querySelector('.slds-box').classList.add('hasError');
+        this.template.querySelector('.slds-box').classList.add('submit-error');
+        this.template.querySelector('.slds-box').classList.remove('submit-success');
         this.showToast('Error', message, 'error');
     }
 
