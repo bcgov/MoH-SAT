@@ -1,9 +1,10 @@
 import { LightningElement, api, wire } from 'lwc';
-import { getRecord, getRecordNotifyChange } from 'lightning/uiRecordApi';
+import { getRecord, getFieldValue, getRecordNotifyChange } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getPnetSars from '@salesforce/apex/PharmanetPayloadController.getPnetSars';
 import markPushedToPharmanet from '@salesforce/apex/PharmanetPayloadController.markPushedToPharmanet';
 import FLD_PUSHED_TO_PNET from '@salesforce/schema/Case.Pushed_to_Pnet__c';
+
 export default class PharmanetPayload extends LightningElement {
   @api recordId;
 
@@ -23,7 +24,11 @@ export default class PharmanetPayload extends LightningElement {
   }
 
   get isDisabled() {
-    return this.record && this.record.data.fields.Pushed_to_Pnet__c.value;
+    return !this.hasPnetSars || getFieldValue(this.record.data, FLD_PUSHED_TO_PNET);
+  }
+
+  get hasPnetSars() {
+    return this.pnetSars && this.pnetSars.length > 0;
   }
 
   get patientId() {
@@ -37,9 +42,15 @@ export default class PharmanetPayload extends LightningElement {
   }
 
   async handleSubmit() {
-    await this.template.querySelectorAll('c-pnet-sa-form').forEach(async form => {
-      await form.submit();
-    });
+    let forms = this.template.querySelectorAll('c-pnet-sa-form');
+    let allSuccess = this.hasPnetSars;
+
+    for (const form of forms) {
+      let success = await form.submit();
+      if (!success) allSuccess = false;
+    }
+    
+    if (allSuccess) await this.markPushedToPnet();
   }
 
   async markPushedToPnet() {

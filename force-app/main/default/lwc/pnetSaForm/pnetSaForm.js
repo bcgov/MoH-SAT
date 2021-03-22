@@ -11,6 +11,8 @@ export default class PnetSaForm extends LightningElement {
     @api
     formDisabled;
 
+    hasError;
+
     get msOptions () {
         return [{'value':'B','label':'Non-Benefit'},
                 {'value':'L','label':'LCA',},
@@ -95,25 +97,29 @@ export default class PnetSaForm extends LightningElement {
     @api
     async submit() {
         let subject = this._record.rdp || this._record.din;
+        let success = true;
+
         try {
             await submitSinglePnetSar({caseId: this.caseId, pnetSa: this.record });
-            this.showSuccess(`Submitted to Pharmanet (${subject}).`);
-            this.disableForm();            
+            this.showSuccess(`[${subject}] Submitted to Pharmanet.`);
         } catch (error) {
             this.showError(error.body.message);
+            success = false;
         }
-    }
 
-    disableForm() {
-        this.formDisabled = true;
+        return success;
     }
 
     showSuccess(message) {
+        this.hasError = false;
+        this.template.querySelector('.slds-box').classList.remove('hasError');
         this.showToast('Success', message, 'success');
     }
-
+    
     showError(message) {
         console.log(message);
+        this.hasError = true;
+        this.template.querySelector('.slds-box').classList.add('hasError');
         this.showToast('Error', message, 'error');
     }
 
@@ -121,7 +127,7 @@ export default class PnetSaForm extends LightningElement {
         this.dispatchEvent(new ShowToastEvent({
             title: title,
             message: message,
-            mode: "dismissable",
+            mode: "sticky",
             variant: variant
         }));
     }

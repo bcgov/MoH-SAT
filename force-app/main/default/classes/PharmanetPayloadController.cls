@@ -31,11 +31,11 @@ public with sharing class PharmanetPayloadController {
         );
 
         if (calloutResponseObject.errorCode != 200 && calloutResponseObject.errorCode != 201) {
-            String errorMessage = String.format('{0} ({1}).', new String[] {
-                calloutResponseObject.errorMessage,
+            String errorMessage = String.format('[{0}] {1}.', new String[] {
                 String.isBlank(pnetSa.saRecord.specialItem.din) ? 
-                pnetSa.saRecord.specialItem.rdp : 
-                pnetSa.saRecord.specialItem.din 
+                    pnetSa.saRecord.specialItem.rdp : 
+                    pnetSa.saRecord.specialItem.din, 
+                calloutResponseObject.errorMessage
             });
 
             throw new AuraHandledException(errorMessage);
