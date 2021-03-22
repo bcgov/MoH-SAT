@@ -1,7 +1,7 @@
 import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-import postSingleSAApproval from '@salesforce/apex/ODRIntegration.postSingleSAApproval';
+import submitSinglePnetSar from '@salesforce/apex/PharmanetPayloadController.submitSinglePnetSar';
 export default class PnetSaForm extends LightningElement {
     @api
     caseId;
@@ -10,6 +10,8 @@ export default class PnetSaForm extends LightningElement {
 
     @api
     formDisabled;
+
+    hasError;
 
     get msOptions () {
         return [{'value':'B','label':'Non-Benefit'},
@@ -62,6 +64,14 @@ export default class PnetSaForm extends LightningElement {
         };
     }
 
+    get isDin() {
+        return this._record.din && this._record.din.length > 0;
+    }
+
+    get isRdp() {
+        return this._record.rdp && this._record.rdp.length > 0
+    }
+
     dateOdrToSfdc(odrDateStr) {
         if (!odrDateStr) return null;
         return odrDateStr.replaceAll('/', '-');
@@ -84,36 +94,43 @@ export default class PnetSaForm extends LightningElement {
         this._record[event.currentTarget.dataset.field] = event.target.value;
     }
 
-    async handleSubmit() {
-        this.template.querySelector('.btn-submit').disabled = true;
+    @api
+    async submit() {
+        let subject = this._record.rdp || this._record.din;
+        let success = true;
 
         try {
-            let saResponse = await postSingleSAApproval({
-                caseId: this.caseId,
-                pnetSa: this.record
-            });
-
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Success',
-                message: 'Submitted to Pharmanet',
-                mode: "dismissable",
-                variant: "success"
-            }));
-
-            this.disableForm();
-            
+            await submitSinglePnetSar({caseId: this.caseId, pnetSa: this.record });
+            this.showSuccess(`[${subject}] Submitted to Pharmanet.`);
         } catch (error) {
-            this.dispatchEvent(new ShowToastEvent({
-                title: 'Error',
-                message: error.body.message,
-                mode: "dismissable",
-                variant: "error"
-            }));
-            this.template.querySelector('.btn-submit').disabled = false;
+            this.showError(error.body.message);
+            success = false;
         }
+
+        return success;
     }
 
-    disableForm() {
-        this.formDisabled = true;
+    showSuccess(message) {
+        this.hasError = false;
+        this.template.querySelector('.slds-box').classList.remove('submit-error');
+        this.template.querySelector('.slds-box').classList.add('submit-success');
+        this.showToast('Success', message, 'success');
+    }
+    
+    showError(message) {
+        console.log(message);
+        this.hasError = true;
+        this.template.querySelector('.slds-box').classList.add('submit-error');
+        this.template.querySelector('.slds-box').classList.remove('submit-success');
+        this.showToast('Error', message, 'error');
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: title,
+            message: message,
+            mode: "sticky",
+            variant: variant
+        }));
     }
 }

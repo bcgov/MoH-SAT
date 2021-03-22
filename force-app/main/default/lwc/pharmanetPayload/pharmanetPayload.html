@@ -1,13 +1,27 @@
 <template>
-  <lightning-card if:true={loaded}>
-    <h3 slot="title">
-        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
-        &nbsp;Pharmanet Payload
-    </h3>
-    <template for:each={data} for:item="item">
-      <div key={item.key} class="slds-m-vertical_small">
-        <c-pnet-sa-form form-disabled={isDisabled} case-id={recordId} record={item}></c-pnet-sa-form>
+  <lightning-card title="Pharmanet Payload" icon-name="custom:custom58">
+    <lightning-button-group slot="actions">
+      <lightning-button label="Submit All" onclick={handleSubmit} disabled={isDisabled} variant="brand"></lightning-button>
+      <lightning-button-menu alternative-text="Show menu" menu-alignment="right">
+        <lightning-menu-item label="Mark as Pushed to Pharmanet" onclick={markPushedToPnet} disabled={isPushedToPnet}></lightning-menu-item>
+      </lightning-button-menu>
+    </lightning-button-group>
+
+    <template if:true={hasPnetSars}>
+      <div class="slds-grid">
+        <div class="slds-col">
+          <lightning-input type="text" label="Patient" value={patientId} readonly></lightning-input>
+        </div>
+        <div class="slds-col">
+          <lightning-input type="text" label="Practitioner" value={practitionerId} readonly></lightning-input>
+        </div>
       </div>
+    
+      <template for:each={pnetSars} for:item="item">
+        <div key={item.key} class="slds-m-vertical_small">
+          <c-pnet-sa-form form-disabled={isDisabled} case-id={recordId} record={item}></c-pnet-sa-form>
+        </div>
+      </template>
     </template>
   </lightning-card>
 </template>
