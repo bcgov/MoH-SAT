@@ -1,5 +1,8 @@
 public with sharing class PharmanetPayloadController {
 
+    @TestVisible
+    private static SAApprovalRequestResponse mockSaaResponse;
+
     @AuraEnabled
     public static void markPushedToPharmanet(Id recordId) {
         Case record = new Case();
@@ -17,19 +20,23 @@ public with sharing class PharmanetPayloadController {
 
     @AuraEnabled
     public static void submitSinglePnetSar(Id caseId, SAApprovalRequest pnetSa) {
-        SAApprovalRequestResponse saaResponse = OdrIntegration.postSAApproval(caseId, pnetSa);
+        SAApprovalRequestResponse saaResponse = postSAAProval(caseId, pnetSa);
 
-        Boolean isError = saaResponse.error != null;
+        Boolean isError = saaResponse.error != null
+            && saaResponse.error.errorCode != 200 && saaResponse.error.errorCode != 201;
         
         if (isError) {
             String errorMessage = String.format('[{0}] {1}.', new String[] {
                 String.isBlank(pnetSa.saRecord.specialItem.din) ? 
-                    pnetSa.saRecord.specialItem.rdp : 
-                    pnetSa.saRecord.specialItem.din, 
+                    pnetSa.saRecord.specialItem.rdp : pnetSa.saRecord.specialItem.din, 
                 saaResponse.error.errorMessage
             });
 
             throw new AuraHandledException(errorMessage);
         }
+    }
+
+    private static SAApprovalRequestResponse postSAAProval(Id caseId, SAApprovalRequest pnetSa) {
+        return Test.isRunningTest() ? mockSaaResponse : OdrIntegration.postSAApproval(caseId, pnetSa);
     }
 }
