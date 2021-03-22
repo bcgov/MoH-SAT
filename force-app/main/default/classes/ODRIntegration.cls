@@ -260,41 +260,6 @@ public with sharing class ODRIntegration {
         return dateString;
     }
 
-    @AuraEnabled
-    public static List<SAApprovalRequestResponse> postSAApprovalx(Id recordId) {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
-        List<SAApprovalRequest> sarBodies = getSAApprovalRequests(sar);
-        List<SAApprovalRequestResponse> responses = new List<SAApprovalRequestResponse>();
-
-        for(SAApprovalRequest sarBody: sarBodies) {
-          sarBody.userid = getUserIdentifier();
-          String saarObject = JSON.serialize(sarBody);
-          System.debug('saarObject');
-          System.debug(saarObject);
-
-          SAApprovalRequestResponse saarr;
-          CalloutResponse calloutResponseObject = sendRequestAndReturnBody(sar.saCase.Id,
-                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
-                                                                          null,
-                                                                          'POST',
-                                                                          saarObject,
-                                                                          '3A');
-
-          if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
-              String resBody = calloutResponseObject.response;
-              saarr = (SAApprovalRequestResponse) JSON.deserialize(calloutResponseObject.response, SAApprovalRequestResponse.class);
-          } else {
-			  // ERROR
-              saarr = new SAApprovalRequestResponse();
-              saarr.error = calloutResponseObject;
-          }
-          System.debug('saarr');
-          System.debug(saarr);
-          responses.add(saarr);
-      }
-      return responses;
-    }
-
     public static List<SAApprovalRequestResponse> postSAApproval(SpecialAuthorityRequest sar) {
         System.debug('postSAApproval');
 
