@@ -12,8 +12,6 @@ public with sharing class AdjudicationService {
 
     @future(callout=true)
     private static void runEvaluateFuture(Id caseId, Boolean assignOwner) {
-        queuedIds.add(caseId);
-        
         evaluate(caseId, assignOwner);
     }
 
@@ -38,6 +36,8 @@ public with sharing class AdjudicationService {
     }
 
     private static void evaluate(SpecialAuthorityRequest sar, Boolean assignOwner) {
+        queuedIds.add(sar.saCase.Id);
+        
         AdjudicationStrategy strategy = AdjudicationStrategyFactory.getStrategy(sar);
         
         strategy.runEvaluate();
