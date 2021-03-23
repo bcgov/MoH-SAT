@@ -12,7 +12,7 @@ public with sharing class PharmanetPayloadController {
         update record;
     }
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled
     public static List<SAApprovalRequest> getPnetSars(Id recordId) {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
         return OdrIntegration.getSAApprovalRequests(sar);
