@@ -8,15 +8,14 @@ import FLD_PUSHED_TO_PNET from '@salesforce/schema/Case.Pushed_to_Pnet__c';
 export default class PharmanetPayload extends LightningElement {
   @api recordId;
 
-  @wire(getRecord, {recordId: '$recordId', fields: [FLD_PUSHED_TO_PNET]})
   record;
-
   pnetSars;
 
-  @wire(getPnetSars, {recordId: '$recordId'})
-  wireRecords({ error, data }) {
+  @wire(getRecord, {recordId: '$recordId', fields: [FLD_PUSHED_TO_PNET]})
+  async wiredRecord({ error, data }) {
     if (data) {
-      this.pnetSars = data;
+      this.record = data;
+      this.pnetSars = await getPnetSars({ recordId: this.recordId });
     }
     if (error) {
       this.showError(error.body.message);
@@ -28,7 +27,7 @@ export default class PharmanetPayload extends LightningElement {
   }
 
   get isPushedToPnet() {
-    return getFieldValue(this.record.data, FLD_PUSHED_TO_PNET);
+    return getFieldValue(this.record, FLD_PUSHED_TO_PNET);
   }
 
   get hasPnetSars() {

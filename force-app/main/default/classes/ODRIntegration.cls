@@ -179,15 +179,16 @@ public with sharing class ODRIntegration {
               if (sar.saCase.Effective_Date__c != null) {
                   sarBody.saRecord.effectiveDate = formatToODRDate(sar.saCase.Effective_Date__c); // Effective Date 3000/01/01
               }
-              if (sar.saCase.Termination_Date__c != null) {
-                  Date terminationDate = calculateTerminationDate(
+              
+              Date terminationDate = sar.saCase.Termination_Date__c != null ? 
+                sar.saCase.Termination_Date__c :
+                calculateTerminationDate(
                     sar.saCase.Effective_Date__c, 
                     Integer.valueOf(drugTemplate.Duration__c), 
                     drugTemplate.Duration_Unit__c
-                  );
+                );
 
-                  sarBody.saRecord.terminationDate = formatToODRDate(terminationDate);
-              }
+              sarBody.saRecord.terminationDate =  formatToODRDate(terminationDate);
 
               sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
               sarBody.saRecord.saRequester.practId    = sar.saCase.Provider__r.Provider_Identifier__c; // 0A0P1
