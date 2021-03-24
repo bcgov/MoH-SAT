@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EC_recommendations__c</fullName>
+    <externalId>false</externalId>
+    <label>EC recommendations</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Approved</fullName>
+                <default>false</default>
+                <label>Approved</label>
+            </value>
+            <value>
+                <fullName>Approved, with conditions (alternate dose/drug)</fullName>
+                <default>false</default>
+                <label>Approved, with conditions (alternate dose/drug)</label>
+            </value>
+            <value>
+                <fullName>Recommend additional drug (specific to HEP)</fullName>
+                <default>false</default>
+                <label>Recommend additional drug (specific to HEP)</label>
+            </value>
+            <value>
+                <fullName>Needs more information from prescriber (MIR)</fullName>
+                <default>false</default>
+                <label>Needs more information from prescriber (MIR)</label>
+            </value>
+            <value>
+                <fullName>Not Approved</fullName>
+                <default>false</default>
+                <label>Not Approved</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
