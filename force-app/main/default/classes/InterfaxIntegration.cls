@@ -2,7 +2,6 @@ public with sharing class InterfaxIntegration {
     public InterfaxIntegration() {
     }
 
-
     /*
          Send outbound Fax
          URI: POST URI: GET https://rest.interfax.net/outbound/faxes?faxNumber={faxNumber}
@@ -30,45 +29,11 @@ public with sharing class InterfaxIntegration {
         HTTPResponse res = http.send(req);
 
         if (res.getStatusCode() == 201) {
-                result = res.getHeader('Location').Substring(res.getHeader('Location').LastIndexOf('/')+1);             
-                loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
-                                                        message__c='Success',
-                                                        caseId__c=recordId,
-                                                        type__c=integrationName));
-                EventBus.publish(loggingEvents);
-            } else {
-                loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
-                                                        message__c=getJSONVariable('message',res.getBody()),
-                                                        caseId__c=recordId,
-                                                        type__c=integrationName));
-                result = 'ERROR CODE:'+res.getStatusCode()+' ERROR MESSAGE:'+getJSONVariable('message',res.getBody());
-            }
-    return result;
-    }
-
-    /*
-        Get Outbound Fax Status by ID
-        URI: GET https://rest.interfax.net/outbound/faxes/{faxid}
-        Return Status: 0= OK; less than 0 = in process; greater than 0 = Error
-    */
-    public static String getFaxOutboundStatus(Id recordid, String faxid, String integrationName) {
-
-        String result;
-        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
-        HttpRequest req = new HttpRequest();
-        req.setEndpoint('callout:Interfax/outbound/faxes/'+faxid);
-        req.setMethod('GET');
-
-        Http http = new Http();
-        HTTPResponse res = http.send(req);
-
-        if (res.getStatusCode() == 200) {
-            result = getJSONVariable('status', res.getBody());
+            result = res.getHeader('Location').Substring(res.getHeader('Location').LastIndexOf('/')+1);             
             loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
                                                     message__c='Success',
                                                     caseId__c=recordId,
                                                     type__c=integrationName));
-            EventBus.publish(loggingEvents);
         } else {
             loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
                                                     message__c=getJSONVariable('message',res.getBody()),
@@ -76,10 +41,62 @@ public with sharing class InterfaxIntegration {
                                                     type__c=integrationName));
             result = 'ERROR CODE:'+res.getStatusCode()+' ERROR MESSAGE:'+getJSONVariable('message',res.getBody());
         }
-
+        EventBus.publish(loggingEvents);
         return result;
-
     }
+
+    @AuraEnabled
+    public static String getProviderFaxNumber(Id recordId){
+      try {
+        System.debug('GETTING FAX NUM');
+        System.debug(recordId);
+        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        System.debug('****');
+        System.debug(sar.saCase.Provider__r);
+        return sar.saCase.Provider__r.Fax;
+      } catch (Exception e) {
+        throw new AuraHandledException(e.getMessage());
+      }
+    }
+
+    /*
+        Get Outbound Fax Status by ID
+        URI: GET https://rest.interfax.net/outbound/faxes/{faxid}
+        Return Status: 0= OK; less than 0 = in process; greater than 0 = Error
+    */
+    @AuraEnabled
+    public static InterfaxOutboundResponse getFaxOutboundStatus(Id recordId, String faxId, String integrationName) {
+        List<Logging_Event__e> loggingEvents = new List<Logging_Event__e>();
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('callout:Interfax/outbound/faxes/'+faxId);
+        req.setMethod('GET');
+
+        Http http = new Http();
+        HTTPResponse res = http.send(req);
+        InterfaxOutboundResponse iorFax = (InterfaxOutboundResponse) JSON.deserialize(res.getBody(), InterfaxOutboundResponse.class);
+
+        if (res.getStatusCode() == 200) {
+          loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                  message__c='Success',
+                                                  caseId__c=recordId,
+                                                  type__c=integrationName));
+        } else {
+          loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                  message__c='Error sending fax',
+                                                  caseId__c=recordId,
+                                                  type__c=integrationName));
+        }
+        System.debug(iorFax);
+        EventBus.publish(loggingEvents);
+        return iorFax;
+    }
+
+    @AuraEnabled
+    public static void updateCaseFaxSent(Id caseId) {
+      Case c = [select Id, Fax_Notification_Date__c FROM case WHERE Id =:caseId];
+      c.Fax_Notification_Date__c = Date.newInstance(Datetime.now().year(), Datetime.now().month(), Datetime.now().day());
+      update c;
+  }
 
     /*
         Get unread Inbound faxes
@@ -110,7 +127,7 @@ public with sharing class InterfaxIntegration {
                                                     caseId__c=recordId,
                                                     type__c=integrationName));
         }
-
+        EventBus.publish(loggingEvents);
         return listInboundFaxes;
     }
 
@@ -139,6 +156,7 @@ public with sharing class InterfaxIntegration {
                                                     caseId__c=recordId,
                                                     type__c=integrationName));
         }
+        EventBus.publish(loggingEvents);
     }
 
     
@@ -171,9 +189,8 @@ public with sharing class InterfaxIntegration {
                                                     caseId__c=recordId,
                                                     type__c=integrationName));
         }
-
+        EventBus.publish(loggingEvents);
         return faxImage;
-
     }
 
     @AuraEnabled(cacheable=true)
