@@ -28,7 +28,6 @@ public with sharing class SimilarCasesTest {
         Drug__c drug = new Drug__c();
         drug.Name = name;
         drug.Drug_Code__c = name;
-        drug.Pharmanet_Code__c = name;
         return drug;
     }
 }

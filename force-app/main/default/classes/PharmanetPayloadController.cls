@@ -23,17 +23,53 @@ public with sharing class PharmanetPayloadController {
         SAApprovalRequestResponse saaResponse = postSAAProval(caseId, pnetSa);
 
         Boolean isError = saaResponse.error != null
-            && saaResponse.error.errorCode != 200 && saaResponse.error.errorCode != 201;
-        
-        if (isError) {
-            String errorMessage = String.format('[{0}] {1}.', new String[] {
-                String.isBlank(pnetSa.saRecord.specialItem.din) ? 
-                    pnetSa.saRecord.specialItem.rdp : pnetSa.saRecord.specialItem.din, 
-                saaResponse.error.errorMessage
-            });
+        && saaResponse.error.errorCode != 200 && saaResponse.error.errorCode != 201;
+    
+        system.debug(saaResponse);
+        system.debug(isError);
+        system.debug(hasError(saaResponse));
 
-            throw new AuraHandledException(errorMessage);
+        if (hasError(saaResponse)) {
+            throwError(pnetSa, saaResponse);
         }
+
+        setTerminationDate(caseId, pnetSa?.saRecord?.terminationDate);
+    }
+
+    private static void setTerminationDate(Id caseId, String odrTerminationDate) {
+        Case record = new Case();
+        record.Id = caseId;
+        record.Termination_Date__c = parseOdrDate(odrTerminationDate);
+        update record;
+    }
+
+    private static Date parseOdrDate(String odrDateStr) {
+        if (odrDateStr == null) return null;
+
+        String[] terminationDateArr = odrDateStr.split('/');
+        
+        return Date.newInstance(
+            Integer.valueOf(terminationDateArr[0]), 
+            Integer.valueOf(terminationDateArr[1]), 
+            Integer.valueOf(terminationDateArr[2])
+        );
+    }
+
+    private static Boolean hasError(SAApprovalRequestResponse saaResponse) {
+        return saaResponse.error != null
+            && saaResponse.error.errorCode != 200 
+            && saaResponse.error.errorCode != 201;
+    }
+
+    private static void throwError(SAApprovalRequest pnetSa, SAApprovalRequestResponse saaResponse) {
+        SAApprovalRequest.SpecialItem item = pnetSa.saRecord.specialItem;
+
+        String errorMessage = String.format('[{0}] {1}.', new String[] {
+            String.isBlank(item.din) ? item.rdp : item.din, 
+            saaResponse.error.errorMessage
+        });
+
+        throw new AuraHandledException(errorMessage);
     }
 
     private static SAApprovalRequestResponse postSAAProval(Id caseId, SAApprovalRequest pnetSa) {
