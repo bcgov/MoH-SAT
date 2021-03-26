@@ -22,13 +22,6 @@ public with sharing class PharmanetPayloadController {
     public static void submitSinglePnetSar(Id caseId, SAApprovalRequest pnetSa) {
         SAApprovalRequestResponse saaResponse = postSAAProval(caseId, pnetSa);
 
-        Boolean isError = saaResponse.error != null
-        && saaResponse.error.errorCode != 200 && saaResponse.error.errorCode != 201;
-    
-        system.debug(saaResponse);
-        system.debug(isError);
-        system.debug(hasError(saaResponse));
-
         if (hasError(saaResponse)) {
             throwError(pnetSa, saaResponse);
         }

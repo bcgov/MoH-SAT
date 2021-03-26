@@ -66,7 +66,6 @@ export default class PharmanetPayload extends LightningElement {
   }
 
   showError(message) {
-    console.log(message);
     this.dispatchEvent(new ShowToastEvent({
         title: 'Error',
         message: message,
