@@ -53,7 +53,7 @@ export default class PnetSaForm extends LightningElement {
             practId: value.saRecord.saRequester.practId,
             practIdRef: value.saRecord.saRequester.practIdRef,
             din: value.saRecord.specialItem.din,
-            rdp: value.saRecord.specialItem.rdp,
+            rdp: this.formatRdp(value.saRecord.specialItem.rdp),
             specAuthType: value.saRecord.specAuthType,
             justificationCodes: this.arrToStr(value.saRecord.justificationCodes),
             excludedPlans: this.arrToStr(value.saRecord.excludedPlans),
@@ -80,6 +80,11 @@ export default class PnetSaForm extends LightningElement {
     dateSfdcToOdr(sfdcDateStr) {
         if (!sfdcDateStr) return null;
         return sfdcDateStr.replaceAll('-', '/');
+    }
+
+    formatRdp(rdp) {
+        if (!rdp) return null;
+        return rdp.substring(0,4)+'-'+rdp.substring(4);
     }
 
     arrToStr(arr) {
