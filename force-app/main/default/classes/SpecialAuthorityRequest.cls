@@ -77,7 +77,7 @@ public with sharing class SpecialAuthorityRequest {
                 Patient_Validated_Date__c, Patient_Identifier__c, Patient_Date_of_Birth__c,
                 Provider_Validated_Date__c, Termination_Date__c, Effective_Date__c, 
 
-                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId, Drug__r.Pharmanet_Code__c,
+                Drug__c, Drug_Name__c, Drug__r.Adjudication_Strategy__c, Drug__r.OwnerId,
 
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
