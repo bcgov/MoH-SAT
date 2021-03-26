@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Auto Adjudication" icon-name="standard:macros">
+        
+        <div class="slds-box slds-text-align_center">
+            <p class="icon-container slds-m-vertical_xx-small">
+                <lightning-icon icon-name="utility:automate"></lightning-icon>
+            </p>
+            <p class="slds-m-vertical_xx-small">Run adjudication rules.</p>
+            <div class="slds-m-vertical_xx-small">
+                <lightning-button
+                    icon-name="action:fallback" 
+                    label="Adjudicate" 
+                    onclick={handleAdjudicate} 
+                    variant="brand">
+                </lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>
