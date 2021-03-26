@@ -10,16 +10,19 @@ export default class Adjudicator extends LightningElement {
     recordId;
 
     async handleAdjudicate() {
+        this.busy = true;
+
         try {
             await runAdjudicator({caseId: this.recordId});
             getRecordNotifyChange([{recordId: this.recordId}]); // delete
         } catch (error) {
             this.showToast('Error', error.body.message, 'error');
         }
+
+        this.busy = false;
     }
 
     showToast(title, message, variant) {
-        console.log(message); // delete
         this.dispatchEvent(new ShowToastEvent({
             title: title,
             message: message,
@@ -28,4 +31,11 @@ export default class Adjudicator extends LightningElement {
         }));
     }
 
+    set busy(value) {
+        if (value) {
+            this.template.querySelector('.icon-container').classList.add('spin');
+        } else {
+            this.template.querySelector('.icon-container').classList.remove('spin');
+        }
+    }
 }

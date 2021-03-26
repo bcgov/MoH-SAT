@@ -1,6 +1,22 @@
 @IsTest
 public with sharing class TestFactory {
 
+    private static Integer fakeIdcount = 0;
+	private static final String ID_PATTERN = '000000000000';
+
+    /**
+	* credit: https://github.com/financialforcedev/fflib-apex-mocks/blob/master/src/classes/fflib_IDGenerator.cls
+	*/
+	public static Id newId(Schema.SobjectType sobjectType)
+	{
+		String keyPrefix = sobjectType.getDescribe().getKeyPrefix();
+		fakeIdCount++;
+
+		String fakeIdPrefix = ID_PATTERN.substring(0, 12 - fakeIdCount.format().length());
+
+		return Id.valueOf(keyPrefix + fakeIdPrefix + fakeIdCount);
+	}
+
     public static Account newPatient(String firstName) {
         Account account = new Account();
         account.RecordTypeId = getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
