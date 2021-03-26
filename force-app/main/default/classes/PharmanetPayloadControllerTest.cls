@@ -78,8 +78,25 @@ public class PharmanetPayloadControllerTest {
         }
     }
 
+    @isTest
+    static void test_submit_single_pnet_set_termination_date() {
+        Case record = queryCase('Test case');
+
+        SAApprovalRequest saaRequest = new SAApprovalRequest();
+        saaRequest.saRecord = new SAApprovalRequest.SARecord();
+        saaRequest.saRecord.terminationDate = '2021/03/25';
+
+        PharmanetPayloadController.mockSaaResponse = mockSaaResponse(200);
+        Test.startTest();
+        PharmanetPayloadController.submitSinglePnetSar(record.Id, saaRequest);
+        Test.stopTest();
+
+        record = queryCase('Test case');
+        system.assertEquals(Date.newInstance(2021, 3, 25), record.Termination_Date__c);
+    }
+
     private static Case queryCase(String subject) {
-        return [select Id from Case where Subject = :subject][0];
+        return [select Id, Termination_Date__c from Case where Subject = :subject][0];
     }
 
     private static SAApprovalRequestResponse mockSaaResponse(Integer errorCode) {
