@@ -89,8 +89,8 @@ public with sharing class ODRIntegration {
         GetPractitioner getPractitionerObject = new GetPractitioner();
         getPractitionerObject.applicationUUID = getUUIDString();
         getPractitionerObject.programArea = 'SpecAuth';
-        getPractitionerObject.licenceNumber    = practId.deleteWhitespace();
-        getPractitionerObject.collegeReferenceId = getPractitionerCode(practIdRef.deleteWhitespace());
+        getPractitionerObject.licenceNumber    = practId.trim();
+        getPractitionerObject.collegeReferenceId = getPractitionerCode(practIdRef.trim());
 
         Provider p = null;
         String saarObject = JSON.serialize(getPractitionerObject);
