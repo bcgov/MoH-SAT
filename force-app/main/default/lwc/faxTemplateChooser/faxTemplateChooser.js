@@ -49,10 +49,10 @@ export default class FaxTemplateChooser extends LightningElement {
 
     console.log("faxId:", faxId);
     let self = this;
-    setTimeout(function () { self.checkFaxStatus(faxId, self.recordId, self) }, 5000);
+    setTimeout(function () { self.checkFaxStatus(faxId, self.recordId, self, this.faxNumber) }, 5000);
   }
 
-  async checkFaxStatus(faxId, recordId, self) {
+  async checkFaxStatus(faxId, recordId, self, faxNumber) {
     console.log("Checking fax status");
     let faxStatus = await getFaxOutboundStatus({
       recordId: recordId,
@@ -63,13 +63,13 @@ export default class FaxTemplateChooser extends LightningElement {
     if (faxStatus.status == 0) {
       this.dispatchEvent(new ShowToastEvent({
         title: 'Fax',
-        message: 'Fax sent to: ' + faxId,
+        message: 'Fax sent to: ' + faxNumber,
         mode: "dismissable",
         variant: "success"
       }));
       updateCaseFaxSent({caseId: recordId});
     } else {
-      setTimeout(function () { self.checkFaxStatus(faxId, recordId, self) }, 5000);
+      setTimeout(function () { self.checkFaxStatus(faxId, recordId, self, faxNumber) }, 5000);
     }
   }
 }
