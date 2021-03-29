@@ -53,7 +53,7 @@ public with sharing class InterfaxIntegration {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
         System.debug('****');
         System.debug(sar.saCase.Provider__r);
-        return sar.saCase.Provider__r.Fax;
+        return sar.saCase.Provider_Fax__c;
       } catch (Exception e) {
         throw new AuraHandledException(e.getMessage());
       }
