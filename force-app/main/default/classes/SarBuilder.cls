@@ -79,8 +79,10 @@ public with sharing class SarBuilder {
         List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
         
-        account.Provider_Identifier__pc = identifier;
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
+        account.Provider_Identifier__pc = identifier;
+        account.Provider_Type__pc = toProviderRole(findProviderRole(resource));
+        account.Provider_Specialty__pc = findProviderSpecialty(resource);
         return account;
     }
 
@@ -178,6 +180,43 @@ public with sharing class SarBuilder {
             }
         }
         return defaultCode;
+    }
+
+    private static String toProviderRole(String eformRole) {
+        if (String.isBlank(eformRole)) return null;
+        else if (eformRole.equalsIgnoreCase('CPSID - Physician')) return 'Physician';
+        else if (eformRole.equalsIgnoreCase('DENID -  Dentist')) return 'Dentist';
+        else if (eformRole.equalsIgnoreCase('OPTID - Optometrist')) return 'Optometrist';
+        else if (eformRole.equalsIgnoreCase('POID - Podiatrist')) return 'Podiatrist';
+        else if (eformRole.equalsIgnoreCase('PHID - Pharmacist')) return 'Pharmacist';
+        else if (eformRole.equalsIgnoreCase('RMID - Midwife')) return 'Midwife';
+        else if (eformRole.equalsIgnoreCase('RNID - Nurse')) return 'Nurse Practitioner';
+        else if (eformRole.equalsIgnoreCase('RNPID - Nurse Practitioner')) return 'Nurse Practitioner';
+        else if (eformRole.equalsIgnoreCase('OOP - Out Of Province')) return 'Out of province provider';
+        else return eformRole;
+    }
+
+    private static String findProviderRole(Eform.Resource resource) {
+        return findQualification(resource.qualification, 'urn:role')?.display;
+    }
+    
+    private static String findProviderSpecialty(Eform.Resource resource) {
+        return findQualification(resource.qualification, 'urn:specialty')?.code;
+    }
+
+    private static Eform.Tag findQualification(List<Eform.Qualification> qualifications, String systemValue) {
+        if (qualifications == null) return null;
+
+        for (Eform.Qualification qualification : qualifications) {
+            List<Eform.Tag> codes = qualification?.code?.coding;
+            if (codes.isEmpty()) return null;
+            for (Eform.Tag code : codes) {
+                if (systemValue.equalsIgnoreCase(code.system_Z)) {
+                    return code;
+                }
+            }
+        }
+        return null;
     }
 
     private static String getIdentifier(List<Eform.Identifier> identifiers) {

@@ -134,7 +134,7 @@ public class EformTest {
 		'							\"coding\": ['+
 		'								{'+
 		'									\"system\": \"urn:role\",'+
-		'									\"code\": \"PHARM\"'+
+		'									\"display\": \"PHARM\"'+
 		'								}'+
 		'							]'+
 		'						}'+
@@ -301,6 +301,7 @@ public class EformTest {
 		System.assert(objTag != null);
 		System.assert(objTag.system_Z == null);
 		System.assert(objTag.code == null);
+		System.assert(objTag.display == null);
 
 		json = '{\"TestAMissingObject\": { \"TestAMissingArray\": [ { \"TestAMissingProperty\": \"Some Value\" } ] } }';
 		Eform.Telecom objTelecom = new Eform.Telecom(System.JSON.createParser(json));
