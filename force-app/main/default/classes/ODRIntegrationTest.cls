@@ -108,6 +108,8 @@ public class ODRIntegrationTest {
         System.assertEquals(Physician, '91');
         String Nurse = ODRIntegration.getPractitionerCode('Nurse Practitioner');
         System.assertEquals(Nurse, '96');
+        String Nurse = ODRIntegration.getPractitionerCode('Nurse');
+        System.assertEquals(Nurse, 'R9');
         String Dentist = ODRIntegration.getPractitionerCode('Dentist');
         System.assertEquals(Dentist, '95');
         String Midwife = ODRIntegration.getPractitionerCode('Midwife');

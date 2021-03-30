@@ -233,6 +233,8 @@ public with sharing class ODRIntegration {
                 practIdCode = '91';
             } when 'Nurse Practitioner' {
                 practIdCode = '96';
+            } when 'Nurse' {
+                practIdCode = 'R9';
             } when 'Dentist' {
                 practIdCode = '95';
             } when 'Midwife' {
