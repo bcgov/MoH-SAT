@@ -8,6 +8,13 @@ public class PrescriptionHistoryResponse {
 		@AuraEnabled public String name {get;set;}
 		@AuraEnabled public String faxNumber {get;set;}
 	}
+
+  public class ClaimHistory {
+		@AuraEnabled public String saTypeApplied {get;set;}
+		@AuraEnabled public Double acceptedAmount {get;set;}
+		@AuraEnabled public Double claimAmount {get;set;}
+		@AuraEnabled public String planCode {get;set;}
+	}
 	
 	public class MedRecords {
 		@AuraEnabled public Integer rxNumber {get;set;}
@@ -15,6 +22,7 @@ public class PrescriptionHistoryResponse {
 		@AuraEnabled public Integer refills {get;set;}
 		@AuraEnabled public Integer dinpin {get;set;}
 		@AuraEnabled public String directions {get;set;}
+		@AuraEnabled public ClaimHistory claimHistory {get;set;}
 		@AuraEnabled public String drugStrength {get;set;}
 		@AuraEnabled public String genericName {get;set;}
 		@AuraEnabled public Double daysSupply {get;set;}

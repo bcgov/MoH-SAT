@@ -14,7 +14,12 @@ const columns = [
   { label: 'Pharmacy', fieldName: 'dispensingPharmacyName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'Direction', fieldName: 'directions', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
-  // Claims History** not available
+  // Claims
+  { label: 'Plan Code', fieldName: 'planCode', wrapText: true, hideDefaultActions: true },
+  { label: 'SA Applied', fieldName: 'saTypeApplied', wrapText: true, hideDefaultActions: true },
+  { label: 'Claimed amount', fieldName: 'claimAmount', wrapText: true, hideDefaultActions: true },
+  { label: 'Accepted amount', fieldName: 'acceptedAmount', wrapText: true, hideDefaultActions: true },
+
   { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
   { label: 'Strength', fieldName: 'drugStrength', type: 'text', wrapText: true, hideDefaultActions: true },
   // Pract id/contact/details
@@ -162,6 +167,12 @@ export default class PharmanetHistory extends LightningElement {
             item['drugStrength'] = record.drugStrength;
             item['directions'] = record.directions;
             item['daysSupply'] = record.daysSupply;
+
+            // Claim
+            item['saTypeApplied'] = record.claimHistory.saTypeApplied;
+            item['acceptedAmount'] = record.claimHistory.acceptedAmount;
+            item['claimAmount'] = record.claimHistory.claimAmount;
+            item['planCode'] = record.claimHistory.planCode;
             // cost claimed  N/A
             // cost accepted N/A
             item['prescriberName'] = record.prescriberInfo.name + ", "
