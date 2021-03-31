@@ -11,7 +11,7 @@ global with sharing class SaRestApi {
 
         RestResponse res = RestContext.response;
         res.statusCode = 201;
-        res.headers.put('X-eForms-Message', c.CaseNumber);
+        res.headers.put('X-eForms-Message', postResponse(c.CaseNumber));
     }
 
     @HttpGet
@@ -41,5 +41,14 @@ global with sharing class SaRestApi {
             from Case
             where Contact.Patient_Identifier__c = :patientIdentifier
         ];
+    }
+
+    private static String postResponse(String caseNumber) {
+        return String.format(
+            'Special Authority has received your request and your reference number is {0}. ' + 
+            'The coverage decision will be sent to the submitter\'s fax number as per the eform. ' +
+            'Patients can view the SA Request status on their Patient Health Gateway profile.', new String[] {
+            caseNumber
+        });
     }
 }
