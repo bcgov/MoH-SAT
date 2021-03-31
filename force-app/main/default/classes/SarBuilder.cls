@@ -1,5 +1,19 @@
 public with sharing class SarBuilder {
+    public class SarBuilderException extends Exception {}
+    
     private static Integer SORT_ORDER = 100;
+    
+    public static List<String> ERRORS = new List<String>();
+
+    public static final Id FAULT_QUEUE_ID {
+        get { 
+            if (FAULT_QUEUE_ID == null) {
+                FAULT_QUEUE_ID = [select Id from Group where DeveloperName = 'eForm_Failure']?.Id;
+            }
+            return FAULT_QUEUE_ID;
+        }
+        private set;
+    }
 
     public static SpecialAuthorityRequest build(String bundleJsonStr) {
         Drug__c drug;
@@ -15,14 +29,19 @@ public with sharing class SarBuilder {
 
         for (Eform.Entry bundleEntry : bundle.entry) {
             Eform.Resource resource = bundleEntry.resource;
-            if (resource.resourceType.equalsIgnoreCase('Patient')) {
-                patient = buildPatient(bundleEntry.resource);
-            } else if (resource.resourceType.equalsIgnoreCase('Practitioner')) {
-                provider = buildProvider(bundleEntry.resource);
-            } else if (resource.resourceType.equalsIgnoreCase('Binary') && resource.contentType == 'application/pdf') {
-                contentVersions.add(buildFile(bundleEntry.resource));
-            } else if (resource.resourceType.equalsIgnoreCase('QuestionnaireResponse')) {
-                requestDetails.addAll(buildRequestDetails(bundleEntry.resource));
+                
+            try {
+                if (resource.resourceType.equalsIgnoreCase('Patient')) {
+                    patient = buildPatient(bundleEntry.resource);
+                } else if (resource.resourceType.equalsIgnoreCase('Practitioner')) {
+                    provider = buildProvider(bundleEntry.resource);
+                } else if (resource.resourceType.equalsIgnoreCase('Binary') && resource.contentType == 'application/pdf') {
+                    contentVersions.add(buildFile(bundleEntry.resource));
+                } else if (resource.resourceType.equalsIgnoreCase('QuestionnaireResponse')) {
+                    requestDetails.addAll(buildRequestDetails(bundleEntry.resource));
+                }
+            } catch (Exception e) {
+                addError('Error processing ' + resource.resourceType + ' resource.', e);
             }
         }
 
@@ -34,8 +53,13 @@ public with sharing class SarBuilder {
         String refNo = findReferenceNumber(bundle);
         
         saCase = buildCase(drug.Id, drugLabel, refNo);
-        saCase.Provider_Fax__c = provider.Fax;
+        saCase.Provider_Fax__c = provider?.Fax;
         
+        if (!ERRORS.isEmpty()) {
+            saCase.Description += '\n\n' + printErrors();
+            saCase.OwnerId = FAULT_QUEUE_ID;
+        }
+
         contentVersions.add(buildFile(String.format(
             'bundle{0}.json', new String[] {
                 String.isBlank(refNo) ? '' : '-' + refNo
@@ -190,7 +214,7 @@ public with sharing class SarBuilder {
         else if (eformRole.equalsIgnoreCase('POID - Podiatrist')) return 'Podiatrist';
         else if (eformRole.equalsIgnoreCase('PHID - Pharmacist')) return 'Pharmacist';
         else if (eformRole.equalsIgnoreCase('RMID - Midwife')) return 'Midwife';
-        else if (eformRole.equalsIgnoreCase('RNID - Nurse')) return 'Nurse Practitioner';
+        else if (eformRole.equalsIgnoreCase('RNID - Nurse')) return 'Nurse';
         else if (eformRole.equalsIgnoreCase('RNPID - Nurse Practitioner')) return 'Nurse Practitioner';
         else if (eformRole.equalsIgnoreCase('OOP - Out Of Province')) return 'Out of province provider';
         else return eformRole;
@@ -252,4 +276,19 @@ public with sharing class SarBuilder {
         }
         return null;
     }
+
+    private static void addError(String subject, Exception e) {
+        ERRORS.add(String.format('{0}: {1}', new String[] {
+            subject,
+            e.getMessage() + '\n' + e.getStackTraceString()
+        }));
+    }
+
+    private static String printErrors() {
+        String result = '--- ERRORS START ---\n';
+        result += String.join(ERRORS, '\n\n');
+        result += '\n--- ERRORS END ---';
+        return result;
+    }
+
 }
