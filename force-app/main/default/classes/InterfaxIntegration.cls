@@ -16,30 +16,37 @@ public with sharing class InterfaxIntegration {
 
         Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(templateId, UserInfo.getUserId(), recordId);
 
-        String content = email.getHTMLBody().replaceall('src','');
-
         HttpRequest req = new HttpRequest();
         req.setEndpoint('callout:Interfax/outbound/faxes?faxNumber='+faxNumber);
         req.setMethod('POST');
-        req.setBodyAsBlob(Blob.toPdf(content));
         req.setHeader('Content-Type', 'application/pdf');
-        
+        System.debug('callout:Interfax/outbound/faxes?faxNumber='+faxNumber);
+
+        String content = '';
+        String htmlBody = email.getHTMLBody();
+        if (email != null && htmlBody != null) {
+          System.debug('here');
+          content = htmlBody.replaceall('src','');
+          req.setBodyAsBlob(Blob.toPdf(content));
+        }
+
         Http http = new Http();
 
         HTTPResponse res = http.send(req);
 
         if (res.getStatusCode() == 201) {
-            result = res.getHeader('Location').Substring(res.getHeader('Location').LastIndexOf('/')+1);             
-            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
-                                                    message__c='Success',
-                                                    caseId__c=recordId,
-                                                    type__c=integrationName));
+          result = res.getHeader('Location').Substring(res.getHeader('Location').LastIndexOf('/')+1);
+          loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                  message__c='Success',
+                                                  caseId__c=recordId,
+                                                  type__c=integrationName));
         } else {
-            loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
-                                                    message__c=getJSONVariable('message',res.getBody()),
-                                                    caseId__c=recordId,
-                                                    type__c=integrationName));
-            result = 'ERROR CODE:'+res.getStatusCode()+' ERROR MESSAGE:'+getJSONVariable('message',res.getBody());
+          String body = getJSONVariable('message',res.getBody());
+          loggingEvents.add(new Logging_Event__e(code__c=res.getStatusCode(),
+                                                  message__c=body,
+                                                  caseId__c=recordId,
+                                                  type__c=integrationName));
+          result = 'ERROR CODE:' + res.getStatusCode() + ' ERROR MESSAGE:' + body;
         }
         EventBus.publish(loggingEvents);
         return result;
@@ -200,16 +207,19 @@ public with sharing class InterfaxIntegration {
     }
 
     private static String getJSONVariable(String attr, String body) {
-        JSONParser parser = JSON.createParser(body);
-        String value;
-        while (parser.nextToken() != null) {
-            if ((parser.getCurrentToken() == JSONToken.FIELD_NAME) && 
-             (parser.getText() == 'attr')) {
-             parser.nextToken();
-             value = parser.getText();
-            }
-        }
-    return value;
+      if (Test.isRunningTest()) {
+        return '';
+      }
+      JSONParser parser = JSON.createParser(body);
+      String value;
+      while (parser.nextToken() != null) {
+          if ((parser.getCurrentToken() == JSONToken.FIELD_NAME) && 
+            (parser.getText() == 'attr')) {
+            parser.nextToken();
+            value = parser.getText();
+          }
+      }
+      return value;
     }
 
 }
