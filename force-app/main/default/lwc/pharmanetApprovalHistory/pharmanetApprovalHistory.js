@@ -3,11 +3,11 @@ import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAAppro
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
-  { label: 'Description', fieldName: 'description', type: 'text',  initialWidth: 120, hideDefaultActions: true },
-  { label: 'Code', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
+  { label: 'RDP', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Effective Date', fieldName: 'effectiveDate', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'Termination Date', fieldName: 'terminationDate', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Pract ID', fieldName: 'practId', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Pract ID Ref', fieldName: 'practIdRef', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'DaysSupply', fieldName: 'maxDaysSupply', type: 'text', wrapText: true, hideDefaultActions: true },
@@ -25,12 +25,35 @@ export default class PharmanetApprovalHistory extends LightningElement {
   hasResults = false;
   completeAndNoResults = false;
   totalRecords = 0;
-
   error = {};
   isError = false;
 
   connectedCallback() {
     this.fetchItems();
+  }
+
+  convertSAType(type) {
+    let convertedValue = '';
+    switch (type) {
+      case 'L':
+        convertedValue = 'LCA';
+        break;
+      case 'B':
+        convertedValue = 'Non-Benefit';
+        break;
+      case 'R':
+        convertedValue = 'RDP';
+        break;
+    }
+    return convertedValue;
+  }
+
+  convertDINPIN(type, value) {
+    if (type == 'R') {
+      return value.substr(0,4) + '-' + value.substr(4);
+    } else {
+      return value;
+    }
   }
 
   async fetchItems() {
@@ -47,8 +70,8 @@ export default class PharmanetApprovalHistory extends LightningElement {
         records.forEach(record => {
           let item = {};
           item['description'] = record.specialItem.itemDescription;
-          item['dinrdp'] = record.specialItem.din || record.specialItem.rdp;
-          item['specAuthType'] = record.specAuthType;
+          item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
+          item['specAuthType'] = this.convertSAType(record.specAuthType);
           item['effectiveDate'] = record.effectiveDate;
           item['terminationDate'] = record.terminationDate;
           item['practId'] = record.saRequester.practId;
