@@ -106,8 +106,10 @@ public class ODRIntegrationTest {
     @isTest static void getPractitionerCodeTest() {
         String Physician = ODRIntegration.getPractitionerCode('Physician');
         System.assertEquals(Physician, '91');
-        String Nurse = ODRIntegration.getPractitionerCode('Nurse Practitioner');
-        System.assertEquals(Nurse, '96');
+        String nursePractitioner = ODRIntegration.getPractitionerCode('Nurse Practitioner');
+        System.assertEquals(nursePractitioner, '96');
+        String Nurse = ODRIntegration.getPractitionerCode('Nurse');
+        System.assertEquals(Nurse, 'R9');
         String Dentist = ODRIntegration.getPractitionerCode('Dentist');
         System.assertEquals(Dentist, '95');
         String Midwife = ODRIntegration.getPractitionerCode('Midwife');

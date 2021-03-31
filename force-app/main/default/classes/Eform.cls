@@ -375,6 +375,7 @@ public with sharing class Eform {
     public class Tag {
         public String system_Z {get;set;} // in json: system
         public String code {get;set;} 
+        public String display {get;set;} 
 
         public Tag(JSONParser parser) {
             while (parser.nextToken() != System.JSONToken.END_OBJECT) {
@@ -385,6 +386,8 @@ public with sharing class Eform {
                             system_Z = parser.getText();
                         } else if (text == 'code') {
                             code = parser.getText();
+                        } else if (text == 'display') {
+                            display = parser.getText();
                         } else {
                             System.debug(LoggingLevel.WARN, 'Tag consuming unrecognized property: '+text);
                             consumeObject(parser);
