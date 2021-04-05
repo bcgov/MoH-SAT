@@ -1486,12 +1486,6 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>PersonBirthdate</field>
-            <value>
-                <elementReference>Provider_Date_of_Birth</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Provider_Identifier__pc</field>
             <value>
                 <elementReference>Provider_Identifier</elementReference>
@@ -2379,7 +2373,7 @@
             <dataType>Date</dataType>
             <fieldText>Patient Date of Birth</fieldText>
             <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
+            <isRequired>false</isRequired>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -2428,13 +2422,6 @@
             <fieldText>Provider Type</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Date_of_Birth</name>
-            <dataType>Date</dataType>
-            <fieldText>Provider Date of Birth</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -2887,7 +2874,7 @@
             <inputParameters>
                 <name>required</name>
                 <value>
-                    <booleanValue>true</booleanValue>
+                    <booleanValue>false</booleanValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
