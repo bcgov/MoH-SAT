@@ -35,7 +35,7 @@ public with sharing class SarBuilder {
                     patient = buildPatient(bundleEntry.resource);
                 } else if (resource.resourceType.equalsIgnoreCase('Practitioner')) {
                     provider = buildProvider(bundleEntry.resource);
-                } else if (resource.resourceType.equalsIgnoreCase('Binary') && resource.contentType == 'application/pdf') {
+                } else if (resource.resourceType.equalsIgnoreCase('Binary') && resource.contentType != 'application/eforms') {
                     contentVersions.add(buildFile(bundleEntry.resource));
                 } else if (resource.resourceType.equalsIgnoreCase('QuestionnaireResponse')) {
                     requestDetails.addAll(buildRequestDetails(bundleEntry.resource));
@@ -60,12 +60,7 @@ public with sharing class SarBuilder {
             saCase.OwnerId = FAULT_QUEUE_ID;
         }
 
-        contentVersions.add(buildFile(String.format(
-            'bundle{0}.json', new String[] {
-                String.isBlank(refNo) ? '' : '-' + refNo
-            }), 
-            Blob.valueOf(bundleJsonStr)
-        ));
+        contentVersions.add(buildBundleJsonFile(refNo, bundleJsonStr));
 
         return SpecialAuthorityRequest.build(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
@@ -181,9 +176,21 @@ public with sharing class SarBuilder {
     private static Boolean hasCoding(Eform.Answer qra) {
         return qra.valueCoding != null && String.isNotBlank(qra.valueCoding.code);
     }
-    
-    public static ContentVersion buildFile(Eform.Resource resource) {
-        return buildFile(resource.id + '.pdf', EncodingUtil.base64Decode(resource.data));
+
+    private static ContentVersion buildBundleJsonFile(String refNo, String bundleJsonStr) {
+        String fileNameAndExt = String.format(
+            'bundle{0}.json', new String[] {
+            String.isBlank(refNo) ? '' : '-' + refNo
+        });
+
+        return buildFile(fileNameAndExt, Blob.valueOf(bundleJsonStr));
+    }
+    private static ContentVersion buildFile(Eform.Resource resource) {
+        String fileNameAndExt = resource.id;
+
+        if (resource.contentType == 'application/pdf') fileNameAndExt += '.pdf'; 
+        
+        return buildFile(fileNameAndExt, EncodingUtil.base64Decode(resource.data));
     }
 
     private static ContentVersion buildFile(String fileNameAndExt, Blob data) {
