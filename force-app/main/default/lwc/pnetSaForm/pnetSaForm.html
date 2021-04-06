@@ -1,39 +1,52 @@
 <template>
-    <div if:true={record} class="slds-box">
-        <div>
-            <span class="slds-text-heading_small">
-                <span if:true={isRdp}>RDP: {_record.rdpFormatted}</span>
-                <span if:true={isDin}>DIN/PIN: {_record.din}</span>
-            </span>
-        </div>
-        <div class="slds-grid slds-gutters slds-wrap">
-            <div class="slds-col">
-                <lightning-combobox
-                        name="progress"
-                        label="SA Type:"
-                        value={_record.specAuthType}
-                        placeholder="Select SA Type"
-                        options={msOptions}
-                        disabled={formDisabled}
-                        onchange={handleComboItemSelected}
-                        required>
-                </lightning-combobox>
+    <div class="slds-box">
+        <lightning-card if:true={record}>
+            <div slot="title">
+                <span >
+                    <span if:true={isRdp}>RDP: {_record.rdpFormatted}</span>
+                    <span if:true={isDin}>DIN/PIN: {_record.din}</span>
+                </span>
             </div>
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="text" label="Justification Codes" value={_record.justificationCodes} data-field="justificationCodes" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+    
+            <lightning-button 
+                slot="actions"
+                label="Submit" 
+                title="Submit" 
+                disabled={formDisabled}
+                onclick={submit}
+                class="btn-submit">
+            </lightning-button>
+            
+            
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col">
+                    <lightning-combobox
+                            name="progress"
+                            label="SA Type:"
+                            value={_record.specAuthType}
+                            placeholder="Select SA Type"
+                            options={msOptions}
+                            disabled={formDisabled}
+                            onchange={handleComboItemSelected}
+                            required>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="text" label="Justification Codes" value={_record.justificationCodes} data-field="justificationCodes" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="text" label="Excluded Plans:" value={_record.excludedPlans} data-field="excludedPlans" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="date" label="Effective Date:" value={_record.effectiveDate} data-field="effectiveDate"  disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="date" label="Termination Date:" value={_record.terminationDate} data-field="terminationDate"  disabled={formDisabled} onchange={handleFormChange} read-only field-level-help="Edit termination date on case to override."></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="number" label="Max Days Supply:" value={_record.maxDaysSupply} data-field="maxDaysSupply" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+                </div>
             </div>
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="text" label="Excluded Plans:" value={_record.excludedPlans} data-field="excludedPlans" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="date" label="Effective Date:" value={_record.effectiveDate} data-field="effectiveDate"  disabled={formDisabled} onchange={handleFormChange}></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="date" label="Termination Date:" value={_record.terminationDate} data-field="terminationDate"  disabled={formDisabled} onchange={handleFormChange} read-only field-level-help="Edit termination date on case to override."></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="number" label="Max Days Supply:" value={_record.maxDaysSupply} data-field="maxDaysSupply" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
-            </div>
-        </div>
+        </lightning-card>
     </div>
 </template>
