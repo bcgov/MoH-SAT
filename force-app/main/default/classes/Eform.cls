@@ -324,6 +324,12 @@ public with sharing class Eform {
         public Datetime valueDatetime;
         public String valueString;
         public String valueUrl;
+        public ValueCode valueCoding;
+    }
+
+    public class ValueCode {
+        public String code;
+        public String display;
     }
         
     public class Identifier {

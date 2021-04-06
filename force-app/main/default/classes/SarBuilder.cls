@@ -156,19 +156,30 @@ public with sharing class SarBuilder {
         String newQuestionId = String.join(questionIds, '.')?.right(255);
 
         for (Eform.Answer qra : qrItem.answer) {
-            Request_Detail__c rd = new Request_Detail__c();
-            rd.Question__c = qrItem.text;
-            rd.Question_ID__c = newQuestionId;
-            rd.Sort_Order__c = SORT_ORDER++;
-            rd.String_Value__c = qra.valueString;
-            rd.Decimal_Value__c = qra.valueDecimal;
-            rd.Date_Value__c = qra.valueDate;
-            rd.Datetime_Value__c = qra.valueDatetime;
-            rd.Boolean_Value__c = qra.valueBoolean == true;
+            Request_Detail__c rd = buildRequestDetail(newQuestionId, qrItem.text, qra);
             requestDetails.add(rd);
         }
 
         return requestDetails;
+    }
+
+    private static Request_Detail__c buildRequestDetail(String questionId, String questionText, Eform.Answer qra) {
+        Boolean hasCoding = hasCoding(qra);
+
+        Request_Detail__c rd = new Request_Detail__c();
+        rd.Sort_Order__c = SORT_ORDER++;
+        rd.Question_ID__c = questionId;
+        rd.Question__c = hasCoding ? qra.valueCoding.display : questionText;
+        rd.String_Value__c = hasCoding ? qra.valueCoding.code : qra.valueString;
+        rd.Decimal_Value__c = qra.valueDecimal;
+        rd.Date_Value__c = qra.valueDate;
+        rd.Datetime_Value__c = qra.valueDatetime;
+        rd.Boolean_Value__c = qra.valueBoolean == true;
+        return rd;
+    }
+
+    private static Boolean hasCoding(Eform.Answer qra) {
+        return qra.valueCoding != null && String.isNotBlank(qra.valueCoding.code);
     }
     
     public static ContentVersion buildFile(Eform.Resource resource) {
