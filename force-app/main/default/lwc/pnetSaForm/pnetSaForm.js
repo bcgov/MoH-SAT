@@ -104,12 +104,15 @@ export default class PnetSaForm extends LightningElement {
     async submit() {
         let subject = this._record.rdp || this._record.din;
         let success = true;
-
+        
+        this.formDisabled = true;
+        
         try {
             await submitSinglePnetSar({caseId: this.caseId, pnetSa: this.record });
             this.showSuccess(`[${subject}] Submitted to Pharmanet.`);
         } catch (error) {
             this.showError(error.body.message);
+            this.formDisabled = false;
             success = false;
         }
 
