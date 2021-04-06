@@ -35,7 +35,7 @@ public with sharing class SarBuilder {
                     patient = buildPatient(bundleEntry.resource);
                 } else if (resource.resourceType.equalsIgnoreCase('Practitioner')) {
                     provider = buildProvider(bundleEntry.resource);
-                } else if (resource.resourceType.equalsIgnoreCase('Binary') && resource.contentType == 'application/pdf') {
+                } else if (resource.resourceType.equalsIgnoreCase('Binary') && resource.contentType != 'application/eforms') {
                     contentVersions.add(buildFile(bundleEntry.resource));
                 } else if (resource.resourceType.equalsIgnoreCase('QuestionnaireResponse')) {
                     requestDetails.addAll(buildRequestDetails(bundleEntry.resource));
@@ -60,12 +60,7 @@ public with sharing class SarBuilder {
             saCase.OwnerId = FAULT_QUEUE_ID;
         }
 
-        contentVersions.add(buildFile(String.format(
-            'bundle{0}.json', new String[] {
-                String.isBlank(refNo) ? '' : '-' + refNo
-            }), 
-            Blob.valueOf(bundleJsonStr)
-        ));
+        contentVersions.add(buildBundleJsonFile(refNo, bundleJsonStr));
 
         return SpecialAuthorityRequest.build(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
@@ -156,23 +151,46 @@ public with sharing class SarBuilder {
         String newQuestionId = String.join(questionIds, '.')?.right(255);
 
         for (Eform.Answer qra : qrItem.answer) {
-            Request_Detail__c rd = new Request_Detail__c();
-            rd.Question__c = qrItem.text;
-            rd.Question_ID__c = newQuestionId;
-            rd.Sort_Order__c = SORT_ORDER++;
-            rd.String_Value__c = qra.valueString;
-            rd.Decimal_Value__c = qra.valueDecimal;
-            rd.Date_Value__c = qra.valueDate;
-            rd.Datetime_Value__c = qra.valueDatetime;
-            rd.Boolean_Value__c = qra.valueBoolean == true;
+            Request_Detail__c rd = buildRequestDetail(newQuestionId, qrItem.text, qra);
             requestDetails.add(rd);
         }
 
         return requestDetails;
     }
-    
-    public static ContentVersion buildFile(Eform.Resource resource) {
-        return buildFile(resource.id + '.pdf', EncodingUtil.base64Decode(resource.data));
+
+    private static Request_Detail__c buildRequestDetail(String questionId, String questionText, Eform.Answer qra) {
+        Boolean hasCoding = hasCoding(qra);
+
+        Request_Detail__c rd = new Request_Detail__c();
+        rd.Sort_Order__c = SORT_ORDER++;
+        rd.Question_ID__c = questionId;
+        rd.Question__c = hasCoding ? qra.valueCoding.display : questionText;
+        rd.String_Value__c = hasCoding ? qra.valueCoding.code : qra.valueString;
+        rd.Decimal_Value__c = qra.valueDecimal;
+        rd.Date_Value__c = qra.valueDate;
+        rd.Datetime_Value__c = qra.valueDatetime;
+        rd.Boolean_Value__c = qra.valueBoolean == true;
+        return rd;
+    }
+
+    private static Boolean hasCoding(Eform.Answer qra) {
+        return qra.valueCoding != null && String.isNotBlank(qra.valueCoding.code);
+    }
+
+    private static ContentVersion buildBundleJsonFile(String refNo, String bundleJsonStr) {
+        String fileNameAndExt = String.format(
+            'bundle{0}.json', new String[] {
+            String.isBlank(refNo) ? '' : '-' + refNo
+        });
+
+        return buildFile(fileNameAndExt, Blob.valueOf(bundleJsonStr));
+    }
+    private static ContentVersion buildFile(Eform.Resource resource) {
+        String fileNameAndExt = resource.id;
+
+        if (resource.contentType == 'application/pdf') fileNameAndExt += '.pdf'; 
+        
+        return buildFile(fileNameAndExt, EncodingUtil.base64Decode(resource.data));
     }
 
     private static ContentVersion buildFile(String fileNameAndExt, Blob data) {
@@ -207,17 +225,18 @@ public with sharing class SarBuilder {
     }
 
     private static String toProviderRole(String eformRole) {
-        if (String.isBlank(eformRole)) return null;
-        else if (eformRole.equalsIgnoreCase('CPSID - Physician')) return 'Physician';
-        else if (eformRole.equalsIgnoreCase('DENID -  Dentist')) return 'Dentist';
-        else if (eformRole.equalsIgnoreCase('OPTID - Optometrist')) return 'Optometrist';
-        else if (eformRole.equalsIgnoreCase('POID - Podiatrist')) return 'Podiatrist';
-        else if (eformRole.equalsIgnoreCase('PHID - Pharmacist')) return 'Pharmacist';
-        else if (eformRole.equalsIgnoreCase('RMID - Midwife')) return 'Midwife';
-        else if (eformRole.equalsIgnoreCase('RNID - Nurse')) return 'Nurse';
-        else if (eformRole.equalsIgnoreCase('RNPID - Nurse Practitioner')) return 'Nurse Practitioner';
-        else if (eformRole.equalsIgnoreCase('OOP - Out Of Province')) return 'Out of province provider';
-        else return eformRole;
+        String role = eformRole.normalizeSpace();
+        if (String.isBlank(role)) return null;
+        else if (role.equalsIgnoreCase('Physician')) return 'Physician';
+        else if (role.equalsIgnoreCase('Dentist')) return 'Dentist';
+        else if (role.equalsIgnoreCase('Optometrist')) return 'Optometrist';
+        else if (role.equalsIgnoreCase('Podiatrist')) return 'Podiatrist';
+        else if (role.equalsIgnoreCase('Pharmacist')) return 'Pharmacist';
+        else if (role.equalsIgnoreCase('Midwife')) return 'Midwife';
+        else if (role.equalsIgnoreCase('Registered Nurse')) return 'Nurse';
+        else if (role.equalsIgnoreCase('Registered Nurse Practitioner')) return 'Nurse Practitioner';
+        else if (role.equalsIgnoreCase('OOP Provider')) return 'Out of province provider';
+        else return role;
     }
 
     private static String findProviderRole(Eform.Resource resource) {
