@@ -218,17 +218,18 @@ public with sharing class SarBuilder {
     }
 
     private static String toProviderRole(String eformRole) {
-        if (String.isBlank(eformRole)) return null;
-        else if (eformRole.equalsIgnoreCase('CPSID - Physician')) return 'Physician';
-        else if (eformRole.equalsIgnoreCase('DENID -  Dentist')) return 'Dentist';
-        else if (eformRole.equalsIgnoreCase('OPTID - Optometrist')) return 'Optometrist';
-        else if (eformRole.equalsIgnoreCase('POID - Podiatrist')) return 'Podiatrist';
-        else if (eformRole.equalsIgnoreCase('PHID - Pharmacist')) return 'Pharmacist';
-        else if (eformRole.equalsIgnoreCase('RMID - Midwife')) return 'Midwife';
-        else if (eformRole.equalsIgnoreCase('RNID - Nurse')) return 'Nurse';
-        else if (eformRole.equalsIgnoreCase('RNPID - Nurse Practitioner')) return 'Nurse Practitioner';
-        else if (eformRole.equalsIgnoreCase('OOP - Out Of Province')) return 'Out of province provider';
-        else return eformRole;
+        String role = eformRole.normalizeSpace();
+        if (String.isBlank(role)) return null;
+        else if (role.equalsIgnoreCase('Physician')) return 'Physician';
+        else if (role.equalsIgnoreCase('Dentist')) return 'Dentist';
+        else if (role.equalsIgnoreCase('Optometrist')) return 'Optometrist';
+        else if (role.equalsIgnoreCase('Podiatrist')) return 'Podiatrist';
+        else if (role.equalsIgnoreCase('Pharmacist')) return 'Pharmacist';
+        else if (role.equalsIgnoreCase('Midwife')) return 'Midwife';
+        else if (role.equalsIgnoreCase('Registered Nurse')) return 'Nurse';
+        else if (role.equalsIgnoreCase('Registered Nurse Practitioner')) return 'Nurse Practitioner';
+        else if (role.equalsIgnoreCase('OOP Provider')) return 'Out of province provider';
+        else return role;
     }
 
     private static String findProviderRole(Eform.Resource resource) {
