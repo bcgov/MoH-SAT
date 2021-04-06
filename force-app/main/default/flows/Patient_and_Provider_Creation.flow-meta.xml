@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Patient_Validated_0</name>
         <label>Patient Validated</label>
-        <locationX>2475</locationX>
-        <locationY>6939</locationY>
+        <locationX>2375</locationX>
+        <locationY>7054</locationY>
         <actionName>Case.Patient_Validated</actionName>
         <actionType>quickAction</actionType>
         <connector>
@@ -559,8 +559,8 @@
     <decisions>
         <name>Case_Approval_Status</name>
         <label>Case Approval Status</label>
-        <locationX>2387</locationX>
-        <locationY>8187</locationY>
+        <locationX>2287</locationX>
+        <locationY>8302</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen</targetReference>
         </defaultConnector>
@@ -580,6 +580,13 @@
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>None</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>What_type_of_request_is_this</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Business Duplicate</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -850,8 +857,8 @@
     <decisions>
         <name>Is_Patient_Deceased</name>
         <label>Is Patient Deceased</label>
-        <locationX>2387</locationX>
-        <locationY>6819</locationY>
+        <locationX>2287</locationX>
+        <locationY>6934</locationY>
         <defaultConnector>
             <targetReference>Patient_Validated_0</targetReference>
         </defaultConnector>
@@ -975,8 +982,8 @@
     <decisions>
         <name>Request_Detail_Creation</name>
         <label>Request Detail Creation</label>
-        <locationX>2387</locationX>
-        <locationY>7851</locationY>
+        <locationX>2287</locationX>
+        <locationY>7966</locationY>
         <defaultConnector>
             <targetReference>Case_Approval_Status</targetReference>
         </defaultConnector>
@@ -1130,8 +1137,8 @@
     <decisions>
         <name>Update_Drug_Id_on_Case</name>
         <label>Update Drug Id on Case</label>
-        <locationX>2387</locationX>
-        <locationY>7275</locationY>
+        <locationX>2287</locationX>
+        <locationY>7390</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen_0</targetReference>
         </defaultConnector>
@@ -2242,8 +2249,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Not_Approved</name>
         <label>Update Case Status Not Approved</label>
-        <locationX>2255</locationX>
-        <locationY>8307</locationY>
+        <locationX>2155</locationX>
+        <locationY>8422</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2410,8 +2417,8 @@
     <recordUpdates>
         <name>Update_SA_Request_with_Drug_Id</name>
         <label>Update SA Request with Drug Id</label>
-        <locationX>2387</locationX>
-        <locationY>7731</locationY>
+        <locationX>2287</locationX>
+        <locationY>7846</locationY>
         <connector>
             <targetReference>Request_Detail_Creation</targetReference>
         </connector>
@@ -3145,8 +3152,8 @@
     <screens>
         <name>Thank_You_Screen</name>
         <label>Thank You Screen</label>
-        <locationX>2387</locationX>
-        <locationY>8523</locationY>
+        <locationX>2287</locationX>
+        <locationY>8638</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3161,8 +3168,8 @@
     <screens>
         <name>Thank_You_Screen_0</name>
         <label>Thank You Screen</label>
-        <locationX>3443</locationX>
-        <locationY>7395</locationY>
+        <locationX>3343</locationX>
+        <locationY>7510</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3177,8 +3184,8 @@
     <screens>
         <name>Upload_Files</name>
         <label>Upload Files</label>
-        <locationX>2387</locationX>
-        <locationY>7155</locationY>
+        <locationX>2287</locationX>
+        <locationY>7270</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3225,12 +3232,12 @@
             <targetReference>Provider_Details_Screen</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <subflows>
         <name>Bupropion_Creation</name>
         <label>Bupropion Creation</label>
-        <locationX>1859</locationX>
-        <locationY>7971</locationY>
+        <locationX>1759</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3257,8 +3264,8 @@
     <subflows>
         <name>Candesartan_Creation</name>
         <label>Candesartan Creation</label>
-        <locationX>2387</locationX>
-        <locationY>7971</locationY>
+        <locationX>2287</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3285,8 +3292,8 @@
     <subflows>
         <name>Get_Bupropion_Id</name>
         <label>Get Bupropion Id</label>
-        <locationX>1859</locationX>
-        <locationY>7395</locationY>
+        <locationX>1759</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3305,8 +3312,8 @@
     <subflows>
         <name>Get_Candesartan_ID</name>
         <label>Get Candesartan ID</label>
-        <locationX>2387</locationX>
-        <locationY>7395</locationY>
+        <locationX>2287</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3345,8 +3352,8 @@
     <subflows>
         <name>Get_Gliclazide_Id</name>
         <label>Get Gliclazide Id</label>
-        <locationX>2123</locationX>
-        <locationY>7395</locationY>
+        <locationX>2023</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3365,8 +3372,8 @@
     <subflows>
         <name>Get_Losartan_ID</name>
         <label>Get Losartan ID</label>
-        <locationX>2651</locationX>
-        <locationY>7395</locationY>
+        <locationX>2551</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3385,8 +3392,8 @@
     <subflows>
         <name>Get_Pantoprazole_Magnesium_Id</name>
         <label>Get Pantoprazole Magnesium Id</label>
-        <locationX>1595</locationX>
-        <locationY>7395</locationY>
+        <locationX>1495</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3405,8 +3412,8 @@
     <subflows>
         <name>Get_Rabeprazole_Id</name>
         <label>Get Rabeprazole Id</label>
-        <locationX>1331</locationX>
-        <locationY>7395</locationY>
+        <locationX>1231</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3425,8 +3432,8 @@
     <subflows>
         <name>Get_Telmisartan_ID</name>
         <label>Get Telmisartan ID</label>
-        <locationX>2915</locationX>
-        <locationY>7395</locationY>
+        <locationX>2815</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3445,8 +3452,8 @@
     <subflows>
         <name>Get_Valsartan_ID</name>
         <label>Get Valsartan ID</label>
-        <locationX>3179</locationX>
-        <locationY>7395</locationY>
+        <locationX>3079</locationX>
+        <locationY>7510</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3465,8 +3472,8 @@
     <subflows>
         <name>Gliclazide_Creation</name>
         <label>Gliclazide Creation</label>
-        <locationX>2123</locationX>
-        <locationY>7971</locationY>
+        <locationX>2023</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3493,8 +3500,8 @@
     <subflows>
         <name>Losartan_Creation</name>
         <label>Losartan Creation</label>
-        <locationX>2651</locationX>
-        <locationY>7971</locationY>
+        <locationX>2551</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3521,8 +3528,8 @@
     <subflows>
         <name>Pantoprazole_Magnesium_Creation</name>
         <label>Pantoprazole Magnesium Creation</label>
-        <locationX>1595</locationX>
-        <locationY>7971</locationY>
+        <locationX>1495</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3549,8 +3556,8 @@
     <subflows>
         <name>Rabeprazole_Creation</name>
         <label>Rabeprazole Creation</label>
-        <locationX>1331</locationX>
-        <locationY>7971</locationY>
+        <locationX>1231</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3577,8 +3584,8 @@
     <subflows>
         <name>Telmisartan_Creation</name>
         <label>Telmisartan Creation</label>
-        <locationX>2915</locationX>
-        <locationY>7971</locationY>
+        <locationX>2815</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3605,8 +3612,8 @@
     <subflows>
         <name>Valsartan_Creation</name>
         <label>Valsartan Creation</label>
-        <locationX>3179</locationX>
-        <locationY>7971</locationY>
+        <locationX>3079</locationX>
+        <locationY>8086</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
