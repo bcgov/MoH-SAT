@@ -5,6 +5,7 @@ import getFaxOutboundStatus from '@salesforce/apex/InterfaxIntegration.getFaxOut
 import updateCaseFaxSent from '@salesforce/apex/InterfaxIntegration.updateCaseFaxSent';
 import getProviderFaxNumber from '@salesforce/apex/InterfaxIntegration.getProviderFaxNumber';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import faxDisabled from '@salesforce/customPermission/Disable_Fax';
 
 export default class FaxTemplateChooser extends LightningElement {
   @api recordId;
@@ -26,6 +27,10 @@ export default class FaxTemplateChooser extends LightningElement {
       });
     });
     this.faxNumber = await getProviderFaxNumber({recordId: this.recordId});
+  }
+
+  get isFaxDisabled() {
+    return this.isDisabled || faxDisabled;
   }
 
   handleChange(event) {
