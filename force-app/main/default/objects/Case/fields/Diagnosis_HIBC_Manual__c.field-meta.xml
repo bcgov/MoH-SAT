@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Diagnosis_HIBC_Manual__c</fullName>
+    <externalId>false</externalId>
+    <label>Diagnosis HIBC (Manual)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Drug_HIBC_Manual__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Treatment of osteoarthritis only as monotherapy</fullName>
+                <default>false</default>
+                <label>Treatment of osteoarthritis only as monotherapy</label>
+            </value>
+            <value>
+                <fullName>Treatment of osteoarthritis as an adjunct to NSAID therapy when additional pain-relief is required</fullName>
+                <default>false</default>
+                <label>Treatment of osteoarthritis as an adjunct to NSAID therapy when additional pain-relief is required</label>
+            </value>
+            <value>
+                <fullName>The patient is allergic, resistant or intolerant to metronidazole</fullName>
+                <default>false</default>
+                <label>The patient is allergic, resistant or intolerant to metronidazole</label>
+            </value>
+            <value>
+                <fullName>The patient has failed to respond to 4-6 days of oral metronidazole at doses of 500 mg three times per day</fullName>
+                <default>false</default>
+                <label>The patient has failed to respond to 4-6 days of oral metronidazole at doses of 500 mg three times per day</label>
+            </value>
+            <value>
+                <fullName>The patient has symptoms of moderate to severe disease or is experiencing a second disease recurrence</fullName>
+                <default>false</default>
+                <label>The patient has symptoms of moderate to severe disease or is experiencing a second disease recurrence</label>
+            </value>
+            <value>
+                <fullName>The patient was initiated on vancomycin as an inpatient and requires continuation of vancomycin to complete their full course of therapy</fullName>
+                <default>false</default>
+                <label>The patient was initiated on vancomycin as an inpatient and requires continuation of vancomycin to complete their full course of therapy</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Vancomycin</controllingFieldValue>
+            <valueName>The patient is allergic, resistant or intolerant to metronidazole</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vancomycin</controllingFieldValue>
+            <valueName>The patient has failed to respond to 4-6 days of oral metronidazole at doses of 500 mg three times per day</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vancomycin</controllingFieldValue>
+            <valueName>The patient has symptoms of moderate to severe disease or is experiencing a second disease recurrence</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vancomycin</controllingFieldValue>
+            <valueName>The patient was initiated on vancomycin as an inpatient and requires continuation of vancomycin to complete their full course of therapy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Vancomycin</controllingFieldValue>
+            <controllingFieldValue>Acetaminophen 500mg</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Acetaminophen 500mg</controllingFieldValue>
+            <valueName>Treatment of osteoarthritis only as monotherapy</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Acetaminophen 500mg</controllingFieldValue>
+            <valueName>Treatment of osteoarthritis as an adjunct to NSAID therapy when additional pain-relief is required</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
