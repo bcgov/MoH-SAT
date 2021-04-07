@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Fax_Notification_Outstanding</fullName>
+    <fullName>To_be_Faxed_Queue</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>Patient_Identifier__c</columns>
-    <columns>Provider__c</columns>
-    <columns>Drug_Name__c</columns>
     <columns>CASES.STATUS</columns>
-    <columns>Fax_Notification_Date__c</columns>
+    <columns>CASES.PRIORITY</columns>
     <columns>CORE.USERS.ALIAS</columns>
+    <columns>Ready_to_be_faxed__c</columns>
+    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CASES.CLOSED_DATE</columns>
     <filterScope>Everything</filterScope>
+    <filters>
+        <field>Ready_to_be_faxed__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
     <filters>
         <field>Fax_Notification_Date__c</field>
         <operation>equals</operation>
     </filters>
     <filters>
-        <field>CASES.STATUS</field>
+        <field>Faxed_by__c</field>
         <operation>equals</operation>
-        <value>Approved,Not Approved,On Hold - MIR,Duplicate</value>
     </filters>
-    <label>Fax Notification Outstanding</label>
+    <label>To be Faxed Queue</label>
 </ListView>
