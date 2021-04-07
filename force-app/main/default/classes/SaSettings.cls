@@ -27,4 +27,8 @@ public with sharing class SaSettings {
     public static Boolean isSandbx() {
         return IS_SANDBOX;
     }
+
+    public static Id getEformFaultQueueId() {
+        return [select Id from Group where DeveloperName = 'eForm_Failure']?.Id;
+    }
 }
