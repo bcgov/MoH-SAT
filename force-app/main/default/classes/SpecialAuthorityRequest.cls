@@ -143,6 +143,7 @@ public with sharing class SpecialAuthorityRequest {
 
         saCase.ContactId = patientContact.Id;
         saCase.Provider__c = providerContact.Id;
+        saCase.Provider_Fax__c = provider?.Fax;
         insert saCase;
 
         for (Request_Detail__c rd : requestDetails) {

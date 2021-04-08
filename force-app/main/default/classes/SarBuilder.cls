@@ -43,7 +43,6 @@ public with sharing class SarBuilder {
         String refNo = findReferenceNumber(bundle);
         
         saCase = buildCase(drug.Id, drugLabel, refNo);
-        saCase.Provider_Fax__c = provider?.Fax;
         
         if (!ERRORS.isEmpty()) {
             saCase.Description += '\n\n' + printErrors();
