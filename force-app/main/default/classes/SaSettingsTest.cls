@@ -26,4 +26,13 @@ public with sharing class SaSettingsTest {
         );
     }
 
+    @isTest
+    static void test_get_eform_fault_queue() {
+        
+        system.assertEquals(
+            [select Id from Group where DeveloperName = 'eForm_Failure']?.Id,
+            SaSettings.getEformFaultQueueId()
+        );
+    }
+
 }

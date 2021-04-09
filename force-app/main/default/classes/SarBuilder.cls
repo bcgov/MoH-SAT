@@ -5,16 +5,6 @@ public with sharing class SarBuilder {
     
     public static List<String> ERRORS = new List<String>();
 
-    public static final Id FAULT_QUEUE_ID {
-        get { 
-            if (FAULT_QUEUE_ID == null) {
-                FAULT_QUEUE_ID = [select Id from Group where DeveloperName = 'eForm_Failure']?.Id;
-            }
-            return FAULT_QUEUE_ID;
-        }
-        private set;
-    }
-
     public static SpecialAuthorityRequest build(String bundleJsonStr) {
         Drug__c drug;
         Account provider;
@@ -53,11 +43,10 @@ public with sharing class SarBuilder {
         String refNo = findReferenceNumber(bundle);
         
         saCase = buildCase(drug.Id, drugLabel, refNo);
-        saCase.Provider_Fax__c = provider?.Fax;
         
         if (!ERRORS.isEmpty()) {
             saCase.Description += '\n\n' + printErrors();
-            saCase.OwnerId = FAULT_QUEUE_ID;
+            saCase.OwnerId = SaSettings.getEformFaultQueueId();
         }
 
         contentVersions.add(buildBundleJsonFile(refNo, bundleJsonStr));
