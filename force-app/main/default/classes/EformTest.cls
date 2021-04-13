@@ -77,7 +77,7 @@ public class EformTest {
 		'				\"id\": \"Submitter1\",'+
 		'				\"identifier\": ['+
 		'					{'+
-		'						\"system\": \"urn:PHID\",'+
+		'						\"system\": \"https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-license-physician\",'+
 		'						\"value\": \"CP501\"'+
 		'					}'+
 		'				],'+
@@ -133,8 +133,8 @@ public class EformTest {
 		'						\"code\": {'+
 		'							\"coding\": ['+
 		'								{'+
-		'									\"system\": \"urn:role\",'+
-		'									\"display\": \"PHARM\"'+
+		'									\"system\": \"http://fhir.infoway-inforoute.ca/CodeSystem/scpqual\",'+
+		'									\"display\": \"Physician\"'+
 		'								}'+
 		'							]'+
 		'						}'+
@@ -143,8 +143,8 @@ public class EformTest {
 		'						\"code\": {'+
 		'							\"coding\": ['+
 		'								{'+
-		'									\"system\": \"urn:specialty\",'+
-		'									\"code\": \"Oncology Pharmacy\"'+
+		'									\"system\": \"http://hl7.org/fhir/practitioner-specialty\",'+
+		'									\"code\": \"Emergency Care\"'+
 		'								}'+
 		'							]'+
 		'						}'+
