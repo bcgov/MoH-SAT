@@ -1,0 +1,30 @@
+<template>
+  <lightning-card if:true={loaded}>
+    <h3 slot="title">
+        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+        &nbsp;Adverse Reactions
+    </h3>
+  </lightning-card>
+  <!-- IF RESULTS -->
+  <lightning-card if:true={hasResults}>
+    <lightning-datatable
+            key-field="dateReported"
+            hide-checkbox-column
+            data={data}
+            columns={columns}>
+    </lightning-datatable>
+  </lightning-card>
+
+  <!-- NO RESULTS FOUND -->
+  <lightning-card if:true={completeAndNoResults}>
+    <div class="slds-text-align_center">
+        <div class="slds-m-vertical_small">
+            <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+            <p>No adverse reactions.</p>
+        </div>
+    </div>
+  </lightning-card>
+
+  <!-- ERROR CASE -->
+  <c-error-display if:true={isError} error={error}></c-error-display>
+</template>
