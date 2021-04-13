@@ -82,7 +82,7 @@ public with sharing class SarBuilder {
     public static Account buildProvider(Eform.Resource resource) {
         Account account = buildAccount(resource);
 
-        String identifier = getIdentifier(resource.identifier);
+        String identifier = getProviderIdentifier(resource.identifier);
         
         List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
@@ -229,11 +229,11 @@ public with sharing class SarBuilder {
     }
 
     private static String findProviderRole(Eform.Resource resource) {
-        return findQualification(resource.qualification, 'urn:role')?.display;
+        return findQualification(resource.qualification, 'http://fhir.infoway-inforoute.ca/CodeSystem/scpqual')?.display;
     }
     
     private static String findProviderSpecialty(Eform.Resource resource) {
-        return findQualification(resource.qualification, 'urn:specialty')?.code;
+        return findQualification(resource.qualification, 'http://hl7.org/fhir/practitioner-specialty')?.code;
     }
 
     private static Eform.Tag findQualification(List<Eform.Qualification> qualifications, String systemValue) {
@@ -256,6 +256,18 @@ public with sharing class SarBuilder {
         if (identifiers == null) return value;
         for (Eform.Identifier identifier : identifiers) {
             value = identifier.value;
+        }
+        return value;
+    }
+
+    private static String getProviderIdentifier(List<Eform.Identifier> identifiers) {
+        String value = 'NULL_IDENTIFIER';
+        if (identifiers == null) return value;
+        for (Eform.Identifier identifier : identifiers) {
+            if (identifier.system_Z.startsWithIgnoreCase('https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-license')) {
+                value = identifier.value;
+                break;
+            }
         }
         return value;
     }
