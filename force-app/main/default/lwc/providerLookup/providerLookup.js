@@ -99,7 +99,7 @@ export default class ProviderLookup extends LightningElement {
             lastName: odrProvider.lastName,
             personBirthdate: this.parseDate(odrProvider.dateofBirth),
             status: odrProvider.status,
-            verified: odrProvider.status == 'P',
+            verified: odrProvider.verified,
             statusHumanReadable: odrProvider.status == 'P' ? 'Practicing' : 'Non-Practicing',
             ...this.form
         }
@@ -146,6 +146,6 @@ export default class ProviderLookup extends LightningElement {
     }
 
     get noRecord() {
-        return this.form && this.form.verified === false;
+        return this.form && this.form.status === undefined;
     }
 }
