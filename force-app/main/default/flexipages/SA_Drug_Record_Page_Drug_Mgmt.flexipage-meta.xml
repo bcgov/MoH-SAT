@@ -55,30 +55,6 @@
                 <fieldItem>Record.Adjudication_Strategy__c</fieldItem>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Criteria_Logic__c</fieldItem>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Adjudication_Strategy__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Criteria</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Apex_Class__c</fieldItem>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Adjudication_Strategy__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Apex</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-a34e871d-d9d3-4027-a6e9-39ec3e1a4f0a</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -91,16 +67,6 @@
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Drug_Code__c</fieldItem>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Pre_Adjudication_Apex__c</fieldItem>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Post_Adjudication_Apex__c</fieldItem>
             </fieldInstance>
         </itemInstances>
         <name>Facet-f37141d6-329a-4d9c-86c1-522cc4b779db</name>
@@ -140,6 +106,23 @@
                     <value>Settings</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Drug__c.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Steps__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>GRID</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
             </componentInstance>
         </itemInstances>
         <itemInstances>
