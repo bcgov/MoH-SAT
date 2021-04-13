@@ -43,18 +43,46 @@ export default class FaxTemplateChooser extends LightningElement {
   }
 
   async sendFax() {
-    console.log("SENDING FAX", this.recordId, this.value, this.faxNumber);
-    // let faxNumber = "00999999900000000";
-    let faxId = await sendFax({
-      recordId: this.recordId,
-      faxNumber: this.faxNumber,
-      templateId: this.value,
-      integrationName: '7a'
-    });
+    this.isDisabled = true;
+    // Check if fax number exists
+    if (this.faxNumber != '' && this.faxNumber != null) {
+      console.log("SENDING FAX", this.recordId, this.value, this.faxNumber);
+      // let faxNumber = "00999999900000000";
+      let faxId = await sendFax({
+        recordId: this.recordId,
+        faxNumber: this.faxNumber,
+        templateId: this.value,
+        integrationName: '7a'
+      });
 
-    console.log("faxId:", faxId);
-    let self = this;
-    setTimeout(function () { self.checkFaxStatus(faxId, self.recordId, self, this.faxNumber) }, 5000);
+      console.log("faxId:", faxId);
+      if (faxId.includes('ERROR')) {
+        this.dispatchEvent(new ShowToastEvent({
+          title: 'Fax',
+          message: 'Error sending fax:' + faxId,
+          mode: "dismissable",
+          variant: "error"
+        }));
+        this.isDisabled = false;
+      } else {
+        this.dispatchEvent(new ShowToastEvent({
+          title: 'Fax',
+          message: 'Fax is successfully submitted in the queue' + '(faxid: ' + faxId + '): https//secure.interfax.net/',
+          mode: "dismissable",
+          variant: "success"
+        }));
+        let self = this;
+        setTimeout(function () { self.checkFaxStatus(faxId, self.recordId, self, this.faxNumber) }, 5000);
+      }
+    } else {
+      this.isDisabled = false;
+      this.dispatchEvent(new ShowToastEvent({
+        title: 'Fax',
+        message: 'Please provide provider\'s fax #',
+        mode: "dismissable",
+        variant: "error"
+      }));
+    }
   }
 
   async checkFaxStatus(faxId, recordId, self, faxNumber) {
@@ -66,6 +94,7 @@ export default class FaxTemplateChooser extends LightningElement {
     });
     console.log("faxStatus:", faxStatus);
     if (faxStatus.status == 0) {
+      self.isDisabled = false;
       this.dispatchEvent(new ShowToastEvent({
         title: 'Fax',
         message: 'Fax sent to: ' + faxNumber,
