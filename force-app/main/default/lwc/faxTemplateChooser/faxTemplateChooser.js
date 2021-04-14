@@ -4,6 +4,7 @@ import sendFax from '@salesforce/apex/InterfaxIntegration.sendFax';
 import getFaxOutboundStatus from '@salesforce/apex/InterfaxIntegration.getFaxOutboundStatus';
 import updateCaseFaxSent from '@salesforce/apex/InterfaxIntegration.updateCaseFaxSent';
 import getProviderFaxNumber from '@salesforce/apex/InterfaxIntegration.getProviderFaxNumber';
+import storeFaxLogIntegration from '@salesforce/apex/InterfaxIntegration.storeFaxLogIntegration';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import faxDisabled from '@salesforce/customPermission/Disable_Fax';
 
@@ -12,6 +13,7 @@ export default class FaxTemplateChooser extends LightningElement {
   isDisabled = true;
   data = null;
   value = '';
+  templateName = '';
   faxNumber = '';
   options = [ ];
 
@@ -35,6 +37,7 @@ export default class FaxTemplateChooser extends LightningElement {
 
   handleChange(event) {
     this.value = event.detail.value;
+    this.templateName = this.options.filter(item => item.value == event.detail.value)[0].label;
     this.isDisabled = false;
   }
 
@@ -102,6 +105,7 @@ export default class FaxTemplateChooser extends LightningElement {
         variant: "success"
       }));
       updateCaseFaxSent({caseId: recordId});
+      storeFaxLogIntegration({caseId: recordId, template: this.templateName});
     } else {
       setTimeout(function () { self.checkFaxStatus(faxId, recordId, self, faxNumber) }, 5000);
     }
