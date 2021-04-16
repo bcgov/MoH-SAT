@@ -123,6 +123,7 @@ export default class PatientLookup extends LightningElement {
             });
             // Detect masked
             this.form = {
+                PatientFullNameDisplay: (FirstName + LastName).replace(/,/g, ''),
                 FirstName: FirstName, // Always pick their L name
                 LastName: LastName, // Always pick their L name
                 Names: this.patientProvider.names,
