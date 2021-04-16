@@ -103,7 +103,17 @@ public with sharing class InterfaxIntegration {
       Case c = [select Id, Fax_Notification_Date__c FROM case WHERE Id =:caseId];
       c.Fax_Notification_Date__c = Date.newInstance(Datetime.now().year(), Datetime.now().month(), Datetime.now().day());
       update c;
-  }
+    }
+
+    @AuraEnabled
+    public static void storeFaxLogIntegration(Id caseId, String template) {
+      List<Fax_Event__e> faxEvents = new List<Fax_Event__e>();
+      faxEvents.add(new Fax_Event__e(dateSent__c=Date.newInstance(Datetime.now().year(), Datetime.now().month(), Datetime.now().day()),
+                                     sentBy__c=ODRIntegration.getUserIdentifier(),
+                                     caseId__c=caseId,
+                                     template__c=template));
+      EventBus.publish(faxEvents);
+    }
 
     /*
         Get unread Inbound faxes
