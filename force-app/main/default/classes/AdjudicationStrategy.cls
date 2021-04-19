@@ -4,10 +4,12 @@ public virtual with sharing class AdjudicationStrategy {
     public SpecialAuthorityRequest sar { get; private set; }
 
     public Drug__c drug { get; private set; }
+    public List<Step__c> steps { get; private set; }
 
     public AdjudicationStrategy(SpecialAuthorityRequest sar) {
         this.sar = sar;
         this.drug = sar.hasDrug() ? queryDrug(sar.drug.Id) : null;
+        this.steps = sar.hasDrug() ? querySteps(sar.drug.Id) : new List<Step__c>();
     }
 
     public virtual void runEvaluate() {
@@ -30,8 +32,6 @@ public virtual with sharing class AdjudicationStrategy {
             runAction(ProviderValidator.class); 
         }
 
-        runAction(drug.Pre_Adjudication_Apex__c);
-
         onBeforeEvaluate();
     }
 
@@ -39,8 +39,6 @@ public virtual with sharing class AdjudicationStrategy {
      * Base handler for events that execute after adjudication evaluation. 
      */
     public virtual void handleAfterEvaluation() {
-        runAction(drug.Post_Adjudication_Apex__c);
-
         onAfterEvaluate();
         
         if (drug.Auto_Push_To_Pharmanet__c) {
@@ -71,8 +69,7 @@ public virtual with sharing class AdjudicationStrategy {
     private Drug__c queryDrug(Id drugId) {
         return [
             select 
-                Id, Pre_Adjudication_Apex__c, Post_Adjudication_Apex__c, Criteria_Logic__c,
-                Auto_Validate_Patient__c, Auto_Validate_Provider__c, Auto_Push_to_Pharmanet__c,
+                Id, Criteria_Logic__c, Auto_Validate_Patient__c, Auto_Validate_Provider__c, Auto_Push_to_Pharmanet__c,
                 (
                     select 
                         Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
@@ -82,6 +79,32 @@ public virtual with sharing class AdjudicationStrategy {
                 )            
             from Drug__c 
             where Id = :drugId
+        ];
+    }
+
+    private List<Step__c> querySteps(Id drugId) {
+        return [
+            select
+                Id, Order__c, Always_Run__c, Criteria_Logic__c, 
+                (
+                    select 
+                        Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
+                        String_Value__c, Boolean_Value__c, Decimal_Value__c, Date_Value__c, Datetime_Value__c
+                    from Step_Criteria__r
+                    order by Order__c asc
+                ),
+                (
+                    select 
+                        Order__c, OwnerId, Adjudication_Status__c,
+                        Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, 
+                        Key_Type__c, Pharmanet_Code__c, Price_Percent__c, SA_Type__c,
+                        Duration__c, Duration_Unit__c
+                    from Step_Actions__r
+                    order by Order__c asc
+                )
+            from Step__c
+            where Drug__c = :drugId
+            order by Order__c asc
         ];
     }
 }
