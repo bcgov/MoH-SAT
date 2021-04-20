@@ -262,18 +262,6 @@ public with sharing class ODRIntegration {
         System.debug(dateString);
         return dateString;
     }
-    
-    public static List<SAApprovalRequestResponse> postSAApproval(SpecialAuthorityRequest sar) {
-        List<SAApprovalRequest> saaRequests = getSAApprovalRequests(sar);
-        List<SAApprovalRequestResponse> responses = new List<SAApprovalRequestResponse>();
-
-        for(SAApprovalRequest saaRequest: saaRequests) {
-            SAApprovalRequestResponse saarResponse = postSAApproval(sar.saCase.Id, saaRequest);
-            responses.add(saarResponse);
-        }
-        
-        return responses;
-    }
 
     public static SAApprovalRequestResponse postSAApproval(Id caseId, SAApprovalRequest saaRequest) {
         saaRequest.requestUUID = OdrIntegration.getUUIDString();
