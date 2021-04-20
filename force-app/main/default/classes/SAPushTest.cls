@@ -15,6 +15,7 @@ public class SAPushTest {
         saCase.Origin = 'Fax';
         saCase.Priority = 'Low';
         saCase.Provider_Validated_Date__c = Datetime.now();
+        saCase.Status = 'Approved';
         insert saCase;
 
         SAPush pvalidator = new SAPush();

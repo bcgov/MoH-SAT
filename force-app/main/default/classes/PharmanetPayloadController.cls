@@ -32,20 +32,8 @@ public with sharing class PharmanetPayloadController {
     private static void setTerminationDate(Id caseId, String odrTerminationDate) {
         Case record = new Case();
         record.Id = caseId;
-        record.Termination_Date__c = parseOdrDate(odrTerminationDate);
+        record.Termination_Date__c = DateUtil.parseOdrDate(odrTerminationDate);
         update record;
-    }
-
-    private static Date parseOdrDate(String odrDateStr) {
-        if (odrDateStr == null) return null;
-
-        String[] terminationDateArr = odrDateStr.split('/');
-        
-        return Date.newInstance(
-            Integer.valueOf(terminationDateArr[0]), 
-            Integer.valueOf(terminationDateArr[1]), 
-            Integer.valueOf(terminationDateArr[2])
-        );
     }
 
     private static Boolean hasError(SAApprovalRequestResponse saaResponse) {
