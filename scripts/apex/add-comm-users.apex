@@ -7,12 +7,12 @@ public static User newUser(Profile profile, Contact contact) {
     user.Email = contact.Email;
     user.CommunityNickname = contact.LastName;
     user.Alias = contact.LastName.left(8);
-    user.FederationIdentifier = user.Alias;
     user.Username = contact.Email.substringBefore('@') + '@' + UserInfo.getUserName().substringBefore('@') + '.com';
     user.EmailEncodingKey = 'UTF-8';
     user.TimeZoneSidKey = 'America/Los_Angeles';
     user.LocaleSidKey = 'en_US';
     user.LanguageLocaleKey = 'en_US';
+    user.FederationIdentifier = user.Alias;
     user.IsActive=false;
     return user;
 }
