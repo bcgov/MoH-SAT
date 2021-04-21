@@ -6,12 +6,17 @@
     <description>Custom layout for request details</description>
     <targets>
         <target>lightning__RecordPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
             <objects>
                 <object>Case</object>
             </objects>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="recordId" type="String" label="Record Id" default="{!recordId}" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
