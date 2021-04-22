@@ -10,6 +10,7 @@ export default class PharmanetPayload extends LightningElement {
 
   record;
   pnetSars;
+  allSubmissionsFailed;
 
   @wire(getRecord, {recordId: '$recordId', fields: [FLD_PUSHED_TO_PNET]})
   async wiredRecord({ error, data }) {
@@ -23,7 +24,7 @@ export default class PharmanetPayload extends LightningElement {
   }
 
   get isDisabled() {
-    return !this.hasPnetSars || this.isPushedToPnet;
+    return !this.hasPnetSars || this.isPushedToPnet || this.allSubmissionsFailed;
   }
 
   get isPushedToPnet() {
@@ -46,14 +47,18 @@ export default class PharmanetPayload extends LightningElement {
 
   async handleSubmit() {
     let forms = this.template.querySelectorAll('c-pnet-sa-form');
-    let allSuccess = this.hasPnetSars;
+    let results = [];
 
     for (const form of forms) {
-      let success = await form.submit();
-      if (!success) allSuccess = false;
+      results.push(await form.submit());
     }
-    
-    if (allSuccess) await this.markPushedToPnet();
+
+    this.handleResults(results);
+  }
+  
+  async handleResults(results) {
+    if (this.hasPnetSars && results.every(result=>result===true)) await this.markPushedToPnet();
+    if (results.every(result=>result===false)) this.allSubmissionsFailed = true;
   }
 
   async markPushedToPnet() {
