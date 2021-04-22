@@ -1,0 +1,52 @@
+<template>
+  <div class="slds-p-around_x-small slds-box_large">
+    <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
+      <div class="slds-col slds-size-1_of_2">
+          <lightning-input  
+              type="text" 
+              label="Patient Identifier"
+              value={patientIdentifier}
+              class="patientIdentifier"
+              onchange={handleFormChange}
+              required
+          ></lightning-input>
+      </div>
+      <div class="slds-col slds-size-1_of_2 slds-align-bottom">
+          <lightning-button 
+              variant="brand" 
+              label="Lookup" 
+              title="Lookup" 
+              onclick={handleLookup}
+              class="btn-lookup"
+              disabled>
+          </lightning-button>
+      </div>
+    </div>
+  &nbsp;
+  <!-- IF RESULTS -->
+  <lightning-card if:true={hasResults}>
+    <lightning-datatable
+            key-field="rxNumber"
+            hide-checkbox-column
+            data={data}
+            columns={columns}>
+    </lightning-datatable>
+    <!-- <div class="page-info">
+      Total Records: {totalRecords}
+    </div> -->
+  </lightning-card>
+
+  <!-- NO RESULTS FOUND -->
+  <lightning-card if:true={completeAndNoResults}>
+    <div class="slds-text-align_center">
+        <div class="slds-m-vertical_small">
+            <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+            <p>No SA Approval History.</p>
+        </div>
+    </div>
+  </lightning-card>
+
+  <!-- ERROR CASE -->
+  <c-error-display if:true={isError} error={error}></c-error-display>
+  </div><!-- <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner> -->
+</template>

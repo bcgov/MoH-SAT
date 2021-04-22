@@ -322,6 +322,46 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
+    public static SAApprovalHistoryResponse fetchSAApprovalHistoryx(String phn, String page, String count) {
+        System.debug('Fetch Data');
+        System.debug(page);
+        System.debug(count);
+
+        SAApprovalHistoryResponse sar = null;
+
+        String queryParams = '?clientName=SpecAuth';
+        queryParams += '&requestUUID=' + getUUIDString();
+        queryParams += '&userid=' + getUserIdentifier();
+        queryParams += '&phn=' + phn;
+        System.debug(queryParams);
+        // TODO?
+        // queryParams += '&startDate=2001-01-01';
+        // queryParams += '&endDate=2020-01-01';
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(null,
+                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
+                                                                         queryParams,
+                                                                         'GET',
+                                                                         null,
+                                                                         '6');
+
+        if (calloutResponseObject.errorCode != 200) {
+            // ERROR
+            sar = new SAApprovalHistoryResponse();
+            sar.error = calloutResponseObject;
+        } else {
+            String resBody = calloutResponseObject.response;
+            // for (Integer i = 0; i < resBody.length(); i=i+300) {
+            //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
+            //     System.debug(resBody.substring(i,iEffectiveEnd));
+            // }
+            sar = (SAApprovalHistoryResponse) JSON.deserialize(resBody, SAApprovalHistoryResponse.class);
+        }
+        System.debug(sar);
+
+        return sar;
+    }
+
+    @AuraEnabled
     public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count, List<Integer> dinList) {
         System.debug('Fetch Data');
         System.debug(page);
