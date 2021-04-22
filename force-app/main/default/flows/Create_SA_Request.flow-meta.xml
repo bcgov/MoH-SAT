@@ -1,167 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <actionCalls>
-        <name>Patient_Validated_0</name>
-        <label>Patient Validated</label>
-        <locationX>3269</locationX>
-        <locationY>6676</locationY>
-        <actionName>Case.Patient_Validated</actionName>
-        <actionType>quickAction</actionType>
-        <connector>
-            <targetReference>Upload_Files</targetReference>
-        </connector>
-        <inputParameters>
-            <name>Patient_Validated__c</name>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>Patient_Validated_Date__c</name>
-            <value>
-                <elementReference>$Flow.InterviewStartTime</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>contextId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>Patient_Validated_0_0</name>
-        <label>Patient Validated</label>
-        <locationX>3005</locationX>
-        <locationY>6676</locationY>
-        <actionName>Case.Patient_Validated</actionName>
-        <actionType>quickAction</actionType>
-        <connector>
-            <targetReference>Upload_Files</targetReference>
-        </connector>
-        <inputParameters>
-            <name>Patient_Validated__c</name>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>Patient_Validated_Date__c</name>
-            <value>
-                <elementReference>$Flow.InterviewStartTime</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>contextId</name>
-            <value>
-                <elementReference>Create_SA_Request_Other</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>Provider_Validated_0_0</name>
-        <label>Provider_Validated</label>
-        <locationX>3269</locationX>
-        <locationY>6124</locationY>
-        <actionName>Case.Provider_Validated</actionName>
-        <actionType>quickAction</actionType>
-        <connector>
-            <targetReference>Is_Patient_Deceased</targetReference>
-        </connector>
-        <inputParameters>
-            <name>Provider_Validated__c</name>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>Provider_Validated_Date__c</name>
-            <value>
-                <elementReference>$Flow.InterviewStartTime</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>contextId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
-    <actionCalls>
-        <name>Provider_Validated_0_0_0</name>
-        <label>Provider_Validated</label>
-        <locationX>3005</locationX>
-        <locationY>6124</locationY>
-        <actionName>Case.Provider_Validated</actionName>
-        <actionType>quickAction</actionType>
-        <connector>
-            <targetReference>Is_Patient_Deceased</targetReference>
-        </connector>
-        <inputParameters>
-            <name>Provider_Validated__c</name>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>Provider_Validated_Date__c</name>
-            <value>
-                <elementReference>$Flow.InterviewStartTime</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>contextId</name>
-            <value>
-                <elementReference>Create_SA_Request_Other</elementReference>
-            </value>
-        </inputParameters>
-    </actionCalls>
     <apiVersion>50.0</apiVersion>
-    <assignments>
-        <name>Assign_Other_Drug</name>
-        <label>Assign Other Drug</label>
-        <locationX>3907</locationX>
-        <locationY>7228</locationY>
-        <assignmentItems>
-            <assignToReference>Drug_Name</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Other_Drug_Search.recordName</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <description>Assign string value for AA logic</description>
-        <name>Assign_String_Value_Assignment</name>
-        <label>Assign String Value Assignment</label>
-        <locationX>1001</locationX>
-        <locationY>7862</locationY>
-        <assignmentItems>
-            <assignToReference>Drug_Name</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Drug_Diagnosis_Picklist.topValue</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>Assign_String_Value</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Is_drug_other</targetReference>
-        </connector>
-    </assignments>
     <assignments>
         <name>AssignLoopVariableActiveSARequest</name>
         <label>AssignLoopVariableActiveSARequest</label>
         <locationX>952</locationX>
-        <locationY>6062</locationY>
+        <locationY>5822</locationY>
         <assignmentItems>
             <assignToReference>ActiveSARequestInformation</assignToReference>
             <operator>Add</operator>
@@ -181,26 +25,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Drug_Assignment</name>
-        <label>Drug Assignment</label>
-        <locationX>913</locationX>
-        <locationY>1358</locationY>
-        <assignmentItems>
-            <assignToReference>Drug_Name</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Drug</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Is_the_Provider_Overriden</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Store_Created_Patient_ID</name>
         <label>Store Created Patient ID</label>
         <locationX>880</locationX>
-        <locationY>4358</locationY>
+        <locationY>4238</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -230,7 +58,7 @@
         <name>Store_Created_Patient_ID_2</name>
         <label>Store Created Patient ID 2</label>
         <locationX>616</locationX>
-        <locationY>4718</locationY>
+        <locationY>4598</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -246,7 +74,7 @@
         <name>Store_Created_Provider_ID_0</name>
         <label>Store Created Provider ID</label>
         <locationX>880</locationX>
-        <locationY>2990</locationY>
+        <locationY>2870</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -276,7 +104,7 @@
         <name>Store_Created_Provider_ID_2</name>
         <label>Store Created Provider ID 2</label>
         <locationX>616</locationX>
-        <locationY>3350</locationY>
+        <locationY>3230</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -301,14 +129,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Drug_Assignment</targetReference>
+            <targetReference>Is_the_Provider_Overriden</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Store_Existing_Patient_ID</name>
         <label>Store Existing Patient ID</label>
         <locationX>352</locationX>
-        <locationY>4358</locationY>
+        <locationY>4238</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -338,7 +166,7 @@
         <name>Store_Existing_Provider_ID</name>
         <label>Store Existing Provider ID</label>
         <locationX>352</locationX>
-        <locationY>2990</locationY>
+        <locationY>2870</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -368,7 +196,7 @@
         <name>Store_Parent_ID</name>
         <label>Store Parent ID</label>
         <locationX>314</locationX>
-        <locationY>7118</locationY>
+        <locationY>6878</locationY>
         <assignmentItems>
             <assignToReference>Parent_Id</assignToReference>
             <operator>Assign</operator>
@@ -377,14 +205,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Is_drug_other_0</targetReference>
+            <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Store_Patient_ID</name>
         <label>Store Patient ID</label>
         <locationX>1144</locationX>
-        <locationY>3878</locationY>
+        <locationY>3758</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -414,7 +242,7 @@
         <name>Store_Provider_ID</name>
         <label>Store Provider ID</label>
         <locationX>1144</locationX>
-        <locationY>2510</locationY>
+        <locationY>2390</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -460,7 +288,7 @@
         <name>Submitter_is_Prescriber_Assignment</name>
         <label>Submitter is Prescriber Assignment</label>
         <locationX>781</locationX>
-        <locationY>5246</locationY>
+        <locationY>5126</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
             <operator>Assign</operator>
@@ -476,7 +304,7 @@
         <name>ZeroAssignSARequestsCount</name>
         <label>ZeroAssignSARequestsCount</label>
         <locationX>50</locationX>
-        <locationY>5942</locationY>
+        <locationY>5702</locationY>
         <assignmentItems>
             <assignToReference>CountActiveSARequests</assignToReference>
             <operator>Assign</operator>
@@ -485,9 +313,17 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Is_drug_other_0</targetReference>
+            <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
         </connector>
     </assignments>
+    <choices>
+        <name>Empty_Choice</name>
+        <choiceText>None</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue/>
+        </value>
+    </choices>
     <choices>
         <name>No</name>
         <choiceText>No</choiceText>
@@ -533,6 +369,13 @@
         </value>
     </constants>
     <constants>
+        <name>Empty_String</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue/>
+        </value>
+    </constants>
+    <constants>
         <name>Gliclazide_Drug_Code</name>
         <dataType>String</dataType>
         <value>
@@ -558,6 +401,13 @@
         <dataType>String</dataType>
         <value>
             <stringValue>losartan</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>OtherText</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue/>
         </value>
     </constants>
     <constants>
@@ -633,8 +483,8 @@
     <decisions>
         <name>Case_Approval_Status</name>
         <label>Case Approval Status</label>
-        <locationX>2983</locationX>
-        <locationY>8020</locationY>
+        <locationX>2568</locationX>
+        <locationY>6010</locationY>
         <defaultConnector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </defaultConnector>
@@ -666,9 +516,9 @@
         <name>Case_update_based_on_type</name>
         <label>Case update based on type</label>
         <locationX>622</locationX>
-        <locationY>6758</locationY>
+        <locationY>6518</locationY>
         <defaultConnector>
-            <targetReference>Is_drug_other_0</targetReference>
+            <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -697,7 +547,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Is_drug_other_0</targetReference>
+                <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
             </connector>
             <label>Renewal</label>
         </rules>
@@ -712,7 +562,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Is_drug_other_0</targetReference>
+                <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
             </connector>
             <label>Extension</label>
         </rules>
@@ -721,9 +571,9 @@
         <name>Check_Active_SA_Requests_Decision</name>
         <label>Check Active SA Requests Decision</label>
         <locationX>913</locationX>
-        <locationY>5462</locationY>
+        <locationY>5342</locationY>
         <defaultConnector>
-            <targetReference>Is_drug_other_0</targetReference>
+            <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Skip Check Active SA Requests</defaultConnectorLabel>
         <rules>
@@ -744,7 +594,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Drug_Id</targetReference>
+                <targetReference>GetActiveSARequests</targetReference>
             </connector>
             <label>Check Active SA Requests</label>
         </rules>
@@ -753,7 +603,7 @@
         <name>ContinueSACreationDecision</name>
         <label>ContinueSACreationDecision</label>
         <locationX>864</locationX>
-        <locationY>6518</locationY>
+        <locationY>6278</locationY>
         <defaultConnectorLabel>Stop SA Request Creation</defaultConnectorLabel>
         <rules>
             <name>Continue_SA_Request_Creation</name>
@@ -775,7 +625,7 @@
         <name>CountSARequestsDecision</name>
         <label>CountSARequestsDecision</label>
         <locationX>457</locationX>
-        <locationY>5822</locationY>
+        <locationY>5582</locationY>
         <defaultConnector>
             <targetReference>LoopActiveSARequests</targetReference>
         </defaultConnector>
@@ -800,7 +650,7 @@
         <name>Create_Patient</name>
         <label>Create Patient</label>
         <locationX>913</locationX>
-        <locationY>3758</locationY>
+        <locationY>3638</locationY>
         <defaultConnector>
             <targetReference>Store_Patient_ID</targetReference>
         </defaultConnector>
@@ -825,7 +675,7 @@
         <name>Create_Provider_0</name>
         <label>Create Provider</label>
         <locationX>913</locationX>
-        <locationY>2390</locationY>
+        <locationY>2270</locationY>
         <defaultConnector>
             <targetReference>Store_Provider_ID</targetReference>
         </defaultConnector>
@@ -875,7 +725,7 @@
         <name>Does_the_Patient_Dummy_Exist</name>
         <label>Does the Patient Dummy Exist</label>
         <locationX>484</locationX>
-        <locationY>4118</locationY>
+        <locationY>3998</locationY>
         <defaultConnector>
             <targetReference>Create_Patient_Record_2</targetReference>
         </defaultConnector>
@@ -900,7 +750,7 @@
         <name>Does_the_Provider_Dummy_Exist</name>
         <label>Does the Provider Dummy Exist</label>
         <locationX>484</locationX>
-        <locationY>2750</locationY>
+        <locationY>2630</locationY>
         <defaultConnector>
             <targetReference>Create_Provider_Record_2</targetReference>
         </defaultConnector>
@@ -922,112 +772,37 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Drug_other_patient_action</name>
-        <label>Drug other patient action</label>
-        <locationX>3137</locationX>
-        <locationY>6556</locationY>
+        <name>Drug_Diagnosis_Other_Request_Detail</name>
+        <label>Drug Diagnosis Other Request Detail</label>
+        <locationX>2568</locationX>
+        <locationY>4880</locationY>
         <defaultConnector>
-            <targetReference>Patient_Validated_0</targetReference>
+            <targetReference>Is_Provider_Overriden</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>Drug_other_0</name>
+            <name>Other_Diagnosis_Request_Detail</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Drug_Manual_Choices</leftValueReference>
-                <operator>EqualTo</operator>
+                <leftValueReference>OtherDrugDiagnosis</leftValueReference>
+                <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>Other</stringValue>
+                    <stringValue/>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Patient_Validated_0_0</targetReference>
+                <targetReference>Create_Other_Request_Detail</targetReference>
             </connector>
-            <label>Drug other</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Drug_other_provider_action</name>
-        <label>Drug other provider action</label>
-        <locationX>3137</locationX>
-        <locationY>6004</locationY>
-        <defaultConnector>
-            <targetReference>Provider_Validated_0_0</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Drug_other</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Manual_Choices</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Provider_Validated_0_0_0</targetReference>
-            </connector>
-            <label>Drug other</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Is_drug_other</name>
-        <label>Is drug other?</label>
-        <locationX>913</locationX>
-        <locationY>8078</locationY>
-        <defaultConnector>
-            <targetReference>Get_SA_Request_Record_Type_Id</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Drug_of_other</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Manual_Choices</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Other_Drug_Lookup</targetReference>
-            </connector>
-            <label>Drug of other</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Is_drug_other_0</name>
-        <label>Is drug other?</label>
-        <locationX>913</locationX>
-        <locationY>7622</locationY>
-        <defaultConnector>
-            <targetReference>Create_SA_Request_Screen</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Drug_of_other_0</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Manual_Choices</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Is_drug_other</targetReference>
-            </connector>
-            <label>Drug of other</label>
+            <label>Other Diagnosis Request Detail</label>
         </rules>
     </decisions>
     <decisions>
         <name>Is_Patient_Deceased</name>
         <label>Is Patient Deceased</label>
-        <locationX>2983</locationX>
-        <locationY>6436</locationY>
+        <locationX>2568</locationX>
+        <locationY>5554</locationY>
         <defaultConnector>
-            <targetReference>Drug_other_patient_action</targetReference>
+            <targetReference>Update_Patient_Validation</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Alive</defaultConnectorLabel>
         <rules>
@@ -1049,10 +824,10 @@
     <decisions>
         <name>Is_Provider_Overriden</name>
         <label>Is Provider Overriden</label>
-        <locationX>1563</locationX>
-        <locationY>7729</locationY>
+        <locationX>2568</locationX>
+        <locationY>5218</locationY>
         <defaultConnector>
-            <targetReference>Drug_other_provider_action</targetReference>
+            <targetReference>Update_SA_Request_Validation</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Normal Outcome</defaultConnectorLabel>
         <rules>
@@ -1075,7 +850,7 @@
         <name>Is_the_Patient_Overriden</name>
         <label>Is the Patient Overriden</label>
         <locationX>913</locationX>
-        <locationY>1934</locationY>
+        <locationY>1814</locationY>
         <defaultConnector>
             <targetReference>Get_Patient_Record_0_0</targetReference>
         </defaultConnector>
@@ -1100,7 +875,7 @@
         <name>Is_the_Provider_Overriden</name>
         <label>Is the Provider Overriden</label>
         <locationX>913</locationX>
-        <locationY>1478</locationY>
+        <locationY>1358</locationY>
         <defaultConnector>
             <targetReference>Get_Provider_Record</targetReference>
         </defaultConnector>
@@ -1125,7 +900,7 @@
         <name>Patient_Negative_Outcome</name>
         <label>Patient Negative Outcome</label>
         <locationX>682</locationX>
-        <locationY>3878</locationY>
+        <locationY>3758</locationY>
         <defaultConnector>
             <targetReference>Get_Patient_Record_Type_Id</targetReference>
         </defaultConnector>
@@ -1147,140 +922,10 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Request_Detail_Creation</name>
-        <label>Request Detail Creation</label>
-        <locationX>2983</locationX>
-        <locationY>7684</locationY>
-        <defaultConnector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Other Drug</defaultConnectorLabel>
-        <rules>
-            <name>Rabeprazole</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Rabeprazole_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Rabeprazole_Creation</targetReference>
-            </connector>
-            <label>Rabeprazole</label>
-        </rules>
-        <rules>
-            <name>Pantoprazole_Magnesium</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Pantoprazole_Magnesium_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Pantoprazole_Magnesium_Creation</targetReference>
-            </connector>
-            <label>Pantoprazole Magnesium</label>
-        </rules>
-        <rules>
-            <name>Bupropion</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Bupropion_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Bupropion_Creation</targetReference>
-            </connector>
-            <label>Bupropion</label>
-        </rules>
-        <rules>
-            <name>Gliclazide</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Gliclazide_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Gliclazide_Creation</targetReference>
-            </connector>
-            <label>Gliclazide</label>
-        </rules>
-        <rules>
-            <name>Candesartan</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Candesartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Candesartan_Creation</targetReference>
-            </connector>
-            <label>Candesartan</label>
-        </rules>
-        <rules>
-            <name>Losartan</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Losartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Losartan_Creation</targetReference>
-            </connector>
-            <label>Losartan</label>
-        </rules>
-        <rules>
-            <name>Telmisartan</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Telmisartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Telmisartan_Creation</targetReference>
-            </connector>
-            <label>Telmisartan</label>
-        </rules>
-        <rules>
-            <name>Valsartan</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Valsartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Valsartan_Creation</targetReference>
-            </connector>
-            <label>Valsartan</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Status_update_based_on_request_type</name>
         <label>Status update based on request type</label>
-        <locationX>2983</locationX>
-        <locationY>8356</locationY>
+        <locationX>2568</locationX>
+        <locationY>6346</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen_0_0</targetReference>
         </defaultConnector>
@@ -1335,7 +980,7 @@
         <name>Submitter_is_Prescriber</name>
         <label>Submitter is Prescriber</label>
         <locationX>913</locationX>
-        <locationY>5126</locationY>
+        <locationY>5006</locationY>
         <defaultConnector>
             <targetReference>Check_Active_SA_Requests_Decision</targetReference>
         </defaultConnector>
@@ -1357,155 +1002,10 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Update_Drug_Id_on_Case</name>
-        <label>Update Drug Id on Case</label>
-        <locationX>2983</locationX>
-        <locationY>7108</locationY>
-        <defaultConnector>
-            <targetReference>Thank_You_Screen_0</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Other Drug</defaultConnectorLabel>
-        <rules>
-            <name>Rabeprazole_Assignment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Rabeprazole_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Rabeprazole_Id</targetReference>
-            </connector>
-            <label>Rabeprazole</label>
-        </rules>
-        <rules>
-            <name>Pantoprazole_Magnesium_Assignment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Pantoprazole_Magnesium_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Pantoprazole_Magnesium_Id</targetReference>
-            </connector>
-            <label>Pantoprazole Magnesium</label>
-        </rules>
-        <rules>
-            <name>Bupropion_Assignment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Bupropion_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Bupropion_Id</targetReference>
-            </connector>
-            <label>Bupropion</label>
-        </rules>
-        <rules>
-            <name>Gliclazide_Assignment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Gliclazide_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Gliclazide_Id</targetReference>
-            </connector>
-            <label>Gliclazide</label>
-        </rules>
-        <rules>
-            <name>Candesartan_Assignment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Candesartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Candesartan_ID</targetReference>
-            </connector>
-            <label>Candesartan</label>
-        </rules>
-        <rules>
-            <name>Losartan_Assignment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Losartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Losartan_ID</targetReference>
-            </connector>
-            <label>Losartan</label>
-        </rules>
-        <rules>
-            <name>Telmisartan_Assignment</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Telmisartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Telmisartan_ID</targetReference>
-            </connector>
-            <label>Telmisartan</label>
-        </rules>
-        <rules>
-            <name>Valsartan_Assignemtn</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Valsartan_Drug_Name</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Valsartan_ID</targetReference>
-            </connector>
-            <label>Valsartan</label>
-        </rules>
-        <rules>
-            <name>Other_Drug</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Drug_Diagnosis_Picklist.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Other</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_Other_Drug</targetReference>
-            </connector>
-            <label>Other_Drug</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Was_the_Provider_Overriden</name>
         <label>Was the Provider Overriden</label>
         <locationX>682</locationX>
-        <locationY>2510</locationY>
+        <locationY>2390</locationY>
         <defaultConnector>
             <targetReference>Get_Provider_Record_Type_Id</targetReference>
         </defaultConnector>
@@ -1532,7 +1032,7 @@
         <locationX>913</locationX>
         <locationY>326</locationY>
         <defaultConnector>
-            <targetReference>Drug_Assignment</targetReference>
+            <targetReference>Is_the_Provider_Overriden</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No - 3rd Party Submission</defaultConnectorLabel>
         <rules>
@@ -1551,7 +1051,6 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
-    <description>Patient and Provider Creation</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -1569,7 +1068,7 @@
             <field>Drug__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Other_Drug_Search.recordId</elementReference>
+                <elementReference>Drug_Search.recordId</elementReference>
             </value>
         </filters>
         <object>Diagnosis__c</object>
@@ -1636,13 +1135,13 @@
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
     </formulas>
-    <interviewLabel>Patient and Provider Creation {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Patient and Provider Creation</label>
+    <interviewLabel>Create_SA {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Create SA Request</label>
     <loops>
         <name>LoopActiveSARequests</name>
         <label>LoopActiveSARequests</label>
         <locationX>864</locationX>
-        <locationY>5942</locationY>
+        <locationY>5702</locationY>
         <collectionReference>GetActiveSARequests</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1675,7 +1174,7 @@
         <name>Create_New_Patient_Record</name>
         <label>Create New Patient Record</label>
         <locationX>880</locationX>
-        <locationY>4118</locationY>
+        <locationY>3998</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID</targetReference>
         </connector>
@@ -1716,7 +1215,7 @@
         <name>Create_New_Patient_Record_2</name>
         <label>Create New Patient Record 2</label>
         <locationX>616</locationX>
-        <locationY>4478</locationY>
+        <locationY>4358</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID_2</targetReference>
         </connector>
@@ -1757,7 +1256,7 @@
         <name>Create_New_Provider_Record</name>
         <label>Create New Provider Record</label>
         <locationX>880</locationX>
-        <locationY>2750</locationY>
+        <locationY>2630</locationY>
         <connector>
             <targetReference>Get_Final_Provider_ID</targetReference>
         </connector>
@@ -1804,7 +1303,7 @@
         <name>Create_New_Provider_Record_2</name>
         <label>Create New Provider Record 2</label>
         <locationX>616</locationX>
-        <locationY>3110</locationY>
+        <locationY>2990</locationY>
         <connector>
             <targetReference>Get_Final_Provider_ID_2</targetReference>
         </connector>
@@ -1883,10 +1382,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
-        <name>Create_Request_Detail</name>
-        <label>Create Request Detail</label>
-        <locationX>781</locationX>
-        <locationY>8798</locationY>
+        <name>Create_Other_Request_Detail</name>
+        <label>Create Other Request Detail</label>
+        <locationX>2436</locationX>
+        <locationY>5002</locationY>
         <connector>
             <targetReference>Is_Provider_Overriden</targetReference>
         </connector>
@@ -1897,9 +1396,44 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Other_Manual_Diagnosis__c</field>
+            <field>Question_ID__c</field>
+            <value>
+                <stringValue>diagnosis.other.manual</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Question__c</field>
+            <value>
+                <stringValue>Other Drug Diagnosis</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sort_Order__c</field>
+            <value>
+                <numberValue>2.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>String_Value__c</field>
             <value>
                 <elementReference>OtherDrugDiagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Request_Detail__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Request_Detail</name>
+        <label>Create Request Detail</label>
+        <locationX>2568</locationX>
+        <locationY>4762</locationY>
+        <connector>
+            <targetReference>Drug_Diagnosis_Other_Request_Detail</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case__c</field>
+            <value>
+                <elementReference>Create_SA_Request_Other</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1930,87 +1464,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
-        <name>Create_SA_Request</name>
-        <label>Create SA Request</label>
-        <locationX>1045</locationX>
-        <locationY>8318</locationY>
-        <connector>
-            <targetReference>Is_Provider_Overriden</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>ContactId</field>
-            <value>
-                <elementReference>Final_Patient_ID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Diagnosis_Manual__c</field>
-            <value>
-                <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Drug_Manual__c</field>
-            <value>
-                <elementReference>Drug_Diagnosis_Picklist.topValue</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Origin</field>
-            <value>
-                <elementReference>Case_Origin</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Other_Diagnosis_Manual__c</field>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ParentId</field>
-            <value>
-                <elementReference>Parent_Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Provider_Fax__c</field>
-            <value>
-                <elementReference>Provider_Fax.value</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Provider__c</field>
-            <value>
-                <elementReference>Final_Provider_ID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>Get_SA_Request_Record_Type_Id.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Request_Type__c</field>
-            <value>
-                <elementReference>Request_Type</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Submitter__c</field>
-            <value>
-                <elementReference>Final_Submitter_ID</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Case</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordCreates>
-    <recordCreates>
         <name>Create_SA_Request_Other</name>
         <label>Create SA Request Other</label>
-        <locationX>781</locationX>
-        <locationY>8678</locationY>
+        <locationX>2568</locationX>
+        <locationY>4641</locationY>
         <connector>
             <targetReference>Create_Request_Detail</targetReference>
         </connector>
@@ -2021,21 +1478,15 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Diagnosis_Manual__c</field>
-            <value>
-                <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Drug__c</field>
             <value>
-                <elementReference>Other_Drug_Search.recordId</elementReference>
+                <elementReference>Drug_Search.recordId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Other_Diagnosis_Manual__c</field>
+            <field>Origin</field>
             <value>
-                <elementReference>Other_Diagnosis</elementReference>
+                <elementReference>Case_Origin</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2080,8 +1531,8 @@
     <recordLookups>
         <name>Get_Drug_Record_ID</name>
         <label>Get Drug Record ID</label>
-        <locationX>781</locationX>
-        <locationY>8438</locationY>
+        <locationX>2568</locationX>
+        <locationY>4402</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Add_Diagnosis_of_Other_Drug</targetReference>
@@ -2091,7 +1542,7 @@
             <field>Name</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Other_Drug_Search.recordName</elementReference>
+                <elementReference>Drug_Search.recordName</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -2102,7 +1553,7 @@
         <name>Get_Existing_Patient_Dummy_Account</name>
         <label>Get Existing Patient Dummy Account</label>
         <locationX>484</locationX>
-        <locationY>3998</locationY>
+        <locationY>3878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Does_the_Patient_Dummy_Exist</targetReference>
@@ -2123,7 +1574,7 @@
         <name>Get_Existing_Provider_Dummy_Account</name>
         <label>Get Existing Provider Dummy Account</label>
         <locationX>484</locationX>
-        <locationY>2630</locationY>
+        <locationY>2510</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Does_the_Provider_Dummy_Exist</targetReference>
@@ -2144,7 +1595,7 @@
         <name>Get_Final_Patient_ID</name>
         <label>Get Final Patient ID</label>
         <locationX>880</locationX>
-        <locationY>4238</locationY>
+        <locationY>4118</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Patient_ID</targetReference>
@@ -2165,7 +1616,7 @@
         <name>Get_Final_Patient_ID_2</name>
         <label>Get Final Patient ID 2</label>
         <locationX>616</locationX>
-        <locationY>4598</locationY>
+        <locationY>4478</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Patient_ID_2</targetReference>
@@ -2186,7 +1637,7 @@
         <name>Get_Final_Provider_ID</name>
         <label>Get Final Provider ID</label>
         <locationX>880</locationX>
-        <locationY>2870</locationY>
+        <locationY>2750</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Provider_ID_0</targetReference>
@@ -2207,7 +1658,7 @@
         <name>Get_Final_Provider_ID_2</name>
         <label>Get Final Provider ID 2</label>
         <locationX>616</locationX>
-        <locationY>3230</locationY>
+        <locationY>3110</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Provider_ID_2</targetReference>
@@ -2249,7 +1700,7 @@
         <name>Get_Patient_Record_0_0</name>
         <label>Get Patient Record</label>
         <locationX>1001</locationX>
-        <locationY>2054</locationY>
+        <locationY>1934</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Patient_Summary_Screen</targetReference>
@@ -2270,7 +1721,7 @@
         <name>Get_Patient_Record_Type_Id</name>
         <label>Get Patient Record Type Id</label>
         <locationX>880</locationX>
-        <locationY>3998</locationY>
+        <locationY>3878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Patient_Record</targetReference>
@@ -2298,7 +1749,7 @@
         <name>Get_Patient_Record_Type_ID_2</name>
         <label>Get Patient Record Type ID 2</label>
         <locationX>616</locationX>
-        <locationY>4358</locationY>
+        <locationY>4238</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Patient_Record_2</targetReference>
@@ -2326,7 +1777,7 @@
         <name>Get_Provider_Record</name>
         <label>Get Provider Record</label>
         <locationX>1001</locationX>
-        <locationY>1598</locationY>
+        <locationY>1478</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Provider_Records_Summary_Screen_0</targetReference>
@@ -2354,7 +1805,7 @@
         <name>Get_Provider_Record_2</name>
         <label>Get Provider Record 2</label>
         <locationX>616</locationX>
-        <locationY>2990</locationY>
+        <locationY>2870</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Provider_Record_2</targetReference>
@@ -2382,7 +1833,7 @@
         <name>Get_Provider_Record_Type_Id</name>
         <label>Get Provider Record Type Id</label>
         <locationX>880</locationX>
-        <locationY>2630</locationY>
+        <locationY>2510</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Provider_Record</targetReference>
@@ -2407,38 +1858,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_SA_Request_Record_Type_Id</name>
-        <label>Get SA Request Record Type Id</label>
-        <locationX>1045</locationX>
-        <locationY>8198</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Create_SA_Request</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>SobjectType</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Case</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>DeveloperName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Special_Authority_Request</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>RecordType</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>Get_SA_Request_Type_Id_Other</name>
         <label>Get SA Request Type Id Other</label>
-        <locationX>781</locationX>
-        <locationY>8318</locationY>
+        <locationX>2568</locationX>
+        <locationY>4282</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Drug_Record_ID</targetReference>
@@ -2522,7 +1945,7 @@
         <name>GetActiveSARequests</name>
         <label>GetActiveSARequests</label>
         <locationX>457</locationX>
-        <locationY>5702</locationY>
+        <locationY>5462</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>CountSARequestsDecision</targetReference>
@@ -2539,7 +1962,7 @@
             <field>Drug__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Final_Drug_Id</elementReference>
+                <elementReference>Drug_Search.recordId</elementReference>
             </value>
         </filters>
         <filters>
@@ -2559,7 +1982,7 @@
         <name>GetActiveSARequests_0</name>
         <label>GetActiveSARequests</label>
         <locationX>314</locationX>
-        <locationY>6878</locationY>
+        <locationY>6638</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>GetActiveSARequests_Record_ID</targetReference>
@@ -2596,7 +2019,7 @@
         <name>GetActiveSARequests_Record_ID</name>
         <label>GetActiveSARequests Record ID</label>
         <locationX>314</locationX>
-        <locationY>6998</locationY>
+        <locationY>6758</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Parent_ID</targetReference>
@@ -2630,8 +2053,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Currently_Approved</name>
         <label>Update Case Status Currently Approved</label>
-        <locationX>2675</locationX>
-        <locationY>8476</locationY>
+        <locationX>2260</locationX>
+        <locationY>6466</locationY>
         <connector>
             <targetReference>Thank_You_Screen_0_0</targetReference>
         </connector>
@@ -2640,7 +2063,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Create_SA_Request</elementReference>
+                <elementReference>Create_SA_Request_Other</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -2660,8 +2083,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Not_Approved</name>
         <label>Update Case Status Not Approved</label>
-        <locationX>2851</locationX>
-        <locationY>8140</locationY>
+        <locationX>2436</locationX>
+        <locationY>6130</locationY>
         <connector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </connector>
@@ -2670,7 +2093,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Create_SA_Request</elementReference>
+                <elementReference>Create_SA_Request_Other</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -2697,7 +2120,7 @@
         <name>Update_Existing_Patient_Record_With_ODR_Info</name>
         <label>Update Existing Patient Record With ODR Info</label>
         <locationX>352</locationX>
-        <locationY>4478</locationY>
+        <locationY>4358</locationY>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
         </connector>
@@ -2727,7 +2150,7 @@
         <name>Update_Existing_Provider_Record_With_ODR_Info</name>
         <label>Update Existing Provider Record With ODR Info</label>
         <locationX>352</locationX>
-        <locationY>3110</locationY>
+        <locationY>2990</locationY>
         <connector>
             <targetReference>Create_Patient</targetReference>
         </connector>
@@ -2757,7 +2180,7 @@
         <name>Update_Patient_Record_With_ODR_Info_0</name>
         <label>Update Patient Record With ODR Info</label>
         <locationX>1144</locationX>
-        <locationY>3998</locationY>
+        <locationY>3878</locationY>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
         </connector>
@@ -2790,10 +2213,40 @@
         <object>Contact</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Patient_Validation</name>
+        <label>Update Patient Validation</label>
+        <locationX>2656</locationX>
+        <locationY>5673</locationY>
+        <connector>
+            <targetReference>Upload_Files</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Create_SA_Request_Other</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Patient_Validated_Date__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_Validated__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Provider_Record_With_ODR_Info</name>
         <label>Update Provider Record With ODR Info</label>
         <locationX>1144</locationX>
-        <locationY>2630</locationY>
+        <locationY>2510</locationY>
         <connector>
             <targetReference>Create_Patient</targetReference>
         </connector>
@@ -2826,25 +2279,31 @@
         <object>Contact</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_SA_Request_with_Drug_Id</name>
-        <label>Update SA Request with Drug Id</label>
-        <locationX>2983</locationX>
-        <locationY>7564</locationY>
+        <name>Update_SA_Request_Validation</name>
+        <label>Update SA Request Validation</label>
+        <locationX>2656</locationX>
+        <locationY>5338</locationY>
         <connector>
-            <targetReference>Request_Detail_Creation</targetReference>
+            <targetReference>Is_Patient_Deceased</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Create_SA_Request</elementReference>
+                <elementReference>Create_SA_Request_Other</elementReference>
             </value>
         </filters>
         <inputAssignments>
-            <field>Drug__c</field>
+            <field>Provider_Validated_Date__c</field>
             <value>
-                <elementReference>Final_Drug_Id</elementReference>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider_Validated__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -2855,7 +2314,7 @@
         <locationX>847</locationX>
         <locationY>806</locationY>
         <connector>
-            <targetReference>Drug_Assignment</targetReference>
+            <targetReference>Is_the_Provider_Overriden</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2890,7 +2349,7 @@
         <name>Active_SA_Requests_Screen</name>
         <label>Active SA Requests Screen</label>
         <locationX>864</locationX>
-        <locationY>6278</locationY>
+        <locationY>6038</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2933,8 +2392,8 @@
     <screens>
         <name>Add_Diagnosis_of_Other_Drug</name>
         <label>Add Diagnosis of Other Drug</label>
-        <locationX>781</locationX>
-        <locationY>8558</locationY>
+        <locationX>2568</locationX>
+        <locationY>4522</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2944,15 +2403,17 @@
         <fields>
             <name>Other_Drug_Diagnosis</name>
             <choiceReferences>Diagnoses_Options</choiceReferences>
+            <choiceReferences>Empty_Choice</choiceReferences>
             <dataType>String</dataType>
-            <fieldText>Other Drug Diagnosis</fieldText>
+            <defaultSelectedChoiceReference>Empty_Choice</defaultSelectedChoiceReference>
+            <fieldText>Drug Diagnosis</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
         </fields>
         <fields>
             <name>OtherDrugDiagnosis</name>
             <dataType>String</dataType>
-            <fieldText>Other Drug Diagnosis</fieldText>
+            <fieldText>If drug diagnosis is &quot;other&quot;, please enter value below:</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
         </fields>
@@ -2963,7 +2424,7 @@
         <name>Create_Patient_Record_2</name>
         <label>Create Patient Record 2</label>
         <locationX>616</locationX>
-        <locationY>4238</locationY>
+        <locationY>4118</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3008,7 +2469,7 @@
         <name>Create_Provider_Record_2</name>
         <label>Create Provider Record 2</label>
         <locationX>616</locationX>
-        <locationY>2870</locationY>
+        <locationY>2750</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3043,101 +2504,10 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Create_SA_Request_Screen</name>
-        <label>Create SA Request Screen</label>
-        <locationX>1001</locationX>
-        <locationY>7742</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Assign_String_Value_Assignment</targetReference>
-        </connector>
-        <fields>
-            <name>Create_SA_Request_Title</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Create SA Request&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>Drug_Diagnosis_Picklist</name>
-            <extensionName>flowruntime:dependentPicklists</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>dependencyWrapperApiName</name>
-                <value>
-                    <elementReference>Case_Object</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topPicklistApiName</name>
-                <value>
-                    <elementReference>Drug_Manual_Picklist</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middlePicklistApiName</name>
-                <value>
-                    <elementReference>Diagnosis_Manual_Picklist</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topRequired</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topLabel</name>
-                <value>
-                    <stringValue>Drug</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middleLabel</name>
-                <value>
-                    <stringValue>Diagnosis</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middleRequired</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topValue</name>
-                <value>
-                    <elementReference>Drug</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>Other_Diagnosis</name>
-            <dataType>String</dataType>
-            <fieldText>Other Diagnosis</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-            <visibilityRule>
-                <conditionLogic>or</conditionLogic>
-                <conditions>
-                    <leftValueReference>Drug_Diagnosis_Picklist.middleValue</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Other</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
         <name>Dummy_Patient_Account_Exists_in_SF</name>
         <label>Dummy Patient Account Exists in SF</label>
         <locationX>352</locationX>
-        <locationY>4238</locationY>
+        <locationY>4118</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3180,7 +2550,7 @@
         <name>Dummy_Provider_Account_Exists</name>
         <label>Dummy Provider Account Exists</label>
         <locationX>352</locationX>
-        <locationY>2870</locationY>
+        <locationY>2750</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3223,7 +2593,7 @@
         <name>ExitScreen</name>
         <label>ExitScreen</label>
         <locationX>864</locationX>
-        <locationY>6398</locationY>
+        <locationY>6158</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3252,7 +2622,7 @@
         <name>Get_Patient_Summary_Screen</name>
         <label>Get Patient Summary Screen</label>
         <locationX>1001</locationX>
-        <locationY>2174</locationY>
+        <locationY>2054</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3271,7 +2641,7 @@
         <name>Get_Provider_Records_Summary_Screen_0</name>
         <label>Get Provider Records Summary Screen</label>
         <locationX>1001</locationX>
-        <locationY>1718</locationY>
+        <locationY>1598</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3349,51 +2719,6 @@
                     </rightValue>
                 </conditions>
             </visibilityRule>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Other_Drug_Lookup</name>
-        <label>Other Drug Lookup</label>
-        <locationX>781</locationX>
-        <locationY>8198</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
-        </connector>
-        <fields>
-            <name>Other_Drug_Search</name>
-            <extensionName>flowruntime:lookup</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>objectApiName</name>
-                <value>
-                    <stringValue>Case</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>fieldApiName</name>
-                <value>
-                    <stringValue>Drug__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Drug Lookup</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>required</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -3489,12 +2814,35 @@
             </outputParameters>
         </fields>
         <fields>
-            <name>Drug</name>
-            <choiceReferences>Drug_Manual_Choices</choiceReferences>
-            <dataType>String</dataType>
-            <fieldText>Drug</fieldText>
-            <fieldType>DropdownBox</fieldType>
+            <name>Drug_Search</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Drug__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Drug Lookup</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>Case</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
             <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
             <name>Case_Origin</name>
@@ -3538,7 +2886,7 @@
         <name>SA_Request_Type</name>
         <label>SA Request Type</label>
         <locationX>622</locationX>
-        <locationY>6638</locationY>
+        <locationY>6398</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3557,32 +2905,16 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Thank_You_Screen_0</name>
-        <label>Thank You Screen</label>
-        <locationX>4171</locationX>
-        <locationY>7228</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>Thank_You_Message_0</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!OtherSARequestURL}&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
         <name>Thank_You_Screen_0_0</name>
         <label>Thank You Screen</label>
-        <locationX>2983</locationX>
-        <locationY>8692</locationY>
+        <locationX>2568</locationX>
+        <locationY>6682</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <fields>
             <name>Thank_You_Message_0_0</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;&lt;u&gt;{!SARequestURL}&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!OtherSARequestURL}&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -3591,13 +2923,13 @@
     <screens>
         <name>Upload_Files</name>
         <label>Upload Files</label>
-        <locationX>2983</locationX>
-        <locationY>6988</locationY>
+        <locationX>2568</locationX>
+        <locationY>5890</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Update_Drug_Id_on_Case</targetReference>
+            <targetReference>Case_Approval_Status</targetReference>
         </connector>
         <fields>
             <name>Upload_File</name>
@@ -3623,7 +2955,7 @@
             <inputParameters>
                 <name>recordId</name>
                 <value>
-                    <elementReference>Create_SA_Request</elementReference>
+                    <elementReference>Create_SA_Request_Other</elementReference>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
@@ -3640,410 +2972,6 @@
         </connector>
     </start>
     <status>Active</status>
-    <subflows>
-        <name>Bupropion_Creation</name>
-        <label>Bupropion Creation</label>
-        <locationX>2455</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Buproprion_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Candesartan_Creation</name>
-        <label>Candesartan Creation</label>
-        <locationX>2983</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Candesartan_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Bupropion_Id</name>
-        <label>Get Bupropion Id</label>
-        <locationX>2323</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Bupropion_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Candesartan_ID</name>
-        <label>Get Candesartan ID</label>
-        <locationX>2851</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Candesartan_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Drug_Id</name>
-        <label>Get Drug Id</label>
-        <locationX>457</locationX>
-        <locationY>5582</locationY>
-        <connector>
-            <targetReference>GetActiveSARequests</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Gliclazide_Id</name>
-        <label>Get Gliclazide Id</label>
-        <locationX>2587</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Gliclazide_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Losartan_ID</name>
-        <label>Get Losartan ID</label>
-        <locationX>3115</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Losartan_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Pantoprazole_Magnesium_Id</name>
-        <label>Get Pantoprazole Magnesium Id</label>
-        <locationX>2059</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Pantoprazole_Magnesium_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Rabeprazole_Id</name>
-        <label>Get Rabeprazole Id</label>
-        <locationX>1795</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Rabeprazole_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Telmisartan_ID</name>
-        <label>Get Telmisartan ID</label>
-        <locationX>3379</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Telmisartan_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Get_Valsartan_ID</name>
-        <label>Get Valsartan ID</label>
-        <locationX>3643</locationX>
-        <locationY>7228</locationY>
-        <connector>
-            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
-        </connector>
-        <flowName>Get_Drug_Id</flowName>
-        <inputAssignments>
-            <name>Input_Drug_Name</name>
-            <value>
-                <elementReference>Valsartan_Drug_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <outputAssignments>
-            <assignToReference>Final_Drug_Id</assignToReference>
-            <name>Output_Drug_Id</name>
-        </outputAssignments>
-    </subflows>
-    <subflows>
-        <name>Gliclazide_Creation</name>
-        <label>Gliclazide Creation</label>
-        <locationX>2719</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Glicazide_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Losartan_Creation</name>
-        <label>Losartan Creation</label>
-        <locationX>3247</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Losartan_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Pantoprazole_Magnesium_Creation</name>
-        <label>Pantoprazole Magnesium Creation</label>
-        <locationX>2191</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Pantoprazole_Magnesium_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Rabeprazole_Creation</name>
-        <label>Rabeprazole Creation</label>
-        <locationX>1927</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Rabeprazole_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Telmisartan_Creation</name>
-        <label>Telmisartan Creation</label>
-        <locationX>3511</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Telmisartan_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Valsartan_Creation</name>
-        <label>Valsartan Creation</label>
-        <locationX>3775</locationX>
-        <locationY>7804</locationY>
-        <connector>
-            <targetReference>Case_Approval_Status</targetReference>
-        </connector>
-        <flowName>Valsartan_Creation</flowName>
-        <inputAssignments>
-            <name>OtherDiagnosis</name>
-            <value>
-                <elementReference>Other_Diagnosis</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>SARequestId</name>
-            <value>
-                <elementReference>Create_SA_Request</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>String_Value</name>
-            <value>
-                <elementReference>Assign_String_Value</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
     <variables>
         <name>ActiveSARequestInformation</name>
         <dataType>String</dataType>
@@ -4052,36 +2980,6 @@
         <isOutput>false</isOutput>
         <value>
             <stringValue>&lt;tr&gt;&lt;td&gt;&lt;b&gt;Case #&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Status&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Drug Name&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Termination Date&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Created Date&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</stringValue>
-        </value>
-    </variables>
-    <variables>
-        <name>Assign_String_Value</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>true</isOutput>
-        <value>
-            <elementReference>Drug_Diagnosis_Picklist.middleValue</elementReference>
-        </value>
-    </variables>
-    <variables>
-        <name>Boolean_Value</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>true</isInput>
-        <isOutput>true</isOutput>
-        <value>
-            <booleanValue>true</booleanValue>
-        </value>
-    </variables>
-    <variables>
-        <name>Case_Object</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <stringValue>Case</stringValue>
         </value>
     </variables>
     <variables>
@@ -4113,26 +3011,6 @@
         <scale>0</scale>
         <value>
             <numberValue>0.0</numberValue>
-        </value>
-    </variables>
-    <variables>
-        <name>Diagnosis_Manual_Picklist</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <stringValue>Diagnosis_Manual__c</stringValue>
-        </value>
-    </variables>
-    <variables>
-        <name>Drug_Manual_Picklist</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <stringValue>Drug_Manual__c</stringValue>
         </value>
     </variables>
     <variables>
@@ -4255,15 +3133,5 @@
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>SARequestURL</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <stringValue>&lt;a href=&quot;/{!Create_SA_Request}&quot;target=&quot;_parent&quot;&gt;SA Request Created - Click Here&lt;/a&gt;</stringValue>
-        </value>
     </variables>
 </Flow>
