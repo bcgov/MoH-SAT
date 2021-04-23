@@ -67,31 +67,38 @@ public with sharing class SarBuilder {
 
     public static Account buildPatient(Eform.Resource resource) {
         Account account = buildAccount(resource);
+        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
 
         String identifier = getIdentifier(resource.identifier);
+        account.Patient_Identifier__pc = identifier;
+        account.PersonBirthdate = Date.valueOf(resource.birthDate);
         
         List<Account> existing = [select Id from Account where Patient_Identifier__pc = :identifier];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
         
-        account.Patient_Identifier__pc = identifier;
-        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
-        account.PersonBirthdate = Date.valueOf(resource.birthDate);
         return account;
     }
 
     public static Account buildProvider(Eform.Resource resource) {
         Account account = buildAccount(resource);
+        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
 
         String identifier = getProviderIdentifier(resource.identifier);
+        String providerType = toProviderRole(findProviderRole(resource));
+        
+        account.Provider_Identifier__pc = requiresTruncation(providerType) ? identifier?.right(5) : identifier;
+        account.Provider_Type__pc = providerType;
+        account.Provider_Specialty__pc = findProviderSpecialty(resource);
         
         List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
         
-        account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
-        account.Provider_Identifier__pc = identifier;
-        account.Provider_Type__pc = toProviderRole(findProviderRole(resource));
-        account.Provider_Specialty__pc = findProviderSpecialty(resource);
         return account;
+    }
+
+    private static Boolean requiresTruncation(String providerType) {
+        return providerType.equalsIgnoreCase('Physician') || 
+            providerType.equalsIgnoreCase('Pharmacist'); 
     }
 
     private static Account buildAccount(Eform.Resource resource) {
