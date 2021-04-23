@@ -182,6 +182,37 @@
                 <processMetadataValues>
                     <name>inputDataType</name>
                     <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
@@ -203,10 +234,10 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Ready_to_be_faxed__c</leftValueReference>
+                <leftValueReference>myVariable_current.Pushed_to_Pnet__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <booleanValue>false</booleanValue>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
@@ -268,23 +299,29 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Pushed_to_Pnet__c</leftValueReference>
+                <leftValueReference>myVariable_current.No_fax_required__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <booleanValue>true</booleanValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
                 <processMetadataValues>
                     <name>inputDataType</name>
                     <value>
-                        <stringValue>Picklist</stringValue>
+                        <stringValue>ID</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideReferenceTo</name>
+                    <value>
+                        <stringValue>Group;User</stringValue>
                     </value>
                 </processMetadataValues>
                 <processMetadataValues>
                     <name>leftHandSideType</name>
                     <value>
-                        <stringValue>Picklist</stringValue>
+                        <stringValue>ID</stringValue>
                     </value>
                 </processMetadataValues>
                 <processMetadataValues>
@@ -294,83 +331,27 @@
                     </value>
                 </processMetadataValues>
                 <processMetadataValues>
-                    <name>rightHandSideType</name>
+                    <name>rightHandSideLabel</name>
                     <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.Status</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Received</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
+                        <stringValue>To_be_faxed_queue</stringValue>
                     </value>
                 </processMetadataValues>
                 <processMetadataValues>
                     <name>rightHandSideType</name>
                     <value>
-                        <stringValue>Picklist</stringValue>
+                        <stringValue>Queue</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Status</leftValueReference>
+                <leftValueReference>myVariable_current.OwnerId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>Under Review</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Picklist</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.Status</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Cancelled</stringValue>
+                    <stringValue>00G1f000000u1GIEAY</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>myRule_13_A1</targetReference>
             </connector>
-            <label>Fill to be faxed checkbox</label>
+            <label>Move request to &quot;To be Faxed&quot; queue</label>
         </rules>
     </decisions>
     <decisions>
@@ -632,7 +613,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_7023853164</name>
+        <name>formula_11_myRule_10_A1_3796138173</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -643,7 +624,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_9044174503</name>
+        <name>formula_8_myRule_7_A1_8221881841</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -658,7 +639,7 @@
         <dataType>Boolean</dataType>
         <expression>(ISNEW() || ISCHANGED({!myVariable_current.Origin})) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)</expression>
     </formulas>
-    <interviewLabel>Case-3_InterviewLabel</interviewLabel>
+    <interviewLabel>Case-4_InterviewLabel</interviewLabel>
     <label>Case</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -764,7 +745,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_7023853164</elementReference>
+                <elementReference>formula_11_myRule_10_A1_3796138173</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -795,7 +776,7 @@
             <name>referenceTargetField</name>
         </processMetadataValues>
         <name>myRule_13_A1</name>
-        <label>Update ready to be faxed queue</label>
+        <label>Move to &quot;To be Faxed&quot; queue</label>
         <locationX>1300</locationX>
         <locationY>200</locationY>
         <filterLogic>and</filterLogic>
@@ -1193,7 +1174,7 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_9044174503</elementReference>
+                <elementReference>formula_8_myRule_7_A1_8221881841</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
