@@ -1,6 +1,7 @@
 import { LightningElement } from 'lwc';
 import fetchSAApprovalHistoryx from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistoryx';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.getProductHealthCategories';
 
 const columns = [
   { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
@@ -22,6 +23,10 @@ export default class SaHistoryLookup extends LightningElement {
   columns = columns;
   data = [];
   loaded = false;
+  dinList = [];
+
+  categories = [];
+  categoryFilter = "";
   hasResults = false;
   completeAndNoResults = false;
   totalRecords = 0;
@@ -30,6 +35,10 @@ export default class SaHistoryLookup extends LightningElement {
 
   get patientId() {
     return this.template.querySelector('.patientIdentifier').value;
+  }
+
+  connectedCallback() {
+    this.phcFilterOptions();
   }
 
   handleFormChange(event) {
@@ -42,6 +51,8 @@ export default class SaHistoryLookup extends LightningElement {
   }
 
   async handleLookup() {
+    this.completeAndNoResults = false;
+    this.isError = false;
     this.fetchItems();
   }
 
@@ -69,10 +80,45 @@ export default class SaHistoryLookup extends LightningElement {
     }
   }
 
+  handlephcFilterChange(event) {
+    this.categoryFilter = event.detail.value;
+    let filter = null;
+    if (this.categoryFilter == "None") {
+      filter = "";
+    } else {
+      filter = this.categoryFilter;
+    }
+    this.fetchProductHealthCategories(filter);
+  }
+
+  fetchProductHealthCategories(filter) {
+    let list = [];
+    if (filter) {
+      list = filter.split(',');
+    }
+    if (list.length > 0) {
+      this.dinList = list;
+    } else {
+      this.dinList = [];
+    }
+    this.fetchItems();
+  }
+
+  phcFilterOptions() {
+    return getProductHealthCategories()
+    .then(data => {
+      this.categories = [ ...this.categories, { label: 'None', value: 'None' } ];
+      data.forEach(item => {
+        this.categories = [ ...this.categories, { label: item.Name, value: item.DINs__c }];
+      });
+      return this.categories;
+    })
+  }
+
   async fetchItems() {
-    let data = await fetchSAApprovalHistoryx({phn: this.patientIdentifier, page: null, count: null, dinList: null})
+    let data = await fetchSAApprovalHistoryx({phn: this.patientIdentifier, page: null, count: null, dinList: this.dinList})
     if (data && data.error == null) {
-      console.log("saHistory:", data);
+      // console.log("saHistory:", data);
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
 
@@ -81,29 +127,35 @@ export default class SaHistoryLookup extends LightningElement {
         this.hasResults = true;
         let dataArray = [];
         records.forEach(record => {
-          let item = {};
-          item['description'] = record.specialItem.itemDescription;
-          item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
-          item['specAuthType'] = this.convertSAType(record.specAuthType);
-          item['effectiveDate'] = record.effectiveDate;
-          item['terminationDate'] = record.terminationDate;
-          item['practId'] = record.saRequester.practId;
-          item['practIdRef'] = record.saRequester.practIdRef;
+          // Is there a filter applied?
+          if (this.dinList.length == 0
+              || this.dinList.includes(record.specialItem.din)
+              || (record.specialItem.rdp && this.dinList.includes(record.specialItem.rdp.replace(/-/g,"")))
+              ) {
+            let item = {};
+            item['description'] = record.specialItem.itemDescription;
+            item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
+            item['specAuthType'] = this.convertSAType(record.specAuthType);
+            item['effectiveDate'] = record.effectiveDate;
+            item['terminationDate'] = record.terminationDate;
+            item['practId'] = record.saRequester.practId;
+            item['practIdRef'] = record.saRequester.practIdRef;
 
-          item['excludedPlans'] = "";
-          record.excludedPlans.forEach(ep => {
-            if (item['excludedPlans'] == "") {
-              item['excludedPlans'] = ep;
-            } else {
-              item['excludedPlans'] += ", " + ep
-            }
-          });
-          item['maxDaysSupply'] = record.maxDaysSupply;
-          item['pharmacyID'] = record.saRequester.pharmacyID;
-          // Not coming in response.
-          item['decCode'] = record.saRequester.decCode;
-          item['createdBy'] = record.createdBy;
-          dataArray.push(item);
+            item['excludedPlans'] = "";
+            record.excludedPlans.forEach(ep => {
+              if (item['excludedPlans'] == "") {
+                item['excludedPlans'] = ep;
+              } else {
+                item['excludedPlans'] += ", " + ep
+              }
+            });
+            item['maxDaysSupply'] = record.maxDaysSupply;
+            item['pharmacyID'] = record.saRequester.pharmacyID;
+            // Not coming in response.
+            item['decCode'] = record.saRequester.decCode;
+            item['createdBy'] = record.createdBy;
+            dataArray.push(item);
+          }
         });
         this.data = dataArray;
       } else {

@@ -22,6 +22,17 @@
           </lightning-button>
       </div>
     </div>
+    <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
+      <lightning-layout-item flexibility="auto" padding="slds-p-left_none horizontal-medium">
+        <lightning-combobox
+          name="count"
+          label="Filter by Product Health Category"
+          value={value}
+          placeholder="None"
+          options={categories}
+          onchange={handlephcFilterChange} ></lightning-combobox>
+      </lightning-layout-item>
+  </div>
   &nbsp;
   <!-- IF RESULTS -->
   <div if:true={hasResults}>
