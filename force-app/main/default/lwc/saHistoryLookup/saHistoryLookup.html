@@ -24,7 +24,7 @@
     </div>
   &nbsp;
   <!-- IF RESULTS -->
-  <lightning-card if:true={hasResults}>
+  <div if:true={hasResults}>
     <lightning-datatable
             key-field="rxNumber"
             hide-checkbox-column
@@ -34,7 +34,7 @@
     <!-- <div class="page-info">
       Total Records: {totalRecords}
     </div> -->
-  </lightning-card>
+  </div>
 
   <!-- NO RESULTS FOUND -->
   <lightning-card if:true={completeAndNoResults}>
