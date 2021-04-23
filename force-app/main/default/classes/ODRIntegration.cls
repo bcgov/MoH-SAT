@@ -322,10 +322,12 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
-    public static SAApprovalHistoryResponse fetchSAApprovalHistoryx(String phn, String page, String count) {
+    public static SAApprovalHistoryResponse fetchSAApprovalHistoryx(String phn, String page, String count, List<Integer> dinList) {
         System.debug('Fetch Data');
         System.debug(page);
         System.debug(count);
+
+        System.debug(dinList);
 
         SAApprovalHistoryResponse sar = null;
 
