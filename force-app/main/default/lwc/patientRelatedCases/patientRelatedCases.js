@@ -1,9 +1,10 @@
 import { LightningElement, wire, api } from 'lwc';
-import findCases from '@salesforce/apex/SimilarCases.find';
+import queryCases from '@salesforce/apex/PatientRelatedCases.query';
+
 export default class SimilarCases extends LightningElement {
     @api recordId;
     
-    @wire(findCases, { caseId : '$recordId' })
+    @wire(queryCases, { caseId : '$recordId' })
     cases;
 
     get hasCases() {

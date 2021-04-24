@@ -1,20 +1,18 @@
-public with sharing class SimilarCases {
+public without sharing class PatientRelatedCases {
 
     @AuraEnabled(cacheable=true)
-    public static List<Case> find(Id caseId) {
-        Case record = [select Id, Drug_Name__c from Case where Id = :caseId];
+    public static List<Case> query(Id caseId) {
+        Case record = [select ContactId from Case where Id = :caseId];
 
         return [
             select 
                 Id, CaseNumber, Subject, Status, ClosedDate, Drug_Name__c,
                 Contact.Name, Provider__r.Name, Owner.Name
             from Case
-            where Drug_Name__c = :record.Drug_Name__c
-            and IsClosed=true
+            where ContactId = :record.ContactId
             and Id != :caseId
-            order by ClosedDate desc
+            order by CreatedDate asc
             limit 20
         ];
     }
-    
 }

@@ -1,0 +1,57 @@
+<template>
+    <template if:false={hasCases}>
+        <div class="slds-box slds-text-align_center">
+            <div class="slds-m-vertical_small">
+                <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                <p>Empty.</p>
+            </div>
+        </div>
+    </template>
+    <template if:true={hasCases} for:each={cases} for:item="c">
+        <div key={c.Id} class="slds-box slds-m-bottom_medium">
+            <lightning-card icon-name="standard:case">
+                <div slot="title">
+                    <span class="slds-m-right_medium">{c.CaseNumber}</span>
+                    <lightning-button if:false={hideCaseViewButton} label="View" data-case-id={c.Id} onclick={viewCase}></lightning-button>
+                </div>
+                
+                <div class='slds-grid'>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Status</p>
+                        <p>{c.Status}</p>
+                    </div>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Closed Date</p>
+                        <p>
+                            <lightning-formatted-date-time value={c.ClosedDate}></lightning-formatted-date-time>
+                        </p>
+                    </div>
+                    <div if:false={hidePatient} class='slds-col'>
+                        <p class="slds-text-title">Patient</p>
+                        <p if:true={c.Contact}>{c.Contact.Name}</p>
+                    </div>
+                    <div class='slds-col'>
+                        <p class="slds-text-title">Provider</p>
+                        <p if:true={c.Provider__c}>{c.Provider__r.Name}</p>
+                    </div>
+                    <div if:false={hideDrug} class='slds-col'>
+                        <p class="slds-text-title">Drug</p>
+                        <p if:true={c.Provider__c}>{c.Drug_Name__c}</p>
+                    </div>
+                    <div if:false={hideOwner} class='slds-col'>
+                        <p class="slds-text-title">Owner</p>
+                        <p>{c.Owner.Name}</p>
+                    </div>
+                </div>
+                
+                <div class="slds-text-title_caps slds-m-vertical_medium slds-text-align_center">Request Details</div>
+
+                <div>
+                    <c-request-details record-id={c.Id} hide-qid-toggle={hideQidToggle}></c-request-details>
+                </div>
+
+
+            </lightning-card>
+        </div>
+    </template>
+</template>
