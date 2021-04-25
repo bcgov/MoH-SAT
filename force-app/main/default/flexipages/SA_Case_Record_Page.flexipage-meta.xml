@@ -54,6 +54,13 @@
                     <value>Approved_by_flow</value>
                 </componentInstanceProperties>
                 <componentName>flowruntime:interview</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Approved</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
