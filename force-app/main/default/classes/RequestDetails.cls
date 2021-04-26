@@ -1,4 +1,4 @@
-public with sharing class RequestDetails {
+public without sharing class RequestDetails {
     @AuraEnabled(cacheable=true)
     public static List<Request_Detail__c> getRequestDetails(Id caseId){
         return [
