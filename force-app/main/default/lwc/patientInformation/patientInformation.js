@@ -7,6 +7,7 @@ export default class PatientInformation extends LightningElement {
   loaded = false;
   data = null;
   deceased = false;
+  patientFullNameDisplay = '';
 
   @wire(verifyPatientInformationx, { recordId: '$recordId' }) mapObjectToData({error,data}) {
     if (data) {
@@ -15,6 +16,19 @@ export default class PatientInformation extends LightningElement {
 
       // Re-work deceased
       this.deceased = this.data.deceased == true ? 'Yes' : 'No';
+
+      let patientFullNameDisplay = '';
+
+      this.data.names.forEach(item => {
+        if (item.declared == true) {
+          item.givenNames.forEach(given => {
+            patientFullNameDisplay += given + ' ';
+          });
+          patientFullNameDisplay += item.familyName;
+        }
+      });
+
+      this.patientFullNameDisplay = patientFullNameDisplay;
 
       this.loaded = true;
     }
