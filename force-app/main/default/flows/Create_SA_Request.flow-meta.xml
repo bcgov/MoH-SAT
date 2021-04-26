@@ -483,8 +483,8 @@
     <decisions>
         <name>Case_Approval_Status</name>
         <label>Case Approval Status</label>
-        <locationX>2568</locationX>
-        <locationY>6010</locationY>
+        <locationX>3033</locationX>
+        <locationY>5625</locationY>
         <defaultConnector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </defaultConnector>
@@ -774,8 +774,8 @@
     <decisions>
         <name>Drug_Diagnosis_Other_Request_Detail</name>
         <label>Drug Diagnosis Other Request Detail</label>
-        <locationX>2568</locationX>
-        <locationY>4880</locationY>
+        <locationX>3033</locationX>
+        <locationY>4497</locationY>
         <defaultConnector>
             <targetReference>Is_Provider_Overriden</targetReference>
         </defaultConnector>
@@ -799,8 +799,8 @@
     <decisions>
         <name>Is_Patient_Deceased</name>
         <label>Is Patient Deceased</label>
-        <locationX>2568</locationX>
-        <locationY>5554</locationY>
+        <locationX>3033</locationX>
+        <locationY>5169</locationY>
         <defaultConnector>
             <targetReference>Update_Patient_Validation</targetReference>
         </defaultConnector>
@@ -824,8 +824,8 @@
     <decisions>
         <name>Is_Provider_Overriden</name>
         <label>Is Provider Overriden</label>
-        <locationX>2568</locationX>
-        <locationY>5218</locationY>
+        <locationX>3033</locationX>
+        <locationY>4833</locationY>
         <defaultConnector>
             <targetReference>Update_SA_Request_Validation</targetReference>
         </defaultConnector>
@@ -924,8 +924,8 @@
     <decisions>
         <name>Status_update_based_on_request_type</name>
         <label>Status update based on request type</label>
-        <locationX>2568</locationX>
-        <locationY>6346</locationY>
+        <locationX>3033</locationX>
+        <locationY>5961</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen_0_0</targetReference>
         </defaultConnector>
@@ -1384,8 +1384,8 @@
     <recordCreates>
         <name>Create_Other_Request_Detail</name>
         <label>Create Other Request Detail</label>
-        <locationX>2436</locationX>
-        <locationY>5002</locationY>
+        <locationX>2901</locationX>
+        <locationY>4617</locationY>
         <connector>
             <targetReference>Is_Provider_Overriden</targetReference>
         </connector>
@@ -1425,10 +1425,10 @@
     <recordCreates>
         <name>Create_Request_Detail</name>
         <label>Create Request Detail</label>
-        <locationX>2568</locationX>
-        <locationY>4762</locationY>
+        <locationX>3033</locationX>
+        <locationY>4257</locationY>
         <connector>
-            <targetReference>Drug_Diagnosis_Other_Request_Detail</targetReference>
+            <targetReference>Create_Second_Request_Detail</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
@@ -1466,8 +1466,8 @@
     <recordCreates>
         <name>Create_SA_Request_Other</name>
         <label>Create SA Request Other</label>
-        <locationX>2568</locationX>
-        <locationY>4641</locationY>
+        <locationX>3033</locationX>
+        <locationY>4137</locationY>
         <connector>
             <targetReference>Create_Request_Detail</targetReference>
         </connector>
@@ -1528,11 +1528,52 @@
         <object>Case</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
+    <recordCreates>
+        <name>Create_Second_Request_Detail</name>
+        <label>Create Second Request Detail</label>
+        <locationX>3033</locationX>
+        <locationY>4377</locationY>
+        <connector>
+            <targetReference>Drug_Diagnosis_Other_Request_Detail</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case__c</field>
+            <value>
+                <elementReference>Create_SA_Request_Other</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Question_ID__c</field>
+            <value>
+                <stringValue>manual.diagnosis.secondary</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Question__c</field>
+            <value>
+                <stringValue>Manual entry secondary indication:</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Sort_Order__c</field>
+            <value>
+                <numberValue>3.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>String_Value__c</field>
+            <value>
+                <elementReference>Other_Indication</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Request_Detail__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>Get_Drug_Record_ID</name>
         <label>Get Drug Record ID</label>
-        <locationX>2568</locationX>
-        <locationY>4402</locationY>
+        <locationX>3033</locationX>
+        <locationY>3897</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Add_Diagnosis_of_Other_Drug</targetReference>
@@ -1860,8 +1901,8 @@
     <recordLookups>
         <name>Get_SA_Request_Type_Id_Other</name>
         <label>Get SA Request Type Id Other</label>
-        <locationX>2568</locationX>
-        <locationY>4282</locationY>
+        <locationX>3033</locationX>
+        <locationY>3777</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Drug_Record_ID</targetReference>
@@ -2053,8 +2094,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Currently_Approved</name>
         <label>Update Case Status Currently Approved</label>
-        <locationX>2260</locationX>
-        <locationY>6466</locationY>
+        <locationX>2725</locationX>
+        <locationY>6081</locationY>
         <connector>
             <targetReference>Thank_You_Screen_0_0</targetReference>
         </connector>
@@ -2083,8 +2124,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Not_Approved</name>
         <label>Update Case Status Not Approved</label>
-        <locationX>2436</locationX>
-        <locationY>6130</locationY>
+        <locationX>2901</locationX>
+        <locationY>5745</locationY>
         <connector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </connector>
@@ -2215,8 +2256,8 @@
     <recordUpdates>
         <name>Update_Patient_Validation</name>
         <label>Update Patient Validation</label>
-        <locationX>2656</locationX>
-        <locationY>5673</locationY>
+        <locationX>3121</locationX>
+        <locationY>5289</locationY>
         <connector>
             <targetReference>Upload_Files</targetReference>
         </connector>
@@ -2281,8 +2322,8 @@
     <recordUpdates>
         <name>Update_SA_Request_Validation</name>
         <label>Update SA Request Validation</label>
-        <locationX>2656</locationX>
-        <locationY>5338</locationY>
+        <locationX>3121</locationX>
+        <locationY>4953</locationY>
         <connector>
             <targetReference>Is_Patient_Deceased</targetReference>
         </connector>
@@ -2392,8 +2433,8 @@
     <screens>
         <name>Add_Diagnosis_of_Other_Drug</name>
         <label>Add Diagnosis of Other Drug</label>
-        <locationX>2568</locationX>
-        <locationY>4522</locationY>
+        <locationX>3033</locationX>
+        <locationY>4017</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2407,6 +2448,16 @@
             <dataType>String</dataType>
             <defaultSelectedChoiceReference>Empty_Choice</defaultSelectedChoiceReference>
             <fieldText>Drug Indication</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Other_Indication</name>
+            <choiceReferences>Diagnoses_Options</choiceReferences>
+            <choiceReferences>Empty_Choice</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>Empty_Choice</defaultSelectedChoiceReference>
+            <fieldText>Other Indication</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
         </fields>
@@ -2907,8 +2958,8 @@
     <screens>
         <name>Thank_You_Screen_0_0</name>
         <label>Thank You Screen</label>
-        <locationX>2568</locationX>
-        <locationY>6682</locationY>
+        <locationX>3033</locationX>
+        <locationY>6297</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2923,8 +2974,8 @@
     <screens>
         <name>Upload_Files</name>
         <label>Upload Files</label>
-        <locationX>2568</locationX>
-        <locationY>5890</locationY>
+        <locationX>3033</locationX>
+        <locationY>5505</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
