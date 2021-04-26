@@ -5,7 +5,7 @@
         <name>AssignLoopVariableActiveSARequest</name>
         <label>AssignLoopVariableActiveSARequest</label>
         <locationX>952</locationX>
-        <locationY>5822</locationY>
+        <locationY>6038</locationY>
         <assignmentItems>
             <assignToReference>ActiveSARequestInformation</assignToReference>
             <operator>Add</operator>
@@ -28,7 +28,7 @@
         <name>Store_Created_Patient_ID</name>
         <label>Store Created Patient ID</label>
         <locationX>880</locationX>
-        <locationY>4238</locationY>
+        <locationY>4454</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -58,7 +58,7 @@
         <name>Store_Created_Patient_ID_2</name>
         <label>Store Created Patient ID 2</label>
         <locationX>616</locationX>
-        <locationY>4598</locationY>
+        <locationY>4814</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -73,7 +73,7 @@
     <assignments>
         <name>Store_Created_Provider_ID_0</name>
         <label>Store Created Provider ID</label>
-        <locationX>880</locationX>
+        <locationX>930</locationX>
         <locationY>2870</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
@@ -103,8 +103,8 @@
     <assignments>
         <name>Store_Created_Provider_ID_2</name>
         <label>Store Created Provider ID 2</label>
-        <locationX>616</locationX>
-        <locationY>3230</locationY>
+        <locationX>666</locationX>
+        <locationY>3350</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -136,7 +136,7 @@
         <name>Store_Existing_Patient_ID</name>
         <label>Store Existing Patient ID</label>
         <locationX>352</locationX>
-        <locationY>4238</locationY>
+        <locationY>4454</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -165,8 +165,8 @@
     <assignments>
         <name>Store_Existing_Provider_ID</name>
         <label>Store Existing Provider ID</label>
-        <locationX>352</locationX>
-        <locationY>2870</locationY>
+        <locationX>402</locationX>
+        <locationY>2990</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
             <operator>Assign</operator>
@@ -193,10 +193,26 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Store_Not_Provided_Created_Provider_ID</name>
+        <label>Store Not Provided Created Provider ID</label>
+        <locationX>138</locationX>
+        <locationY>3110</locationY>
+        <assignmentItems>
+            <assignToReference>Final_Provider_ID</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Not_Provided_Final_Provider_ID.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_Patient</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Store_Parent_ID</name>
         <label>Store Parent ID</label>
         <locationX>314</locationX>
-        <locationY>6878</locationY>
+        <locationY>7094</locationY>
         <assignmentItems>
             <assignToReference>Parent_Id</assignToReference>
             <operator>Assign</operator>
@@ -212,7 +228,7 @@
         <name>Store_Patient_ID</name>
         <label>Store Patient ID</label>
         <locationX>1144</locationX>
-        <locationY>3758</locationY>
+        <locationY>3974</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -241,7 +257,7 @@
     <assignments>
         <name>Store_Provider_ID</name>
         <label>Store Provider ID</label>
-        <locationX>1144</locationX>
+        <locationX>1194</locationX>
         <locationY>2390</locationY>
         <assignmentItems>
             <assignToReference>Final_Provider_ID</assignToReference>
@@ -288,7 +304,7 @@
         <name>Submitter_is_Prescriber_Assignment</name>
         <label>Submitter is Prescriber Assignment</label>
         <locationX>781</locationX>
-        <locationY>5126</locationY>
+        <locationY>5342</locationY>
         <assignmentItems>
             <assignToReference>Final_Submitter_ID</assignToReference>
             <operator>Assign</operator>
@@ -304,7 +320,7 @@
         <name>ZeroAssignSARequestsCount</name>
         <label>ZeroAssignSARequestsCount</label>
         <locationX>50</locationX>
-        <locationY>5702</locationY>
+        <locationY>5918</locationY>
         <assignmentItems>
             <assignToReference>CountActiveSARequests</assignToReference>
             <operator>Assign</operator>
@@ -483,8 +499,8 @@
     <decisions>
         <name>Case_Approval_Status</name>
         <label>Case Approval Status</label>
-        <locationX>3033</locationX>
-        <locationY>5625</locationY>
+        <locationX>2363</locationX>
+        <locationY>6391</locationY>
         <defaultConnector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </defaultConnector>
@@ -516,7 +532,7 @@
         <name>Case_update_based_on_type</name>
         <label>Case update based on type</label>
         <locationX>622</locationX>
-        <locationY>6518</locationY>
+        <locationY>6734</locationY>
         <defaultConnector>
             <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
         </defaultConnector>
@@ -571,7 +587,7 @@
         <name>Check_Active_SA_Requests_Decision</name>
         <label>Check Active SA Requests Decision</label>
         <locationX>913</locationX>
-        <locationY>5342</locationY>
+        <locationY>5558</locationY>
         <defaultConnector>
             <targetReference>Get_SA_Request_Type_Id_Other</targetReference>
         </defaultConnector>
@@ -603,7 +619,7 @@
         <name>ContinueSACreationDecision</name>
         <label>ContinueSACreationDecision</label>
         <locationX>864</locationX>
-        <locationY>6278</locationY>
+        <locationY>6494</locationY>
         <defaultConnectorLabel>Stop SA Request Creation</defaultConnectorLabel>
         <rules>
             <name>Continue_SA_Request_Creation</name>
@@ -625,7 +641,7 @@
         <name>CountSARequestsDecision</name>
         <label>CountSARequestsDecision</label>
         <locationX>457</locationX>
-        <locationY>5582</locationY>
+        <locationY>5798</locationY>
         <defaultConnector>
             <targetReference>LoopActiveSARequests</targetReference>
         </defaultConnector>
@@ -650,7 +666,7 @@
         <name>Create_Patient</name>
         <label>Create Patient</label>
         <locationX>913</locationX>
-        <locationY>3638</locationY>
+        <locationY>3854</locationY>
         <defaultConnector>
             <targetReference>Store_Patient_ID</targetReference>
         </defaultConnector>
@@ -725,7 +741,7 @@
         <name>Does_the_Patient_Dummy_Exist</name>
         <label>Does the Patient Dummy Exist</label>
         <locationX>484</locationX>
-        <locationY>3998</locationY>
+        <locationY>4214</locationY>
         <defaultConnector>
             <targetReference>Create_Patient_Record_2</targetReference>
         </defaultConnector>
@@ -749,8 +765,8 @@
     <decisions>
         <name>Does_the_Provider_Dummy_Exist</name>
         <label>Does the Provider Dummy Exist</label>
-        <locationX>484</locationX>
-        <locationY>2630</locationY>
+        <locationX>534</locationX>
+        <locationY>2750</locationY>
         <defaultConnector>
             <targetReference>Create_Provider_Record_2</targetReference>
         </defaultConnector>
@@ -774,8 +790,8 @@
     <decisions>
         <name>Drug_Diagnosis_Other_Request_Detail</name>
         <label>Drug Diagnosis Other Request Detail</label>
-        <locationX>3033</locationX>
-        <locationY>4497</locationY>
+        <locationX>2363</locationX>
+        <locationY>5263</locationY>
         <defaultConnector>
             <targetReference>Is_Provider_Overriden</targetReference>
         </defaultConnector>
@@ -799,8 +815,8 @@
     <decisions>
         <name>Is_Patient_Deceased</name>
         <label>Is Patient Deceased</label>
-        <locationX>3033</locationX>
-        <locationY>5169</locationY>
+        <locationX>2363</locationX>
+        <locationY>5935</locationY>
         <defaultConnector>
             <targetReference>Update_Patient_Validation</targetReference>
         </defaultConnector>
@@ -824,8 +840,8 @@
     <decisions>
         <name>Is_Provider_Overriden</name>
         <label>Is Provider Overriden</label>
-        <locationX>3033</locationX>
-        <locationY>4833</locationY>
+        <locationX>2363</locationX>
+        <locationY>5599</locationY>
         <defaultConnector>
             <targetReference>Update_SA_Request_Validation</targetReference>
         </defaultConnector>
@@ -900,7 +916,7 @@
         <name>Patient_Negative_Outcome</name>
         <label>Patient Negative Outcome</label>
         <locationX>682</locationX>
-        <locationY>3758</locationY>
+        <locationY>3974</locationY>
         <defaultConnector>
             <targetReference>Get_Patient_Record_Type_Id</targetReference>
         </defaultConnector>
@@ -924,8 +940,8 @@
     <decisions>
         <name>Status_update_based_on_request_type</name>
         <label>Status update based on request type</label>
-        <locationX>3033</locationX>
-        <locationY>5961</locationY>
+        <locationX>2363</locationX>
+        <locationY>6727</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen_0_0</targetReference>
         </defaultConnector>
@@ -980,7 +996,7 @@
         <name>Submitter_is_Prescriber</name>
         <label>Submitter is Prescriber</label>
         <locationX>913</locationX>
-        <locationY>5006</locationY>
+        <locationY>5222</locationY>
         <defaultConnector>
             <targetReference>Check_Active_SA_Requests_Decision</targetReference>
         </defaultConnector>
@@ -1002,9 +1018,34 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Was_provider_not_provided</name>
+        <label>Was provider not provided</label>
+        <locationX>336</locationX>
+        <locationY>2510</locationY>
+        <defaultConnector>
+            <targetReference>Get_Existing_Provider_Dummy_Account</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Provider_Not_Provided</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Provider Not Provided</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Provider_Not_Provided_Screen</targetReference>
+            </connector>
+            <label>Provider Not Provided</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Was_the_Provider_Overriden</name>
         <label>Was the Provider Overriden</label>
-        <locationX>682</locationX>
+        <locationX>633</locationX>
         <locationY>2390</locationY>
         <defaultConnector>
             <targetReference>Get_Provider_Record_Type_Id</targetReference>
@@ -1021,7 +1062,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Existing_Provider_Dummy_Account</targetReference>
+                <targetReference>Was_provider_not_provided</targetReference>
             </connector>
             <label>Provider Overriden</label>
         </rules>
@@ -1141,7 +1182,7 @@
         <name>LoopActiveSARequests</name>
         <label>LoopActiveSARequests</label>
         <locationX>864</locationX>
-        <locationY>5702</locationY>
+        <locationY>5918</locationY>
         <collectionReference>GetActiveSARequests</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1174,7 +1215,7 @@
         <name>Create_New_Patient_Record</name>
         <label>Create New Patient Record</label>
         <locationX>880</locationX>
-        <locationY>3998</locationY>
+        <locationY>4214</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID</targetReference>
         </connector>
@@ -1215,7 +1256,7 @@
         <name>Create_New_Patient_Record_2</name>
         <label>Create New Patient Record 2</label>
         <locationX>616</locationX>
-        <locationY>4358</locationY>
+        <locationY>4574</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID_2</targetReference>
         </connector>
@@ -1255,7 +1296,7 @@
     <recordCreates>
         <name>Create_New_Provider_Record</name>
         <label>Create New Provider Record</label>
-        <locationX>880</locationX>
+        <locationX>930</locationX>
         <locationY>2630</locationY>
         <connector>
             <targetReference>Get_Final_Provider_ID</targetReference>
@@ -1302,8 +1343,8 @@
     <recordCreates>
         <name>Create_New_Provider_Record_2</name>
         <label>Create New Provider Record 2</label>
-        <locationX>616</locationX>
-        <locationY>2990</locationY>
+        <locationX>666</locationX>
+        <locationY>3110</locationY>
         <connector>
             <targetReference>Get_Final_Provider_ID_2</targetReference>
         </connector>
@@ -1382,10 +1423,51 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
+        <name>Create_Not_Provided_Provider_Record</name>
+        <label>Create Not Provided Provider Record</label>
+        <locationX>138</locationX>
+        <locationY>2870</locationY>
+        <connector>
+            <targetReference>Get_Not_Provided_Final_Provider_ID</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>Not_Provided_Provider_First_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>Not_Provided_Provider_Last_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider_Identifier__pc</field>
+            <value>
+                <elementReference>Not_Provided_Provider_Identifier</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider_Type__pc</field>
+            <value>
+                <elementReference>Not_Provided_Provider_Identifier</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_Not_Provided_Provider_Record_Type_Id.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
         <name>Create_Other_Request_Detail</name>
         <label>Create Other Request Detail</label>
-        <locationX>2901</locationX>
-        <locationY>4617</locationY>
+        <locationX>2231</locationX>
+        <locationY>5383</locationY>
         <connector>
             <targetReference>Is_Provider_Overriden</targetReference>
         </connector>
@@ -1425,8 +1507,8 @@
     <recordCreates>
         <name>Create_Request_Detail</name>
         <label>Create Request Detail</label>
-        <locationX>3033</locationX>
-        <locationY>4257</locationY>
+        <locationX>2363</locationX>
+        <locationY>5023</locationY>
         <connector>
             <targetReference>Create_Second_Request_Detail</targetReference>
         </connector>
@@ -1466,8 +1548,8 @@
     <recordCreates>
         <name>Create_SA_Request_Other</name>
         <label>Create SA Request Other</label>
-        <locationX>3033</locationX>
-        <locationY>4137</locationY>
+        <locationX>2363</locationX>
+        <locationY>4903</locationY>
         <connector>
             <targetReference>Create_Request_Detail</targetReference>
         </connector>
@@ -1531,8 +1613,8 @@
     <recordCreates>
         <name>Create_Second_Request_Detail</name>
         <label>Create Second Request Detail</label>
-        <locationX>3033</locationX>
-        <locationY>4377</locationY>
+        <locationX>2363</locationX>
+        <locationY>5143</locationY>
         <connector>
             <targetReference>Drug_Diagnosis_Other_Request_Detail</targetReference>
         </connector>
@@ -1572,8 +1654,8 @@
     <recordLookups>
         <name>Get_Drug_Record_ID</name>
         <label>Get Drug Record ID</label>
-        <locationX>3033</locationX>
-        <locationY>3897</locationY>
+        <locationX>2363</locationX>
+        <locationY>4663</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Add_Diagnosis_of_Other_Drug</targetReference>
@@ -1594,7 +1676,7 @@
         <name>Get_Existing_Patient_Dummy_Account</name>
         <label>Get Existing Patient Dummy Account</label>
         <locationX>484</locationX>
-        <locationY>3878</locationY>
+        <locationY>4094</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Does_the_Patient_Dummy_Exist</targetReference>
@@ -1614,8 +1696,8 @@
     <recordLookups>
         <name>Get_Existing_Provider_Dummy_Account</name>
         <label>Get Existing Provider Dummy Account</label>
-        <locationX>484</locationX>
-        <locationY>2510</locationY>
+        <locationX>534</locationX>
+        <locationY>2630</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Does_the_Provider_Dummy_Exist</targetReference>
@@ -1636,7 +1718,7 @@
         <name>Get_Final_Patient_ID</name>
         <label>Get Final Patient ID</label>
         <locationX>880</locationX>
-        <locationY>4118</locationY>
+        <locationY>4334</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Patient_ID</targetReference>
@@ -1657,7 +1739,7 @@
         <name>Get_Final_Patient_ID_2</name>
         <label>Get Final Patient ID 2</label>
         <locationX>616</locationX>
-        <locationY>4478</locationY>
+        <locationY>4694</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Patient_ID_2</targetReference>
@@ -1677,7 +1759,7 @@
     <recordLookups>
         <name>Get_Final_Provider_ID</name>
         <label>Get Final Provider ID</label>
-        <locationX>880</locationX>
+        <locationX>930</locationX>
         <locationY>2750</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1698,8 +1780,8 @@
     <recordLookups>
         <name>Get_Final_Provider_ID_2</name>
         <label>Get Final Provider ID 2</label>
-        <locationX>616</locationX>
-        <locationY>3110</locationY>
+        <locationX>666</locationX>
+        <locationY>3230</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Created_Provider_ID_2</targetReference>
@@ -1738,6 +1820,55 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Not_Provided_Final_Provider_ID</name>
+        <label>Get Not Provided Final Provider ID</label>
+        <locationX>138</locationX>
+        <locationY>2990</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Store_Not_Provided_Created_Provider_ID</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Create_Not_Provided_Provider_Record</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Not_Provided_Provider_Record_Type_Id</name>
+        <label>Get Not Provided Provider Record Type Id</label>
+        <locationX>138</locationX>
+        <locationY>2750</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Not_Provided_Provider_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Account</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Provider</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Patient_Record_0_0</name>
         <label>Get Patient Record</label>
         <locationX>1001</locationX>
@@ -1762,7 +1893,7 @@
         <name>Get_Patient_Record_Type_Id</name>
         <label>Get Patient Record Type Id</label>
         <locationX>880</locationX>
-        <locationY>3878</locationY>
+        <locationY>4094</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Patient_Record</targetReference>
@@ -1790,7 +1921,7 @@
         <name>Get_Patient_Record_Type_ID_2</name>
         <label>Get Patient Record Type ID 2</label>
         <locationX>616</locationX>
-        <locationY>4238</locationY>
+        <locationY>4454</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Patient_Record_2</targetReference>
@@ -1845,8 +1976,8 @@
     <recordLookups>
         <name>Get_Provider_Record_2</name>
         <label>Get Provider Record 2</label>
-        <locationX>616</locationX>
-        <locationY>2870</locationY>
+        <locationX>666</locationX>
+        <locationY>2990</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Provider_Record_2</targetReference>
@@ -1873,7 +2004,7 @@
     <recordLookups>
         <name>Get_Provider_Record_Type_Id</name>
         <label>Get Provider Record Type Id</label>
-        <locationX>880</locationX>
+        <locationX>930</locationX>
         <locationY>2510</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1901,8 +2032,8 @@
     <recordLookups>
         <name>Get_SA_Request_Type_Id_Other</name>
         <label>Get SA Request Type Id Other</label>
-        <locationX>3033</locationX>
-        <locationY>3777</locationY>
+        <locationX>2363</locationX>
+        <locationY>4543</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Drug_Record_ID</targetReference>
@@ -1986,7 +2117,7 @@
         <name>GetActiveSARequests</name>
         <label>GetActiveSARequests</label>
         <locationX>457</locationX>
-        <locationY>5462</locationY>
+        <locationY>5678</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>CountSARequestsDecision</targetReference>
@@ -2023,7 +2154,7 @@
         <name>GetActiveSARequests_0</name>
         <label>GetActiveSARequests</label>
         <locationX>314</locationX>
-        <locationY>6638</locationY>
+        <locationY>6854</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>GetActiveSARequests_Record_ID</targetReference>
@@ -2060,7 +2191,7 @@
         <name>GetActiveSARequests_Record_ID</name>
         <label>GetActiveSARequests Record ID</label>
         <locationX>314</locationX>
-        <locationY>6758</locationY>
+        <locationY>6974</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Store_Parent_ID</targetReference>
@@ -2094,8 +2225,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Currently_Approved</name>
         <label>Update Case Status Currently Approved</label>
-        <locationX>2725</locationX>
-        <locationY>6081</locationY>
+        <locationX>2055</locationX>
+        <locationY>6847</locationY>
         <connector>
             <targetReference>Thank_You_Screen_0_0</targetReference>
         </connector>
@@ -2124,8 +2255,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Not_Approved</name>
         <label>Update Case Status Not Approved</label>
-        <locationX>2901</locationX>
-        <locationY>5745</locationY>
+        <locationX>2231</locationX>
+        <locationY>6511</locationY>
         <connector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </connector>
@@ -2161,7 +2292,7 @@
         <name>Update_Existing_Patient_Record_With_ODR_Info</name>
         <label>Update Existing Patient Record With ODR Info</label>
         <locationX>352</locationX>
-        <locationY>4358</locationY>
+        <locationY>4574</locationY>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
         </connector>
@@ -2190,8 +2321,8 @@
     <recordUpdates>
         <name>Update_Existing_Provider_Record_With_ODR_Info</name>
         <label>Update Existing Provider Record With ODR Info</label>
-        <locationX>352</locationX>
-        <locationY>2990</locationY>
+        <locationX>402</locationX>
+        <locationY>3110</locationY>
         <connector>
             <targetReference>Create_Patient</targetReference>
         </connector>
@@ -2221,7 +2352,7 @@
         <name>Update_Patient_Record_With_ODR_Info_0</name>
         <label>Update Patient Record With ODR Info</label>
         <locationX>1144</locationX>
-        <locationY>3878</locationY>
+        <locationY>4094</locationY>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
         </connector>
@@ -2256,8 +2387,8 @@
     <recordUpdates>
         <name>Update_Patient_Validation</name>
         <label>Update Patient Validation</label>
-        <locationX>3121</locationX>
-        <locationY>5289</locationY>
+        <locationX>2451</locationX>
+        <locationY>6055</locationY>
         <connector>
             <targetReference>Upload_Files</targetReference>
         </connector>
@@ -2286,7 +2417,7 @@
     <recordUpdates>
         <name>Update_Provider_Record_With_ODR_Info</name>
         <label>Update Provider Record With ODR Info</label>
-        <locationX>1144</locationX>
+        <locationX>1194</locationX>
         <locationY>2510</locationY>
         <connector>
             <targetReference>Create_Patient</targetReference>
@@ -2322,8 +2453,8 @@
     <recordUpdates>
         <name>Update_SA_Request_Validation</name>
         <label>Update SA Request Validation</label>
-        <locationX>3121</locationX>
-        <locationY>4953</locationY>
+        <locationX>2451</locationX>
+        <locationY>5719</locationY>
         <connector>
             <targetReference>Is_Patient_Deceased</targetReference>
         </connector>
@@ -2390,7 +2521,7 @@
         <name>Active_SA_Requests_Screen</name>
         <label>Active SA Requests Screen</label>
         <locationX>864</locationX>
-        <locationY>6038</locationY>
+        <locationY>6254</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2433,8 +2564,8 @@
     <screens>
         <name>Add_Diagnosis_of_Other_Drug</name>
         <label>Add Diagnosis of Other Drug</label>
-        <locationX>3033</locationX>
-        <locationY>4017</locationY>
+        <locationX>2363</locationX>
+        <locationY>4783</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2475,7 +2606,7 @@
         <name>Create_Patient_Record_2</name>
         <label>Create Patient Record 2</label>
         <locationX>616</locationX>
-        <locationY>4118</locationY>
+        <locationY>4334</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2519,8 +2650,8 @@
     <screens>
         <name>Create_Provider_Record_2</name>
         <label>Create Provider Record 2</label>
-        <locationX>616</locationX>
-        <locationY>2750</locationY>
+        <locationX>666</locationX>
+        <locationY>2870</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2558,7 +2689,7 @@
         <name>Dummy_Patient_Account_Exists_in_SF</name>
         <label>Dummy Patient Account Exists in SF</label>
         <locationX>352</locationX>
-        <locationY>4118</locationY>
+        <locationY>4334</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2600,8 +2731,8 @@
     <screens>
         <name>Dummy_Provider_Account_Exists</name>
         <label>Dummy Provider Account Exists</label>
-        <locationX>352</locationX>
-        <locationY>2750</locationY>
+        <locationX>402</locationX>
+        <locationY>2870</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2644,7 +2775,7 @@
         <name>ExitScreen</name>
         <label>ExitScreen</label>
         <locationX>864</locationX>
-        <locationY>6158</locationY>
+        <locationY>6374</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2934,10 +3065,58 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>Provider_Not_Provided_Screen</name>
+        <label>Provider Not Provided</label>
+        <locationX>138</locationX>
+        <locationY>2630</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_Not_Provided_Provider_Record_Type_Id</targetReference>
+        </connector>
+        <fields>
+            <name>Not_Provided_Provider_First_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Provider First Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Not_Provided_Provider_Last_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Provider Last Name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Provider_Type</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <stringValue>Not Provided</stringValue>
+            </defaultValue>
+            <fieldText>Provider Type</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Not_Provided_Provider_Identifier</name>
+            <dataType>String</dataType>
+            <defaultValue>
+                <stringValue>Not Provided</stringValue>
+            </defaultValue>
+            <fieldText>Provider Identifier</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>SA_Request_Type</name>
         <label>SA Request Type</label>
         <locationX>622</locationX>
-        <locationY>6398</locationY>
+        <locationY>6614</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2958,8 +3137,8 @@
     <screens>
         <name>Thank_You_Screen_0_0</name>
         <label>Thank You Screen</label>
-        <locationX>3033</locationX>
-        <locationY>6297</locationY>
+        <locationX>2363</locationX>
+        <locationY>7063</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2974,8 +3153,8 @@
     <screens>
         <name>Upload_Files</name>
         <label>Upload Files</label>
-        <locationX>3033</locationX>
-        <locationY>5505</locationY>
+        <locationX>2363</locationX>
+        <locationY>6271</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3022,7 +3201,7 @@
             <targetReference>Provider_Details_Screen</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>ActiveSARequestInformation</name>
         <dataType>String</dataType>
