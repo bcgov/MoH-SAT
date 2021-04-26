@@ -3,12 +3,12 @@
     <actionCalls>
         <name>Patient_Validated_0</name>
         <label>Patient Validated</label>
-        <locationX>1001</locationX>
-        <locationY>8558</locationY>
+        <locationX>2816</locationX>
+        <locationY>4823</locationY>
         <actionName>Case.Patient_Validated</actionName>
         <actionType>quickAction</actionType>
         <connector>
-            <targetReference>Upload_Files</targetReference>
+            <targetReference>Update_Drug_Id_on_Case</targetReference>
         </connector>
         <inputParameters>
             <name>Patient_Validated__c</name>
@@ -32,8 +32,8 @@
     <actionCalls>
         <name>Provider_Validated_0_0</name>
         <label>Provider_Validated</label>
-        <locationX>1001</locationX>
-        <locationY>8222</locationY>
+        <locationX>2816</locationX>
+        <locationY>4487</locationY>
         <actionName>Case.Provider_Validated</actionName>
         <actionType>quickAction</actionType>
         <connector>
@@ -63,8 +63,8 @@
         <description>Assign string value for AA logic</description>
         <name>Assign_String_Value_Assignment</name>
         <label>Assign String Value Assignment</label>
-        <locationX>913</locationX>
-        <locationY>7742</locationY>
+        <locationX>2728</locationX>
+        <locationY>4007</locationY>
         <assignmentItems>
             <assignToReference>Drug_Name</assignToReference>
             <operator>Assign</operator>
@@ -529,6 +529,20 @@
         </value>
     </constants>
     <constants>
+        <name>Smoking_cessation_drug_code</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Smoking cessation</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>Smoking_cessation_drug_name</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Smoking cessation</stringValue>
+        </value>
+    </constants>
+    <constants>
         <name>Telmisartan_Drug_Code</name>
         <dataType>String</dataType>
         <value>
@@ -587,8 +601,8 @@
     <decisions>
         <name>Case_Approval_Status</name>
         <label>Case Approval Status</label>
-        <locationX>2638</locationX>
-        <locationY>7791</locationY>
+        <locationX>2728</locationX>
+        <locationY>5951</locationY>
         <defaultConnector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </defaultConnector>
@@ -878,8 +892,8 @@
     <decisions>
         <name>Is_Patient_Deceased</name>
         <label>Is Patient Deceased</label>
-        <locationX>913</locationX>
-        <locationY>8438</locationY>
+        <locationX>2728</locationX>
+        <locationY>4703</locationY>
         <defaultConnector>
             <targetReference>Patient_Validated_0</targetReference>
         </defaultConnector>
@@ -895,7 +909,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Upload_Files</targetReference>
+                <targetReference>Update_Drug_Id_on_Case</targetReference>
             </connector>
             <label>Negative Patient Outcome</label>
         </rules>
@@ -903,8 +917,8 @@
     <decisions>
         <name>Is_Provider_Overriden</name>
         <label>Is Provider Overriden</label>
-        <locationX>913</locationX>
-        <locationY>8102</locationY>
+        <locationX>2728</locationX>
+        <locationY>4367</locationY>
         <defaultConnector>
             <targetReference>Provider_Validated_0_0</targetReference>
         </defaultConnector>
@@ -1003,8 +1017,8 @@
     <decisions>
         <name>Request_Detail_Creation</name>
         <label>Request Detail Creation</label>
-        <locationX>2638</locationX>
-        <locationY>7455</locationY>
+        <locationX>2728</locationX>
+        <locationY>5615</locationY>
         <defaultConnector>
             <targetReference>Case_Approval_Status</targetReference>
         </defaultConnector>
@@ -1039,12 +1053,27 @@
             </connector>
             <label>Acetaminophen 500mg Creation</label>
         </rules>
+        <rules>
+            <name>Smoking_cessation_creation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>HIBC_Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Smoking_cessation_drug_name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_smoking_cessation</targetReference>
+            </connector>
+            <label>Smoking cessation creation</label>
+        </rules>
     </decisions>
     <decisions>
         <name>Status_update_based_on_request_type</name>
         <label>Status update based on request type</label>
-        <locationX>2638</locationX>
-        <locationY>8127</locationY>
+        <locationX>2728</locationX>
+        <locationY>6287</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen</targetReference>
         </defaultConnector>
@@ -1123,8 +1152,8 @@
     <decisions>
         <name>Update_Drug_Id_on_Case</name>
         <label>Update Drug Id on Case</label>
-        <locationX>2638</locationX>
-        <locationY>6879</locationY>
+        <locationX>2728</locationX>
+        <locationY>5039</locationY>
         <defaultConnector>
             <targetReference>Thank_You_Screen_0</targetReference>
         </defaultConnector>
@@ -1158,6 +1187,21 @@
                 <targetReference>Get_Acetaminophen_500mg_Drug_ID</targetReference>
             </connector>
             <label>Acetaminophen 500mg</label>
+        </rules>
+        <rules>
+            <name>Smoking_cessation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>HIBC_Drug_Diagnosis_Picklist.topValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Smoking_cessation_drug_name</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Smoking_Cessation_Drug_ID</targetReference>
+            </connector>
+            <label>Smoking cessation</label>
         </rules>
     </decisions>
     <decisions>
@@ -1544,8 +1588,8 @@
     <recordCreates>
         <name>Create_SA_Request</name>
         <label>Create SA Request</label>
-        <locationX>913</locationX>
-        <locationY>7982</locationY>
+        <locationX>2728</locationX>
+        <locationY>4247</locationY>
         <connector>
             <targetReference>Is_Provider_Overriden</targetReference>
         </connector>
@@ -1929,8 +1973,8 @@
     <recordLookups>
         <name>Get_SA_Request_Record_Type_Id</name>
         <label>Get SA Request Record Type Id</label>
-        <locationX>913</locationX>
-        <locationY>7862</locationY>
+        <locationX>2728</locationX>
+        <locationY>4127</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_SA_Request</targetReference>
@@ -2122,8 +2166,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Currently_Approved</name>
         <label>Update Case Status Currently Approved</label>
-        <locationX>2330</locationX>
-        <locationY>8247</locationY>
+        <locationX>2420</locationX>
+        <locationY>6407</locationY>
         <connector>
             <targetReference>Thank_You_Screen</targetReference>
         </connector>
@@ -2152,8 +2196,8 @@
     <recordUpdates>
         <name>Update_Case_Status_Not_Approved</name>
         <label>Update Case Status Not Approved</label>
-        <locationX>2506</locationX>
-        <locationY>7911</locationY>
+        <locationX>2596</locationX>
+        <locationY>6071</locationY>
         <connector>
             <targetReference>Status_update_based_on_request_type</targetReference>
         </connector>
@@ -2320,8 +2364,8 @@
     <recordUpdates>
         <name>Update_SA_Request_with_Drug_Id</name>
         <label>Update SA Request with Drug Id</label>
-        <locationX>2638</locationX>
-        <locationY>7335</locationY>
+        <locationX>2728</locationX>
+        <locationY>5495</locationY>
         <connector>
             <targetReference>Request_Detail_Creation</targetReference>
         </connector>
@@ -2508,8 +2552,8 @@
     <screens>
         <name>Create_SA_Request_Screen</name>
         <label>Create SA Request Screen</label>
-        <locationX>913</locationX>
-        <locationY>7622</locationY>
+        <locationX>2728</locationX>
+        <locationY>3887</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2977,8 +3021,8 @@
     <screens>
         <name>Thank_You_Screen</name>
         <label>Thank You Screen</label>
-        <locationX>2638</locationX>
-        <locationY>8463</locationY>
+        <locationX>2728</locationX>
+        <locationY>6623</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2993,8 +3037,8 @@
     <screens>
         <name>Thank_You_Screen_0</name>
         <label>Thank You Screen</label>
-        <locationX>2902</locationX>
-        <locationY>6999</locationY>
+        <locationX>3124</locationX>
+        <locationY>5159</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3002,50 +3046,6 @@
             <name>Thank_You_Message_0</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;&lt;u&gt;{!SARequestURL}&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Upload_Files</name>
-        <label>Upload Files</label>
-        <locationX>2638</locationX>
-        <locationY>6759</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Update_Drug_Id_on_Case</targetReference>
-        </connector>
-        <fields>
-            <name>Upload_File</name>
-            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Upload your files here&lt;/b&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>File_Upload</name>
-            <extensionName>forceContent:fileUpload</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <elementReference>File_Upload_Text</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>multiple</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>recordId</name>
-                <value>
-                    <elementReference>Create_SA_Request</elementReference>
-                </value>
-            </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -3061,8 +3061,8 @@
     <subflows>
         <name>Create_Acetaminophen_500mg</name>
         <label>Create Acetaminophen 500mg</label>
-        <locationX>2638</locationX>
-        <locationY>7575</locationY>
+        <locationX>2596</locationX>
+        <locationY>5735</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3087,10 +3087,38 @@
         </inputAssignments>
     </subflows>
     <subflows>
+        <name>Create_smoking_cessation</name>
+        <label>Create smoking cessation</label>
+        <locationX>2860</locationX>
+        <locationY>5735</locationY>
+        <connector>
+            <targetReference>Case_Approval_Status</targetReference>
+        </connector>
+        <flowName>Smoking_cessation_creation</flowName>
+        <inputAssignments>
+            <name>OtherDiagnosis</name>
+            <value>
+                <elementReference>Other_Diagnosis</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>SARequestId</name>
+            <value>
+                <elementReference>Create_SA_Request</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>String_Value</name>
+            <value>
+                <elementReference>Assign_String_Value</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>Create_Vancomycin</name>
         <label>Create Vancomycin</label>
-        <locationX>2374</locationX>
-        <locationY>7575</locationY>
+        <locationX>2332</locationX>
+        <locationY>5735</locationY>
         <connector>
             <targetReference>Case_Approval_Status</targetReference>
         </connector>
@@ -3117,8 +3145,8 @@
     <subflows>
         <name>Get_Acetaminophen_500mg_Drug_ID</name>
         <label>Get Acetaminophen 500mg Drug ID</label>
-        <locationX>2638</locationX>
-        <locationY>6999</locationY>
+        <locationX>2596</locationX>
+        <locationY>5159</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
@@ -3155,10 +3183,30 @@
         </outputAssignments>
     </subflows>
     <subflows>
+        <name>Get_Smoking_Cessation_Drug_ID</name>
+        <label>Get Smoking Cessation Drug ID</label>
+        <locationX>2860</locationX>
+        <locationY>5159</locationY>
+        <connector>
+            <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
+        </connector>
+        <flowName>Get_HIBC_Drug_ID</flowName>
+        <inputAssignments>
+            <name>Input_Drug_Name</name>
+            <value>
+                <elementReference>Smoking_cessation_drug_name</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>Final_Drug_Id</assignToReference>
+            <name>Output_Drug_Id</name>
+        </outputAssignments>
+    </subflows>
+    <subflows>
         <name>Get_Vancomycin_Drug_ID</name>
         <label>Get Vancomycin Drug ID</label>
-        <locationX>2374</locationX>
-        <locationY>6999</locationY>
+        <locationX>2332</locationX>
+        <locationY>5159</locationY>
         <connector>
             <targetReference>Update_SA_Request_with_Drug_Id</targetReference>
         </connector>
