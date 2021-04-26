@@ -15,9 +15,9 @@
         <value>Case.Special_Authority_Request</value>
     </filters>
     <filters>
-        <field>CASES.CLOSED</field>
-        <operation>equals</operation>
-        <value>0</value>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Approved,Not Approved</value>
     </filters>
     <label>My Cases</label>
 </ListView>
