@@ -456,12 +456,8 @@ public with sharing class ODRIntegration {
     }
 
     public static String getPatientIdentifier(Id recordId) {
-        System.debug('PATIENT DATA');
-        // Get PHN from DB
-        Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:recordId];
-        System.debug(c.contact.patient_identifier__c);
-
-        return c.contact.patient_identifier__c;
+        Case c = [select Id, patient_identifier__c FROM case WHERE Id =:recordId];
+        return c.patient_identifier__c;
     }
 
     public static String getUserIdentifier() {

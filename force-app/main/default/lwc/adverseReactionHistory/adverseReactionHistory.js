@@ -1,6 +1,5 @@
 import { LightningElement, api } from 'lwc';
 import fetchPrescriptionHistory from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistory';
-import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.getProductHealthCategories';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [

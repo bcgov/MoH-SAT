@@ -12,6 +12,7 @@ public static User newUser(Profile profile, Contact contact) {
     user.TimeZoneSidKey = 'America/Los_Angeles';
     user.LocaleSidKey = 'en_US';
     user.LanguageLocaleKey = 'en_US';
+    user.FederationIdentifier = user.Alias;
     user.IsActive=false;
     return user;
 }
