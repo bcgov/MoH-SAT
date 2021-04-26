@@ -11,6 +11,7 @@
         <div if:true={hasRecords}>
             <div class="slds-is-absolute toggleId">
                 <lightning-button-stateful
+                    if:false={hideQidToggle}
                     label-when-off="Show IDs"
                     label-when-on="Hide IDs"
                     label-when-hover="Hide IDs"

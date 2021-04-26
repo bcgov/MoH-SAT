@@ -4,9 +4,12 @@ import getRequestDetails from '@salesforce/apex/RequestDetails.getRequestDetails
 export default class RequestDetails extends LightningElement {
     @api recordId;
 
+    @api
+    hideQidToggle = false;
+    
     @wire(getRequestDetails, { caseId: '$recordId'})
     records;
-
+    
     showIds = false;
 
     get hasRecords() {
