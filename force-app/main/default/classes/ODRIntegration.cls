@@ -55,13 +55,13 @@ public with sharing class ODRIntegration {
             loggingEvents.add(new Logging_Event__e(code__c=200,
                                                 message__c='Success',
                                                 caseId__c=sar.saCase.Id,
-                                                type__c='5'));
+                                                type__c='Patient Verification'));
         } catch (CalloutException e) {
             System.debug('EMPI Callout Exception');
             loggingEvents.add(new Logging_Event__e(code__c=500,
                                                 message__c='EMPI Callout Exception',
                                                 caseId__c=sar.saCase.Id,
-                                                type__c='5'));
+                                                type__c='Patient Verification'));
         }
         EventBus.publish(loggingEvents);
         return p;
@@ -100,7 +100,7 @@ public with sharing class ODRIntegration {
                                                                          null,
                                                                          'POST',
                                                                          saarObject,
-                                                                         '4');
+                                                                         'Prescriber Verification');
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
             System.debug('*******************xxx');
@@ -274,7 +274,7 @@ public with sharing class ODRIntegration {
             null,
             'POST',
             JSON.serialize(saaRequest),
-            '3A'
+            'SA Request Approval'
         );
 
         SAApprovalRequestResponse saaResponse;
@@ -306,7 +306,7 @@ public with sharing class ODRIntegration {
                                                                          queryParams,
                                                                          'GET',
                                                                          null,
-                                                                         '2');
+                                                                         'Patient Benefit Plan');
 
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
@@ -344,7 +344,7 @@ public with sharing class ODRIntegration {
                                                                          queryParams,
                                                                          'GET',
                                                                          null,
-                                                                         '6');
+                                                                         'SA Approval History');
 
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
@@ -389,7 +389,7 @@ public with sharing class ODRIntegration {
                                                                          queryParams,
                                                                          'GET',
                                                                          null,
-                                                                         '1');
+                                                                         'Prescription History');
 
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
@@ -429,7 +429,7 @@ public with sharing class ODRIntegration {
                                                                          queryParams,
                                                                          'GET',
                                                                          null,
-                                                                         '6');
+                                                                         'SA Approval History');
 
         if (calloutResponseObject.errorCode != 200) {
             // ERROR
