@@ -10,17 +10,14 @@
     <columns>CASES.CLOSED_DATE</columns>
     <filterScope>Queue</filterScope>
     <filters>
-        <field>Ready_to_be_faxed__c</field>
-        <operation>equals</operation>
-        <value>1</value>
-    </filters>
-    <filters>
         <field>Faxed_by__c</field>
         <operation>equals</operation>
     </filters>
+    <filters>
+        <field>No_fax_required__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
     <label>To be Faxed Queue</label>
     <queue>To_be_faxed_queue</queue>
-    <sharedTo>
-        <allInternalUsers/>
-    </sharedTo>
 </ListView>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Pharmacist_Regular_Queue_Case</fullName>
+    <fullName>Pharmacist_Urgent_Queue_Case</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>Patient_Identifier__c</columns>
     <columns>CASES.STATUS</columns>
@@ -9,8 +9,12 @@
     <columns>CORE.USERS.ALIAS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <filterScope>Queue</filterScope>
-    <label>Pharmacist Regular Queue</label>
-    <queue>Pharmacist_Regular_Queue</queue>
+    <filters>
+        <field>Faxed_by__c</field>
+        <operation>equals</operation>
+    </filters>
+    <label>Pharmacist Urgent Queue</label>
+    <queue>Pharmacist_Urgent_Queue</queue>
     <sharedTo>
         <allInternalUsers/>
     </sharedTo>
