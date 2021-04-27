@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
-    <applicationVisibilities>
-        <application>Case_Management</application>
-        <default>false</default>
-        <visible>false</visible>
-    </applicationVisibilities>
-    <applicationVisibilities>
-        <application>Drug_Management</application>
-        <default>false</default>
-        <visible>false</visible>
-    </applicationVisibilities>
     <custom>true</custom>
     <layoutAssignments>
         <layout>Adjudication_Criteria__c-Adjudication Criteria Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-EC Case Layout</layout>
+        <layout>Case-HIBC Case Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Case-EC Case Layout</layout>
+        <layout>Case-HIBC Case Layout</layout>
         <recordType>Case.Special_Authority_Request</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -48,31 +38,11 @@
         <object>Case</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>External_Committee__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <recordType>Case.Special_Authority_Request</recordType>
-        <visible>false</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <recordType>PersonAccount.Patient</recordType>
-        <visible>false</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <default>false</default>
-        <recordType>PersonAccount.Provider</recordType>
-        <visible>false</visible>
-    </recordTypeVisibilities>
-    <userLicense>Customer Community</userLicense>
+    <tabVisibilities>
+        <tab>standard-Case</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <userLicense>Customer Community Plus</userLicense>
     <userPermissions>
         <enabled>true</enabled>
         <name>ActivitiesAccess</name>

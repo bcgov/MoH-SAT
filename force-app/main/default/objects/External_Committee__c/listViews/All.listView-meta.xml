@@ -3,5 +3,10 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <filterScope>Everything</filterScope>
-    <label>All</label>
+    <filters>
+        <field>End_Time__c</field>
+        <operation>greaterThan</operation>
+        <value>TODAY</value>
+    </filters>
+    <label>My DBAAC Meetings</label>
 </ListView>
