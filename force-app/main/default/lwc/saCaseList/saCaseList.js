@@ -8,6 +8,7 @@ export default class SaCaseList extends NavigationMixin(LightningElement) {
     @api hidePatient = false;
     @api hideOwner = false;
     @api hideDrug = false;
+    @api hideRequestDetails = false;
     @api hideQidToggle = false;
     
 
