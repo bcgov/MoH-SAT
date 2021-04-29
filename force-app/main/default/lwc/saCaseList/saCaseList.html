@@ -44,12 +44,13 @@
                     </div>
                 </div>
                 
-                <div class="slds-text-title_caps slds-m-vertical_medium slds-text-align_center">Request Details</div>
-
-                <div>
-                    <c-request-details record-id={c.Id} hide-qid-toggle={hideQidToggle}></c-request-details>
-                </div>
-
+                <template if:false={hideRequestDetails}>
+                    <div class="slds-text-title_caps slds-m-vertical_medium slds-text-align_center">Request Details</div>
+    
+                    <div>
+                        <c-request-details record-id={c.Id} hide-qid-toggle={hideQidToggle}></c-request-details>
+                    </div>
+                </template>
 
             </lightning-card>
         </div>

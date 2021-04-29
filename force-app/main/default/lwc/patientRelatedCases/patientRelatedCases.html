@@ -2,6 +2,7 @@
     <template if:true={hasCases}>
         <c-sa-case-list 
             cases={cases.data} 
+            hide-request-details={hideRequestDetails}
             hide-qid-toggle
             hide-case-view-button
             hide-patient
