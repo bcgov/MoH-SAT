@@ -10,6 +10,7 @@ const columns = [
   { label: 'Direction', fieldName: 'directions', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Quantity', fieldName: 'quantity', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
+  { label: 'Days Last Filled', fieldName: 'daysSince', hideDefaultActions: true },
   { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'SA Applied', fieldName: 'saTypeApplied', wrapText: true, hideDefaultActions: true },
@@ -163,6 +164,13 @@ export default class PharmanetHistory extends LightningElement {
             item['drugStrength'] = record.drugStrength;
             item['directions'] = record.directions;
             item['daysSupply'] = record.daysSupply;
+            const dd = new Date(record.dateDispensed).getTime();
+            const today = new Date().getTime();
+            if (dd > 0) {
+              item['daysSince'] = Math.floor((today - dd) / (1000 * 3600 * 24));
+            } else {
+              item['daysSince'] = '';
+            }
 
             // Claim
             item['saTypeApplied'] = record.claimHistory.saTypeApplied;
