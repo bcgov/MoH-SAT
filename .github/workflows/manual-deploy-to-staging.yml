@@ -35,5 +35,8 @@ jobs:
     - name: Install version ID
       run: node_modules/sfdx-cli/bin/run force:package:install --package "${{ github.event.inputs.package }}" -u SAT-STAGING -b 15 -w 15 --noprompt --wait 10
 
+    - name: Re-deploy objects
+      run: node_modules/sfdx-cli/bin/run force:source:deploy -p force-app/main/default/objects -u SAT-STAGING -w 15
+
     - name: Deploy Source in dev-app-post
       run: node_modules/sfdx-cli/bin/run force:source:deploy -p dev-app-post -u SAT-STAGING -w 15
