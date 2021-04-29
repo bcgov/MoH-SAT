@@ -1277,14 +1277,6 @@
         <picklistObject>Case</picklistObject>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
-        <name>Provider_Specialty_2</name>
-        <dataType>Picklist</dataType>
-        <displayField xsi:nil="true"/>
-        <object xsi:nil="true"/>
-        <picklistField>Provider_Specialty__c</picklistField>
-        <picklistObject>Contact</picklistObject>
-    </dynamicChoiceSets>
-    <dynamicChoiceSets>
         <name>Provider_Type_Choices</name>
         <dataType>Picklist</dataType>
         <displayField xsi:nil="true"/>
@@ -1504,12 +1496,6 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Provider_Specialty__pc</field>
-            <value>
-                <elementReference>Provider_Specialty_4</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>RecordTypeId</field>
             <value>
                 <elementReference>Get_Provider_Record_2.Id</elementReference>
@@ -1624,12 +1610,6 @@
             <field>Provider_Identifier__pc</field>
             <value>
                 <elementReference>Not_Provided_Provider_Identifier</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Provider_Specialty__pc</field>
-            <value>
-                <elementReference>Provider_Specialty_3</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2097,7 +2077,7 @@
     <recordLookups>
         <name>Get_Not_Provided_Provider_Record_Type_Id</name>
         <label>Get Not Provided Provider Record Type Id</label>
-        <locationX>297</locationX>
+        <locationX>298</locationX>
         <locationY>2750</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2966,16 +2946,6 @@
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
         </fields>
-        <fields>
-            <name>Provider_Specialty_4</name>
-            <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>Provider_Specialty_1</elementReference>
-            </defaultValue>
-            <fieldText>Provider Specialty</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-        </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -3025,8 +2995,8 @@
     <screens>
         <name>Dummy_Provider_Account_Exists</name>
         <label>Dummy Provider Account Exists</label>
-        <locationX>561</locationX>
-        <locationY>2870</locationY>
+        <locationX>551</locationX>
+        <locationY>2852</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3061,16 +3031,6 @@
             <fieldText>Existing Provider Identifier</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Existing_Provider_Specialty</name>
-            <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>Provider_Specialty_1</elementReference>
-            </defaultValue>
-            <fieldText>Existing Provider Specialty</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
@@ -3241,7 +3201,7 @@
         <name>Provider_Details_Screen</name>
         <label>Provider Details Screen</label>
         <locationX>1073</locationX>
-        <locationY>206</locationY>
+        <locationY>203</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3347,16 +3307,6 @@
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>Provider_Specialty_1</name>
-            <choiceReferences>Provider_Specialty_2</choiceReferences>
-            <choiceReferences>General_Practice</choiceReferences>
-            <dataType>String</dataType>
-            <defaultSelectedChoiceReference>General_Practice</defaultSelectedChoiceReference>
-            <fieldText>Provider Specialty</fieldText>
-            <fieldType>DropdownBox</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
             <name>Drug_Search</name>
             <extensionName>flowruntime:lookup</extensionName>
             <fieldType>ComponentInstance</fieldType>
@@ -3430,16 +3380,6 @@
             <fieldText>Provider Last Name</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Provider_Specialty_3</name>
-            <dataType>String</dataType>
-            <defaultValue>
-                <elementReference>Provider_Specialty_1</elementReference>
-            </defaultValue>
-            <fieldText>Provider Specialty</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
         </fields>
         <fields>
             <name>Provider_Type</name>
