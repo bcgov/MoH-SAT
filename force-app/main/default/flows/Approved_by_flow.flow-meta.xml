@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>51.0</apiVersion>
-    <interviewLabel>Approved by flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Approved by flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -47,7 +46,7 @@
         <inputAssignments>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>Approval_date</elementReference>
+                <elementReference>Approval_Date_Time</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -101,12 +100,12 @@
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>Approval_date</name>
-            <dataType>Date</dataType>
+            <name>Approval_Date_Time</name>
+            <dataType>DateTime</dataType>
             <defaultValue>
-                <elementReference>$Flow.CurrentDate</elementReference>
+                <elementReference>$Flow.InterviewStartTime</elementReference>
             </defaultValue>
-            <fieldText>Approval date</fieldText>
+            <fieldText>Approval Date</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
         </fields>
