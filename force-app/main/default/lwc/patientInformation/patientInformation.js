@@ -19,14 +19,16 @@ export default class PatientInformation extends LightningElement {
 
       let patientFullNameDisplay = '';
 
-      this.data.names.forEach(item => {
-        if (item.declared == true) {
-          item.givenNames.forEach(given => {
-            patientFullNameDisplay += given + ' ';
-          });
-          patientFullNameDisplay += item.familyName;
-        }
-      });
+      if (this.data != null && this.data.names != null && this.data.names.length > 0) {
+        this.data.names.forEach(item => {
+          if (item.declared == true) {
+            item.givenNames.forEach(given => {
+              patientFullNameDisplay += given + ' ';
+            });
+            patientFullNameDisplay += item.familyName;
+          }
+        });
+      }
 
       this.patientFullNameDisplay = patientFullNameDisplay;
 
