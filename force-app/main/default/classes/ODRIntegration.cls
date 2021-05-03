@@ -30,16 +30,30 @@ public with sharing class ODRIntegration {
                 }
               }
             }
-
+            
             Boolean bGivenNamesValid = false;
-            // Check if firstname exists in the EMPI given name list somewhere
-            try {
-              if (givenList.contains(sar.saCase.Contact.Account.FirstName.split(' ')[0])) {
-                bGivenNamesValid = true;
+            List<String> givenListModified = new List<String>();
+            if (givenList != null) {
+                for (Integer i = 0;i < givenList.size();i++) {
+                  List<String> newList = givenList[i].split(' ');
+                  for(Integer z = 0;z < newList.size();z++) {
+                    givenListModified.add(newList[z].toLowercase());
+                  }
+                }
+
+              // Check if firstname exists in the EMPI given name list somewhere
+              try {
+                List<String> firstNameTokens = sar.saCase.Contact.Account.FirstName.split(' ');
+                for(Integer s = 0;s < firstNameTokens.size();s++) {
+                  if (givenListModified.contains(firstNameTokens[s].toLowercase())) {
+                    bGivenNamesValid = true;
+                    break;
+                  }
+                }
+              } catch (Exception e) {
+                System.debug('Error');
+                System.debug(e);
               }
-            } catch (Exception e) {
-              System.debug('Error');
-              System.debug(e);
             }
 
             // Safety Checks
@@ -48,9 +62,11 @@ public with sharing class ODRIntegration {
                || !bGivenNamesValid
                || sar.saCase.Contact.Account.LastName.toLowercase() != familyName.toLowercase())
             {
-                p.verified = false;
+              System.debug('Patient NOT Verified');
+              p.verified = false;
             } else {
-                p.verified = true;
+              p.verified = true;
+              System.debug('Patient Verified');
             }
             loggingEvents.add(new Logging_Event__e(code__c=200,
                                                 message__c='Success',
