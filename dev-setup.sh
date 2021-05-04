@@ -29,7 +29,7 @@ dx() {
     else
       # Suppress sfdx's output, and read the status property of the resulting JSON output instead. 
       result=$(sfdx "$@" --json 2> /dev/null);
-      status=$(jq .status <<< $result)
+      status=`echo $result | sed -e 's/^.*"status"[ ]*:[ ]*//' -e 's/\,.*//'`
     fi
     
     # Exit early on error.
@@ -37,7 +37,8 @@ dx() {
     then 
       if [ "$verbose" = false ]
       then
-         echo " Error $(jq .message <<< $result) on \"$@\""
+        message=`echo $result | sed -e 's/^.*"message"[ ]*:[ ]*//' -e 's/\,.*//'`
+        echo " Error $message on \"$@\""
       fi
 
       exit 1;
