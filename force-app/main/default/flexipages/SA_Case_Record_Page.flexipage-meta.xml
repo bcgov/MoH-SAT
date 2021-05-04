@@ -528,9 +528,9 @@
                 <componentName>pharmanetPayload</componentName>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.IsClosed}</leftValue>
+                        <leftValue>{!Record.Status}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>Approved</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
