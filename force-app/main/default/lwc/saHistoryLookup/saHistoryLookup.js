@@ -6,20 +6,14 @@ import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.g
 const columns = [
   { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'RDP or DIN/PIN', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'Pract ID', fieldName: 'practId', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Pract ID Ref', fieldName: 'practIdRef', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'DaysSupply', fieldName: 'maxDaysSupply', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Excluded Plans', fieldName: 'excludedPlans', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Pharmacy', fieldName: 'pharmacyID', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'DEC', fieldName: 'decCode', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'CreatedBy', fieldName: 'createdBy', type: 'text', wrapText: true, hideDefaultActions: true }
+  { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true }
 ];
 
 export default class SaHistoryLookup extends LightningElement {
   patientIdentifier ='';
+  descriptionFilter = '';
   columns = columns;
   data = [];
   loaded = false;
@@ -91,6 +85,11 @@ export default class SaHistoryLookup extends LightningElement {
     this.fetchProductHealthCategories(filter);
   }
 
+  handleDescriptionFilterChange(event) {
+    this.descriptionFilter = event.target.value;
+    this.fetchItems();
+  }
+
   fetchProductHealthCategories(filter) {
     let list = [];
     if (filter) {
@@ -133,28 +132,33 @@ export default class SaHistoryLookup extends LightningElement {
               || (record.specialItem.rdp && this.dinList.includes(record.specialItem.rdp.replace(/-/g,"")))
               ) {
             let item = {};
-            item['description'] = record.specialItem.itemDescription;
-            item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
-            item['specAuthType'] = this.convertSAType(record.specAuthType);
-            item['effectiveDate'] = record.effectiveDate;
-            item['terminationDate'] = record.terminationDate;
-            item['practId'] = record.saRequester.practId;
-            item['practIdRef'] = record.saRequester.practIdRef;
 
-            item['excludedPlans'] = "";
-            record.excludedPlans.forEach(ep => {
-              if (item['excludedPlans'] == "") {
-                item['excludedPlans'] = ep;
-              } else {
-                item['excludedPlans'] += ", " + ep
-              }
-            });
-            item['maxDaysSupply'] = record.maxDaysSupply;
-            item['pharmacyID'] = record.saRequester.pharmacyID;
-            // Not coming in response.
-            item['decCode'] = record.saRequester.decCode;
-            item['createdBy'] = record.createdBy;
-            dataArray.push(item);
+            // Is there a description filter applied?
+            const descr = record.specialItem.itemDescription.toLowerCase();
+            if (this.descriptionFilter.length == 0 || descr.indexOf(this.descriptionFilter.toLowerCase()) > -1) {
+              item['description'] = record.specialItem.itemDescription;
+              item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
+              item['specAuthType'] = this.convertSAType(record.specAuthType);
+              item['effectiveDate'] = record.effectiveDate;
+              item['terminationDate'] = record.terminationDate;
+              item['practId'] = record.saRequester.practId;
+              item['practIdRef'] = record.saRequester.practIdRef;
+
+              item['excludedPlans'] = "";
+              record.excludedPlans.forEach(ep => {
+                if (item['excludedPlans'] == "") {
+                  item['excludedPlans'] = ep;
+                } else {
+                  item['excludedPlans'] += ", " + ep
+                }
+              });
+              item['maxDaysSupply'] = record.maxDaysSupply;
+              item['pharmacyID'] = record.saRequester.pharmacyID;
+              // Not coming in response.
+              item['decCode'] = record.saRequester.decCode;
+              item['createdBy'] = record.createdBy;
+              dataArray.push(item);
+            }
           }
         });
         this.data = dataArray;

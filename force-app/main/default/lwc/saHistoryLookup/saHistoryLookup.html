@@ -30,7 +30,13 @@
           value={value}
           placeholder="None"
           options={categories}
-          onchange={handlephcFilterChange} ></lightning-combobox>
+          onchange={handlephcFilterChange} >
+        </lightning-combobox>
+        <div class="slds-form-element">
+          <div class="slds-form-element__control">
+            <lightning-input type="text" label="Description:" value={descriptionFilter} onchange={handleDescriptionFilterChange}></lightning-input>
+          </div>
+        </div>
       </lightning-layout-item>
   </div>
   &nbsp;
