@@ -13,7 +13,7 @@ Prescriber validated with PNET
 Diagnosis not equal to &quot;Other&quot; OR &quot;H. Pylori&quot;",Tecta and generics; fully covered reference PPI,"OR(AND(1,2), AND(3, 4))",40mg
 1PPIrabe,rabeprazole,Criteria,TRUE,TRUE,TRUE,TRUE,"Patient validated with EMPI
 Prescriber validated with PNET
-Diagnosis not equal to &quot;Other&quot; OR &quot;H. Pylori&quot;",Pariet and generics; fully covered reference PPI,"OR(AND(1,2), AND(3, 4))",10mg and 20mg
+Diagnosis not equal to &quot;Other&quot; OR &quot;H. Pylori&quot;",Pariet and generics; non-reference PPI,"OR(AND(1,2), AND(3, 4))",10mg and 20mg
 ARBcand,candesartan,Criteria,TRUE,TRUE,TRUE,TRUE,"Patient validated with EMPI
 Prescriber validated with PNET
 Diagnosis not equal to &quot;Other&quot;",Atacand/Atacand Plus and generics - reference ARB,"OR(1,2)","8mg, 16mg, 32mg, 16/12.5mg, 32/12.5mg, 32/25mg"
@@ -31,24 +31,24 @@ brex,brexpiprazole,Manual,FALSE,FALSE,FALSE,FALSE,,Rexulti,,"0.25mg, 0.5mg, 1mg,
 dalteparin,dalteparin,Manual,FALSE,FALSE,FALSE,FALSE,,Fragmin,,"2500IU, 5000IU, 7500IU, 10000IU, 12500IU, 15000IU, 18000IU syringe, 10000IU amp, 25000IU vial"
 SGLT2,empagliflozin with or without metformin,Manual,FALSE,FALSE,FALSE,FALSE,,Jardiance/Synjardy,,"10mg, 25mg"
 enoxaparin,enoxaparin,Manual,FALSE,FALSE,FALSE,FALSE,,Lovenox,,"30mg, 40mg, 60mg, 80mg, 100mg, 120mg, 150mg, 300mg"
-ARBepro,eprosartan,Manual,FALSE,FALSE,FALSE,FALSE,,Teveten/Teveten Plus - non-reference ARB,,600mg & 600/12.5mg
-2PPIesom,esomeprazole,Manual,FALSE,FALSE,FALSE,FALSE,,non-reference PPI; Nexium,,20mg and 40mg
-ARBirbe,irbesartan,Manual,FALSE,FALSE,FALSE,FALSE,,Irbesartan/Avalide and generics; non-reference ARB,,"+/- HCTZ, 75mg, 150mg, 300mg, 150/12.5mg, 300/12.5mg, 300/25mg"
+ARBepro,eprosartan,Manual,FALSE,FALSE,FALSE,FALSE,,Teveten/Teveten Plus - non-reference ARB +/- HCTZ,,600mg & 600/12.5mg
+2PPIesom,esomeprazole,Manual,FALSE,FALSE,FALSE,FALSE,,Nexium; non-reference PPI,,20mg and 40mg
+ARBirbe,irbesartan,Manual,FALSE,FALSE,FALSE,FALSE,,Irbesartan/Avalide and generics; non-reference ARB +/- HCTZ,,"75mg, 150mg, 300mg, 150/12.5mg, 300/12.5mg, 300/25mg"
 2PPIlans,lansoprazole,Manual,FALSE,FALSE,FALSE,FALSE,,Prevacid and generics; non-reference PPI,,15mg and 30mg
 DPP4lina,linagliptin with or without metformin,Manual,FALSE,FALSE,FALSE,FALSE,,Trajenta/Jentadueto,,5mg
 nadroparin,nadroparin,Manual,FALSE,FALSE,FALSE,FALSE,,Fraxiparin,,"2850IU, 3800IU, 5700IU, 9500IU, 11400IU, 15200IU, 19000IU"
-ARBolme,olmesartan,Manual,FALSE,FALSE,FALSE,FALSE,,Olmetec/Olmetec Plus and generics; non-reference ARB,,"20mg, 40mg, 20/12.5mg, 40/12.5mg, 40/25mg"
+ARBolme,olmesartan,Manual,FALSE,FALSE,FALSE,FALSE,,Olmetec/Olmetec Plus and generics; non-reference ARB +/- HCTZ,,"20mg, 40mg, 20/12.5mg, 40/12.5mg, 40/25mg"
 2PPIomep,omeprazole,Manual,FALSE,FALSE,FALSE,FALSE,,Losec and generics; non-reference PPI,,20mg
 2PPIpant,pantoprazole sodium,Manual,FALSE,FALSE,FALSE,FALSE,,Pantoloc and generics; non-reference PPI,,40mg
 DPP4saxa,saxagliptin with or without metformin,Manual,FALSE,FALSE,FALSE,FALSE,,Onglyza/Komboglyze,,"2.5mg, 5mg"
 semaglutide,semaglutide,Manual,FALSE,FALSE,FALSE,FALSE,,Ozempic,,1.34mg/mL
 tinzaparin,tinzaparin,Manual,FALSE,FALSE,FALSE,FALSE,,Innohep,,"2500IU, 3500IU, 4500IU, 8000IU, 10000IU, 12000IU, 14000IU, 16000IU, 18000IU syringe, 10000IU vial"
 vancomycin,vancomycin,Manual,FALSE,FALSE,FALSE,FALSE,,Vancocin,,"125mg, 250mg"
-zip,ziprasidone,Manual,FALSE,FALSE,FALSE,FALSE,,Zeldox and generics,,"20mg, 40mg, 60mg, 80mg"
+zip,ziprasidone,Manual,FALSE,FALSE,FALSE,FALSE,,Zeldox,,"20, 40, 60, 80 mg"
 zopiclone,zopiclone,Manual,FALSE,FALSE,FALSE,FALSE,,Imovane and generics,,"3.75mg, 5mg, 7.5mg"
 DOACapix,apixaban,Manual,FALSE,FALSE,FALSE,FALSE,,Eliquis,,"2.5mg, 5mg"
-cad,rivaroxaban 2.5mg,Manual,FALSE,FALSE,FALSE,FALSE,,Xarelto,,2.5mg
-DOACriva,rivaroxaban,Manual,FALSE,FALSE,FALSE,FALSE,,Xarelto,,"15mg, 20mg"
+cad,rivaroxaban 2.5 mg,Manual,FALSE,FALSE,FALSE,FALSE,,Xarelto,,2.5mg
+DOACriva,"rivaroxaban 15 mg, 20 mg",Manual,FALSE,FALSE,FALSE,FALSE,,Xarelto,,"15mg, 20mg"
 abobotulinum,abobotulinum,Manual,FALSE,FALSE,FALSE,FALSE,,Dysport,,"300U, 500U"
 incobot,incobotulinum,Manual,FALSE,FALSE,FALSE,FALSE,,Xeomin,,"50U, 100U"
 onabot,onabotulinum,Manual,FALSE,FALSE,FALSE,FALSE,,Botox,,100U
@@ -57,8 +57,8 @@ ticag,ticagrelor,Manual,FALSE,FALSE,FALSE,FALSE,,Brilinta,,90mg
 duloxetine,duloxetine,Manual,FALSE,FALSE,FALSE,FALSE,,generics only,,"30mg, 60mg"
 Lainsulindete,insulin detemir,Manual,FALSE,FALSE,FALSE,FALSE,,Levemir,,100IU/mL
 LAinsulinbasa,insulin glargine,Manual,FALSE,FALSE,FALSE,FALSE,,Basaglar,,100IU/mL
-alenalen,alendronate,Manual,FALSE,FALSE,FALSE,FALSE,,Fosamax and generics,,10mg & 70mg; 70 mg/5600 IU
-Pagetsalen,alendronate,Manual,FALSE,FALSE,FALSE,FALSE,,Fosamax and generics,,40mg
+alenalen,alendronate 10mg & 70mg; 70 mg/5600 IU,Manual,FALSE,FALSE,FALSE,FALSE,,Fosamax and generics,,10mg & 70mg; 70 mg/5600 IU
+Pagetsalen,alendronate 40 mg,Manual,FALSE,FALSE,FALSE,FALSE,,Fosamax and generics,,40mg
 alenrise,risedronate,Manual,FALSE,FALSE,FALSE,FALSE,,Actonel and generics,,"5mg, 35mg"
 Pagetsrise,risedronate,Manual,FALSE,FALSE,FALSE,FALSE,,Actonel and generics,,30mg
 Maintenarisp,risperidone microspheres,Manual,FALSE,FALSE,FALSE,FALSE,,Risperdal Consta,,"12.5mg/2mL, 25mg/2mL, 37.5mg/2mL, 50mg/2mL"
@@ -72,7 +72,7 @@ testosteroneenan,testosterone enanthate,Manual,FALSE,FALSE,FALSE,FALSE,,Delatest
 testosteroneprop,testosterone propionate,Manual,FALSE,FALSE,FALSE,FALSE,,generics,,100mg/mL
 other,other,Manual,FALSE,FALSE,FALSE,FALSE,,,,
 uste,ustekinumab,Manual,FALSE,FALSE,FALSE,FALSE,,Stelara,,"45mg, 90mg"
-epclusa,velpatasvir/sofosbuvir,Manual,FALSE,FALSE,FALSE,FALSE,,Epclusa,,"200mg, 400mg, 600mg"
+epclusa,velpatasvir/sofosbuvir,Manual,FALSE,FALSE,FALSE,FALSE,,Epclusa,,with or without ribavirin
 Entresto,sacubitril/valsartan,Manual,FALSE,FALSE,FALSE,FALSE,,Entresto,,"24mg/26mg, 49mg/51mg, 97mg/103mg"
 afibdaba,dabigratran,Manual,FALSE,FALSE,FALSE,FALSE,,Pradax,,"110mg, 150mg"
 denosprol,denosumab,Manual,FALSE,FALSE,FALSE,FALSE,,Prolia,,60mg/mL
@@ -92,7 +92,7 @@ ACEIfosi,fosinopril,Manual,FALSE,FALSE,FALSE,FALSE,,Monopril and generics,,"10mg
 LABAflutsalm,fluticasone/salmeterol for asthma,Manual,FALSE,FALSE,FALSE,FALSE,,Advair and generics,,"100/50mcg, 250/50mcg, 500/50mcg diskus & 125/25mcg, 250/25mcg MDI"
 LABAsalm,salmeterol for asthma,Manual,FALSE,FALSE,FALSE,FALSE,,Serevent Diskus,,50mcg
 LABAflutvila,fluticasone/vilanterol asthma,Manual,FALSE,FALSE,FALSE,FALSE,,Breo Ellipta,,"100mcg/25mcg, 200mcg/25mcg"
-tretinoin,tretinoin,Manual,FALSE,FALSE,FALSE,FALSE,,"Retin-A, Vitamin-A, Stieva-A",,"0.01%, 0.025%, 0.05%, 0.1% topical"
+tretinoin,tretinoin,Manual,FALSE,FALSE,FALSE,FALSE,,"Retin-A, Vitamin-A, Stieva-A",,"0.01%,  0.025%, 0.05%, 0.1% topical"
 COPDaclid,aclidinium,Manual,FALSE,FALSE,FALSE,FALSE,,Tudorza Genuair,,400mcg
 COPDaclidform,aclidinium/formoterol,Manual,FALSE,FALSE,FALSE,FALSE,,Duaklir Genuair,,400mcg/12mcg
 adalimumab,adalimumab,Manual,FALSE,FALSE,FALSE,FALSE,,Humira,,40mg/0.8mL
