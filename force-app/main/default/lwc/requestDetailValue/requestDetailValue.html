@@ -26,6 +26,7 @@
     <template if:true={isDecimal}>
         <lightning-formatted-number 
             value={record.Decimal_Value__c}
+            maximum-fraction-digits="9"
         ></lightning-formatted-number>
     </template>
     <template if:true={isBoolean}>
