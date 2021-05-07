@@ -11,6 +11,7 @@
             hour="numeric"
             minute="numeric"
             second="numeric"
+            time-zone={timezone}
         ></lightning-formatted-date-time>
     </template>
     <template if:true={isDate}>
@@ -19,11 +20,13 @@
             month="long"
             day="numeric"
             year="numeric"
+            time-zone="UTC"
         ></lightning-formatted-date-time>
     </template>
     <template if:true={isDecimal}>
         <lightning-formatted-number 
             value={record.Decimal_Value__c}
+            maximum-fraction-digits="9"
         ></lightning-formatted-number>
     </template>
     <template if:true={isBoolean}>

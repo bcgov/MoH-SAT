@@ -1,7 +1,10 @@
 import { LightningElement, api } from 'lwc';
+import TIMEZONE from '@salesforce/i18n/timeZone';
+
 
 export default class RequestDetailValue extends LightningElement {
     @api record;
+    timezone = TIMEZONE;
 
     get isString() {
         return this.record.String_Value__c != null;
