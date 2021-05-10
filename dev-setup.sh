@@ -47,6 +47,8 @@ dx() {
 
 echo "Creating scratch org, \"$alias\"..."
 dx force:org:create -v devhub -a $alias -f config/project-scratch-def.json -d 7 -s
+dx force:data:record:update -u $alias -s Organization -w "Name='Special Authority Dev'" -v "TimeZoneSidKey='America/Los_Angeles'"
+dx force:data:record:update -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
 
 echo "Uploading source code..."
 dx force:source:push -u $alias 
