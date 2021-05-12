@@ -4,18 +4,16 @@ help() {
    echo ""
    echo "Usage: $0 -a <string>"
    echo -e "\t-a Set an alias for scratch org. Default 'sat-dev'."
-   echo -e "\t-v Print each command and its output. Default 'true'"
    exit 1 # Exit script after printing help
 }
 
-verbose=false;
+verbose=true;
 alias='sat-dev';
 
-while getopts a:v opt 
+while getopts a: opt 
 do
    case "$opt" in
    (a) alias="$OPTARG" ;;
-   (v) verbose=true ;;
    (?) help ;;
    esac
 done
