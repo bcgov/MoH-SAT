@@ -1,0 +1,29 @@
+<template>
+  <lightning-card>
+    <h3 slot="title">
+        <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+        &nbsp;Cases
+    </h3>
+  </lightning-card>
+  &nbsp;
+  <!-- IF RESULTS -->
+  <div if:true={hasResults}>
+    <lightning-datatable
+            key-field="id"
+            hide-checkbox-column
+            data={data}
+            columns={columns}>
+    </lightning-datatable>
+  </div>
+
+  <!-- NO RESULTS FOUND -->
+  <lightning-card if:true={completeAndNoResults}>
+    <div class="slds-text-align_center">
+        <div class="slds-m-vertical_small">
+            <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+            <p>No cases found.</p>
+        </div>
+    </div>
+  </lightning-card>
+
+</template>
