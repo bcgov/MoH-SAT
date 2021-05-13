@@ -4,15 +4,15 @@ import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.g
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
-  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'Name', fieldName: 'genericName', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Strength', fieldName: 'drugStrength', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Direction', fieldName: 'directions', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Date Dispensed', fieldName: 'dateDispensed', initialWidth: 120, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Name', fieldName: 'genericName', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
+  { label: 'Strength', fieldName: 'drugStrength', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
+  { label: 'Direction', fieldName: 'directions', type: 'text',initialWidth: 120,  wrapText: true, hideDefaultActions: true },
   { label: 'Quantity', fieldName: 'quantity', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
   { label: 'Days Last Filled', fieldName: 'daysSince', hideDefaultActions: true },
-  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'SA Applied', fieldName: 'saTypeApplied', wrapText: true, hideDefaultActions: true },
   { label: 'Plan Code', fieldName: 'planCode', wrapText: true, hideDefaultActions: true },
   { label: 'Claimed amount', fieldName: 'claimAmount', wrapText: true, hideDefaultActions: true },
