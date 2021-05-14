@@ -14,7 +14,7 @@
         <actionName>QueueOwnerSetter</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>myDecision15</targetReference>
+            <targetReference>myDecision14</targetReference>
         </connector>
         <inputParameters>
             <processMetadataValues>
@@ -204,38 +204,6 @@
     </actionCalls>
     <apiVersion>50.0</apiVersion>
     <decisions>
-        <name>isChangedDecision14_myRule_13_DeveloperName</name>
-        <label>isChangedDecision14_myRule_13_DeveloperName</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>myDecision</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>default</defaultConnectorLabel>
-        <rules>
-            <name>isChangedRule_14_myRule_13_DeveloperName</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>myVariable_old</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>myVariable_old.Owner:Queue.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>myVariable_current.Owner:Queue.DeveloperName</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myDecision</targetReference>
-            </connector>
-            <label>isChangedRule_14_myRule_13_DeveloperName</label>
-        </rules>
-    </decisions>
-    <decisions>
         <processMetadataValues>
             <name>index</name>
             <value>
@@ -308,7 +276,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision15</targetReference>
+            <targetReference>myDecision14</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
@@ -376,135 +344,8 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideReferenceTo</name>
-                    <value>
-                        <stringValue>User</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.Faxed_by__c</leftValueReference>
-                <operator>EqualTo</operator>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.No_fax_required__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.Owner:Queue.DeveloperName</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>To_be_faxed_queue</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>Boolean</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>isChangedRule_14_myRule_13_DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
-                <targetReference>myRule_13_A1</targetReference>
+                <targetReference>myRule_13_pmetdec</targetReference>
             </connector>
             <label>Move request to &quot;To be Faxed&quot; queue</label>
         </rules>
@@ -516,16 +357,16 @@
                 <numberValue>6.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision15</name>
-        <label>myDecision15</label>
+        <name>myDecision14</name>
+        <label>myDecision14</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>myDecision19</targetReference>
+            <targetReference>myDecision18</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_16</name>
+            <name>myRule_15</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -593,7 +434,7 @@
                 <operator>EqualTo</operator>
             </conditions>
             <connector>
-                <targetReference>myRule_16_pmetdec</targetReference>
+                <targetReference>myRule_15_pmetdec</targetReference>
             </connector>
             <label>Set Approved By</label>
         </rules>
@@ -605,13 +446,13 @@
                 <numberValue>7.0</numberValue>
             </value>
         </processMetadataValues>
-        <name>myDecision19</name>
-        <label>myDecision19</label>
+        <name>myDecision18</name>
+        <label>myDecision18</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
-            <name>myRule_20</name>
+            <name>myRule_19</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -679,7 +520,7 @@
                 <operator>EqualTo</operator>
             </conditions>
             <connector>
-                <targetReference>myRule_20_pmetdec</targetReference>
+                <targetReference>myRule_19_pmetdec</targetReference>
             </connector>
             <label>Set Closed by</label>
         </rules>
@@ -937,16 +778,16 @@
         </rules>
     </decisions>
     <decisions>
-        <name>myRule_16_pmetdec</name>
+        <name>myRule_13_pmetdec</name>
         <label>Previously Met Decision</label>
-        <locationX>1600</locationX>
+        <locationX>1300</locationX>
         <locationY>100</locationY>
         <defaultConnector>
-            <targetReference>myRule_16_A1</targetReference>
+            <targetReference>myRule_13_A1</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
         <rules>
-            <name>myRule_16_pmetnullrule</name>
+            <name>myRule_13_pmetnullrule</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -956,12 +797,107 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_16_A1</targetReference>
+                <targetReference>myRule_13_A1</targetReference>
             </connector>
             <label>Previously Met - Null</label>
         </rules>
         <rules>
-            <name>myRule_16_pmetrule</name>
+            <name>myRule_13_pmetrule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_old.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Approved</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_old.Pushed_to_Pnet__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision14</targetReference>
+            </connector>
+            <label>Previously Met - Prev</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>myRule_15_pmetdec</name>
+        <label>Previously Met Decision</label>
+        <locationX>1500</locationX>
+        <locationY>100</locationY>
+        <defaultConnector>
+            <targetReference>myRule_15_A1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
+        <rules>
+            <name>myRule_15_pmetnullrule</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_15_A1</targetReference>
+            </connector>
+            <label>Previously Met - Null</label>
+        </rules>
+        <rules>
+            <name>myRule_15_pmetrule</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -1029,22 +965,22 @@
                 <operator>EqualTo</operator>
             </conditions>
             <connector>
-                <targetReference>myDecision19</targetReference>
+                <targetReference>myDecision18</targetReference>
             </connector>
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
     <decisions>
-        <name>myRule_20_pmetdec</name>
+        <name>myRule_19_pmetdec</name>
         <label>Previously Met Decision</label>
-        <locationX>2000</locationX>
+        <locationX>1900</locationX>
         <locationY>100</locationY>
         <defaultConnector>
-            <targetReference>myRule_20_A1</targetReference>
+            <targetReference>myRule_19_A1</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Not Previously Met</defaultConnectorLabel>
         <rules>
-            <name>myRule_20_pmetnullrule</name>
+            <name>myRule_19_pmetnullrule</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>myVariable_old</leftValueReference>
@@ -1054,12 +990,12 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>myRule_20_A1</targetReference>
+                <targetReference>myRule_19_A1</targetReference>
             </connector>
             <label>Previously Met - Null</label>
         </rules>
         <rules>
-            <name>myRule_20_pmetrule</name>
+            <name>myRule_19_pmetrule</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <processMetadataValues>
@@ -1136,7 +1072,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_5205213548</name>
+        <name>formula_11_myRule_10_A1_9244021815</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1147,7 +1083,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_17_myRule_16_A1_9844618209</name>
+        <name>formula_16_myRule_15_A1_7072299254</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1158,7 +1094,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_18_myRule_16_A1_6675057325</name>
+        <name>formula_17_myRule_15_A1_0555216387</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1169,7 +1105,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_21_myRule_20_A1_6874149459</name>
+        <name>formula_20_myRule_19_A1_2297868280</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1180,7 +1116,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_6192839439</name>
+        <name>formula_8_myRule_7_A1_8615588669</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -1195,7 +1131,7 @@
         <dataType>Boolean</dataType>
         <expression>(ISNEW() || ISCHANGED({!myVariable_current.Origin})) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)</expression>
     </formulas>
-    <interviewLabel>Case-2_InterviewLabel</interviewLabel>
+    <interviewLabel>Case-6_InterviewLabel</interviewLabel>
     <label>Case</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1301,7 +1237,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_5205213548</elementReference>
+                <elementReference>formula_11_myRule_10_A1_9244021815</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1331,12 +1267,12 @@
         <processMetadataValues>
             <name>referenceTargetField</name>
         </processMetadataValues>
-        <name>myRule_16_A1</name>
+        <name>myRule_15_A1</name>
         <label>Set approved by</label>
-        <locationX>1600</locationX>
+        <locationX>1500</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision19</targetReference>
+            <targetReference>myDecision18</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1385,7 +1321,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_17_myRule_16_A1_9844618209</elementReference>
+                <elementReference>formula_16_myRule_15_A1_7072299254</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1421,7 +1357,88 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_18_myRule_16_A1_6675057325</elementReference>
+                <elementReference>formula_17_myRule_15_A1_0555216387</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Case]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_19_A1</name>
+        <label>Set Closed by</label>
+        <locationX>1900</locationX>
+        <locationY>200</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Closed by</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue>User</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Formula</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Closed_by__c</field>
+            <value>
+                <elementReference>formula_20_myRule_19_A1_2297868280</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1506,87 +1523,6 @@
             <field>Drug_Name__c</field>
             <value>
                 <elementReference>myVariable_current.Drug__r.Name</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Case</object>
-    </recordUpdates>
-    <recordUpdates>
-        <processMetadataValues>
-            <name>evaluationType</name>
-            <value>
-                <stringValue>always</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>extraTypeInfo</name>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>isChildRelationship</name>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>reference</name>
-            <value>
-                <stringValue>[Case]</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>referenceTargetField</name>
-        </processMetadataValues>
-        <name>myRule_20_A1</name>
-        <label>Set Closed by</label>
-        <locationX>2000</locationX>
-        <locationY>200</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <processMetadataValues>
-                <name>implicit</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>myVariable_current.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
-                    <stringValue>ID</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>Closed by</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideReferenceTo</name>
-                <value>
-                    <stringValue>User</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>Formula</stringValue>
-                </value>
-            </processMetadataValues>
-            <field>Closed_by__c</field>
-            <value>
-                <elementReference>formula_21_myRule_20_A1_6874149459</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1754,12 +1690,12 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_6192839439</elementReference>
+                <elementReference>formula_8_myRule_7_A1_8615588669</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
     </recordUpdates>
-    <startElementReference>isChangedDecision14_myRule_13_DeveloperName</startElementReference>
+    <startElementReference>myDecision</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>
