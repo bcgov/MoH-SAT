@@ -13,7 +13,7 @@ public class AdjudicationStrategyTest {
     @isTest
     static void test_run_pre_adjudication_action() {
         Drug__c drug = queryDrug('Drug 1');
-        drug.Pre_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAdjudicationAction';
+        drug.Pre_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAction';
         update drug;
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
@@ -24,7 +24,7 @@ public class AdjudicationStrategyTest {
     @isTest
     static void test_run_post_adjudication_action() {
         Drug__c drug = queryDrug('Drug 1');
-        drug.Post_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAdjudicationAction';
+        drug.Post_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAction';
         update drug;
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
@@ -35,8 +35,8 @@ public class AdjudicationStrategyTest {
     @isTest
     static void test_run_pre_post_adjudication_action() {
         Drug__c drug = queryDrug('Drug 1');
-        drug.Pre_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAdjudicationAction';
-        drug.Post_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAdjudicationAction';
+        drug.Pre_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAction';
+        drug.Post_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAction';
         update drug;
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
@@ -68,13 +68,13 @@ public class AdjudicationStrategyTest {
         return [select Id, Subject from Case where Subject = :subject limit 1][0];
     }
 
-    public class MockAdjudicationAction implements AdjudicationAction {
+    public class MockAction implements Action {
         public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
             sar.saCase.Subject += ' +mock action executed';
         }
     }
 
-    public class MockAdjudicationWithError implements AdjudicationAction {
+    public class MockAdjudicationWithError implements Action {
         public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
             throw new MockException('mock exception');
         }

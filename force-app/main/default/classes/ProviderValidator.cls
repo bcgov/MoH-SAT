@@ -1,4 +1,4 @@
-public class ProviderValidator implements AdjudicationAction {
+public class ProviderValidator implements Action {
     public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
         if (sar.saCase.Provider_Validated_Date__c != null) {
             // Skip

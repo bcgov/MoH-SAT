@@ -1,4 +1,4 @@
-public class SAPush implements AdjudicationAction {
+public class SAPush implements Action {
     public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
 
         // Only push if case is approved and not already sent to pnet.

@@ -47,6 +47,23 @@ public class AdjudicationCriteriaTest {
     }
 
     @isTest
+    static void test_string_equals_blank() {
+        Adjudication_Criteria__c acRecord = TestFactory.newCriteria('Request_Detail__c', 'String_Value__c', 'question.id', 'equals', '');
+        acRecord.String_Value__c = null;
+
+        AdjudicationCriteria ac = new AdjudicationCriteria(acRecord);
+        
+        Request_Detail__c record = new Request_Detail__c();
+        record.Question_ID__c = 'question.id';
+        record.String_Value__c = null;
+        
+        system.assertEquals(true, ac.set(record).evaluate());
+        
+        record.String_Value__c = 'def-string-value-123';
+        system.assertEquals(false, ac.set(record).evaluate());
+    }
+
+    @isTest
     static void test_string_not_equals() {
         AdjudicationCriteria ac = new AdjudicationCriteria(TestFactory.newCriteria('Case', 'Origin', null, 'not equal to', 'Fax'));
         Case record = new Case();

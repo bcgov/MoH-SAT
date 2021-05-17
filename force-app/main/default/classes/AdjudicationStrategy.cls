@@ -81,7 +81,7 @@ public virtual with sharing class AdjudicationStrategy {
         Type actionType = Type.forName(className);
         
         if (actionType != null) {
-            ((AdjudicationAction) actionType.newInstance()).execute(sar, actionParams);
+            ((Action) actionType.newInstance()).execute(sar, actionParams);
         }
     }
 
