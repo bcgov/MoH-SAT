@@ -1,3 +1,3 @@
 public interface AdjudicationAction {
-    void execute(SpecialAuthorityRequest sar);
+    void execute(SpecialAuthorityRequest sar, StepAction actionParams);
 }

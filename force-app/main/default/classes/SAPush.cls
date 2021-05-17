@@ -1,5 +1,5 @@
 public class SAPush implements AdjudicationAction {
-    public void execute(SpecialAuthorityRequest sar) {
+    public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
 
         // Only push if case is approved and not already sent to pnet.
         if (sar.saCase.status =='Approved' && sar.saCase.Pushed_to_Pnet__c == false) {

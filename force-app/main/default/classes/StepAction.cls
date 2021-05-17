@@ -1,19 +1,19 @@
 public with sharing class StepAction {
     public enum ActionType { ADJUDICATION, OWNER_ASSIGNMENT, PHARMANET_DEFAULTS }
     
-    public ActionType actionType;
-    Id ownerId;
-    Integer order;
-    Integer daysSupply;
-    Integer duration;
-    Double pricePercent;
-    String adjudicationStatus;
-    String durationUnit;
-    String keyType;
-    String saType;
-    String pharmanetCode;
-    List<String> excludedPlans;
-    List<String> justificationCodes;
+    public ActionType actionType { get; private set; }
+    public Id ownerId { get; private set; }
+    public Integer order { get; private set; }
+    public Integer daysSupply { get; private set; }
+    public Integer duration { get; private set; }
+    public Double pricePercent { get; private set; }
+    public String adjudicationStatus { get; private set; }
+    public String durationUnit { get; private set; }
+    public String keyType { get; private set; }
+    public String saType { get; private set; }
+    public String pharmanetCode { get; private set; }
+    public List<String> excludedPlans { get; private set; }
+    public List<String> justificationCodes { get; private set; }
 
     public StepAction(Integer order, Id ownerId) {
         this.actionType = StepAction.ActionType.OWNER_ASSIGNMENT;

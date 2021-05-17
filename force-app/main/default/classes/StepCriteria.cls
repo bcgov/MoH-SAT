@@ -1,12 +1,14 @@
 public with sharing class StepCriteria {
     public class StepCriteriaException extends Exception {}
-    Schema.SoapType soapType;
-    String sobjectName;
-    String fieldName;
-    String questionId;
-    String operator;
-    Value expectedValue;
-    Value actualValue;
+    
+    public Schema.SoapType soapType { get; private set; }
+    public Integer order { get; private set; }
+    public String sobjectName { get; private set; }
+    public String fieldName { get; private set; }
+    public String questionId { get; private set; }
+    public String operator { get; private set; }
+    public Value expectedValue { get; private set; }
+    public Value actualValue { get; private set; }
 
     private class Value {
         public String stringValue { get; set; }
@@ -38,6 +40,7 @@ public with sharing class StepCriteria {
 
     public StepCriteria(Step_Criteria__c criteria) {
         this(
+            criteria.Order__c.intValue(),
             criteria.Object_Name__c, 
             criteria.Field_Name__c, 
             criteria.Question_ID__c,
@@ -51,6 +54,7 @@ public with sharing class StepCriteria {
     }
 
     private StepCriteria(
+            Integer order,
             String sobjectName, 
             String fieldName, 
             String questionId, 
@@ -67,6 +71,7 @@ public with sharing class StepCriteria {
             throw new StepCriteriaException(e.getMessage());
         }
 
+        this.order = order;
         this.sobjectName = sobjectName;
         this.fieldName = fieldName;
         this.questionId = String.isBlank(questionId) ? null : questionId;

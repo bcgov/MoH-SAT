@@ -69,13 +69,13 @@ public class AdjudicationStrategyTest {
     }
 
     public class MockAdjudicationAction implements AdjudicationAction {
-        public void execute(SpecialAuthorityRequest sar) {
+        public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
             sar.saCase.Subject += ' +mock action executed';
         }
     }
 
     public class MockAdjudicationWithError implements AdjudicationAction {
-        public void execute(SpecialAuthorityRequest sar) {
+        public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
             throw new MockException('mock exception');
         }
     }

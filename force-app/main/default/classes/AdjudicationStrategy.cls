@@ -46,23 +46,42 @@ public virtual with sharing class AdjudicationStrategy {
         }
     }
 
-    public virtual void onBeforeEvaluate() {} 
+    public virtual void onBeforeEvaluate() {
+        List<Step> steps = StepBuilder.build(this.steps);
+        system.debug(steps);
+
+        for (Step step : steps) {
+            if (!(step.alwaysRun || step.evaluate(sar.saCase, sar.requestDetails))) break;
+        
+            for (StepAction action : step.actions) {
+                Type apexType = null;
+                if (action.actionType == StepAction.ActionType.OWNER_ASSIGNMENT) {
+                    apexType = OwnerAssignment.class;
+                } else if (action.actionType == StepAction.ActionType.ADJUDICATION) {
+                    apexType = Adjudication.class;
+                } else if (action.actionType == StepAction.ActionType.PHARMANET_DEFAULTS) {
+                    apexType = PharmanetDefaults.class;
+                }
+                runAction(apexType.getName(), action);
+            }
+        }
+    } 
     
     public virtual void onAfterEvaluate() {}
 
     public virtual void evaluate() {}
 
     private void runAction(System.Type apexType) {
-        runAction(apexType.getName());
+        runAction(apexType.getName(), null);
     }
 
-    private void runAction(String className) {
+    private void runAction(String className, StepAction actionParams) {
         if (String.isBlank(className)) return;
 
         Type actionType = Type.forName(className);
         
         if (actionType != null) {
-            ((AdjudicationAction) actionType.newInstance()).execute(sar);
+            ((AdjudicationAction) actionType.newInstance()).execute(sar, actionParams);
         }
     }
 
@@ -95,8 +114,8 @@ public virtual with sharing class AdjudicationStrategy {
                 ),
                 (
                     select 
-                        Order__c, OwnerId, Adjudication_Status__c,
-                        Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, 
+                        Order__c, OwnerId, RecordTypeId,
+                        Adjudication_Status__c, Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, 
                         Key_Type__c, Pharmanet_Code__c, Price_Percent__c, SA_Type__c,
                         Duration__c, Duration_Unit__c
                     from Step_Actions__r
