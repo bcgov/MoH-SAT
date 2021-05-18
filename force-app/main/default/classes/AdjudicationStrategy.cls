@@ -51,7 +51,7 @@ public virtual with sharing class AdjudicationStrategy {
         system.debug(steps);
 
         for (Step step : steps) {
-            if (!(step.alwaysRun || step.evaluate(sar.saCase, sar.requestDetails))) break;
+            if (!(step.alwaysRun || step.evaluate(sar.saCase, sar.requestDetails))) continue;
         
             for (StepAction action : step.actions) {
                 Type apexType = null;
