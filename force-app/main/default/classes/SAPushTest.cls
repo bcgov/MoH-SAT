@@ -21,6 +21,6 @@ public class SAPushTest {
         SAPush pvalidator = new SAPush();
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id); 
-        pvalidator.execute(sar);
+        pvalidator.execute(sar, null);
     }
 }

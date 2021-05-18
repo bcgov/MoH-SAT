@@ -20,6 +20,6 @@ public class ProviderValidatorTest {
         ProviderValidator pvalidator = new ProviderValidator();
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id); 
-        pvalidator.execute(sar);
+        pvalidator.execute(sar, null);
     }
 }
