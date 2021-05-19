@@ -3,7 +3,7 @@ public with sharing class StepAction {
     public enum ActionType { 
         ADJUDICATION, 
         OWNER_ASSIGNMENT, 
-        PHARMANET_DEFAULTS, 
+        PHARMANET_PAYLOAD, 
         PROVIDER_VALIDATION,
         PATIENT_VALIDATION,
         PHARMANET_SA_PUSH
@@ -88,8 +88,8 @@ public with sharing class StepAction {
             return StepAction.ActionType.ADJUDICATION;
         } else if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Owner_Assignment').getRecordTypeId()) {
             return StepAction.ActionType.OWNER_ASSIGNMENT;
-        } else if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Pharmanet_Defaults').getRecordTypeId()) {
-            return StepAction.ActionType.PHARMANET_DEFAULTS;
+        } else if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Pharmanet_Payload').getRecordTypeId()) {
+            return StepAction.ActionType.PHARMANET_PAYLOAD;
         } else {
             return null;
         }
@@ -113,7 +113,7 @@ public with sharing class StepAction {
             apexClass = OwnerAssignment.class;
         } else if (this.actionType == StepAction.ActionType.ADJUDICATION) {
             apexClass = Adjudication.class;
-        } else if (this.actionType == StepAction.ActionType.PHARMANET_DEFAULTS) {
+        } else if (this.actionType == StepAction.ActionType.PHARMANET_PAYLOAD) {
             apexClass = PharmanetDefaults.class;
         } else if (this.actionType == StepAction.ActionType.PATIENT_VALIDATION) {
             apexClass = PatientValidator.class;
