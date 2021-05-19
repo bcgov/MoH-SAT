@@ -232,11 +232,11 @@ public with sharing class ODRIntegration {
         } else if (durationUnit.equalsIgnoreCase('End of year')) {
             terminationDate = Date.newInstance(terminationDate.year(), 12, 31);
         } else if (durationUnit.equalsIgnoreCase('Days')) {
-            terminationDate = terminationDate.addDays(duration);
+            terminationDate = terminationDate.addDays(duration).addDays(1);
         } else if (durationUnit.equalsIgnoreCase('Months')) {
-            terminationDate = terminationDate.addMonths(duration);
+            terminationDate = terminationDate.addMonths(duration).addDays(1);
         } else if (durationUnit.equalsIgnoreCase('Years')) {
-            terminationDate = terminationDate.addYears(duration);
+            terminationDate = terminationDate.addYears(duration).addDays(1);
         }
 
         return terminationDate;
