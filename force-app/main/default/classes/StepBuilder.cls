@@ -10,6 +10,7 @@ public with sharing class StepBuilder {
     public static Step build(Step__c record) {
         return new Step(
             record.Order__c.intValue(),
+            record.Title__c,
             record.Always_Run__c,
             record.Criteria_Logic__c,
             build(record.Step_Criteria__r),
@@ -31,5 +32,29 @@ public with sharing class StepBuilder {
             objs.add(new StepAction(record));
         }
         return objs;
+    }
+
+    public static Step buildProviderValidationStep() {
+        Step step = new Step('Auto Validate Provider');
+        step.actions.add(new StepAction(StepAction.ActionType.PROVIDER_VALIDATION));
+        return step;
+    }
+
+    public static Step buildPatientValidatorStep() {
+        Step step = new Step('Auto Validate Patient');
+        step.actions.add(new StepAction(StepAction.ActionType.PATIENT_VALIDATION));
+        return step;
+    }
+
+    public static Step buildPharmanetSaPushStep() {
+        Step step = new Step('Auto Push to Pharmanet');
+        step.actions.add(new StepAction(StepAction.ActionType.PHARMANET_SA_PUSH));
+        return step;
+    }
+
+    public static Step buildOwnerAssignmentStep(Id ownerId) {
+        Step step = new Step('Default Owner Assignment');
+        step.actions.add(new StepAction(ownerId));
+        return step;
     }
 }

@@ -1,5 +1,13 @@
 public with sharing class StepAction {
-    public enum ActionType { ADJUDICATION, OWNER_ASSIGNMENT, PHARMANET_DEFAULTS }
+    
+    public enum ActionType { 
+        ADJUDICATION, 
+        OWNER_ASSIGNMENT, 
+        PHARMANET_DEFAULTS, 
+        PROVIDER_VALIDATION,
+        PATIENT_VALIDATION,
+        PHARMANET_SA_PUSH
+    }
     
     public ActionType actionType { get; private set; }
     public Id ownerId { get; private set; }
@@ -14,38 +22,16 @@ public with sharing class StepAction {
     public String pharmanetCode { get; private set; }
     public List<String> excludedPlans { get; private set; }
     public List<String> justificationCodes { get; private set; }
+    public Boolean executed { get; private set; }
 
-    public StepAction(Integer order, Id ownerId) {
-        this.actionType = StepAction.ActionType.OWNER_ASSIGNMENT;
-        this.order = order;
+    public StepAction(StepAction.ActionType actionType) {
+        this.actionType = actionType;
+        this.executed = false;
+    }
+
+    public StepAction(Id ownerId) {
+        this(StepAction.ActionType.Owner_ASSIGNMENT);
         this.ownerId = ownerId;
-    }
-
-    public StepAction(Integer order, String adjudicationStatus) {
-        this.actionType = StepAction.ActionType.ADJUDICATION;
-        this.adjudicationStatus = adjudicationStatus;
-    }
-
-    public StepAction(
-            Integer order, 
-            String pharmanetCode,
-            String keyType,
-            String saType,
-            Integer daysSupply,
-            Integer duration,
-            String durationUnit,
-            String excludedPlansStr,
-            String justificationCodesStr) {
-        this.actionType = StepAction.ActionType.PHARMANET_DEFAULTS;
-        this.order = order;
-        this.pharmanetCode = pharmanetCode;
-        this.keyType = keyType;
-        this.saType = saType;
-        this.daysSupply = daysSupply;
-        this.duration = duration;
-        this.durationUnit = durationUnit;
-        this.excludedPlans = excludedPlansStr?.split(';');
-        this.justificationCodes = justificationCodesStr?.split(';');
     }
 
     public StepAction(
@@ -62,7 +48,7 @@ public with sharing class StepAction {
             String excludedPlansStr,
             String justificationCodesStr
     ) {
-        this.actionType = actionType;
+        this(actionType);
         this.order = order;
         this.ownerId = ownerId;
         this.adjudicationStatus = adjudicationStatus;
@@ -93,6 +79,10 @@ public with sharing class StepAction {
         );
     }
 
+    public Boolean isOwnerAssignment() {
+        return this.actionType == StepAction.ActionType.OWNER_ASSIGNMENT;
+    }
+
     public static StepAction.ActionType toEnum(Id recordTypeId) {
         if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId()) {
             return StepAction.ActionType.ADJUDICATION;
@@ -103,5 +93,38 @@ public with sharing class StepAction {
         } else {
             return null;
         }
+    }
+
+    public void run(SpecialAuthorityRequest sar) {
+        if (this.actionType == null) return;
+
+        Type apexClass = Type.forName(getApexClass().getName());
+
+        if (apexClass != null) {
+            ((Action) apexClass.newInstance()).execute(sar, this);
+            this.executed = true;
+        }
+    }
+
+    private Type getApexClass() {
+        Type apexClass;
+
+        if (this.actionType == StepAction.ActionType.OWNER_ASSIGNMENT) {
+            apexClass = OwnerAssignment.class;
+        } else if (this.actionType == StepAction.ActionType.ADJUDICATION) {
+            apexClass = Adjudication.class;
+        } else if (this.actionType == StepAction.ActionType.PHARMANET_DEFAULTS) {
+            apexClass = PharmanetDefaults.class;
+        } else if (this.actionType == StepAction.ActionType.PATIENT_VALIDATION) {
+            apexClass = PatientValidator.class;
+        } else if (this.actionType == StepAction.ActionType.PROVIDER_VALIDATION) {
+            apexClass = ProviderValidator.class;
+        } else if (this.actionType == StepAction.ActionType.PHARMANET_SA_PUSH) {
+            apexClass = SAPush.class;
+        } else {
+            apexClass = null;
+        }
+
+        return apexClass;
     }
 }

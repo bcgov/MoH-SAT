@@ -1,110 +1,98 @@
-public virtual with sharing class AdjudicationStrategy {
+public with sharing class AdjudicationStrategy {
     public class AdjudicationException extends Exception {}
 
     public SpecialAuthorityRequest sar { get; private set; }
 
-    public Drug__c drug { get; private set; }
-    public List<Step__c> steps { get; private set; }
+    public Boolean autoValidatePatient { get; private set; }
+    public Boolean autoValidateProvider { get; private set; }
+    public Boolean autoPushToPharmanet { get; private set; }
+    public Boolean assignOwner { get; private set; }
+    public List<Step> steps { get; private set; }
 
-    public AdjudicationStrategy(SpecialAuthorityRequest sar) {
+    public AdjudicationStrategy(SpecialAuthorityRequest sar, Boolean assignOwner) {
         this.sar = sar;
-        this.drug = sar.hasDrug() ? queryDrug(sar.drug.Id) : null;
-        this.steps = sar.hasDrug() ? querySteps(sar.drug.Id) : new List<Step__c>();
+        this.assignOwner = assignOwner;
+        this.autoValidatePatient = sar.hasDrug() ? sar.drug.Auto_Validate_Patient__c : false;
+        this.autoValidateProvider = sar.hasDrug() ? sar.drug.Auto_Validate_Provider__c : false;
+        this.autoPushToPharmanet= sar.hasDrug() ? sar.drug.Auto_Push_to_Pharmanet__c : false;
+        this.steps = new List<Step>();
     }
 
-    public virtual void runEvaluate() {
-        if (this.drug == null || sar.saCase.isClosed) return;
+    public void runEvaluate() {
+        if (!sar.hasDrug() || sar.saCase.isClosed) return;
         
-        handleBeforeEvaluation();
-        evaluate();
-        handleAfterEvaluation();
-    }
-
-    /**
-     * Base handler for events that execute before adjudication evaluation. 
-     */
-    public virtual void handleBeforeEvaluation() {
-        if (drug.Auto_Validate_Patient__c) {
-            runAction(PatientValidator.class); 
-        }
-
-        if (drug.Auto_Validate_Provider__c) {
-            runAction(ProviderValidator.class); 
-        }
-
         onBeforeEvaluate();
+        evaluate();
+        onAfterEvaluate();
     }
 
-    /**
-     * Base handler for events that execute after adjudication evaluation. 
-     */
-    public virtual void handleAfterEvaluation() {
-        onAfterEvaluate();
-        
-        if (drug.Auto_Push_To_Pharmanet__c) {
-            runAction(SAPush.class);
+    public void onBeforeEvaluate() {
+        if (this.assignOwner) {
+            steps.add(StepBuilder.buildOwnerAssignmentStep(sar.getDefaultOwnerId()));
+        }
+
+        if (this.autoValidatePatient) {
+            steps.add(StepBuilder.buildPatientValidatorStep()); 
+        }
+
+        if (this.autoValidateProvider) {
+            steps.add(StepBuilder.buildProviderValidationStep());
+        }
+
+        steps.addAll(StepBuilder.build(querySteps(sar.drug.Id)));
+
+        if (this.autoPushToPharmanet) {
+            steps.add(StepBuilder.buildPharmanetSaPushStep());
         }
     }
 
-    public virtual void onBeforeEvaluate() {
-        List<Step> steps = StepBuilder.build(this.steps);
-        system.debug(steps);
-
+    public void evaluate() {
         for (Step step : steps) {
-            if (!(step.alwaysRun || step.evaluate(sar.saCase, sar.requestDetails))) continue;
+            if (!step.executable(sar.saCase, sar.requestDetails)) continue;
         
             for (StepAction action : step.actions) {
-                Type apexType = null;
-                if (action.actionType == StepAction.ActionType.OWNER_ASSIGNMENT) {
-                    apexType = OwnerAssignment.class;
-                } else if (action.actionType == StepAction.ActionType.ADJUDICATION) {
-                    apexType = Adjudication.class;
-                } else if (action.actionType == StepAction.ActionType.PHARMANET_DEFAULTS) {
-                    apexType = PharmanetDefaults.class;
-                }
-                runAction(apexType.getName(), action);
+                if (action.isOwnerAssignment() && !assignOwner) continue;
+
+                action.run(sar);
             }
         }
-    } 
-    
-    public virtual void onAfterEvaluate() {}
-
-    public virtual void evaluate() {}
-
-    private void runAction(System.Type apexType) {
-        runAction(apexType.getName(), null);
     }
 
-    private void runAction(String className, StepAction actionParams) {
-        if (String.isBlank(className)) return;
+    public void onAfterEvaluate() {
+        print();
+    }
 
-        Type actionType = Type.forName(className);
-        
-        if (actionType != null) {
-            ((Action) actionType.newInstance()).execute(sar, actionParams);
+    private void print() {
+        List<String> results = new List<String>();
+        for (Step step : steps) {
+            Boolean executed = step.alwaysRun || step.criteriaResult;
+            List<String> actionResults = new List<String>();
+            
+            if (executed) {
+                for (StepAction action : step.actions) {
+                    actionResults.add(String.format(
+                        '\tAction: {0}, Executed: {1}', new String[] {
+                            action.actionType.name(),
+                            String.valueOf(action.executed)
+                    }));
+                }
+            }
+
+            results.add(String.format(
+                'Step: "{0}", Executed: {1}{2}', new String[] {
+                    step.title,
+                    String.valueOf(executed),
+                    executed ? '\n' + String.join(actionResults, '\n') : ''
+            }));
         }
-    }
 
-    private Drug__c queryDrug(Id drugId) {
-        return [
-            select 
-                Id, Criteria_Logic__c, Auto_Validate_Patient__c, Auto_Validate_Provider__c, Auto_Push_to_Pharmanet__c,
-                (
-                    select 
-                        Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
-                        String_Value__c, Boolean_Value__c, Decimal_Value__c, Date_Value__c, Datetime_Value__c
-                    from Adjudication_Criteria__r
-                    order by Order__c asc 
-                )            
-            from Drug__c 
-            where Id = :drugId
-        ];
+        system.debug(LoggingLevel.INFO, '\n'+String.join(results, '\n'));
     }
-
+    
     private List<Step__c> querySteps(Id drugId) {
         return [
             select
-                Id, Order__c, Always_Run__c, Criteria_Logic__c, 
+                Id, Title__c, Order__c, Always_Run__c, Criteria_Logic__c, 
                 (
                     select 
                         Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
