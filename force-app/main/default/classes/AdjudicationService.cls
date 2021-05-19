@@ -38,13 +38,9 @@ public with sharing class AdjudicationService {
     private static void evaluate(SpecialAuthorityRequest sar, Boolean assignOwner) {
         queuedIds.add(sar.saCase.Id);
         
-        AdjudicationStrategy strategy = AdjudicationStrategyFactory.getStrategy(sar);
+        AdjudicationStrategy strategy = AdjudicationStrategyFactory.getStrategy(sar, assignOwner);
         
         strategy.runEvaluate();
-
-        if (assignOwner) {
-            sar.saCase.OwnerId = sar.getDefaultOwnerId();
-        }
     }
 
 }
