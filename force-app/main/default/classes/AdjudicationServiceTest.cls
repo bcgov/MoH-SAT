@@ -27,41 +27,8 @@ public class AdjudicationServiceTest {
     @isTest
     static void test_evaluate() {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1'));
-        AdjudicationStrategyFactory.mockStrategy = new MockAdjudicationStrategy(sar);
                 
-        AdjudicationService.evaluate(sar.saCase);
-        system.assertEquals('Mock strategy executed', sar.saCase.Subject);
-        
-        AdjudicationService.evaluate(sar.saCase.Id);
-        system.assertEquals('Mock strategy executed', sar.saCase.Subject);
-    }
-
-    @isTest
-    static void test_evaluate_set_owner() {
-        Drug__c drug = [select Id, OwnerId from Drug__c where Name = 'Drug 1' limit 1][0];
-        
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1'));
-        AdjudicationStrategyFactory.mockStrategy = new MockAdjudicationStrategy(sar);
-        
-        AdjudicationService.evaluate(sar.saCase, true);
-        system.assertEquals(drug.OwnerId, sar.saCase.OwnerId);
-        
-        AdjudicationService.evaluate(sar.saCase.Id, true);
-        system.assertEquals(drug.OwnerId, sar.saCase.OwnerId);
-    }
-
-    private class MockAdjudicationStrategy extends AdjudicationStrategy {
-        public MockAdjudicationStrategy(SpecialAuthorityRequest sar) {
-            super(sar);
-        }
-
-        public override void handleBeforeEvaluation() {}
-
-        public override void evaluate() {
-            sar.saCase.Subject = 'Mock strategy executed';
-        }
-
-        public override void handleAfterEvaluation() {}
+        AdjudicationService.evaluate(sar.saCase);   
     }
 
     private static Case queryCase(String subject) {

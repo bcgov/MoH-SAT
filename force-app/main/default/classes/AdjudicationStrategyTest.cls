@@ -17,7 +17,7 @@ public class AdjudicationStrategyTest {
         update drug;
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
-        new AdjudicationStrategy(sar).runEvaluate();
+        new AdjudicationStrategy(sar, false).runEvaluate();
         system.assertEquals('Test case 1 +mock action executed', sar.saCase.Subject);
     }
 
@@ -28,7 +28,7 @@ public class AdjudicationStrategyTest {
         update drug;
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
-        new AdjudicationStrategy(sar).runEvaluate();
+        new AdjudicationStrategy(sar, false).runEvaluate();
         system.assertEquals('Test case 1 +mock action executed', sar.saCase.Subject);
     }
 
@@ -40,7 +40,7 @@ public class AdjudicationStrategyTest {
         update drug;
 
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
-        new AdjudicationStrategy(sar).runEvaluate();
+        new AdjudicationStrategy(sar, false).runEvaluate();
         system.assertEquals('Test case 1 +mock action executed +mock action executed', sar.saCase.Subject);
     }
 
@@ -53,7 +53,7 @@ public class AdjudicationStrategyTest {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
         
         try {
-            new AdjudicationStrategy(sar).runEvaluate();
+            new AdjudicationStrategy(sar, false).runEvaluate();
             system.assert(false, 'An expected exception was not thrown.');
         } catch (Exception e) {
             system.assert(e.getMessage().contains('mock exception'));
