@@ -89,18 +89,6 @@ public class SpecialAuthorityRequestTest {
     }
 
     @isTest
-    static void test_get_adjudication_strategy() {
-        Drug__c drug = new Drug__c();
-        drug.Adjudication_Strategy__c = 'Manual';
-        
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(drug, null, null, null, null);
-        system.assertEquals(drug.Adjudication_Strategy__c, sar.getAdjudicationStrategy());
-        
-        sar = SpecialAuthorityRequest.build(null, null, null, null, null);
-        system.assertEquals(null, sar.getAdjudicationStrategy());
-    }
-
-    @isTest
     static void test_has_drug() {
         SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(
             new Drug__c(), 

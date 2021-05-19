@@ -61,10 +61,6 @@ public with sharing class SpecialAuthorityRequest {
         return this.hasDrug;
     }
 
-    public String getAdjudicationStrategy() {
-        return hasDrug() ? drug.Adjudication_Strategy__c : null;
-    }
-
     public Id getDefaultOwnerId() {
         return hasDrug() ? drug.OwnerId : null;
     }
@@ -111,7 +107,7 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     private static Drug__c queryDrug(Id drugId) {
-        return [select Id, Adjudication_Strategy__c, OwnerId,
+        return [select Id, Auto_Validate_Patient__c, Auto_Validate_Provider__c, Auto_Push_to_Pharmanet__c, OwnerId,
                     (select 
                         Id, Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, 
                         Key_Type__c, Pharmanet_Code__c, Price_Percent__c, SA_Type__c,
