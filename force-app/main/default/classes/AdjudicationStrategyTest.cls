@@ -16,7 +16,7 @@ public class AdjudicationStrategyTest {
         drug.Pre_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAction';
         update drug;
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(queryCase('Test case 1').Id).build();
         new AdjudicationStrategy(sar, false).runEvaluate();
         system.assertEquals('Test case 1 +mock action executed', sar.saCase.Subject);
     }
@@ -27,7 +27,7 @@ public class AdjudicationStrategyTest {
         drug.Post_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAction';
         update drug;
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(queryCase('Test case 1').Id).build();
         new AdjudicationStrategy(sar, false).runEvaluate();
         system.assertEquals('Test case 1 +mock action executed', sar.saCase.Subject);
     }
@@ -39,7 +39,7 @@ public class AdjudicationStrategyTest {
         drug.Post_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAction';
         update drug;
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(queryCase('Test case 1').Id).build();
         new AdjudicationStrategy(sar, false).runEvaluate();
         system.assertEquals('Test case 1 +mock action executed +mock action executed', sar.saCase.Subject);
     }
@@ -50,7 +50,7 @@ public class AdjudicationStrategyTest {
         drug.Pre_Adjudication_Apex__c = 'AdjudicationStrategyTest.MockAdjudicationWithError';
         update drug;
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1').Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(queryCase('Test case 1').Id).build();
         
         try {
             new AdjudicationStrategy(sar, false).runEvaluate();

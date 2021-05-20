@@ -1,5 +1,5 @@
 @isTest
-public with sharing class SarBuilderTest {
+public with sharing class JsonSarBuilderTest {
     
     @testSetup
     static void test_setup() {
@@ -9,7 +9,7 @@ public with sharing class SarBuilderTest {
 
     @isTest
     static void test_build() {
-        SpecialAuthorityRequest sar = SarBuilder.build(newBundleJson());
+        SpecialAuthorityRequest sar = new JsonSarBuilder(newBundleJson()).build();
         
         system.assertEquals(queryDrug('test-drug').Id, sar.drug.Id);
         system.assertEquals('9878507098', sar.patient.Patient_Identifier__pc);

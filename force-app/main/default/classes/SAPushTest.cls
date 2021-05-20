@@ -20,7 +20,7 @@ public class SAPushTest {
 
         SAPush pvalidator = new SAPush();
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id); 
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         pvalidator.execute(sar, null);
     }
 }

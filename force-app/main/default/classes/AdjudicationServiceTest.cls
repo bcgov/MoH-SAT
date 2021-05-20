@@ -26,9 +26,8 @@ public class AdjudicationServiceTest {
 
     @isTest
     static void test_evaluate() {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(queryCase('Test case 1'));
-                
-        AdjudicationService.evaluate(sar.saCase);   
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(queryCase('Test case 1').Id).build();
+        AdjudicationService.evaluate(sar.saCase.Id);   
     }
 
     private static Case queryCase(String subject) {

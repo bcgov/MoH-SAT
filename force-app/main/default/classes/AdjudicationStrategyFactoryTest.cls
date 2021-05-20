@@ -8,7 +8,7 @@ public class AdjudicationStrategyFactoryTest {
         Case saCase = TestFactory.newCase(drug, 'Test case 1');
         insert saCase;
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
 
         AdjudicationStrategy strategy = AdjudicationStrategyFactory.getStrategy(sar, false);
         system.assert((Object) strategy instanceof AdjudicationStrategy);

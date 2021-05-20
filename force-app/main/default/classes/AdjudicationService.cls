@@ -20,19 +20,11 @@ public with sharing class AdjudicationService {
     }
 
     public static void evaluate(Id caseId, Boolean assignOwner) {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(caseId); 
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(caseId).build(); 
         
         evaluate(sar, assignOwner);
 
         update sar.saCase;
-    }
-
-    public static void evaluate(Case saCase) {
-        evaluate(saCase, false);
-    }
-
-    public static void evaluate(Case saCase, Boolean assignOwner) {
-        evaluate(SpecialAuthorityRequest.build(saCase), assignOwner);
     }
 
     private static void evaluate(SpecialAuthorityRequest sar, Boolean assignOwner) {

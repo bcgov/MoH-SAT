@@ -19,7 +19,7 @@ public class PatientValidatorTest {
 
         PatientValidator pvalidator = new PatientValidator();
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id); 
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         pvalidator.execute(sar, null);
     }
   }
