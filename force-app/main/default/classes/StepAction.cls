@@ -42,11 +42,12 @@ public with sharing class StepAction {
             String pharmanetCode,
             String keyType,
             String saType,
+            Double pricePercent,
             Integer daysSupply,
             Integer duration,
             String durationUnit,
-            String excludedPlansStr,
-            String justificationCodesStr
+            List<String> excludedPlans,
+            List<String> justificationCodes
     ) {
         this(actionType);
         this.order = order;
@@ -55,11 +56,12 @@ public with sharing class StepAction {
         this.pharmanetCode = pharmanetCode;
         this.keyType = keyType;
         this.saType = saType;
+        this.pricePercent = pricePercent;
         this.daysSupply = daysSupply;
         this.duration = duration;
         this.durationUnit = durationUnit;
-        this.excludedPlans = excludedPlansStr?.split(';');
-        this.justificationCodes = justificationCodesStr?.split(';');
+        this.excludedPlans = excludedPlans;
+        this.justificationCodes = justificationCodes;
     }
 
     public StepAction(Step_Action__c record) {
@@ -71,11 +73,12 @@ public with sharing class StepAction {
             record.Pharmanet_Code__c,
             record.Key_Type__c,
             record.SA_Type__c,
+            record.Price_Percent__c?.doubleValue(),
             record.Days_Supply__c?.intValue(),
             record.Duration__c?.intValue(),
             record.Duration_Unit__c,
-            record.Excluded_Plans__c,
-            record.Justification_Codes__c
+            record.Excluded_Plans__c?.split(';'),
+            record.Justification_Codes__c?.split(';')
         );
     }
 
@@ -95,8 +98,8 @@ public with sharing class StepAction {
         }
     }
 
-    public void run(SpecialAuthorityRequest sar) {
-        if (this.actionType == null) return;
+    public StepAction run(SpecialAuthorityRequest sar) {
+        if (this.actionType == null) return this;
 
         Type apexClass = Type.forName(getApexClass().getName());
 
@@ -104,6 +107,8 @@ public with sharing class StepAction {
             ((Action) apexClass.newInstance()).execute(sar, this);
             this.executed = true;
         }
+
+        return this;
     }
 
     private Type getApexClass() {

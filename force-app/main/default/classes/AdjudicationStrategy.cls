@@ -24,30 +24,33 @@ public with sharing class AdjudicationStrategy {
         onBeforeEvaluate();
         evaluate();
         onAfterEvaluate();
+        print();
     }
 
     public void onBeforeEvaluate() {
         if (this.assignOwner) {
-            steps.add(StepBuilder.buildOwnerAssignmentStep(sar.getDefaultOwnerId()));
+            Step step = StepBuilder.buildOwnerAssignmentStep(sar.getDefaultOwnerId());
+            step.actions[0].run(sar);                   
+            steps.add(step);
         }
 
         if (this.autoValidatePatient) {
-            steps.add(StepBuilder.buildPatientValidatorStep()); 
+            Step step = StepBuilder.buildPatientValidatorStep();
+            step.actions[0].run(sar);
+            steps.add(step); 
         }
 
         if (this.autoValidateProvider) {
-            steps.add(StepBuilder.buildProviderValidationStep());
-        }
-
-        steps.addAll(StepBuilder.build(querySteps(sar.drug.Id)));
-
-        if (this.autoPushToPharmanet) {
-            steps.add(StepBuilder.buildPharmanetSaPushStep());
+            Step step = StepBuilder.buildProviderValidationStep();
+            step.actions[0].run(sar);
+            steps.add(step);
         }
     }
 
     public void evaluate() {
-        for (Step step : steps) {
+        for (Step step : StepBuilder.build(querySteps(sar.drug.Id))) {
+            steps.add(step);
+
             if (!step.executable(sar.saCase, sar.requestDetails)) continue;
         
             for (StepAction action : step.actions) {
@@ -59,7 +62,13 @@ public with sharing class AdjudicationStrategy {
     }
 
     public void onAfterEvaluate() {
-        print();
+        sar.setTerminationDate();
+
+        if (this.autoPushToPharmanet) {
+            Step step = StepBuilder.buildPharmanetSaPushStep();
+            step.actions[0].run(sar);
+            steps.add(step);
+        }
     }
 
     private void print() {
@@ -85,8 +94,9 @@ public with sharing class AdjudicationStrategy {
                     executed ? '\n' + String.join(actionResults, '\n') : ''
             }));
         }
-
-        system.debug(LoggingLevel.INFO, '\n'+String.join(results, '\n'));
+        String printResult = '\n'+String.join(results, '\n');
+        system.debug(LoggingLevel.INFO, printResult);
+        ConnectApi.ChatterFeeds.postFeedElement(null, sar.saCase.Id, ConnectApi.FeedElementType.FeedItem, printResult);
     }
     
     private List<Step__c> querySteps(Id drugId) {
