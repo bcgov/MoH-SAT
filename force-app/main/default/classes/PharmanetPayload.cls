@@ -1,6 +1,6 @@
-public with sharing class PharmanetSubmission implements Action {
+public with sharing class PharmanetPayload implements Action {
     public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
-        system.debug('EXEC: Pharmanet Submission.');
+        system.debug('EXEC: Pharmanet Payload.');
         
         sar.setEffectiveDate();
 
