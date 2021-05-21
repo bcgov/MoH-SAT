@@ -30,7 +30,10 @@ public with sharing class SpecialAuthorityRequest {
     }
 
     public void setEffectiveDate() {
-        this.saCase.Effective_Date__c = Date.today();
+        this.saCase.Effective_Date__c = 
+            this.saCase.Effective_Date__c == null ? 
+            Date.today() :
+            this.saCase.Effective_Date__c;
     }
 
     public void setPushedToPharmanet() {
