@@ -28,48 +28,41 @@ public with sharing class AdjudicationStrategy {
     }
 
     public void onBeforeEvaluate() {
-        if (this.assignOwner) {
-            Step step = StepBuilder.buildOwnerAssignmentStep(sar.getDefaultOwnerId());
-            step.actions[0].run(sar);                   
-            steps.add(step);
-        }
-
+        run(StepBuilder.buildOwnerAssignmentStep(sar.getDefaultOwnerId()));
+        
         if (this.autoValidatePatient) {
-            Step step = StepBuilder.buildPatientValidatorStep();
-            step.actions[0].run(sar);
-            steps.add(step); 
+            run(StepBuilder.buildPatientValidatorStep());
         }
 
         if (this.autoValidateProvider) {
-            Step step = StepBuilder.buildProviderValidationStep();
-            step.actions[0].run(sar);
-            steps.add(step);
+            run(StepBuilder.buildProviderValidationStep());
         }
     }
 
     public void evaluate() {
         for (Step step : StepBuilder.build(querySteps(sar.drug.Id))) {
-            steps.add(step);
-
-            if (!step.executable(sar.saCase, sar.requestDetails)) continue;
-        
-            for (StepAction action : step.actions) {
-                if (action.isOwnerAssignment() && !assignOwner) continue;
-
-                action.run(sar);
-            }
+            run(step);
         }
     }
 
     public void onAfterEvaluate() {
         if (this.autoPushToPharmanet) {
-            Step step = StepBuilder.buildPharmanetSaPushStep();
-            step.actions[0].run(sar);
-            steps.add(step);
+            run(StepBuilder.buildPharmanetSaPushStep());
         }
     }
 
-    private void print() {
+    private void run(Step step) {
+        steps.add(step);
+
+        if (!step.executable(sar.saCase, sar.requestDetails)) return;
+
+        for (StepAction action : step.actions) {
+            if (action.isOwnerAssignment() && !this.assignOwner) continue;
+            action.run(sar);
+        }
+    }
+    
+    public void print() {
         List<String> results = new List<String>();
         for (Step step : steps) {
             Boolean executed = step.alwaysRun || step.criteriaResult;
