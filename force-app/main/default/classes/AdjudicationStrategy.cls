@@ -62,8 +62,6 @@ public with sharing class AdjudicationStrategy {
     }
 
     public void onAfterEvaluate() {
-        sar.setTerminationDate();
-
         if (this.autoPushToPharmanet) {
             Step step = StepBuilder.buildPharmanetSaPushStep();
             step.actions[0].run(sar);

@@ -1,18 +1,15 @@
 public class SAPush implements Action {
     public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
+        system.debug('EXEC: Push to pharmanet');
 
-        // Only push if case is approved and not already sent to pnet.
         if (sar.saCase.status =='Approved' && sar.saCase.Pushed_to_Pnet__c == false) {
-            setEffectiveDate(sar);
-
-            List<SAApprovalRequest> saaRequests = ODRIntegration.getSAApprovalRequests(sar);
-            List<SAApprovalRequestResponse> saaResponses = postSAApprovalRequests(sar.saCase.Id, saaRequests);
+            List<SAApprovalRequestResponse> saaResponses = postSAApprovalRequests(sar.saCase.Id, sar.saApprovalRequests);
             
             if (allValid(saaResponses)) {
-                markPushedToPharmanet(sar);
+                sar.setPushedToPharmanet();
             }
 
-            setTerminationDate(sar, saaRequests);
+            sar.setTerminationDate();
         }
     }
 
@@ -33,20 +30,5 @@ public class SAPush implements Action {
             }
         }
         return true;
-    }
-
-    private void setEffectiveDate(SpecialAuthorityRequest sar) {
-        sar.saCase.Effective_Date__c = Date.today();
-    }
-
-    private void setTerminationDate(SpecialAuthorityRequest sar, List<SAApprovalRequest> saaRequests) {
-        for (SAApprovalRequest saaRequest : saaRequests) {
-            sar.saCase.Termination_Date__c = DateUtil.parseOdrDate(saaRequest?.saRecord?.terminationDate);
-        }
-    }
-
-    private void markPushedToPharmanet(SpecialAuthorityRequest sar) {
-        sar.saCase.Pushed_to_Pnet__c = true;
-        sar.saCase.Pushed_to_Pnet_Date__c = DateTime.now();
     }
 }
