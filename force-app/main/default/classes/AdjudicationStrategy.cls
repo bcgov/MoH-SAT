@@ -47,7 +47,7 @@ public with sharing class AdjudicationStrategy {
 
     public void onAfterEvaluate() {
         if (this.autoPushToPharmanet) {
-            run(StepBuilder.buildPharmanetSaPushStep());
+            run(StepBuilder.buildPharmanetSubmissionStep());
         }
     }
 

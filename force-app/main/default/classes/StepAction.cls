@@ -6,7 +6,7 @@ public with sharing class StepAction {
         PHARMANET_PAYLOAD, 
         PROVIDER_VALIDATION,
         PATIENT_VALIDATION,
-        PHARMANET_SA_PUSH
+        PHARMANET_SUBMISSION
     }
     
     public ActionType actionType { get; private set; }
@@ -124,7 +124,7 @@ public with sharing class StepAction {
             apexClass = PatientValidator.class;
         } else if (this.actionType == StepAction.ActionType.PROVIDER_VALIDATION) {
             apexClass = ProviderValidator.class;
-        } else if (this.actionType == StepAction.ActionType.PHARMANET_SA_PUSH) {
+        } else if (this.actionType == StepAction.ActionType.PHARMANET_SUBMISSION) {
             apexClass = SAPush.class;
         } else {
             apexClass = null;

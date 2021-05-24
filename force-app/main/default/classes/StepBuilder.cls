@@ -46,9 +46,9 @@ public with sharing class StepBuilder {
         return step;
     }
 
-    public static Step buildPharmanetSaPushStep() {
-        Step step = new Step('Auto Push to Pharmanet');
-        step.actions.add(new StepAction(StepAction.ActionType.PHARMANET_SA_PUSH));
+    public static Step buildPharmanetSubmissionStep() {
+        Step step = new Step('Auto Submit to Pharmanet');
+        step.actions.add(new StepAction(StepAction.ActionType.PHARMANET_SUBMISSION));
         return step;
     }
 
