@@ -88,7 +88,8 @@ public with sharing class AdjudicationStrategy {
         }
         String printResult = '\n'+String.join(results, '\n');
         system.debug(LoggingLevel.INFO, printResult);
-        ConnectApi.ChatterFeeds.postFeedElement(null, sar.saCase.Id, ConnectApi.FeedElementType.FeedItem, printResult);
+        
+        if (!Test.isRunningTest()) ConnectApi.ChatterFeeds.postFeedElement(null, sar.saCase.Id, ConnectApi.FeedElementType.FeedItem, printResult);
     }
     
     private List<Step__c> querySteps(Id drugId) {
