@@ -1,7 +1,5 @@
-public class SAPush implements Action {
+public with sharing class PharmanetSubmission implements Action {
     public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
-        system.debug('EXEC: Push to pharmanet');
-
         if (sar.saCase.status =='Approved' && sar.saCase.Pushed_to_Pnet__c == false) {
             List<SAApprovalRequestResponse> saaResponses = postSAApprovalRequests(sar.saCase.Id, sar.saApprovalRequests);
             

@@ -1,7 +1,7 @@
-@isTest
-public class SAPushTest {
+@IsTest
+public with sharing class PharmanetSubmissionTest {
     @isTest
-    public static void SAPushTest() {
+    public static void PharmanetSubmissionTest() {
         Drug__c drug = TestFactory.newDrug('Drug 1');
         drug.Adjudication_Strategy__c = 'Criteria';
         drug.Criteria_Logic__c = 'AND(1, 2)';
@@ -18,9 +18,9 @@ public class SAPushTest {
         saCase.Status = 'Approved';
         insert saCase;
 
-        SAPush pvalidator = new SAPush();
+        PharmanetSubmission action = new PharmanetSubmission();
 
         SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
-        pvalidator.execute(sar, null);
+        action.execute(sar, null);
     }
 }
