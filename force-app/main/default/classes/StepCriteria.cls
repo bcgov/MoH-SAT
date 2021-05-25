@@ -163,9 +163,9 @@ public with sharing class StepCriteria {
 
     private Boolean evaluateEquals(Value expectedValue, Value actualValue) {
         Boolean result = false;
-
+        
         if (this.isString()) {
-            result = expectedValue.getStringValue().equalsIgnoreCase(actualValue.getStringValue());
+            result = expectedValue.getStringValue() == actualValue.getStringValue();
         } 
         else if (this.isBoolean()) {
             result = expectedValue.getBooleanValue() == actualValue.getBooleanValue();
@@ -187,7 +187,7 @@ public with sharing class StepCriteria {
         Boolean result = false;
 
         if (this.isString()) {
-            result = !expectedValue.getStringValue().equalsIgnoreCase(actualValue.getStringValue());
+            result = expectedValue.getStringValue() != actualValue.getStringValue();
         }  
         else if (this.isBoolean()) {
             result = expectedValue.getBooleanValue() != actualValue.getBooleanValue();
@@ -208,8 +208,8 @@ public with sharing class StepCriteria {
     private Boolean evaluateStartsWith(Value expectedValue, Value actualValue) {
         Boolean result = false;
 
-        if (this.isString()) {
-            result = actualValue.getStringValue().startsWithIgnoreCase(expectedValue.getStringValue());
+        if (this.isString() && String.isNotBlank(actualValue.getStringValue())) {
+            result = actualValue.getStringValue().startsWith(expectedValue.getStringValue());
         } 
         
         return result;
