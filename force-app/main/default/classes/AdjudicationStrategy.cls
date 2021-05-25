@@ -40,6 +40,8 @@ public with sharing class AdjudicationStrategy {
     }
 
     public void evaluate() {
+        if (!sar.hasDrug()) return;
+
         for (Step step : StepBuilder.build(querySteps(sar.drug.Id))) {
             run(step);
         }
