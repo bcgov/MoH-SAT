@@ -1,4 +1,8 @@
 public with sharing class PharmanetSubmission implements Action {
+
+    @TestVisible
+    private SAApprovalRequestResponse mockResult { get; set; }
+
     public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
         if (sar.saCase.status =='Approved' && sar.saCase.Pushed_to_Pnet__c == false) {
             List<SAApprovalRequestResponse> saaResponses = postSAApprovalRequests(sar.saCase.Id, sar.saApprovalRequests);
@@ -15,7 +19,7 @@ public with sharing class PharmanetSubmission implements Action {
         List<SAApprovalRequestResponse> saaResponses = new List<SAApprovalRequestResponse>();
             
         for(SAApprovalRequest saaRequest: saaRequests) {
-            saaResponses.add(ODRIntegration.postSAApproval(caseId, saaRequest));
+            saaResponses.add(callService(caseId, saaRequest));
         }
 
         return saaResponses;
@@ -28,5 +32,9 @@ public with sharing class PharmanetSubmission implements Action {
             }
         }
         return true;
+    }
+
+    private SAApprovalRequestResponse callService(Id caseId, SAApprovalRequest saaRequest) {
+        return Test.isRunningTest() ? mockResult : ODRIntegration.postSAApproval(caseId, saaRequest);
     }
 }
