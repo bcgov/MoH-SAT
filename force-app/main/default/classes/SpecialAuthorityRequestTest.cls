@@ -15,7 +15,7 @@ public class SpecialAuthorityRequestTest {
         system.assertEquals(true, sar.hasDrug());
         
         sar = new SobjectSarBuilder(
-            new Drug__c(), 
+            null, 
             new Account(), 
             new Account(), 
             new Case(), 
