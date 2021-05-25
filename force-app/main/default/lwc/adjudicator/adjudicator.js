@@ -10,15 +10,21 @@ export default class Adjudicator extends LightningElement {
     recordId;
 
     async handleAdjudicate() {
-        this.busy = true;
+        this.adjudicate(false);
+    }
+    
+    async handleAdjudicateWithAssignment() {
+        this.adjudicate(true);
+    }
 
+    async adjudicate(assignOwner) {
+        this.busy = true;
         try {
-            await runAdjudicator({caseId: this.recordId});
-            getRecordNotifyChange([{recordId: this.recordId}]); // delete
+            await runAdjudicator({caseId: this.recordId, assignOwner: assignOwner});
+            getRecordNotifyChange([{recordId: this.recordId}]);
         } catch (error) {
             this.showToast('Error', error.body.message, 'error');
         }
-
         this.busy = false;
     }
 

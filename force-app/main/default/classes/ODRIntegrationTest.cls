@@ -37,13 +37,14 @@ public class ODRIntegrationTest {
         Test.stopTest();
     }
     @isTest static void verifyPatientInformationTest() {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(
             new Drug__c(),
             new Account(),
             new Account(),
             new Case(),
-            new List<Request_Detail__c>()
-        );
+            new List<Request_Detail__c>(),
+            new List<ContentVersion>()
+        ).build();
         Patient p = ODRIntegration.verifyPatientInformation(sar);
         System.assertEquals(false, p.verified);
     }
@@ -66,7 +67,7 @@ public class ODRIntegrationTest {
         ODRIntegration.updateCasePHNStatus(saCase.Id, true);
 
         Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         Test.stopTest();
 
         System.assertEquals(true, sar.saCase.patient_validated__c);
@@ -97,7 +98,7 @@ public class ODRIntegrationTest {
         insert requestDetails;
 
         Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         List<SAApprovalRequest> saarList = ODRIntegration.getSAApprovalRequests(sar);
         Test.stopTest();
 
@@ -149,7 +150,7 @@ public class ODRIntegrationTest {
         ODRIntegration.updateCasePusedToPNet(saCase.Id);
 
         Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         Test.stopTest();
 
         System.assertEquals(true, sar.saCase.Pushed_to_Pnet__c);
@@ -173,7 +174,7 @@ public class ODRIntegrationTest {
         String identifier = ODRIntegration.getPatientIdentifier(saCase.Id);
 
         Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         Test.stopTest();
 
         System.assertEquals(identifier, sar.saCase.Contact.Account.Patient_Identifier__pc);

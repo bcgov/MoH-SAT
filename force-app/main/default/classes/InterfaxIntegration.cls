@@ -57,7 +57,8 @@ public with sharing class InterfaxIntegration {
       try {
         System.debug('GETTING FAX NUM');
         System.debug(recordId);
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(recordId).build();
+        
         System.debug('****');
         System.debug(sar.saCase.Provider_Fax__c);
         return sar.saCase.Provider_Fax__c;

@@ -80,48 +80,64 @@ public with sharing class TestFactory {
         return rd;
     }
 
-    public static Adjudication_Criteria__c newCriteria(Drug__c drug, Integer order, String objectName, String fieldName, String questionId, String operator, String stringValue) {
-        return newCriteria(drug, order, objectName,fieldName,questionId,operator,stringValue,null,null,null,null);
+    public static Step__c newStep(Drug__c drug, Integer order, String criteriaLogic) {
+        Step__c step = newStep(drug, order, false);
+        step.Criteria_Logic__c = criteriaLogic;
+        return step;
     }
 
-    public static Adjudication_Criteria__c newCriteria(Drug__c drug, Integer order, String objectName, String fieldName, String questionId, String operator, Boolean booleanValue) {
-        return newCriteria(drug, order, objectName,fieldName,questionId,operator,null,booleanValue,null,null,null);
+    public static Step__c newStep(Drug__c drug, Integer order, Boolean alwaysRun) {
+        Step__c step = new Step__c();
+        step.Drug__c = drug.Id;
+        step.Order__c = order;
+        step.Always_Run__c = alwaysRun;
+        step.Title__c = 'Test Step ' + String.valueOf(order);
+        step.Criteria_Logic__c = null;
+        return step;
     }
 
-    public static Adjudication_Criteria__c newCriteria(Drug__c drug, Integer order, String objectName, String fieldName, String questionId, String operator, Decimal decimalValue) {
-        return newCriteria(drug, order, objectName,fieldName,questionId,operator,null,null,decimalValue,null,null);
+    public static Step_Criteria__c newCriteria(Step__c step, Integer order, String objectName, String fieldName, String questionId, String operator, String stringValue) {
+        return newCriteria(step, order, objectName,fieldName,questionId,operator,stringValue,null,null,null,null);
     }
 
-    public static Adjudication_Criteria__c newCriteria(Drug__c drug, Integer order, String objectName, String fieldName, String questionId, String operator, Date dateValue) {
-        return newCriteria(drug, order, objectName,fieldName,questionId,operator,null,null,null,dateValue,null);
+    public static Step_Criteria__c newCriteria(Step__c step, Integer order, String objectName, String fieldName, String questionId, String operator, Boolean booleanValue) {
+        return newCriteria(step, order, objectName,fieldName,questionId,operator,null,booleanValue,null,null,null);
     }
 
-    public static Adjudication_Criteria__c newCriteria(Drug__c drug, Integer order, String objectName, String fieldName, String questionId, String operator, Datetime datetimeValue) {
-        return newCriteria(drug, order, objectName,fieldName,questionId,operator,null,null,null,null,datetimeValue);
+    public static Step_Criteria__c newCriteria(Step__c step, Integer order, String objectName, String fieldName, String questionId, String operator, Decimal decimalValue) {
+        return newCriteria(step, order, objectName,fieldName,questionId,operator,null,null,decimalValue,null,null);
     }
 
-    public static Adjudication_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, String stringValue) {
+    public static Step_Criteria__c newCriteria(Step__c step, Integer order, String objectName, String fieldName, String questionId, String operator, Date dateValue) {
+        return newCriteria(step, order, objectName,fieldName,questionId,operator,null,null,null,dateValue,null);
+    }
+
+    public static Step_Criteria__c newCriteria(Step__c step, Integer order, String objectName, String fieldName, String questionId, String operator, Datetime datetimeValue) {
+        return newCriteria(step, order, objectName,fieldName,questionId,operator,null,null,null,null,datetimeValue);
+    }
+
+    public static Step_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, String stringValue) {
         return newCriteria(null, null, objectName,fieldName,questionId,operator,stringValue,null,null,null,null);
     }
 
-    public static Adjudication_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Boolean booleanValue) {
+    public static Step_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Boolean booleanValue) {
         return newCriteria(null, null, objectName,fieldName,questionId,operator,null,booleanValue,null,null,null);
     }
 
-    public static Adjudication_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Decimal decimalValue) {
+    public static Step_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Decimal decimalValue) {
         return newCriteria(null, null, objectName,fieldName,questionId,operator,null,null,decimalValue,null,null);
     }
 
-    public static Adjudication_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Date dateValue) {
+    public static Step_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Date dateValue) {
         return newCriteria(null, null, objectName,fieldName,questionId,operator,null,null,null,dateValue,null);
     }
 
-    public static Adjudication_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Datetime datetimeValue) {
+    public static Step_Criteria__c newCriteria(String objectName, String fieldName, String questionId, String operator, Datetime datetimeValue) {
         return newCriteria(null, null, objectName,fieldName,questionId,operator,null,null,null,null,datetimeValue);
     }
 
-    public static Adjudication_Criteria__c newCriteria(
-            Drug__c drug,
+    public static Step_Criteria__c newCriteria(
+            Step__c step,
             Integer order,
             String objectName, 
             String fieldName, 
@@ -132,19 +148,19 @@ public with sharing class TestFactory {
             Decimal decimalValue,
             Date dateValue,
             Datetime datetimeValue) {
-        Adjudication_Criteria__c ac = new Adjudication_Criteria__c();
-        ac.Drug__c = drug == null ? null : drug.Id;
-        ac.Order__c = order;
-        ac.Object_Name__c = objectName;
-        ac.Field_Name__c = fieldName;
-        ac.Question_ID__c = questionId;
-        ac.Operator__c = operator;
-        ac.String_Value__c = stringValue;
-        ac.Boolean_Value__c = booleanValue == null ? false : booleanValue;
-        ac.Decimal_Value__c = decimalValue;
-        ac.Date_Value__c = dateValue;
-        ac.Datetime_Value__c = datetimeValue;
-        return ac;
+        Step_Criteria__c sc = new Step_Criteria__c();
+        sc.Step__c = step == null ? null : step.Id;
+        sc.Order__c = order == null ? 0 : order;
+        sc.Object_Name__c = objectName;
+        sc.Field_Name__c = fieldName;
+        sc.Question_ID__c = questionId;
+        sc.Operator__c = operator;
+        sc.String_Value__c = stringValue;
+        sc.Boolean_Value__c = booleanValue == null ? false : booleanValue;
+        sc.Decimal_Value__c = decimalValue;
+        sc.Date_Value__c = dateValue;
+        sc.Datetime_Value__c = datetimeValue;
+        return sc;
     }
 
     public static Product_Health_Category__c newProductHealthCategory(String name, String DINs) {

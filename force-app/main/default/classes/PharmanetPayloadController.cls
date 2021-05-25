@@ -14,8 +14,9 @@ public with sharing class PharmanetPayloadController {
 
     @AuraEnabled
     public static List<SAApprovalRequest> getPnetSars(Id recordId) {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
-        return OdrIntegration.getSAApprovalRequests(sar);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(recordId).build();
+        new AdjudicationStrategy(sar, false).evaluate();
+        return sar.getSaApprovalRequests();
     }
 
     @AuraEnabled

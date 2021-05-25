@@ -4,7 +4,7 @@ public with sharing class ODRIntegration {
     // LWC Path
     @AuraEnabled(cacheable=true)
     public static Patient verifyPatientInformationx(Id recordId) {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(recordId).build();
 
         // TODO: dmlUpdate
         return verifyPatientInformation(sar);
@@ -175,7 +175,7 @@ public with sharing class ODRIntegration {
         System.debug('verifyCollegeInformation');
         System.debug(recordId);
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(recordId).build();
         Provider p = getProviderWithRecordId(recordId, sar.saCase.Provider__r.Provider_Identifier__c, sar.saCase.Provider__r.Provider_Type__c);
         System.debug('saarr');
         return p;

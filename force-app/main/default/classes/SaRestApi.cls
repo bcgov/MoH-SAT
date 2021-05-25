@@ -4,7 +4,7 @@ global with sharing class SaRestApi {
     global static void doPost() {
         RestRequest req = RestContext.request;
         
-        SpecialAuthorityRequest sar = SarBuilder.build(req.requestBody.toString());
+        SpecialAuthorityRequest sar = new JsonSarBuilder(req.requestBody.toString()).build();
         sar.save();
 
         Case c = [select Id, CaseNumber from Case where Id = :sar.saCase.Id];
