@@ -125,7 +125,7 @@ public with sharing class StepAction {
         } else if (this.actionType == StepAction.ActionType.PROVIDER_VALIDATION) {
             apexClass = ProviderValidator.class;
         } else if (this.actionType == StepAction.ActionType.PHARMANET_SUBMISSION) {
-            apexClass = SAPush.class;
+            apexClass = PharmanetSubmission.class;
         } else {
             apexClass = null;
         }
