@@ -22,7 +22,7 @@ public with sharing class StepAction {
     public String pharmanetCode { get; private set; }
     public List<String> excludedPlans { get; private set; }
     public List<String> justificationCodes { get; private set; }
-    public Boolean executed { get; private set; }
+    public Boolean executed { get; set; }
 
     public StepAction(StepAction.ActionType actionType) {
         this.actionType = actionType;

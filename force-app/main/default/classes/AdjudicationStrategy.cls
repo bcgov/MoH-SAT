@@ -58,6 +58,7 @@ public with sharing class AdjudicationStrategy {
 
         for (StepAction action : step.actions) {
             if (action.isOwnerAssignment() && !this.assignOwner) continue;
+            
             action.run(sar);
         }
     }
