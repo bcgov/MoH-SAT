@@ -63,7 +63,7 @@ for (Drug__c drug : drugs) {
     Step__c step = new Step__c();
     step.Drug__c = drug.Id;
     step.Order__c = 200;
-    step.Title__c = 'Default Pharmanet Payload if Case is Approved';
+    step.Title__c = 'Pharmanet Payload if Approved';
     step.Criteria_Logic__c = 'AND(1)';
     steps.put(drug.Drug_Code__c, step);
 }
