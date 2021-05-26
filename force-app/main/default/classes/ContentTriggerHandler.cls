@@ -7,7 +7,7 @@ public class ContentTriggerHandler {
         distributionsToInsert.add(createContentDistribution(objContentVersion.Id, objContentVersion.Title));
       }
 
-      if (!distributionsToInsert.isEmpty()) {
+      if (!distributionsToInsert.isEmpty() && !Test.isRunningTest()) {
         insert distributionsToInsert;
       }
     }
