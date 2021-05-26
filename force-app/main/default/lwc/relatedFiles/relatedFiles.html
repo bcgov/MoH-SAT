@@ -1,0 +1,31 @@
+<template>
+  <div class="slds-p-horizontal_medium">
+      <template if:false={hasRecords}>
+          <div class="slds-box slds-text-align_center">
+              <div class="slds-m-vertical_small">
+                  <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" variant="border-filled"></lightning-icon></p>
+                  <p>Empty.</p>
+              </div>
+          </div>
+      </template>
+      <div if:true={hasRecords}>
+          <div class="rdList">
+              <template for:each={records.data} for:item="rd">
+                  <div key={rd.Id} class="rdItem slds-grid slds-gutters slds-p-vertical_xx-small">
+                      <div class="slds-col slds-text-color_weak">
+                          <div>Name: <lightning-formatted-text value={rd.Title}></lightning-formatted-text>
+                           &nbsp;<lightning-button
+                                variant="brand"
+                                label="Download"
+                                value={rd.URL}
+                                title="Download"
+                                onclick={handleDownload}
+                                class="btn-download">
+                            </lightning-button></div>
+                      </div>
+                  </div>
+              </template>
+          </div>
+      </div>
+  </div>
+</template>
