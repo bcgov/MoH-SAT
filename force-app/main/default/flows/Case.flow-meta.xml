@@ -108,6 +108,104 @@
                 <stringValue>Set Owner to Queue</stringValue>
             </value>
         </processMetadataValues>
+        <name>myRule_22_A1</name>
+        <label>Change case owner</label>
+        <locationX>2200</locationX>
+        <locationY>200</locationY>
+        <actionName>QueueOwnerSetter</actionName>
+        <actionType>apex</actionType>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Case ID</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue/>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>caseId</name>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Queue API Name</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>maxOccurs</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>objectType</name>
+                <value>
+                    <stringValue/>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <name>queueName</name>
+            <value>
+                <elementReference>myVariable_current.Case_Ownership__c</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <actionCalls>
+        <processMetadataValues>
+            <name>apexSelection</name>
+            <value>
+                <stringValue>Set Owner to Queue</stringValue>
+            </value>
+        </processMetadataValues>
         <name>myRule_3_A1</name>
         <label>Set Owner to Urgent</label>
         <locationX>300</locationX>
@@ -203,6 +301,38 @@
         </inputParameters>
     </actionCalls>
     <apiVersion>50.0</apiVersion>
+    <decisions>
+        <name>isChangedDecision23_myRule_22_Case_Ownership_c</name>
+        <label>isChangedDecision23_myRule_22_Case_Ownership_c</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>isChangedRule_23_myRule_22_Case_Ownership_c</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>myVariable_old</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>myVariable_old.Case_Ownership__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>myVariable_current.Case_Ownership__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myDecision</targetReference>
+            </connector>
+            <label>isChangedRule_23_myRule_22_Case_Ownership_c</label>
+        </rules>
+    </decisions>
     <decisions>
         <processMetadataValues>
             <name>index</name>
@@ -450,6 +580,9 @@
         <label>myDecision18</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>myDecision21</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_19</name>
@@ -554,6 +687,58 @@
                 <targetReference>myRule_3_A1</targetReference>
             </connector>
             <label>Urgent Request</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <processMetadataValues>
+            <name>index</name>
+            <value>
+                <numberValue>8.0</numberValue>
+            </value>
+        </processMetadataValues>
+        <name>myDecision21</name>
+        <label>myDecision21</label>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>default</defaultConnectorLabel>
+        <rules>
+            <name>myRule_22</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Picklist</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>isChangedRule_23_myRule_22_Case_Ownership_c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>myRule_22_A1</targetReference>
+            </connector>
+            <label>Set queue ownership</label>
         </rules>
     </decisions>
     <decisions>
@@ -1062,6 +1247,9 @@
                 <leftValueReference>myVariable_old.Closed_by__c</leftValueReference>
                 <operator>EqualTo</operator>
             </conditions>
+            <connector>
+                <targetReference>myDecision21</targetReference>
+            </connector>
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
@@ -1072,7 +1260,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_9244021815</name>
+        <name>formula_11_myRule_10_A1_0461389042</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1083,7 +1271,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_15_A1_7072299254</name>
+        <name>formula_16_myRule_15_A1_8628743382</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1094,7 +1282,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_17_myRule_15_A1_0555216387</name>
+        <name>formula_17_myRule_15_A1_2668851264</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1105,7 +1293,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_19_A1_2297868280</name>
+        <name>formula_20_myRule_19_A1_4078400324</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1116,7 +1304,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_8615588669</name>
+        <name>formula_8_myRule_7_A1_5843024794</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -1131,7 +1319,7 @@
         <dataType>Boolean</dataType>
         <expression>(ISNEW() || ISCHANGED({!myVariable_current.Origin})) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)</expression>
     </formulas>
-    <interviewLabel>Case-6_InterviewLabel</interviewLabel>
+    <interviewLabel>Case-2_InterviewLabel</interviewLabel>
     <label>Case</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1237,7 +1425,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_9244021815</elementReference>
+                <elementReference>formula_11_myRule_10_A1_0461389042</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1321,7 +1509,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_16_myRule_15_A1_7072299254</elementReference>
+                <elementReference>formula_16_myRule_15_A1_8628743382</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1357,7 +1545,7 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_17_myRule_15_A1_0555216387</elementReference>
+                <elementReference>formula_17_myRule_15_A1_2668851264</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1391,6 +1579,9 @@
         <label>Set Closed by</label>
         <locationX>1900</locationX>
         <locationY>200</locationY>
+        <connector>
+            <targetReference>myDecision21</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <processMetadataValues>
@@ -1438,7 +1629,7 @@
             </processMetadataValues>
             <field>Closed_by__c</field>
             <value>
-                <elementReference>formula_20_myRule_19_A1_2297868280</elementReference>
+                <elementReference>formula_20_myRule_19_A1_4078400324</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1690,12 +1881,12 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_8615588669</elementReference>
+                <elementReference>formula_8_myRule_7_A1_5843024794</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
     </recordUpdates>
-    <startElementReference>myDecision</startElementReference>
+    <startElementReference>isChangedDecision23_myRule_22_Case_Ownership_c</startElementReference>
     <status>Active</status>
     <variables>
         <name>myVariable_current</name>
