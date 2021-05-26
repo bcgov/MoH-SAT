@@ -21,7 +21,7 @@ public without sharing class RelatedFiles {
 
       for(Integer i = 0; i < links.size(); i++){
         ContentDocument contentDocument = [ SELECT Id, Title FROM ContentDocument WHERE Id =: links[i].ContentDocumentId LIMIT 1 ];
-        ContentVersion contentVersion = [ SELECT Id, ContentDocumentId FROM ContentVersion WHERE ContentDocumentId =: contentDocument.Id LIMIT 1 ];
+        ContentVersion contentVersion = [ SELECT Id, Title, ContentDocumentId FROM ContentVersion WHERE ContentDocumentId =: contentDocument.Id LIMIT 1 ];
         List<ContentDistribution> contentDistributions = [ SELECT Id, Name, DistributionPublicUrl, ContentVersionId FROM ContentDistribution WHERE ContentVersionId =: contentVersion.Id ];
 
         if (contentDistributions.size() > 0) {
