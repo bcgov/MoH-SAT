@@ -16,7 +16,7 @@ public without sharing class RelatedFiles {
       List<RelatedFilesDownload> downloadLinks = new List<RelatedFilesDownload>();
 
       List<ContentDocumentLink> links = [
-        SELECT ContentDocumentId, LinkedEntityId, ContentDocument.title FROM ContentDocumentLink where LinkedEntityId=:caseId and LinkedEntity.Type='Case'
+        SELECT ContentDocumentId, LinkedEntityId, ContentDocument.Title FROM ContentDocumentLink where LinkedEntityId=:caseId and LinkedEntity.Type='Case'
       ];
 
       for(Integer i = 0; i < links.size(); i++){
