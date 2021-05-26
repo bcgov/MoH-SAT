@@ -12,7 +12,7 @@ public class ContentTriggerHandlerTest {
     cv.VersionData =beforeblob;
     insert cv;
 
-    ContentVersion testContent = [SELECT id, ContentDocumentId FROM ContentVersion where Id = :cv.Id];
+    ContentVersion testContent = [SELECT id, Title, ContentDocumentId FROM ContentVersion where Id = :cv.Id];
 
     ContentDocumentLink contentlink=new ContentDocumentLink();
     contentlink.LinkedEntityId=record.id;
