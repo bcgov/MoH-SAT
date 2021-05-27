@@ -91,7 +91,8 @@ public with sharing class TestFactory {
         step.Drug__c = drug.Id;
         step.Order__c = order;
         step.Always_Run__c = alwaysRun;
-        step.Title__c = 'Test Step ' + String.valueOf(order);
+        step.Name = 'Test Step ' + String.valueOf(order);
+        step.External_ID__c = Steps.formatExternalId(drug.Id, order, step.Name);
         step.Criteria_Logic__c = null;
         return step;
     }

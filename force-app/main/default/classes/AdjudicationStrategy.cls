@@ -97,7 +97,7 @@ public with sharing class AdjudicationStrategy {
     private List<Step__c> querySteps(Id drugId) {
         return [
             select
-                Id, Title__c, Order__c, Always_Run__c, Criteria_Logic__c, 
+                Id, Name, External_ID__c, Order__c, Always_Run__c, Criteria_Logic__c, 
                 (
                     select 
                         Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,

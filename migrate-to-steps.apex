@@ -21,23 +21,24 @@ List<Drug__c> drugs = [
     where Id in (select Drug__c from Adjudication_Criteria__c)
 ];
 
-Map<String, Step__c> steps = new Map<String, Step__c>();
+Map<String, Step__c> stepsMap = new Map<String, Step__c>();
 for (Drug__c drug : drugs) {
     Step__c step = new Step__c();
     step.Drug__c = drug.Id;
     step.Order__c = 100;
-    step.Title__c = 'Approve Case';
+    step.Name = 'Approve Case';
+    step.External_ID__c = Steps.formatExternalId(drug.Drug_Code__c, step.Order__c.intValue(), step.Name);
     step.Criteria_Logic__c = drug.Criteria_Logic__c;
-    steps.put(drug.Drug_Code__c, step);
+    stepsMap.put(drug.Drug_Code__c, step);
 }
-insert steps.values();
+insert stepsMap.values();
 
 List<Step_Criteria__c> criterias = new List<Step_Criteria__c>();
 List<Step_Action__c> actions = new List<Step_Action__c>();
 for (Drug__c drug : drugs){    
     for (Adjudication_Criteria__c ac : drug.Adjudication_Criteria__r) {
         Step_Criteria__c sc = new Step_Criteria__c();
-        sc.Step__c = steps.get(drug.Drug_Code__c).Id;
+        sc.Step__c = stepsMap.get(drug.Drug_Code__c).Id;
         sc.Order__c = ac.Order__c;
         sc.Object_Name__c = ac.Object_Name__c;
         sc.Field_Name__c = ac.Field_Name__c;
@@ -48,7 +49,7 @@ for (Drug__c drug : drugs){
     }
 
     Step_Action__c action = new Step_Action__c();
-    action.Step__c = steps.get(drug.Drug_Code__c).Id;
+    action.Step__c = stepsMap.get(drug.Drug_Code__c).Id;
     action.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId();
     action.Order__c = 100;
     action.Adjudication_Status__c = 'Approved';
@@ -58,22 +59,23 @@ for (Drug__c drug : drugs){
 insert actions;
 insert criterias;
 
-steps = new Map<String, Step__c>();
+stepsMap = new Map<String, Step__c>();
 for (Drug__c drug : drugs) {
     Step__c step = new Step__c();
     step.Drug__c = drug.Id;
     step.Order__c = 200;
-    step.Title__c = 'Pharmanet Payload if Approved';
+    step.Name = 'Pharmanet Payload if Approved';
+    step.External_ID__c = Steps.formatExternalId(drug.Drug_Code__c, step.Order__c.intValue(), step.Name);
     step.Criteria_Logic__c = 'AND(1)';
-    steps.put(drug.Drug_Code__c, step);
+    stepsMap.put(drug.Drug_Code__c, step);
 }
-insert steps.values();
+insert stepsMap.values();
 
 criterias = new List<Step_Criteria__c>();
 actions = new List<Step_Action__c>();
 
 for (Drug__c drug : drugs){  
-    Step__c step = steps.get(drug.Drug_Code__c);
+    Step__c step = stepsMap.get(drug.Drug_Code__c);
 
     Step_Criteria__c sc = new Step_Criteria__c();
     sc.Step__c = step.Id;
