@@ -11,7 +11,7 @@ public with sharing class Steps {
         for (Step__c step : steps) {
             if (String.isBlank(step.External_ID__c)) {
                 step.External_ID__c = formatExternalId(
-                    drugs.get(step.Id).Drug_Code__c,
+                    drugs.get(step.Drug__c).Drug_Code__c,
                     step.Order__c.intValue(),
                     step.Name
                 );
@@ -25,7 +25,7 @@ public with sharing class Steps {
             drugCode,
             String.valueOf(order),
             name
-        });
+        }).replaceAll('[^a-zA-Z\\d]+', '_');
     }
 
     private Map<Id, Drug__c> queryDrugs(List<Step__c> steps) {
