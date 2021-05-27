@@ -398,7 +398,7 @@ public with sharing class ODRIntegration {
         }
         System.debug(queryParams);
         // TODO?
-        // queryParams += '&startDate=2001-01-01';
+        queryParams += '&startDate=1990-01-01';
         // queryParams += '&endDate=2020-01-01';
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
