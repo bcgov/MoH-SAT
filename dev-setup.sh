@@ -2,18 +2,27 @@
 
 help() {
    echo ""
-   echo "Usage: $0 -a <string>"
-   echo -e "\t-a Set an alias for scratch org. Default 'sat-dev'."
+   echo "USAGE:"
+   echo "  $0 [-a <string>] [-d <integer>]"
+   echo ""
+   echo "OPTIONS:"
+   echo -e " -a Alias. Set a custom alias for scratch org. Default: 'sat-dev'."
+   echo -e " -d Duration. Set a custom duration for a scratch org. Default: 7, min: 1, max: 30."
+   echo ""
+   echo "EXAMPLES:"
+   echo -e "\t $ $0 -a feature-x -d 20"
    exit 1 # Exit script after printing help
 }
 
 verbose=true;
+duration=7;
 alias='sat-dev';
 
-while getopts a: opt 
+while getopts a:d: opt 
 do
    case "$opt" in
    (a) alias="$OPTARG" ;;
+   (d) duration="$OPTARG" ;;
    (?) help ;;
    esac
 done
