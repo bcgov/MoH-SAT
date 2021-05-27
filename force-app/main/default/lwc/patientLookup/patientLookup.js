@@ -157,10 +157,16 @@ export default class PatientLookup extends LightningElement {
                 FirstName: form.FirstName,
                 LastName: form.LastName,
                 Patient_is_Deceased__c: form.Deceased,
-                PersonBirthdate: form.PersonBirthdate            
+                PersonBirthdate: this.nullifyInvalidSfdcDate(form.PersonBirthdate)            
             }
         }
         this.dispatchEvent(new CustomEvent('result', { detail: result }));
+    }
+
+    nullifyInvalidSfdcDate(sfdcDate) {
+        if (!sfdcDate) return null; 
+        var year = new Date(sfdcDate).getUTCFullYear();
+        return year < 1700 || year > 4000 ? null : sfdcDate;
     }
 
     get noRecord() {
