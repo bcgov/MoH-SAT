@@ -5,7 +5,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>collapsed</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsConfiguration</name>
@@ -32,6 +32,30 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
+                <fieldItem>Record.Name</fieldItem>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Description__c</fieldItem>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.Drug__c</fieldItem>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.External_ID__c</fieldItem>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-666eecf0-3862-4698-9397-2e411790b528</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
                 <fieldItem>Record.Order__c</fieldItem>
             </fieldInstance>
         </itemInstances>
@@ -43,32 +67,6 @@
         <itemInstances>
             <fieldInstance>
                 <fieldItem>Record.Criteria_Logic__c</fieldItem>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Always_Run__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-666eecf0-3862-4698-9397-2e411790b528</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Drug__c</fieldItem>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Title__c</fieldItem>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.Description__c</fieldItem>
             </fieldInstance>
         </itemInstances>
         <name>Facet-213d2beb-1b76-4569-9fe6-cbc5248596ec</name>
@@ -217,13 +215,6 @@
                     <value>Facet-ecdfed70-2ec9-4ef2-b9b8-197ce4b03358</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tabset</componentName>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Always_Run__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

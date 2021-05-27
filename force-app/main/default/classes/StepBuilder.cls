@@ -10,7 +10,7 @@ public with sharing class StepBuilder {
     public static Step build(Step__c record) {
         return new Step(
             record.Order__c.intValue(),
-            record.Title__c,
+            record.Name,
             record.Always_Run__c,
             record.Criteria_Logic__c,
             build(record.Step_Criteria__r),
