@@ -27,6 +27,7 @@ for (Drug__c drug : drugs) {
     step.Drug__c = drug.Id;
     step.Order__c = 100;
     step.Name = 'Approve Case';
+    step.Description__c = 'Migrated from Adjudication Criteria records to criteria-based actions.';
     step.External_ID__c = Steps.formatExternalId(drug.Drug_Code__c, step.Order__c.intValue(), step.Name);
     step.Criteria_Logic__c = drug.Criteria_Logic__c;
     stepsMap.put(drug.Drug_Code__c, step);
@@ -65,6 +66,7 @@ for (Drug__c drug : drugs) {
     step.Drug__c = drug.Id;
     step.Order__c = 200;
     step.Name = 'Pharmanet Payload if Approved';
+    step.Description__c = 'Migrated from Drug Template records to criteria-based actions.';
     step.External_ID__c = Steps.formatExternalId(drug.Drug_Code__c, step.Order__c.intValue(), step.Name);
     step.Criteria_Logic__c = 'AND(1)';
     stepsMap.put(drug.Drug_Code__c, step);
