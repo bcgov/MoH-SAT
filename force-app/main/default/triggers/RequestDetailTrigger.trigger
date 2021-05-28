@@ -1,4 +1,4 @@
-trigger RequestDetailTrigger on Request_Detail__c (after insert, after update) {
+trigger RequestDetailTrigger on Request_Detail__c (after insert) {
     
     Set<Id> caseIds = new Set<Id>();
 

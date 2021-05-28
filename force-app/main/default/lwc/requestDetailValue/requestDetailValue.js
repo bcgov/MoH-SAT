@@ -2,7 +2,7 @@ import { LightningElement, api, wire } from 'lwc';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import TIMEZONE from '@salesforce/i18n/timeZone';
 import OBJ_REQUEST_DETAIL from '@salesforce/schema/Request_Detail__c';
-import UserPreferencesShowFaxToGuestUsers from '@salesforce/schema/User.UserPreferencesShowFaxToGuestUsers';
+import postToCaseFeed from '@salesforce/apex/RequestDetails.postToCaseFeed'
 export default class RequestDetailValue extends LightningElement {
     timezone = TIMEZONE;
     
@@ -35,10 +35,12 @@ export default class RequestDetailValue extends LightningElement {
             this.type = 'boolean';
             this.value = value.Boolean_Value__c;
         } 
+
+        this._record = value;
     }
 
     get record() {
-        return this.value;
+        return this._record;
     }
 
     get isString() {
@@ -90,7 +92,7 @@ export default class RequestDetailValue extends LightningElement {
     }
 
     successHandler(event) {
-        this.record = {
+        const newrecord = {
             Id: event.detail.id,
             String_Value__c: event.detail.fields.String_Value__c.value,
             Date_Value__c: event.detail.fields.Date_Value__c.value,
@@ -98,6 +100,11 @@ export default class RequestDetailValue extends LightningElement {
             Decimal_Value__c: event.detail.fields.Decimal_Value__c.value,
             Boolean_Value__c: event.detail.fields.Boolean_Value__c.value
         };
+
+        postToCaseFeed({ oldRecord: this._record, newRecord: newrecord })
+
+        this.record = newrecord;
+
         this.mode = 'view';
     }
 
