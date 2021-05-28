@@ -10,4 +10,30 @@ public without sharing class RequestDetails {
             order by Sort_Order__c asc
         ];
     }
+ 
+    @AuraEnabled
+    public static void postToCaseFeed(Request_Detail__c oldRecord, Request_Detail__c newRecord){
+        Request_Detail__c rd = [select Id, Name, Question__c, Case__c from Request_Detail__c where Id = :oldRecord.Id];
+        Case caseRecord = [select Id from Case where Id = :rd.Case__c];
+
+        String post = String.format(
+            '{0} changed request detail response for "{1}" ({2}) from "{3}" to "{4}"', new String[] {
+                UserInfo.getName(),
+                rd.Question__c,
+                rd.Name,
+                getValue(oldRecord),
+                getValue(newRecord)
+            });
+
+        ConnectApi.ChatterFeeds.postFeedElement(null, caseRecord.Id, ConnectApi.FeedElementType.FeedItem, post);
+    }
+
+    private static String getValue(Request_Detail__c record) {
+        if (String.isNotBlank(record.String_Value__c)) return record.String_Value__c;
+        else if (record.Decimal_Value__c != null) return String.valueOf(record.Decimal_Value__c);
+        else if (record.Datetime_Value__c != null) return String.valueOf(record.Datetime_Value__c); 
+        else if (record.Date_Value__c != null) return String.valueOf(record.Date_Value__c); 
+        else return String.valueOf(record.Boolean_Value__c); 
+    
+    }
 }
