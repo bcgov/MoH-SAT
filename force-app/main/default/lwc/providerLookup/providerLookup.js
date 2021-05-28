@@ -119,7 +119,7 @@ export default class ProviderLookup extends LightningElement {
                 Provider_Type__pc: this.form.providerIdType,
                 FirstName: form.firstName,
                 LastName: form.lastName,
-                PersonBirthdate: form.personBirthdate,
+                PersonBirthdate: this.nullifyInvalidSfdcDate(form.personBirthdate)
             }
         }
         this.dispatchEvent(new CustomEvent('result', { detail: result }));
@@ -137,6 +137,12 @@ export default class ProviderLookup extends LightningElement {
         if (!odrDateStr) return null;
         var mdy = odrDateStr.split('/');
         return mdy[2] + '-' + mdy[0] + '-' + mdy[1];
+    }
+
+    nullifyInvalidSfdcDate(sfdcDate) {
+        if (!sfdcDate) return null; 
+        var year = new Date(sfdcDate).getUTCFullYear();
+        return year < 1700 || year > 4000 ? null : sfdcDate;
     }
 
     get statusCss() {
