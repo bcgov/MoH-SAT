@@ -1,7 +1,4 @@
 public with sharing class InterfaxIntegration {
-    public InterfaxIntegration() {
-    }
-
     /*
          Send outbound Fax
          URI: POST URI: GET https://rest.interfax.net/outbound/faxes?faxNumber={faxNumber}

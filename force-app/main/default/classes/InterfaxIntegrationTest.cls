@@ -5,6 +5,26 @@ public class InterfaxIntegrationTest {
     EmailTemplate e = new EmailTemplate (developerName = 'test', FolderId = userInfo.getUserId(), TemplateType= 'Text', Name = 'test');
     insert e;
   }
+
+  @isTest
+  public static void getProviderFaxNumberTest() {
+    Drug__c drug = TestFactory.newDrug('Drug 1');
+    insert drug;
+
+    Account patient = TestFactory.newPatient('Patient 1');
+    Account provider = TestFactory.newProvider('Provider 1');
+    insert new Account[] { patient, provider };
+
+    Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+    insert saCase;
+
+    Test.startTest();
+    String res = InterfaxIntegration.getProviderFaxNumber(saCase.Id);
+    Test.stopTest();
+
+    System.assertEquals(res, saCase.Provider_Fax__c);
+  }
+
   @isTest
     public static void InterfaxIntegrationTest() {
       // InterfaxOutboundResponse ior = new InterfaxOutboundResponse();
@@ -14,7 +34,6 @@ public class InterfaxIntegrationTest {
 
       // TODO
       // sendFax
-      // getProviderFaxNumber
       // getFaxOutboundStatus
       // updateCaseFaxSent
       // getInboundFaxes
@@ -53,4 +72,6 @@ public class InterfaxIntegrationTest {
       // System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
       Test.stopTest();
     }
+
+
 }
