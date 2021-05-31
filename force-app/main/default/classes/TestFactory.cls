@@ -23,6 +23,7 @@ public with sharing class TestFactory {
         account.Patient_Identifier__pc = '222333444';
         account.FirstName = firstName;
         account.LastName = 'TestPatient';
+        account.PersonBirthdate = Date.parse('1990-01-01');
         return account;
     }
     
@@ -53,6 +54,7 @@ public with sharing class TestFactory {
         Case saCase = newCase(drug, subject);
         saCase.ContactId = queryPersonContact(patient.Id).Id;
         saCase.Provider__c = queryPersonContact(provider.Id).Id;
+        saCase.Provider_Fax__c = '12505555555;';
         return saCase;
     }
 
