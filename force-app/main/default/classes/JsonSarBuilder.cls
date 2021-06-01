@@ -124,7 +124,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         account.Fax = getTelecom(resource.telecom, 'fax')?.value;
 
         Eform.Address address = getAddress(resource.address);
-        account.PersonMailingStreet = address == null ? null : String.join(address.line, ' ');
+        account.PersonMailingStreet = address == null || address.line == null ? null : String.join(address.line, ' ');
         account.PersonMailingCity = address?.city;
         account.PersonMailingState = address?.state;
         account.PersonMailingPostalCode = address?.postalCode;
