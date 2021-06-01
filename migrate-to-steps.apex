@@ -17,12 +17,12 @@ List<Drug__c> drugs = [
                 Duration__c, Duration_Unit__c 
             from Drug_Templates__r
         )
-    from Drug__c 
-    where Id in (select Drug__c from Adjudication_Criteria__c)
+    from Drug__c
 ];
 
 Map<String, Step__c> stepsMap = new Map<String, Step__c>();
 for (Drug__c drug : drugs) {
+    if (drug.Adjudication_Criteria__r.isEmpty()) continue;
     Step__c step = new Step__c();
     step.Drug__c = drug.Id;
     step.Order__c = 100;
@@ -37,6 +37,8 @@ insert stepsMap.values();
 List<Step_Criteria__c> criterias = new List<Step_Criteria__c>();
 List<Step_Action__c> actions = new List<Step_Action__c>();
 for (Drug__c drug : drugs){    
+    if (drug.Adjudication_Criteria__r.isEmpty()) continue;
+ 
     for (Adjudication_Criteria__c ac : drug.Adjudication_Criteria__r) {
         Step_Criteria__c sc = new Step_Criteria__c();
         sc.Step__c = stepsMap.get(drug.Drug_Code__c).Id;
@@ -62,6 +64,8 @@ insert criterias;
 
 stepsMap = new Map<String, Step__c>();
 for (Drug__c drug : drugs) {
+    if (drug.drug_templates__r.isEmpty()) continue;
+ 
     Step__c step = new Step__c();
     step.Drug__c = drug.Id;
     step.Order__c = 200;
@@ -77,6 +81,8 @@ criterias = new List<Step_Criteria__c>();
 actions = new List<Step_Action__c>();
 
 for (Drug__c drug : drugs){  
+    if (drug.drug_templates__r.isEmpty()) continue;
+ 
     Step__c step = stepsMap.get(drug.Drug_Code__c);
 
     Step_Criteria__c sc = new Step_Criteria__c();
