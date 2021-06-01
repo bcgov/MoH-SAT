@@ -73,12 +73,41 @@ public with sharing class TestFactory {
     }
 
     public static Request_Detail__c newRequestDetail(Case saCase, String questionId, String stringValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.String_Value__c = stringValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Date dateValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Date_Value__c = dateValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Datetime datetimeValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Datetime_Value__c = datetimeValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Decimal decimalValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Decimal_Value__c = decimalValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Boolean booleanValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Boolean_Value__c = booleanValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId) {
         Request_Detail__c rd = new Request_Detail__c();
         rd.Case__c = saCase.Id;
         rd.Sort_Order__c = 1;
         rd.Question__c = 'Test Question?';
         rd.Question_ID__c = questionId;
-        rd.String_Value__c = stringValue;
         return rd;
     }
 
