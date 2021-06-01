@@ -2,10 +2,7 @@
 public class ProviderValidatorTest {
     @isTest
     public static void ProviderValidatorTest() {
-        Case saCase = TestFactory.newCase(new Drug__c(), 'Test case 1');
-        insert saCase;
-
-        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
+        SpecialAuthorityRequest sar = TestFactory.newSpecialAuthorityRequest();
 
         ProviderValidator action = new ProviderValidator();
         action.mockResult = new Provider();

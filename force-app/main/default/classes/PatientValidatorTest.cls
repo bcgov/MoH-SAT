@@ -2,10 +2,7 @@
 public class PatientValidatorTest {
     @isTest
     public static void PatientValidatorTest() {
-        Case saCase = TestFactory.newCase(new Drug__c(), 'Test case 1');
-        insert saCase;
-
-        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
+        SpecialAuthorityRequest sar = TestFactory.newSpecialAuthorityRequest();
 
         PatientValidator action = new PatientValidator();
         action.mockResult = new Patient();

@@ -188,4 +188,15 @@ public with sharing class TestFactory {
     public static SObjectType getSObjectType(String sObjectName) {
         return Schema.getGlobalDescribe().get(sObjectName);
     }
+
+    public static SpecialAuthorityRequest newSpecialAuthorityRequest() {
+        return new SobjectSarBuilder(
+            new Drug__c(), 
+            new Account(), 
+            new Account(), 
+            new Case(), 
+            new List<Request_Detail__c>(),
+            new List<ContentVersion>()
+        ).build();
+    }
 }
