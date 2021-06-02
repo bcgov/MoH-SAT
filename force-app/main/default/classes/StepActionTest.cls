@@ -11,7 +11,7 @@ public with sharing class StepActionTest {
     @isTest
     static void test_construct_full_owner_assignment_type() {
         Id queueId = TestFactory.newId(Group.getSobjectType());
-        Step_Action__c record = TestFactory.newStepAction(1, queueId);
+        Step_Action__c record = TestFactory.newStepAction(new Step__c(), 1, queueId);
         StepAction action = new StepAction(record);
         system.assertEquals(StepAction.ActionType.OWNER_ASSIGNMENT, action.actionType);
         system.assertEquals(queueId, action.ownerId);
@@ -20,7 +20,7 @@ public with sharing class StepActionTest {
     @isTest
     static void test_construct_full_adjudication_type() {
         String status = 'Approved';
-        Step_Action__c record = TestFactory.newStepAction(1, status);
+        Step_Action__c record = TestFactory.newStepAction(new Step__c(), 1, status);
         StepAction action = new StepAction(record);
         system.assertEquals(StepAction.ActionType.ADJUDICATION, action.actionType);
         system.assertEquals(status, action.adjudicationStatus);
@@ -29,6 +29,7 @@ public with sharing class StepActionTest {
     @isTest
     static void test_construct_full_pharmanet_payload_type() {
         Step_Action__c record = TestFactory.newStepAction(
+            new Step__c(),
             1, 
             '9901-0001',
             'DIN',

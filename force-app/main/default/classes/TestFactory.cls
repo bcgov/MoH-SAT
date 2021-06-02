@@ -195,8 +195,9 @@ public with sharing class TestFactory {
         return sc;
     }
 
-    public static Step_Action__c newStepAction(Integer order, Id ownerId) {
+    public static Step_Action__c newStepAction(Step__c step, Integer order, Id ownerId) {
         return newStepAction(
+            step,
             getRecordTypeInfosByDeveloperName('Step_Action__c', 'Owner_Assignment').getRecordTypeId(),
             order,
             ownerId,
@@ -213,8 +214,9 @@ public with sharing class TestFactory {
         );
     }
 
-    public static Step_Action__c newStepAction(Integer order, String adjudicationStatus) {
+    public static Step_Action__c newStepAction(Step__c step, Integer order, String adjudicationStatus) {
         return newStepAction(
+            step,
             getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId(),
             order,
             null,
@@ -232,6 +234,7 @@ public with sharing class TestFactory {
     }
 
     public static Step_Action__c newStepAction(
+            Step__c step,
             Integer order,
             String pharmanetCode,
             String keyType,
@@ -243,6 +246,7 @@ public with sharing class TestFactory {
             String excludedPlans,
             String justificationCodes) {
         return newStepAction(
+            step,
             getRecordTypeInfosByDeveloperName('Step_Action__c', 'Pharmanet_Payload').getRecordTypeId(),
             order,
             null,
@@ -260,6 +264,7 @@ public with sharing class TestFactory {
     }
 
     public static Step_Action__c newStepAction(
+            Step__c step,
             Id recordTypeId,
             Integer order, 
             Id ownerId,
@@ -274,6 +279,7 @@ public with sharing class TestFactory {
             String excludedPlans,
             String justificationCodes) {
         Step_Action__c record = new Step_Action__c();
+        record.Step__c = step.Id;
         record.RecordTypeId = recordTypeId;
         record.Order__c = order;
         record.OwnerId = ownerId;
