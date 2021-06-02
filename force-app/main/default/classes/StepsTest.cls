@@ -26,8 +26,8 @@ public with sharing class StepsTest {
         insert new Step__c[] {step1, step2};
         Test.stopTest();
 
-        system.assertEquals('tylenol_1_Tylenol_step', step1.External_ID__c);
-        system.assertEquals('advil_2_Advil_step', step2.External_ID__c);
+        system.assertEquals('tylenol_1_Tylenol_step', [select External_ID__c from Step__c where Id = :step1.Id].External_ID__c);
+        system.assertEquals('advil_2_Advil_step', [select External_ID__c from Step__c where Id = :step2.Id].External_ID__c);
     }
 
     @isTest
