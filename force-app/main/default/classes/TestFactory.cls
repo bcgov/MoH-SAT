@@ -195,6 +195,101 @@ public with sharing class TestFactory {
         return sc;
     }
 
+    public static Step_Action__c newStepAction(Integer order, Id ownerId) {
+        return newStepAction(
+            getRecordTypeInfosByDeveloperName('Step_Action__c', 'Owner_Assignment').getRecordTypeId(),
+            order,
+            ownerId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
+    }
+
+    public static Step_Action__c newStepAction(Integer order, String adjudicationStatus) {
+        return newStepAction(
+            getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId(),
+            order,
+            null,
+            adjudicationStatus,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
+    }
+
+    public static Step_Action__c newStepAction(
+            Integer order,
+            String pharmanetCode,
+            String keyType,
+            String saType,
+            Double pricePercent,
+            Integer daysSupply,
+            Integer duration,
+            String durationUnit,
+            String excludedPlans,
+            String justificationCodes) {
+        return newStepAction(
+            getRecordTypeInfosByDeveloperName('Step_Action__c', 'Pharmanet_Payload').getRecordTypeId(),
+            order,
+            null,
+            null,
+            pharmanetCode,
+            keyType,
+            saType,
+            pricePercent,
+            daysSupply,
+            duration,
+            durationUnit,
+            excludedPlans,
+            justificationCodes
+        );
+    }
+
+    public static Step_Action__c newStepAction(
+            Id recordTypeId,
+            Integer order, 
+            Id ownerId,
+            String adjudicationStatus,
+            String pharmanetCode,
+            String keyType,
+            String saType,
+            Double pricePercent,
+            Integer daysSupply,
+            Integer duration,
+            String durationUnit,
+            String excludedPlans,
+            String justificationCodes) {
+        Step_Action__c record = new Step_Action__c();
+        record.RecordTypeId = recordTypeId;
+        record.Order__c = order;
+        record.OwnerId = ownerId;
+        record.Adjudication_Status__c = adjudicationStatus;
+        record.Pharmanet_Code__c = pharmanetCode;
+        record.Key_Type__c = keyType;
+        record.SA_Type__c = saType;
+        record.Price_Percent__c = pricePercent;
+        record.Days_Supply__c = daysSupply;
+        record.Duration__c = duration;
+        record.Duration_Unit__c = durationUnit;
+        record.Excluded_Plans__c = excludedPlans;
+        record.Justification_Codes__c = justificationCodes;
+        return record;
+    }
+
     public static Product_Health_Category__c newProductHealthCategory(String name, String DINs) {
       Product_Health_Category__c c = new Product_Health_Category__c();
       c.Name = name;

@@ -86,16 +86,18 @@ public with sharing class StepAction {
         return this.actionType == StepAction.ActionType.OWNER_ASSIGNMENT;
     }
 
-    public static StepAction.ActionType toEnum(Id recordTypeId) {
+    private static StepAction.ActionType toEnum(Id recordTypeId) {
+        StepAction.ActionType result = null;
+
         if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId()) {
-            return StepAction.ActionType.ADJUDICATION;
+            result = StepAction.ActionType.ADJUDICATION;
         } else if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Owner_Assignment').getRecordTypeId()) {
-            return StepAction.ActionType.OWNER_ASSIGNMENT;
+            result = StepAction.ActionType.OWNER_ASSIGNMENT;
         } else if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Pharmanet_Payload').getRecordTypeId()) {
-            return StepAction.ActionType.PHARMANET_PAYLOAD;
-        } else {
-            return null;
-        }
+            result = StepAction.ActionType.PHARMANET_PAYLOAD;
+        } 
+
+        return result;
     }
 
     public StepAction run(SpecialAuthorityRequest sar) {
@@ -111,8 +113,9 @@ public with sharing class StepAction {
         return this;
     }
 
+    @TestVisible
     private Type getApexClass() {
-        Type apexClass;
+        Type apexClass = null;
 
         if (this.actionType == StepAction.ActionType.OWNER_ASSIGNMENT) {
             apexClass = OwnerAssignment.class;
@@ -126,8 +129,6 @@ public with sharing class StepAction {
             apexClass = ProviderValidator.class;
         } else if (this.actionType == StepAction.ActionType.PHARMANET_SUBMISSION) {
             apexClass = PharmanetSubmission.class;
-        } else {
-            apexClass = null;
         }
 
         return apexClass;
