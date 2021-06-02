@@ -1,4 +1,4 @@
-public with sharing class AdjudicationStrategy {
+public inherited sharing class AdjudicationStrategy {
     public class AdjudicationException extends Exception {}
 
     public SpecialAuthorityRequest sar { get; private set; }
