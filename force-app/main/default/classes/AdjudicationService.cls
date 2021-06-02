@@ -1,4 +1,4 @@
-public with sharing class AdjudicationService {
+public without sharing class AdjudicationService {
     
     private static Set<Id> queuedIds = new Set<Id>();
 

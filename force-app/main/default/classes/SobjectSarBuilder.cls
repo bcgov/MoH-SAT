@@ -1,4 +1,4 @@
-public with sharing class SobjectSarBuilder implements SarBuilder {
+public inherited sharing class SobjectSarBuilder implements SarBuilder {
     
     private Drug__c drug;
     private Account patient;
