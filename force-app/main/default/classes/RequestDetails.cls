@@ -16,16 +16,21 @@ public without sharing class RequestDetails {
         Request_Detail__c rd = [select Id, Name, Question__c, Case__c from Request_Detail__c where Id = :oldRecord.Id];
         Case caseRecord = [select Id from Case where Id = :rd.Case__c];
 
-        String post = String.format(
+        String post = buildMessage(rd.Question__c, rd.Name, oldRecord, newRecord);
+
+        if (!Test.isRunningTest()) ConnectApi.ChatterFeeds.postFeedElement(null, caseRecord.Id, ConnectApi.FeedElementType.FeedItem, post);
+    }
+
+    @TestVisible
+    private static String buildMessage(String rdQuestion, String rdName, Request_Detail__c oldRecord, Request_Detail__c newRecord) {
+        return String.format(
             '{0} changed request detail response for "{1}" ({2}) from "{3}" to "{4}"', new String[] {
                 UserInfo.getName(),
-                rd.Question__c,
-                rd.Name,
+                rdQuestion,
+                rdName,
                 getValue(oldRecord),
                 getValue(newRecord)
-            });
-
-        ConnectApi.ChatterFeeds.postFeedElement(null, caseRecord.Id, ConnectApi.FeedElementType.FeedItem, post);
+        });
     }
 
     private static String getValue(Request_Detail__c record) {

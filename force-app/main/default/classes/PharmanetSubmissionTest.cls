@@ -2,12 +2,11 @@
 public with sharing class PharmanetSubmissionTest {
     @isTest
     public static void PharmanetSubmissionTest() {
-        Case saCase = TestFactory.newCase(new Drug__c(), 'Test case 1');
-        saCase.Status = 'Approved';
-        saCase.Pushed_to_Pnet__c = false;
-        insert saCase;
+        SpecialAuthorityRequest sar = TestFactory.newSpecialAuthorityRequest();
+        sar.saCase.Status = 'Approved';
+        sar.saCase.Pushed_to_Pnet__c = false;
 
-        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
+        sar.addSaApprovalRequest(newPharmanetPayload());
 
         PharmanetSubmission action = new PharmanetSubmission();
         action.mockResult = new SAApprovalRequestResponse();
@@ -18,5 +17,23 @@ public with sharing class PharmanetSubmissionTest {
 
         system.assertEquals(true, sar.saCase.Pushed_to_Pnet__c);
         system.assert(null != sar.saCase.Termination_Date__c);
+    }
+
+    private static StepAction newPharmanetPayload() {
+        return new StepAction(
+            StepAction.ActionType.PHARMANET_PAYLOAD,
+            null,
+            null,
+            null,
+            '1111',
+            'DIN',
+            'B',
+            100,
+            10,
+            null, 
+            'Indefinite',
+            null,
+            null
+        );
     }
 }

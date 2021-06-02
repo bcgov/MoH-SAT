@@ -19,7 +19,7 @@ export default class FaxTemplateChooser extends LightningElement {
 
   @track error;
   async connectedCallback() {
-    getTemplates({recordId: this.recordId})
+    getTemplates()
     .then(data => {
       this.options = data.map(item => {
         return {

@@ -73,12 +73,41 @@ public with sharing class TestFactory {
     }
 
     public static Request_Detail__c newRequestDetail(Case saCase, String questionId, String stringValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.String_Value__c = stringValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Date dateValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Date_Value__c = dateValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Datetime datetimeValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Datetime_Value__c = datetimeValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Decimal decimalValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Decimal_Value__c = decimalValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId, Boolean booleanValue) {
+        Request_Detail__c rd = newRequestDetail(saCase, questionId);
+        rd.Boolean_Value__c = booleanValue;
+        return rd;
+    }
+
+    public static Request_Detail__c newRequestDetail(Case saCase, String questionId) {
         Request_Detail__c rd = new Request_Detail__c();
         rd.Case__c = saCase.Id;
         rd.Sort_Order__c = 1;
         rd.Question__c = 'Test Question?';
         rd.Question_ID__c = questionId;
-        rd.String_Value__c = stringValue;
         return rd;
     }
 
@@ -166,6 +195,107 @@ public with sharing class TestFactory {
         return sc;
     }
 
+    public static Step_Action__c newStepAction(Step__c step, Integer order, Id ownerId) {
+        return newStepAction(
+            step,
+            getRecordTypeInfosByDeveloperName('Step_Action__c', 'Owner_Assignment').getRecordTypeId(),
+            order,
+            ownerId,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
+    }
+
+    public static Step_Action__c newStepAction(Step__c step, Integer order, String adjudicationStatus) {
+        return newStepAction(
+            step,
+            getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId(),
+            order,
+            null,
+            adjudicationStatus,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        );
+    }
+
+    public static Step_Action__c newStepAction(
+            Step__c step,
+            Integer order,
+            String pharmanetCode,
+            String keyType,
+            String saType,
+            Double pricePercent,
+            Integer daysSupply,
+            Integer duration,
+            String durationUnit,
+            String excludedPlans,
+            String justificationCodes) {
+        return newStepAction(
+            step,
+            getRecordTypeInfosByDeveloperName('Step_Action__c', 'Pharmanet_Payload').getRecordTypeId(),
+            order,
+            null,
+            null,
+            pharmanetCode,
+            keyType,
+            saType,
+            pricePercent,
+            daysSupply,
+            duration,
+            durationUnit,
+            excludedPlans,
+            justificationCodes
+        );
+    }
+
+    public static Step_Action__c newStepAction(
+            Step__c step,
+            Id recordTypeId,
+            Integer order, 
+            Id ownerId,
+            String adjudicationStatus,
+            String pharmanetCode,
+            String keyType,
+            String saType,
+            Double pricePercent,
+            Integer daysSupply,
+            Integer duration,
+            String durationUnit,
+            String excludedPlans,
+            String justificationCodes) {
+        Step_Action__c record = new Step_Action__c();
+        record.Step__c = step.Id;
+        record.RecordTypeId = recordTypeId;
+        record.Order__c = order;
+        record.OwnerId = ownerId;
+        record.Adjudication_Status__c = adjudicationStatus;
+        record.Pharmanet_Code__c = pharmanetCode;
+        record.Key_Type__c = keyType;
+        record.SA_Type__c = saType;
+        record.Price_Percent__c = pricePercent;
+        record.Days_Supply__c = daysSupply;
+        record.Duration__c = duration;
+        record.Duration_Unit__c = durationUnit;
+        record.Excluded_Plans__c = excludedPlans;
+        record.Justification_Codes__c = justificationCodes;
+        return record;
+    }
+
     public static Product_Health_Category__c newProductHealthCategory(String name, String DINs) {
       Product_Health_Category__c c = new Product_Health_Category__c();
       c.Name = name;
@@ -187,5 +317,16 @@ public with sharing class TestFactory {
 
     public static SObjectType getSObjectType(String sObjectName) {
         return Schema.getGlobalDescribe().get(sObjectName);
+    }
+
+    public static SpecialAuthorityRequest newSpecialAuthorityRequest() {
+        return new SobjectSarBuilder(
+            new Drug__c(), 
+            new Account(), 
+            new Account(), 
+            new Case(), 
+            new List<Request_Detail__c>(),
+            new List<ContentVersion>()
+        ).build();
     }
 }
