@@ -1072,7 +1072,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_9244021815</name>
+        <name>formula_11_myRule_10_A1_2868126212</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1083,7 +1083,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_15_A1_7072299254</name>
+        <name>formula_16_myRule_15_A1_8562366172</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1094,7 +1094,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_17_myRule_15_A1_0555216387</name>
+        <name>formula_17_myRule_15_A1_7965072755</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1105,7 +1105,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_19_A1_2297868280</name>
+        <name>formula_20_myRule_19_A1_4081419027</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1116,7 +1116,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_8615588669</name>
+        <name>formula_8_myRule_7_A1_1073364975</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -1124,14 +1124,14 @@
         <processMetadataValues>
             <name>originalFormula</name>
             <value>
-                <stringValue>(ISNEW() || ISCHANGED([Case].Origin)) &amp;&amp; ISPICKVAL([Case].Origin, &quot;Phone&quot;)</stringValue>
+                <stringValue>ISCHANGED([Case].Origin) &amp;&amp; ISPICKVAL([Case].Origin, &quot;Phone&quot;)</stringValue>
             </value>
         </processMetadataValues>
         <name>formula_myRule_3</name>
         <dataType>Boolean</dataType>
-        <expression>(ISNEW() || ISCHANGED({!myVariable_current.Origin})) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)</expression>
+        <expression>ISCHANGED({!myVariable_current.Origin}) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)</expression>
     </formulas>
-    <interviewLabel>Case-6_InterviewLabel</interviewLabel>
+    <interviewLabel>Case-2_InterviewLabel</interviewLabel>
     <label>Case</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1237,7 +1237,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_9244021815</elementReference>
+                <elementReference>formula_11_myRule_10_A1_2868126212</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1321,7 +1321,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_16_myRule_15_A1_7072299254</elementReference>
+                <elementReference>formula_16_myRule_15_A1_8562366172</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1357,7 +1357,7 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_17_myRule_15_A1_0555216387</elementReference>
+                <elementReference>formula_17_myRule_15_A1_7965072755</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1438,7 +1438,7 @@
             </processMetadataValues>
             <field>Closed_by__c</field>
             <value>
-                <elementReference>formula_20_myRule_19_A1_2297868280</elementReference>
+                <elementReference>formula_20_myRule_19_A1_4081419027</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1690,7 +1690,7 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_8615588669</elementReference>
+                <elementReference>formula_8_myRule_7_A1_1073364975</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
