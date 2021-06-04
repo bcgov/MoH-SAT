@@ -47,3 +47,6 @@ for (Step__c step:newsteps) {
     newcriteria.add(stepCriteria);
     newactions.add(stepAction);
 }
+
+insert newcriteria;
+insert newcriteria;
