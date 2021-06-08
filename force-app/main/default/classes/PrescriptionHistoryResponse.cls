@@ -26,8 +26,7 @@ public class PrescriptionHistoryResponse {
 		@AuraEnabled public String drugStrength {get;set;}
 		@AuraEnabled public String genericName {get;set;}
 		@AuraEnabled public Double daysSupply {get;set;}
-		@AuraEnabled public String dateDispensed {get;set;}
-		@AuraEnabled public Integer daysSinceLastFill {get;set;}
+		@AuraEnabled public String dateDispensed {get;set;} 
 		@AuraEnabled public PrescriberInfo prescriberInfo {get;set;}
 		@AuraEnabled public String rxStatus {get;set;}
 		@AuraEnabled public DispensingPharmacy dispensingPharmacy {get;set;}
