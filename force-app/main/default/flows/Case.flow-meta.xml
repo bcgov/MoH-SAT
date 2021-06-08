@@ -485,40 +485,6 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideReferenceTo</name>
-                    <value>
-                        <stringValue>User</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_current.Closed_by__c</leftValueReference>
-                <operator>EqualTo</operator>
-            </conditions>
             <connector>
                 <targetReference>myRule_19_pmetdec</targetReference>
             </connector>
@@ -1028,40 +994,6 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <processMetadataValues>
-                    <name>inputDataType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideReferenceTo</name>
-                    <value>
-                        <stringValue>User</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>leftHandSideType</name>
-                    <value>
-                        <stringValue>ID</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>operatorDataType</name>
-                    <value>
-                        <stringValue>String</stringValue>
-                    </value>
-                </processMetadataValues>
-                <processMetadataValues>
-                    <name>rightHandSideType</name>
-                    <value>
-                        <stringValue>GlobalConstant</stringValue>
-                    </value>
-                </processMetadataValues>
-                <leftValueReference>myVariable_old.Closed_by__c</leftValueReference>
-                <operator>EqualTo</operator>
-            </conditions>
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
@@ -1072,7 +1004,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_2868126212</name>
+        <name>formula_11_myRule_10_A1_6514570672</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1083,7 +1015,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_15_A1_8562366172</name>
+        <name>formula_16_myRule_15_A1_8727926335</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1094,7 +1026,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_17_myRule_15_A1_7965072755</name>
+        <name>formula_17_myRule_15_A1_1212819953</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1105,7 +1037,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_19_A1_4081419027</name>
+        <name>formula_20_myRule_19_A1_9631701282</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1116,7 +1048,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_1073364975</name>
+        <name>formula_8_myRule_7_A1_6786692927</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -1237,7 +1169,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_2868126212</elementReference>
+                <elementReference>formula_11_myRule_10_A1_6514570672</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1321,7 +1253,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_16_myRule_15_A1_8562366172</elementReference>
+                <elementReference>formula_16_myRule_15_A1_8727926335</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1357,7 +1289,7 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_17_myRule_15_A1_7965072755</elementReference>
+                <elementReference>formula_17_myRule_15_A1_1212819953</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1438,7 +1370,7 @@
             </processMetadataValues>
             <field>Closed_by__c</field>
             <value>
-                <elementReference>formula_20_myRule_19_A1_4081419027</elementReference>
+                <elementReference>formula_20_myRule_19_A1_9631701282</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1690,7 +1622,7 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_1073364975</elementReference>
+                <elementReference>formula_8_myRule_7_A1_6786692927</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
