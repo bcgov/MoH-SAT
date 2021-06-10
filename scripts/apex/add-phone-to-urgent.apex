@@ -49,4 +49,4 @@ for (Step__c step:newsteps) {
 }
 
 insert newcriteria;
-insert newcriteria;
+insert newactions;

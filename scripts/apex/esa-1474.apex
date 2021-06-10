@@ -1,5 +1,3 @@
-delete [select id from ContentDistribution];
-
 Set<Id> docIds = new Set<Id>();
 for (ContentDocumentLink cdl : [
     select ContentDocumentId 
