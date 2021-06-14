@@ -164,13 +164,9 @@ export default class PharmanetHistory extends LightningElement {
             item['drugStrength'] = record.drugStrength;
             item['directions'] = record.directions;
             item['daysSupply'] = record.daysSupply;
-            const dd = new Date(record.dateDispensed).getTime();
-            const today = new Date().getTime();
-            if (dd > 0) {
-              item['daysSince'] = Math.floor((today - dd) / (1000 * 3600 * 24));
-            } else {
-              item['daysSince'] = '';
-            }
+
+            // Remove this next block in favour of daysSinceLastFill at the bottom of the block
+            item['daysSince'] = record.daysSinceLastFill;
 
             // Claim
             item['saTypeApplied'] = record.claimHistory.saTypeApplied;
