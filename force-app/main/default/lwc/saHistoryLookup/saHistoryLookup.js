@@ -1,5 +1,5 @@
 import { LightningElement } from 'lwc';
-import fetchSAApprovalHistoryx from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistoryx';
+import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistory';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.getProductHealthCategories';
 
@@ -115,7 +115,7 @@ export default class SaHistoryLookup extends LightningElement {
   }
 
   async fetchItems() {
-    let data = await fetchSAApprovalHistoryx({phn: this.patientIdentifier, page: null, count: null, dinList: this.dinList})
+    let data = await fetchSAApprovalHistory({phn: this.patientIdentifier, dinList: this.dinList})
     if (data && data.error == null) {
       // console.log("saHistory:", data);
       const records = data.saRecords;

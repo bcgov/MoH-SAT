@@ -1,5 +1,5 @@
 import { LightningElement, api } from 'lwc';
-import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistory';
+import fetchSAApprovalHistoryByCase from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistoryByCase';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
@@ -57,9 +57,8 @@ export default class PharmanetApprovalHistory extends LightningElement {
   }
 
   async fetchItems() {
-    let data = await fetchSAApprovalHistory({recordId: this.recordId, page: this.pageNumber, count: this.count, dinList: this.dinList})
+    let data = await fetchSAApprovalHistoryByCase({recordId: this.recordId})
     if (data && data.error == null) {
-      console.log("saHistory:", data);
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
 
