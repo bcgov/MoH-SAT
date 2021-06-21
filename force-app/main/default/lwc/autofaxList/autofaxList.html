@@ -1,0 +1,65 @@
+<template>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <div class="table" if:true={records}>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col">
+                                <div title="Case Number">Case Number</div>
+                            </th>
+                            <th scope="col">
+                                <div title="Status">Status</div>
+                            </th>
+                            <th scope="col">
+                                <div title="Fax">Fax</div>
+                            </th>
+                            <th scope="col">
+                                <div title="Actions">Actions</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={records} for:item="record">
+                            <tr key={record.caseId} class="slds-hint-parent">
+                                <th data-label="Case Number" scope="row">
+                                    {record.caseNumber}
+                                </th>
+                                <td data-label="Status">
+                                    {record.status}
+                                </td>
+                                <td data-label="Fax" class="faxNumber">
+                                    {record.providerFax}
+                                </td>
+                                <td data-label="Actions">
+                                    <span class="slds-m-right_small">
+                                        <lightning-button 
+                                            variant="brand" 
+                                            label="PDF"
+                                            title="PDF"
+                                            data-case-id={record.caseId} 
+                                            data-template-id={record.templateId}
+                                            onclick={pdfHandler}>
+                                        </lightning-button>
+                                    </span>
+                                    <span>
+                                        <lightning-button 
+                                            variant="brand" 
+                                            label="Mark Faxed" 
+                                            title="Mark Faxed"
+                                            data-case-id={record.caseId} 
+                                            onclick={markFaxedHandler}>
+                                        </lightning-button>
+                                    </span>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <iframe style="width:100%" height="1000px"></iframe>
+        </div>
+    </div>
+</template>
