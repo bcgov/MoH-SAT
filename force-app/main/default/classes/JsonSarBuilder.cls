@@ -118,7 +118,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
     private Account buildAccount(Eform.Resource resource) {
         Account account = new Account();
         Eform.Name name = getName(resource.name);
-        account.FirstName = name == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
+        account.FirstName = name == null || name.given == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
         account.LastName = name == null ? '(EMPTY)' : name.family;
 
         account.Phone = getTelecom(resource.telecom, 'phone')?.value;
