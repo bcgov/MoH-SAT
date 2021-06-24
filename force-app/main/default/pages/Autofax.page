@@ -1,0 +1,64 @@
+<apex:page 
+    title="Autofax page" 
+    standardController="Case" 
+    extensions="AutofaxController" 
+    recordSetVar="caseRecord" 
+    standardStylesheets="false">
+    
+    <script type="text/javascript">
+        function markAsFaxed(caseId) {
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.AutofaxController.markAsFaxed}',
+                caseId, 
+                function(result, event){
+                    if (event.status) {
+                        document.getElementById('caseList').removeChild(document.getElementById('row-'+caseId));
+                    }
+                }, 
+                {escape: true}
+            );
+        }
+    </script>
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <tr class="slds-line-height_reset">
+                <th scope="col">
+                    <div title="Case Number">Case Number</div>
+                </th>
+                <th scope="col">
+                    <div title="Status">Status</div>
+                </th>
+                <th scope="col">
+                    <div title="Fax">Fax</div>
+                </th>
+                <th scope="col">
+                    <div title="Actions">Actions</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="caseList">
+            <apex:repeat value="{!faxableCases}" var="fc">
+                <tr id="row-{!fc.caseId}" class="slds-hint-parent">
+                    <th data-label="Case Number" scope="row">
+                        {!fc.caseNumber}
+                    </th>
+                    <td data-label="Status">
+                        {!fc.status}
+                    </td>
+                    <td data-label="Fax" class="faxNumber">
+                        <input type="text" readonly="true" tabindex="0" value="{!fc.providerFax}"></input>
+                    </td>
+                    <td data-label="Actions">
+                        <span class="slds-m-right_small">
+                            <a href="/apex/PDFGenerator?id={!fc.caseId}&templateId={!fc.templateId}" tabindex="0">PDF</a>
+                        </span>
+                        <span>
+                            <button tabindex="0" title="MARK" value="MARK" onclick="javascript:markAsFaxed('{!fc.caseId}')">MARK</button>
+                        </span>
+                    </td>
+                </tr>
+            </apex:repeat>
+        </tbody>
+    </table>
+</apex:page>

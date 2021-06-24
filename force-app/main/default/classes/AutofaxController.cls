@@ -1,5 +1,7 @@
 public with sharing class AutofaxController {
 
+    public List<FaxableCase> faxableCases { get; set; }
+
     private static Map<String, EmailTemplate> EMAIL_TEMPLATES {
         get {
             if (EMAIL_TEMPLATES == null) {
@@ -11,6 +13,28 @@ public with sharing class AutofaxController {
             return EMAIL_TEMPLATES;
         }
         set;
+    }
+
+    public AutofaxController(ApexPages.StandardSetController setcontroller) {
+        ListView listView = [select Id from ListView where DeveloperName='To_Be_Faxed_Queue'];
+        setcontroller.setFilterId(listView.Id);
+        setcontroller.setPageSize(2000);
+
+        List<Id> recordIds = new List<Id>();
+        for (Case c : (List<Case>) setcontroller.getRecords()) {
+            recordIds.add(c.Id);
+        }
+
+        faxableCases = loadFaxableCases(recordIds);
+    }
+
+    @RemoteAction
+    public static void markAsFaxed(Id caseId) {
+        Case record = new Case();
+        record.Id = caseId;
+        record.Faxed_by__c = UserInfo.getUserId();
+        record.Fax_Notification_Date__c = Date.today();
+        update record;
     }
 
     @AuraEnabled
@@ -48,12 +72,12 @@ public with sharing class AutofaxController {
     }
 
     public class FaxableCase {
-        @AuraEnabled public Id caseId;
-        @AuraEnabled public Id templateId;
-        @AuraEnabled public String templateName;
-        @AuraEnabled public String caseNumber;
-        @AuraEnabled public String status;
-        @AuraEnabled public String providerFax;
+        @AuraEnabled public Id caseId { get; set; }
+        @AuraEnabled public Id templateId { get; set; }
+        @AuraEnabled public String templateName { get; set; }
+        @AuraEnabled public String caseNumber { get; set; }
+        @AuraEnabled public String status { get; set; }
+        @AuraEnabled public String providerFax { get; set; }
 
         public FaxableCase(Case record, EmailTemplate emailTemplate) {
             this.caseId = record.Id;
