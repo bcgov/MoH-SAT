@@ -5,7 +5,8 @@
     recordSetVar="caseRecord" 
     standardStylesheets="false"
     showHeader="false"
-    sidebar="false">
+    sidebar="false"
+    docType="html-5.0">
     
     <script type="text/javascript">
         function markAsFaxed(caseId) {
@@ -20,9 +21,13 @@
                 {escape: true}
             );
         }
+
+        function focusOnLoad() {
+            // document.querySelector('input').focus = true;
+        }
     </script>
 
-    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+    <table onload="javascript:focusOnLoad();" class="slds-table slds-table_cell-buffer slds-table_bordered">
         <thead>
             <tr class="slds-line-height_reset">
                 <th scope="col">
@@ -49,7 +54,7 @@
                         {!fc.status}
                     </td>
                     <td data-label="Fax" class="faxNumber">
-                        <input type="text" readonly="true" tabindex="0" value="{!fc.providerFax}"></input>
+                        <input type="text" readonly="true" tabindex="0" value="{!fc.providerFax}" autofocus="true"></input>
                     </td>
                     <td data-label="Actions">
                         <span class="slds-m-right_small">
