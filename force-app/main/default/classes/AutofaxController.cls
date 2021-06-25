@@ -68,6 +68,7 @@ public with sharing class AutofaxController {
                 Id, CaseNumber, Provider_Fax__c, Status, Drug__r.Drug_Code__c
             from Case
             where Id in :ids
+            and Provider_Fax__c != null
             order by ClosedDate asc];
     }
 

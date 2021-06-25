@@ -9,38 +9,53 @@
     docType="html-5.0">
     
     <script type="text/javascript">
-        function markAsFaxed(caseId) {
+        function markAsFaxed(btn, caseId) {
             Visualforce.remoting.Manager.invokeAction(
                 '{!$RemoteAction.AutofaxController.markAsFaxed}',
                 caseId, 
                 function(result, event){
                     if (event.status) {
-                        document.getElementById('caseList').removeChild(document.getElementById('row-'+caseId));
+                        btn.disabled = true;
                     }
                 }, 
                 {escape: true}
             );
         }
 
-        function focusOnLoad() {
-            // document.querySelector('input').focus = true;
+        function viewPdf(link) {
+            var elem = document.createElement('iframe');
+            elem.setAttribute('width', '100%');
+            elem.setAttribute('height', '400px');
+            elem.setAttribute('src', link.href);
+            elem.setAttribute('onload', 'this.contentWindow.focus();')
+            
+            var pdfContainer = document.getElementById('pdfContainer');
+            pdfContainer.innerHTML = '';
+            pdfContainer.appendChild(elem);
+
+            // document.getElementById('pdfEmbed').print();
+
+            // document.getElementById('pdfFrame').src = link.href;
         }
     </script>
 
-    <table onload="javascript:focusOnLoad();" class="slds-table slds-table_cell-buffer slds-table_bordered">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
         <thead>
             <tr class="slds-line-height_reset">
                 <th scope="col">
-                    <div title="Case Number">Case Number</div>
+                    Case Number
                 </th>
                 <th scope="col">
-                    <div title="Status">Status</div>
+                    Status
                 </th>
                 <th scope="col">
-                    <div title="Fax">Fax</div>
+                    Fax
                 </th>
                 <th scope="col">
-                    <div title="Actions">Actions</div>
+                    PDF
+                </th>
+                <th scope="col">
+                    MARK FAXED
                 </th>
             </tr>
         </thead>
@@ -54,18 +69,19 @@
                         {!fc.status}
                     </td>
                     <td data-label="Fax" class="faxNumber">
-                        <input type="text" readonly="true" tabindex="0" value="{!fc.providerFax}" autofocus="true"></input>
+                        <input type="text" readonly="true" tabindex="0" value="{!fc.providerFax}" autofocus="true" name="fax"></input>
                     </td>
-                    <td data-label="Actions">
-                        <span class="slds-m-right_small">
-                            <a href="/apex/PDFGenerator?id={!fc.caseId}&templateId={!fc.templateId}" tabindex="0">PDF</a>
-                        </span>
-                        <span>
-                            <button tabindex="0" title="MARK" value="MARK" onclick="javascript:markAsFaxed('{!fc.caseId}')">MARK</button>
-                        </span>
+                    <td data-label="PDF">
+                        <a href="/apex/PDFGenerator?id={!fc.caseId}&templateId={!fc.templateId}" tabindex="0" onclick="viewPdf(this); return false;">PDF</a>
+                    </td>
+                    <td data-label="PDF">
+                        <button tabindex="0" title="MARK" value="MARK" onclick="markAsFaxed(this, '{!fc.caseId}')">Mark Faxed</button>
                     </td>
                 </tr>
             </apex:repeat>
         </tbody>
     </table>
+    <div id="pdfContainer">
+        <iframe id="pdfFrame" style="width:100%" height="400"></iframe>
+    </div>
 </apex:page>
