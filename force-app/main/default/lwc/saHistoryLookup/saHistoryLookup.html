@@ -22,24 +22,17 @@
           </lightning-button>
       </div>
     </div>
-    <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
-      <lightning-layout-item flexibility="auto" padding="slds-p-left_none horizontal-medium">
-        <lightning-combobox
-          name="count"
-          label="Filter by RDP or DIN/PIN"
-          value={value}
-          placeholder="None"
-          options={categories}
-          onchange={handlephcFilterChange} >
-        </lightning-combobox>
-        <div class="slds-form-element">
-          <div class="slds-form-element__control">
-            <lightning-input type="text" label="Description:" value={descriptionFilter} onchange={handleDescriptionFilterChange}></lightning-input>
-          </div>
+    <div class="slds-box slds-box_x-small slds-m-vertical_small">
+      <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
+        <div class="slds-col slds-size_1-of-2">
+          <lightning-input type="text" label="Filter by RDP or DIN/PIN:" value={dinRdpFilter} onchange={handleDinRdpFilterChange}></lightning-input>
         </div>
-      </lightning-layout-item>
+        <div class="slds-col slds-size_1-of-2">
+          <lightning-input type="text" label="Filter by Description:" value={descriptionFilter} onchange={handleDescriptionFilterChange}></lightning-input>
+        </div>
+      </div>
+    </div>
   </div>
-  &nbsp;
   <!-- IF RESULTS -->
   <div if:true={hasResults}>
     <lightning-datatable
@@ -48,9 +41,6 @@
             data={data}
             columns={columns}>
     </lightning-datatable>
-    <!-- <div class="page-info">
-      Total Records: {totalRecords}
-    </div> -->
   </div>
 
   <!-- NO RESULTS FOUND -->

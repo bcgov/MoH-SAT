@@ -1,7 +1,6 @@
 import { LightningElement } from 'lwc';
 import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistory';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.getProductHealthCategories';
 
 const columns = [
   { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
@@ -13,14 +12,12 @@ const columns = [
 
 export default class SaHistoryLookup extends LightningElement {
   patientIdentifier ='';
+  dinRdpFilter = '';
   descriptionFilter = '';
   columns = columns;
   data = [];
   loaded = false;
-  dinList = [];
-
-  categories = [];
-  categoryFilter = "";
+  
   hasResults = false;
   completeAndNoResults = false;
   totalRecords = 0;
@@ -31,16 +28,8 @@ export default class SaHistoryLookup extends LightningElement {
     return this.template.querySelector('.patientIdentifier').value;
   }
 
-  connectedCallback() {
-    this.phcFilterOptions();
-  }
-
   handleFormChange(event) {
-    console.log('event.target.value', event.target.value);
-
     this.patientIdentifier = event.target.value;
-
-    // re-enable the button
     this.template.querySelector('.btn-lookup').disabled = false;
   }
 
@@ -74,15 +63,9 @@ export default class SaHistoryLookup extends LightningElement {
     }
   }
 
-  handlephcFilterChange(event) {
-    this.categoryFilter = event.detail.value;
-    let filter = null;
-    if (this.categoryFilter == "None") {
-      filter = "";
-    } else {
-      filter = this.categoryFilter;
-    }
-    this.fetchProductHealthCategories(filter);
+  handleDinRdpFilterChange(event) {
+    this.dinRdpFilter = event.target.value;
+    this.fetchItems();
   }
 
   handleDescriptionFilterChange(event) {
@@ -90,34 +73,9 @@ export default class SaHistoryLookup extends LightningElement {
     this.fetchItems();
   }
 
-  fetchProductHealthCategories(filter) {
-    let list = [];
-    if (filter) {
-      list = filter.split(',');
-    }
-    if (list.length > 0) {
-      this.dinList = list;
-    } else {
-      this.dinList = [];
-    }
-    this.fetchItems();
-  }
-
-  phcFilterOptions() {
-    return getProductHealthCategories()
-    .then(data => {
-      this.categories = [ ...this.categories, { label: 'None', value: 'None' } ];
-      data.forEach(item => {
-        this.categories = [ ...this.categories, { label: item.Name, value: item.DINs__c }];
-      });
-      return this.categories;
-    })
-  }
-
   async fetchItems() {
-    let data = await fetchSAApprovalHistory({phn: this.patientIdentifier, dinList: this.dinList})
+    let data = await fetchSAApprovalHistory({phn: this.patientIdentifier})
     if (data && data.error == null) {
-      // console.log("saHistory:", data);
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
 
@@ -125,12 +83,13 @@ export default class SaHistoryLookup extends LightningElement {
         this.completeAndNoResults = false;
         this.hasResults = true;
         let dataArray = [];
+        
         records.forEach(record => {
           // Is there a filter applied?
-          if (this.dinList.length == 0
-              || this.dinList.includes(record.specialItem.din)
-              || (record.specialItem.rdp && this.dinList.includes(record.specialItem.rdp.replace(/-/g,"")))
-              ) {
+          if (this.dinRdpFilter.length == 0
+              || record.specialItem.din?.indexOf(this.dinRdpFilter.trim()) > -1
+              || record.specialItem.rdp?.replace(/-/g,"")?.indexOf(this.dinRdpFilter.trim()) > -1
+            ) {
             let item = {};
 
             // Is there a description filter applied?

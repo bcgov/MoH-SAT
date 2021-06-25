@@ -337,13 +337,13 @@ public with sharing class ODRIntegration {
         return bres;
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static SAApprovalHistoryResponse fetchSAApprovalHistoryByCase(Id recordId) {
-        return fetchSAApprovalHistory(getPatientIdentifier(recordId), null);
+        return fetchSAApprovalHistory(getPatientIdentifier(recordId));
     }
 
-    @AuraEnabled
-    public static SAApprovalHistoryResponse fetchSAApprovalHistory(String phn, List<Integer> dinList) {
+    @AuraEnabled(cacheable=true)
+    public static SAApprovalHistoryResponse fetchSAApprovalHistory(String phn) {
         SAApprovalHistoryResponse sar = null;
 
         String queryParams = '?clientName=SpecAuth';
