@@ -93,29 +93,14 @@ export default class SaHistoryLookup extends LightningElement {
             let item = {};
 
             // Is there a description filter applied?
-            const descr = record.specialItem.itemDescription.toLowerCase();
+            const descr = record.specialItem.itemDescription?.toLowerCase() || '';
             if (this.descriptionFilter.length == 0 || descr.indexOf(this.descriptionFilter.toLowerCase()) > -1) {
+
               item['description'] = record.specialItem.itemDescription;
               item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
               item['specAuthType'] = this.convertSAType(record.specAuthType);
               item['effectiveDate'] = record.effectiveDate;
               item['terminationDate'] = record.terminationDate;
-              item['practId'] = record.saRequester.practId;
-              item['practIdRef'] = record.saRequester.practIdRef;
-
-              item['excludedPlans'] = "";
-              record.excludedPlans.forEach(ep => {
-                if (item['excludedPlans'] == "") {
-                  item['excludedPlans'] = ep;
-                } else {
-                  item['excludedPlans'] += ", " + ep
-                }
-              });
-              item['maxDaysSupply'] = record.maxDaysSupply;
-              item['pharmacyID'] = record.saRequester.pharmacyID;
-              // Not coming in response.
-              item['decCode'] = record.saRequester.decCode;
-              item['createdBy'] = record.createdBy;
               dataArray.push(item);
             }
           }
