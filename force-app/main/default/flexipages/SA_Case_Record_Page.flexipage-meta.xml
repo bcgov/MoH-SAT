@@ -139,19 +139,30 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>patientPlanInformation</componentName>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Case.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>AttachedContentDocuments</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-73cac505-af77-4dc6-a597-a47e40388cfa</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentName>similarCases</componentName>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-262bfd27-6b1c-40cb-b171-a1c0e751999c</name>
+        <name>Facet-c3317fc5-248e-4015-a48a-2d5ac2a2c64a</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -236,30 +247,10 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Case.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>AttachedContentDocuments</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>ADVGRID</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
+                <componentName>patientPlanInformation</componentName>
             </componentInstance>
         </itemInstances>
-        <name>Facet-c3317fc5-248e-4015-a48a-2d5ac2a2c64a</name>
+        <name>Facet-73cac505-af77-4dc6-a597-a47e40388cfa</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -269,6 +260,15 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-1f8f0998-1bb3-45b3-8ebb-16136026ac27</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>similarCases</componentName>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-262bfd27-6b1c-40cb-b171-a1c0e751999c</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -349,24 +349,11 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-73cac505-af77-4dc6-a597-a47e40388cfa</value>
+                    <value>Facet-c3317fc5-248e-4015-a48a-2d5ac2a2c64a</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Benefit Plan</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-262bfd27-6b1c-40cb-b171-a1c0e751999c</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Precedent Cases</value>
+                    <value>Files</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -388,11 +375,11 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-c3317fc5-248e-4015-a48a-2d5ac2a2c64a</value>
+                    <value>Facet-73cac505-af77-4dc6-a597-a47e40388cfa</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Files</value>
+                    <value>Benefit Plan</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
@@ -406,6 +393,19 @@
                 <componentInstanceProperties>
                     <name>title</name>
                     <value>Adverse Reactions</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-262bfd27-6b1c-40cb-b171-a1c0e751999c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Precedent Cases</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
             </componentInstance>
