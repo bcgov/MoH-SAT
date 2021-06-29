@@ -36,6 +36,7 @@ export default class SaHistoryLookup extends LightningElement {
   async handleLookup() {
     this.completeAndNoResults = false;
     this.isError = false;
+    this.data = [];
     this.fetchItems();
   }
 
@@ -74,6 +75,8 @@ export default class SaHistoryLookup extends LightningElement {
   }
 
   async fetchItems() {
+    if (this.patientIdentifier == null || this.patientIdentifier.length < 1) return;
+
     let data = await fetchSAApprovalHistory({phn: this.patientIdentifier})
     if (data && data.error == null) {
       const records = data.saRecords;
