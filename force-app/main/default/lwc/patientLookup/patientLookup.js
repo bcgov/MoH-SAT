@@ -56,7 +56,7 @@ export default class PatientLookup extends LightningElement {
     }
 
     get patientId() {
-        return this.template.querySelector('.patientIdentifier').value;
+        return this.template.querySelector('.patientIdentifier').value?.trim();
     }
 
     get patientRecordTypeId() {
@@ -67,7 +67,7 @@ export default class PatientLookup extends LightningElement {
         this.form[event.currentTarget.dataset.field] = event.target.value?.trim();
         this.publishChange(this.form);
         
-        this.template.querySelector('.btn-lookup').disabled = !this.patientId
+        this.template.querySelector('.btn-lookup').disabled = !this.patientId;
     }
 
     async handleLookup() {

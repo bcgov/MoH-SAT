@@ -65,11 +65,11 @@ export default class ProviderLookup extends LightningElement {
     }
 
     get providerId() {
-        return this.template.querySelector('.providerIdentifier').value;
+        return this.template.querySelector('.providerIdentifier').value?.trim();
     }
 
     get providerIdType() {
-        return this.template.querySelector('.providerIdType').value;
+        return this.template.querySelector('.providerIdType').value?.trim();
     }
 
     get providerRecordTypeId() {
