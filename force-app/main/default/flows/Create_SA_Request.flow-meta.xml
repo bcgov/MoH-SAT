@@ -1444,7 +1444,7 @@
         <name>Primary_Diagnoses_Options</name>
         <dataType>String</dataType>
         <displayField>Diagnosis__c</displayField>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
             <field>Drug__c</field>
             <operator>EqualTo</operator>
@@ -1457,6 +1457,13 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Primary</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Hierarchy__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <object>Diagnosis__c</object>
@@ -1500,7 +1507,7 @@
         <name>Secondary_Diagnoses_Options</name>
         <dataType>String</dataType>
         <displayField>Diagnosis__c</displayField>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
             <field>Drug__c</field>
             <operator>EqualTo</operator>
@@ -1513,6 +1520,13 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>Secondary</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Hierarchy__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <object>Diagnosis__c</object>
