@@ -22,12 +22,14 @@ Response to Request for Special Authority Coverage received on {!Case.CreatedDat
 </table>
 
 <strong>Medication Requested</strong><br>
-Drug Name: {!Case.Drug_Name__c}<br>
+Drug Name: {!Case.Drug_Name__c}  {!Case.Strength__c}<br>
 Description: {!Case.Description}<br><br><br><br>
 
 <center><strong>NOT APPROVED</strong></center><br>
 <strong>Rationale:</strong><br>
 {!Case.Rationale__c}<br><br>
+Please refer to PharmaCare criteria website for further information:
+www.gov.bc.ca/pharmacarespecialauthority<br><br>
 
 Special Authority BC Ministry of Health<br>
 Response provided on {!Case.ClosedDate}<br><br><br>
