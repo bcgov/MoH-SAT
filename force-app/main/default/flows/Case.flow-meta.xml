@@ -1004,7 +1004,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_6514570672</name>
+        <name>formula_11_myRule_10_A1_0080713837</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1015,7 +1015,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_15_A1_8727926335</name>
+        <name>formula_16_myRule_15_A1_6162943173</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1026,7 +1026,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_17_myRule_15_A1_1212819953</name>
+        <name>formula_17_myRule_15_A1_6678717173</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1037,7 +1037,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_19_A1_9631701282</name>
+        <name>formula_20_myRule_19_A1_0541083339</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1048,7 +1048,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_6786692927</name>
+        <name>formula_8_myRule_7_A1_1158806930</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -1063,7 +1063,7 @@
         <dataType>Boolean</dataType>
         <expression>ISCHANGED({!myVariable_current.Origin}) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)</expression>
     </formulas>
-    <interviewLabel>Case-2_InterviewLabel</interviewLabel>
+    <interviewLabel>Case-3_InterviewLabel</interviewLabel>
     <label>Case</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1169,7 +1169,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_6514570672</elementReference>
+                <elementReference>formula_11_myRule_10_A1_0080713837</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1253,7 +1253,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_16_myRule_15_A1_8727926335</elementReference>
+                <elementReference>formula_16_myRule_15_A1_6162943173</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1289,7 +1289,7 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_17_myRule_15_A1_1212819953</elementReference>
+                <elementReference>formula_17_myRule_15_A1_6678717173</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1370,7 +1370,7 @@
             </processMetadataValues>
             <field>Closed_by__c</field>
             <value>
-                <elementReference>formula_20_myRule_19_A1_9631701282</elementReference>
+                <elementReference>formula_20_myRule_19_A1_0541083339</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1405,7 +1405,7 @@
         <locationX>100</locationX>
         <locationY>200</locationY>
         <connector>
-            <targetReference>myDecision2</targetReference>
+            <targetReference>myRule_1_A2</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1455,6 +1455,90 @@
             <field>Drug_Name__c</field>
             <value>
                 <elementReference>myVariable_current.Drug__r.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <processMetadataValues>
+            <name>evaluationType</name>
+            <value>
+                <stringValue>always</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>extraTypeInfo</name>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>isChildRelationship</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>reference</name>
+            <value>
+                <stringValue>[Case]</stringValue>
+            </value>
+        </processMetadataValues>
+        <processMetadataValues>
+            <name>referenceTargetField</name>
+        </processMetadataValues>
+        <name>myRule_1_A2</name>
+        <label>set drug strength</label>
+        <locationX>100</locationX>
+        <locationY>300</locationY>
+        <connector>
+            <targetReference>myDecision2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <processMetadataValues>
+                <name>implicit</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </processMetadataValues>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>myVariable_current.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <processMetadataValues>
+                <name>dataType</name>
+                <value>
+                    <stringValue>String</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>isRequired</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideLabel</name>
+                <value>
+                    <stringValue>Strength</stringValue>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>leftHandSideReferenceTo</name>
+                <value>
+                    <stringValue/>
+                </value>
+            </processMetadataValues>
+            <processMetadataValues>
+                <name>rightHandSideType</name>
+                <value>
+                    <stringValue>Reference</stringValue>
+                </value>
+            </processMetadataValues>
+            <field>Strength__c</field>
+            <value>
+                <elementReference>myVariable_current.Drug__r.Strength__c</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1622,7 +1706,7 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_6786692927</elementReference>
+                <elementReference>formula_8_myRule_7_A1_1158806930</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
