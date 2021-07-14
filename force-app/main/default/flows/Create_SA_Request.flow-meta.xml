@@ -1444,7 +1444,7 @@
         <name>Primary_Diagnoses_Options</name>
         <dataType>String</dataType>
         <displayField>Diagnosis__c</displayField>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
             <field>Drug__c</field>
             <operator>EqualTo</operator>
@@ -1459,8 +1459,15 @@
                 <stringValue>Primary</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Hierarchy__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <object>Diagnosis__c</object>
-        <sortField>Hierarchy__c</sortField>
+        <sortField>Name</sortField>
         <sortOrder>Asc</sortOrder>
         <valueField>Diagnosis__c</valueField>
     </dynamicChoiceSets>
@@ -1500,7 +1507,7 @@
         <name>Secondary_Diagnoses_Options</name>
         <dataType>String</dataType>
         <displayField>Diagnosis__c</displayField>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
             <field>Drug__c</field>
             <operator>EqualTo</operator>
@@ -1515,8 +1522,15 @@
                 <stringValue>Secondary</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Hierarchy__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <object>Diagnosis__c</object>
-        <sortField>Hierarchy__c</sortField>
+        <sortField>Name</sortField>
         <sortOrder>Asc</sortOrder>
         <valueField>Diagnosis__c</valueField>
     </dynamicChoiceSets>
