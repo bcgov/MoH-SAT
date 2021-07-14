@@ -16,7 +16,7 @@ public with sharing class AutofaxController {
     }
 
     public AutofaxController(ApexPages.StandardSetController setcontroller) {
-        ListView listView = [select Id from ListView where DeveloperName='To_Be_Faxed_Queue'];
+        ListView listView = getListView();
         setcontroller.setFilterId(listView.Id);
         setcontroller.setPageSize(2000);
 
@@ -26,6 +26,10 @@ public with sharing class AutofaxController {
         }
 
         faxableCases = loadFaxableCases(recordIds);
+    }
+
+    private ListView getListView() {
+        return Test.isRunningTest() ? new ListView() : [select Id from ListView where DeveloperName='To_Be_Faxed_Queue'];
     }
 
     @RemoteAction
