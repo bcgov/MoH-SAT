@@ -46,7 +46,7 @@ global with sharing class SaRestApi {
 
     private static String postResponse(String caseNumber) {
         return String.format(
-            'Special Authority (SA) has received your request. Your reference number is {0}. ' + 
+            'Special Authority (SA) has received your request. Your Special Authority reference number is {0}. ' + 
             'The coverage decision will be sent to the fax number entered on the eForm. ' +
             'Patients can view the status of the SA request on their Health Gateway profile.', new String[] {
             caseNumber
