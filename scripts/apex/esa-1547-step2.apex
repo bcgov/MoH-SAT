@@ -3,6 +3,7 @@ List<Account> providers = [
     from Account 
     where Provider_Identifier_Key__pc = null
     and PersonContactId in (select Provider__c from Case)
+    and Provider_Identifier__pc not in ('IFIER', 'Not Provided')
     and Recordtype.Name = 'Provider'
 ];
 
