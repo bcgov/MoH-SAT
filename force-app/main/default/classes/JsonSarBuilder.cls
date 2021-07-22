@@ -103,6 +103,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         account.Provider_Type__pc = providerType;
         account.Provider_Identifier__pc = requiresTruncation(providerType) ? identifier?.right(5) : identifier;
         account.Provider_Specialty__pc = findProviderSpecialty(resource);
+        account.Pharmacy_ID__c = getPharmacyIdentifier(resource.identifier);
         
         List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc =:providerType];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
@@ -283,10 +284,19 @@ public with sharing class JsonSarBuilder implements SarBuilder {
     }
 
     private String getProviderIdentifier(List<Eform.Identifier> identifiers) {
+        String value = getIdentifier(identifiers, 'https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-license');
+        return value == null ? 'NULL_IDENTIFIER' : value;
+    }
+
+    private String getPharmacyIdentifier(List<Eform.Identifier> identifiers) {
+        return getIdentifier(identifiers, 'https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-pharmacare-provider-id');
+    }
+
+    private String getIdentifier(List<Eform.Identifier> identifiers, String systemValue) {
         String value = null;
         if (identifiers == null) return value;
         for (Eform.Identifier identifier : identifiers) {
-            if (identifier.system_Z.startsWithIgnoreCase('https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-license')) {
+            if (identifier.system_Z.startsWithIgnoreCase(systemValue)) {
                 value = identifier.value;
                 break;
             }
