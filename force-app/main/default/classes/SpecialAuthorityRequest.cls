@@ -2,6 +2,7 @@ public with sharing class SpecialAuthorityRequest {
     public Drug__c drug { get; private set; }
     public Account patient { get; private set; }
     public Account provider { get; private set; }
+    public Account dec { get; private set; }
     public Case saCase { get; private set; }
     public List<Request_Detail__c> requestDetails { get; private set; }
     public List<ContentVersion> contentVersions { get; private set; }
@@ -9,10 +10,11 @@ public with sharing class SpecialAuthorityRequest {
     
     private Boolean hasDrug;
 
-    public SpecialAuthorityRequest(Drug__c drug, Account patient, Account provider, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
+    public SpecialAuthorityRequest(Drug__c drug, Account patient, Account provider, Account dec, Case saCase, List<Request_Detail__c> requestDetails, List<ContentVersion> contentVersions) {
         this.drug = drug;
         this.patient = patient;
         this.provider = provider;
+        this.dec = dec;
         this.saCase = saCase;
         this.requestDetails = requestDetails;
         this.contentVersions = contentVersions;
@@ -24,6 +26,14 @@ public with sharing class SpecialAuthorityRequest {
     public Boolean hasDrug() {
         return this.hasDrug;
     }
+
+    public Boolean hasDec() {
+        return this.dec != null;
+    }
+
+    public Boolean hasPharmacyId() {
+        return String.isNotBlank(this.provider.Pharmacy_ID__c);
+    }   
 
     public Id getDefaultOwnerId() {
         return hasDrug() ? drug.OwnerId : null;
@@ -74,8 +84,6 @@ public with sharing class SpecialAuthorityRequest {
         SAApprovalRequest sarBody = new SAApprovalRequest();
         sarBody.saRecord.phn = this.patient.Patient_Identifier__pc;
         sarBody.saRecord.specAuthType = saType;
-        sarBody.saRecord.saRequester.practId = this.provider.Provider_Identifier__pc;
-        sarBody.saRecord.saRequester.practIdRef = OdrIntegration.getPractitionerCode(this.provider.Provider_Type__pc);
         sarBody.saRecord.maxDaysSupply = Integer.valueOf(daysSupply);
         sarBody.saRecord.maxPricePct = pricePercent;
         sarBody.saRecord.excludedPlans = excludedPlans;
@@ -99,6 +107,15 @@ public with sharing class SpecialAuthorityRequest {
 
         sarBody.saRecord.terminationDate = DateUtil.formatToOdrDate(terminationDate);
 
+        if (hasDec()) {
+            sarBody.saRecord.saRequester.decCode = this.dec.DEC__c;
+        } else if (hasPharmacyId()) {
+            sarBody.saRecord.saRequester.pharmacyId = this.provider.Pharmacy_ID__c;
+        } else {
+            sarBody.saRecord.saRequester.practId = this.provider.Provider_Identifier__pc; 
+            sarBody.saRecord.saRequester.practIdRef = OdrIntegration.getPractitionerCode(this.provider.Provider_Type__pc);
+        }
+
         saApprovalRequests.add(sarBody);
     }
 
@@ -109,16 +126,19 @@ public with sharing class SpecialAuthorityRequest {
     public void save() {
         Boolean hasPatient = patient != null;
         Boolean hasProvider = provider != null;
+        Boolean hasDec = hasDec();
 
         if (hasPatient && patient.Id == null) { insert patient; } else if (hasPatient) { update patient; }
         if (hasProvider && provider.Id == null) { insert provider; } else if (hasProvider) { update provider; }
-        
+        if (hasDec) { upsert dec DEC__c; }
+
         Contact patientContact = hasPatient ? [select Id from Contact where AccountId = :patient.Id] : new Contact();
         Contact providerContact = hasProvider ? [select Id from Contact where AccountId = :provider.Id] : new Contact();
 
         saCase.ContactId = patientContact.Id;
         saCase.Provider__c = providerContact.Id;
         saCase.Provider_Fax__c = provider?.Fax;
+        saCase.DEC__c = dec?.Id;
         insert saCase;
 
         for (Request_Detail__c rd : requestDetails) {

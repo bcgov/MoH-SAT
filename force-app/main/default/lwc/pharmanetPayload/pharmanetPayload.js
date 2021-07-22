@@ -40,9 +40,24 @@ export default class PharmanetPayload extends LightningElement {
     return sar.phn;
   }
 
+  get hasPractitionerId() {
+    let sar = this.pnetSars[0].saRecord;
+    return sar.saRequester.practId != null;
+  }
+
   get practitionerId() {
     let sar = this.pnetSars[0].saRecord;
     return `${sar.saRequester.practIdRef}-${sar.saRequester.practId}`
+  }
+
+  get pharmacyId() {
+    let sar = this.pnetSars[0].saRecord;
+    return sar.saRequester.pharmacyId
+  }
+
+  get decCode() {
+    let sar = this.pnetSars[0].saRecord;
+    return sar.saRequester.decCode
   }
 
   async handleSubmit() {

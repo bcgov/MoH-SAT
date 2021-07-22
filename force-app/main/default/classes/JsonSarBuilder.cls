@@ -15,6 +15,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         Drug__c drug;
         Account provider;
         Account patient;
+        Account dec;
         Case saCase;
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         List<ContentVersion> contentVersions = new List<ContentVersion>();
@@ -41,6 +42,8 @@ public with sharing class JsonSarBuilder implements SarBuilder {
             }
         }
 
+        dec = buildDec(requestDetails);
+
         String drugCode = findDrugCode(requestDetails);
         List<Drug__c> drugs = [select Id, Name, Drug_Code__c from Drug__c where Drug_Code__c = :drugCode];
         String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
@@ -60,7 +63,8 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         return new SobjectSarBuilder(
             drug, 
             patient, 
-            provider, 
+            provider,
+            dec,
             saCase, 
             requestDetails, 
             contentVersions
@@ -109,6 +113,35 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         account.Id = existing.isEmpty() ? null : existing[0].Id;
         
         return account;
+    }
+
+    private Account buildDec(List<Request_Detail__c> requestDetails) {
+        if (!hasDec(requestDetails)) return null;
+
+        Account decAccount = new Account();
+
+        for (Request_Detail__c rd : requestDetails) {
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.dec')) {
+                decAccount.Name = 'DEC ' + rd.String_Value__c;
+                decAccount.DEC__c = rd.String_Value__c;
+            }
+
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.providerFaxNumber1')) decAccount.Fax = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decStreetAddressLine1')) decAccount.BillingStreet = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressCity')) decAccount.BillingCity = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decaddressProvince')) decAccount.BillingState = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressPostalCode')) decAccount.BillingPostalCode = rd.String_Value__c;
+        }
+        return decAccount;
+    }
+
+    private Boolean hasDec(List<Request_Detail__c> requestDetails) {
+        for (Request_Detail__c rd : requestDetails) {
+            if (rd.Question_ID__c != null && rd.Question_ID__c.startsWithIgnoreCase('panelDECinfo')) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Boolean requiresTruncation(String providerType) {
