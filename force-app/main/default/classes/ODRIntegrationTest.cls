@@ -126,6 +126,7 @@ public class ODRIntegrationTest {
             new Drug__c(),
             new Account(),
             new Account(),
+            new Account(),
             new Case(),
             new List<Request_Detail__c>(),
             new List<ContentVersion>()
@@ -161,34 +162,6 @@ public class ODRIntegrationTest {
         Patient p = ODRIntegration.getPatient('phn');
 
         System.assertEquals(true, p != null);
-    }
-    @isTest static void getSAApprovalRequestsTest() {
-        Drug__c drug = TestFactory.newDrug('Drug 1');
-        insert drug;
-
-        Drug_Template__c drugTemplate = TestFactory.newDrugTemplate(drug, 'Drug Template');
-        drugTemplate.Pharmanet_Code__c = '9901-9901';
-        insert drugTemplate;
-
-        Account patient = TestFactory.newPatient('Patient 1');
-        Account provider = TestFactory.newProvider('Provider 1');
-        insert new Account[] { patient, provider };
-
-        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
-        saCase.Termination_Date__c = null;//Date.parse('3000-01-01');
-        insert saCase;
-
-        List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
-        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question1', 'response1'));
-        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question2', 'response2'));
-        insert requestDetails;
-
-        Test.startTest();
-        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
-        List<SAApprovalRequest> saarList = ODRIntegration.getSAApprovalRequests(sar);
-        Test.stopTest();
-
-        System.assertEquals(saarList.size(), 1);
     }
 
     @isTest

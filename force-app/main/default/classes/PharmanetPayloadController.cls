@@ -21,6 +21,7 @@ public with sharing class PharmanetPayloadController {
 
     @AuraEnabled
     public static void submitSinglePnetSar(Id caseId, SAApprovalRequest pnetSa) {
+        system.debug(pnetSa);
         SAApprovalRequestResponse saaResponse = postSAAProval(caseId, pnetSa);
 
         if (hasError(saaResponse)) {
