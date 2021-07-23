@@ -799,16 +799,58 @@
             <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>PatientOverrideReason</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>None</stringValue>
+                    <stringValue>Not Found</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>Provider_Override_Reason</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>None</stringValue>
+                    <stringValue>Provider Not Provided</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Missing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Inactive</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>PatientOverrideReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Deceased</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>PatientOverrideReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Out of Province PHN</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>PatientOverrideReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>No PHN Provided</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Not Found</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -818,7 +860,7 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Case_Approval_Status_0</name>
+        <name>Case_Approval_Status_0_0</name>
         <label>Case Approval Status</label>
         <locationX>677</locationX>
         <locationY>11318</locationY>
@@ -827,24 +869,66 @@
         </defaultConnector>
         <defaultConnectorLabel>Case Approved</defaultConnectorLabel>
         <rules>
-            <name>Override_Not_Approved_0</name>
+            <name>Override_Not_Approved_0_0</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>PatientOverrideReason</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>None</stringValue>
+                    <stringValue>Not Found</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>Provider_Override_Reason</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>None</stringValue>
+                    <stringValue>Provider Not Provided</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Missing</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Inactive</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>PatientOverrideReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Deceased</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>PatientOverrideReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Out of Province PHN</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>PatientOverrideReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>No PHN Provided</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Not Found</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Case_Status_Not_Approved_0</targetReference>
+                <targetReference>Update_Case_Status_Not_Approved_0_0</targetReference>
             </connector>
             <label>Override Not Approved</label>
         </rules>
@@ -3796,7 +3880,7 @@
         <object>Case</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Case_Status_Not_Approved_0</name>
+        <name>Update_Case_Status_Not_Approved_0_0</name>
         <label>Update Case Status Not Approved</label>
         <locationX>545</locationX>
         <locationY>11438</locationY>
@@ -5303,7 +5387,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Case_Approval_Status_0</targetReference>
+            <targetReference>Case_Approval_Status_0_0</targetReference>
         </connector>
         <fields>
             <name>Upload_File_0</name>
