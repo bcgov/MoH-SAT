@@ -4,6 +4,8 @@ on: [pull_request_target]
 jobs:
   build-check:
     runs-on: ubuntu-latest
+    env:
+      SFDX_DISABLE_SOURCE_MEMBER_POLLING: true
     steps:
 
     - uses: actions/checkout@v2
