@@ -38,6 +38,7 @@ public with sharing class SobjectSarBuilderTest {
         Account provider = TestFactory.newProvider('Provider 1');
         insert new Account[] { patient, provider };
         
+
         Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
         insert saCase;
         
@@ -47,7 +48,7 @@ public with sharing class SobjectSarBuilderTest {
         insert requestDetails;
 
         Test.startTest();
-        SpecialAuthorityRequest sar = new SobjectSarBuilder(drug, patient, provider, null, saCase, requestDetails, new List<ContentVersion>()).build();
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(drug, patient, provider, saCase, requestDetails, new List<ContentVersion>()).build();
         Test.stopTest();
 
         system.assertEquals(drug.Id, sar.drug.Id);

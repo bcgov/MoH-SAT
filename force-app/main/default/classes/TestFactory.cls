@@ -324,7 +324,6 @@ public with sharing class TestFactory {
             new Drug__c(), 
             new Account(), 
             new Account(), 
-            new Account(), 
             new Case(), 
             new List<Request_Detail__c>(),
             new List<ContentVersion>()
