@@ -3,7 +3,6 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
     private Drug__c drug;
     private Account patient;
     private Account provider;
-    private Account dec;
     private Case saCase;
     private List<Request_Detail__c> requestDetails;
     private List<ContentVersion> contentVersions;
@@ -13,14 +12,12 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
         Drug__c drug, 
         Account patient, 
         Account provider, 
-        Account dec, 
         Case saCase, 
         List<Request_Detail__c> requestDetails, 
         List<ContentVersion> contentVersions) {
         this.drug = drug;
         this.patient = patient;
         this.provider = provider;
-        this.dec = dec;
         this.saCase = saCase;
         this.requestDetails = requestDetails;
         this.contentVersions = contentVersions;
@@ -35,7 +32,6 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
             saCase.Drug__c == null ? null : queryDrug(saCase.Drug__c),
             String.isBlank(saCase.ContactId) ? null : saCase.Contact.Account, 
             String.isBlank(saCase.Provider__c) ? null : saCase.Provider__r.Account, 
-            String.isBlank(saCase.DEC__c) ? null : saCase.DEC__r, 
             saCase,
             saCase.Request_Details__r,
             new List<ContentVersion>()
@@ -43,7 +39,7 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
     }
 
     public SpecialAuthorityRequest build() {
-        return new SpecialAuthorityRequest(drug, patient, provider, dec, saCase, requestDetails, contentVersions);
+        return new SpecialAuthorityRequest(drug, patient, provider, saCase, requestDetails, contentVersions);
     }
 
     private static Case query(Id caseId) {
@@ -64,11 +60,7 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
                 Provider__r.Account.Provider_Identifier__pc, Provider__r.Account.Provider_Type__pc, Provider__r.Provider_Type__c,
                 Provider__r.Account.PersonBirthdate, Provider__r.Account.PersonMailingStreet, Provider__r.Account.PersonMailingCity,
                 Provider__r.Account.PersonMailingState, Provider__r.Account.PersonMailingPostalCode, Provider__r.Account.PersonMailingCountry,
-                Provider__r.Account.Pharmacy_ID__c,
                 
-                DEC__c, DEC__r.DEC__c, DEC__r.Fax, DEC__r.BillingStreet, 
-                DEC__r.BillingCity,DEC__r.BillingState, DEC__r.BillingPostalCode,
-
                 (
                     select Id, Sort_Order__c, Question_ID__c, Question__c,
                         String_Value__c, Decimal_Value__c, Boolean_Value__c, Date_Value__c, Datetime_Value__c

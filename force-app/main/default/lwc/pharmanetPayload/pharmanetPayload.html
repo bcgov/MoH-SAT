@@ -7,14 +7,8 @@
         <div class="slds-col">
           <lightning-input type="text" label="Patient" value={patientId} readonly></lightning-input>
         </div>
-        <div class="slds-col" if:true={hasPractitionerId}>
+        <div class="slds-col">
           <lightning-input type="text" label="Practitioner" value={practitionerId} readonly></lightning-input>
-        </div>
-        <div class="slds-col" if:true={pharmacyId}>
-          <lightning-input type="text" label="Pharmacy ID" value={pharmacyId} readonly></lightning-input>
-        </div>
-        <div class="slds-col" if:true={decCode}>
-          <lightning-input type="text" label="DEC" value={decCode} readonly></lightning-input>
         </div>
       </div>
     

@@ -7,7 +7,6 @@ public class SpecialAuthorityRequestTest {
             new Drug__c(), 
             new Account(), 
             new Account(), 
-            new Account(), 
             new Case(), 
             new List<Request_Detail__c>(),
             new List<ContentVersion>()
@@ -17,7 +16,6 @@ public class SpecialAuthorityRequestTest {
         
         sar = new SobjectSarBuilder(
             null, 
-            new Account(), 
             new Account(), 
             new Account(), 
             new Case(), 
