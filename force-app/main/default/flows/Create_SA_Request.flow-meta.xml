@@ -2118,9 +2118,9 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Pharmacy_Name__c</field>
+            <field>Pharmacy_Name__pc</field>
             <value>
-                <stringValue>8172b4c1-1ddd-44e9-bfc8-40279ef8b2fc</stringValue>
+                <elementReference>Not_Provided_Pharmacy_Name</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2253,9 +2253,9 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Pharmacy_Name__c</field>
+            <field>Pharmacy_Name__pc</field>
             <value>
-                <stringValue>980a254c-7b98-420d-b872-23f04c63a1e8</stringValue>
+                <elementReference>Pharmacy_Name_0</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2306,9 +2306,9 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Pharmacy_Name__c</field>
+            <field>Pharmacy_Name__pc</field>
             <value>
-                <stringValue>e96200b9-0608-42d2-b827-0988bb25909a</stringValue>
+                <elementReference>Pharmacy_Name_2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2710,6 +2710,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>DEC_Code__c</field>
+            <value>
+                <elementReference>Final_DEC_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>DEC__c</field>
             <value>
                 <elementReference>Final_DEC_ID</elementReference>
@@ -2725,6 +2731,12 @@
             <field>ParentId</field>
             <value>
                 <elementReference>Parent_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Pharm_ID__c</field>
+            <value>
+                <elementReference>Final_Pharmacist_ID</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2775,6 +2787,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>DEC_Code__c</field>
+            <value>
+                <elementReference>Final_DEC_Code</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>DEC__c</field>
             <value>
                 <elementReference>Final_DEC_ID</elementReference>
@@ -2790,6 +2808,12 @@
             <field>ParentId</field>
             <value>
                 <elementReference>Parent_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Pharm_ID__c</field>
+            <value>
+                <elementReference>Final_Pharmacist_ID</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3450,10 +3474,10 @@
             </value>
         </filters>
         <filters>
-            <field>Pharmacy_Name__c</field>
+            <field>Pharmacy_Name__pc</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>5b577f43-392c-45fe-ac51-36515da5ec37</stringValue>
+                <elementReference>Pharmacy_Name</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -4055,7 +4079,7 @@
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Id</field>
+            <field>AccountId</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Existing_Provider_Dummy_Account.AccountId</elementReference>
@@ -4079,13 +4103,7 @@
                 <elementReference>Existing_Provider_Pharmacy_ID</elementReference>
             </value>
         </inputAssignments>
-        <inputAssignments>
-            <field>Pharmacy_Name__c</field>
-            <value>
-                <elementReference>Existing_Provider_Pharmacy_Name</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
+        <object>Contact</object>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Patient_Record_With_ODR_Info_0</name>
