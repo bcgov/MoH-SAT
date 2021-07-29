@@ -8,9 +8,15 @@
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>Request_Type__c</columns>
     <columns>CASES.ORIGIN</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Received,Under Review</value>
+    </filters>
     <label>Urgent Queue</label>
     <queue>Urgent</queue>
     <sharedTo>
