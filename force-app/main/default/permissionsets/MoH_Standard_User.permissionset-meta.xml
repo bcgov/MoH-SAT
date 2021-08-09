@@ -49,6 +49,16 @@
         <name>Disable_Fax</name>
     </customPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.DEC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Pharmacy_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Adjudication_Criteria__c.Boolean_Value__c</field>
         <readable>true</readable>
@@ -111,6 +121,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.ContactId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.DEC__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -266,6 +281,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Patient_Validated__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Pharmacy__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -798,6 +818,14 @@
         <apexPage>PDFGenerator</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
+    <recordTypeVisibilities>
+        <recordType>Account.DEC</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Account.Pharmacy</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.Special_Authority_Request</recordType>
         <visible>true</visible>
