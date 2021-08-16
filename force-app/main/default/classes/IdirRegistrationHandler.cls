@@ -20,8 +20,6 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
     }
 
     public User createUser(Id portalId, Auth.UserData data){
-        debug(data);
-        
         User user = buildUser(data);
         user.IsActive = true;
         user.TimeZoneSidKey = 'America/Los_Angeles';
@@ -43,7 +41,6 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
     }
     
     public void updateUser(Id userId, Id portalId, Auth.UserData data){
-        debug(data);
         User user = buildUser(data);
         user.Id = userId;
         update user;
@@ -100,10 +97,5 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         record.LastName = data.lastName;
         record.Email = data.email;
         return record;
-    }
-
-    private void debug(Auth.UserData data) {
-        system.debug(JSON.serialize(data));
-        system.debug(Network.getNetworkId());
     }
 }
