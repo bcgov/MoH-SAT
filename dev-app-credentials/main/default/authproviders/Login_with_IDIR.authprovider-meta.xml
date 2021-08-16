@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authorizeUrl>https://common-logon-dev.hlth.gov.bc.ca/auth/realms/moh_applications/protocol/openid-connect/auth?kc_idp_hint=idir</authorizeUrl>
+    <consumerKey>SA-SFDC</consumerKey>
+    <consumerSecret>V7cy8iR2ORLWiZIu9PpKl0tykLKL73axzo3d5o45SrMcrKVJ7p5GGQ==</consumerSecret>
+    <executionUser>test-vxxq5g63lnol@example.com</executionUser>
+    <friendlyName>Login with IDIR</friendlyName>
+    <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
+    <providerType>OpenIdConnect</providerType>
+    <registrationHandler>IdirRegistrationHandler</registrationHandler>
+    <sendAccessTokenInHeader>true</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>true</sendSecretInApis>
+    <tokenUrl>https://common-logon-dev.hlth.gov.bc.ca/auth/realms/moh_applications/protocol/openid-connect/token</tokenUrl>
+    <userInfoUrl>https://common-logon-dev.hlth.gov.bc.ca/auth/realms/moh_applications/protocol/openid-connect/userinfo</userInfoUrl>
+</AuthProvider>
