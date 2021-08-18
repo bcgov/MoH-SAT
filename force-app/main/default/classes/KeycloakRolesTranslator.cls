@@ -20,6 +20,12 @@ public with sharing class KeycloakRolesTranslator {
         insert psas;
     }
 
+    public static Set<String> parseRoles(String keycloakRoles) {
+        List<String> result = keycloakRoles?.substringBetween('[', ']')?.split(', ');
+
+        return result == null ? new Set<String>() : new Set<String>(result); 
+    }
+
     private static List<PermissionSet> getDefaultPermissionSets(String profileName) {
         Set<String> permissionSetNames = new Set<String>();
         permissionSetNames.add('Multi_Factor_Authentication');
@@ -41,12 +47,6 @@ public with sharing class KeycloakRolesTranslator {
             new PermissionSet[]{} : 
             [select Id from PermissionSet where IsOwnedByProfile=false and IsCustom=true and Name = :permsetNames];
     }
-
-    private static List<String> parseRoles(String keycloakRoles) {
-        List<String> result = keycloakRoles?.substringBetween('[', ']')?.split(', ');
-
-        return result == null ? new String[]{} : result; 
-    } 
 
     private static List<String> getExternallyManagedPermissionSets() {
         return new String[]{
