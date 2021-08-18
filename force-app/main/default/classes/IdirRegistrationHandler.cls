@@ -27,7 +27,7 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         user.LanguageLocaleKey = 'en_US';
         user.LocaleSidKey = 'en_CA';
         user.ProfileId = getDefaultProfileId(data);
-        user.Username = data.email + '.' + org.Id;
+        user.Username = createUsername(data.email);
         
         if (isLocal) {
             user.UserPermissionsSupportUser = true;
@@ -44,6 +44,10 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         User user = buildUser(data);
         user.Id = userId;
         update user;
+    }
+
+    private String createUsername(String email) {
+        return email + (org.IsSandbox ? '.' + org.Id : '');
     }
 
     private User queryUser(Id userId) {
@@ -72,11 +76,19 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
     }
 
     private Boolean isHibcStaff(Auth.UserData data) {
-        return data.email.endsWith('@hibc.gov.bc.ca');
+        return rolesContain(data, 'HIBC_USER');
     }
 
     private Boolean isServiceBcStaff(Auth.UserData data) {
-        return data.email.endsWith('@maximuscanada.ca');
+        return rolesContain(data, 'SERVICE_BC_USER');
+    }
+
+    private Set<String> getDataRoles(Auth.UserData data) {
+        return KeycloakRolesTranslator.parseRoles(data.attributeMap.get('roles'));
+    }
+
+    private Boolean rolesContain(Auth.UserData data, String role) {
+        return getDataRoles(data).contains(role);
     }
 
     private User buildUser(Auth.UserData data) {
