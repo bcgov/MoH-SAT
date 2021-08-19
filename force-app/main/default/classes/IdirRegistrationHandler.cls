@@ -1,5 +1,6 @@
 public with sharing class IdirRegistrationHandler implements Auth.RegistrationHandler {
-    
+    public class IdirRegistrationHandlerException extends Exception {}
+
     private Organization org;
     private Boolean isLocal = false;
     private Boolean isDbaacPortal = false;
@@ -20,6 +21,10 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
     }
 
     public User createUser(Id portalId, Auth.UserData data){
+        if (!hasBaseRole(data)) {
+            throw new IdirRegistrationHandlerException('User does not have any Keycloak roles for this application.');
+        }
+
         User user = buildUser(data);
         user.IsActive = true;
         user.TimeZoneSidKey = 'America/Los_Angeles';
@@ -73,6 +78,14 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private Boolean hasBaseRole(Auth.UserData data) {
+        return isMohStaff(data) || isHibcStaff(data) || isServiceBcStaff(data);
+    }
+
+    private Boolean isMohStaff(Auth.UserData data) {
+        return rolesContain(data, 'MOH_USER');
     }
 
     private Boolean isHibcStaff(Auth.UserData data) {
