@@ -36,6 +36,13 @@ public with sharing class TestFactory {
         account.Provider_Type__pc = 'Pharmacist';
         return account;
     }
+
+    public static Account newAccount(String name) {
+        Account account = new Account();
+        account.RecordTypeId = getRecordTypeInfosByDeveloperName('Account', 'Business_Account').getRecordTypeId();
+        account.Name = name;
+        return account;
+    }
     
     public static Drug__c newDrug(String name) {
         Drug__c drug = new Drug__c();
