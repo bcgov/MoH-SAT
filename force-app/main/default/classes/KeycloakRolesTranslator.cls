@@ -16,14 +16,18 @@ public with sharing class KeycloakRolesTranslator {
             ));
         }
 
-        deleteExistingPermsets();
+        removeExistingPermsets();
         insert psas;
     }
 
     public static Set<String> parseRoles(String keycloakRoles) {
-        List<String> result = keycloakRoles?.substringBetween('[', ']')?.split(', ');
-
-        return result == null ? new Set<String>() : new Set<String>(result); 
+        List<String> listResult = keycloakRoles?.substringBetween('[', ']')?.split(',\\s*');
+        Set<String> result = listResult == null ? new Set<String>() : new Set<String>(listResult);
+        
+        result.remove(null);
+        result.remove('');
+        
+        return result; 
     }
 
     private static List<PermissionSet> getDefaultPermissionSets(String profileName) {
@@ -60,11 +64,14 @@ public with sharing class KeycloakRolesTranslator {
         };
     }
 
-    private static void deleteExistingPermsets() {
+    private static void removeExistingPermsets() {
         delete [select Id from PermissionSetAssignment where AssigneeId = :UserInfo.getUserId() and PermissionSet.Name in :getExternallyManagedPermissionSets()];
     }
 
     private static final Map<String, List<String>> PROFILE_PERMSETS = new Map<String, List<String>>{
+        'System Administrator' => new String[] {
+            'MoH_Standard_User'
+        },
         'MoH Standard User' => new String[] {
             'MoH_Standard_User'
         },

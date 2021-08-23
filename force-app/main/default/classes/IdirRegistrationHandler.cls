@@ -2,22 +2,23 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
     public class IdirRegistrationHandlerException extends Exception {}
 
     private Organization org;
-    private Boolean isLocal = false;
-    private Boolean isDbaacPortal = false;
-    private Boolean isSshibcPortal = false;
     private Account serviceBc;
     private Account hibc;
 
+    @TestVisible private Boolean isLocal = false;
+    @TestVisible private Boolean isDbaacPortal = false;
+    @TestVisible private Boolean isSshibcPortal = false;
+
     public IdirRegistrationHandler() {
         this.org = [select Id, IsSandbox from Organization limit 1];
+        this.serviceBc = [select Id, Name from Account where Name in ('Service BC (SBC) Call Centre', 'Service BC') limit 1];
+        this.hibc = [select Id, Name from Account where Name in ('HIBC HelpDesk', 'HIBC') limit 1];
 
         Network network = Network.getNetworkId() == null ? null : [select Id, Name from Network where Id =: Network.getNetworkId()];
+        
         this.isLocal = network == null;
         this.isDbaacPortal = network?.Name.equalsIgnoreCase('DBAAC Portal');
         this.isSshibcPortal = network?.Name.equalsIgnoreCase('SSHIBC - Service Support HIBC');
-    
-        this.serviceBc = [select Id, Name from Account where Name in ('Service BC (SBC) Call Centre', 'Service BC') limit 1];
-        this.hibc = [select Id, Name from Account where Name in ('HIBC HelpDesk', 'HIBC') limit 1];
     }
 
     public User createUser(Id portalId, Auth.UserData data){
@@ -55,16 +56,6 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         return email + (org.IsSandbox ? '.' + org.Id : '');
     }
 
-    private User queryUser(Id userId) {
-        return [
-            select 
-                Id, FirstName, LastName, Email, Username, Alias, IsActive, 
-                TimeZoneSidKey, EmailEncodingKey, LanguageLocaleKey, LocaleSidKey
-            from User 
-            where Id = :userId
-        ];
-    }
-
     private Id getDefaultProfileId(Auth.UserData data) {
         String profileName = null;
 
@@ -76,7 +67,7 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         try {
             return [select Id from Profile where Name = :profileName limit 1].Id;
         } catch (Exception e) {
-            return null;
+            throw new IdirRegistrationHandlerException('Unable to find a default profile for this user.');
         }
     }
 
@@ -110,7 +101,7 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         user.Email = data.email;
         user.FirstName = data.firstName;
         user.LastName = data.lastName;
-        user.Alias = user.FirstName.left(1).toUpperCase()+user.LastName.capitalize();
+        user.Alias = user.FirstName.left(1).toUpperCase()+user.LastName.capitalize().left(7);
         user.Keycloak_Roles__c = data.attributeMap.get('roles');
         return user;
     }
