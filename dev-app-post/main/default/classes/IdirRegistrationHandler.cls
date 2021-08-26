@@ -34,6 +34,7 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
         user.LocaleSidKey = 'en_CA';
         user.ProfileId = getDefaultProfileId(data);
         user.Username = createUsername(data.email);
+        user.Email = data.email;
         
         if (isLocal) {
             user.UserPermissionsSupportUser = true;
@@ -98,7 +99,6 @@ public with sharing class IdirRegistrationHandler implements Auth.RegistrationHa
     private User buildUser(Auth.UserData data) {
         User user = new User();
         user.FederationIdentifier = data.username.substringBefore('@idir').toUpperCase();
-        user.Email = data.email;
         user.FirstName = data.firstName;
         user.LastName = data.lastName;
         user.Alias = user.FirstName.left(1).toUpperCase()+user.LastName.capitalize().left(7);
