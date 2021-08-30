@@ -15,6 +15,7 @@ public with sharing class PdfGeneratorControllerTest {
 
         Test.startTest();
         PDFGeneratorController controller = new PDFGeneratorController();
+        controller.postToChatter();
         Test.stopTest();
 
         system.assert(controller.html != null);

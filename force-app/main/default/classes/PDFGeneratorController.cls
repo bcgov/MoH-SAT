@@ -15,4 +15,15 @@ public class PDFGeneratorController {
         Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(templateId, UserInfo.getUserId(), caseRecord.Id);
         html = email.getHTMLBody();
     }
+
+    public void postToChatter() {
+        Id caseId = ApexPages.currentPage().getParameters().get('id');
+        Id templateId = ApexPages.currentPage().getParameters().get('templateId');
+        String message = String.format(
+            'Fax template generated: {0}', new String[] {
+            [select Name from EmailTemplate where Id = :templateId].Name
+        });
+
+        if (!Test.isRunningTest()) ConnectApi.ChatterFeeds.postFeedElement(null, caseId, ConnectApi.FeedElementType.FeedItem, message);
+    }
 }
