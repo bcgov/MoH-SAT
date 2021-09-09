@@ -17,7 +17,7 @@ public with sharing class FeedItems {
                             ConnectApi.MentionSegment theMention = (ConnectApi.MentionSegment) segment;
                             Id mentionedId = theMention.record.id;
                             if (mentionedId.getSobjectType() == CollaborationGroup.sobjectType) {
-                                callFlow(mentionedId);
+                                callFlow(mentionedId, item.parent.id);
                             }
                         }
                     }
@@ -26,9 +26,10 @@ public with sharing class FeedItems {
         }
     }
 
-    private static void callFlow(Id collaborationGroupId) {
+    private static void callFlow(Id collaborationGroupId, Id targetId) {
         Map<String, Object> params = new Map<String, Object>();
         params.put('Collaboration_Group_ID', collaborationGroupId);
+        params.put('Target_ID', targetId);
         Flow.Interview.Send_notification_to_group flow = new Flow.Interview.Send_notification_to_group(params);
         flow.start();
     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>Send_notification_to_user</name>
+        <name>Send_notification_to_user_0</name>
         <label>Send notification to user</label>
         <locationX>176</locationX>
         <locationY>734</locationY>
@@ -17,7 +17,7 @@
         <inputParameters>
             <name>body</name>
             <value>
-                <stringValue>Click here to access the comment in your chatter group</stringValue>
+                <stringValue>Click here to access the comment</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -34,6 +34,9 @@
         </inputParameters>
         <inputParameters>
             <name>targetId</name>
+            <value>
+                <elementReference>Target_ID</elementReference>
+            </value>
         </inputParameters>
     </actionCalls>
     <apiVersion>52.0</apiVersion>
@@ -66,7 +69,7 @@
             <targetReference>Assign_Member_ID</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Send_notification_to_user</targetReference>
+            <targetReference>Send_notification_to_user_0</targetReference>
         </noMoreValuesConnector>
     </loops>
     <processMetadataValues>
@@ -102,7 +105,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>In-App Alert</stringValue>
+                <stringValue>InAppAlert</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -123,7 +126,7 @@
             <field>CollaborationGroupId</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>ID INSERT</stringValue>
+                <elementReference>Collaboration_Group_ID</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -140,6 +143,34 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>Collaboration_Group_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Stream_ID</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Stream_list_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Target_ID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>UserIDs</name>
         <dataType>String</dataType>
