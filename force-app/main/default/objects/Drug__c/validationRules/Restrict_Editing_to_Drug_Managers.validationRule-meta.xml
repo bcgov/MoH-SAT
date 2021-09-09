@@ -3,6 +3,6 @@
     <fullName>Restrict_Editing_to_Drug_Managers</fullName>
     <active>true</active>
     <description>Allows only drug managers to edit drug records.</description>
-    <errorConditionFormula>$Permission.Drug_Manager  = FALSE</errorConditionFormula>
+    <errorConditionFormula>AND($Permission.Drug_Manager = FALSE, NOT($Profile.Name = &quot;System Administrator&quot;))</errorConditionFormula>
     <errorMessage>Insufficient access. Only Drug Managers can edit drug records.</errorMessage>
 </ValidationRule>
