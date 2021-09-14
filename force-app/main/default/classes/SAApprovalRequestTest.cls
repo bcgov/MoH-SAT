@@ -14,6 +14,7 @@ public class SAApprovalRequestTest {
       saar.saRecord.excludedPlans.add('123');
       saar.saRecord.saRequester.practId = '0A0P1';
       saar.saRecord.saRequester.practIdRef = '0A0P1';
+      saar.saRecord.saRequester.decCode = 'DEC1232';
       saar.saRecord.effectiveDate = '3000/01/01';
       saar.saRecord.terminationDate = '3000/01/01';
       saar.saRecord.maxDaysSupply = 25;

@@ -36,7 +36,8 @@ export default class PnetSaForm extends LightningElement {
                 maxPricePct: this._record.maxPricePct,
                 saRequester: {
                     practIdRef: this._record.practIdRef,
-                    practId: this._record.practId
+                    practId: this._record.practId,
+                    decCode: this._record.decCode
                 },
                 specialItem: {
                     din: this._record.din,
@@ -52,6 +53,7 @@ export default class PnetSaForm extends LightningElement {
             phn: value.saRecord.phn,
             practId: value.saRecord.saRequester.practId,
             practIdRef: value.saRecord.saRequester.practIdRef,
+            decCode: value.saRecord.saRequester.decCode,
             din: value.saRecord.specialItem.din,
             rdpFormatted: this.formatRdp(value.saRecord.specialItem.rdp),
             rdp: value.saRecord.specialItem.rdp,

@@ -15,6 +15,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         Drug__c drug;
         Account provider;
         Account patient;
+        Account dec;
         Case saCase;
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         List<ContentVersion> contentVersions = new List<ContentVersion>();
@@ -41,6 +42,8 @@ public with sharing class JsonSarBuilder implements SarBuilder {
             }
         }
 
+        dec = buildDec(requestDetails);
+
         String drugCode = findDrugCode(requestDetails);
         List<Drug__c> drugs = [select Id, Name, Drug_Code__c from Drug__c where Drug_Code__c = :drugCode];
         String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
@@ -60,7 +63,8 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         return new SobjectSarBuilder(
             drug, 
             patient, 
-            provider, 
+            provider,
+            dec,
             saCase, 
             requestDetails, 
             contentVersions
@@ -108,6 +112,53 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         account.Id = existing.isEmpty() ? null : existing[0].Id;
         
         return account;
+    }
+
+    private Account buildDec(List<Request_Detail__c> requestDetails) {
+        if (!hasDec(requestDetails)) return null;
+
+        String decCode = findDecCode(requestDetails);
+        
+        Account decAccount = new Account();
+        decAccount.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'DEC').getRecordTypeId();
+        decAccount.DEC__c = decCode;
+
+        List<Account> existing = [select Id, Name from Account where DEC__c = :decCode and RecordTypeId = :decAccount.RecordTypeId];
+        
+        if (!existing.isEmpty()) {            
+            decAccount.Id = existing[0].Id;
+        } else {
+            decAccount.Name = 'DEC from eForms: ' + decCode;
+        }
+
+        for (Request_Detail__c rd : requestDetails) {
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.providerFaxNumber1')) decAccount.Fax = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decStreetAddressLine1')) decAccount.ShippingStreet = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressCity')) decAccount.ShippingCity = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decaddressProvince')) decAccount.ShippingState = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressPostalCode')) decAccount.ShippingPostalCode = rd.String_Value__c;
+        }
+        
+        return decAccount;
+    }
+
+    private String findDecCode(List<Request_Detail__c> requestDetails) {
+        for (Request_Detail__c rd : requestDetails) {
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.dec')) {
+                return rd.String_Value__c;
+            }
+        }
+
+        return null;
+    }
+
+    private Boolean hasDec(List<Request_Detail__c> requestDetails) {
+        for (Request_Detail__c rd : requestDetails) {
+            if (rd.Question_ID__c != null && rd.Question_ID__c.startsWithIgnoreCase('panelDECinfo')) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Boolean requiresTruncation(String providerType) {

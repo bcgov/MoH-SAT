@@ -496,6 +496,13 @@
         <itemInstances>
             <componentInstance>
                 <componentName>providerInformation</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Has_DEC__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>

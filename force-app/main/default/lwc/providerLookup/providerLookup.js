@@ -19,8 +19,11 @@ export default class ProviderLookup extends LightningElement {
     hideOverride = false;
 
     form = {
+        isDec: false,
         overrideReason: 'None'
     };
+
+    showBody = !this.form.isDec;
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
     accountObjInfo;
@@ -65,15 +68,23 @@ export default class ProviderLookup extends LightningElement {
     }
 
     get providerId() {
-        return this.template.querySelector('.providerIdentifier').value?.trim();
+        return this.template.querySelector('.providerIdentifier')?.value?.trim();
     }
 
     get providerIdType() {
-        return this.template.querySelector('.providerIdType').value?.trim();
+        return this.template.querySelector('.providerIdType')?.value?.trim();
     }
 
     get providerRecordTypeId() {
         return Object.values(this.accountObjInfo.data.recordTypeInfos).find(rti => rti.name=='Provider').recordTypeId;
+    }
+
+    toggleDec(event) {
+        this.form.isDec = event.target.checked;
+        this.form.overrideReason = this.form.isDec ? 'DEC' : 'None';
+        if (!this.form.isDec) this.resetForm();
+        this.showBody = !this.form.isDec;
+        this.publishChange(this.form);
     }
 
     handleFormChange(event) {
@@ -129,6 +140,7 @@ export default class ProviderLookup extends LightningElement {
         this.form = {
             providerIdentifier: this.providerId,
             providerIdType: this.providerIdType,
+            isDec: false,
             overrideReason: 'None'
         }
     }
