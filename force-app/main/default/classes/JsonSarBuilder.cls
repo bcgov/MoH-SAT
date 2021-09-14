@@ -127,10 +127,10 @@ public with sharing class JsonSarBuilder implements SarBuilder {
             }
 
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.providerFaxNumber1')) decAccount.Fax = rd.String_Value__c;
-            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decStreetAddressLine1')) decAccount.BillingStreet = rd.String_Value__c;
-            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressCity')) decAccount.BillingCity = rd.String_Value__c;
-            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decaddressProvince')) decAccount.BillingState = rd.String_Value__c;
-            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressPostalCode')) decAccount.BillingPostalCode = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decStreetAddressLine1')) decAccount.ShippingStreet = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressCity')) decAccount.ShippingCity = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decaddressProvince')) decAccount.ShippingState = rd.String_Value__c;
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressPostalCode')) decAccount.ShippingPostalCode = rd.String_Value__c;
         }
         return decAccount;
     }
