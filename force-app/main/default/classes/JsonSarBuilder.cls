@@ -117,22 +117,39 @@ public with sharing class JsonSarBuilder implements SarBuilder {
     private Account buildDec(List<Request_Detail__c> requestDetails) {
         if (!hasDec(requestDetails)) return null;
 
+        String decCode = findDecCode(requestDetails);
+        
         Account decAccount = new Account();
         decAccount.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'DEC').getRecordTypeId();
+        decAccount.DEC__c = decCode;
+
+        List<Account> existing = [select Id, Name from Account where DEC__c = :decCode and RecordTypeId = :decAccount.RecordTypeId];
+        
+        if (!existing.isEmpty()) {            
+            decAccount.Id = existing[0].Id;
+        } else {
+            decAccount.Name = 'DEC from eForms: ' + decCode;
+        }
 
         for (Request_Detail__c rd : requestDetails) {
-            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.dec')) {
-                decAccount.Name = 'DEC ' + rd.String_Value__c;
-                decAccount.DEC__c = rd.String_Value__c;
-            }
-
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.providerFaxNumber1')) decAccount.Fax = rd.String_Value__c;
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decStreetAddressLine1')) decAccount.ShippingStreet = rd.String_Value__c;
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressCity')) decAccount.ShippingCity = rd.String_Value__c;
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decaddressProvince')) decAccount.ShippingState = rd.String_Value__c;
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decAddressPostalCode')) decAccount.ShippingPostalCode = rd.String_Value__c;
         }
+        
         return decAccount;
+    }
+
+    private String findDecCode(List<Request_Detail__c> requestDetails) {
+        for (Request_Detail__c rd : requestDetails) {
+            if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.dec')) {
+                return rd.String_Value__c;
+            }
+        }
+
+        return null;
     }
 
     private Boolean hasDec(List<Request_Detail__c> requestDetails) {
