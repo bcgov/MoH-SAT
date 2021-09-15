@@ -27,7 +27,7 @@
     <assignments>
         <name>Store_Created_Patient_ID</name>
         <label>Store Created Patient ID</label>
-        <locationX>1579</locationX>
+        <locationX>1513</locationX>
         <locationY>4622</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -57,7 +57,7 @@
     <assignments>
         <name>Store_Created_Patient_ID_2</name>
         <label>Store Created Patient ID 2</label>
-        <locationX>1315</locationX>
+        <locationX>1249</locationX>
         <locationY>5102</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -135,7 +135,7 @@
     <assignments>
         <name>Store_Existing_Patient_ID</name>
         <label>Store Existing Patient ID</label>
-        <locationX>1051</locationX>
+        <locationX>985</locationX>
         <locationY>4742</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -165,7 +165,7 @@
     <assignments>
         <name>Store_Existing_Patient_ID_0</name>
         <label>Store Existing Patient ID</label>
-        <locationX>523</locationX>
+        <locationX>457</locationX>
         <locationY>4862</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -241,7 +241,7 @@
     <assignments>
         <name>Store_Not_Provided_PHN_Created_Patient_ID</name>
         <label>Store Not Provided PHN Created Patient ID</label>
-        <locationX>787</locationX>
+        <locationX>721</locationX>
         <locationY>5102</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
@@ -273,8 +273,8 @@
     <assignments>
         <name>Store_Patient_ID</name>
         <label>Store Patient ID</label>
-        <locationX>1843</locationX>
-        <locationY>4142</locationY>
+        <locationX>2041</locationX>
+        <locationY>4262</locationY>
         <assignmentItems>
             <assignToReference>Final_Patient_ID</assignToReference>
             <operator>Assign</operator>
@@ -298,6 +298,36 @@
         </assignmentItems>
         <connector>
             <targetReference>Update_Patient_Record_With_ODR_Info_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Store_Patient_ID_0</name>
+        <label>Store Patient ID</label>
+        <locationX>1777</locationX>
+        <locationY>4262</locationY>
+        <assignmentItems>
+            <assignToReference>Final_Patient_ID</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Patient_Record_0_0_0.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CheckActiveSARequestsPatient</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Patient_Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Patient_Record_0_0_0.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Patient_Record_With_ODR_Info_0_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -730,7 +760,7 @@
         <defaultConnectorLabel>Skip Check Active SA Requests</defaultConnectorLabel>
         <rules>
             <name>Check_Active_SA_Requests</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>CheckActiveSARequestsPatient</leftValueReference>
                 <operator>EqualTo</operator>
@@ -804,14 +834,21 @@
         <locationX>1546</locationX>
         <locationY>4022</locationY>
         <defaultConnector>
-            <targetReference>Store_Patient_ID</targetReference>
+            <targetReference>DEC_patient_creation</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Existing Patient Record</defaultConnectorLabel>
         <rules>
             <name>Create_Patient_Record</name>
-            <conditionLogic>or</conditionLogic>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Patient_Record_0_0.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Patient_Record_0_0_0.Id</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -874,6 +911,31 @@
         </rules>
     </decisions>
     <decisions>
+        <name>DEC_patient_creation</name>
+        <label>DEC patient creation</label>
+        <locationX>1909</locationX>
+        <locationY>4142</locationY>
+        <defaultConnector>
+            <targetReference>Store_Patient_ID</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>DEC_patient</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Provider_Override_Reason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DEC</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Store_Patient_ID_0</targetReference>
+            </connector>
+            <label>DEC patient</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>DEC_request</name>
         <label>DEC request</label>
         <locationX>1546</locationX>
@@ -901,7 +963,7 @@
     <decisions>
         <name>Does_no_PHN_patient_exist</name>
         <label>Does no PHN patient exist?</label>
-        <locationX>655</locationX>
+        <locationX>589</locationX>
         <locationY>4742</locationY>
         <defaultConnector>
             <targetReference>Create_Not_Provided_PHN_Patient_Record</targetReference>
@@ -951,7 +1013,7 @@
     <decisions>
         <name>Does_the_Patient_Dummy_Exist</name>
         <label>Does the Patient Dummy Exist</label>
-        <locationX>1183</locationX>
+        <locationX>1117</locationX>
         <locationY>4502</locationY>
         <defaultConnector>
             <targetReference>Create_Patient_Record_2</targetReference>
@@ -1401,7 +1463,7 @@
     <decisions>
         <name>Patient_Negative_Outcome</name>
         <label>Patient Negative Outcome</label>
-        <locationX>1249</locationX>
+        <locationX>1183</locationX>
         <locationY>4142</locationY>
         <defaultConnector>
             <targetReference>Get_Patient_Record_Type_Id</targetReference>
@@ -1426,7 +1488,7 @@
     <decisions>
         <name>Patient_Override_Outcomes</name>
         <label>Patient Override Outcomes</label>
-        <locationX>919</locationX>
+        <locationX>853</locationX>
         <locationY>4262</locationY>
         <defaultConnector>
             <targetReference>Get_Existing_Patient_Dummy_Account</targetReference>
@@ -1937,7 +1999,7 @@
     <recordCreates>
         <name>Create_New_Patient_Record</name>
         <label>Create New Patient Record</label>
-        <locationX>1579</locationX>
+        <locationX>1513</locationX>
         <locationY>4382</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID</targetReference>
@@ -1978,7 +2040,7 @@
     <recordCreates>
         <name>Create_New_Patient_Record_2</name>
         <label>Create New Patient Record 2</label>
-        <locationX>1315</locationX>
+        <locationX>1249</locationX>
         <locationY>4862</locationY>
         <connector>
             <targetReference>Get_Final_Patient_ID_2</targetReference>
@@ -2148,7 +2210,7 @@
     <recordCreates>
         <name>Create_Not_Provided_PHN_Patient_Record</name>
         <label>Create Not Provided PHN Patient Record</label>
-        <locationX>787</locationX>
+        <locationX>721</locationX>
         <locationY>4862</locationY>
         <connector>
             <targetReference>Get_Not_Provided_PHN_Final_Patient_ID</targetReference>
@@ -2946,7 +3008,7 @@
         <connector>
             <targetReference>Add_Diagnosis_of_Other_Drug</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>or</filterLogic>
         <filters>
             <field>Name</field>
             <operator>EqualTo</operator>
@@ -2961,7 +3023,7 @@
     <recordLookups>
         <name>Get_Existing_Patient_Dummy_Account</name>
         <label>Get Existing Patient Dummy Account</label>
-        <locationX>1183</locationX>
+        <locationX>1117</locationX>
         <locationY>4382</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2982,7 +3044,7 @@
     <recordLookups>
         <name>Get_Existing_Patient_Dummy_Account_0</name>
         <label>Get Existing Patient Dummy Account</label>
-        <locationX>655</locationX>
+        <locationX>589</locationX>
         <locationY>4622</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -3024,7 +3086,7 @@
     <recordLookups>
         <name>Get_Final_Patient_ID</name>
         <label>Get Final Patient ID</label>
-        <locationX>1579</locationX>
+        <locationX>1513</locationX>
         <locationY>4502</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -3045,7 +3107,7 @@
     <recordLookups>
         <name>Get_Final_Patient_ID_2</name>
         <label>Get Final Patient ID 2</label>
-        <locationX>1315</locationX>
+        <locationX>1249</locationX>
         <locationY>4982</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -3150,7 +3212,7 @@
     <recordLookups>
         <name>Get_Not_Provided_PHN_Final_Patient_ID</name>
         <label>Get Not Provided PHN Final Patient ID</label>
-        <locationX>787</locationX>
+        <locationX>721</locationX>
         <locationY>4982</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -3171,7 +3233,7 @@
     <recordLookups>
         <name>Get_Not_Provided_PHN_Patient_Record_Type_Id</name>
         <label>Get Not Provided PHN Patient Record Type Id</label>
-        <locationX>655</locationX>
+        <locationX>589</locationX>
         <locationY>4502</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -3269,7 +3331,7 @@
     <recordLookups>
         <name>Get_Patient_Record_Type_Id</name>
         <label>Get Patient Record Type Id</label>
-        <locationX>1579</locationX>
+        <locationX>1513</locationX>
         <locationY>4262</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -3297,7 +3359,7 @@
     <recordLookups>
         <name>Get_Patient_Record_Type_ID_2</name>
         <label>Get Patient Record Type ID 2</label>
-        <locationX>1315</locationX>
+        <locationX>1249</locationX>
         <locationY>4742</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -3512,13 +3574,6 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Drug_Search.recordId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Termination_Date__c</field>
-            <operator>GreaterThanOrEqualTo</operator>
-            <value>
-                <elementReference>Termination_Date_Today</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -3866,7 +3921,7 @@
     <recordUpdates>
         <name>Update_Existing_Patient_Record_With_ODR_Info</name>
         <label>Update Existing Patient Record With ODR Info</label>
-        <locationX>1051</locationX>
+        <locationX>985</locationX>
         <locationY>4862</locationY>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
@@ -3896,7 +3951,7 @@
     <recordUpdates>
         <name>Update_Existing_Patient_Record_With_ODR_Info_0</name>
         <label>Update Existing Patient Record With ODR Info</label>
-        <locationX>523</locationX>
+        <locationX>457</locationX>
         <locationY>4982</locationY>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
@@ -3956,8 +4011,8 @@
     <recordUpdates>
         <name>Update_Patient_Record_With_ODR_Info_0</name>
         <label>Update Patient Record With ODR Info</label>
-        <locationX>1843</locationX>
-        <locationY>4262</locationY>
+        <locationX>2041</locationX>
+        <locationY>4382</locationY>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
         </connector>
@@ -3967,6 +4022,42 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Patient_Record_0_0.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Birthdate</field>
+            <value>
+                <elementReference>ODRPatient.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>ODRPatient.FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>ODRPatient.LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Patient_Record_With_ODR_Info_0_0</name>
+        <label>Update Patient Record With ODR Info</label>
+        <locationX>1777</locationX>
+        <locationY>4382</locationY>
+        <connector>
+            <targetReference>Submitter_is_Prescriber</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Patient_Record_0_0_0.AccountId</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -4426,7 +4517,7 @@
     <screens>
         <name>Create_Patient_Record_2</name>
         <label>Create Patient Record 2</label>
-        <locationX>1315</locationX>
+        <locationX>1249</locationX>
         <locationY>4622</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4555,7 +4646,7 @@
     <screens>
         <name>Dummy_Patient_Account_Exists_in_SF</name>
         <label>Dummy Patient Account Exists in SF</label>
-        <locationX>1051</locationX>
+        <locationX>985</locationX>
         <locationY>4622</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4794,7 +4885,7 @@
     <screens>
         <name>Patient_PHN_Not_Provided</name>
         <label>Patient PHN Not Provided</label>
-        <locationX>655</locationX>
+        <locationX>589</locationX>
         <locationY>4382</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
