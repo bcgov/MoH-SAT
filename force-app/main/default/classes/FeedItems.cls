@@ -1,6 +1,10 @@
 public with sharing class FeedItems {
-    @future
     public static void parseFeedItems(List<Id> feedItemIds) {
+        if (System.isFuture()) notifyGroups(feedItemIds); else notifyGroupsFuture(feedItemIds);
+    }
+    
+    @future
+    private static void notifyGroupsFuture(List<Id> feedItemIds) {
         notifyGroups(feedItemIds);
     }
 
