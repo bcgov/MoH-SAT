@@ -67,6 +67,7 @@ dx force:apex:execute -u $alias -f scripts/apex/set-current-user.apex
 echo "Uploading data..."
 dx force:data:bulk:upsert -u $alias -s Drug__c -f data/drugs.csv -i Drug_Code__c -w 5 
 dx force:data:bulk:upsert -u $alias -s Account -f data/accounts.csv -i Id -w 5 
+dx force:data:bulk:upsert -u $alias -s Account -f data/decs.csv -i Id -w 5 
 dx force:data:bulk:upsert -u $alias -s Case -f data/cases.csv -i Id -w 5
 dx force:data:tree:import -u $alias -p data/comm-plan.json
 dx force:apex:execute -u $alias -f scripts/apex/add-comm-users.apex
