@@ -573,6 +573,37 @@
                     <stringValue>Approved</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.Rationale__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_22_pmetdec</targetReference>
             </connector>
@@ -1115,6 +1146,37 @@
                     <stringValue>Approved</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>String</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_old.Rationale__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <label>Previously Met - Prev</label>
         </rules>
     </decisions>
@@ -1125,7 +1187,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_4480130450</name>
+        <name>formula_11_myRule_10_A1_2389018192</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1136,7 +1198,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_15_A1_9039743505</name>
+        <name>formula_16_myRule_15_A1_5022084954</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1147,7 +1209,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_17_myRule_15_A1_3018947828</name>
+        <name>formula_17_myRule_15_A1_6773664496</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1158,7 +1220,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_19_A1_8680827035</name>
+        <name>formula_20_myRule_19_A1_7944505269</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1169,7 +1231,7 @@
                 <stringValue>[Case].Rationale__c &amp; &quot;&lt;br&gt;&quot; &amp;  [Case].Drug__r.Approval_Details__c</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_23_myRule_22_A1_8613891482</name>
+        <name>formula_23_myRule_22_A1_2620909516</name>
         <dataType>String</dataType>
         <expression>{!myVariable_current.Rationale__c} &amp; &quot;&lt;br&gt;&quot; &amp;  {!myVariable_current.Drug__r.Approval_Details__c}</expression>
     </formulas>
@@ -1180,7 +1242,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_9990647182</name>
+        <name>formula_8_myRule_7_A1_4948233014</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -1301,7 +1363,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_4480130450</elementReference>
+                <elementReference>formula_11_myRule_10_A1_2389018192</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1385,7 +1447,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_16_myRule_15_A1_9039743505</elementReference>
+                <elementReference>formula_16_myRule_15_A1_5022084954</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1421,7 +1483,7 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_17_myRule_15_A1_3018947828</elementReference>
+                <elementReference>formula_17_myRule_15_A1_6773664496</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1505,7 +1567,7 @@
             </processMetadataValues>
             <field>Closed_by__c</field>
             <value>
-                <elementReference>formula_20_myRule_19_A1_8680827035</elementReference>
+                <elementReference>formula_20_myRule_19_A1_7944505269</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1670,7 +1732,7 @@
             </processMetadataValues>
             <field>Rationale__c</field>
             <value>
-                <elementReference>formula_23_myRule_22_A1_8613891482</elementReference>
+                <elementReference>formula_23_myRule_22_A1_2620909516</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1838,7 +1900,7 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_9990647182</elementReference>
+                <elementReference>formula_8_myRule_7_A1_4948233014</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
