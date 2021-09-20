@@ -2975,7 +2975,14 @@
             <field>Provider_Identifier__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>ODRPrescriber.Provider_Identifier_Key__pc</elementReference>
+                <elementReference>ODRPrescriber.Provider_Identifier__pc</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Provider_Type__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ODRPrescriber.Provider_Type__pc</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -5254,7 +5261,7 @@
             <targetReference>Provider_Details_Screen</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>ActiveSARequestInformation</name>
         <dataType>String</dataType>
