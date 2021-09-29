@@ -2,15 +2,15 @@
 
 # Special Authority Salesforce Application
 
-## New developer environment setup
+### New developer environment setup
 For new developers, refer to the environment setup guide in [docs\development\environment-setup.md](environment-setup.md) 
 
-## Development setup
+### Development setup
 For contributors:
 ```
 $ ./dev-setup.bat
 ```
 More development tips and guidelines in [docs\development\dev-tips.md](dev-tips.md) 
-## Inbound REST API Documentation
+### Inbound REST API Documentation
 
 See [here](https://bcgov.github.io/MoH-SAT/) for specification and documentation of inbound APIs.
