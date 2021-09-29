@@ -122,7 +122,7 @@ Perform these steps on your scratch org if integration with ODR or EMPI is neces
 - Go to Setup > Named Credentials.
 - Edit "EMPI" named credential and changed its certificate to "EMPI". Save.
 - Edit "ODR Credentials" named credential and edit as follows:
--- URL: https://t1specauthsvc.maximusbc.ca
--- Certificate: cert_dev_odr
--- Username: pnetsauser
--- Password: *Refer to CERT-DEV-ODR" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597)
+  - URL: https://t1specauthsvc.maximusbc.ca
+  - Certificate: cert_dev_odr
+  - Username: pnetsauser
+  - Password: Refer to *CERT-DEV-ODR" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597)
