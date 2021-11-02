@@ -18,6 +18,8 @@ public with sharing class FaxToCase {
 
         List<ContentDocumentLink> caseDocLinks = new List<ContentDocumentLink>();
         for (FaxAndCaseId param : params) {
+            if (!faxDocLinks.containsKey(param.faxId)) continue;
+            
             ContentDocumentLink faxDocLink = faxDocLinks.get(param.faxId);
 
             ContentDocumentLink caseDocLink = new ContentDocumentLink();
