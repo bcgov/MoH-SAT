@@ -2,4 +2,12 @@
     <template if:true={fileId}>
         <iframe src={url} style={pdfHeight} title="PDF Viewer"></iframe>
     </template>
+    <template if:true={isEmpty}>
+        <div class="slds-box slds-text-align_center">
+            <div class="slds-m-vertical_small">
+                <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                <p>Record has no attachments.</p>
+            </div>
+        </div>
+    </template>
 </template>

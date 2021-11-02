@@ -8,9 +8,12 @@ export default class PdfViewer extends LightningElement {
     
     fileId;
 
+    isEmpty = false;
+
     async connectedCallback() {
         const fileResult = await getPdf({recordId: this.recordId});
-        this.fileId = fileResult.documentId;
+        this.fileId = fileResult?.documentId;
+        this.isEmpty = this.fileId == null;
     }
     
     get pdfHeight() {

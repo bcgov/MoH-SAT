@@ -8,16 +8,15 @@ public with sharing class PdfViewer {
             documentIds.add(cdl.ContentDocumentId);
         }
 
-        ContentVersion cv = [
+        List<ContentVersion> cvs = [
             select Id, Title, ContentDocumentId
             from ContentVersion
             where ContentDocumentId in :documentIds
             and FileExtension='pdf'
             order by CreatedDate desc
-            limit 1
         ];
 
-        return cv != null ? new File(cv) : null; 
+        return !cvs.isEmpty() ? new File(cvs[0]) : null; 
     }
 
     private static List<ContentDocumentLink> queryContentDocumentLinks(Id recordId) {
