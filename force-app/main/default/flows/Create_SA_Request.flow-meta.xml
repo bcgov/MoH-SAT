@@ -4651,6 +4651,26 @@
             </visibilityRule>
         </fields>
         <fields>
+            <name>activeSaRequest</name>
+            <extensionName>c:activeSaRequests</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>contactId</name>
+                <value>
+                    <elementReference>Final_Patient_ID</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>drugId</name>
+                <value>
+                    <elementReference>Drug_Search.recordId</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
             <name>NoResultsMessageTitle</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(255, 0, 0); font-size: 14px;&quot;&gt;There are NO ACTIVE SA Requests where&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0); font-size: 14px;&quot;&gt;{!Final_Patient_Name}&lt;/b&gt;&lt;span style=&quot;color: rgb(255, 0, 0); font-size: 14px;&quot;&gt; is the patient and&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;color: rgb(255, 0, 0); font-size: 14px;&quot;&gt;{!Drug_Name} &lt;/b&gt;&lt;span style=&quot;color: rgb(255, 0, 0); font-size: 14px;&quot;&gt;is the drug&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
