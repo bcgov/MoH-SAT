@@ -17,4 +17,14 @@ public with sharing class SimilarCases {
         ];
     }
     
+    @AuraEnabled(cacheable=true)
+    public static List<Case> getActiveSaRequests(Id contactId, Id drugId) {
+        return [
+            select Id, CaseNumber, Status, Drug__r.Name, Termination_Date__c, CreatedDate
+            from Case
+            where ContactId = :contactId
+            and Drug__c = :drugId
+            order by ClosedDate desc
+        ];
+    }
 }
