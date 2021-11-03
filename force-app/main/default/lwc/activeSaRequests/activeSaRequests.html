@@ -8,9 +8,9 @@
         </div>
     </template>
     <template if:true={hasCases}>
-        <table>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
             <thead>
-                <tr>
+                <tr class="slds-line-height_reset">
                     <th>Case #</th>
                     <th>Status</th>
                     <th>Drug Name</th>
@@ -31,7 +31,7 @@
                             {c.Drug__r.Name}
                         </td>
                         <td>
-                            <lightning-formatted-date-time value={c.Termination_Date__c} ></lightning-formatted-date-time>
+                            <lightning-formatted-date-time value={c.Termination_Date__c}></lightning-formatted-date-time>
                         </td>
                         <td>
                             <lightning-formatted-date-time 
