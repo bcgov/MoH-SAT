@@ -9,28 +9,34 @@ public without sharing class RelatedFiles {
 
     @AuraEnabled
     public Id Id;
+    
+    @AuraEnabled
+    public Datetime createdDate;
   }
 
   @AuraEnabled(cacheable=true)
   public static List<RelatedFilesDownload> getRelatedFiles(Id caseId){
       List<RelatedFilesDownload> downloadLinks = new List<RelatedFilesDownload>();
 
-      List<ContentDocumentLink> links = [
-        SELECT ContentDocumentId, LinkedEntityId, ContentDocument.Title FROM ContentDocumentLink where LinkedEntityId=:caseId and LinkedEntity.Type='Case'
+      Set<Id> documentIds = new Set<Id>();
+      for (ContentDocumentLink cdl : [SELECT ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId=:caseId and LinkedEntity.Type='Case']) {
+        documentIds.add(cdl.ContentDocumentId);
+      }
+      
+      List<ContentDistribution> contentDistributions = [
+        SELECT Id, Name, DistributionPublicUrl, ContentVersionId, ContentVersion.CreatedDate 
+        FROM ContentDistribution
+        WHERE ContentVersionId in (select LatestPublishedVersionId from ContentDocument where Id in :documentIds)
+        ORDER BY ContentVersion.CreatedDate desc
       ];
 
-      for(Integer i = 0; i < links.size(); i++){
-        ContentDocument contentDocument = [ SELECT Id, Title FROM ContentDocument WHERE Id =: links[i].ContentDocumentId LIMIT 1 ];
-        ContentVersion contentVersion = [ SELECT Id, Title, ContentDocumentId FROM ContentVersion WHERE ContentDocumentId =: contentDocument.Id LIMIT 1 ];
-        List<ContentDistribution> contentDistributions = [ SELECT Id, Name, DistributionPublicUrl, ContentVersionId FROM ContentDistribution WHERE ContentVersionId =: contentVersion.Id ];
-
-        if (contentDistributions.size() > 0) {
-            RelatedFilesDownload aLink = new RelatedFilesDownload();
-            aLink.Id = contentDistributions[0].Id;
-            aLink.Title = contentDistributions[0].Name;
-            aLink.URL = contentDistributions[0].DistributionPublicUrl;
-            downloadLinks.add(aLink);
-        }
+      for(ContentDistribution cd : contentDistributions){
+        RelatedFilesDownload link = new RelatedFilesDownload();
+        link.Id = cd.Id;
+        link.Title = cd.Name;
+        link.URL = cd.DistributionPublicUrl;
+        link.createdDate = cd.ContentVersion.CreatedDate;
+        downloadLinks.add(link);
       }
 
       return downloadLinks;
