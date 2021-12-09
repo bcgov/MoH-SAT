@@ -62,7 +62,7 @@ public with sharing class AutofaxController {
         else if (status == 'Approved') return EMAIL_TEMPLATES.get('Approved_Fax_Template');
         else if (status == 'Not Approved') return EMAIL_TEMPLATES.get('Not_Approved_Fax_Template');
         else if (status == 'Currently Approved') return EMAIL_TEMPLATES.get('Currently_Approved_Fax_Template');
-        else if (status == 'On Hold - MIR') return EMAIL_TEMPLATES.get('MIR_Fax_Template');
+        else if (status.containsIgnoreCase('MIR')) return EMAIL_TEMPLATES.get('MIR_Fax_Template');
         else return null;
     }
 

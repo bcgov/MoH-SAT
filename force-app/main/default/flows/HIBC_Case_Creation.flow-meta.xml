@@ -10,6 +10,7 @@
         <connector>
             <targetReference>Update_Drug_Id_on_Case</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>Patient_Validated__c</name>
             <value>
@@ -39,6 +40,7 @@
         <connector>
             <targetReference>Is_Patient_Deceased</targetReference>
         </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>Provider_Validated__c</name>
             <value>
@@ -2665,6 +2667,7 @@
                     <elementReference>Drug</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -2976,6 +2979,7 @@
                     <elementReference>Provider_Override_Reason</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>ODRPrescriber</assignToReference>
@@ -3038,6 +3042,7 @@
                     <booleanValue>false</booleanValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
