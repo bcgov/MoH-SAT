@@ -5,7 +5,7 @@ List<Step_Action__c> actions = [
     and adjudication_status__c in ('On Hold - MIR', 'MIR')];
 
 for (Step_Action__c action : actions) {
-    action.Adjudication_Status__c = 'More Information Required';
+    action.Adjudication_Status__c = 'More Information Requested';
 }
 
 update actions;
