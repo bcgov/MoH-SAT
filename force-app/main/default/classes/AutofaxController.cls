@@ -18,7 +18,7 @@ public with sharing class AutofaxController {
     public AutofaxController(ApexPages.StandardSetController setcontroller) {
         ListView listView = getListView();
         setcontroller.setFilterId(listView.Id);
-        setcontroller.setPageSize(2000);
+        setcontroller.setPageSize(1000);
 
         List<Id> recordIds = new List<Id>();
         for (Case c : (List<Case>) setcontroller.getRecords()) {
