@@ -8,7 +8,7 @@ For new developers, refer to the environment setup guide in [docs/development/en
 ### Development setup
 For contributors:
 ```
-$ ./dev-setup.bat
+$ ./dev-setup.sh
 ```
 More development tips and guidelines in [docs/development/dev-tips.md](docs/development/dev-tips.md) 
 ### Inbound REST API Documentation
