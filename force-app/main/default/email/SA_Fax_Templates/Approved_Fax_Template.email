@@ -5,20 +5,24 @@ Response to Request for Special Authority Coverage received on {!Case.CreatedDat
 
 <table style="width: 100%">
 <tr>
-<th>Patient Information</th>
-<th>Prescriber Information</th>
+<th align= "left">Patient Information</th>
+<th align= "left">{!IF(ISBLANK(Case.DEC__c),"Prescriber Information","DEC Information")}</th>
 </tr>
 <tr>
 <td>Name: {!Case.Patient_Name_Template__c}</td>
-<td>Name: {!Case.Prescriber_Name_Template__c}</td>
+<td width="60%">Name: {!Case.Prescriber_Name_Template__c}</td>
 </tr>
 <tr>
 <td>PHN: {!Case.Patient_Identifier_Template__c}</td>
-<td>College ID: {!Case.Prescriber_Identifier_Template__c}</td>
+<td>{!IF(ISBLANK(Case.DEC__c),"College ID","DEC ID")}: {!Case.Prescriber_Identifier_Template__c} {!IF(ISBLANK(Case.Provider__c),"","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type: ")} {!Case.Prescriber_Type_Template__c}</td>
 </tr>
 <tr>
 <td>Date of Birth: {!Case.Patient_DOB_Template__c}</td>
-<td>Fax: {!Case.Provider_Fax__c}</td>
+<td>Fax: {!Case.Prescriber_Fax_Template__c}</td>
+</tr>
+<tr>
+<td></td>
+<td>{!IF(ISBLANK(Case.Submitter__c),"","Submitter: ")} {!Case.Submitter__c}</td>
 </tr>
 </table>
 <br>
