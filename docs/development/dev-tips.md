@@ -48,7 +48,7 @@ $ git pull
 $ git status 
 
 # Displays the last 10 commits made on the current branch.
-$ git log --oneline -10 = 
+$ git log --oneline -10
 
 # Reset current branch to match its remote branch. 
 $ git clean -fd
