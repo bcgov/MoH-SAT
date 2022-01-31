@@ -14,6 +14,7 @@
                     <th>Case #</th>
                     <th>Status</th>
                     <th>Drug Name</th>
+                    <th>Provider</th>
                     <th>Termination Date</th>
                     <th>Created Date</th>
                 </tr>
@@ -29,6 +30,9 @@
                         </td>
                         <td>
                             {c.Drug__r.Name}
+                        </td>
+                        <td>
+                            {c.Provider__r.Name}
                         </td>
                         <td>
                             <lightning-formatted-date-time value={c.Termination_Date__c}></lightning-formatted-date-time>
