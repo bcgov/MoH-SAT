@@ -47,6 +47,7 @@ export default class PnetSaForm extends LightningElement {
         };
     }
 
+    // SAApprovalRequest
     @api
     set record(value) {
         this._record = {

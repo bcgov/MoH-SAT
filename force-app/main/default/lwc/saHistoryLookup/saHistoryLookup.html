@@ -1,3 +1,4 @@
+<!-- sldsValidatorIgnore -->
 <template>
   <div class="slds-p-around_x-small slds-box_large">
     <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
@@ -39,7 +40,8 @@
             key-field="rxNumber"
             hide-checkbox-column
             data={data}
-            columns={columns}>
+            columns={columns}
+            onrowaction={handleRowAction}>
     </lightning-datatable>
   </div>
 
@@ -52,6 +54,22 @@
         </div>
     </div>
   </lightning-card>
+
+  <!--DISPLAY UPDATE MODAL-->
+  <template if:true={openModal}>
+    <section
+            role="dialog"
+            tabindex="-1"
+            aria-labelledby="modal-heading-01"
+            aria-modal="true"
+            aria-describedby="modal-content-id-1"
+            class="slds-modal slds-fade-in-open"
+        >
+    <c-pnet-sa-form record={selectedSARecord}></c-pnet-sa-form>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+  
 
   <!-- ERROR CASE -->
   <c-error-display if:true={isError} error={error}></c-error-display>

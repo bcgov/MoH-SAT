@@ -7,7 +7,9 @@ const columns = [
   { label: 'RDP or DIN/PIN', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true }
+  { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'SA Log', fieldName: 'saLog', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Update', type: 'button', typeAttributes: { label: 'Update', name: 'Update'} }
 ];
 
 export default class SaHistoryLookup extends LightningElement {
@@ -24,6 +26,10 @@ export default class SaHistoryLookup extends LightningElement {
   error = {};
   isError = false;
 
+  openModal = false;
+  selectedSARecord;
+  saApprovalRequestFormatData = [];
+
   get patientId() {
     return this.template.querySelector('.patientIdentifier').value;
   }
@@ -31,6 +37,39 @@ export default class SaHistoryLookup extends LightningElement {
   handleFormChange(event) {
     this.patientIdentifier = event.target.value;
     this.template.querySelector('.btn-lookup').disabled = false;
+  }
+
+  handleRowAction(event) {
+    const actionName = event.detail.action.name;
+    const row = event.detail.row;
+    switch (actionName) {
+      case 'Update':
+        this.openUpdateModal(row);
+        break;
+      default:
+    }
+  }
+
+  openUpdateModal(row){
+    const { id } = row;
+    const index = this.findRowIndexById(id);
+    if (index !== -1) {
+      console.log("index:" + index);
+      this.selectedSARecord = this.saApprovalRequestFormatData[index];
+      this.openModal = true;
+    }
+  }
+
+  findRowIndexById(id) {
+    let ret = -1;
+    this.data.some((row, index) => {
+        if (row.id === id) {
+            ret = index;
+            return true;
+        }
+        return false;
+    });
+    return ret;
   }
 
   async handleLookup() {
@@ -88,6 +127,21 @@ export default class SaHistoryLookup extends LightningElement {
         let dataArray = [];
         
         records.forEach(record => {
+          // Needed because SAApprovalHistoryResponse is a different format than SAApprovalRequest.
+          let saRecord = {saRecord: {
+            phn: this.patientIdentifier,
+            saRequester: record.saRequester,
+            specialItem: record.specialItem,
+            specAuthType: record.specAuthType,
+            justificationCodes: record.justificationCodes,
+            excludedPlans: record.excludedPlans,
+            effectiveDate: record.effectiveDate,
+            terminationDate: record.terminationDate,
+            maxDaysSupply: record.maxDaysSupply,
+            maxPricePct: record.maxPricePct
+          }};
+          this.saApprovalRequestFormatData.push(saRecord);
+
           // Is there a filter applied?
           if (this.dinRdpFilter.length == 0
               || record.specialItem.din?.indexOf(this.dinRdpFilter.trim()) > -1

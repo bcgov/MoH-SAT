@@ -263,6 +263,34 @@ public with sharing class ODRIntegration {
         return saaResponse;
     }
 
+    public static SAApprovalUpdateRequestResponse postSAApprovalUpdate(Id caseId, SAApprovalUpdateRequest saaUpdateRequest) {
+        saaUpdateRequest.requestUUID = OdrIntegration.getUUIDString();
+        saaUpdateRequest.clientName = 'SpecAuth';
+        saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
+        saaUpdateRequest.updateType = ODRIntegration.getUpdateType();
+
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(
+            caseId, 
+            'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
+            null,
+            'PUT', 
+            JSON.serialize(saaUpdateRequest), 
+            'SA Approval Update Request'
+        );
+
+        SAApprovalUpdateRequestResponse saaUpdateResponse;
+
+        if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
+            String resBody = calloutResponseObject.response;
+            saaUpdateResponse = (SAApprovalUpdateRequestResponse) JSON.deserialize(resBody, SAApprovalUpdateRequestResponse.class);
+        } else {
+            saaUpdateResponse = new SAApprovalUpdateRequestResponse();
+            saaUpdateResponse.error = calloutResponseObject;
+        }
+
+        return saaUpdateResponse;
+    }
+
     @AuraEnabled
     public static BenefitsResponse fetchBenefits(Id recordId) {
         System.debug('Fetch Benefits');
@@ -399,6 +427,10 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.substring(20);
     }
 
+    public static String getUpdateType(){
+        return 'U';
+    }
+
     public static CalloutResponse sendRequestAndReturnBody(Id recordId,
                                                             String endpoint,
                                                             String queryParams,
@@ -416,10 +448,11 @@ public with sharing class ODRIntegration {
         req.setEndpoint(uri);
         req.setMethod(method);
         
-        // If post, construct postBody
-        if (method == 'POST') {
+        // If POST or PUT, construct postBody
+        if (method == 'POST' || method == 'PUT') {
             req.setBody(methodBody);
         }
+
         Http http = new Http();
         CalloutResponse resObject = new CalloutResponse();
         try {
