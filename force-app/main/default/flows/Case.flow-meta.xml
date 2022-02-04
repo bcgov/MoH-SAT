@@ -643,9 +643,6 @@
         <label>myDecision21</label>
         <locationX>50</locationX>
         <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>myDecision23</targetReference>
-        </defaultConnector>
         <defaultConnectorLabel>default</defaultConnectorLabel>
         <rules>
             <name>myRule_22</name>
@@ -716,34 +713,6 @@
                 <targetReference>myRule_22_A1</targetReference>
             </connector>
             <label>Set Rationale</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <processMetadataValues>
-            <name>index</name>
-            <value>
-                <numberValue>9.0</numberValue>
-            </value>
-        </processMetadataValues>
-        <name>myDecision23</name>
-        <label>myDecision23</label>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
-        <defaultConnectorLabel>default</defaultConnectorLabel>
-        <rules>
-            <name>myRule_24</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>formula_myRule_24</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>myRule_24_A1</targetReference>
-            </connector>
-            <label>Urgent 2</label>
         </rules>
     </decisions>
     <decisions>
@@ -1231,7 +1200,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_0687150101</name>
+        <name>formula_11_myRule_10_A1_2948733298</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1242,7 +1211,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_16_myRule_15_A1_4462992121</name>
+        <name>formula_16_myRule_15_A1_8849355652</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1253,7 +1222,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_17_myRule_15_A1_2161374924</name>
+        <name>formula_17_myRule_15_A1_7001328189</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1264,7 +1233,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_20_myRule_19_A1_6697120520</name>
+        <name>formula_20_myRule_19_A1_2115907829</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1275,20 +1244,9 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_2823305030</name>
+        <name>formula_8_myRule_7_A1_7926148090</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
-    </formulas>
-    <formulas>
-        <processMetadataValues>
-            <name>originalFormula</name>
-            <value>
-                <stringValue>ISCHANGED([Case].Origin) &amp;&amp; ISPICKVAL([Case].Origin, &quot;Phone&quot;)&amp;&amp;([Case].Created_By_HIBC_Agents__c =True)</stringValue>
-            </value>
-        </processMetadataValues>
-        <name>formula_myRule_24</name>
-        <dataType>Boolean</dataType>
-        <expression>ISCHANGED({!myVariable_current.Origin}) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)&amp;&amp;({!myVariable_current.Created_By_HIBC_Agents__c} =True)</expression>
     </formulas>
     <formulas>
         <processMetadataValues>
@@ -1301,7 +1259,7 @@
         <dataType>Boolean</dataType>
         <expression>ISCHANGED({!myVariable_current.Origin}) &amp;&amp; ISPICKVAL({!myVariable_current.Origin}, &quot;Phone&quot;)&amp;&amp;({!myVariable_current.Created_By_HIBC_Agents__c} =False)</expression>
     </formulas>
-    <interviewLabel>Case-4_InterviewLabel</interviewLabel>
+    <interviewLabel>Case-2_InterviewLabel</interviewLabel>
     <label>Case</label>
     <processMetadataValues>
         <name>ObjectType</name>
@@ -1407,7 +1365,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_0687150101</elementReference>
+                <elementReference>formula_11_myRule_10_A1_2948733298</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1491,7 +1449,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_16_myRule_15_A1_4462992121</elementReference>
+                <elementReference>formula_16_myRule_15_A1_8849355652</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1527,7 +1485,7 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_17_myRule_15_A1_2161374924</elementReference>
+                <elementReference>formula_17_myRule_15_A1_7001328189</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1611,7 +1569,7 @@
             </processMetadataValues>
             <field>Closed_by__c</field>
             <value>
-                <elementReference>formula_20_myRule_19_A1_6697120520</elementReference>
+                <elementReference>formula_20_myRule_19_A1_2115907829</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1696,93 +1654,6 @@
             <field>Drug_Name__c</field>
             <value>
                 <elementReference>myVariable_current.Drug__r.Name</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Case</object>
-    </recordUpdates>
-    <recordUpdates>
-        <processMetadataValues>
-            <name>evaluationType</name>
-            <value>
-                <stringValue>always</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>extraTypeInfo</name>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>isChildRelationship</name>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>reference</name>
-            <value>
-                <stringValue>[Case]</stringValue>
-            </value>
-        </processMetadataValues>
-        <processMetadataValues>
-            <name>referenceTargetField</name>
-        </processMetadataValues>
-        <name>myRule_24_A1</name>
-        <label>Set Owner to Urgent Q</label>
-        <locationX>2400</locationX>
-        <locationY>200</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <processMetadataValues>
-                <name>implicit</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </processMetadataValues>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>myVariable_current.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <processMetadataValues>
-                <name>dataType</name>
-                <value>
-                    <stringValue>ID</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>isRequired</name>
-                <value>
-                    <booleanValue>false</booleanValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideLabel</name>
-                <value>
-                    <stringValue>Owner ID</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>leftHandSideReferenceTo</name>
-                <value>
-                    <stringValue>Group;User</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideLabel</name>
-                <value>
-                    <stringValue>Urgent</stringValue>
-                </value>
-            </processMetadataValues>
-            <processMetadataValues>
-                <name>rightHandSideType</name>
-                <value>
-                    <stringValue>Queue</stringValue>
-                </value>
-            </processMetadataValues>
-            <field>OwnerId</field>
-            <value>
-                <stringValue>00G0i000001Cs6yEAC</stringValue>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1950,7 +1821,7 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_2823305030</elementReference>
+                <elementReference>formula_8_myRule_7_A1_7926148090</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
