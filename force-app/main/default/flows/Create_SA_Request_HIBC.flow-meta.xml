@@ -3339,6 +3339,12 @@
             </value>
         </filters>
         <inputAssignments>
+            <field>Created_By_HIBC_Agents__c</field>
+            <value>
+                <elementReference>Yes</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
@@ -3362,6 +3368,12 @@
                 <elementReference>Create_SA_Request_Other_0</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>Created_By_HIBC_Agents__c</field>
+            <value>
+                <elementReference>Yes</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>Origin</field>
             <value>
@@ -3480,7 +3492,7 @@
         </connector>
         <fields>
             <name>ActiveSARequestsTitle</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;The following active SA Requests were found where &lt;/span&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!Final_Patient_Name}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the patient &amp;amp; &lt;/span&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!Drug_Name}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the drug:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!ActiveSARequestInformation}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;The following active SA Requests were found where &lt;/span&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;{!Final_Patient_Name}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the patient and &lt;/span&gt;&lt;b style=&quot;font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 60);&quot;&gt;{!Drug_Search.recordName}&lt;/b&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; is the drug:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!ActiveSARequestInformation}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -3951,6 +3963,7 @@
                     <elementReference>Provider_Override_Reason</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
                 <assignToReference>ODRPrescriber</assignToReference>
@@ -3989,6 +4002,7 @@
                     <booleanValue>false</booleanValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4020,6 +4034,7 @@
                     <booleanValue>true</booleanValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4185,6 +4200,7 @@
                     <elementReference>Create_SA_Request_Other</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
@@ -4229,6 +4245,7 @@
                     <elementReference>Create_SA_Request_Other_0</elementReference>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
