@@ -13,7 +13,7 @@ Response to Request for Special Authority Coverage received on {!Case.CreatedDat
 </tr>
 <tr>
 <td>PHN: {!Case.Patient_Identifier_Template__c}</td>
-<td>{!IF(ISBLANK(Case.DEC__c),"College ID","DEC ID")}: {!Case.Prescriber_Identifier_Template__c} {!IF(ISBLANK(Case.Provider__c),"","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type: ")} {!Case.Prescriber_Type_Template__c}</td>
+<td>{!IF(ISBLANK(Case.DEC__c),"College ID","DEC ID")}: {!Case.Prescriber_Identifier_Template__c} {!IF(ISBLANK(Case.DEC__c),"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type: ", " ")} {!Case.Prescriber_Type_Template__c}</td>
 </tr>
 <tr>
 <td>Date of Birth: {!Case.Patient_DOB_Template__c}</td>
