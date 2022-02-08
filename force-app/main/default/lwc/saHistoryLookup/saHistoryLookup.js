@@ -1,5 +1,6 @@
 import { LightningElement } from 'lwc';
 import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistory';
+import fetchIntegrationLogs from '@salesforce/apex/ODRIntegration.fetchIntegrationLogs';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
@@ -8,8 +9,8 @@ const columns = [
   { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'SA Log', fieldName: 'saLog', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Update', type: 'button', typeAttributes: { label: 'Update', name: 'Update'} }
+  { label: 'Log', fieldName: 'integrationLog', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Update', type: 'button', typeAttributes: { label: 'Update', name: 'update'} }
 ];
 
 export default class SaHistoryLookup extends LightningElement {
@@ -43,33 +44,24 @@ export default class SaHistoryLookup extends LightningElement {
     const actionName = event.detail.action.name;
     const row = event.detail.row;
     switch (actionName) {
-      case 'Update':
-        this.openUpdateModal(row);
+      case 'update':
+        this.openUpdateModal(row.index);
         break;
       default:
     }
   }
 
-  openUpdateModal(row){
-    const { id } = row;
-    const index = this.findRowIndexById(id);
-    if (index !== -1) {
-      console.log("index:" + index);
-      this.selectedSARecord = this.saApprovalRequestFormatData[index];
+  openUpdateModal(index){
+      this.saApprovalRequestFormatData.forEach((record) => { 
+        if(record.index == index){
+          this.selectedSARecord = record;
+        }
+      });
       this.openModal = true;
-    }
   }
 
-  findRowIndexById(id) {
-    let ret = -1;
-    this.data.some((row, index) => {
-        if (row.id === id) {
-            ret = index;
-            return true;
-        }
-        return false;
-    });
-    return ret;
+  closeUpdateModal(){
+    this.openModal = false;
   }
 
   async handleLookup() {
@@ -113,10 +105,29 @@ export default class SaHistoryLookup extends LightningElement {
     this.fetchItems();
   }
 
+  generateSingleKey(record){
+    return this.patientIdentifier + (record.specialItem.din || "null") + (record.specialItem.rdp || "null") + record.specAuthType + record.effectiveDate.replace(/-/g,"");
+  }
+
+  generateKeys(saRecords){
+    let keys = [];
+    saRecords.forEach(record => {
+      let key = this.generateSingleKey(record);
+      keys.push(key);
+    })
+    return keys;
+  }
+
+  getLatestLog(key, logs){
+    return logs[key];
+  }
+
   async fetchItems() {
     if (this.patientIdentifier == null || this.patientIdentifier.length < 1) return;
 
     let data = await fetchSAApprovalHistory({phn: this.patientIdentifier})
+    let keys = this.generateKeys(data.saRecords);
+    let logs = await fetchIntegrationLogs({phn: this.patientIdentifier, keys: keys});
     if (data && data.error == null) {
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
@@ -125,9 +136,10 @@ export default class SaHistoryLookup extends LightningElement {
         this.completeAndNoResults = false;
         this.hasResults = true;
         let dataArray = [];
+        let index = 0;
         
         records.forEach(record => {
-          // Needed because SAApprovalHistoryResponse is a different format than SAApprovalRequest.
+          // Needed because SAApprovalHistoryResponse is a different format than SAApprovalRequest (pnetSaForm).
           let saRecord = {saRecord: {
             phn: this.patientIdentifier,
             saRequester: record.saRequester,
@@ -140,7 +152,6 @@ export default class SaHistoryLookup extends LightningElement {
             maxDaysSupply: record.maxDaysSupply,
             maxPricePct: record.maxPricePct
           }};
-          this.saApprovalRequestFormatData.push(saRecord);
 
           // Is there a filter applied?
           if (this.dinRdpFilter.length == 0
@@ -158,7 +169,11 @@ export default class SaHistoryLookup extends LightningElement {
               item['specAuthType'] = this.convertSAType(record.specAuthType);
               item['effectiveDate'] = record.effectiveDate;
               item['terminationDate'] = record.terminationDate;
+              item['integrationLog'] = this.getLatestLog(this.generateSingleKey(record), logs);
+              item['index'] = index;
+              saRecord.index = index++;
               dataArray.push(item);
+              this.saApprovalRequestFormatData.push(saRecord);
             }
           }
         });

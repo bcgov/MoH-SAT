@@ -263,19 +263,21 @@ public with sharing class ODRIntegration {
         return saaResponse;
     }
 
-    public static SAApprovalUpdateRequestResponse postSAApprovalUpdate(Id caseId, SAApprovalUpdateRequest saaUpdateRequest) {
+    public static SAApprovalUpdateRequestResponse putSAApprovalUpdate(Id caseId, SAApprovalUpdateRequest saaUpdateRequest) {
         saaUpdateRequest.requestUUID = OdrIntegration.getUUIDString();
         saaUpdateRequest.clientName = 'SpecAuth';
         saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
-        saaUpdateRequest.updateType = ODRIntegration.getUpdateType();
+        
+        String integrationName = saaUpdateRequest.updateType == 'T' ? 'SA Approval Terminate Request' : 'SA Approval Update Request';
 
+        system.debug(JSON.serialize(saaUpdateRequest));
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(
             caseId, 
             'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
             null,
             'PUT', 
             JSON.serialize(saaUpdateRequest), 
-            'SA Approval Update Request'
+            integrationName
         );
 
         SAApprovalUpdateRequestResponse saaUpdateResponse;
@@ -400,6 +402,42 @@ public with sharing class ODRIntegration {
         return sar;
     }
 
+    @AuraEnabled
+    public static Map<String, String> fetchIntegrationLogs(String phn, String[] keys){
+
+        Id patientId = getPatientId(phn);
+        // Id patientId = '0010i0000063y4FAAQ';
+
+        List<Integration_Log__c> logs = [SELECT Id, Name, Code__c, Type__c, Key__c, Timestamp__c, Patient__c
+                                            FROM Integration_Log__c
+                                            WHERE (Type__c = 'SA Approval Update Request' OR Type__c = 'SA Approval Terminate Request') 
+                                            AND Patient__c = :patientId
+                                            AND Key__c IN :keys
+                                            ORDER BY Key__c ASC, Timestamp__c ASC];
+
+        Map<String, String> mostRecentLogByKey = new Map<String, String>();        
+        for (Integration_Log__c log : logs) {
+            String mostRecentLog = '';
+            if(log.Code__c != 200 || log.Code__c != 201){
+                mostRecentLog = 'Update failed ' + log.Timestamp__c.format('yyyy-MM-dd');
+            } else if (log.Code__c != 200 || log.Code__c != 201){
+                if(log.Type__c == 'SA Approval Update Request'){
+                    mostRecentLog = 'Updated ' + log.Timestamp__c.format('yyyy-MM-dd');
+                } else {
+                    mostRecentLog = 'Terminated ' + log.Timestamp__c.format('yyyy-MM-dd');
+                }
+            }
+            mostRecentLogByKey.put(log.Key__c, mostRecentLog);
+        }
+
+        return mostRecentLogByKey;
+    }
+
+    public static Id getPatientId (String phn){
+        Account patient = [SELECT Id, Patient_Identifier__pc FROM Account WHERE Patient_Identifier__pc = :phn];
+        return patient.Id;
+    }
+
     public static void updateCasePusedToPNet(Id caseId) {
         Case c = [select Id, contact.patient_identifier__c FROM case WHERE Id =:caseId];
         c.Pushed_to_Pnet__c = true;
@@ -407,6 +445,7 @@ public with sharing class ODRIntegration {
         update c;
     }
 
+    @AuraEnabled
     public static String getPatientIdentifier(Id recordId) {
         Case c = [select Id, patient_identifier__c FROM case WHERE Id =:recordId];
         return c.patient_identifier__c;
@@ -427,10 +466,6 @@ public with sharing class ODRIntegration {
                     + '-' + hexString.substring(20);
     }
 
-    public static String getUpdateType(){
-        return 'U';
-    }
-
     public static CalloutResponse sendRequestAndReturnBody(Id recordId,
                                                             String endpoint,
                                                             String queryParams,
@@ -448,11 +483,29 @@ public with sharing class ODRIntegration {
         req.setEndpoint(uri);
         req.setMethod(method);
         
-        // If POST or PUT, construct postBody
-        if (method == 'POST' || method == 'PUT') {
+        // If POST, construct postBody
+        if (method == 'POST') {
             req.setBody(methodBody);
         }
 
+        // If PUT, construct postBody and create key for Integration Log.
+        String integrationLogKey = '';
+        Id accountId;
+        if (method == 'PUT') {
+            req.setBody(methodBody);
+            SAApprovalUpdateRequest saApprovalUpdateRequestObj = (SAApprovalUpdateRequest) JSON.deserialize(methodBody, SAApprovalUpdateRequest.class);
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.phn;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.specialItem.din;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.specialItem.rdp;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.specAuthType;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.effectiveDate.replace('/', '');
+            Account patient = [SELECT Id, Patient_Identifier__pc FROM Account WHERE Patient_Identifier__pc = :saApprovalUpdateRequestObj.saRecordId.phn];
+            accountId = patient.Id;
+            System.debug(integrationLogKey);
+        }
+
+        
+        
         Http http = new Http();
         CalloutResponse resObject = new CalloutResponse();
         try {
@@ -468,7 +521,9 @@ public with sharing class ODRIntegration {
                 loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                        message__c='Success',
                                                        caseId__c=recordId,
-                                                       type__c=integrationName));
+                                                       type__c=integrationName,
+                                                       key__c=integrationLogKey,
+                                                       patient__c=accountId));
                 EventBus.publish(loggingEvents);
                 return resObject;
             } else {
@@ -495,7 +550,9 @@ public with sharing class ODRIntegration {
                     loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                         message__c=resObject.errorMessage,
                                                         caseId__c=recordId,
-                                                        type__c=integrationName));
+                                                        type__c=integrationName,
+                                                        key__c=integrationLogKey,
+                                                        patient__c=accountId));
                     EventBus.publish(loggingEvents);
                     System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
                 } else {
@@ -506,7 +563,9 @@ public with sharing class ODRIntegration {
                     loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                         message__c=resObject.errorMessage,
                                                         caseId__c=recordId,
-                                                        type__c=integrationName));
+                                                        type__c=integrationName,
+                                                        key__c=integrationLogKey,
+                                                        patient__c=accountId));
                     EventBus.publish(loggingEvents);
                 }
             }
@@ -518,7 +577,9 @@ public with sharing class ODRIntegration {
             loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                    message__c=resObject.errorMessage,
                                                    caseId__c=recordId,
-                                                   type__c=integrationName));
+                                                   type__c=integrationName,
+                                                   key__c=integrationLogKey,
+                                                   patient__c=accountId));
             EventBus.publish(loggingEvents);
             System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
         }

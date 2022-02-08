@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import fetchSAApprovalHistoryByCase from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistoryByCase';
+import getPatientIdentifier from '@salesforce/apex/ODRIntegration.getPatientIdentifier';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
@@ -16,7 +17,7 @@ const columns = [
   { label: 'DEC', fieldName: 'decCode', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'CreatedBy', fieldName: 'createdBy', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'SA Log', fieldName: 'saLog', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Terminate', type: 'button', typeAttributes: { label: 'Terminate', name: 'Terminate'} }
+  { label: 'Terminate', type: 'button', typeAttributes: { label: 'Terminate', name: 'terminate'} }
 ];
 
 export default class PharmanetApprovalHistory extends LightningElement {
@@ -30,8 +31,33 @@ export default class PharmanetApprovalHistory extends LightningElement {
   error = {};
   isError = false;
 
+  openModal = false;
+  selectedSARecord;
+  saApprovalRequestFormatData = [];
+
   connectedCallback() {
     this.fetchItems();
+  }
+
+  handleRowAction(event) {
+    const actionName = event.detail.action.name;
+    const row = event.detail.row;
+    switch (actionName) {
+      case 'terminate':
+        console.log(JSON.stringify(row));
+        this.openUpdateModal(row.index);
+        break;
+      default:
+    }
+  }
+
+  openUpdateModal(index){
+    this.selectedSARecord = this.saApprovalRequestFormatData[index];
+    this.openModal = true;
+  }
+
+  closeUpdateModal(){
+    this.openModal = false;
   }
 
   convertSAType(type) {
@@ -59,7 +85,8 @@ export default class PharmanetApprovalHistory extends LightningElement {
   }
 
   async fetchItems() {
-    let data = await fetchSAApprovalHistoryByCase({recordId: this.recordId})
+    let data = await fetchSAApprovalHistoryByCase({recordId: this.recordId});
+    let patientIdentifier = await getPatientIdentifier({recordId: this.recordId});
     if (data && data.error == null) {
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
@@ -68,7 +95,23 @@ export default class PharmanetApprovalHistory extends LightningElement {
         this.completeAndNoResults = false;
         this.hasResults = true;
         let dataArray = [];
+        let index = 0;
+
         records.forEach(record => {
+          // Needed because SAApprovalHistoryResponse is a different format than SAApprovalRequest.
+          let saRecord = {saRecord: {
+            phn: patientIdentifier,
+            saRequester: record.saRequester,
+            specialItem: record.specialItem,
+            specAuthType: record.specAuthType,
+            justificationCodes: record.justificationCodes,
+            excludedPlans: record.excludedPlans,
+            effectiveDate: record.effectiveDate,
+            terminationDate: record.terminationDate,
+            maxDaysSupply: record.maxDaysSupply,
+            maxPricePct: record.maxPricePct
+          }};
+
           let item = {};
           item['description'] = record.specialItem.itemDescription;
           item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
@@ -91,7 +134,9 @@ export default class PharmanetApprovalHistory extends LightningElement {
           // Not coming in response.
           item['decCode'] = record.saRequester.decCode;
           item['createdBy'] = record.createdBy;
+          item['index'] = index++;
           dataArray.push(item);
+          this.saApprovalRequestFormatData.push(saRecord);        
         });
         this.data = dataArray;
       } else {

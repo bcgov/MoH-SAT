@@ -2,6 +2,8 @@ import { LightningElement, api } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import submitSinglePnetSar from '@salesforce/apex/PharmanetPayloadController.submitSinglePnetSar';
+import submitSaApprovalUpdate from '@salesforce/apex/PharmanetPayloadController.submitSaApprovalUpdate';
+
 export default class PnetSaForm extends LightningElement {
     @api
     caseId;
@@ -13,6 +15,15 @@ export default class PnetSaForm extends LightningElement {
 
     hasError;
 
+    // Is this form being used to update, terminate, or submit?
+    @api
+    update = false;
+    @api
+    terminate = false;
+    get isSubmit(){
+        return this.update == this.terminate;
+    }
+
     get msOptions () {
         return [{'value':'B','label':'Non-Benefit'},
                 {'value':'L','label':'LCA',},
@@ -21,6 +32,57 @@ export default class PnetSaForm extends LightningElement {
 
     handleComboItemSelected (event) {
         this._record['specAuthType'] = event.target.value;
+    }
+
+    get updateRecord() {
+        return {
+            updateType:"U",
+            saRecordId:{
+                phn: this._record.phn,
+                specialItem: {
+                    din: this._record.din,
+                    rdp: this._record.rdp
+                },
+                specAuthType: this._record.specAuthType,
+                effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate)
+            },
+            saRevisedData: {
+                specialItem: {
+                    din: this._record.din,
+                    rdp: this._record.rdp
+                },
+                specAuthType: this._record.specAuthType,
+                justificationCodes: this.strToArr(this._record.justificationCodes),
+                excludedPlans: this.strToArr(this._record.excludedPlans),
+                saRequester: {
+                    practIdRef: this._record.practIdRef,
+                    practId: this._record.practId,
+                    decCode: this._record.decCode
+                },
+                effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate),
+                terminationDate: this.dateSfdcToOdr(this._record.terminationDate),
+                maxDaysSupply: this._record.maxDaysSupply,
+                maxPricePct: this._record.maxPricePct,
+            }
+        };
+    }
+
+    get terminateRecord(){
+        return {
+            updateType:"T",
+            saRecordId:{
+                phn: this._record.phn,
+                specialItem: {
+                    din: this._record.din,
+                    rdp: this._record.rdp
+                },
+                specAuthType: this._record.specAuthType,
+                effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate)
+            },
+            saRevisedData: {
+                terminationDate: this.dateSfdcToOdr(this._record.terminationDate)
+            }
+        };
     }
 
     get record() {
@@ -62,7 +124,7 @@ export default class PnetSaForm extends LightningElement {
             justificationCodes: this.arrToStr(value.saRecord.justificationCodes),
             excludedPlans: this.arrToStr(value.saRecord.excludedPlans),
             effectiveDate: this.dateOdrToSfdc(value.saRecord.effectiveDate),
-            terminationDate: this.dateOdrToSfdc(value.saRecord.terminationDate),
+            terminationDate: this.setTerminationDate(value.saRecord.terminationDate),
             maxDaysSupply: value.saRecord.maxDaysSupply,
             maxPricePct: value.saRecord.maxPricePct,
         };
@@ -74,6 +136,12 @@ export default class PnetSaForm extends LightningElement {
 
     get isRdp() {
         return this._record.rdp && this._record.rdp.length > 0
+    }
+
+    setTerminationDate(odrDateStr){
+        // if terminate, set termination date to today
+        let today = new Date().toISOString().slice(0, 10);
+        return this.terminate ? this.dateOdrToSfdc(today) : this.dateOdrToSfdc(odrDateStr);
     }
 
     dateOdrToSfdc(odrDateStr) {
@@ -116,6 +184,26 @@ export default class PnetSaForm extends LightningElement {
         } catch (error) {
             this.showError(error.body.message);
             this.formDisabled = false;
+            success = false;
+        }
+
+        return success;
+    }
+
+    @api
+    async updateSAARecord() {
+        let subject = this._record.rdp || this._record.din;
+        let success = true;
+        let record = this.update ? this.updateRecord : this.terminateRecord;
+        
+        this.formDisabled = true;
+        
+        try {
+            await submitSaApprovalUpdate({caseId: this.caseId, saaUpdateRequest: record });
+            this.showSuccess(`[${subject}] Submitted to Pharmanet.`);
+        } catch (error) {
+            this.showError(error.body.message);
+            this.formDisabled = this.terminate; // if terminate, keep form disabled
             success = false;
         }
 
