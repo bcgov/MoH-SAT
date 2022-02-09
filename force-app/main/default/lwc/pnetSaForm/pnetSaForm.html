@@ -1,5 +1,5 @@
 <template>
-    <div class="slds-box">
+    <div class="slds-box slds-theme_default">
         <lightning-card if:true={record}>
             <div slot="title">
                 <span >
@@ -8,13 +8,33 @@
                 </span>
             </div>
     
-            <lightning-button 
+            <lightning-button
+                if:true={isSubmit}
                 slot="actions"
                 label="Submit" 
                 title="Submit" 
                 disabled={formDisabled}
                 onclick={submit}
                 class="btn-submit">
+            </lightning-button>
+
+            <lightning-button 
+                if:true={update}
+                variant="brand"
+                slot="actions"
+                label="Update" 
+                title="update" 
+                disabled={formDisabled}
+                onclick={updateSAARecord}>
+            </lightning-button>
+
+            <lightning-button 
+                if:true={terminate}
+                variant="destructive"
+                slot="footer"
+                label="Terminate" 
+                title="terminate"
+                onclick={updateSAARecord}>
             </lightning-button>
             
             
