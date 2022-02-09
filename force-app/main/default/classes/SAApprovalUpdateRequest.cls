@@ -4,6 +4,8 @@ public class SAApprovalUpdateRequest {
         this.saRecordId = new SARecordId();
         this.saRecordId.specialItem = new SpecialItem();
         this.saRevisedData = new SARevisedData();
+        this.saRevisedData.justificationCodes = new List<String>();
+        this.saRevisedData.excludedPlans = new List<String>();
         this.saRevisedData.specialItem = new SpecialItem();
         this.saRevisedData.saRequester = new SARequester();
     }

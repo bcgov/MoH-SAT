@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import fetchSAApprovalHistoryByCase from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistoryByCase';
+import fetchIntegrationLogs from '@salesforce/apex/ODRIntegration.fetchIntegrationLogs';
 import getPatientIdentifier from '@salesforce/apex/ODRIntegration.getPatientIdentifier';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -16,7 +17,7 @@ const columns = [
   { label: 'Pharmacy', fieldName: 'pharmacyID', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'DEC', fieldName: 'decCode', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'CreatedBy', fieldName: 'createdBy', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'SA Log', fieldName: 'saLog', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Log', fieldName: 'integrationLog', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Terminate', type: 'button', typeAttributes: { label: 'Terminate', name: 'terminate'} }
 ];
 
@@ -24,6 +25,7 @@ export default class PharmanetApprovalHistory extends LightningElement {
   @api recordId;
   columns = columns;
   data = [];
+  patientIdentifier;
   loaded = false;
   hasResults = false;
   completeAndNoResults = false;
@@ -52,11 +54,16 @@ export default class PharmanetApprovalHistory extends LightningElement {
   }
 
   openUpdateModal(index){
-    this.selectedSARecord = this.saApprovalRequestFormatData[index];
+    this.saApprovalRequestFormatData.forEach((record) => { 
+      if(record.index == index){
+        this.selectedSARecord = record;
+      }
+    });
     this.openModal = true;
   }
 
   closeUpdateModal(){
+    this.fetchItems();
     this.openModal = false;
   }
 
@@ -84,9 +91,39 @@ export default class PharmanetApprovalHistory extends LightningElement {
     }
   }
 
+  generateSingleKey(record){
+    return this.patientIdentifier + (record.specialItem.din || "null") + (record.specialItem.rdp || "null") + record.specAuthType + record.effectiveDate.replace(/-/g,"");
+  }
+
+  generateKeys(saRecords){
+    let keys = [];
+    saRecords.forEach(record => {
+      let key = this.generateSingleKey(record);
+      keys.push(key);
+    })
+    return keys;
+  }
+
+  getLatestLog(key, logs){
+    if (logs[key] === undefined) return;
+    let log = logs[key];
+    let logMessage = '';
+
+    if (log.Code__c != 200 || log.Code__c != 201){
+      logMessage = log.Type__c == 'SA Approval Update Request' ? 'Failed update ' : 'Failed termination ';  
+    } else {
+      logMessage = log.Type__c == 'SA Approval Update Request' ? 'Updated on ' : 'Terminated on ';
+    }
+    logMessage += log.Timestamp__c.slice(0,10);
+
+    return logMessage;
+  }
+
   async fetchItems() {
     let data = await fetchSAApprovalHistoryByCase({recordId: this.recordId});
-    let patientIdentifier = await getPatientIdentifier({recordId: this.recordId});
+    this.patientIdentifier = await getPatientIdentifier({recordId: this.recordId});
+    let keys = this.generateKeys(data.saRecords);
+    let logs = await fetchIntegrationLogs({phn: this.patientIdentifier, keys: keys});
     if (data && data.error == null) {
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
@@ -100,7 +137,7 @@ export default class PharmanetApprovalHistory extends LightningElement {
         records.forEach(record => {
           // Needed because SAApprovalHistoryResponse is a different format than SAApprovalRequest.
           let saRecord = {saRecord: {
-            phn: patientIdentifier,
+            phn: this.patientIdentifier,
             saRequester: record.saRequester,
             specialItem: record.specialItem,
             specAuthType: record.specAuthType,
@@ -134,7 +171,9 @@ export default class PharmanetApprovalHistory extends LightningElement {
           // Not coming in response.
           item['decCode'] = record.saRequester.decCode;
           item['createdBy'] = record.createdBy;
-          item['index'] = index++;
+          item['integrationLog'] = this.getLatestLog(this.generateSingleKey(record), logs);
+          item['index'] = index;
+          saRecord.index = index++;
           dataArray.push(item);
           this.saApprovalRequestFormatData.push(saRecord);        
         });

@@ -403,10 +403,9 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
-    public static Map<String, String> fetchIntegrationLogs(String phn, String[] keys){
+    public static Map<String, Integration_Log__c> fetchIntegrationLogs(String phn, String[] keys){
 
         Id patientId = getPatientId(phn);
-        // Id patientId = '0010i0000063y4FAAQ';
 
         List<Integration_Log__c> logs = [SELECT Id, Name, Code__c, Type__c, Key__c, Timestamp__c, Patient__c
                                             FROM Integration_Log__c
@@ -415,19 +414,9 @@ public with sharing class ODRIntegration {
                                             AND Key__c IN :keys
                                             ORDER BY Key__c ASC, Timestamp__c ASC];
 
-        Map<String, String> mostRecentLogByKey = new Map<String, String>();        
+        Map<String, Integration_Log__c> mostRecentLogByKey = new Map<String, Integration_Log__c>();        
         for (Integration_Log__c log : logs) {
-            String mostRecentLog = '';
-            if(log.Code__c != 200 || log.Code__c != 201){
-                mostRecentLog = 'Update failed ' + log.Timestamp__c.format('yyyy-MM-dd');
-            } else if (log.Code__c != 200 || log.Code__c != 201){
-                if(log.Type__c == 'SA Approval Update Request'){
-                    mostRecentLog = 'Updated ' + log.Timestamp__c.format('yyyy-MM-dd');
-                } else {
-                    mostRecentLog = 'Terminated ' + log.Timestamp__c.format('yyyy-MM-dd');
-                }
-            }
-            mostRecentLogByKey.put(log.Key__c, mostRecentLog);
+            mostRecentLogByKey.put(log.Key__c, log);
         }
 
         return mostRecentLogByKey;
