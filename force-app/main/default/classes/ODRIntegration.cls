@@ -222,6 +222,30 @@ public with sharing class ODRIntegration {
                 practIdCode = '94';
             } when 'Out of province provider' {
                 practIdCode = '81';
+            } when 'Speech and Hearing Professional' {
+                practIdCode = '92';
+            } when 'OOP Provider - Saskatchewan' {
+                practIdCode = '71';
+            } when 'OOP Provider - Manitoba' {
+                practIdCode = '06';
+            } when 'OOP Provider - Ontario' {
+                practIdCode = '01';
+            } when 'OOP Provider - Quebec' {
+                practIdCode = '51';
+            } when 'OOP Provider - Newfoundland and Labrador' {
+                practIdCode = '11';
+            } when 'OOP Provider - New Brunswick' {
+                practIdCode = '41';
+            } when 'OOP Provider - Nova Scotia' {
+                practIdCode = '31';
+            } when 'OOP Provider - PEI' {
+                practIdCode = '21';
+            } when 'OOP Provider - Northwest Territories' {
+                practIdCode = 'A1';
+            } when 'OOP Provider- Yukon' {
+                practIdCode = 'B1';
+            } when 'OOP Provider - Nunavit' {
+                practIdCode = 'C1';
             }
         }
         return practIdCode;

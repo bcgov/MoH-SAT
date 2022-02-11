@@ -218,6 +218,31 @@ public class ODRIntegrationTest {
         System.assertEquals(Optometrist, '94');
         String oop = ODRIntegration.getPractitionerCode('Out of province provider');
         System.assertEquals(oop, '81');
+        String speech = ODRIntegration.getPractitionerCode('Speech and Hearing Professional');
+        System.assertEquals(speech, '92');
+        String oopS = ODRIntegration.getPractitionerCode('OOP Provider - Saskatchewan');
+        System.assertEquals(oopS, '71');
+        String oopM = ODRIntegration.getPractitionerCode('OOP Provider - Manitoba');
+        System.assertEquals(oopM, '06');
+        String oopO = ODRIntegration.getPractitionerCode('OOP Provider - Ontario');
+        System.assertEquals(oopO, '01');
+        String oopQ = ODRIntegration.getPractitionerCode('OOP Provider - Quebec');
+        System.assertEquals(oopQ, '51');
+        String oopN = ODRIntegration.getPractitionerCode('OOP Provider - Newfoundland and Labrador');
+        System.assertEquals(oopN, '11');
+        String oopNB = ODRIntegration.getPractitionerCode('OOP Provider - New Brunswick');
+        System.assertEquals(oopNB, '41');
+        String oopNV = ODRIntegration.getPractitionerCode('OOP Provider - Nova Scotia');
+        System.assertEquals(oopNV, '31');
+        String oopP = ODRIntegration.getPractitionerCode('OOP Provider - PEI');
+        System.assertEquals(oopP, '21');
+        String oopNo = ODRIntegration.getPractitionerCode('OOP Provider - Northwest Territories');
+        System.assertEquals(oopNo, 'A1');
+        String oopY = ODRIntegration.getPractitionerCode('OOP Provider- Yukon');
+        System.assertEquals(oopY, 'B1');
+        String oopNu = ODRIntegration.getPractitionerCode('OOP Provider - Nunavit');
+        System.assertEquals(oopNu, 'C1');
+
     }
     @isTest static void formatToODRDateTest() {
         Date theDate = Date.newInstance(1960, 2, 17);
