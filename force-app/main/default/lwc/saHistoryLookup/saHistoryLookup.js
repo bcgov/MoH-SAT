@@ -1,6 +1,7 @@
 import { LightningElement } from 'lwc';
 import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistory';
 import fetchIntegrationLogs from '@salesforce/apex/ODRIntegration.fetchIntegrationLogs';
+import fetchPatientInformation from '@salesforce/apex/ODRIntegration.fetchPatientInformation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
@@ -20,6 +21,8 @@ export default class SaHistoryLookup extends LightningElement {
   columns = columns;
   data = [];
   loaded = false;
+  patientName;
+  patientDOB;
   
   hasResults = false;
   completeAndNoResults = false;
@@ -69,6 +72,7 @@ export default class SaHistoryLookup extends LightningElement {
     this.completeAndNoResults = false;
     this.isError = false;
     this.data = [];
+    this.setPatientInformation(null, null);
     this.fetchItems();
   }
 
@@ -134,15 +138,23 @@ export default class SaHistoryLookup extends LightningElement {
     return logMessage;
   }
 
+  setPatientInformation(name, dob){
+    this.patientName = name;
+    this.patientDOB = dob;
+  }
+
   async fetchItems() {
     if (this.patientIdentifier == null || this.patientIdentifier.length < 1) return;
 
-    let data = await fetchSAApprovalHistory({phn: this.patientIdentifier})
-    let keys = this.generateKeys(data.saRecords);
-    let logs = await fetchIntegrationLogs({phn: this.patientIdentifier, keys: keys});
+    let data = await fetchSAApprovalHistory({phn: this.patientIdentifier});
+    let patient = await fetchPatientInformation({phn: this.patientIdentifier});
+    
     if (data && data.error == null) {
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
+      let keys = this.generateKeys(data.saRecords);
+      let logs = await fetchIntegrationLogs({phn: this.patientIdentifier, keys: keys});
+      this.setPatientInformation(patient.Name, patient.PersonBirthdate);
 
       if (this.totalRecords > 0) {
         this.completeAndNoResults = false;

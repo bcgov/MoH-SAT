@@ -1,6 +1,21 @@
 public with sharing class ODRIntegration {
     public ODRIntegration() { }
 
+    @AuraEnabled
+    public static Account fetchPatientInformation(String phn){
+        Account patient = new Account();
+        try {
+            patient = [SELECT Id, Name, Patient_Identifier__pc, PersonBirthdate
+                                FROM Account
+                                WHERE Patient_Identifier__pc = :phn];
+            return patient;
+        } catch (Exception e) {
+            patient.Name = 'Patient Not Found';
+            patient.PersonBirthDate = null;
+            return patient;
+        }
+    }
+
     // LWC Path
     @AuraEnabled(cacheable=true)
     public static Patient verifyPatientInformationx(Id recordId) {
