@@ -1,6 +1,7 @@
 import { LightningElement } from 'lwc';
 import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistory';
 import fetchIntegrationLogs from '@salesforce/apex/ODRIntegration.fetchIntegrationLogs';
+import findPatient from '@salesforce/apex/EmpiLookup.findPatient';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
@@ -20,6 +21,8 @@ export default class SaHistoryLookup extends LightningElement {
   columns = columns;
   data = [];
   loaded = false;
+  patientName;
+  patientDOB;
   
   hasResults = false;
   completeAndNoResults = false;
@@ -69,6 +72,7 @@ export default class SaHistoryLookup extends LightningElement {
     this.completeAndNoResults = false;
     this.isError = false;
     this.data = [];
+    this.setPatientInformation(null, null);
     this.fetchItems();
   }
 
@@ -134,15 +138,36 @@ export default class SaHistoryLookup extends LightningElement {
     return logMessage;
   }
 
+  setPatientInformation(patient){
+    if (patient == null || patient.names.length == 0) {
+      this.patientName = null;
+      this.patientDOB = null;
+      return;
+    }
+
+    let familyName = patient.names[0].familyName;
+    let givenNames = patient.names[0].givenNames;
+    let patientName = familyName + ',';
+    givenNames.forEach(name => {
+      patientName += ' ' + name;
+    })
+
+    this.patientName = patientName;
+    this.patientDOB = patient.dob;
+  }
+
   async fetchItems() {
     if (this.patientIdentifier == null || this.patientIdentifier.length < 1) return;
 
-    let data = await fetchSAApprovalHistory({phn: this.patientIdentifier})
-    let keys = this.generateKeys(data.saRecords);
-    let logs = await fetchIntegrationLogs({phn: this.patientIdentifier, keys: keys});
+    let data = await fetchSAApprovalHistory({phn: this.patientIdentifier});
+    let patient = await findPatient({phn: this.patientIdentifier});
+    
     if (data && data.error == null) {
       const records = data.saRecords;
       this.totalRecords = data.totalRecords;
+      let keys = this.generateKeys(data.saRecords);
+      let logs = await fetchIntegrationLogs({phn: this.patientIdentifier, keys: keys});
+      this.setPatientInformation(patient);
 
       if (this.totalRecords > 0) {
         this.completeAndNoResults = false;

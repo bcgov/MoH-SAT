@@ -430,6 +430,9 @@ public with sharing class ODRIntegration {
     public static Map<String, Integration_Log__c> fetchIntegrationLogs(String phn, String[] keys){
 
         Id patientId = getPatientId(phn);
+        if(patientId == null){
+            return new Map<String, Integration_Log__c>();
+        }
 
         List<Integration_Log__c> logs = [SELECT Id, Name, Code__c, Type__c, Key__c, Timestamp__c, Patient__c
                                             FROM Integration_Log__c
@@ -447,8 +450,13 @@ public with sharing class ODRIntegration {
     }
 
     public static Id getPatientId (String phn){
-        Account patient = [SELECT Id, Patient_Identifier__pc FROM Account WHERE Patient_Identifier__pc = :phn];
-        return patient.Id;
+        try {
+            Account patient = [SELECT Id, Patient_Identifier__pc FROM Account WHERE Patient_Identifier__pc = :phn];
+            return patient.Id;
+        } catch(Exception e){
+            return null;
+        }
+        
     }
 
     public static void updateCasePusedToPNet(Id caseId) {
