@@ -292,17 +292,26 @@ public with sharing class ODRIntegration {
         saaUpdateRequest.clientName = 'SpecAuth';
         saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
         
-        String integrationName = saaUpdateRequest.updateType == 'T' ? 'SA Approval Terminate Request' : 'SA Approval Update Request';
-
-        system.debug(JSON.serialize(saaUpdateRequest));
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(
-            caseId, 
-            'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
-            null,
-            'PUT', 
-            JSON.serialize(saaUpdateRequest), 
-            integrationName
-        );
+        CalloutResponse calloutResponseObject;
+        if (saaUpdateRequest.updateType == 'T') {
+            calloutResponseObject = sendRequestAndReturnBody(
+                    caseId, 
+                    'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
+                    null,
+                    'PUT', 
+                    JSON.serialize(saaUpdateRequest, true), 
+                    'SA Approval Terminate Request'
+                );
+        } else {
+            calloutResponseObject = sendRequestAndReturnBody(
+                    caseId, 
+                    'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
+                    null,
+                    'PUT', 
+                    JSON.serialize(saaUpdateRequest), 
+                    'SA Approval Update Request'
+                );
+        }
 
         SAApprovalUpdateRequestResponse saaUpdateResponse;
 
