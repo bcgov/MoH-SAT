@@ -35,7 +35,7 @@
     <recordCreates>
         <name>Child_Case</name>
         <label>Child Case</label>
-        <locationX>436</locationX>
+        <locationX>435</locationX>
         <locationY>363</locationY>
         <connector>
             <targetReference>GetChildCaseNumber</targetReference>
@@ -53,6 +53,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>Find_Parent_Case.Description</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Drug_Name__c</field>
             <value>
                 <elementReference>Find_Parent_Case.Drug_Name__c</elementReference>
@@ -62,6 +68,18 @@
             <field>Drug__c</field>
             <value>
                 <elementReference>Find_Parent_Case.Drug__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Effective_Date__c</field>
+            <value>
+                <elementReference>Find_Parent_Case.Effective_Date__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Max_Days_Supply__c</field>
+            <value>
+                <elementReference>Find_Parent_Case.Max_Days_Supply__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -89,9 +107,21 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Provider_Fax__c</field>
+            <value>
+                <elementReference>Find_Parent_Case.Provider_Fax__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Provider__c</field>
             <value>
                 <elementReference>Find_Parent_Case.Provider__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Rationale__c</field>
+            <value>
+                <elementReference>Find_Parent_Case.Rationale__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -104,6 +134,12 @@
             <field>Status</field>
             <value>
                 <stringValue>Received</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Termination_Date__c</field>
+            <value>
+                <elementReference>Find_Parent_Case.Termination_Date__c</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
