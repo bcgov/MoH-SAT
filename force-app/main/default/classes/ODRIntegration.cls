@@ -292,6 +292,7 @@ public with sharing class ODRIntegration {
         saaUpdateRequest.clientName = 'SpecAuth';
         saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
         
+        // If terminate, supress nulls.
         CalloutResponse calloutResponseObject;
         if (saaUpdateRequest.updateType == 'T') {
             calloutResponseObject = sendRequestAndReturnBody(
