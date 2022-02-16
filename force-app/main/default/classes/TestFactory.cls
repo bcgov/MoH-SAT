@@ -310,6 +310,16 @@ public with sharing class TestFactory {
       return c;
     }
 
+    public static Integration_Log__c newIntegrationLog(String patientId, String type, String key){
+        Integration_Log__c il = new Integration_Log__c();
+        il.Code__c = 400;
+        il.Type__c = type;
+        il.Key__c = key;
+        il.Timestamp__c = Datetime.now();
+        il.Patient__c = patientId;
+        return il;
+    }
+
     public static RecordTypeInfo getRecordTypeInfosByDeveloperName(String sObjectName, String recordTypeName) {
         return getDescribe(sObjectName).getRecordTypeInfosByDeveloperName().get(recordTypeName);
     }

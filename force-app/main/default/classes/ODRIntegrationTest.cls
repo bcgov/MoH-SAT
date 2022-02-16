@@ -318,4 +318,19 @@ public class ODRIntegrationTest {
 
         System.assertEquals(true, myCase.Pushed_to_Pnet__c);
     }
+    @isTest static void fetchIntegrationLogs() {
+        Account patient = TestFactory.newPatient('Patient 1');
+        insert patient;
+        String type = 'SA Approval Update Request';
+        String[] keys = new List<String>();
+        keys.add('abc123');
+
+        Integration_Log__c log = TestFactory.newIntegrationLog(patient.Id, type, keys[0]);
+        insert log;
+
+        Map<String, Integration_Log__c> m1 = ODRIntegration.fetchIntegrationLogs('000000000', keys);
+        Map<String, Integration_Log__c> m2 = ODRIntegration.fetchIntegrationLogs('222333444', keys);
+
+        System.assertEquals(new Map<String, Integration_Log__c>(), m1);
+    }
 }

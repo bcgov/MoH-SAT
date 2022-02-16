@@ -95,6 +95,38 @@ public class PharmanetPayloadControllerTest {
         system.assertEquals(Date.newInstance(2021, 3, 25), record.Termination_Date__c);
     }
 
+    @isTest
+    static void test_submit_sa_approval_update_success() {
+        Case record = queryCase('Test case');
+
+        PharmanetPayloadController.mockSaaUpdateResponse = mockSaaUpdateResponse();
+        
+        try {
+            Test.startTest();
+            PharmanetPayloadController.submitSaApprovalUpdate(record.Id, new SAApprovalUpdateRequest());
+            Test.stopTest();
+            system.assert(true);
+        } catch (Exception e) {
+            system.assert(false, 'An unexpected exception was thrown.');
+        }
+    }
+
+    @isTest
+    static void test_submit_sa_approval_update_error() {
+        Case record = queryCase('Test case');
+
+        PharmanetPayloadController.mockSaaUpdateResponse = mockSaaUpdateResponse(400);
+        
+        try {
+            Test.startTest();
+            PharmanetPayloadController.submitSaApprovalUpdate(record.Id, new SAApprovalUpdateRequest());
+            Test.stopTest();
+            system.assert(false, 'An expected exception was not thrown.');
+        } catch (Exception e) {
+            system.assert(true);
+        }
+    }
+
     private static Case queryCase(String subject) {
         return [select Id, Termination_Date__c from Case where Subject = :subject][0];
     }
@@ -107,6 +139,17 @@ public class PharmanetPayloadControllerTest {
     }
     private static SAApprovalRequestResponse mockSaaResponse() {
         SAApprovalRequestResponse response = new SAApprovalRequestResponse();
+        response.error = null;
+        return response;
+    }
+    private static SAApprovalUpdateRequestResponse mockSaaUpdateResponse(Integer errorCode) {
+        SAApprovalUpdateRequestResponse response = mockSaaUpdateResponse();
+        response.error = new CalloutResponse();
+        response.error.errorCode = errorCode;
+        return response;
+    }
+    private static SAApprovalUpdateRequestResponse mockSaaUpdateResponse() {
+        SAApprovalUpdateRequestResponse response = new SAApprovalUpdateRequestResponse();
         response.error = null;
         return response;
     }
