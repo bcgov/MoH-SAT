@@ -3,6 +3,7 @@ import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAAppro
 import fetchIntegrationLogs from '@salesforce/apex/ODRIntegration.fetchIntegrationLogs';
 import findPatient from '@salesforce/apex/EmpiLookup.findPatient';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import hasSAApprovalUpdate from '@salesforce/customPermission/Access_SA_Approval_Update';
 
 const columns = [
   { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
@@ -10,8 +11,6 @@ const columns = [
   { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Log', fieldName: 'integrationLog', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Update', type: 'button', typeAttributes: { label: 'Update', name: 'update'} }
 ];
 
 export default class SaHistoryLookup extends LightningElement {
@@ -33,6 +32,14 @@ export default class SaHistoryLookup extends LightningElement {
   openModal = false;
   selectedSARecord;
   saApprovalRequestFormatData = [];
+
+  constructor() {
+    super();
+    if (hasSAApprovalUpdate) {
+      this.columns.push({ label: 'Log', fieldName: 'integrationLog', type: 'text', wrapText: true, hideDefaultActions: true });
+      this.columns.push({ label: 'Update', type: 'button', typeAttributes: { label: 'Update', name: 'update'} });
+    } 
+  }
 
   get patientId() {
     return this.template.querySelector('.patientIdentifier').value;
