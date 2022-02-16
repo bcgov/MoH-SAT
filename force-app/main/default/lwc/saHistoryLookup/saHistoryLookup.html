@@ -2,7 +2,7 @@
 <template>
   <div class="slds-p-around_x-small slds-box_large">
     <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
-      <div class="slds-col slds-size-1_of_3">
+      <div class="slds-col slds-size-1_of_2">
           <lightning-input  
               type="text" 
               label="Patient Identifier"
@@ -12,7 +12,7 @@
               required
           ></lightning-input>
       </div>
-      <div class="slds-col slds-size-1_of_3 slds-align-bottom">
+      <div class="slds-col slds-size-1_of_2 slds-align-bottom">
           <lightning-button 
               variant="brand" 
               label="Lookup" 
@@ -22,14 +22,11 @@
               disabled>
           </lightning-button>
       </div>
-      <div class="slds-col slds-size-1_of_3 slds-align-bottom">
-        <div class="slds-text-align_right">
-          <div class="slds-text-heading_medium">
-            <em>{patientName}</em>
-          </div>
-          <div if:true={patientDOB}>
-            DOB: {patientDOB}
-          </div>
+    </div>
+    <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
+      <div class="slds-col slds-m-left_x-small slds-m-top_x-small slds-text-title_caps">
+        <div if:true={patientDOB}>
+          <em>{patientName}</em> | {patientDOB}
         </div>
       </div>
     </div>
