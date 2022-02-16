@@ -53,6 +53,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>DEC__c</field>
+            <value>
+                <elementReference>Find_Parent_Case.DEC__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Description</field>
             <value>
                 <elementReference>Find_Parent_Case.Description</elementReference>
@@ -71,27 +77,9 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Effective_Date__c</field>
-            <value>
-                <elementReference>Find_Parent_Case.Effective_Date__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Max_Days_Supply__c</field>
-            <value>
-                <elementReference>Find_Parent_Case.Max_Days_Supply__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Origin</field>
             <value>
                 <stringValue>Fax</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Find_Parent_Case.OwnerId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -136,12 +124,6 @@
                 <stringValue>Received</stringValue>
             </value>
         </inputAssignments>
-        <inputAssignments>
-            <field>Termination_Date__c</field>
-            <value>
-                <elementReference>Find_Parent_Case.Termination_Date__c</elementReference>
-            </value>
-        </inputAssignments>
         <object>Case</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
@@ -169,11 +151,11 @@
     <recordLookups>
         <name>GetChildCaseNumber</name>
         <label>GetChildCaseNumber</label>
-        <locationX>613</locationX>
-        <locationY>360</locationY>
+        <locationX>626</locationX>
+        <locationY>366</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Successful</targetReference>
+            <targetReference>Update_Child_Case</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -187,6 +169,30 @@
         <object>Case</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>Update_Child_Case</name>
+        <label>Update Child Case</label>
+        <locationX>827</locationX>
+        <locationY>371</locationY>
+        <connector>
+            <targetReference>Successful</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetChildCaseNumber.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Find_Parent_Case.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
     <screens>
         <description>To create a child case for MIR Response fax</description>
         <name>Related_Case</name>
@@ -242,8 +248,8 @@
         <description>Message screen</description>
         <name>Successful</name>
         <label>Successful</label>
-        <locationX>786</locationX>
-        <locationY>359</locationY>
+        <locationX>827</locationX>
+        <locationY>556</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
