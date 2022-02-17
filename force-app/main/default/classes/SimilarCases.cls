@@ -20,7 +20,7 @@ public with sharing class SimilarCases {
     @AuraEnabled(cacheable=true)
     public static List<Case> getActiveSaRequests(Id contactId, Id drugId) {
         return [
-            select Id, CaseNumber, Status, Drug__r.Name, Provider__r.Name, Termination_Date__c, CreatedDate
+            select Id, CaseNumber, Status, Drug__r.Name, Prescriber_Name_Template__c, Termination_Date__c, CreatedDate
             from Case
             where ContactId = :contactId
             and Drug__c = :drugId
