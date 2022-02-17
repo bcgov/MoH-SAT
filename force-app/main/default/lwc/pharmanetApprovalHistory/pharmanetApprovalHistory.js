@@ -3,6 +3,7 @@ import fetchSAApprovalHistoryByCase from '@salesforce/apex/ODRIntegration.fetchS
 import fetchIntegrationLogs from '@salesforce/apex/ODRIntegration.fetchIntegrationLogs';
 import getPatientIdentifier from '@salesforce/apex/ODRIntegration.getPatientIdentifier';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import hasSAApprovalUpdate from '@salesforce/customPermission/Access_SA_Approval_Update';
 
 const columns = [
   { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
@@ -16,9 +17,7 @@ const columns = [
   { label: 'Excluded Plans', fieldName: 'excludedPlans', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Pharmacy', fieldName: 'pharmacyID', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'DEC', fieldName: 'decCode', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'CreatedBy', fieldName: 'createdBy', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Log', fieldName: 'integrationLog', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Terminate', type: 'button', typeAttributes: { label: 'Terminate', name: 'terminate'} }
+  { label: 'CreatedBy', fieldName: 'createdBy', type: 'text', wrapText: true, hideDefaultActions: true }
 ];
 
 export default class PharmanetApprovalHistory extends LightningElement {
@@ -37,8 +36,20 @@ export default class PharmanetApprovalHistory extends LightningElement {
   selectedSARecord;
   saApprovalRequestFormatData = [];
 
+  constructor() {
+    super();
+    if (hasSAApprovalUpdate) {
+      this.columns.push({ label: 'Log', fieldName: 'integrationLog', type: 'text', wrapText: true, hideDefaultActions: true });
+      this.columns.push({ label: 'Terminate', type: 'button', typeAttributes: { label: 'Terminate', name: 'terminate'}});
+    } 
+  }
+
   connectedCallback() {
     this.fetchItems();
+  }
+
+  get hasPermissions(){
+    return hasSAApprovalUpdate;
   }
 
   handleRowAction(event) {
