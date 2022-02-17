@@ -244,7 +244,7 @@ public with sharing class ODRIntegration {
                 practIdCode = 'A1';
             } when 'OOP Provider- Yukon' {
                 practIdCode = 'B1';
-            } when 'OOP Provider - Nunavit' {
+            } when 'OOP Provider - Nunavut' {
                 practIdCode = 'C1';
             }
         }

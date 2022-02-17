@@ -240,7 +240,7 @@ public class ODRIntegrationTest {
         System.assertEquals(oopNo, 'A1');
         String oopY = ODRIntegration.getPractitionerCode('OOP Provider- Yukon');
         System.assertEquals(oopY, 'B1');
-        String oopNu = ODRIntegration.getPractitionerCode('OOP Provider - Nunavit');
+        String oopNu = ODRIntegration.getPractitionerCode('OOP Provider - Nunavut');
         System.assertEquals(oopNu, 'C1');
 
     }
