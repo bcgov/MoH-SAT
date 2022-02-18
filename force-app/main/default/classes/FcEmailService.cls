@@ -1,13 +1,13 @@
 
 public with sharing class FcEmailService implements Messaging.InboundEmailHandler{
 
-    public static Messaging.InboundEmailResult handleInboundEmail(Messaging.inboundEmail email,Messaging.InboundEnvelope env){
+    public Messaging.InboundEmailResult handleInboundEmail(Messaging.inboundEmail email,Messaging.InboundEnvelope env){
         Messaging.InboundEmailResult result = new Messaging.InboundEmailResult();
         processEmail(email);
         return result;
     }
 
-    public static void processEmail(Messaging.inboundEmail email) {
+    public void processEmail(Messaging.inboundEmail email) {
         String emailBody = email.plainTextBody;
 
         String status = findValues(emailBody, 'STATUS:');
@@ -22,7 +22,7 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
         updateCase(caseId, status);
     }
 
-    public static String findValues(String source, String key) {
+    public String findValues(String source, String key) {
         String value = '';
         if(String.isEmpty(source)){
             return value;
@@ -58,7 +58,7 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
         return value;
     }
   
-    public static void updateCase(String caseNumber, String status) {
+    public void updateCase(String caseNumber, String status) {
         if(String.isEmpty(caseNumber)||String.isEmpty(status)){
             return;
         }
