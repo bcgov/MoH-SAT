@@ -33,4 +33,6 @@ export default class FaxTemplateChooser extends LightningElement {
   generatePDF(event) {
     window.open('/apex/PDFGenerator?id=' + this.recordId + '&templateId=' + this.value)
   }
+ 
+  
 }
