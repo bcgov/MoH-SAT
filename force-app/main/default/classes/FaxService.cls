@@ -16,15 +16,20 @@ public with sharing class FaxService {
             ref.getParameters().put('Id',caseId);
             Blob pdf=ref.getContent();
             String attachment=EncodingUtil.base64encode(pdf);
-            System.debug(attachment);
         
             FaxService.Payload payload=new FaxService.Payload();
             payload.caseNumber=record.caseNumber;
             payload.faxNumber=record.Provider_Fax__c; 
             payload.recepientName=record.Contact.name;
             payload.attachment=attachment;
-            System.debug(JSON.serialize(payload));
+
+            HttpRequest req = new HttpRequest();
+            req.setBody(JSON.serialize(payload));
+            req.setEndpoint('https://filescan-dev.hlth.gov.bc.ca/');
+            req.setMethod('POST');
+            return 'caseId: ' +caseId + ' templateId: '+templateId ;
         
-        return null;  
+            
     }
 }
+
