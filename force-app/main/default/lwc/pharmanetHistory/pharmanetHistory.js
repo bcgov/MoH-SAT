@@ -148,38 +148,43 @@ export default class PharmanetHistory extends LightningElement {
           this.completeAndNoResults = false;
           this.hasResults = true;
           let dataArray = [];
+          let i = 0;
           records.forEach(record => {
             let item = {};
 
+            item['key'] = i++;
             item['rxNumber'] = record.rxNumber;
             item['quantity'] = record.quantity;
             item['refills'] = record.refills;
-            item['dispensingPharmacyName'] = record.dispensingPharmacy.pharmacyId
-              + ", " + record.dispensingPharmacy.name
-              + ", T:" + record.dispensingPharmacy.phoneNumber
-              + ", F:" + record.dispensingPharmacy.faxNumber;
             item['dateDispensed'] = record.dateDispensed;
             item['dinpin'] = record.dinpin;
             item['genericName'] = record.genericName;
             item['drugStrength'] = record.drugStrength;
             item['directions'] = record.directions;
             item['daysSupply'] = record.daysSupply;
-
-            // Remove this next block in favour of daysSinceLastFill at the bottom of the block
             item['daysSince'] = record.daysSinceLastFill;
 
-            // Claim
+            if (record.dispensingPharmacy) {
+              item['dispensingPharmacyName'] = record.dispensingPharmacy.pharmacyId
+                + ", " + record.dispensingPharmacy.name
+                + ", T:" + record.dispensingPharmacy.phoneNumber
+                + ", F:" + record.dispensingPharmacy.faxNumber;
+            }
+
+            if (record.claimHistory) {
             item['saTypeApplied'] = record.claimHistory.saTypeApplied;
             item['acceptedAmount'] = record.claimHistory.acceptedAmount;
             item['claimAmount'] = record.claimHistory.claimAmount;
             item['planCode'] = record.claimHistory.planCode;
-            // cost claimed  N/A
-            // cost accepted N/A
+            }
+
+            if (record.prescriberInfo) {
             item['prescriberName'] = record.prescriberInfo.name + ", "
             + ", " + record.prescriberInfo.licenseNo
             + ", T:" + record.prescriberInfo.phoneNumber
             + ", F:" + record.prescriberInfo.faxNumber;
-            // benefit plan N/A
+            }
+
             item['rxStatus'] = record.rxStatus;
             dataArray.push(item);
           });
