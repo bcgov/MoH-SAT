@@ -1505,6 +1505,7 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
+    <description>Truncates Patient and Provider first names to &lt; 40 characters. Adds full name to Person_Full_Name__c field.</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -1632,9 +1633,69 @@
         <valueField>Diagnosis__c</valueField>
     </dynamicChoiceSets>
     <formulas>
+        <name>ConcatenateNotProvidedProviderFirstAndLastName</name>
+        <dataType>String</dataType>
+        <expression>{!Not_Provided_Provider_First_Name} &amp; &quot; &quot; &amp; {!Not_Provided_Provider_Last_Name}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenateODRPatientFirstAndLastName</name>
+        <dataType>String</dataType>
+        <expression>{!ODRPatient.FirstName} &amp; &quot; &quot; &amp; {!ODRPatient.LastName}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenateODRProviderFirstAndLastName</name>
+        <dataType>String</dataType>
+        <expression>{!ODRPrescriber.FirstName} &amp; &quot; &quot; &amp; {!ODRPrescriber.LastName}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenatePatientFirstAndLastName2</name>
+        <dataType>String</dataType>
+        <expression>{!Patient_First_Name} &amp; &quot; &quot; &amp; {!Patient_Last_Name}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenatePatientFirstAndLastNameProvided</name>
+        <dataType>String</dataType>
+        <expression>{!Patient_First_Name_Provided} &amp; &quot; &quot; &amp; {!Patient_Last_Name_Provided}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenateProviderFirstAndLastName2</name>
+        <dataType>String</dataType>
+        <expression>{!Provider_First_Name} &amp; &quot; &quot; &amp; {!Provider_Last_Name}</expression>
+    </formulas>
+    <formulas>
         <name>Termination_Date_Today</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateNotProvidedProviderFirstName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Not_Provided_Provider_First_Name}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateODRPatientFirstName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!ODRPatient.FirstName}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateODRProviderFirstName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!ODRPrescriber.FirstName}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncatePatientFirstName2</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Patient_First_Name}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncatePatientFirstNameProvided</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Patient_First_Name_Provided}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateProviderFirstName2</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Provider_First_Name}, 40)</expression>
     </formulas>
     <interviewLabel>HIBC Create All Drugs Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Create SA Request HIBC</label>
@@ -1682,7 +1743,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>ODRPatient.FirstName</elementReference>
+                <elementReference>TruncateODRPatientFirstName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1701,6 +1762,12 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>ODRPatient.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateODRPatientFirstAndLastName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1723,7 +1790,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Patient_First_Name</elementReference>
+                <elementReference>TruncatePatientFirstName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1742,6 +1809,12 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>Patient_Date_of_Birth</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenatePatientFirstAndLastName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1764,7 +1837,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>ODRPrescriber.FirstName</elementReference>
+                <elementReference>TruncateODRProviderFirstName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1777,6 +1850,12 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>ODRPrescriber.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateODRProviderFirstAndLastName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1811,13 +1890,19 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Provider_First_Name</elementReference>
+                <elementReference>TruncateProviderFirstName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>LastName</field>
             <value>
                 <elementReference>Provider_Last_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateProviderFirstAndLastName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1893,7 +1978,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Patient_First_Name_Provided</elementReference>
+                <elementReference>TruncatePatientFirstNameProvided</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1906,6 +1991,12 @@
             <field>Patient_Identifier__pc</field>
             <value>
                 <stringValue>{!Patient_First_Name_Provided} {!Patient_Last_Name_Provided}</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenatePatientFirstAndLastNameProvided</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1928,13 +2019,19 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Not_Provided_Provider_First_Name</elementReference>
+                <elementReference>TruncateNotProvidedProviderFirstName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>LastName</field>
             <value>
                 <elementReference>Not_Provided_Provider_Last_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateNotProvidedProviderFirstAndLastName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

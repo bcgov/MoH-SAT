@@ -2121,6 +2121,7 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
+    <description>Truncates Provider First Name, adds Provider Person_Full_Name__c value.</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -2248,9 +2249,69 @@
         <valueField>Diagnosis__c</valueField>
     </dynamicChoiceSets>
     <formulas>
+        <name>ConcatenateODRPatientFirstAndLastName</name>
+        <dataType>String</dataType>
+        <expression>{!ODRPatient.FirstName} &amp; &quot; &quot; &amp; {!ODRPatient.LastName}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenateODRProviderFirstAndLastName</name>
+        <dataType>String</dataType>
+        <expression>{!ODRPrescriber.FirstName} &amp; &quot; &quot; &amp; {!ODRPrescriber.LastName}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenatePatientFirstAndLastName2</name>
+        <dataType>String</dataType>
+        <expression>{!Patient_First_Name} &amp; &quot; &quot; &amp; {!Patient_Last_Name}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenatePatientFirstAndLastName3</name>
+        <dataType>String</dataType>
+        <expression>{!Patient_First_Name_0} &amp; &quot; &quot; &amp; {!Patient_Last_Name_0}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenateProviderFirstAndLastName2</name>
+        <dataType>String</dataType>
+        <expression>{!Provider_First_Name} &amp; &quot; &quot; &amp; {!Provider_Last_Name}</expression>
+    </formulas>
+    <formulas>
+        <name>ConcatenateProviderFirstAndLastName3</name>
+        <dataType>String</dataType>
+        <expression>{!Provider_First_Name_0} &amp; &quot; &quot; &amp; {!Provider_Last_Name_0}</expression>
+    </formulas>
+    <formulas>
         <name>Termination_Date_Today</name>
         <dataType>Date</dataType>
         <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateODRPatientFirstName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!ODRPatient.FirstName}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateODRProviderFirstName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!ODRPrescriber.FirstName}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncatePatientFirstName2</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Patient_First_Name}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncatePatientFirstName3</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Patient_First_Name_0}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateProviderFirstName2</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Provider_First_Name}, 40)</expression>
+    </formulas>
+    <formulas>
+        <name>TruncateProviderFirstName3</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Provider_First_Name_0}, 40)</expression>
     </formulas>
     <interviewLabel>Create_SA {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Create SA Request</label>
@@ -2284,7 +2345,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>ODRPatient.FirstName</elementReference>
+                <elementReference>TruncateODRPatientFirstName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2303,6 +2364,12 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>ODRPatient.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateODRPatientFirstAndLastName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2328,7 +2395,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Patient_First_Name</elementReference>
+                <elementReference>TruncatePatientFirstName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2347,6 +2414,12 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>Patient_Date_of_Birth</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenatePatientFirstAndLastName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2369,7 +2442,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Patient_First_Name_0</elementReference>
+                <elementReference>TruncatePatientFirstName3</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2388,6 +2461,12 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>Patient_Date_of_Birth_0</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenatePatientFirstAndLastName3</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2410,7 +2489,7 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>ODRPrescriber.FirstName</elementReference>
+                <elementReference>TruncateODRProviderFirstName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2423,6 +2502,12 @@
             <field>PersonBirthdate</field>
             <value>
                 <elementReference>ODRPrescriber.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateODRProviderFirstAndLastName</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2460,13 +2545,19 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Provider_First_Name</elementReference>
+                <elementReference>TruncateProviderFirstName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>LastName</field>
             <value>
                 <elementReference>Provider_Last_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateProviderFirstAndLastName2</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2495,13 +2586,19 @@
         <inputAssignments>
             <field>FirstName</field>
             <value>
-                <elementReference>Provider_First_Name_0</elementReference>
+                <elementReference>TruncateProviderFirstName3</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>LastName</field>
             <value>
                 <elementReference>Provider_Last_Name_0</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Person_Full_Name__c</field>
+            <value>
+                <elementReference>ConcatenateProviderFirstAndLastName3</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
