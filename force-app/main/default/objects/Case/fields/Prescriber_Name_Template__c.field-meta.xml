@@ -4,7 +4,7 @@
     <description>Used for fax template
 Get the Name for Provider or DEC</description>
     <externalId>false</externalId>
-    <formula>IF(ISBLANK( DEC__c ),  Provider__r.FirstName &amp; &apos; &apos; &amp; Provider__r.LastName,  DEC__r.Name )</formula>
+    <formula>IF(ISBLANK( DEC__c ),   Account.Person_Full_Name__c,  DEC__r.Name )</formula>
     <label>Prescriber Name (Template)</label>
     <required>false</required>
     <trackHistory>false</trackHistory>
