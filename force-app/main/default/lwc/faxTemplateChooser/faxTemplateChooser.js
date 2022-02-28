@@ -26,11 +26,40 @@ export default class FaxTemplateChooser extends LightningElement {
     });
   }
   async sendFax(){
-    await sendFax({
-      caseId:this.value,
-      templateId:this.recordId
-    });
+    let success = true;
+      try {
+        await sendFax({
+          caseId:this.recordId,
+          templateId:this.value
+        });
+        this.showSuccess(`Submitted.`);
+      } 
+      catch (error) {
+        this.showError(error.body.message);
+        success = false;
+    }
+
+    return success;
+}
+
+  showSuccess(message) {
+        this.showToast('Success', message, 'success');
   }
+
+  showError(message) {
+      console.log(message);
+      this.showToast('Error', message, 'error');
+  }
+
+  showToast(title, message, variant) {
+      this.dispatchEvent(new ShowToastEvent({
+          title: title,
+          message: message,
+          mode: "sticky",
+          variant: variant
+      }));
+  }
+  
 
   handleChange(event) {
     this.value = event.detail.value;

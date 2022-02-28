@@ -1,16 +1,25 @@
 @isTest(SeeAllData=true)
 public class FcEmailServiceTest {
-      static testMethod void test_find_value_positive() {
+        static testMethod void test_find_value_positive() {
                 String source = '...FILE NAME:\n1023.pdf';
                 String result = new FcEmailService().findValues(source, 'FILE NAME:');
                 system.assertEquals('1023.pdf', result);
         }
-      static testMethod void test_file_name_empty() {
+        static testMethod void test_file_name_empty() {
                 String source = 'FILE NAME:\n';
                 String result = new FcEmailService().findValues(source, 'FILE NAME:');
                 system.assertEquals('', result);
         }
-      static testMethod void test_update_case_positive() {
+        static testMethod void test_store_email_positive() {
+                Case record=new Case();
+                insert record;
+                Messaging.InboundEmail emails = new Messaging.InboundEmail() ;
+                emails.PlainTextBody ='STATUS:\nSuccess\n FILE NAME:\n00001029.pdf\n';
+                new FcEmailService().storeEmail(emails,record.id);
+                System.assert(record.id!=null);    
+
+        }
+        static testMethod void test_update_case_positive() {
                 // Case record = new Case(Id='5000i000000uomKAAQ');
                 // record.Fax_Notification_Date__c = null;
                 // Update record;
@@ -19,7 +28,7 @@ public class FcEmailServiceTest {
                 // System.debug(results.Fax_Notification_Date__c);
                 // System.assert(results.Fax_Notification_Date__c != null);
         }
-     static testMethod void  test_update_case_negative() {
+        static testMethod void  test_update_case_negative() {
                 // Case record = new Case(Id='5000i000000uomKAAQ');
                 // record.Fax_Notification_Date__c = null;
                 // Update record;
@@ -27,7 +36,7 @@ public class FcEmailServiceTest {
                 // Case result = [select Fax_Notification_Date__c from Case where ID = :record.Id];
                 // System.assert(result.Fax_Notification_Date__c == null);
         }
-     static testMethod void TestingBoundEmail(){
+        static testMethod void TestingBoundEmail(){
                 Messaging.InboundEmail emails = new Messaging.InboundEmail() ;
                 emails.PlainTextBody ='STATUS:\nSuccess\n FILE NAME:\n00001026.pdf\n';
                 new FcEmailService().handleInboundEmail(emails,null);
