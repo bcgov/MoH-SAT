@@ -38,7 +38,7 @@ export default class PharmanetApprovalHistory extends LightningElement {
 
   constructor() {
     super();
-    if (hasSAApprovalUpdate) {
+    if (hasSAApprovalUpdate && !this.hasTerminateColumn()) {
       this.columns.push({ label: 'Log', fieldName: 'integrationLog', type: 'text', wrapText: true, hideDefaultActions: true });
       this.columns.push({ label: 'Terminate', type: 'button', typeAttributes: { label: 'Terminate', name: 'terminate'}});
     } 
@@ -46,6 +46,10 @@ export default class PharmanetApprovalHistory extends LightningElement {
 
   connectedCallback() {
     this.fetchItems();
+  }
+
+  hasTerminateColumn(){
+    return this.columns.some(e => e.label === 'Terminate');
   }
 
   get hasPermissions(){
