@@ -172,6 +172,8 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         Eform.Name name = getName(resource.name);
         account.FirstName = name == null || name.given == null || name.given.isEmpty() ? '' : String.join(name.given, ' ');
         account.LastName = name == null ? '(EMPTY)' : name.family;
+        account.Person_Full_Name__c = account.FirstName + ' ' + account.LastName;
+        if (account.FirstName.length() > 40) { account.FirstName = account.FirstName.substring(0, 40); }
 
         account.Phone = getTelecom(resource.telecom, 'phone')?.value;
         account.Fax = getTelecom(resource.telecom, 'fax')?.value;
