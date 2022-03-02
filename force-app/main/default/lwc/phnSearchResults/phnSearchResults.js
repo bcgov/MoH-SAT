@@ -6,7 +6,7 @@ const columns = [
     label: 'Case Number', fieldName: 'link', initialWidth: 120, wrapText: true, type: 'url',
     typeAttributes: { label: { fieldName: 'caseNumber' } }, hideDefaultActions: true
   },
-  { label: 'Subject', fieldName: 'subject', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Drug', fieldName: 'Drug__c', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Status', fieldName: 'status', type: 'text', wrapText: true, hideDefaultActions: true },
   {
     label: 'Date/Time Opened', fieldName: 'createdDate', type: 'date', typeAttributes: {
@@ -20,7 +20,7 @@ const columns = [
   { label: 'Case Owner Alias', fieldName: 'owner', type: 'text', wrapText: true, hideDefaultActions: true }
 ];
 
-export default class PhnSearchResults extends LightningElement {
+export default class  extends LightningElement {
   @api phn;
   data = [];
   hasResults = false;
