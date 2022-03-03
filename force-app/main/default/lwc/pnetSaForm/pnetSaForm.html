@@ -2,12 +2,16 @@
     <div class="slds-box slds-theme_default">
         <lightning-card if:true={record}>
             <div slot="title">
-                <span >
-                    <span if:true={isRdp}>RDP: {_record.rdpFormatted}</span>
-                    <span if:true={isDin}>DIN/PIN: {_record.din}</span>
-                </span>
+                <div>
+                    <span>
+                        <span if:true={isRdp}>RDP: {_record.rdpFormatted}</span>
+                        <span if:true={isDin}>DIN/PIN: {_record.din}</span>
+                    </span>
+                </div>
+                <div if:true={description} class="description">
+                    {description}
+                </div>
             </div>
-    
             <lightning-button
                 if:true={isSubmit}
                 slot="actions"
