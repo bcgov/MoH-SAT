@@ -26,7 +26,7 @@ export default class PnetSaForm extends LightningElement {
     description;
 
     async connectedCallback() {
-        let param = this.isRdp == true ? this._record.rdp : this._record.din;
+        let param = this.isRdp == true ? this._record.rdpFormatted : this._record.din;
         this.description = await getDescription({ code: param });
     }
 
