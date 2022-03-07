@@ -8,6 +8,8 @@ public without sharing class AdjudicationStrategy {
     public Boolean autoPushToPharmanet { get; private set; }
     public Boolean assignOwner { get; private set; }
     public List<Step> steps { get; private set; }
+    public Boolean patientValidated { get; private set; }
+    public Boolean providerValidated { get; private set; }
 
     public AdjudicationStrategy(SpecialAuthorityRequest sar, Boolean assignOwner) {
         this.sar = sar;
@@ -37,10 +39,17 @@ public without sharing class AdjudicationStrategy {
         if (this.autoValidateProvider) {
             run(StepBuilder.buildProviderValidationStep());
         }
+
+        if (validationSuccessful()) {
+            sar.clearAdjudicationError();
+        } else {
+            sar.addAdjudicationError(unsuccessfulTarget());
+            sar.setCaseOwnerIdDefault();
+        }
     }
 
     public void evaluate() {
-        if (!sar.hasDrug()) return;
+        if (!sar.hasDrug() || !validationSuccessful()) return;
 
         for (Step step : StepBuilder.build(querySteps(sar.drug.Id))) {
             run(step);
@@ -48,9 +57,21 @@ public without sharing class AdjudicationStrategy {
     }
 
     public void onAfterEvaluate() {
+        if(!validationSuccessful()) return;
+
         if (this.autoPushToPharmanet) {
             run(StepBuilder.buildPharmanetSubmissionStep());
         }
+    }
+
+    public Boolean validationSuccessful(){
+        return patientValidated && providerValidated;
+    }
+
+    public String unsuccessfulTarget(){
+        if (!patientValidated) { return 'Patient'; }
+        else if (!providerValidated) { return 'Provider'; }
+        else { return ''; }
     }
 
     private void run(Step step) {
@@ -60,8 +81,14 @@ public without sharing class AdjudicationStrategy {
 
         for (StepAction action : step.actions) {
             if (action.isOwnerAssignment() && !this.assignOwner) continue;
-            
-            action.run(sar);
+
+            if (action.isPatientValidation()) {
+                this.patientValidated = action.run(sar).actionResult.getValidationResult();
+            } else if (action.isProviderValidation()) {
+                this.providerValidated = action.run(sar).actionResult.getValidationResult();
+            } else {
+                action.run(sar);
+            }
         }
     }
     
