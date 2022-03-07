@@ -1,26 +1,3 @@
-/**
-
-1. Please create 1 Date/time field,Fax Sent, and stamp it here. 
-2. Continue testing our bulkified call to WS.
-3. Invoke sendFax(caseIds) from flow/process builder - ask jan/sadhana/anshul
-4. Run functional tests below
-
-TEST: Does "send fax" button still work
-- Does it call WS
-- Does it assign to Queue?
-- Does it timestamp?
-- Are errors handled?
-
-TEST: Update a case so its approved and pushed to pnet 
-- Does it call WS
-- Does it assign to Queue?
-- Does it timestamp?
-- How are errors handled. Can users see them right away?
-
-TEST: Bulk operations 
-- Mass update 2 or more cases to approved and pushed to pnet
---- write an anonymous apex that updates cases 2, 10, 20, 100. what's the limit?
-*/
 
 public with sharing class FaxService {
     private static Map<String, EmailTemplate> EMAIL_TEMPLATES {
