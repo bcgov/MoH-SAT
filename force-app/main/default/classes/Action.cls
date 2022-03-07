@@ -1,3 +1,3 @@
 public interface Action {
-    void execute(SpecialAuthorityRequest sar, StepAction actionParams);
+    ActionResult execute(SpecialAuthorityRequest sar, StepAction actionParams);
 }
