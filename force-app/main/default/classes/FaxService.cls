@@ -161,7 +161,7 @@ public with sharing class FaxService {
     
     private static List<Case> queryCases(List<Id> caseIds) {
         return new List<Case>([
-            select Id, CaseNumber, Provider_Fax__c,Provider__r.name, Drug__r.Drug_Code__c 
+            select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name, Drug__r.Drug_Code__c 
             from Case 
             where Id in :caseIds 
         ]);
