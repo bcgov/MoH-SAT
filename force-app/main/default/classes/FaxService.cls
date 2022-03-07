@@ -37,9 +37,9 @@ public with sharing class FaxService {
     }
 
     public static List<String> HARDCODED_EMAILS = new List<String>{
-        'afreen@pwc',
-        'jan.j.julian@pwc.com',
-        'your_scratchs_email_service'
+        'fcemailservice@3-41bw7asxl2wnqbetbivafaggrgp1zsy6cstktlpt9h7w7pr3e.1f-9nzxeaq.cs99.apex.sandbox.salesforce.com',
+        'afreen.fatima.ahmed@pwc.com',
+         'jan.j.julian@pwc.com'
     };
    
     @AuraEnabled(cacheable=false)
@@ -125,7 +125,7 @@ public with sharing class FaxService {
 
          return fcResponses;
     }
-
+    @TestVisible
     private static Boolean evaluateFcResponse(List<FaxService.FcResponse> fcResponses) {
         for (FaxService.FcResponse fcResponse : fcResponses) {
             if (fcResponse.status == 'fail') {
@@ -134,7 +134,7 @@ public with sharing class FaxService {
         }
         return true;
     }
-
+    @TestVisible
     private static void assignToQueue(List<FaxService.Payload> payloads) {
         List<QueueOwnerSetter.CaseQueue> caseQueues = new List<QueueOwnerSetter.CaseQueue>();
         
@@ -147,7 +147,7 @@ public with sharing class FaxService {
         
         QueueOwnerSetter.setOwner(caseQueues);
     }
-
+    @TestVisible
     private static void setFaxSentDates(List<FaxService.Payload> payloads) {
         List<Case> cases = new List<Case>();
         for (FaxService.Payload payload : payloads) {
@@ -158,7 +158,7 @@ public with sharing class FaxService {
         }
         update cases;
     }
-
+    
     private static List<Case> queryCases(List<Id> caseIds) {
         return new List<Case>([
             select Id, CaseNumber, Provider_Fax__c,Provider__r.name, Drug__r.Drug_Code__c 
@@ -179,6 +179,7 @@ public with sharing class FaxService {
         else return null;
     }
 
+    @TestVisible
     private static String generatePdf(ID caseId, ID templateId){
         PageReference ref=Page.PDFGenerator;
         ref.getParameters().put('templateId',templateId);

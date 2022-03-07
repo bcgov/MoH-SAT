@@ -9,14 +9,15 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
     public void processEmail(Messaging.inboundEmail email) {
         String emailBody = email.plainTextBody;
 
-        String status = findValues(emailBody, 'JOB STATUS:');
-        String fileName = findValues(emailBody, 'FILE NAME:');
-        if(String.isEmpty(status) ||String.isEmpty(fileName) || !filename.contains('.pdf'))
+        String status = findValues(emailBody, 'Job Status:');
+        String fileName = findValues(emailBody, 'File Name:');
+        if(String.isEmpty(status) ||String.isEmpty(fileName))
         {
             System.Debug('Invalid status or file.');
             return;
         }
-        String caseNumber = fileName.substringBefore('.pdf').trim(); 
+        String caseNumber = fileName.split('\n')[0].trim(); 
+        System.debug(caseNumber);
 
         List<Case> records=[SELECT ID, caseNumber from Case where caseNumber=:caseNumber LIMIT 1];
         for(Case record:records){
@@ -76,7 +77,6 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
         List<Case> records=[SELECT ID, caseNumber,Status from Case where caseNumber=:caseNumber LIMIT 1];
         Case record=records.isEmpty()?null:records[0];
         if (record!=null&&status=='Success'){
-         //   record.Fax_Sent_Date__c=Date.today();
             record.Fax_Notification_Date__c=Date.today(); 
             update record;
         }
