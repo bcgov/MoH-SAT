@@ -147,6 +147,12 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:reportChart</componentName>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Patient_Identifier__pc}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-c6bf7bba-8cfd-432e-bdd8-f5ae4f23f3d1</name>
