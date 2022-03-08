@@ -18,6 +18,8 @@ public without sharing class AdjudicationStrategy {
         this.autoValidateProvider = sar.hasDrug() ? sar.drug.Auto_Validate_Provider__c : false;
         this.autoPushToPharmanet= sar.hasDrug() ? sar.drug.Auto_Push_to_Pharmanet__c : false;
         this.steps = new List<Step>();
+        this.patientValidated = false;
+        this.providerValidated = false;
     }
 
     public void runEvaluate() {
