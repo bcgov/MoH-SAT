@@ -3,6 +3,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import submitSinglePnetSar from '@salesforce/apex/PharmanetPayloadController.submitSinglePnetSar';
 import submitSaApprovalUpdate from '@salesforce/apex/PharmanetPayloadController.submitSaApprovalUpdate';
+import getDescription from '@salesforce/apex/DescriptionLookup.getDescription';
 
 export default class PnetSaForm extends LightningElement {
     @api
@@ -18,8 +19,17 @@ export default class PnetSaForm extends LightningElement {
     // Is this form being used to update, terminate, or submit?
     @api
     update = false;
+    
     @api
     terminate = false;
+
+    description;
+
+    async connectedCallback() {
+        let param = this.isRdp == true ? this._record.rdpFormatted : this._record.din;
+        this.description = await getDescription({ code: param });
+    }
+
     get isSubmit(){
         return this.update == this.terminate;
     }
