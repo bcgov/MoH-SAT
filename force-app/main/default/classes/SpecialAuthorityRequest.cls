@@ -53,6 +53,10 @@ public with sharing class SpecialAuthorityRequest {
         }
     }
 
+    public void setCaseOwnerIdDefault(){
+        saCase.OwnerId = getDefaultOwnerId();
+    }
+
     public void addSaApprovalRequest(StepAction actionParams) {
         this.addSaApprovalRequest(
             actionParams.pharmanetCode, 
@@ -111,6 +115,14 @@ public with sharing class SpecialAuthorityRequest {
         }
 
         saApprovalRequests.add(sarBody);
+    }
+
+    public void addAdjudicationError(String target){
+        saCase.Auto_Adjudication_Error__c = 'Error in ' + target + ' validation.';
+    }
+    
+    public void clearAdjudicationError(){
+        saCase.Auto_Adjudication_Error__c = '';
     }
 
     public List<SAApprovalRequest> getSaApprovalRequests() {
