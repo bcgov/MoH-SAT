@@ -679,6 +679,37 @@
                     <stringValue>To_be_faxed_queue</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <processMetadataValues>
+                    <name>inputDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>leftHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>operatorDataType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <processMetadataValues>
+                    <name>rightHandSideType</name>
+                    <value>
+                        <stringValue>Boolean</stringValue>
+                    </value>
+                </processMetadataValues>
+                <leftValueReference>myVariable_current.IsClosed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>myRule_22_A1</targetReference>
             </connector>
@@ -1075,7 +1106,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_11_myRule_10_A1_6435275193</name>
+        <name>formula_11_myRule_10_A1_0395813219</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1086,7 +1117,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_14_myRule_13_A1_9072635708</name>
+        <name>formula_14_myRule_13_A1_8028733070</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1097,7 +1128,7 @@
                 <stringValue>NOW() </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_15_myRule_13_A1_3597777287</name>
+        <name>formula_15_myRule_13_A1_0777996857</name>
         <dataType>DateTime</dataType>
         <expression>NOW()</expression>
     </formulas>
@@ -1108,7 +1139,7 @@
                 <stringValue>$User.Id </stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_18_myRule_17_A1_5471596283</name>
+        <name>formula_18_myRule_17_A1_3829862253</name>
         <dataType>String</dataType>
         <expression>{!$User.Id}</expression>
     </formulas>
@@ -1119,7 +1150,7 @@
                 <stringValue>Today()</stringValue>
             </value>
         </processMetadataValues>
-        <name>formula_8_myRule_7_A1_7032993217</name>
+        <name>formula_8_myRule_7_A1_7476099817</name>
         <dataType>Date</dataType>
         <expression>Today()</expression>
     </formulas>
@@ -1240,7 +1271,7 @@
             </processMetadataValues>
             <field>Pushed_to_Pnet_Date__c</field>
             <value>
-                <elementReference>formula_11_myRule_10_A1_6435275193</elementReference>
+                <elementReference>formula_11_myRule_10_A1_0395813219</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1324,7 +1355,7 @@
             </processMetadataValues>
             <field>Approved_by__c</field>
             <value>
-                <elementReference>formula_14_myRule_13_A1_9072635708</elementReference>
+                <elementReference>formula_14_myRule_13_A1_8028733070</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1360,7 +1391,7 @@
             </processMetadataValues>
             <field>Approved_date_time__c</field>
             <value>
-                <elementReference>formula_15_myRule_13_A1_3597777287</elementReference>
+                <elementReference>formula_15_myRule_13_A1_0777996857</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1444,7 +1475,7 @@
             </processMetadataValues>
             <field>Closed_by__c</field>
             <value>
-                <elementReference>formula_18_myRule_17_A1_5471596283</elementReference>
+                <elementReference>formula_18_myRule_17_A1_3829862253</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
@@ -1777,7 +1808,7 @@
             </processMetadataValues>
             <field>Effective_Date__c</field>
             <value>
-                <elementReference>formula_8_myRule_7_A1_7032993217</elementReference>
+                <elementReference>formula_8_myRule_7_A1_7476099817</elementReference>
             </value>
         </inputAssignments>
         <object>Case</object>
