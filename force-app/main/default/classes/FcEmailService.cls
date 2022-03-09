@@ -16,7 +16,8 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
             System.Debug('Invalid status or file.');
             return;
         }
-        String caseNumber = fileName.split('\n')[0].trim(); 
+        String caseNumber = fileName.split('\n')[0].trim();
+         status = status.split('\n')[0].trim(); 
         System.debug(caseNumber);
 
         List<Case> records=[SELECT ID, caseNumber from Case where caseNumber=:caseNumber LIMIT 1];
@@ -79,6 +80,14 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
         if (record!=null&&status=='Success'){
             record.Fax_Notification_Date__c=Date.today(); 
             update record;
+        }
+        else if(record!=null&&status=='Failed'){
+            List<QueueOwnerSetter.CaseQueue> caseQueues = new List<QueueOwnerSetter.CaseQueue>();
+            QueueOwnerSetter.CaseQueue queue = new QueueOwnerSetter.CaseQueue();
+            queue.caseId = record.id;
+            queue.queueName = 'To_be_faxed_queue';
+            caseQueues.add(queue);
+            QueueOwnerSetter.setOwner(caseQueues);
         }
     }
 }

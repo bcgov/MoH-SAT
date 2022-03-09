@@ -13,11 +13,19 @@ public with sharing class FaxService {
         set;
     }
 
-    public static List<String> HARDCODED_EMAILS = new List<String>{
-        'fcemailservice@3-41bw7asxl2wnqbetbivafaggrgp1zsy6cstktlpt9h7w7pr3e.1f-9nzxeaq.cs99.apex.sandbox.salesforce.com',
-        'afreen.fatima.ahmed@pwc.com',
-         'jan.j.julian@pwc.com'
-    };
+    private static List<String> MY_EMAILS {
+        get {
+            if (MY_EMAILS == null) {
+                MY_EMAILS = new List<String>();                
+                for (EmailServicesAddress esa : queryEmailServiceAddresses()) {
+                    MY_EMAILS.add(esa.LocalPart+'@'+esa.EmailDomainName);
+                }
+            }
+
+            return MY_EMAILS;
+        }
+        set;
+    }
    
     @AuraEnabled(cacheable=false)
     public static void sendFax(Id caseId, Id templateId) {
@@ -29,14 +37,14 @@ public with sharing class FaxService {
             record.Provider_Fax__c,
             record.Provider__r.Name,
             generatePdf(record.Id,templateId),
-            HARDCODED_EMAILS
+            MY_EMAILS
         );
        
         try {
             sendFax(new FaxService.Payload[] {payload});
         }
         catch (Exception e) {
-                throw new AuraHandledException(e.getMessage());
+            throw new AuraHandledException(e.getMessage());
         }
         return;
     }
@@ -57,7 +65,7 @@ public with sharing class FaxService {
                 record.Provider_Fax__c,
                 record.Provider__r.Name,
                 generatePdf(caseId,emailTemplate.id),
-                HARDCODED_EMAILS
+                MY_EMAILS
             );
 
             payloads.add(payload);
@@ -71,6 +79,7 @@ public with sharing class FaxService {
         
         if (!evaluateFcResponse(fcResponses)) {
             throw new FaxServiceException('Erroneous payload.');
+           
         }
 
         assignToQueue(payloads);
@@ -124,6 +133,7 @@ public with sharing class FaxService {
         
         QueueOwnerSetter.setOwner(caseQueues);
     }
+   
     @TestVisible
     private static void setFaxSentDates(List<FaxService.Payload> payloads) {
         List<Case> cases = new List<Case>();
@@ -142,6 +152,15 @@ public with sharing class FaxService {
             from Case 
             where Id in :caseIds 
         ]);
+    }
+
+    private static List<EmailServicesAddress> queryEmailServiceAddresses() {
+        return [
+            SELECT Id, LocalPart, EmailDomainName 
+            FROM EmailServicesAddress 
+            WHERE DeveloperName in ('FcEmailservice') 
+            AND IsActive=true
+        ];
     }
 
     @TestVisible

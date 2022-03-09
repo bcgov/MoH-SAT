@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>Send_Fax_to_Accuroute</name>
-        <label>Send Fax to Accuroute</label>
-        <locationX>308</locationX>
-        <locationY>288</locationY>
+        <name>send_fax</name>
+        <label>send_fax</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
         <actionName>FaxService</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -40,6 +40,9 @@
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
+        <connector>
+            <targetReference>send_fax</targetReference>
+        </connector>
         <filterLogic>1 AND 2 AND (3 OR 4)</filterLogic>
         <filters>
             <field>Status</field>
@@ -71,11 +74,6 @@
         </filters>
         <object>Case</object>
         <recordTriggerType>Update</recordTriggerType>
-        <scheduledPaths>
-            <connector>
-                <targetReference>Send_Fax_to_Accuroute</targetReference>
-            </connector>
-        </scheduledPaths>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
