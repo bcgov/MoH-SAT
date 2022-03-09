@@ -37,7 +37,7 @@ export default class RequestDetailValue extends LightningElement {
             this.value = value.Boolean_Value__c;
         }
 
-        this.valueLabel = value.String_Value_Label__c;
+        this.valueLabel = value.Question__c == value.String_Value_Label__c ? null : value.String_Value_Label__c;
 
         this._record = value;
     }
