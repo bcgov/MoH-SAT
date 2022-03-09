@@ -17,6 +17,11 @@
             <template if:true={isViewing}>
                 <template if:true={isString}>
                     <lightning-formatted-text value={value}></lightning-formatted-text>
+                    <template if:true={valueLabel}>
+                        <span class="slds-m-left_xx-small slds-text-color_weak">
+                            (<lightning-formatted-text value={valueLabel}></lightning-formatted-text>)
+                        </span>
+                    </template>
                 </template>
                 <template if:true={isDatetime}>
                     <lightning-formatted-date-time 
