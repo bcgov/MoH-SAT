@@ -1,22 +1,35 @@
 import { LightningElement, api } from "lwc";
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { getRecordNotifyChange } from 'lightning/uiRecordApi';
+import sendAlert from "@salesforce/apex/ExternalCommitteeAlert.sendAlert";
 
 export default class SendExternalCommitteeEmail extends LightningElement {
-    @api invoke() {
-        console.log("To send external committee email");
+    @api recordId;
+
+    @api async invoke() {
+        try {
+            await sendAlert({externalCommitteeId: this.recordId});
+            getRecordNotifyChange([{recordId: this.recordId}]);
+            this.showSuccess('Email sent.');
+        } catch (error) {
+            this.showError(error.body.message);
+        }
     }
-    // isExecuting = false;
 
-    // @api async invoke() {
-    //     if (this.isExecuting) {
-    //         return;
-    //     }
+    showSuccess(message) {
+        this.showToast('Success', message, 'success');
+    }
+    
+    showError(message) {
+        this.showToast('Error', message, 'error');
+    }
 
-    //     this.isExecuting = true;
-    //     await this.sleep(2000);
-    //     this.isExecuting = false;
-    // }
-
-    // sleep(ms) {
-    //     return new Promise((resolve) => setTimeout(resolve, ms));
-    // }
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: title,
+            message: message,
+            mode: "sticky",
+            variant: variant
+        }));
+    }
 }
