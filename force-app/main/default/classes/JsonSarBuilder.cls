@@ -228,19 +228,20 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         Request_Detail__c rd = new Request_Detail__c();
         rd.Sort_Order__c = SORT_ORDER++;
         rd.Question_ID__c = questionId;
-        rd.Question__c = hasCoding ? qra.valueCoding.display : questionText;
+        rd.Question__c = questionText;
         rd.String_Value__c = hasCoding ? qra.valueCoding.code : qra.valueString;
+        rd.String_Value_Label__c = hasCoding ? qra.valueCoding.display : null;
         rd.Decimal_Value__c = qra.valueDecimal;
         rd.Date_Value__c = qra.valueDate;
         rd.Datetime_Value__c = qra.valueDatetime;
         rd.Boolean_Value__c = qra.valueBoolean == true;
+        rd.Question__c = hasCoding && String.isBlank(rd.Question__c) ? qra.valueCoding.display : rd.Question__c;
         return rd;
     }
 
     private Boolean hasCoding(Eform.Answer qra) {
         return qra.valueCoding != null && String.isNotBlank(qra.valueCoding.code);
     }
-
     private ContentVersion buildBundleJsonFile(String refNo, String bundleJsonStr) {
         String fileNameAndExt = String.format(
             'bundle{0}.json', new String[] {

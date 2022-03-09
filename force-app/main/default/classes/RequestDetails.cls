@@ -4,7 +4,7 @@ public without sharing class RequestDetails {
         return [
             select
                 Id, Question__c, Question_ID__c, 
-                Boolean_Value__c, Date_Value__c, Datetime_Value__c, Decimal_Value__c, String_Value__c
+                Boolean_Value__c, Date_Value__c, Datetime_Value__c, Decimal_Value__c, String_Value__c, String_Value_Label__c
             from Request_Detail__c
             where Case__c = :caseId
             order by Sort_Order__c asc
