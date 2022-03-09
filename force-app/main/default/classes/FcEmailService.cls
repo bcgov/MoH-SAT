@@ -1,4 +1,3 @@
-
 public with sharing class FcEmailService implements Messaging.InboundEmailHandler{
 
     public Messaging.InboundEmailResult handleInboundEmail(Messaging.inboundEmail email,Messaging.InboundEnvelope env){
@@ -10,16 +9,38 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
     public void processEmail(Messaging.inboundEmail email) {
         String emailBody = email.plainTextBody;
 
-        String status = findValues(emailBody, 'STATUS:');
-        String fileName = findValues(emailBody, 'FILE NAME:');
-        if(String.isEmpty(status) ||String.isEmpty(fileName) || !filename.contains('.pdf'))
+        String status = findValues(emailBody, 'Job Status:');
+        String fileName = findValues(emailBody, 'File Name:');
+        if(String.isEmpty(status) ||String.isEmpty(fileName))
         {
             System.Debug('Invalid status or file.');
             return;
         }
+        String caseNumber = fileName.split('\n')[0].trim();
+         status = status.split('\n')[0].trim(); 
+        System.debug(caseNumber);
 
-        String caseId = fileName.substringBefore('.pdf').trim();  
-        updateCase(caseId, status);
+        List<Case> records=[SELECT ID, caseNumber from Case where caseNumber=:caseNumber LIMIT 1];
+        for(Case record:records){
+            ID caseId= record.ID ;
+            storeEmail(email,caseId);
+        }
+        updateCase(caseNumber, status);  
+    }
+    
+    public void storeEmail(Messaging.inboundEmail mail,ID caseId){
+        EmailMessage  em = new EmailMessage();
+        em.RelatedToId = caseId;
+        em.Incoming = true;
+        em.FromAddress = mail.fromAddress;
+        em.FromName = mail.fromName;
+        em.TextBody = mail.plainTextBody;
+        em.Subject = mail.subject;
+        em.Status = '3'; 
+        insert em;
+        List<EmailMessage> msg=[SELECT ID, fromName,fromAddress, relatedToId from EmailMessage];
+        EmailMessage msgs=msg.isEmpty()?null:msg[0];
+        update msgs;
     }
 
     public String findValues(String source, String key) {
@@ -28,18 +49,10 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
             return value;
         }
 
-        //Tokenizing Implementation
-        // List<String> emailBody = source.split('\n');
-        // Integer index = emailBody.indexOf(key);
-        // if(index!=null && index+1!=emailBody.size()){
-        //     value = emailBody.get(index+1);
-        // }
-
-
         //String Implementation
         Integer keyEndIndex = source.lastIndexOf(key);
-        Integer valueStartIndex = source.indexOf('\n', keyEndIndex)+1;
-        Integer valueEndIndex = source.indexOf('\n', valueStartIndex);
+        Integer valueStartIndex = source.indexOf(':', keyEndIndex)+1;
+        Integer valueEndIndex = source.indexOf(':',valueStartIndex);
         
          
         if(valueEndIndex==-1){
@@ -54,7 +67,6 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
             return value;
         }
         value = source.substring(valueStartIndex, valueEndIndex);
-
         return value;
     }
   
@@ -66,8 +78,16 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
         List<Case> records=[SELECT ID, caseNumber,Status from Case where caseNumber=:caseNumber LIMIT 1];
         Case record=records.isEmpty()?null:records[0];
         if (record!=null&&status=='Success'){
-            record.Fax_Notification_Date__c=Date.today();   
+            record.Fax_Notification_Date__c=Date.today(); 
             update record;
+        }
+        else if(record!=null&&status=='Failed'){
+            List<QueueOwnerSetter.CaseQueue> caseQueues = new List<QueueOwnerSetter.CaseQueue>();
+            QueueOwnerSetter.CaseQueue queue = new QueueOwnerSetter.CaseQueue();
+            queue.caseId = record.id;
+            queue.queueName = 'To_be_faxed_queue';
+            caseQueues.add(queue);
+            QueueOwnerSetter.setOwner(caseQueues);
         }
     }
 }
@@ -80,3 +100,4 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
  
 
 
+  
