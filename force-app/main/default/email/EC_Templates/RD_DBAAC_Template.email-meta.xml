@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>MoH_Letterhead</letterhead>
+    <name>RD DBAAC Template</name>
+    <style>freeForm</style>
+    <subject>RA DBAAC - Rheumatoid Arthritis Drug Benefit Adjudication Advisory Committee</subject>
+    <textOnly>Hello Doctors,
+
+This week&apos;s cases have been posted in the Portal for your review. Link to the Portal
+
+Meeting will be held on {!External_Committee__c.Start_Time__c}. Thank you to everyone who helped get these cases ready.
+
+Please click on Log In to enter your username and password to view your cases.
+
+Join on your computer or mobile app :
+
+Click here to join the meeting
+
+Back up Audio Only Login Phone Number:
+
+1-778-401-6289
+
+Phone Conference ID: 362 066 343
+
+
+
+{!External_Committee__c.Email_Message__c}
+
+{!External_Committee__c.Agenda__c}
+
+
+
+Thank you
+
+The Special Authority Team</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -3,7 +3,7 @@ public with sharing class PharmanetSubmission implements Action {
     @TestVisible
     private SAApprovalRequestResponse mockResult { get; set; }
 
-    public void execute(SpecialAuthorityRequest sar, StepAction actionParams) {
+    public ActionResult execute(SpecialAuthorityRequest sar, StepAction actionParams) {
         if (sar.saCase.status =='Approved' && sar.saCase.Pushed_to_Pnet__c == false) {
             List<SAApprovalRequestResponse> saaResponses = postSAApprovalRequests(sar.saCase.Id, sar.saApprovalRequests);
             
@@ -13,6 +13,8 @@ public with sharing class PharmanetSubmission implements Action {
 
             sar.setTerminationDate();
         }
+
+        return new ActionResult();
     }
 
     private List<SAApprovalRequestResponse> postSAApprovalRequests(Id caseId, List<SAApprovalRequest> saaRequests) {

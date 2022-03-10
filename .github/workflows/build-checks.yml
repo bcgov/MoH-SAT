@@ -43,4 +43,4 @@ jobs:
     
     - name: Delete scratch org
       if: ${{ always() }}
-      run: node_modules/sfdx-cli/bin/run force:org:delete -u ciorg
+      run: node_modules/sfdx-cli/bin/run force:org:delete -u ciorg -p

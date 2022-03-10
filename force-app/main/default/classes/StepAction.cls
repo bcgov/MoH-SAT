@@ -23,6 +23,7 @@ public with sharing class StepAction {
     public List<String> excludedPlans { get; private set; }
     public List<String> justificationCodes { get; private set; }
     public Boolean executed { get; set; }
+    public ActionResult actionResult { get; set; }
 
     public StepAction(StepAction.ActionType actionType) {
         this.actionType = actionType;
@@ -86,6 +87,14 @@ public with sharing class StepAction {
         return this.actionType == StepAction.ActionType.OWNER_ASSIGNMENT;
     }
 
+    public Boolean isPatientValidation(){
+        return this.actionType == StepAction.ActionType.PATIENT_VALIDATION;
+    }
+
+    public Boolean isProviderValidation(){
+        return this.actionType == StepAction.ActionType.PROVIDER_VALIDATION;
+    }
+
     private static StepAction.ActionType toEnum(Id recordTypeId) {
         StepAction.ActionType result = null;
 
@@ -106,7 +115,7 @@ public with sharing class StepAction {
         Type apexClass = Type.forName(getApexClass().getName());
 
         if (apexClass != null) {
-            ((Action) apexClass.newInstance()).execute(sar, this);
+            this.actionResult = ((Action) apexClass.newInstance()).execute(sar, this);
             this.executed = true;
         }
 

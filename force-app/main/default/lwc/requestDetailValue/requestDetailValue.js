@@ -12,6 +12,7 @@ export default class RequestDetailValue extends LightningElement {
     recordId;
     type;
     value;
+    valueLabel;
     
     mode = 'view';
 
@@ -34,7 +35,9 @@ export default class RequestDetailValue extends LightningElement {
         } else {
             this.type = 'boolean';
             this.value = value.Boolean_Value__c;
-        } 
+        }
+
+        this.valueLabel = value.Question__c == value.String_Value_Label__c ? null : value.String_Value_Label__c;
 
         this._record = value;
     }

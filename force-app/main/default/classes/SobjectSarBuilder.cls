@@ -49,8 +49,9 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
     private static Case query(Id caseId) {
         return [
             select 
-                Id, Origin, OwnerId, Priority, IsClosed, Status, Subject, Pushed_to_Pnet__c,
-                Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
+                Id, Origin, OwnerId, Priority, IsClosed, Status, Subject, Pushed_to_Pnet__c, Pushed_to_Pnet_Date__c, Request_Type__c, 
+                Hold_Reason__c, Patient_Validated__c, Provider_Validated__c, Verbal_Order__c, Renewal__c,
+                Approved_date_time__c, Auto_Adjudicated_Date__c, Fax_Sent_Date__c, Fax_Notification_Date__c, Max_Days_Supply__c,
                 Patient_Validated_Date__c, Patient_Identifier__c, Patient_Date_of_Birth__c,
                 Provider_Validated_Date__c, Termination_Date__c, Effective_Date__c, DEC_Name__c,
 
@@ -70,7 +71,7 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
 
                 (
                     select Id, Sort_Order__c, Question_ID__c, Question__c,
-                        String_Value__c, Decimal_Value__c, Boolean_Value__c, Date_Value__c, Datetime_Value__c
+                        String_Value__c, String_Value_Label__c, Decimal_Value__c, Boolean_Value__c, Date_Value__c, Datetime_Value__c
                     from Request_Details__r
                     order by Sort_Order__c asc
                 )
