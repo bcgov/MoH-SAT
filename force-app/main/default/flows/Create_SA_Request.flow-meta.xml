@@ -115,9 +115,9 @@
     </assignments>
     <assignments>
         <name>Assign_Case_ID_0</name>
-        <label>Assign Case ID</label>
+        <label>Assign Parent Case Values</label>
         <locationX>866</locationX>
-        <locationY>2558</locationY>
+        <locationY>2918</locationY>
         <assignmentItems>
             <assignToReference>New_Case_Id</assignToReference>
             <operator>Assign</operator>
@@ -125,8 +125,29 @@
                 <elementReference>Create_Child_Case</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Patient_ID</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Find_Parent_Case.ContactId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Provider_ID</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Find_Parent_Case.Provider__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Final_Submitter_ID</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Find_Parent_Case.Submitter__c</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
-            <targetReference>Save_Patient_ID</targetReference>
+            <targetReference>Create_Request_Detail_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -368,7 +389,7 @@
         <name>Save_Other_Drug_Diagnosis_0</name>
         <label>Save Other Drug Diagnosis</label>
         <locationX>866</locationX>
-        <locationY>2078</locationY>
+        <locationY>2438</locationY>
         <assignmentItems>
             <assignToReference>Saved_Other_Drug_Diagnosis</assignToReference>
             <operator>Assign</operator>
@@ -397,22 +418,6 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Save_Patient_ID</name>
-        <label>Save Patient ID</label>
-        <locationX>866</locationX>
-        <locationY>2678</locationY>
-        <assignmentItems>
-            <assignToReference>Final_Patient_ID</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Find_Parent_Case.ContactId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Save_Provider_ID</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Save_Primary_Indication</name>
         <label>Save Primary Indication</label>
         <locationX>1205</locationX>
@@ -432,7 +437,7 @@
         <name>Save_Primary_Indication_0</name>
         <label>Save Primary Indication</label>
         <locationX>866</locationX>
-        <locationY>1958</locationY>
+        <locationY>2318</locationY>
         <assignmentItems>
             <assignToReference>Saved_Primary_Indication</assignToReference>
             <operator>Assign</operator>
@@ -442,22 +447,6 @@
         </assignmentItems>
         <connector>
             <targetReference>Save_Other_Drug_Diagnosis_0</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Save_Provider_ID</name>
-        <label>Save Provider ID</label>
-        <locationX>866</locationX>
-        <locationY>2798</locationY>
-        <assignmentItems>
-            <assignToReference>Final_Provider_ID</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Find_Parent_Case.Provider__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Save_Submitter</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -481,7 +470,7 @@
         <name>Save_Secondary_Indication_0</name>
         <label>Save Secondary Indication</label>
         <locationX>866</locationX>
-        <locationY>2198</locationY>
+        <locationY>2558</locationY>
         <assignmentItems>
             <assignToReference>Saved_Other_Indication</assignToReference>
             <operator>Assign</operator>
@@ -491,22 +480,6 @@
         </assignmentItems>
         <connector>
             <targetReference>Create_Child_Case</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Save_Submitter</name>
-        <label>Save Submitter</label>
-        <locationX>866</locationX>
-        <locationY>2918</locationY>
-        <assignmentItems>
-            <assignToReference>Final_Submitter_ID</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Find_Parent_Case.Submitter__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Create_Request_Detail_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -2750,7 +2723,7 @@
         <name>Create_Child_Case</name>
         <label>Create Child Case</label>
         <locationX>866</locationX>
-        <locationY>2318</locationY>
+        <locationY>2678</locationY>
         <connector>
             <targetReference>GetChildCaseId</targetReference>
         </connector>
@@ -3984,7 +3957,7 @@
         <locationY>1718</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Add_Diagnosis_of_Other_Drug_0</targetReference>
+            <targetReference>Get_Parent_Primary_Diagnosis</targetReference>
         </connector>
         <filterLogic>or</filterLogic>
         <filters>
@@ -4192,6 +4165,91 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Parent_Other_Diagnosis</name>
+        <label>Get Parent Other Diagnosis</label>
+        <locationX>866</locationX>
+        <locationY>2078</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Add_Diagnosis_of_Other_Drug_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Case__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Parent_Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Question_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>diagnosis.other.manual</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Request_Detail__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <description>Pull parent case Request Details</description>
+        <name>Get_Parent_Primary_Diagnosis</name>
+        <label>Get Parent Primary Diagnosis</label>
+        <locationX>866</locationX>
+        <locationY>1838</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Parent_Secondary_Diagnosis</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Case__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Parent_Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Question_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>manual.diagnosis</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Request_Detail__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Parent_Secondary_Diagnosis</name>
+        <label>Get Parent Secondary Diagnosis</label>
+        <locationX>866</locationX>
+        <locationY>1958</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Parent_Other_Diagnosis</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Case__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Parent_Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Question_ID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>manual.diagnosis.secondary</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Request_Detail__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -4650,7 +4708,7 @@
         <name>GetChildCaseId</name>
         <label>GetChildCaseId</label>
         <locationX>866</locationX>
-        <locationY>2438</locationY>
+        <locationY>2798</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Case_ID_0</targetReference>
@@ -5539,13 +5597,49 @@
         <name>Add_Diagnosis_of_Other_Drug_0</name>
         <label>Add Diagnosis of Other Drug</label>
         <locationX>866</locationX>
-        <locationY>1838</locationY>
+        <locationY>2198</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
             <targetReference>Save_Primary_Indication_0</targetReference>
         </connector>
+        <fields>
+            <name>Show_Parent_diagnosis</name>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;﻿&lt;/b&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Parent Drug &amp;amp; Diagnosis &lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Drug Name: &lt;/b&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Find_Parent_Case.Drug_Name__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b&gt;Primary Indication: &lt;/b&gt; {!Get_Parent_Primary_Diagnosis.String_Value__c}&lt;/p&gt;&lt;p&gt;&lt;b&gt;Secondary Indication: &lt;/b&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Get_Parent_Secondary_Diagnosis.String_Value__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Other Drug Indication: &lt;/b&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Get_Parent_Other_Diagnosis.String_Value__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-size: 16px;&quot;&gt;MIR Response Diagnosis&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Drug Name: &lt;/b&gt;{!DrugRecordName}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>or</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Parent_Primary_Diagnosis.String_Value__c</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Parent_Secondary_Diagnosis.String_Value__c</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Parent_Other_Diagnosis.String_Value__c</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Add_Diagnosis_of_Other_Drug_0_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Add_Diagnosis_of_Other_Drug_0_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+        </fields>
         <fields>
             <name>Other_Drug_Diagnosis_0</name>
             <choiceReferences>Primary_Diagnoses_Options</choiceReferences>
@@ -6068,7 +6162,7 @@
         <label>File Upload_001</label>
         <locationX>3883</locationX>
         <locationY>398</locationY>
-        <allowBack>false</allowBack>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
@@ -6553,7 +6647,7 @@
         <label>Provider Details Screen</label>
         <locationX>3605</locationX>
         <locationY>1238</locationY>
-        <allowBack>false</allowBack>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
@@ -6778,7 +6872,7 @@
             <targetReference>Curent_Fax_File_Record</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>ActiveSARequestInformation</name>
         <dataType>String</dataType>
@@ -6905,6 +6999,14 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>Get_Parent_Request_Details</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Request_Detail__c</objectType>
+    </variables>
+    <variables>
         <description>To save the new SA Case Id for future use</description>
         <name>New_Case_Id</name>
         <dataType>String</dataType>
@@ -6945,6 +7047,13 @@
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>Parent_Diagnosis</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>Parent_Id</name>
