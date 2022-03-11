@@ -1,8 +1,11 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track ,wire } from 'lwc';
 import getTemplates from '@salesforce/apex/FolderUtility.getTemplates';
 import sendFax from '@salesforce/apex/FaxService.sendFax';
-
+import queryFaxSentDate from '@salesforce/apex/FaxService.queryFaxSentDate';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { getSObjectValue } from '@salesforce/apex';
+import Fax_Sent_Date__c from '@salesforce/schema/Case.Fax_Sent_Date__c';
+
 
 export default class FaxTemplateChooser extends LightningElement {
   @api recordId;
@@ -12,6 +15,13 @@ export default class FaxTemplateChooser extends LightningElement {
   templateName = '';
   faxNumber = '';
   options = [ ];
+  
+  
+  @wire(queryFaxSentDate,{caseId:'$recordId'})record;
+  get getRecord() {
+    return this.record.data ? getSObjectValue(this.record.data, Fax_Sent_Date__c) : '';
+  }
+  
 
   @track error;
   async connectedCallback() {
