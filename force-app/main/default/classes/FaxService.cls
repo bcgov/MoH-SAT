@@ -1,4 +1,3 @@
-
 public with sharing class FaxService {
     private static Map<String, EmailTemplate> EMAIL_TEMPLATES {
         get {
@@ -49,8 +48,13 @@ public with sharing class FaxService {
         return;
     }
 
-    @InvocableMethod(label='Send fax to Accuroute' description='Send fax to Accuroute.')
+    @InvocableMethod(label='Send fax to Accuroute' description='Send fax to Accuroute.') 
     public static void sendFax(List<Id> caseIds) {
+        sendFaxFuture(caseIds);
+    }
+    
+    @future(callout=true)
+    private static void sendFaxFuture(List<Id> caseIds) {
         Map<Id, Case> caseMap = new Map<Id, Case>(queryCases(caseIds));
 
         List<FaxService.Payload> payloads = new List<FaxService.Payload>();
@@ -86,9 +90,10 @@ public with sharing class FaxService {
         setFaxSentDates(payloads);
     }
     
-    @TestVisible
+   
     private static List<FaxService.FcResponse> sendHttpRequest(List<FaxService.Payload> load){
         HttpRequest req = new HttpRequest();
+        System.debug(JSON.serialize(load));
         req.setBody(JSON.serialize(load));
         req.setEndpoint('callout:FilescanConnectWs/SA/sf2fsc');
         req.setMethod('POST');
@@ -134,6 +139,15 @@ public with sharing class FaxService {
         QueueOwnerSetter.setOwner(caseQueues);
     }
    
+    @AuraEnabled(cacheable=true)
+    public static Case queryFaxSentDate(Id caseId) {
+        return [
+            select Id, Fax_Sent_Date__c
+            from Case 
+            where Id =:caseId
+        ];
+    }
+
     @TestVisible
     private static void setFaxSentDates(List<FaxService.Payload> payloads) {
         List<Case> cases = new List<Case>();
