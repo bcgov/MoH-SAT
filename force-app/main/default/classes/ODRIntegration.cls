@@ -291,6 +291,10 @@ public with sharing class ODRIntegration {
         saaUpdateRequest.requestUUID = OdrIntegration.getUUIDString();
         saaUpdateRequest.clientName = 'SpecAuth';
         saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
+
+        system.debug('SAA Update Request Start');
+        system.debug(saaUpdateRequest);
+        system.debug('SAA Update Request Finish');
         
         // If terminate, supress nulls.
         CalloutResponse calloutResponseObject;
@@ -309,7 +313,7 @@ public with sharing class ODRIntegration {
                     'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
                     null,
                     'PUT', 
-                    JSON.serialize(saaUpdateRequest), 
+                    JSON.serialize(saaUpdateRequest, true), 
                     'SA Approval Update Request'
                 );
         }
