@@ -50,8 +50,9 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
 
         String refNo = findReferenceNumber(bundle);
+        String formSubmitter = findFormSubmitterUserName(bundle);
         
-        saCase = buildCase(drug.Id, drugLabel, refNo);
+        saCase = buildCase(drug.Id, drugLabel, refNo, formSubmitter);
         
         if (!ERRORS.isEmpty()) {
             saCase.Description += '\n\n' + printErrors();
@@ -71,7 +72,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         ).build();
     }
 
-    private Case buildCase(Id drugId, String drugLabel, String refNo) {
+    private Case buildCase(Id drugId, String drugLabel, String refNo, String formSubmitter) {
         Case caseRecord = new Case();
         caseRecord.Drug__c = drugId;
         caseRecord.Drug_Name__c = drugLabel;
@@ -79,6 +80,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         caseRecord.Origin = 'eForm';
         caseRecord.Status = 'Received';
         caseRecord.Description = 'Ref. No.: ' + refNo;
+        caseRecord.eForm_Submitter__c = formSubmitter;
         return caseRecord;
     }
 
@@ -287,6 +289,21 @@ public with sharing class JsonSarBuilder implements SarBuilder {
             }
         }
         return defaultCode;
+    }
+
+    private String findFormSubmitterUserName(Eform.Bundle bundle) {
+        List<Eform.Tag> tags = bundle?.meta?.tag;
+        
+        String formSubmitterUserName = 'No eForm Submitter found.';
+        
+        if (tags == null) return formSubmitterUserName;
+        
+        for (Eform.Tag tag : tags) {
+            if (tag.system_Z.contains('formSubmitterUserName')) {
+                formSubmitterUserName = tag.code;
+            }
+        }
+        return formSubmitterUserName;
     }
 
     private String toProviderRole(String eformRole) {
