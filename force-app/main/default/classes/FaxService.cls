@@ -48,8 +48,13 @@ public with sharing class FaxService {
         return;
     }
 
-    @InvocableMethod(label='Send fax to Accuroute' description='Send fax to Accuroute.')
+    @InvocableMethod(label='Send fax to Accuroute' description='Send fax to Accuroute.') 
     public static void sendFax(List<Id> caseIds) {
+        sendFaxFuture(caseIds);
+    }
+    
+    @future(callout=true)
+    private static void sendFaxFuture(List<Id> caseIds) {
         Map<Id, Case> caseMap = new Map<Id, Case>(queryCases(caseIds));
 
         List<FaxService.Payload> payloads = new List<FaxService.Payload>();
