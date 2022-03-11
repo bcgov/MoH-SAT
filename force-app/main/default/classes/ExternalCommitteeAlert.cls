@@ -67,6 +67,6 @@ public with sharing class ExternalCommitteeAlert {
     }
 
     public static List<Contact> getRelatedContacts(Id accountId){
-        return [SELECT Id FROM Contact WHERE AccountId = :accountId];
+        return [SELECT Id, Email FROM Contact WHERE AccountId = :accountId AND Email != NULL];
     }
 }
