@@ -40,3 +40,6 @@ jobs:
 
     - name: Deploy Source in dev-app-post
       run: node_modules/sfdx-cli/bin/run force:source:deploy -p dev-app-post -u SAT-STAGING -w 15
+
+    - name: Deploy destructive changes
+      run: node_modules/sfdx-cli/bin/run force:mdapi:deploy -d destructiveChanges -u SAT-STAGING -o -g -l RunLocalTests -w 15
