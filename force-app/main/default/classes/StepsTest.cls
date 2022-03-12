@@ -46,6 +46,6 @@ public with sharing class StepsTest {
     }
 
     private static Drug__c queryDrug(String name) {
-        return [select Id, Name, Pre_Adjudication_Apex__c, Post_Adjudication_Apex__c from Drug__c where Name = :name limit 1][0];
+        return [select Id, Name from Drug__c where Name = :name limit 1][0];
     }
 }
