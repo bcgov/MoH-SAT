@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Patient_Verification__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Patient_Validated__c , (IMAGE(&quot;/resource/sa_case_icons/green-tick.gif&quot;, &quot;Verified&quot; , 50, 50)),(IMAGE(&quot;/resource/sa_case_icons/cross-red-cross.gif&quot;, &quot;Not Verified&quot; , 50, 50)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Patient Verification</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
