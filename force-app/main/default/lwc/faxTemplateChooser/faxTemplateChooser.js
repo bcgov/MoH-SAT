@@ -45,7 +45,7 @@ export default class FaxTemplateChooser extends LightningElement {
         this.showSuccess(`Submitted.`);
       } 
       catch (error) {
-        this.showError(error.body.message);
+        this.showError('Invalid Parameter');
         success = false;
     }
 
