@@ -104,6 +104,10 @@ public class Parser {
 				endIndex = endIndex + 1;
 			} 
 			
+			while(isNum(word) && isNum(boolExprStr.substring(endIndex, endIndex + 1))){
+				endIndex++;
+			}
+			
 			word = boolExprStr.substring(startIndex, endIndex);
 			
 			if (isToken(word) || isComma(word)) {
