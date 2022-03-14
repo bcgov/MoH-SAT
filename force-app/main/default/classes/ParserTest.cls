@@ -11,6 +11,12 @@ public class ParserTest {
         
         expr = Parser.parse('AND(1, 2, OR(3, 4))');
         system.assert(expr instanceof AndOperator);
+
+        expr = Parser.parse('OR(10)');
+        system.assert(expr instanceof OrOperator);
+
+        expr = Parser.parse('AND(2, 11, 101)');
+        system.assert(expr instanceof AndOperator);
     }
 
     @isTest
