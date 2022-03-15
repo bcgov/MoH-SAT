@@ -5,6 +5,7 @@ import queryFaxSentDate from '@salesforce/apex/FaxService.queryFaxSentDate';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { getSObjectValue } from '@salesforce/apex';
 import Fax_Sent_Date__c from '@salesforce/schema/Case.Fax_Sent_Date__c';
+import Provider_Fax__c from '@salesforce/schema/Case.Provider_Fax__c'
 
 
 export default class FaxTemplateChooser extends LightningElement {
@@ -15,7 +16,7 @@ export default class FaxTemplateChooser extends LightningElement {
   templateName = '';
   faxNumber = '';
   options = [ ];
-  
+
   
   @wire(queryFaxSentDate,{caseId:'$recordId'})record;
   get getRecord() {
@@ -42,10 +43,10 @@ export default class FaxTemplateChooser extends LightningElement {
           caseId:this.recordId,
           templateId:this.value
         });
-        this.showSuccess(`Submitted.`);
+        this.showSuccess(`Fax Sent to Accuroute`);
       } 
       catch (error) {
-        this.showError('Invalid Parameter');
+        this.showError(error.body.message);
         success = false;
     }
 
