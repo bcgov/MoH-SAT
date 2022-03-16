@@ -514,6 +514,8 @@ public with sharing class ODRIntegration {
         req.setEndpoint(uri);
         req.setMethod(method);
         
+        System.debug(methodBody);
+        
         // If POST, construct postBody
         if (method == 'POST') {
             req.setBody(methodBody);
