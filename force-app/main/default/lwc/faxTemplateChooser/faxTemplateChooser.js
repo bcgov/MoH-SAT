@@ -1,11 +1,13 @@
 import { LightningElement, api, track ,wire } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getTemplates from '@salesforce/apex/FolderUtility.getTemplates';
 import sendFax from '@salesforce/apex/FaxService.sendFax';
-import queryFaxSentDate from '@salesforce/apex/FaxService.queryFaxSentDate';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { getSObjectValue } from '@salesforce/apex';
-import Fax_Sent_Date__c from '@salesforce/schema/Case.Fax_Sent_Date__c';
 
+const FIELDS = [
+  'Case.Fax_Sent_Date__c',
+  'Case.Provider_Fax__c'
+];
 
 export default class FaxTemplateChooser extends LightningElement {
   @api recordId;
@@ -16,13 +18,17 @@ export default class FaxTemplateChooser extends LightningElement {
   faxNumber = '';
   options = [ ];
 
+  @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
+  record;
   
-  @wire(queryFaxSentDate,{caseId:'$recordId'})record;
-  get getRecord() {
-    return this.record.data ? getSObjectValue(this.record.data, Fax_Sent_Date__c) : '';
+  get faxSentDate() {
+    return this.record.data ? this.record.data.fields.Fax_Sent_Date__c.value : null;
+  }
+
+  get providerFax() {
+    return this.record.data ? this.record.data.fields.Provider_Fax__c.value : null;
   }
   
-
   @track error;
   async connectedCallback() {
     getTemplates()
@@ -42,7 +48,8 @@ export default class FaxTemplateChooser extends LightningElement {
           caseId:this.recordId,
           templateId:this.value
         });
-        this.showSuccess(`Fax Sent to Accuroute`);
+        debugger;
+        this.showSuccess(`Fax sent to Accuroute for ${this.providerFax}`);
       } 
       catch (error) {
         this.showError(error.body.message);
@@ -57,7 +64,6 @@ export default class FaxTemplateChooser extends LightningElement {
   }
 
   showError(message) {
-      console.log(message);
       this.showToast('Error', message, 'error');
   }
 
