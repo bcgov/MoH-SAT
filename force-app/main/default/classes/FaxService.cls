@@ -30,6 +30,9 @@ public with sharing class FaxService {
     public static void sendFax(Id caseId, Id templateId) {
         Case record = queryCases(new Id[] {caseId})[0];
 
+        if (record.Provider_Fax__c == null) 
+            throw new AuraHandledException('Missing Provider Fax.');
+        
         FaxService.Payload payload = buildPayload(
             record.ID,
             record.CaseNumber,
@@ -45,7 +48,6 @@ public with sharing class FaxService {
         catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
-        return;
     }
 
     @InvocableMethod(label='Send fax to Accuroute' description='Send fax to Accuroute.') 
@@ -79,21 +81,20 @@ public with sharing class FaxService {
     }
 
     private static void sendFax(List<FaxService.Payload> payloads) {
+        
         List<FaxService.FcResponse> fcResponses = sendHttpRequest(payloads);
         
         if (!evaluateFcResponse(fcResponses)) {
-            throw new FaxServiceException('Erroneous payload.');
-           
+           throw new FaxServiceException('Invalid Payload');
         }
 
         assignToQueue(payloads);
         setFaxSentDates(payloads);
     }
     
-   
+   @TestVisible
     private static List<FaxService.FcResponse> sendHttpRequest(List<FaxService.Payload> load){
         HttpRequest req = new HttpRequest();
-        System.debug(JSON.serialize(load));
         req.setBody(JSON.serialize(load));
         req.setEndpoint('callout:FilescanConnectWs/SA/sf2fsc');
         req.setMethod('POST');
@@ -111,12 +112,13 @@ public with sharing class FaxService {
             throw new FaxServiceException(res.getBody());
         }
 
+
         List<FaxService.FcResponse> fcResponses = 
             (List<FaxService.FcResponse>) JSON.deserialize(res.getBody(), List<FaxService.FcResponse>.class);
 
          return fcResponses;
     }
-    @TestVisible
+    
     private static Boolean evaluateFcResponse(List<FaxService.FcResponse> fcResponses) {
         for (FaxService.FcResponse fcResponse : fcResponses) {
             if (fcResponse.status == 'fail') {
@@ -125,7 +127,7 @@ public with sharing class FaxService {
         }
         return true;
     }
-    @TestVisible
+   
     private static void assignToQueue(List<FaxService.Payload> payloads) {
         List<QueueOwnerSetter.CaseQueue> caseQueues = new List<QueueOwnerSetter.CaseQueue>();
         
@@ -138,17 +140,7 @@ public with sharing class FaxService {
         
         QueueOwnerSetter.setOwner(caseQueues);
     }
-   
-    @AuraEnabled(cacheable=true)
-    public static Case queryFaxSentDate(Id caseId) {
-        return [
-            select Id, Fax_Sent_Date__c
-            from Case 
-            where Id =:caseId
-        ];
-    }
-
-    @TestVisible
+    
     private static void setFaxSentDates(List<FaxService.Payload> payloads) {
         List<Case> cases = new List<Case>();
         for (FaxService.Payload payload : payloads) {
@@ -177,7 +169,7 @@ public with sharing class FaxService {
         ];
     }
 
-    @TestVisible
+    
     private static EmailTemplate getEmailTemplate(String status, String drugCode) {
         if (status == 'Approved' && drugCode == 'omnipod') return EMAIL_TEMPLATES.get('Insulin_Pump_Approval_Letter_Omnipod');
         else if (status == 'Approved' && drugCode == 'ypsopump') return EMAIL_TEMPLATES.get('Insulin_Pump_Approval_Letter_YpsoPump');
@@ -194,11 +186,17 @@ public with sharing class FaxService {
         PageReference ref=Page.PDFGenerator;
         ref.getParameters().put('templateId',templateId);
         ref.getParameters().put('Id',caseId);
-        Blob pdf=ref.getContent();
+        Blob pdf;
+        if(Test.IsRunningTest()) {
+            pdf=Blob.valueOf('UNIT.TEST');
+        }
+        else {
+            pdf=ref.getContent();
+        } 
         return EncodingUtil.base64encode(pdf);
     }
 
-    @TestVisible
+   @TestVisible
     private static FaxService.Payload buildPayload(
             Id caseId, 
             String caseNumber, 
@@ -215,7 +213,7 @@ public with sharing class FaxService {
         payload.emails = emails;
         return payload;
     }
-
+@TestVisible
     public class Payload {
         public Id caseId;
         public String caseNumber;
