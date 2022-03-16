@@ -57,22 +57,12 @@ export default class PnetSaForm extends LightningElement {
                 effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate)
             },
             saRevisedData: {
-                specialItem: {
-                    din: this._record.din,
-                    rdp: this._record.rdp
-                },
                 specAuthType: this._record.specAuthType,
                 justificationCodes: this.strToArr(this._record.justificationCodes),
                 excludedPlans: this.strToArr(this._record.excludedPlans),
-                saRequester: {
-                    practIdRef: this._record.practIdRef,
-                    practId: this._record.practId,
-                    decCode: this._record.decCode
-                },
                 effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate),
                 terminationDate: this.dateSfdcToOdr(this._record.terminationDate),
-                maxDaysSupply: this._record.maxDaysSupply,
-                maxPricePct: this._record.maxPricePct,
+                maxDaysSupply: this._record.maxDaysSupply
             }
         };
     }

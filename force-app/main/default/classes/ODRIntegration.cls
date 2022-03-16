@@ -291,10 +291,6 @@ public with sharing class ODRIntegration {
         saaUpdateRequest.requestUUID = OdrIntegration.getUUIDString();
         saaUpdateRequest.clientName = 'SpecAuth';
         saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
-
-        system.debug('SAA Update Request Start');
-        system.debug(saaUpdateRequest);
-        system.debug('SAA Update Request Finish');
         
         // If terminate, supress nulls.
         CalloutResponse calloutResponseObject;
