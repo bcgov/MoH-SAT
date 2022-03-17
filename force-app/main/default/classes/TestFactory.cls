@@ -75,6 +75,17 @@ public with sharing class TestFactory {
         return saCase;
     }
 
+    public static Case newCase(Drug__c drug, String subject, External_Committee__c ec) {
+        Case saCase = new Case();
+        saCase.RecordTypeId = getRecordTypeInfosByDeveloperName('Case', 'Special_Authority_Request').getRecordTypeId();
+        saCase.Drug__c = drug.Id;
+        saCase.Subject = subject;
+        saCase.Effective_Date__c = Date.today();
+        saCase.Termination_Date__c = Date.today().addYears(1);
+        saCase.External_Committee__c = ec.Id;
+        return saCase;
+    }
+
     private static Contact queryPersonContact(Id accountId) {
         return [select Id from Contact where AccountId = :accountId];
     }
@@ -318,6 +329,24 @@ public with sharing class TestFactory {
         il.Timestamp__c = Datetime.now();
         il.Patient__c = patientId;
         return il;
+    }
+
+    public static Contact newContact(String name, String email, Id accountId){
+        Contact c = new Contact();
+        c.LastName = name;
+        c.Email = email;
+        c.AccountId = accountId;
+        return c;
+    }
+
+    public static External_Committee__c newExternalCommittee(String name, String type, Id accountId){
+        External_Committee__c ec = new External_Committee__c();
+        ec.Name = name;
+        ec.External_Committee_Type__c = type;
+        ec.Start_Time__c = Datetime.now();
+        ec.End_Time__c = Datetime.now();
+        ec.EC_To_Account__c = accountId;
+        return ec;
     }
 
     public static RecordTypeInfo getRecordTypeInfosByDeveloperName(String sObjectName, String recordTypeName) {
