@@ -1,4 +1,4 @@
-@isTest(SeeAllData=true)
+@isTest()
 public class FcEmailServiceTest {
         static testMethod void test_find_value_positive() {
                 String source = 'FILE NAME:1023.pdf';
@@ -24,17 +24,18 @@ public class FcEmailServiceTest {
                 Case record = new Case();
                 record.Fax_Sent_Date__c = null;
                 insert record;
-                
-                new FcEmailService().updateCase('00001030','Success');
+                record=[Select Id, caseNumber from Case where Id=:record.id ];
+                new FcEmailService().updateCase(record.caseNumber,'Success');
                 Case results = [select Fax_Notification_Date__c,Fax_Sent_Date__c from Case where ID= :record.Id];
                 System.debug(results.Fax_Notification_Date__c);
-                System.assert(results.Fax_Sent_Date__c == null);
+                System.assert(results.Fax_Sent_Date__c != null);
         }
         static testMethod void  test_update_case_negative() {
                 Case record = new Case();
                 record.Fax_Sent_Date__c = null;
                 insert record;
-                new FcEmailService().updateCase('00001026','Failed');
+                record=[Select Id, caseNumber from Case where Id=:record.id ];
+                new FcEmailService().updateCase(record.caseNumber,'Failed');
                 Case results = [select Fax_Notification_Date__c,Fax_Sent_Date__c from Case where ID= :record.Id];
                 System.assert(results.Fax_Sent_Date__c == null);
         }

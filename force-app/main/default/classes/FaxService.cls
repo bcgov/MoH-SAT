@@ -79,7 +79,7 @@ public with sharing class FaxService {
 
         sendFax(payloads);
     }
-
+    @TestVisible
     private static void sendFax(List<FaxService.Payload> payloads) {
         
         List<FaxService.FcResponse> fcResponses = sendHttpRequest(payloads);
@@ -92,7 +92,7 @@ public with sharing class FaxService {
         setFaxSentDates(payloads);
     }
     
-   @TestVisible
+    @TestVisible
     private static List<FaxService.FcResponse> sendHttpRequest(List<FaxService.Payload> load){
         HttpRequest req = new HttpRequest();
         req.setBody(JSON.serialize(load));
@@ -105,7 +105,7 @@ public with sharing class FaxService {
             res = new Http().send(req);
         }
         catch (Exception e){
-            throw new FaxServiceException(e);
+            throw e;
         }
 
         if (res.getStatusCode() != 200) {
@@ -116,7 +116,7 @@ public with sharing class FaxService {
         List<FaxService.FcResponse> fcResponses = 
             (List<FaxService.FcResponse>) JSON.deserialize(res.getBody(), List<FaxService.FcResponse>.class);
 
-         return fcResponses;
+        return fcResponses;
     }
     
     private static Boolean evaluateFcResponse(List<FaxService.FcResponse> fcResponses) {
