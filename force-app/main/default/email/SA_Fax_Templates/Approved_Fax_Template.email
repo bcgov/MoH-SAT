@@ -1,5 +1,6 @@
 <img src="/resource/Logo"/><br><br>
 <p style="font-size:20px;">  Original Case #:  {!IF(ISBLANK(Case.Parent), Case.CaseNumber , "")} {!Case.Parent}</p>
+<p style="font-size:16px;">  {!IF(ISBLANK(Case.Parent),"","Related Case #: ")}  {!IF(ISBLANK(Case.Parent), "", Case.CaseNumber)}</p>
 
 Response to Request for Special Authority Coverage received on {!Case.CreatedDate} <br><br>
 
