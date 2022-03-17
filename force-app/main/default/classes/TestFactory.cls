@@ -349,6 +349,13 @@ public with sharing class TestFactory {
         return ec;
     }
 
+    public static OrgWideEmailAddress newOrgWideEmailAddress(String address, String displayName){
+        OrgWideEmailAddress owea = new OrgWideEmailAddress();
+        owea.Address = address;
+        owea.DisplayName = displayName;
+        return owea;
+    }
+
     public static RecordTypeInfo getRecordTypeInfosByDeveloperName(String sObjectName, String recordTypeName) {
         return getDescribe(sObjectName).getRecordTypeInfosByDeveloperName().get(recordTypeName);
     }

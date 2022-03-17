@@ -1,5 +1,8 @@
 public with sharing class ExternalCommitteeAlert {
 
+    @TestVisible
+    private static OrgWideEmailAddress mockOWEA = TestFactory.newOrgWideEmailAddress('noreply@domain.com', 'Special Authority');
+
     @AuraEnabled
     public static void sendAlert(Id externalCommitteeId){
         List<Case> relatedCases = getRelatedCases(externalCommitteeId);
@@ -9,7 +12,7 @@ public with sharing class ExternalCommitteeAlert {
         update ec;
 
         // Scratch org must have this setup with the name below in Setup > Organization-Wide Email Addresses 
-        OrgWideEmailAddress owea = [SELECT Id, Address, DisplayName, IsAllowAllProfiles, Purpose FROM OrgWideEmailAddress WHERE DisplayName = 'Special Authority'];
+        OrgWideEmailAddress owea = getOrgWideEmailAddress();
 
         // Implement getEmailTemplate() based on Anshul's reqs
         String emailTemplateName = getEmailTemplate(ec);
@@ -59,6 +62,14 @@ public with sharing class ExternalCommitteeAlert {
         }
 
         return '<p>' + String.join(caseNumbers, '<br/>') + '</p>';
+    }
+
+    public static OrgWideEmailAddress getOrgWideEmailAddress(){
+        return Test.isRunningTest() ? mockOWEA : [
+            SELECT Id, Address, DisplayName, IsAllowAllProfiles, Purpose 
+            FROM OrgWideEmailAddress 
+            WHERE DisplayName = 'Special Authority'
+        ];
     }
 
     public static String getEmailTemplate(External_Committee__c ec){
