@@ -82,7 +82,7 @@ public with sharing class FaxService {
     }
     @TestVisible
     private static void sendFax(List<FaxService.Payload> payloads) {
-        System.debug(payloads);
+
         List<FaxService.FcResponse> fcResponses = sendHttpRequest(payloads);
         
         if (!evaluateFcResponse(fcResponses)) {
@@ -116,7 +116,7 @@ public with sharing class FaxService {
 
         List<FaxService.FcResponse> fcResponses = 
             (List<FaxService.FcResponse>) JSON.deserialize(res.getBody(), List<FaxService.FcResponse>.class);
-            System.debug(fcResponses.size());
+            
         return fcResponses;
     }
     

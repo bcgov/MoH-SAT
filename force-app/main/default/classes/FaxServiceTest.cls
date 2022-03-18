@@ -2,26 +2,29 @@
 public with sharing class FaxServiceTest {
   @TestSetup
   static void makeData(){
+    System.runAs(new User(Id = UserInfo.getUserId())){
     Case record = new Case();
     record.status='Approved';
     record.Provider_Fax__c='8558120171';
     insert record; 
 
     Case record2 = new Case();
-    record2.status='Approved2';
+    record2.status='Approved';
     record2.Fax_Sent_Date__c=null;
     insert record2; 
-  }
 
-  @isTest
-static void test_Send_Fax_pass() {
     EmailTemplate template = new EmailTemplate();
     template.developername  = 'Approved_Fax_Template1'; 
     template.name = 'Approved Fax';
     template.templatetype = 'custom';
     template.FolderId= UserInfo.getUserId();
     insert template;
+    }
+  }
 
+  @isTest
+static void test_Send_Fax_pass() {
+   
     Case record = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1];
     EmailTemplate temp = [SELECT Id,name ,developername from EmailTemplate where developername =:'Approved_Fax_Template1'];
     
@@ -45,14 +48,8 @@ static void test_Send_Fax_pass() {
 
   @isTest
 static void test_Send_Fax_Fail() {
-    EmailTemplate template = new EmailTemplate();
-    template.developername  = 'Approved_Fax_Template1'; 
-    template.name = 'Approved Fax';
-    template.templatetype = 'custom';
-    template.FolderId= UserInfo.getUserId();
-    insert template;
 
-    Case record = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved2' LIMIT 1];
+    Case record = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1];
     EmailTemplate temp = [SELECT Id,name ,developername from EmailTemplate where developername =:'Approved_Fax_Template1'];
     
     Id templateId = temp.id;
@@ -79,7 +76,7 @@ static void test_Send_Fax_Fail() {
 @isTest
 static void test_Send_Fax_Flow_Pass() {
     List<Id> caseIds = new List<Id>();
-    Case record = [Select Id from case where status='Approved'];
+    Case record = [Select Id from case where status='Approved' LIMIT 1];
     Id value = record.Id;
     caseIds.add(value);
     List<FaxService.FcResponse> mockFcResponses = new List<FaxService.FcResponse> {
@@ -92,20 +89,13 @@ static void test_Send_Fax_Flow_Pass() {
     System.runAs(new User(Id = UserInfo.getUserId())){
     FaxService.sendFax(caseIds);
     Test.stopTest();
-    Case result = [Select Id ,Fax_Sent_Date__c from case where status='Approved'];
+    Case result = [Select Id ,Fax_Sent_Date__c from case where status='Approved' LIMIT 1];
     System.assert(result.Fax_Sent_Date__c!=null);
   }
 }
 
   @isTest
 static void test_GeneratePdf() {
-    EmailTemplate template = new EmailTemplate();
-    template.developername  = 'Approved_Fax_Template1'; 
-    template.name = 'Approved Fax';
-    template.templatetype = 'custom';
-    template.FolderId= UserInfo.getUserId();
-    insert template;
-
     Case records = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1];
     EmailTemplate temp = [SELECT Id,name ,developername from EmailTemplate where developername =:'Approved_Fax_Template1'];
     Id templateId = temp.id;
