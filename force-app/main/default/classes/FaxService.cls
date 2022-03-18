@@ -44,6 +44,7 @@ public with sharing class FaxService {
        
         try {
             sendFax(new FaxService.Payload[] {payload});
+
         }
         catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -79,9 +80,9 @@ public with sharing class FaxService {
 
         sendFax(payloads);
     }
-
+    @TestVisible
     private static void sendFax(List<FaxService.Payload> payloads) {
-        
+
         List<FaxService.FcResponse> fcResponses = sendHttpRequest(payloads);
         
         if (!evaluateFcResponse(fcResponses)) {
@@ -92,7 +93,7 @@ public with sharing class FaxService {
         setFaxSentDates(payloads);
     }
     
-   @TestVisible
+    @TestVisible
     private static List<FaxService.FcResponse> sendHttpRequest(List<FaxService.Payload> load){
         HttpRequest req = new HttpRequest();
         req.setBody(JSON.serialize(load));
@@ -105,7 +106,7 @@ public with sharing class FaxService {
             res = new Http().send(req);
         }
         catch (Exception e){
-            throw new FaxServiceException(e);
+            throw e;
         }
 
         if (res.getStatusCode() != 200) {
@@ -115,8 +116,8 @@ public with sharing class FaxService {
 
         List<FaxService.FcResponse> fcResponses = 
             (List<FaxService.FcResponse>) JSON.deserialize(res.getBody(), List<FaxService.FcResponse>.class);
-
-         return fcResponses;
+            
+        return fcResponses;
     }
     
     private static Boolean evaluateFcResponse(List<FaxService.FcResponse> fcResponses) {
@@ -156,7 +157,7 @@ public with sharing class FaxService {
         return new List<Case>([
             select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name, Drug__r.Drug_Code__c 
             from Case 
-            where Id in :caseIds 
+            where Id in :caseIds
         ]);
     }
 
