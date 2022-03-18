@@ -5,7 +5,7 @@
 Get the Provider or DEC Fax number depending on whether the DEC field is blank.</description>
     <externalId>false</externalId>
     <formula>IF(ISBLANK ( Provider_Fax__c),
-(IF(ISBLANK( DEC__c ), Provider__r.Fax , DEC__r.Fax )),
+(IF(ISBLANK( DEC__c ), Provider_Fax__c , DEC__r.Fax )),
 Provider_Fax__c)</formula>
     <label>Prescriber Fax (Template)</label>
     <required>false</required>
