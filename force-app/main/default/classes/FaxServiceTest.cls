@@ -2,91 +2,103 @@
 public with sharing class FaxServiceTest {
   @TestSetup
   static void makeData(){
-      Case record = new Case();
-      record.status='Approved';
-      record.Provider_Fax__c='8558120171';
-      insert record;
-  }
-  
-  static testMethod void testHttpRequest(){
-    // List<FaxService.Payload> payloads = new List<FaxService.Payload>();
+    Case record = new Case();
+    record.status='Approved';
+    record.Provider_Fax__c='8558120171';
+    insert record; 
 
-    // Case record = [select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1]; 
-    // Id caseId = record.id;
-    // String caseNumber = record.CaseNumber; 
-    // String faxNumber = record.Provider_Fax__c;
-    // String recepientName = record.Provider__r.name;
-    // String attachment = 'attachemt';
-    // List<String> emails = new List<String>();
-    // String email1 = 'afreen9@outlook.com';
-    // emails.add(email1);
-
-    // FaxService.Payload payload = new FaxService.payload();
-    // payload.caseId = caseId;
-    // payload.caseNumber = caseNumber;
-    // payload.faxNumber = faxNumber; 
-    // payload.recepientName = recepientName;
-    // payload.attachment = attachment;
-    // payload.emails = emails;
-
-    // payloads.add(payload);
-
-    // Test.startTest();
-
-    // Test.setMock(HttpCalloutMock.class, new FilescanConnectMock());
-    // List<FaxService.FcResponse> result =  FaxService.sendHttpRequest(payloads);
-
-    // Test.stopTest();
-    // System.assert(result!=null);
-
+    Case record2 = new Case();
+    record2.status='Approved2';
+    record2.Fax_Sent_Date__c=null;
+    insert record2; 
   }
 
   @isTest
-  static void test_Send_Fax() {
-    // EmailTemplate template = new EmailTemplate();
-    // template.developername  = 'Approved_Fax_Template1'; 
-    // template.name = 'Approved Fax';
-    // template.templatetype = 'custom';
-    // template.FolderId= UserInfo.getUserId();
-    // insert template;
+static void test_Send_Fax_pass() {
+    EmailTemplate template = new EmailTemplate();
+    template.developername  = 'Approved_Fax_Template1'; 
+    template.name = 'Approved Fax';
+    template.templatetype = 'custom';
+    template.FolderId= UserInfo.getUserId();
+    insert template;
 
-    // Case records = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1];
-    // EmailTemplate temp = [SELECT Id,name ,developername from EmailTemplate where developername =:'Approved_Fax_Template1'];
-    // Id templateId = temp.id;
-    // Id caseIds=records.id;
-    // FaxService.sendFax(caseIds,templateId);
-
-    // List<FaxService.Payload> payloads = new List<FaxService.Payload>();
-    // Case record = [select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1]; 
-    // Id caseId = record.id;
-    // String caseNumber = record.CaseNumber; 
-    // String faxNumber = record.Provider_Fax__c;
-    // String recepientName = record.Provider__r.name;
-    // String attachment = 'attachemt';
-    // List<String> emails ;
+    Case record = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1];
+    EmailTemplate temp = [SELECT Id,name ,developername from EmailTemplate where developername =:'Approved_Fax_Template1'];
     
-    // FaxService.Payload payload = new FaxService.payload();
-    // payload.caseId = caseId;
-    // payload.caseNumber = caseNumber;
-    // payload.faxNumber = faxNumber; 
-    // payload.recepientName = recepientName;
-    // payload.attachment = attachment;
-    // payload.emails = emails;
+    Id templateId = temp.id;
+    Id caseId=record.id;
 
-    // payloads.add(payload);
-
-    // Test.startTest();
-
-    // Test.setMock(HttpCalloutMock.class, new FilescanConnectMock());
-    // FaxService.sendFax(payloads);
-
-    // Test.stopTest();
-  
-    // System.Debug('Hurrayyy');
+    List<FaxService.FcResponse> mockFcResponses = new List<FaxService.FcResponse> {
+      createFcResponse('Success',null)
+    };
+    
+    FilescanConnectMock mockResponse = new FilescanConnectMock(200,mockFcResponses,null);
+    Test.setMock(HttpCalloutMock.class, mockResponse);
+    Test.startTest();
+    System.runAs(new User(Id = UserInfo.getUserId())){
+    FaxService.sendFax(caseId,templateId);
   }
+    Test.stopTest();
+    Case result = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1];
+    System.assert(result.Fax_Sent_Date__c!=null);
+}
 
   @isTest
-  static void test_GeneratePdf() {
+static void test_Send_Fax_Fail() {
+    EmailTemplate template = new EmailTemplate();
+    template.developername  = 'Approved_Fax_Template1'; 
+    template.name = 'Approved Fax';
+    template.templatetype = 'custom';
+    template.FolderId= UserInfo.getUserId();
+    insert template;
+
+    Case record = [SELECT Id,status,Fax_Sent_Date__c FROM Case WHERE status=:'Approved2' LIMIT 1];
+    EmailTemplate temp = [SELECT Id,name ,developername from EmailTemplate where developername =:'Approved_Fax_Template1'];
+    
+    Id templateId = temp.id;
+    Id caseId=record.id;
+
+    List<FaxService.FcResponse> mockFcResponses = new List<FaxService.FcResponse> {
+      createFcResponse('Fail','Invalid Parameter')
+    };
+    
+    FilescanConnectMock mockResponse = new FilescanConnectMock(400,mockFcResponses,null);
+    Test.setMock(HttpCalloutMock.class, mockResponse);
+    Test.startTest();
+    System.runAs(new User(Id = UserInfo.getUserId())){
+    try{
+    FaxService.sendFax(caseId,templateId);
+    }
+    catch (Exception e) {
+      system.assertEquals('Script-thrown exception', e.getMessage());
+    }
+    Test.stopTest();
+  }
+}
+
+@isTest
+static void test_Send_Fax_Flow_Pass() {
+    List<Id> caseIds = new List<Id>();
+    Case record = [Select Id from case where status='Approved'];
+    Id value = record.Id;
+    caseIds.add(value);
+    List<FaxService.FcResponse> mockFcResponses = new List<FaxService.FcResponse> {
+      createFcResponse('Success',null)
+    };
+    
+    FilescanConnectMock mockResponse = new FilescanConnectMock(200,mockFcResponses,null);
+    Test.setMock(HttpCalloutMock.class, mockResponse);
+    Test.startTest();
+    System.runAs(new User(Id = UserInfo.getUserId())){
+    FaxService.sendFax(caseIds);
+    Test.stopTest();
+    Case result = [Select Id ,Fax_Sent_Date__c from case where status='Approved'];
+    System.assert(result.Fax_Sent_Date__c!=null);
+  }
+}
+
+  @isTest
+static void test_GeneratePdf() {
     EmailTemplate template = new EmailTemplate();
     template.developername  = 'Approved_Fax_Template1'; 
     template.name = 'Approved Fax';
@@ -101,10 +113,10 @@ public with sharing class FaxServiceTest {
 
     String result =  FaxService.generatePdf(caseId,templateId);
     System.assert(result!=null);
-  }
+}
 
   @isTest
-  static void test_buildPaylload() {
+static void test_buildPaylload() {
     Case record = [select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1]; 
     Id caseId = record.id;
     String caseNumber = record.CaseNumber; 
@@ -123,45 +135,71 @@ public with sharing class FaxServiceTest {
 
     payload = FaxService.buildPayload(caseId,caseNumber,faxNumber,recepientName,attachment,emails);
     System.assert(payload!=null);
-  }
+}
 
   @isTest
-  static void testFlow() {
-    // List<Id> testData = new List<Id>();
-    // FaxService.sendFax(testData);
-    // Case record = new Case();
-    // insert record;
-    // System.Debug(record.Fax_Sent_Date__c!=null);
-  }
+ static void test_send_fax_evaluate_fcresponse_pass() {
+   
+  List<FaxService.FcResponse> mockFcResponses = new List<FaxService.FcResponse> {
+      createFcResponse('Success',null)
+    };
 
-  @isTest
-  static void test_send_fax_evaluate_fcresponse_pass() {
-    // setup mock fc responses in a way that would pass evaluateFcResponse()
-
-    // setup case record and insert (to be used in payload)
-
-    // setup payloads, needs a caseId
+    List<FaxService.Payload> payloads = new List<FaxService.Payload>();
+    Case record = [select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1]; 
+    Id caseId = record.id;
+    String caseNumber = record.CaseNumber; 
+    String faxNumber = record.Provider_Fax__c;
+    String recepientName = record.Provider__r.name;
+    String attachment = 'attachemt';
+    List<String> emails = new List<String>();
+    String email1 = 'afreen9@outlook.com';
+    emails.add(email1);
     
-    // call FaxService.sendFax(payloads)
+    FaxService.Payload payload = new FaxService.payload();
+    payload.caseId = caseId;
+    payload.caseNumber = caseNumber;
+    payload.faxNumber = faxNumber; 
+    payload.recepientName = recepientName;
+    payload.attachment = attachment;
+    payload.emails = emails;
+    List<QueueOwnerSetter.CaseQueue> caseQueues = new List<QueueOwnerSetter.CaseQueue>();
+    QueueOwnerSetter.CaseQueue queue = new QueueOwnerSetter.CaseQueue();
+    queue.caseId = caseId;
+    queue.queueName='Regular';
+    caseQueues.add(queue);
+    payloads.add(payload);
+    FilescanConnectMock mockResponse = new FilescanConnectMock(200, mockFcResponses, null);
+    Test.setMock(HttpCalloutMock.class, mockResponse);
+    
+    Test.startTest();
+    FaxService.sendFax(payloads);
+    Case result = [select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name,Fax_Sent_Date__c FROM Case WHERE status=:'Approved' LIMIT 1]; 
+    Test.stopTest();
+    
+    System.assert(result.Fax_Sent_Date__c!=null);
+    System.assert(queue.queueName=='Regular');
 
-    // assert case's owner and fax sent date were changed by sendFax.
   }
   
   @isTest
-  static void test_send_fax_evaluate_fcresponses_fail() {
-    // setup mock fc responses in a way that would fail evaluateFcResponse()
+   static void test_send_fax_evaluate_fcresponses_fail() {
     List<FaxService.FcResponse> mockFcResponses = new List<FaxService.FcResponse> {
-        createFcResponse('fail', 'Invalid Parameter')
+        createFcResponse('fail', 'Invalid Prameter')
       };
-    FilescanConnectMock mockResponse = new FilescanConnectMock(400, mockFcResponses, null);
-    // setup payloads
+    FilescanConnectMock mockResponse = new FilescanConnectMock(200, mockFcResponses, null);
+
     List<FaxService.Payload> payload = new List<FaxService.payload>();
 
-    // call 
-   
-    FaxService.sendFax(payload);
- 
+    Test.setMock(HttpCalloutMock.class, mockResponse);
     
+     Test.startTest();
+     try {
+      FaxService.sendFax(payload);
+     }
+     catch (Exception e) {
+      system.assertEquals('Invalid Payload', e.getMessage());
+    }
+     Test.stopTest();
   }
 
   @isTest
@@ -198,8 +236,15 @@ public with sharing class FaxServiceTest {
   @isTest
   static void test_send_http_response_302_html_response() {
     Test.setMock(HttpCalloutMock.class, new FilescanConnectMock(302, null, '<html></html>'));
+    Test.startTest();
+    try {
+      FaxService.sendHttpRequest(new List<FaxService.Payload>());
+      system.assert(false, 'An expected exception was not thrown.');
+    } catch (Exception e) {
+      system.assertEquals('<html></html>', e.getMessage());
+    }
+    Test.stopTest();
 
-    // TODO
   }
 
   @isTest
@@ -243,6 +288,10 @@ public with sharing class FaxServiceTest {
     private String responseBody;
     private Integer statusCode;
     private List<FaxService.FcResponse> mockFcResponses;
+    
+    public FilescanConnectMock(){
+
+    }
 
     public FilescanConnectMock(Integer statusCode) {
       this(statusCode, null, null);
@@ -264,6 +313,7 @@ public with sharing class FaxServiceTest {
 
       HttpResponse res = new HttpResponse();
       res.setStatusCode(this.statusCode);
+      res.setHeader('Content-Type', 'application/json');
       
       if (mockFcResponses != null) {
         res.setBody(JSON.serialize(mockFcResponses));

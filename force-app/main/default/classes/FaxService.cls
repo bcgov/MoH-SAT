@@ -44,6 +44,7 @@ public with sharing class FaxService {
        
         try {
             sendFax(new FaxService.Payload[] {payload});
+
         }
         catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -81,7 +82,7 @@ public with sharing class FaxService {
     }
     @TestVisible
     private static void sendFax(List<FaxService.Payload> payloads) {
-        
+        System.debug(payloads);
         List<FaxService.FcResponse> fcResponses = sendHttpRequest(payloads);
         
         if (!evaluateFcResponse(fcResponses)) {
@@ -115,7 +116,7 @@ public with sharing class FaxService {
 
         List<FaxService.FcResponse> fcResponses = 
             (List<FaxService.FcResponse>) JSON.deserialize(res.getBody(), List<FaxService.FcResponse>.class);
-
+            System.debug(fcResponses.size());
         return fcResponses;
     }
     
@@ -156,7 +157,7 @@ public with sharing class FaxService {
         return new List<Case>([
             select Id, CaseNumber, status,Provider_Fax__c,Provider__r.name, Drug__r.Drug_Code__c 
             from Case 
-            where Id in :caseIds 
+            where Id in :caseIds
         ]);
     }
 
