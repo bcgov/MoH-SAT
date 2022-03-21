@@ -4,12 +4,14 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import submitSinglePnetSar from '@salesforce/apex/PharmanetPayloadController.submitSinglePnetSar';
 import submitSaApprovalUpdate from '@salesforce/apex/PharmanetPayloadController.submitSaApprovalUpdate';
 import getDescription from '@salesforce/apex/DescriptionLookup.getDescription';
+import UserPreferencesShowFaxToGuestUsers from '@salesforce/schema/User.UserPreferencesShowFaxToGuestUsers';
 
 export default class PnetSaForm extends LightningElement {
     @api
     caseId;
     
     _record;
+    original_record;
 
     @api
     formDisabled;
@@ -45,6 +47,7 @@ export default class PnetSaForm extends LightningElement {
     }
 
     get updateRecord() {
+        var revisedData = this.constructRevisedData();
         return {
             updateType:"U",
             saRecordId:{
@@ -56,15 +59,21 @@ export default class PnetSaForm extends LightningElement {
                 specAuthType: this._record.specAuthType,
                 effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate)
             },
-            saRevisedData: {
-                specAuthType: this._record.specAuthType,
-                justificationCodes: this.strToArr(this._record.justificationCodes),
-                excludedPlans: this.strToArr(this._record.excludedPlans),
-                effectiveDate: this.dateSfdcToOdr(this._record.effectiveDate),
-                terminationDate: this.dateSfdcToOdr(this._record.terminationDate),
-                maxDaysSupply: this._record.maxDaysSupply
-            }
+            saRevisedData: revisedData
         };
+    }
+
+    constructRevisedData(){
+        var saRevisedData = {};
+        if (this.original_record.specAuthType != this._record.specAuthType) saRevisedData.specAuthType = this._record.specAuthType;
+        if (this.original_record.justificationCodes != this._record.justificationCodes) saRevisedData.justificationCodes = this.strToArr(this._record.justificationCodes);
+        if (this.original_record.excludedPlans != this._record.excludedPlans) saRevisedData.excludedPlans = this.strToArr(this._record.excludedPlans);
+        if (this.original_record.effectiveDate != this._record.effectiveDate) saRevisedData.effectiveDate = this.dateSfdcToOdr(this._record.effectiveDate);
+        if (this.original_record.maxDaysSupply != this._record.maxDaysSupply) saRevisedData.maxDaysSupply = this._record.maxDaysSupply; 
+
+        console.log("SA REVISED DATA");
+        console.log(saRevisedData);
+        return saRevisedData;
     }
 
     get terminateRecord(){
@@ -113,6 +122,22 @@ export default class PnetSaForm extends LightningElement {
     @api
     set record(value) {
         this._record = {
+            phn: value.saRecord.phn,
+            practId: value.saRecord.saRequester.practId,
+            practIdRef: value.saRecord.saRequester.practIdRef,
+            decCode: value.saRecord.saRequester.decCode,
+            din: value.saRecord.specialItem.din,
+            rdpFormatted: this.formatRdp(value.saRecord.specialItem.rdp),
+            rdp: value.saRecord.specialItem.rdp,
+            specAuthType: value.saRecord.specAuthType,
+            justificationCodes: this.arrToStr(value.saRecord.justificationCodes),
+            excludedPlans: this.arrToStr(value.saRecord.excludedPlans),
+            effectiveDate: this.dateOdrToSfdc(value.saRecord.effectiveDate),
+            terminationDate: this.setTerminationDate(value.saRecord.terminationDate),
+            maxDaysSupply: value.saRecord.maxDaysSupply,
+            maxPricePct: value.saRecord.maxPricePct,
+        };
+        this.original_record = {
             phn: value.saRecord.phn,
             practId: value.saRecord.saRequester.practId,
             practIdRef: value.saRecord.saRequester.practIdRef,
@@ -197,6 +222,13 @@ export default class PnetSaForm extends LightningElement {
         let record = this.update ? this.updateRecord : this.terminateRecord;
         
         this.formDisabled = true;
+
+        if (record.saRevisedData == null || Object.keys(record.saRevisedData).length === 0 ){
+            this.showError("No changes in update.");
+            this.formDisabled = this.terminate; // if terminate, keep form disabled
+            success = false;
+            return success;
+        }
         
         try {
             await submitSaApprovalUpdate({caseId: this.caseId, saaUpdateRequest: record });
