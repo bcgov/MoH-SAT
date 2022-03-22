@@ -14,7 +14,7 @@ help() {
 replace_group_id() {
    while IFS=, read -r src_grp_id src_grp_name; do
       if [ "$dest_grp_name" = "$src_grp_name" ]; then
-         sed -i '' -e "s/$src_grp_id/$dest_grp_id/g" .tmp/drugs.csv .tmp/stepactions.csv;
+         sed -i -e "s/$src_grp_id/$dest_grp_id/g" .tmp/drugs.csv .tmp/stepactions.csv;
       fi
    done < .tmp/groups-src.csv
 }
@@ -29,7 +29,7 @@ replace_group_ids() {
 
 replace_user_ids() {
    dest_user_id=$(sfdx force:user:display -u $destination --json 2> /dev/null | grep -o '005[a-zA-Z0-9]*')
-   sed -i '' -e "s/^005[a-zA-Z0-9]*,/$dest_user_id,/g" .tmp/drugs.csv .tmp/stepactions.csv;
+   sed -i -e "s/^005[a-zA-Z0-9]*,/$dest_user_id,/g" .tmp/drugs.csv .tmp/stepactions.csv;
 }
 
 check_destination() {
@@ -66,14 +66,15 @@ sfdx force:data:soql:query -q "$(< ./scripts/soql/rdpdescriptions.soql)" -r csv 
 sfdx force:data:soql:query -q "$(< ./scripts/soql/groups.soql)" -r csv -u $source > .tmp/groups-src.csv 2> /dev/null
 sfdx force:data:soql:query -q "$(< ./scripts/soql/groups.soql)" -r csv -u $destination > .tmp/groups-dest.csv 2> /dev/null
 
-echo "Matching Queue IDs between $source ad $destination..."
+echo "Matching Queue IDs between $source and $destination..."
 replace_group_ids;
 
 echo "Replacing all user-owned drugs and step actions to current user in $source..."
 replace_user_ids
 
 echo "Cleaning drug management data in $destination..."
-sfdx force:apex:execute -u $destination -f <(echo "delete [select id from Step_Action__c]; delete [select id from Step_Criteria__c]; delete [select id from Step__c]; delete [select id from Diagnosis__c]; delete [select id from Product_Health_Category__c]; delete [select id from RDP_Code_Description__c];")  2> /dev/null
+echo "delete [select id from Step_Action__c]; delete [select id from Step_Criteria__c]; delete [select id from Step__c]; delete [select id from Diagnosis__c]; delete [select id from Product_Health_Category__c]; delete [select id from RDP_Code_Description__c];" >> .tmp/clean-drugs.apex
+sfdx force:apex:execute -u $destination -f .tmp/clean-drugs.apex 2> /dev/null
 
 echo "Uploading drug management data to $destination..."
 sfdx force:data:bulk:upsert -u $destination -s Drug__c -f .tmp/drugs.csv -i Drug_Code__c -w 5  2> /dev/null
