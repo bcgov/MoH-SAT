@@ -1,3 +1,4 @@
 select OwnerId, Step__r.External_ID__c, Order__c, RecordType.Name, Adjudication_Status__c, Days_Supply__c, Duration_Unit__c, Duration__c, Excluded_Plans__c, Justification_Codes__c, Key_Type__c, Pharmanet_Code__c, Price_Percent__c, SA_Type__c
 from Step_Action__c
+where Step__r.Drug__r.Drug_Code__c != null
 order by Step__r.External_ID__c asc
