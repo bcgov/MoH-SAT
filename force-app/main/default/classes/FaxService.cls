@@ -1,4 +1,14 @@
-public with sharing class FaxService {
+public with sharing class FaxService implements Queueable, Database.AllowsCallouts {
+    private List<Id> caseIds;
+
+    public FaxService(List<Id> caseIds) {
+        this.caseIds = caseIds;
+    }
+
+    public void execute(QueueableContext context) {
+        runSendFax(caseIds);
+    }
+
     private static Map<String, EmailTemplate> EMAIL_TEMPLATES {
         get {
             if (EMAIL_TEMPLATES == null) {
@@ -53,11 +63,10 @@ public with sharing class FaxService {
 
     @InvocableMethod(label='Send fax to Accuroute' description='Send fax to Accuroute.') 
     public static void sendFax(List<Id> caseIds) {
-        sendFaxFuture(caseIds);
+        System.enqueueJob(new FaxService(caseIds));
     }
     
-    @future(callout=true)
-    private static void sendFaxFuture(List<Id> caseIds) {
+    private static void runSendFax(List<Id> caseIds) {
         Map<Id, Case> caseMap = new Map<Id, Case>(queryCases(caseIds));
 
         List<FaxService.Payload> payloads = new List<FaxService.Payload>();
