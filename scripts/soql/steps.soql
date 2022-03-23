@@ -1,3 +1,4 @@
 select External_ID__c,Name,Drug__r.Drug_Code__c,Order__c,Description__c,Criteria_Logic__c,Always_Run__c
 from Step__c
+where Drug__r.Drug_Code__c != null
 order by Drug__r.Drug_Code__c asc
