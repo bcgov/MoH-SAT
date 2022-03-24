@@ -113,17 +113,28 @@ $ ./dev-setup.sh
 - Delete feature branch
 
 ### Setup SSL certificates in your scratch org. 
-Perform these steps on your scratch org if integration with ODR or EMPI is necessary.
+Perform these steps to integrate your scratch org with ODR, EMPI, of Filescan Connect Web Service.
 - Download [moh_dev_certs.jks](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597).
 - Open scratch org.
-- Go to Setup -> Identity -> Identity Provider -> Enable. Choose `dev_cert` and save.
+- Go to Setup > Identity > Identity Provider > Enable. Choose `dev_cert` and save.
 - Go to Setup > Certificate and Key Management > and click "Import from Keystore" 
 - Upload the jks file. Enter "JKS Password" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597)
 - Go to Setup > Named Credentials.
-- Edit "EMPI" named credential and changed its certificate to "EMPI". Save.
-- Edit "FilescanConnectWs" named credential and changed its certificate to "fcws". Save.
+- Edit "EMPI" named credential and set its certificate to "EMPI". Save.
+- Edit "FilescanConnectWs" named credential and set its certificate to "fcws". Save.
 - Edit "ODR Credentials" named credential and edit as follows:
   - URL: https://t1specauthsvc.maximusbc.ca
   - Certificate: cert_dev_odr
   - Username: pnetsauser
   - Password: Refer to *CERT-DEV-ODR" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597)
+
+  ### Setup Filescan Email Service
+  Perform these steps to receive emails from the developer instance of Filescan Connect Web Service (filescan-dev.hlth.gov.bc.ca)
+  - Go to Setup > Email Services
+  - Open "FcEmailService", click "New Email Address", and enter these valus:
+   - Email Address Name: "FcEmailService"
+   - Email Address: "FcEmailService"
+   - Active: true
+   - Context User: "User User" _(scratch org user)_
+   - Accept Email From: _(empty)_
+  - Save.
