@@ -116,7 +116,7 @@ $ ./dev-setup.sh
 Perform these steps on your scratch org if integration with ODR or EMPI is necessary.
 - Download [moh_dev_certs.jks](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597).
 - Open scratch org.
-- Go to Setup -> Identity -> Identity Provider -> Enable. Choose `cert_odr` and save.
+- Go to Setup -> Identity -> Identity Provider -> Enable. Choose `dev_cert` and save.
 - Go to Setup > Certificate and Key Management > and click "Import from Keystore" 
 - Upload the jks file. Enter "JKS Password" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597)
 - Go to Setup > Named Credentials.
