@@ -47,7 +47,7 @@ public with sharing class FaxService implements Queueable, Database.AllowsCallou
             record.ID,
             record.CaseNumber,
             record.Provider_Fax__c,
-            queryName(caseId),
+            getRecipientName(record),
             generatePdf(record.Id,templateId),
             MY_EMAILS
         );
@@ -79,7 +79,7 @@ public with sharing class FaxService implements Queueable, Database.AllowsCallou
                 record.Id,
                 record.CaseNumber,
                 record.Provider_Fax__c,
-                queryName(caseId),
+                getRecipientName(record),
                 generatePdf(caseId,emailTemplate.id),
                 MY_EMAILS
             );
@@ -170,22 +170,11 @@ public with sharing class FaxService implements Queueable, Database.AllowsCallou
         ]);
     }
 
-    private static string queryName(Id caseId) {
-        Case record = queryCases(new Id[] {caseId})[0];
-        String ProviderName = record.Provider__r.name;
-        String DecName = record.DEC__r.name; 
-        if(ProviderName != null) {
-            return ProviderName;
-        }
-        else if(DecName == null) {
-            String name = 'Default_Name';
-            return name;
-        }
-        else if(ProviderName == null) {
-            return DecName;
-        }
-        return ProviderName;
-    }
+    private static String getRecipientName(Case record) {
+        if (record.Provider__r != null) return record.Provider__r.Name;
+        else if (record.DEC__r != null) return record.DEC__r.Name; 
+        else return 'NO_RECIPIENT_NAME';
+     }
 
     private static List<EmailServicesAddress> queryEmailServiceAddresses() {
         return [
