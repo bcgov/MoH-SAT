@@ -39,3 +39,16 @@ $ ../MoH-SAT> sfdx force:mdapi:deploy -d destructiveChanges -u <sandbox> -o -g -
 ```
 
 Run any manual post-install steps.
+
+## Production Deployment Guide
+### Pre Deployment
+Run this command to release a package version so it can be installed on production. This step is required for production installations.
+```
+$ ../MoH-SAT> sfdx force:package:version:promote -p 04t... -v <devhub>
+```
+
+### Post Deployment
+Each package version released requires a unique version number thereforce once a released packaged is installed on production, its version number must be "bumped" up so subsequent builds of the package are associated to the new version. 
+
+For the Special Authority application, bumping up the version number can be done by editing the _major_, _minor_, or _version_ components of the `versionNumber` attribute of the "Special Authority App" entry in the list of `packageDirectories`. Commit the sfdx-project.json file to the repository once edited.
+

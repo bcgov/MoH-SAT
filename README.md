@@ -10,7 +10,16 @@ For contributors:
 ```
 $ ./dev-setup.sh
 ```
-More development tips and guidelines in [docs/development/dev-tips.md](docs/development/dev-tips.md) 
+### Misc Documentation
+[docs/development/dev-tips.md](docs/development/dev-tips.md) 
+- Miscellaneous development tips and guidelines for admins and developers, including instructions to integrate a scratch org with external systems.
+
+[docs/development/cicd.md](docs/development/cicd.md) 
+- Manual operation of CI/CD system for the Release or Build Manager.
+
+[docs/development/certificates.md](docs/development/certificates.md)
+- Renewing SSL client certificates for the System Administrator.
+
 ### Inbound REST API Documentation
 
 See [here](https://bcgov.github.io/MoH-SAT/) for specification and documentation of inbound APIs.

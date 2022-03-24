@@ -103,13 +103,13 @@ Perform these steps to integrate your scratch org with ODR, EMPI, of Filescan Co
   - Username: pnetsauser
   - Password: Refer to *CERT-DEV-ODR" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597)
 
-  ### Setup Filescan Email Service
-  Perform these steps to receive emails from the developer instance of Filescan Connect Web Service (filescan-dev.hlth.gov.bc.ca)
-  - Go to Setup > Email Services
-  - Open "FcEmailService", click "New Email Address", and enter these valus:
-   - Email Address Name: "FcEmailService"
-   - Email Address: "FcEmailService"
-   - Active: true
-   - Context User: "User User" _(scratch org user)_
-   - Accept Email From: _(empty)_
-  - Save.
+### Setup Filescan Email Service
+Perform these steps to receive emails from the developer instance of Filescan Connect Web Service (filescan-dev.hlth.gov.bc.ca)
+- Go to Setup > Email Services
+- Open "FcEmailService", click "New Email Address", and enter these valus:
+  - Email Address Name: "FcEmailService"
+  - Email Address: "FcEmailService"
+  - Active: true
+  - Context User: "User User" _(scratch org user)_
+  - Accept Email From: _(empty)_
+- Save.
