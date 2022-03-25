@@ -49,13 +49,10 @@ $ ../MoH-SAT> sfdx force:package:version:promote -p 04t... -v <devhub>
 ```
 
 ### Post Deployment
-Once a package version build is marked as released, no other build can be released with that same version number. Therefore, the version number must be "bumped up" to indicate that subsequent builds correspond to the next version. 
+Once a package version build is marked as released, no other build can be released with that same version number. Therefore, the version number must be "bumped up" to indicate that subsequent builds of the package correspond to the next version number. 
 
-For the Special Authority application, bumping up the version number is a manual task that is performed by editing the _major_, _minor_, or _version_ components of the `versionNumber` attribute of the "Special Authority App" entry in the list of `packageDirectories`. Commit the sfdx-project.json file back to the repository once the version is bumped up. 
+For the Special Authority application, bumping up the version number is a manual task performed by editing the _major_, _minor_, or _version_ components of the `versionNumber` attribute of the "Special Authority App" entry in the list of `packageDirectories`. Example:
 
-This is typically done immediately after a production deployment to ensure new development builds correspond to the next version number.
-
-Example:
 ```javascript
 {
     "packageDirectories": [
@@ -71,9 +68,15 @@ Example:
     ...
 }
 ```
+Commit and push the sfdx-project.json file back to the repository once the version nubmer is bumped up. 
+
+This is typically done immediately after a production deployment to ensure new development builds correspond to the next version number.
 ## Github Administration
 
 ### Authentication to release environments
+:warning: **DO NOT USE SFDX AUTH URL FOR A PRODUCTION USER WITH SYSTEM ADMINISTRATOR
+ RIGHTS.** :warning:
+
 Github Actions use Sfdx Auth Url in order to connect to:
 - the devhub org for requesting scratch orgs (for pull request build checks), and
 - a release sandbox for software deployments. 
