@@ -1,5 +1,5 @@
 # Release Management
-Use these commands for manual production deployments or if Github Actions are not running.
+For the release manager.
 
 ## Package upgrade
 _Creates a new build for the current package version number._
@@ -10,10 +10,10 @@ $ ../MoH-SAT> sfdx force:package:version:create -v devhub -d force-app -f config
 ```
 When finished, a new package version ID for the new build is inserted in sfdx-project.json. Commit and push the sfdx-project.json to the remote branch.
 
-## Package installation
-_These steps comprise all tasks and CLI commands needed to perform a deployment from source control to a sandbox (or production)_
+## Deployment
+_These steps comprise all tasks and CLI commands needed to perform a deployment from source control to a sandbox (or production)._
 
-Run any manual pre-install steps.
+Perform any manual pre-deployment tasks necessary.
 
 Deploy package dependencies in source control.
 ```
@@ -30,29 +30,31 @@ Re-deploy objects and queues in package.
 $ ../MoH-SAT> sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u <sandbox> -w 15
 ```
 
-Deploy post-install package configuration in source control. 
+Deploy unpackaged metadata. 
 ```
 $ ../MoH-SAT> sfdx force:source:deploy -p dev-app-post -u <sandbox>
 ```
 
-Deploy destructive changes listed in source control. Remove `-o` parameter if deploying to production. 
+Deploy destructive changes. Remove `-o` parameter if deploying to production. 
 ```
 $ ../MoH-SAT> sfdx force:mdapi:deploy -d destructiveChanges -u <sandbox> -o -g -l RunLocalTests -w 15
 ```
 
-Run any manual post-install steps.
+Perform any manual post-deployment tasks necessary.
 
 ## Production Deployment Guide
 ### Pre Deployment
-Run this command to mark a package version build as "released", which is required to install a package to production.
+Run this command to mark a package version build as "released" which is required when installing a package to production.
 ```
 $ ../MoH-SAT> sfdx force:package:version:promote -p 04t... -v <devhub>
 ```
 
 ### Post Deployment
-Once a package version build is marked as released, no other build can be released with the same version number. Therefore, the version number must be "bumped up" to indicate that subsequent builds correspond to the next version. 
+Once a package version build is marked as released, no other build can be released with that same version number. Therefore, the version number must be "bumped up" to indicate that subsequent builds correspond to the next version. 
 
-For the Special Authority application, bumping up the version number is done by editing the _major_, _minor_, or _version_ components of the `versionNumber` attribute of the "Special Authority App" entry in the list of `packageDirectories`. Commit the sfdx-project.json file to the repository once the version is bumped up. 
+For the Special Authority application, bumping up the version number is a manual task that is performed by editing the _major_, _minor_, or _version_ components of the `versionNumber` attribute of the "Special Authority App" entry in the list of `packageDirectories`. Commit the sfdx-project.json file back to the repository once the version is bumped up. 
+
+This is typically done immediately after a production deployment to ensure new development builds correspond to the next version number.
 
 Example:
 ```javascript
@@ -70,8 +72,6 @@ Example:
     ...
 }
 ```
-This is typically done immediately after a production deployment to ensure new development builds correspond to the next version number.
-
 ## Github Administration
 
 ### Authentication to release environments
