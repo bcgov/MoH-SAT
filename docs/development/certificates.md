@@ -1,4 +1,5 @@
-### Renewing SSL Certificates
+# Certificates
+## Renewing SSL Certificates
 Go to Salesforce > Setup > Security Controls > Certificate and Key Management, and click the certificate record to be renewed.
 
 Click the “Download Certificate Signing Request” button to download a .csr file.
@@ -14,7 +15,7 @@ Seek help from an Salesforce or IT professional if:
 .crt file.
 - Salesforce does not accept the .cer or .crt file.
 
-### PFX to JKS conversion
+## PFX to JKS conversion
 Follow these steps for uploading a new certificate provided in PFX format.
 
 Salesforce does not support PFX, but JKS (Java Key Store).  You must first convert it to JKS before importing it in setup.

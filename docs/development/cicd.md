@@ -1,5 +1,4 @@
 # Release Management
-For the release manager.
 
 ## Package upgrade
 _Creates a new build for the current package version number._
