@@ -146,12 +146,7 @@ public with sharing class ODRIntegration {
             // Sometimes this is empty!
             if (!providers.isEmpty()) {
                 p = providers[0];
-                if (p.status == 'P') {
-                    // Practising
-                    p.verified = true;
-                } else {
-                    p.verified = true;
-                }
+                p.verified = p.status == 'P';
             } else {
                 // Invalid Provider
                 p = new Provider();

@@ -1,4 +1,4 @@
-public class PDFGeneratorController {
+public without sharing class PDFGeneratorController {
 
     public Case caseRecord {get;set;}
     public String html {get;set;}
