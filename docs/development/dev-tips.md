@@ -2,7 +2,7 @@
 
 ## Salesforce CLI commands
 
-```bash
+```
 # Open the org configured as default alias
 $ sfdx force:org:open
 
@@ -33,7 +33,7 @@ $ sfdx force:org:display [-u alias]
 ```  
 
 ## Git commands
-```bash
+```
 
 # Switch to a branch 
 $ git checkout <branch_name>
@@ -59,12 +59,12 @@ $ git reset --hard
 ## Miscellaneous tips
 
 Opens the current directory in Visual Studio Code
-```bash
+```
 $ code .
 ```
 
 Pull all recent changes to `main`, create a new branch for a new ticket, then create a scratch org for it.
-```bash
+```
 $ git checkout main
 $ git pull
 $ git checkout -b ESA-<ticket number>
@@ -73,7 +73,7 @@ $ ./dev-setup.sh
 
 ### Submit changes for release
 Run commands
-```bash
+```
 $ sfdx force:source:pull
 $ code .
 ```

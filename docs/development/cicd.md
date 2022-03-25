@@ -5,7 +5,7 @@ Use these commands for manual production deployments or if Github Actions are no
 _Creates a new build for the current package version number._
 
 Run this command on the branch being upgraded (e.g., `main` or `release/x.y.z`)
-```bash
+```
 $ ../MoH-SAT> sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15 -c
 ```
 When finished, a new package version ID for the new build is inserted in sfdx-project.json. Commit and push the sfdx-project.json to the remote branch.
@@ -16,27 +16,27 @@ _These steps comprise all tasks and CLI commands needed to perform a deployment 
 Run any manual pre-install steps.
 
 Deploy package dependencies in source control.
-```bash
+```
 $ ../MoH-SAT> sfdx force:source:deploy -p dev-app-pre -u <sandbox>
 ```
 
 Install package version.
-```bash
+```
 $ ../MoH-SAT> sfdx force:package:install -p 04t... -u <sandbox> -b 15 -w 15
 ```
 
 Re-deploy objects and queues in package.
-```bash
+```
 $ ../MoH-SAT> sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u <sandbox> -w 15
 ```
 
 Deploy post-install package configuration in source control. 
-```bash
+```
 $ ../MoH-SAT> sfdx force:source:deploy -p dev-app-post -u <sandbox>
 ```
 
 Deploy destructive changes listed in source control. Remove `-o` parameter if deploying to production. 
-```bash
+```
 $ ../MoH-SAT> sfdx force:mdapi:deploy -d destructiveChanges -u <sandbox> -o -g -l RunLocalTests -w 15
 ```
 
@@ -45,7 +45,7 @@ Run any manual post-install steps.
 ## Production Deployment Guide
 ### Pre Deployment
 Run this command to mark a package version build as "released", which is required to install a package to production.
-```bash
+```
 $ ../MoH-SAT> sfdx force:package:version:promote -p 04t... -v <devhub>
 ```
 
@@ -55,7 +55,7 @@ Once a package version build is marked as released, no other build can be releas
 For the Special Authority application, bumping up the version number is done by editing the _major_, _minor_, or _version_ components of the `versionNumber` attribute of the "Special Authority App" entry in the list of `packageDirectories`. Commit the sfdx-project.json file to the repository once the version is bumped up. 
 
 Example:
-```json
+```javascript
 {
     "packageDirectories": [
         ...
@@ -82,12 +82,12 @@ Github Actions use Sfdx Auth Url in order to connect to:
 Occasionally, Sfdx Auth Urls can expire in which case a repo Admin must udpate them by following these steps.
 
 Authorize local Salesforce CLI with production or a release sandox. Replace "my_alias" with your own. This step can be skipped if CLI is already authorized.
-```bash
+```
 $ ../MoH-SAT> sfdx force:auth:web:login -r <my url for production or sandbox> -a my_alias
 ```
 
 Display org details in verbose mode.
-```bash
+```
 $ ../MoH-SAT> sfdx force:org:display -r my_alias --verbose
 
 KEY              VALUE
@@ -106,5 +106,5 @@ In the list of Repository Secrets, click "Update" on the SALESFORCE_*_AUTH entry
 
 Paste the copied Sfdx Auth Url value in the text box and click "Update secret".
 
-:warning: DO NOT USE SFDX AUTH URL FOR A PRODUCTION USER WITH SYSTEM ADMINISTRATOR
- RIGHTS. :warning:
+:warning: **DO NOT USE SFDX AUTH URL FOR A PRODUCTION USER WITH SYSTEM ADMINISTRATOR
+ RIGHTS.** :warning:
