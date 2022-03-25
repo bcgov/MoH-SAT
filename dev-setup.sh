@@ -62,7 +62,7 @@ dx force:source:push -u $alias
 
 echo "Assigning permissions..."
 dx force:user:permset:assign -u $alias -n SA_Administrator
-dx force:apex:execute -u $alias -f scripts/apex/set-current-user.apex
+dx force:apex:execute -u $alias -f scripts/apex/scratchorg-set-current-user.apex
 
 echo "Uploading data..."
 dx force:data:bulk:upsert -u $alias -s Drug__c -f data/drugs.csv -i Drug_Code__c -w 5 
@@ -70,16 +70,16 @@ dx force:data:bulk:upsert -u $alias -s Account -f data/accounts.csv -i Id -w 5
 dx force:data:bulk:upsert -u $alias -s Account -f data/decs.csv -i Id -w 5 
 dx force:data:bulk:upsert -u $alias -s Case -f data/cases.csv -i Id -w 5
 dx force:data:tree:import -u $alias -p data/comm-plan.json
-dx force:apex:execute -u $alias -f scripts/apex/add-comm-users.apex
-dx force:apex:execute -u $alias -f scripts/apex/assign-cases-to-ecs.apex
-dx force:apex:execute -u $alias -f scripts/apex/assign-cases-to-queue.apex
-dx force:apex:execute -u $alias -f scripts/apex/add-form-questions.apex
+dx force:apex:execute -u $alias -f scripts/apex/scratchorg-add-comm-users.apex
+dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-cases-to-ecs.apex
+dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-cases-to-queue.apex
+dx force:apex:execute -u $alias -f scripts/apex/scratchorg-add-form-questions.apex
 dx force:data:bulk:upsert -u $alias -s Diagnosis__c -f data/diagnosis.csv -i Id -w 5
 dx force:data:bulk:upsert -u $alias -s Product_Health_Category__c -f data/producthealthcategories.csv -i Id -w 5
 dx force:data:bulk:upsert -u $alias -s Step__c -f data/steps.csv -i Id -w 5
 dx force:data:bulk:upsert -u $alias -s Step_Criteria__c -f data/stepcriteria.csv -i Id -w 5
 dx force:data:bulk:upsert -u $alias -s Step_Action__c -f data/stepactions.csv -i Id -w 5
-dx force:apex:execute -u $alias -f scripts/apex/assign-drug-default-queues.apex
+dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-drug-default-queues.apex
 
 echo "$alias is ready."
 dx force:org:open -u $alias;
