@@ -1,39 +1,22 @@
-### Certificates setup for ODR Connection
+# Certificates
+## Renewing SSL Certificates
+Go to Salesforce > Setup > Security Controls > Certificate and Key Management, and click the certificate record to be renewed.
 
-General configuration steps:
-* Setup a Named Credential
-* Create a self-signed cert
-* Secure access to PFX file from ODR
-* PFX to JKS conversion
-* Import JKS
-* Configure Named Credential Certificate
-* Enable Identity Provider
-* Testing
+Click the “Download Certificate Signing Request” button to download a .csr file.
 
-### Setup a Named Credential:
+Securely send the CSR file to the custodian of the external system. Request the custodian to return a CA-signed and renewed certificate as a .cer or .crt file. This process may take a few days.
 
-Best practise in salesforce is to make authenticated calls from within Apex to external services using a named credential.  This simplifies the connection handshake and allows your Apex code to be cleaner and portable to other orgs/environments.
+If the custodian returns with a .cer or .crt file, go to Salesforce > Setup > Security Controls > Certificate and Key Management, and click the certificate record being renewed.
 
-Follow detailed instructions [here](https://help.salesforce.com/articleView?id=named_credentials_about.htm)
+Click “Update Signed Certificate” and upload the .cer or .crt file. A successful renewal will accept the certificate with a new expiration date.
 
-### Create a self-signed cert:
+Seek help from an Salesforce or IT professional if:
+- The custodian returns a signed and renewed certificate in any format other than a .cer or
+.crt file.
+- Salesforce does not accept the .cer or .crt file.
 
-1. From Setup, search for Certificate and Key Management in the Quick Find box.
-2. Select Create Self-Signed Certificate.
-3. Enter a descriptive label for the Salesforce certificate.
-4. Enter a unique name.
-5. Select a key size for your generated certificate and keys.
-6. Click Save
-
-Now your Salesforce org is able to Import a JKS file (it won't be able until this step)
-
-More detailed instructions [here](https://help.salesforce.com/articleView?id=security_keys_creating.htm)
-
-### Secure access to PFX file from ODR:
-
-Make sure you receive the PFX certificate file and it's password securely from the ODR custodian.
-
-### PFX to JKS conversion:
+## PFX to JKS conversion
+Follow these steps for uploading a new certificate provided in PFX format.
 
 Salesforce does not support PFX, but JKS (Java Key Store).  You must first convert it to JKS before importing it in setup.
 
@@ -62,28 +45,3 @@ You can now use that alias and generate the JKS file.  It will ask you for the p
 `keytool -importkeystore -srckeystore <your cert file name here>.pfx -destkeystore keystorefile.jks -srcstoretype pkcs12 -deststoretype jks -destalias <name_your_certificate_here> -srcalias MyCertificateAlias`
 
 This will generate a file called `keystorefile.jks`.
-
-### Import JKS:
-
-You can now load the `keystorefile.jks` file created above into *Certificate and Key Management* in Salesforce Setup.  Click the `Import from Keystore` button and select the jks file and put in the password you used in the above step.
-
-### Add Cert to Named Credential:
-
-Make sure to go back to the named credential you configured in the first step, and select the cert you just created.
-
-### Enable Identity Provider
-
-In Salesforce, go to Setup -> Identity -> Identity Provider -> Enable.  Select the certificate you named when importing the JKS.
-
-### Testing
-
-At this point, your SSL cert and named credential should be linked up, and you will be able to call your named credential in Apex code easily.  See below for an example:
-
-```
-HttpRequest req = new HttpRequest();
-req.setEndpoint('callout:My_ORD_Named_Credential/path/to/endpoint');
-req.setMethod('GET');
-Http http = new Http();
-HTTPResponse res = http.send(req);
-System.debug(res.getBody());
-```
