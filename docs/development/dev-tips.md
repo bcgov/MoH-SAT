@@ -28,8 +28,8 @@ _Receive fax job status emails from the developer instance of Filescan Connect W
 Go to Setup > Email Services
 
 Open "FcEmailService" > click "New Email Address", and enter these valus:
-- Email Address Name: "FcEmailService"
-- Email Address: "FcEmailService"
+- Email Address Name: "FcEmailservice"
+- Email Address: "FcEmailservice"
 - Active: true
 - Context User: "User User" _(scratch org user)_
 - Accept Email From: _(empty)_
