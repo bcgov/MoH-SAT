@@ -5,7 +5,7 @@ _Creates a new build for the current package version number._
 
 Run this command on the branch being upgraded (e.g., `main` or `release/x.y.z`)
 ```
-$ ../MoH-SAT> sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15 -c
+$ sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15 -c
 ```
 When finished, a new package version ID for the new build is inserted in sfdx-project.json. Commit and push the sfdx-project.json to the remote branch.
 
@@ -16,27 +16,27 @@ Perform any manual pre-deployment tasks necessary.
 
 Deploy package dependencies in source control.
 ```
-$ ../MoH-SAT> sfdx force:source:deploy -p dev-app-pre -u <sandbox>
+$ sfdx force:source:deploy -p dev-app-pre -u <sandbox>
 ```
 
 Install package version.
 ```
-$ ../MoH-SAT> sfdx force:package:install -p 04t... -u <sandbox> -b 15 -w 15
+$ sfdx force:package:install -p 04t... -u <sandbox> -b 15 -w 15
 ```
 
 Re-deploy objects and queues in package.
 ```
-$ ../MoH-SAT> sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u <sandbox> -w 15
+$ sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u <sandbox> -w 15
 ```
 
 Deploy unpackaged metadata. 
 ```
-$ ../MoH-SAT> sfdx force:source:deploy -p dev-app-post -u <sandbox>
+$ sfdx force:source:deploy -p dev-app-post -u <sandbox>
 ```
 
 Deploy destructive changes. Remove `-o` parameter if deploying to production. 
 ```
-$ ../MoH-SAT> sfdx force:mdapi:deploy -d destructiveChanges -u <sandbox> -o -g -l RunLocalTests -w 15
+$ sfdx force:mdapi:deploy -d destructiveChanges -u <sandbox> -o -g -l RunLocalTests -w 15
 ```
 
 Perform any manual post-deployment tasks necessary.
@@ -45,7 +45,7 @@ Perform any manual post-deployment tasks necessary.
 ### Pre Deployment
 Run this command to mark a package version build as "released" which is required when installing a package to production.
 ```
-$ ../MoH-SAT> sfdx force:package:version:promote -p 04t... -v <devhub>
+$ sfdx force:package:version:promote -p 04t... -v <devhub>
 ```
 
 ### Post Deployment
@@ -84,12 +84,12 @@ Occasionally, Sfdx Auth Urls can expire in which case a repo Admin must udpate t
 
 Authorize local Salesforce CLI with production or a release sandox. Replace "my_alias" with your own. This step can be skipped if CLI is already authorized.
 ```
-$ ../MoH-SAT> sfdx force:auth:web:login -r <my url for production or sandbox> -a my_alias
+$ sfdx force:auth:web:login -r <my url for production or sandbox> -a my_alias
 ```
 
 Display org details in verbose mode.
 ```
-$ ../MoH-SAT> sfdx force:org:display -r my_alias --verbose
+$ sfdx force:org:display -r my_alias --verbose
 
 KEY              VALUE
 ───────────────  ──────────────────────────────
