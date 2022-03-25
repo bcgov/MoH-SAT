@@ -74,8 +74,7 @@ This is typically done immediately after a production deployment to ensure new d
 ## Github Administration
 
 ### Authentication to release environments
-:warning: **DO NOT USE SFDX AUTH URL FOR A PRODUCTION USER WITH SYSTEM ADMINISTRATOR
- RIGHTS.**
+:warning: **DO NOT USE SFDX AUTH URLS FOR A PRODUCTION USER WITH SYSTEM ADMINISTRATOR RIGHTS.**
 
 Github Actions use Sfdx Auth Url in order to connect to:
 - the devhub org for requesting scratch orgs (for pull request build checks), and
@@ -108,5 +107,4 @@ In the list of Repository Secrets, click "Update" on the SALESFORCE_*_AUTH entry
 
 Paste the copied Sfdx Auth Url value in the text box and click "Update secret".
 
-:warning: **DO NOT USE SFDX AUTH URL FOR A PRODUCTION USER WITH SYSTEM ADMINISTRATOR
- RIGHTS.**
+:warning: **DO NOT USE SFDX AUTH URLS FOR A PRODUCTION USER WITH SYSTEM ADMINISTRATOR RIGHTS.**
