@@ -113,10 +113,10 @@ export default class PharmanetApprovalHistory extends LightningElement {
     let log = logs[key];
     let logMessage = '';
 
-    if (log.Code__c != 200 || log.Code__c != 201){
-      logMessage = log.Type__c == 'SA Approval Update Request' ? 'Failed update ' : 'Failed termination ';  
-    } else {
+    if (log.Code__c == 200 || log.Code__c == 201){
       logMessage = log.Type__c == 'SA Approval Update Request' ? 'Updated on ' : 'Terminated on ';
+    } else {
+      logMessage = log.Type__c == 'SA Approval Update Request' ? 'Failed update ' : 'Failed termination ';  
     }
     logMessage += log.Timestamp__c.slice(0,10);
 
