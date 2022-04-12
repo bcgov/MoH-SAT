@@ -83,8 +83,6 @@ public with sharing class ExternalCommitteeAlert {
 
     public static OrgWideEmailAddress mockOrgWideEmailAddress(){
         OrgWideEmailAddress owea = new OrgWideEmailAddress();
-        owea.Address = 'noreply@domain.com';
-        owea.DisplayName = 'Special Authority';
         return owea;
     }
 }
