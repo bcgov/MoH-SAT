@@ -45,3 +45,4 @@ You can now use that alias and generate the JKS file.  It will ask you for the p
 `keytool -importkeystore -srckeystore <your cert file name here>.pfx -destkeystore keystorefile.jks -srcstoretype pkcs12 -deststoretype jks -destalias <name_your_certificate_here> -srcalias MyCertificateAlias`
 
 This will generate a file called `keystorefile.jks`.
+
