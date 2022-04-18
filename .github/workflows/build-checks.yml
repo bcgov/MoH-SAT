@@ -14,11 +14,11 @@ jobs:
 
     - uses: actions/setup-node@v1
       with:
-        node-version: '16.x'
+        node-version: '12.x'
 
     - name: Install Salesforce CLI
       run: |
-        npm install sfdx-cli@latest
+        npm install sfdx-cli@7.96.1
         node_modules/sfdx-cli/bin/run --version
         node_modules/sfdx-cli/bin/run plugins --core
 
