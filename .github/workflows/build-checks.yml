@@ -14,11 +14,11 @@ jobs:
 
     - uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '16.x'
 
     - name: Install Salesforce CLI
       run: |
-        npm install sfdx-cli
+        npm install sfdx-cli@latest
         node_modules/sfdx-cli/bin/run --version
         node_modules/sfdx-cli/bin/run plugins --core
 
@@ -28,7 +28,7 @@ jobs:
         node_modules/sfdx-cli/bin/run auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
 
     - name: Define CI org
-      run: node_modules/sfdx-cli/bin/run force:source:deploy --sourcepath force-app/main/default --wait 100 --targetusername "ciorg" -d 1
+      run: node_modules/sfdx-cli/bin/run force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Deploy source
       run: node_modules/sfdx-cli/bin/run force:source:push -u ciorg
