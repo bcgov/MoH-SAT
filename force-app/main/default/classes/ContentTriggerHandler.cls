@@ -19,7 +19,7 @@ public without sharing class ContentTriggerHandler {
       newDist.PreferencesNotifyOnVisit = false;
       newDist.PreferencesAllowViewInBrowser = true;
       newDist.PreferencesAllowOriginalDownload = true;
-      System.debug('createContentDistribution created');
+      System.debug( 'createContentDistribution created' );
       return newDist;
     }
 }
