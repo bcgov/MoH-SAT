@@ -43,7 +43,7 @@ public with sharing class ExternalCommitteeAlert {
         return [
             SELECT Id, CaseNumber, External_Committee__c
             FROM Case
-            WHERE External_Committee__c = :externalCommitteeId
+            WHERE External_Committee__c = : externalCommitteeId
         ];
     }
 
@@ -51,7 +51,7 @@ public with sharing class ExternalCommitteeAlert {
         return [
             SELECT Id, Name, Agenda__c, External_Committee_Type__c, EC_To_Account__c
             FROM External_Committee__c
-            WHERE Id = :externalCommitteeId
+            WHERE Id = : externalCommitteeId
         ];
     }
 
