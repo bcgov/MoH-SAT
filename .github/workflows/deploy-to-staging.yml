@@ -41,5 +41,5 @@ jobs:
     - name: Deploy Source in dev-app-post
       run: sfdx force:source:deploy -p dev-app-post -u SAT-STAGING -w 15
 
-    - name: Deploy destructive changes
-      run: sdfx force:mdapi:deploy -d destructiveChanges -u SAT-STAGING -o -g -l RunLocalTests -w 15
+#    - name: Deploy destructive changes
+#      run: sdfx force:mdapi:deploy -d destructiveChanges -u SAT-STAGING -o -g -l RunLocalTests -w 15
