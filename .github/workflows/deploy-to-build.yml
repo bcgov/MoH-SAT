@@ -29,16 +29,16 @@ jobs:
       run: rm -f ./sfdxurl.txt
 
     - name: Deploy Source in dev-app-pre
-      run: sfdx force:source:deploy -p dev-app-pre -u SAT-BUILD -w 15
+      run: sfdx force:source:deploy -p dev-app-pre -u SAT-BUILD -w 15 -l RunLocalTests
 
     - name: Install version ID
       run: sfdx force:package:install --package "${{ github.event.inputs.package }}" -u SAT-BUILD -b 15 -w 15 --noprompt --wait 10
 
     - name: Re-deploy metadata
-      run: sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u SAT-BUILD -w 15
+      run: sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u SAT-BUILD -w 15 -l RunLocalTests
 
     - name: Deploy Source in dev-app-post
-      run: sfdx force:source:deploy -p dev-app-post -u SAT-BUILD -w 15
+      run: sfdx force:source:deploy -p dev-app-post -u SAT-BUILD -w 15 -l RunLocalTests
 
-    - name: Deploy destructive changes
-      run: sfdx force:mdapi:deploy -d destructiveChanges -u SAT-BUILD -o -g -l RunLocalTests -w 15
+#    - name: Deploy destructive changes
+#      run: sfdx force:mdapi:deploy -d destructiveChanges -u SAT-BUILD -o -g -l RunLocalTests -w 15
