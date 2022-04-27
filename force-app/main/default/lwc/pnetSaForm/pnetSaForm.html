@@ -56,6 +56,12 @@
                     </lightning-combobox>
                 </div>
                 <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="text" label="RDP Code" value={_record.rdpFormatted} data-field="rdpFormatted" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <lightning-input type="text" label="DIN/PIN" value={_record.din} data-field="din" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
                     <lightning-input type="text" label="Justification Codes" value={_record.justificationCodes} data-field="justificationCodes" disabled={formDisabled} onchange={handleFormChange}></lightning-input>
                 </div>
                 <div class="slds-col slds-size_1-of-2">
