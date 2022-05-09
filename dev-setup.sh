@@ -58,7 +58,11 @@ dx force:data:record:update -u $alias -s Organization -w "Name='Special Authorit
 dx force:data:record:update -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
 
 echo "Uploading source code..."
-dx force:source:push -u $alias 
+sfdx force:source:deploy -p dev-app-pre -u $alias
+sfdx force:source:deploy -p force-app -u $alias
+sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u $alias -w 15
+sfdx force:source:deploy -p dev-app-post -u $alias
+# dx force:source:push -u $alias 
 
 echo "Assigning permissions..."
 dx force:user:permset:assign -u $alias -n SA_Administrator
