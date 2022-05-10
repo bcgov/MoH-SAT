@@ -8,10 +8,6 @@
     <picklistValues>
         <picklist>Diagnosis_HIBC_Manual__c</picklist>
         <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Patient missed a fill and is within 21 days from expiry in PharmaNet</fullName>
             <default>false</default>
         </values>
@@ -110,7 +106,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Smoking cessation</fullName>
+            <fullName>NRT</fullName>
             <default>false</default>
         </values>
         <values>
@@ -200,6 +196,28 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>HIBC_Error_Report_Picklist__c</picklist>
+        <values>
+            <fullName>HIBC Error Report Queue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Hold_Reason__c</picklist>
+        <values>
+            <fullName>Hold_for_Collaboration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pause_Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting_for_Call_Back</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>Fax</fullName>
@@ -217,7 +235,7 @@
     <picklistValues>
         <picklist>Patient_Override_Reason__c</picklist>
         <values>
-            <fullName>Deceased</fullName>
+            <fullName>Invalid PHN</fullName>
             <default>false</default>
         </values>
         <values>
@@ -229,35 +247,15 @@
             <default>true</default>
         </values>
         <values>
-            <fullName>Not Found</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Out of Province PHN</fullName>
+            <fullName>Patient name does not match PHN</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>Prescriber_Override_Reason__c</picklist>
         <values>
-            <fullName>Inactive</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Missing</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>None</fullName>
             <default>true</default>
-        </values>
-        <values>
-            <fullName>Not Found</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Provider Not Provided</fullName>
-            <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
@@ -274,6 +272,9 @@
             <fullName>Medium</fullName>
             <default>true</default>
         </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
     </picklistValues>
     <picklistValues>
         <picklist>Request_Type__c</picklist>
@@ -309,5 +310,12 @@
             <fullName>Renewal</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Switch biologic</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
     </picklistValues>
 </RecordType>

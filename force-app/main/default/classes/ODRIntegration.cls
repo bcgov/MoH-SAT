@@ -4,7 +4,7 @@ public with sharing class ODRIntegration {
     // LWC Path
     @AuraEnabled(cacheable=true)
     public static Patient verifyPatientInformationx(Id recordId) {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(recordId).build();
 
         // TODO: dmlUpdate
         return verifyPatientInformation(sar);
@@ -146,12 +146,7 @@ public with sharing class ODRIntegration {
             // Sometimes this is empty!
             if (!providers.isEmpty()) {
                 p = providers[0];
-                if (p.status == 'P') {
-                    // Practising
-                    p.verified = true;
-                } else {
-                    p.verified = true;
-                }
+                p.verified = p.status == 'P';
             } else {
                 // Invalid Provider
                 p = new Provider();
@@ -175,53 +170,10 @@ public with sharing class ODRIntegration {
         System.debug('verifyCollegeInformation');
         System.debug(recordId);
 
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(recordId);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(recordId).build();
         Provider p = getProviderWithRecordId(recordId, sar.saCase.Provider__r.Provider_Identifier__c, sar.saCase.Provider__r.Provider_Type__c);
         System.debug('saarr');
         return p;
-    }
-
-    public static List<SAApprovalRequest> getSAApprovalRequests(SpecialAuthorityRequest sar) {
-        List<SAApprovalRequest> saarList = new List<SAApprovalRequest>();
-
-        if (sar.drug != null && sar.drug.Drug_Templates__r != null) {
-          for (Drug_Template__c drugTemplate : sar.drug.Drug_Templates__r){
-              SAApprovalRequest sarBody = new SAApprovalRequest();
-              sarBody.requestUUID = getUUIDString();
-              sarBody.clientName = 'SpecAuth';
-              sarBody.userid = getUserIdentifier();
-              sarBody.saRecord.phn = sar.saCase.Patient_Identifier__c;
-
-              if (sar.saCase.Effective_Date__c != null) {
-                  sarBody.saRecord.effectiveDate = formatToODRDate(sar.saCase.Effective_Date__c); // Effective Date 3000/01/01
-              }
-              
-              Date terminationDate = sar.saCase.Termination_Date__c != null ? 
-                sar.saCase.Termination_Date__c :
-                calculateTerminationDate(
-                    sar.saCase.Effective_Date__c, 
-                    Integer.valueOf(drugTemplate.Duration__c), 
-                    drugTemplate.Duration_Unit__c
-                );
-
-              sarBody.saRecord.terminationDate =  formatToODRDate(terminationDate);
-
-              sarBody.saRecord.specAuthType = drugTemplate.SA_Type__c;
-              sarBody.saRecord.saRequester.practId    = sar.saCase.Provider__r.Provider_Identifier__c; // 0A0P1
-              sarBody.saRecord.saRequester.practIdRef = getPractitionerCode(sar.saCase.Provider__r.Provider_Type__c);
-              sarBody.saRecord.maxDaysSupply = Integer.valueOf(drugtemplate.Days_Supply__c);
-              sarBody.saRecord.maxPricePct = drugtemplate.Price_Percent__c;
-              sarBody.saRecord.excludedPlans = drugtemplate.Excluded_Plans__c?.split(';');
-              sarBody.saRecord.justificationCodes = drugtemplate.Justification_Codes__c?.split(';');
-              
-              String dinOrRdp = drugtemplate.Pharmanet_Code__c?.replaceAll('[^0-9]+', '');
-              sarBody.saRecord.specialItem.rdp = drugTemplate.Key_Type__c == 'RDP' ? dinOrRdp : null;
-              sarBody.saRecord.specialItem.din = drugTemplate.Key_Type__c == 'DIN' ? dinOrRdp : null;
-              
-              saarList.add(sarBody);
-          }
-        }
-        return saarList;
     }
 
     public static Date calculateTerminationDate(Date startDate, Integer duration, String durationUnit) {
@@ -232,11 +184,11 @@ public with sharing class ODRIntegration {
         } else if (durationUnit.equalsIgnoreCase('End of year')) {
             terminationDate = Date.newInstance(terminationDate.year(), 12, 31);
         } else if (durationUnit.equalsIgnoreCase('Days')) {
-            terminationDate = terminationDate.addDays(duration);
+            terminationDate = terminationDate.addDays(duration).addDays(1);
         } else if (durationUnit.equalsIgnoreCase('Months')) {
-            terminationDate = terminationDate.addMonths(duration);
+            terminationDate = terminationDate.addMonths(duration).addDays(1);
         } else if (durationUnit.equalsIgnoreCase('Years')) {
-            terminationDate = terminationDate.addYears(duration);
+            terminationDate = terminationDate.addYears(duration).addDays(1);
         }
 
         return terminationDate;
@@ -265,6 +217,30 @@ public with sharing class ODRIntegration {
                 practIdCode = '94';
             } when 'Out of province provider' {
                 practIdCode = '81';
+            } when 'Speech and Hearing Professional' {
+                practIdCode = '92';
+            } when 'OOP Provider - Saskatchewan' {
+                practIdCode = '71';
+            } when 'OOP Provider - Manitoba' {
+                practIdCode = '06';
+            } when 'OOP Provider - Ontario' {
+                practIdCode = '01';
+            } when 'OOP Provider - Quebec' {
+                practIdCode = '51';
+            } when 'OOP Provider - Newfoundland and Labrador' {
+                practIdCode = '11';
+            } when 'OOP Provider - New Brunswick' {
+                practIdCode = '41';
+            } when 'OOP Provider - Nova Scotia' {
+                practIdCode = '31';
+            } when 'OOP Provider - PEI' {
+                practIdCode = '21';
+            } when 'OOP Provider - Northwest Territories' {
+                practIdCode = 'A1';
+            } when 'OOP Provider- Yukon' {
+                practIdCode = 'B1';
+            } when 'OOP Provider - Nunavit' {
+                practIdCode = 'C1';
             }
         }
         return practIdCode;
@@ -306,6 +282,46 @@ public with sharing class ODRIntegration {
         return saaResponse;
     }
 
+    public static SAApprovalUpdateRequestResponse putSAApprovalUpdate(Id caseId, SAApprovalUpdateRequest saaUpdateRequest) {
+        saaUpdateRequest.requestUUID = OdrIntegration.getUUIDString();
+        saaUpdateRequest.clientName = 'SpecAuth';
+        saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
+        
+        // If terminate, supress nulls.
+        CalloutResponse calloutResponseObject;
+        if (saaUpdateRequest.updateType == 'T') {
+            calloutResponseObject = sendRequestAndReturnBody(
+                    caseId, 
+                    'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
+                    null,
+                    'PUT', 
+                    JSON.serialize(saaUpdateRequest, true), 
+                    'SA Approval Terminate Request'
+                );
+        } else {
+            calloutResponseObject = sendRequestAndReturnBody(
+                    caseId, 
+                    'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
+                    null,
+                    'PUT', 
+                    JSON.serialize(saaUpdateRequest, true), 
+                    'SA Approval Update Request'
+                );
+        }
+
+        SAApprovalUpdateRequestResponse saaUpdateResponse;
+
+        if (calloutResponseObject.errorCode == 200 || calloutResponseObject.errorCode == 201) {
+            String resBody = calloutResponseObject.response;
+            saaUpdateResponse = (SAApprovalUpdateRequestResponse) JSON.deserialize(resBody, SAApprovalUpdateRequestResponse.class);
+        } else {
+            saaUpdateResponse = new SAApprovalUpdateRequestResponse();
+            saaUpdateResponse.error = calloutResponseObject;
+        }
+
+        return saaUpdateResponse;
+    }
+
     @AuraEnabled
     public static BenefitsResponse fetchBenefits(Id recordId) {
         System.debug('Fetch Benefits');
@@ -337,24 +353,21 @@ public with sharing class ODRIntegration {
         return bres;
     }
 
-    @AuraEnabled
-    public static SAApprovalHistoryResponse fetchSAApprovalHistoryx(String phn, String page, String count, List<Integer> dinList) {
-        System.debug('Fetch Data');
-        System.debug(page);
-        System.debug(count);
+    @AuraEnabled(cacheable=true)
+    public static SAApprovalHistoryResponse fetchSAApprovalHistoryByCase(Id recordId) {
+        return fetchSAApprovalHistory(getPatientIdentifier(recordId));
+    }
 
-        System.debug(dinList);
-
+    @AuraEnabled(cacheable=true)
+    public static SAApprovalHistoryResponse fetchSAApprovalHistory(String phn) {
         SAApprovalHistoryResponse sar = null;
 
         String queryParams = '?clientName=SpecAuth';
         queryParams += '&requestUUID=' + getUUIDString();
         queryParams += '&userid=' + getUserIdentifier();
         queryParams += '&phn=' + phn;
-        System.debug(queryParams);
-        // TODO?
-        // queryParams += '&startDate=2001-01-01';
-        // queryParams += '&endDate=2020-01-01';
+        queryParams += '&startDate=1990-01-01';
+        
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(null,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
                                                                          queryParams,
@@ -363,19 +376,13 @@ public with sharing class ODRIntegration {
                                                                          'SA Approval History');
 
         if (calloutResponseObject.errorCode != 200) {
-            // ERROR
             sar = new SAApprovalHistoryResponse();
             sar.error = calloutResponseObject;
         } else {
             String resBody = calloutResponseObject.response;
-            // for (Integer i = 0; i < resBody.length(); i=i+300) {
-            //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
-            //     System.debug(resBody.substring(i,iEffectiveEnd));
-            // }
             sar = (SAApprovalHistoryResponse) JSON.deserialize(resBody, SAApprovalHistoryResponse.class);
         }
-        System.debug(sar);
-
+        
         return sar;
     }
 
@@ -398,7 +405,7 @@ public with sharing class ODRIntegration {
         }
         System.debug(queryParams);
         // TODO?
-        // queryParams += '&startDate=2001-01-01';
+        queryParams += '&startDate=1990-01-01';
         // queryParams += '&endDate=2020-01-01';
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
@@ -425,43 +432,36 @@ public with sharing class ODRIntegration {
     }
 
     @AuraEnabled
-    public static SAApprovalHistoryResponse fetchSAApprovalHistory(Id recordId, String page, String count) {
-        System.debug('Fetch Data');
-        System.debug(page);
-        System.debug(count);
+    public static Map<String, Integration_Log__c> fetchIntegrationLogs(String phn, String[] keys){
 
-        SAApprovalHistoryResponse sar = null;
-
-        String queryParams = '?clientName=SpecAuth';
-        queryParams += '&requestUUID=' + getUUIDString();
-        queryParams += '&userid=' + getUserIdentifier();
-        queryParams += '&phn=' + getPatientIdentifier(recordId);
-        System.debug(queryParams);
-        // TODO?
-        // queryParams += '&startDate=2001-01-01';
-        // queryParams += '&endDate=2020-01-01';
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                                         queryParams,
-                                                                         'GET',
-                                                                         null,
-                                                                         'SA Approval History');
-
-        if (calloutResponseObject.errorCode != 200) {
-            // ERROR
-            sar = new SAApprovalHistoryResponse();
-            sar.error = calloutResponseObject;
-        } else {
-            String resBody = calloutResponseObject.response;
-            // for (Integer i = 0; i < resBody.length(); i=i+300) {
-            //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
-            //     System.debug(resBody.substring(i,iEffectiveEnd));
-            // }
-            sar = (SAApprovalHistoryResponse) JSON.deserialize(resBody, SAApprovalHistoryResponse.class);
+        Id patientId = getPatientId(phn);
+        if(patientId == null){
+            return new Map<String, Integration_Log__c>();
         }
-        System.debug(sar);
 
-        return sar;
+        List<Integration_Log__c> logs = [SELECT Id, Name, Code__c, Type__c, Key__c, Timestamp__c, Patient__c
+                                            FROM Integration_Log__c
+                                            WHERE (Type__c = 'SA Approval Update Request' OR Type__c = 'SA Approval Terminate Request') 
+                                            AND Patient__c = :patientId
+                                            AND Key__c IN :keys
+                                            ORDER BY Key__c ASC, Timestamp__c ASC];
+
+        Map<String, Integration_Log__c> mostRecentLogByKey = new Map<String, Integration_Log__c>();        
+        for (Integration_Log__c log : logs) {
+            mostRecentLogByKey.put(log.Key__c, log);
+        }
+
+        return mostRecentLogByKey;
+    }
+
+    public static Id getPatientId (String phn){
+        try {
+            Account patient = [SELECT Id, Patient_Identifier__pc FROM Account WHERE Patient_Identifier__pc = :phn];
+            return patient.Id;
+        } catch(Exception e){
+            return null;
+        }
+        
     }
 
     public static void updateCasePusedToPNet(Id caseId) {
@@ -471,6 +471,7 @@ public with sharing class ODRIntegration {
         update c;
     }
 
+    @AuraEnabled
     public static String getPatientIdentifier(Id recordId) {
         Case c = [select Id, patient_identifier__c FROM case WHERE Id =:recordId];
         return c.patient_identifier__c;
@@ -508,10 +509,31 @@ public with sharing class ODRIntegration {
         req.setEndpoint(uri);
         req.setMethod(method);
         
-        // If post, construct postBody
+        System.debug(methodBody);
+        
+        // If POST, construct postBody
         if (method == 'POST') {
             req.setBody(methodBody);
         }
+
+        // If PUT, construct postBody and create key for Integration Log.
+        String integrationLogKey = '';
+        Id accountId;
+        if (method == 'PUT') {
+            req.setBody(methodBody);
+            SAApprovalUpdateRequest saApprovalUpdateRequestObj = (SAApprovalUpdateRequest) JSON.deserialize(methodBody, SAApprovalUpdateRequest.class);
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.phn;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.specialItem.din;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.specialItem.rdp;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.specAuthType;
+            integrationLogKey += saApprovalUpdateRequestObj.saRecordId.effectiveDate.replace('/', '');
+            Account patient = [SELECT Id, Patient_Identifier__pc FROM Account WHERE Patient_Identifier__pc = :saApprovalUpdateRequestObj.saRecordId.phn];
+            accountId = patient.Id;
+            System.debug(integrationLogKey);
+        }
+
+        
+        
         Http http = new Http();
         CalloutResponse resObject = new CalloutResponse();
         try {
@@ -527,7 +549,9 @@ public with sharing class ODRIntegration {
                 loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                        message__c='Success',
                                                        caseId__c=recordId,
-                                                       type__c=integrationName));
+                                                       type__c=integrationName,
+                                                       key__c=integrationLogKey,
+                                                       patient__c=accountId));
                 EventBus.publish(loggingEvents);
                 return resObject;
             } else {
@@ -554,7 +578,9 @@ public with sharing class ODRIntegration {
                     loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                         message__c=resObject.errorMessage,
                                                         caseId__c=recordId,
-                                                        type__c=integrationName));
+                                                        type__c=integrationName,
+                                                        key__c=integrationLogKey,
+                                                        patient__c=accountId));
                     EventBus.publish(loggingEvents);
                     System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
                 } else {
@@ -565,7 +591,9 @@ public with sharing class ODRIntegration {
                     loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                         message__c=resObject.errorMessage,
                                                         caseId__c=recordId,
-                                                        type__c=integrationName));
+                                                        type__c=integrationName,
+                                                        key__c=integrationLogKey,
+                                                        patient__c=accountId));
                     EventBus.publish(loggingEvents);
                 }
             }
@@ -577,7 +605,9 @@ public with sharing class ODRIntegration {
             loggingEvents.add(new Logging_Event__e(code__c=resObject.errorCode,
                                                    message__c=resObject.errorMessage,
                                                    caseId__c=recordId,
-                                                   type__c=integrationName));
+                                                   type__c=integrationName,
+                                                   key__c=integrationLogKey,
+                                                   patient__c=accountId));
             EventBus.publish(loggingEvents);
             System.debug('API Error: ' + resObject.errorCode + ' ' + resObject.errorMessage);
         }

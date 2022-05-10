@@ -4,10 +4,12 @@
     <columns>CASES.CASE_NUMBER</columns>
     <columns>Patient_Identifier__c</columns>
     <columns>Provider__c</columns>
+    <columns>DEC__c</columns>
     <columns>Drug_Name__c</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
-    <columns>OWNER_NAME</columns>
+    <columns>CASES.ORIGIN</columns>
+    <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
@@ -20,4 +22,7 @@
         <value>1</value>
     </filters>
     <label>All Closed SA Cases</label>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
 </ListView>

@@ -8,8 +8,30 @@
             options={options}
             onchange={handleChange} ></lightning-combobox>
     <br>
-    <!-- TODO: Enable only when status is it's been sent to Pharmanet -->
-    <lightning-button disabled={isDisabled} label="Generate PDF" title="Non-primary action" onclick={generatePDF} class="slds-m-left_none"></lightning-button>
-    <lightning-button if:false={isFaxDisabled} disabled={isDisabled} label="Send Fax" title="Non-primary action" onclick={sendFax} class="slds-m-left_small"></lightning-button>
+    <div class="slds-grid slds-gutters">
+      <div class="slds-col slds-size_1-of-2">
+        <lightning-button 
+          disabled={isDisabled} 
+          label="Generate PDF" 
+          title="Non-primary action" 
+          onclick={generatePDF}
+          class="slds-m-right_xx-small"></lightning-button>
+        <lightning-button 
+          disabled={isDisabled} 
+          variant="brand" label="Send Fax" 
+          title="Fax" 
+          onclick={sendFax}
+          class="slds-m-right_xx-small"></lightning-button>
+      </div>
+      <div class="slds-col slds-size_1-of-2 slds-text-align_left">
+        <template if:true={faxSentDate}>
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Fax Sent Date:</label>
+            <lightning-formatted-date-time value={faxSentDate} time-zone="PST"></lightning-formatted-date-time>
+          </div>
+        </template>
+      </div>
+      
+    </div>
   </lightning-card>
 </template>

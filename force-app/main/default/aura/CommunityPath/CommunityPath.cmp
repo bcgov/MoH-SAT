@@ -1,0 +1,10 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes, force:hasRecordId" access="global" >
+    
+    <aura:attribute name="variant" type="String" default="non-linear"/>
+    <aura:attribute name="hideUpdateButton" type="Boolean" default="false"/>
+    <lightning:path aura:id="path" recordId="{!v.recordId}"
+        variant="{!v.variant}"
+        hideUpdateButton="{!v.hideUpdateButton}"
+        onselect="{!c.handleSelect}"
+    />
+</aura:component>

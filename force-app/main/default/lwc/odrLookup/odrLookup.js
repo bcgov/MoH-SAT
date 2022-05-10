@@ -30,6 +30,15 @@ export default class OdrLookup extends LightningElement {
         this.patientOverrideReason = this.patientResult?.overrideReason;
     }
 
+    toggleShowSubmitter(event) {
+        this.showSubmitter = event.target.checked;
+
+        if (this.showSubmitter == false) {
+            this.submitterResult = null;
+            this.submitter = null;
+        }
+    }
+
     @api
     validate() {
         const allowNext = this.isPrescriberValid() && this.isPatientValid() && this.isSubmitterValid();

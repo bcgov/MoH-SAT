@@ -7,12 +7,17 @@
             </p>
             <p class="slds-m-vertical_xx-small">Run adjudication rules.</p>
             <div class="slds-m-vertical_xx-small">
-                <lightning-button
-                    icon-name="action:fallback" 
-                    label="Adjudicate" 
-                    onclick={handleAdjudicate} 
-                    variant="brand">
-                </lightning-button>
+                <lightning-button-group>
+                    <lightning-button
+                        icon-name="action:fallback" 
+                        label="Adjudicate" 
+                        onclick={handleAdjudicate} 
+                        variant="brand">
+                    </lightning-button>
+                    <lightning-button-menu alternative-text="Show menu" menu-alignment="right">
+                        <lightning-menu-item label="Adjudicate with assignment rules." onclick={handleAdjudicateWithAssignment}></lightning-menu-item>
+                      </lightning-button-menu>
+                </lightning-button-group>
             </div>
         </div>
     </lightning-card>

@@ -12,6 +12,8 @@ trigger LoggingTrigger on Logging_Event__e (after insert) {
           Message__c = event.message__c,
           SA_Request__c = event.caseId__c,
           Type__c = event.type__c,
+          Key__c = event.key__c,
+          Patient__c = event.patient__c,
           Timestamp__c  = Datetime.now()
       );
       logs.add(integrationLogObject);

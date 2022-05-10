@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <name>Change_Case_Owner_Button</name>
+        <label>Change Case Owner Button</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <actionName>QueueOwnerSetter</actionName>
+        <actionType>apex</actionType>
+        <inputParameters>
+            <name>caseId</name>
+            <value>
+                <elementReference>Case.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>queueName</name>
+            <value>
+                <stringValue>HIBC_Error_Report_Queue</stringValue>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>51.0</apiVersion>
+    <dynamicChoiceSets>
+        <name>MovecasetoHIBCerrorqueue</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>HIBC_Error_Report_Picklist__c</picklistField>
+        <picklistObject>Case</picklistObject>
+    </dynamicChoiceSets>
+    <interviewLabel>Change Case Owner HIBC Error Report Queue {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Change Case Owner HIBC Error Report Queue</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Change_case_owner</name>
+        <label>Change case owner</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Change_Case_Owner_Button</targetReference>
+        </connector>
+        <fields>
+            <name>Move_to_HIBC_Error_Report</name>
+            <fieldText>&lt;p&gt;Do you wish to move your case to the HIBC Error Report Queue?&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Yes</name>
+            <dataType>Boolean</dataType>
+            <defaultValue>
+                <booleanValue>false</booleanValue>
+            </defaultValue>
+            <fieldText>Yes</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Change_case_owner</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Case</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Case</objectType>
+    </variables>
+</Flow>

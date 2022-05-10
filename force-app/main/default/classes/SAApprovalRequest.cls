@@ -11,6 +11,7 @@ public class SAApprovalRequest {
     public class SARequester {
         @AuraEnabled public String practIdRef {get;set;}
         @AuraEnabled public String practId {get;set;}
+        @AuraEnabled public String decCode {get;set;}
     }
 
     public class SpecialItem {

@@ -1,12 +1,13 @@
-import { LightningElement, api, track } from 'lwc';
-import getTemplates from '@salesforce/apex/FolderUtility.getTemplates';
-import sendFax from '@salesforce/apex/InterfaxIntegration.sendFax';
-import getFaxOutboundStatus from '@salesforce/apex/InterfaxIntegration.getFaxOutboundStatus';
-import updateCaseFaxSent from '@salesforce/apex/InterfaxIntegration.updateCaseFaxSent';
-import getProviderFaxNumber from '@salesforce/apex/InterfaxIntegration.getProviderFaxNumber';
-import storeFaxLogIntegration from '@salesforce/apex/InterfaxIntegration.storeFaxLogIntegration';
+import { LightningElement, api, track ,wire } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import faxDisabled from '@salesforce/customPermission/Disable_Fax';
+import getTemplates from '@salesforce/apex/FolderUtility.getTemplates';
+import sendFax from '@salesforce/apex/FaxService.sendFax';
+
+const FIELDS = [
+  'Case.Fax_Sent_Date__c',
+  'Case.Provider_Fax__c'
+];
 
 export default class FaxTemplateChooser extends LightningElement {
   @api recordId;
@@ -17,9 +18,20 @@ export default class FaxTemplateChooser extends LightningElement {
   faxNumber = '';
   options = [ ];
 
+  @wire(getRecord, { recordId: '$recordId', fields: FIELDS })
+  record;
+  
+  get faxSentDate() {
+    return this.record.data ? this.record.data.fields.Fax_Sent_Date__c.value : null;
+  }
+
+  get providerFax() {
+    return this.record.data ? this.record.data.fields.Provider_Fax__c.value : null;
+  }
+  
   @track error;
   async connectedCallback() {
-    getTemplates({recordId: this.recordId})
+    getTemplates()
     .then(data => {
       this.options = data.map(item => {
         return {
@@ -28,12 +40,42 @@ export default class FaxTemplateChooser extends LightningElement {
         }
       });
     });
-    this.faxNumber = await getProviderFaxNumber({recordId: this.recordId});
+  }
+  async sendFax(){
+    let success = true;
+      try {
+        await sendFax({
+          caseId:this.recordId,
+          templateId:this.value
+        });
+        debugger;
+        this.showSuccess(`Fax sent to Accuroute for ${this.providerFax}`);
+      } 
+      catch (error) {
+        this.showError(error.body.message);
+        success = false;
+    }
+
+    return success;
+}
+
+  showSuccess(message) {
+        this.showToast('Success', message, 'success');
   }
 
-  get isFaxDisabled() {
-    return this.isDisabled || faxDisabled;
+  showError(message) {
+      this.showToast('Error', message, 'error');
   }
+
+  showToast(title, message, variant) {
+      this.dispatchEvent(new ShowToastEvent({
+          title: title,
+          message: message,
+          mode: "sticky",
+          variant: variant
+      }));
+  }
+  
 
   handleChange(event) {
     this.value = event.detail.value;
@@ -43,71 +85,5 @@ export default class FaxTemplateChooser extends LightningElement {
 
   generatePDF(event) {
     window.open('/apex/PDFGenerator?id=' + this.recordId + '&templateId=' + this.value)
-  }
-
-  async sendFax() {
-    this.isDisabled = true;
-    // Check if fax number exists
-    if (this.faxNumber != '' && this.faxNumber != null) {
-      console.log("SENDING FAX", this.recordId, this.value, this.faxNumber);
-      // let faxNumber = "00999999900000000";
-      let faxId = await sendFax({
-        recordId: this.recordId,
-        faxNumber: this.faxNumber,
-        templateId: this.value,
-        integrationName: '7a'
-      });
-
-      console.log("faxId:", faxId);
-      if (faxId.includes('ERROR')) {
-        this.dispatchEvent(new ShowToastEvent({
-          title: 'Fax',
-          message: 'Error sending fax:' + faxId,
-          mode: "dismissable",
-          variant: "error"
-        }));
-        this.isDisabled = false;
-      } else {
-        this.dispatchEvent(new ShowToastEvent({
-          title: 'Fax',
-          message: 'Fax is successfully submitted in the queue' + '(faxid: ' + faxId + '): https//secure.interfax.net/',
-          mode: "dismissable",
-          variant: "success"
-        }));
-        let self = this;
-        setTimeout(function () { self.checkFaxStatus(faxId, self.recordId, self, this.faxNumber) }, 5000);
-      }
-    } else {
-      this.isDisabled = false;
-      this.dispatchEvent(new ShowToastEvent({
-        title: 'Fax',
-        message: 'Please provide provider\'s fax #',
-        mode: "dismissable",
-        variant: "error"
-      }));
-    }
-  }
-
-  async checkFaxStatus(faxId, recordId, self, faxNumber) {
-    console.log("Checking fax status");
-    let faxStatus = await getFaxOutboundStatus({
-      recordId: recordId,
-      faxId: String(faxId),
-      integrationName: '7b'
-    });
-    console.log("faxStatus:", faxStatus);
-    if (faxStatus.status == 0) {
-      self.isDisabled = false;
-      this.dispatchEvent(new ShowToastEvent({
-        title: 'Fax',
-        message: 'Fax sent to: ' + faxNumber,
-        mode: "dismissable",
-        variant: "success"
-      }));
-      updateCaseFaxSent({caseId: recordId});
-      storeFaxLogIntegration({caseId: recordId, template: this.templateName});
-    } else {
-      setTimeout(function () { self.checkFaxStatus(faxId, recordId, self, faxNumber) }, 5000);
-    }
   }
 }

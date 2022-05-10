@@ -4,15 +4,15 @@ import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.g
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
-  { label: 'Date Dispensed', fieldName: 'dateDispensed', type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'Name', fieldName: 'genericName', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Strength', fieldName: 'drugStrength', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Direction', fieldName: 'directions', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Date Dispensed', fieldName: 'dateDispensed', initialWidth: 120, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Name', fieldName: 'genericName', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
+  { label: 'Strength', fieldName: 'drugStrength', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
+  { label: 'Direction', fieldName: 'directions', type: 'text',initialWidth: 120,  wrapText: true, hideDefaultActions: true },
   { label: 'Quantity', fieldName: 'quantity', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
   { label: 'Days Last Filled', fieldName: 'daysSince', hideDefaultActions: true },
-  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
   { label: 'SA Applied', fieldName: 'saTypeApplied', wrapText: true, hideDefaultActions: true },
   { label: 'Plan Code', fieldName: 'planCode', wrapText: true, hideDefaultActions: true },
   { label: 'Claimed amount', fieldName: 'claimAmount', wrapText: true, hideDefaultActions: true },
@@ -148,42 +148,43 @@ export default class PharmanetHistory extends LightningElement {
           this.completeAndNoResults = false;
           this.hasResults = true;
           let dataArray = [];
+          let i = 0;
           records.forEach(record => {
             let item = {};
 
+            item['key'] = i++;
             item['rxNumber'] = record.rxNumber;
             item['quantity'] = record.quantity;
             item['refills'] = record.refills;
-            item['dispensingPharmacyName'] = record.dispensingPharmacy.pharmacyId
-              + ", " + record.dispensingPharmacy.name
-              + ", T:" + record.dispensingPharmacy.phoneNumber
-              + ", F:" + record.dispensingPharmacy.faxNumber;
             item['dateDispensed'] = record.dateDispensed;
             item['dinpin'] = record.dinpin;
             item['genericName'] = record.genericName;
             item['drugStrength'] = record.drugStrength;
             item['directions'] = record.directions;
             item['daysSupply'] = record.daysSupply;
-            const dd = new Date(record.dateDispensed).getTime();
-            const today = new Date().getTime();
-            if (dd > 0) {
-              item['daysSince'] = Math.floor((today - dd) / (1000 * 3600 * 24));
-            } else {
-              item['daysSince'] = '';
+            item['daysSince'] = record.daysSinceLastFill;
+
+            if (record.dispensingPharmacy) {
+              item['dispensingPharmacyName'] = record.dispensingPharmacy.pharmacyId
+                + ", " + record.dispensingPharmacy.name
+                + ", T:" + record.dispensingPharmacy.phoneNumber
+                + ", F:" + record.dispensingPharmacy.faxNumber;
             }
 
-            // Claim
+            if (record.claimHistory) {
             item['saTypeApplied'] = record.claimHistory.saTypeApplied;
             item['acceptedAmount'] = record.claimHistory.acceptedAmount;
             item['claimAmount'] = record.claimHistory.claimAmount;
             item['planCode'] = record.claimHistory.planCode;
-            // cost claimed  N/A
-            // cost accepted N/A
+            }
+
+            if (record.prescriberInfo) {
             item['prescriberName'] = record.prescriberInfo.name + ", "
             + ", " + record.prescriberInfo.licenseNo
             + ", T:" + record.prescriberInfo.phoneNumber
             + ", F:" + record.prescriberInfo.faxNumber;
-            // benefit plan N/A
+            }
+
             item['rxStatus'] = record.rxStatus;
             dataArray.push(item);
           });

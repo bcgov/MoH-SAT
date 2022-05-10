@@ -1,37 +1,44 @@
-<img src="/resource/Logo"/><br><br>
+<img src="/resource/Logo"/> <p style="font-size:20px;">  Original Case #:  {!IF(ISBLANK(Case.Parent), Case.CaseNumber , "")} {!Case.Parent}</p>
+<p style="font-size:16px;">  {!IF(ISBLANK(Case.Parent),"","Related Case #: ")}  {!IF(ISBLANK(Case.Parent), "", Case.CaseNumber)}</p>
 
-Response to Request for Special Authority Coverage <p style="font-size:25px;"> (Case # {!Case.CaseNumber}) </p> received on {!Case.CreatedDate} <br><br>
+Response to Request for Special Authority Coverage received on {!Case.CreatedDate} <br><br>
 
 <table style="width: 100%">
 <tr>
-<th>Patient Information</th>
-<th>Prescriber Information</th>
+<th align= "left">Patient Information</th>
+<th align= "left">{!IF(ISBLANK(Case.DEC__c),"Prescriber Information","DEC Information")}</th>
 </tr>
 <tr>
 <td>Name: {!Case.Patient_Name_Template__c}</td>
-<td>Name: {!Case.Prescriber_Name_Template__c}</td>
+<td width="60%">Name: {!Case.Prescriber_Name_Template__c}</td>
 </tr>
 <tr>
 <td>PHN: {!Case.Patient_Identifier_Template__c}</td>
-<td>College ID: {!Case.Prescriber_Identifier_Template__c}</td>
+<td>{!IF(ISBLANK(Case.DEC__c),"College ID","DEC ID")}: {!Case.Prescriber_Identifier_Template__c} {!IF(ISBLANK(Case.DEC__c),"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Type: ", " ")} {!Case.Prescriber_Type_Template__c}</td>
 </tr>
 <tr>
 <td>Date of Birth: {!Case.Patient_DOB_Template__c}</td>
-<td>Fax: {!Case.Provider_Fax__c}</td>
+<td>Fax: {!Case.Prescriber_Fax_Template__c}</td>
+</tr>
+<tr>
+<td></td>
+<td>{!IF(ISBLANK(Case.Submitter__c),"","Submitter: ")} {!Case.Submitter__c}</td>
 </tr>
 </table>
 <br>
 
 <strong>Medication Requested</strong><br>
-Drug Name: {!Case.Drug_Name__c}<br>
+Drug Name: {!Case.Drug_Name__c}  {!Case.Strength__c}<br>
 Description: {!Case.Description}<br><br><br><br>
 
-<center><strong>CURRENTLY APPROVED</strong><br>
-<center><strong>Rationale:</strong><br>
-{!Case.Rationale__c}<br><br></center>
+<center><strong>CURRENTLY APPROVED</strong></center><br>
+Effective Date: {!Case.Effective_Date__c}<br>
+Termination Date: {!Case.Termination_Date__c}<br><br>
+<strong>PharmaCare comments:</strong><br>
+{!Case.Rationale__c}<br><br>
 
 Special Authority BC Ministry of Health<br>
-Response provided on {!Case.ClosedDate}<br><br><br><br><br><br>
+Response provided on {!Case.ClosedDate}<br><br><br>
 
 <footer><small>*Coverage is subject to patient eligibility, annual deductibles, and the Low Cost Alternative pricing program (if applicable).</small><br><br>
 

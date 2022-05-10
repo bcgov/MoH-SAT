@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Prescriber_Fax_Template__c</fullName>
-    <description>used for fax template</description>
+    <description>Used for fax template.
+Get the Provider or DEC Fax number depending on whether the DEC field is blank.</description>
     <externalId>false</externalId>
-    <formula>Provider__r.Fax</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <formula>IF(ISBLANK ( Provider_Fax__c),
+(IF(ISBLANK( DEC__c ), Provider_Fax__c , DEC__r.Fax )),
+Provider_Fax__c)</formula>
     <label>Prescriber Fax (Template)</label>
     <required>false</required>
     <trackHistory>false</trackHistory>

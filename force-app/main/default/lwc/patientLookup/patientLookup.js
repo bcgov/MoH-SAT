@@ -56,7 +56,7 @@ export default class PatientLookup extends LightningElement {
     }
 
     get patientId() {
-        return this.template.querySelector('.patientIdentifier').value;
+        return this.template.querySelector('.patientIdentifier').value?.trim();
     }
 
     get patientRecordTypeId() {
@@ -67,7 +67,7 @@ export default class PatientLookup extends LightningElement {
         this.form[event.currentTarget.dataset.field] = event.target.value?.trim();
         this.publishChange(this.form);
         
-        this.template.querySelector('.btn-lookup').disabled = !this.patientId
+        this.template.querySelector('.btn-lookup').disabled = !this.patientId;
     }
 
     async handleLookup() {
@@ -157,10 +157,16 @@ export default class PatientLookup extends LightningElement {
                 FirstName: form.FirstName,
                 LastName: form.LastName,
                 Patient_is_Deceased__c: form.Deceased,
-                PersonBirthdate: form.PersonBirthdate            
+                PersonBirthdate: this.nullifyInvalidSfdcDate(form.PersonBirthdate)            
             }
         }
         this.dispatchEvent(new CustomEvent('result', { detail: result }));
+    }
+
+    nullifyInvalidSfdcDate(sfdcDate) {
+        if (!sfdcDate) return null; 
+        var year = new Date(sfdcDate).getUTCFullYear();
+        return year < 1700 || year > 4000 ? null : sfdcDate;
     }
 
     get noRecord() {

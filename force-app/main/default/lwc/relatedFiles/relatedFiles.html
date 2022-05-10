@@ -1,0 +1,33 @@
+<template>
+  <div class="slds-m-vertical_large">
+      <template if:false={hasRecords}>
+          <div class="slds-box slds-text-align_center">
+              <div class="slds-m-vertical_small">
+                  <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" variant="border-filled"></lightning-icon></p>
+                  <p>Empty.</p>
+              </div>
+          </div>
+      </template>
+      <div if:true={hasRecords} class="slds-m-vertical_large">
+          <lightning-datatable
+            key-field="Id"
+            data={records.data}
+            columns={columns}
+            onrowaction={handleRowAction}
+            hide-checkbox-column
+        >
+        </lightning-datatable>
+      </div>
+      <div class="slds-m-vertical_large">
+        <lightning-file-upload
+            label="Upload file(s)"
+            name="fileUploader"
+            record-id={recordId}
+            onuploadfinished={handleUploadFinished}
+            multiple
+            class="slds-align_absolute-center"
+    >
+    </lightning-file-upload>
+      </div>
+  </div>
+</template>

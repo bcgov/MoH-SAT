@@ -1,6 +1,22 @@
 @isTest
 public class ODRIntegrationTest {
     @isTest
+    public static void verifyPatientInformationxTest() {
+      Drug__c drug = TestFactory.newDrug('Drug 1');
+      insert drug;
+
+      Account patient = TestFactory.newPatient('Patient 1');
+      Account provider = TestFactory.newProvider('Provider 1');
+      insert new Account[] { patient, provider };
+
+      Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+      insert saCase;
+
+      Patient p = ODRIntegration.verifyPatientInformationx(saCase.Id);
+      System.assertEquals(false, p.verified);
+    }
+    
+    @isTest
     public static void calloutTesting() {
         Integer RESPONSE_CODE = 200;
 
@@ -34,16 +50,87 @@ public class ODRIntegrationTest {
                                                                                         null,
                                                                                         '3A');
         System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
+
+        calloutResponseObject = ODRIntegration.sendRequestAndReturnBody(saCase.Id,
+                                                                        'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                        queryParams,
+                                                                        'POST',
+                                                                        '{}',
+                                                                        '3A');
+        System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
+
+        RESPONSE_CODE = 201;
+        fakeResponse = new ODRCalloutMock(RESPONSE_CODE,
+                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                          '',
+                                          null);
+        Test.setMock(HttpCalloutMock.class, fakeResponse);
+        calloutResponseObject = ODRIntegration.sendRequestAndReturnBody(saCase.Id,
+                                                                        'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                        queryParams,
+                                                                        'POST',
+                                                                        '{}',
+                                                                        '3A');
+        System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
+
+        RESPONSE_CODE = 400;
+        fakeResponse = new ODRCalloutMock(RESPONSE_CODE,
+                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                          '',
+                                          null);
+        Test.setMock(HttpCalloutMock.class, fakeResponse);
+        calloutResponseObject = ODRIntegration.sendRequestAndReturnBody(saCase.Id,
+                                                                        'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                        queryParams,
+                                                                        'POST',
+                                                                        '{}',
+                                                                        '3A');
+        System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
+
+        RESPONSE_CODE = 400;
+        fakeResponse = new ODRCalloutMock(RESPONSE_CODE,
+                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                          '{}',
+                                          null);
+        Test.setMock(HttpCalloutMock.class, fakeResponse);
+        calloutResponseObject = ODRIntegration.sendRequestAndReturnBody(saCase.Id,
+                                                                        'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                        queryParams,
+                                                                        'POST',
+                                                                        '{}',
+                                                                        '3A');
+        System.assertEquals(RESPONSE_CODE, calloutResponseObject.errorCode, 'Response code should be ' + RESPONSE_CODE);
+
+        // Used to catch the catch code
+        try {
+          RESPONSE_CODE = 400;
+          fakeResponse = new ODRCalloutMock(RESPONSE_CODE,
+                                            'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                            '{}',
+                                            null);
+          Test.setMock(HttpCalloutMock.class, fakeResponse);
+          calloutResponseObject = ODRIntegration.sendRequestAndReturnBody(saCase.Id,
+                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                          queryParams,
+                                                                          'POST',
+                                                                          '{}',
+                                                                          '3A');
+        } catch (JSONException e) {
+          System.debug('Caught the JSON Exception.');
+        }
+
         Test.stopTest();
     }
     @isTest static void verifyPatientInformationTest() {
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(
             new Drug__c(),
             new Account(),
             new Account(),
+            new Account(),
             new Case(),
-            new List<Request_Detail__c>()
-        );
+            new List<Request_Detail__c>(),
+            new List<ContentVersion>()
+        ).build();
         Patient p = ODRIntegration.verifyPatientInformation(sar);
         System.assertEquals(false, p.verified);
     }
@@ -66,7 +153,7 @@ public class ODRIntegrationTest {
         ODRIntegration.updateCasePHNStatus(saCase.Id, true);
 
         Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         Test.stopTest();
 
         System.assertEquals(true, sar.saCase.patient_validated__c);
@@ -76,33 +163,40 @@ public class ODRIntegrationTest {
 
         System.assertEquals(true, p != null);
     }
-    @isTest static void getSAApprovalRequestsTest() {
-        Drug__c drug = TestFactory.newDrug('Drug 1');
-        insert drug;
+    
+    @isTest
+    public static void calculateTerminationDateTest() {
+      Date startDate;
+      Integer duration;
+      String durationUnit;
 
-        Drug_Template__c drugTemplate = TestFactory.newDrugTemplate(drug, 'Drug Template');
-        drugTemplate.Pharmanet_Code__c = '9901-9901';
-        insert drugTemplate;
+      Date dateRecieved = ODRIntegration.calculateTerminationDate(startDate, duration, durationUnit);
+      System.assertEquals(Date.newInstance(3000, 1, 1), dateRecieved);
 
-        Account patient = TestFactory.newPatient('Patient 1');
-        Account provider = TestFactory.newProvider('Provider 1');
-        insert new Account[] { patient, provider };
+      startDate = Date.parse('2021-01-01');
+      Date startDateModified = Date.parse('2021-01-03');
 
-        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
-        insert saCase;
+      durationUnit = 'End of year';
+      Date endOfYear = ODRIntegration.calculateTerminationDate(startDate, duration, durationUnit);
+      System.assertEquals(Date.newInstance(startDate.year(), 12, 31), endOfYear);
 
-        List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
-        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question1', 'response1'));
-        requestDetails.add(TestFactory.newRequestDetail(saCase, 'question2', 'response2'));
-        insert requestDetails;
+      duration = 1;
 
-        Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
-        List<SAApprovalRequest> saarList = ODRIntegration.getSAApprovalRequests(sar);
-        Test.stopTest();
+      durationUnit = 'Days';
+      dateRecieved = ODRIntegration.calculateTerminationDate(startDate, duration, durationUnit);
+      System.assertEquals(startDateModified, dateRecieved);
 
-        System.assertEquals(saarList.size(), 1);
+      durationUnit = 'Months';
+      startDateModified = Date.parse('2021-02-02');
+      dateRecieved = ODRIntegration.calculateTerminationDate(startDate, duration, durationUnit);
+      System.assertEquals(startDateModified, dateRecieved);
+
+      durationUnit = 'Years';
+      startDateModified = Date.parse('2022-01-02');
+      dateRecieved = ODRIntegration.calculateTerminationDate(startDate, duration, durationUnit);
+      System.assertEquals(startDateModified, dateRecieved);
     }
+
     @isTest static void getPractitionerCodeTest() {
         String Physician = ODRIntegration.getPractitionerCode('Physician');
         System.assertEquals(Physician, '91');
@@ -124,6 +218,31 @@ public class ODRIntegrationTest {
         System.assertEquals(Optometrist, '94');
         String oop = ODRIntegration.getPractitionerCode('Out of province provider');
         System.assertEquals(oop, '81');
+        String speech = ODRIntegration.getPractitionerCode('Speech and Hearing Professional');
+        System.assertEquals(speech, '92');
+        String oopS = ODRIntegration.getPractitionerCode('OOP Provider - Saskatchewan');
+        System.assertEquals(oopS, '71');
+        String oopM = ODRIntegration.getPractitionerCode('OOP Provider - Manitoba');
+        System.assertEquals(oopM, '06');
+        String oopO = ODRIntegration.getPractitionerCode('OOP Provider - Ontario');
+        System.assertEquals(oopO, '01');
+        String oopQ = ODRIntegration.getPractitionerCode('OOP Provider - Quebec');
+        System.assertEquals(oopQ, '51');
+        String oopN = ODRIntegration.getPractitionerCode('OOP Provider - Newfoundland and Labrador');
+        System.assertEquals(oopN, '11');
+        String oopNB = ODRIntegration.getPractitionerCode('OOP Provider - New Brunswick');
+        System.assertEquals(oopNB, '41');
+        String oopNV = ODRIntegration.getPractitionerCode('OOP Provider - Nova Scotia');
+        System.assertEquals(oopNV, '31');
+        String oopP = ODRIntegration.getPractitionerCode('OOP Provider - PEI');
+        System.assertEquals(oopP, '21');
+        String oopNo = ODRIntegration.getPractitionerCode('OOP Provider - Northwest Territories');
+        System.assertEquals(oopNo, 'A1');
+        String oopY = ODRIntegration.getPractitionerCode('OOP Provider- Yukon');
+        System.assertEquals(oopY, 'B1');
+        String oopNu = ODRIntegration.getPractitionerCode('OOP Provider - Nunavit');
+        System.assertEquals(oopNu, 'C1');
+
     }
     @isTest static void formatToODRDateTest() {
         Date theDate = Date.newInstance(1960, 2, 17);
@@ -149,7 +268,7 @@ public class ODRIntegrationTest {
         ODRIntegration.updateCasePusedToPNet(saCase.Id);
 
         Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         Test.stopTest();
 
         System.assertEquals(true, sar.saCase.Pushed_to_Pnet__c);
@@ -173,7 +292,7 @@ public class ODRIntegrationTest {
         String identifier = ODRIntegration.getPatientIdentifier(saCase.Id);
 
         Test.startTest();
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id);
+        SpecialAuthorityRequest sar = new SobjectSarBuilder(saCase.Id).build();
         Test.stopTest();
 
         System.assertEquals(identifier, sar.saCase.Contact.Account.Patient_Identifier__pc);
@@ -198,5 +317,20 @@ public class ODRIntegrationTest {
         insert myCase;
 
         System.assertEquals(true, myCase.Pushed_to_Pnet__c);
+    }
+    @isTest static void fetchIntegrationLogs() {
+        Account patient = TestFactory.newPatient('Patient 1');
+        insert patient;
+        String type = 'SA Approval Update Request';
+        String[] keys = new List<String>();
+        keys.add('abc123');
+
+        Integration_Log__c log = TestFactory.newIntegrationLog(patient.Id, type, keys[0]);
+        insert log;
+
+        Map<String, Integration_Log__c> m1 = ODRIntegration.fetchIntegrationLogs('000000000', keys);
+        Map<String, Integration_Log__c> m2 = ODRIntegration.fetchIntegrationLogs('222333444', keys);
+
+        System.assertEquals(new Map<String, Integration_Log__c>(), m1);
     }
 }

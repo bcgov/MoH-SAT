@@ -45,11 +45,14 @@
                 </div>
                 
                 <template if:false={hideRequestDetails}>
-                    <div class="slds-text-title_caps slds-m-vertical_medium slds-text-align_center">Request Details</div>
-    
-                    <div>
+                    <lightning-tabset>
+                      <lightning-tab label="Request Details">
                         <c-request-details record-id={c.Id} hide-qid-toggle={hideQidToggle}></c-request-details>
-                    </div>
+                      </lightning-tab>
+                      <lightning-tab label="Files">
+                        <c-related-files record-id={c.Id} hide-qid-toggle={hideQidToggle}></c-related-files>
+                      </lightning-tab>
+                    </lightning-tabset>
                 </template>
 
             </lightning-card>

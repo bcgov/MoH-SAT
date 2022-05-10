@@ -5,20 +5,21 @@
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
     <communityRoles>
         <customerUserRole/>
-        <employeeUserRole>Employee</employeeUserRole>
-        <partnerUserRole>Partner</partnerUserRole>
+        <employeeUserRole/>
+        <partnerUserRole/>
     </communityRoles>
     <disableReputationRecordConversations>false</disableReputationRecordConversations>
-    <emailSenderAddress>SASalesforceAdmin@gov.bc.ca</emailSenderAddress>
+    <emailSenderAddress>noreply@hlthsa.gov.bc.ca</emailSenderAddress>
     <emailSenderName>SSHIBC - Service Support HIBC</emailSenderName>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
     <enableDirectMessages>false</enableDirectMessages>
+    <enableExperienceBundleBasedSnaOverrideEnabled>true</enableExperienceBundleBasedSnaOverrideEnabled>
     <enableGuestChatter>false</enableGuestChatter>
     <enableGuestFileAccess>true</enableGuestFileAccess>
-    <enableGuestMemberVisibility>false</enableGuestMemberVisibility>
+    <enableGuestMemberVisibility>true</enableGuestMemberVisibility>
     <enableInvitation>false</enableInvitation>
     <enableKnowledgeable>false</enableKnowledgeable>
-    <enableMemberVisibility>false</enableMemberVisibility>
+    <enableMemberVisibility>true</enableMemberVisibility>
     <enableNicknameDisplay>false</enableNicknameDisplay>
     <enablePrivateMessages>false</enablePrivateMessages>
     <enableReputation>false</enableReputation>
@@ -32,13 +33,15 @@
     <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
     <networkMemberGroups>
         <permissionSet>HIBC_CCplus_Community_User_Permission</permissionSet>
+        <permissionSet>MoH_Standard_User</permissionSet>
         <profile>admin</profile>
-        <profile>service bc ccplus community users</profile>
         <profile>hibc ccplus community users</profile>
+        <profile>service bc ccplus community users</profile>
+        <profile>moh standard user</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
-        <forgotPasswordPageOverrideSetting>Designer</forgotPasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Standard</forgotPasswordPageOverrideSetting>
         <homePageOverrideSetting>Designer</homePageOverrideSetting>
         <loginPageOverrideSetting>Designer</loginPageOverrideSetting>
         <selfRegProfilePageOverrideSetting>Designer</selfRegProfilePageOverrideSetting>

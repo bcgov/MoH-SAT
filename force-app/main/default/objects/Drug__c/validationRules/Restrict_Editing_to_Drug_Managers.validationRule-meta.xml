@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Restrict_Editing_to_Drug_Managers</fullName>
+    <active>true</active>
+    <description>Allows only drug managers to edit drug records.</description>
+    <errorConditionFormula>AND($Permission.Drug_Manager = FALSE, NOT($Profile.Name = &quot;System Administrator&quot;))</errorConditionFormula>
+    <errorMessage>Insufficient access. Only Drug Managers can edit drug records.</errorMessage>
+</ValidationRule>

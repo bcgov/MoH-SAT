@@ -1,80 +1,91 @@
 <template>
     <lightning-card if:true={ready} title={title} icon-name={iconName} variant="narrow">
-        <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
-            <div class="slds-col slds-size-1_of_3">
-                <lightning-combobox 
-                    label={providerTypeLabel}
-                    options={providerTypeOptions}
-                    value={form.providerIdType}
-                    data-field="providerIdType"
-                    onchange={handleFormChange}
-                    class="providerIdType"
-                    required
-                ></lightning-combobox>
-            </div>
-            <div class="slds-col slds-size-1_of_3">
-                <lightning-input 
-                    type="text" 
-                    label={providerIdLabel}
-                    value={form.providerIdentifier}
-                    data-field="providerIdentifier"
-                    onchange={handleFormChange}
-                    class="providerIdentifier"
-                    required
-                ></lightning-input>
-            </div>
-            <div class="slds-col slds-size-1_of_3 slds-align-middle">
-                <lightning-button 
-                    variant="brand" 
-                    label="Lookup" 
-                    title="Lookup" 
-                    onclick={handleLookup}
-                    class="btn-lookup"
-                    disabled>
-                </lightning-button>
-            </div>
-        </div> 
-        <div if:true={form.verified} class="slds-grid slds-gutters">
-            <div class="slds-col slds-form-element">
-                <span class="slds-form-element__label">Status</span>
-                <div class="slds-form-element__control">
-                  <div class="slds-form-element__static"><span class="slds-text-title_bold"><span class={statusCss}>{form.statusHumanReadable}</span></span></div>
-                </div>
-            </div>
-            <div class="slds-col slds-form-element">
-                <span class="slds-form-element__label">Name</span>
-                <div class="slds-form-element__control">
-                  <div class="slds-form-element__static">{form.lastName}, {form.firstName}</div>
-                </div>
-            </div>
-            <div class="slds-col slds-form-element">
-                <span class="slds-form-element__label">Birthdate</span>
-                <div class="slds-form-element__control">
-                  <div class="slds-form-element__static"><lightning-formatted-date-time value={form.personBirthdate}></lightning-formatted-date-time></div>
-                </div>
-            </div>
+        <div slot="actions">
+            <lightning-input 
+                type="checkbox" 
+                label="DEC?" 
+                onchange={toggleDec} 
+                value={form.isDec}
+                data-field="isDec"></lightning-input>
         </div>
-        <div if:true={noRecord}>
-            <div class="slds-box slds-box_x-small slds-text-align_center">
-                <div class="slds-m-vertical_small">
-                    <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
-                    <p>No record found.</p>
+        <template if:true={showBody}>
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
+                <div class="slds-col slds-size-1_of_3">
+                    <lightning-combobox 
+                        label={providerTypeLabel}
+                        options={providerTypeOptions}
+                        value={form.providerIdType}
+                        data-field="providerIdType"
+                        onchange={handleFormChange}
+                        class="providerIdType"
+                        required
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size-1_of_3">
+                    <lightning-input 
+                        type="text" 
+                        label={providerIdLabel}
+                        value={form.providerIdentifier}
+                        data-field="providerIdentifier"
+                        onchange={handleFormChange}
+                        class="providerIdentifier"
+                        required
+                    ></lightning-input>
+                </div>
+                <div class="slds-col slds-size-1_of_3 slds-align-middle">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Lookup" 
+                        title="Lookup" 
+                        onclick={handleLookup}
+                        class="btn-lookup"
+                        disabled>
+                    </lightning-button>
+                </div>
+            </div> 
+            <div if:true={form.verified} class="slds-grid slds-gutters">
+                <div class="slds-col slds-form-element">
+                    <span class="slds-form-element__label">Status</span>
+                    <div class="slds-form-element__control">
+                      <div class="slds-form-element__static"><span class="slds-text-title_bold"><span class={statusCss}>{form.statusHumanReadable}</span></span></div>
+                    </div>
+                </div>
+                <div class="slds-col slds-form-element">
+                    <span class="slds-form-element__label">Name</span>
+                    <div class="slds-form-element__control">
+                      <div class="slds-form-element__static">{form.lastName}, {form.firstName}</div>
+                    </div>
+                </div>
+                <div class="slds-col slds-form-element">
+                    <span class="slds-form-element__label">Birthdate</span>
+                    <div class="slds-form-element__control">
+                      <div class="slds-form-element__static"><lightning-formatted-date-time value={form.personBirthdate}></lightning-formatted-date-time></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div if:false={hideOverride} class="slds-grid slds-gutters">
-            <div class="slds-col slds-size-1_of_3">
-                <lightning-combobox 
-                    label={providerOverrideReasonLabel}
-                    options={providerOverrideReasonOptions}
-                    value={form.overrideReason}
-                    data-field="overrideReason"
-                    onchange={handleFormChange}
-                ></lightning-combobox>
+            <div if:true={noRecord}>
+                <div class="slds-box slds-box_x-small slds-text-align_center">
+                    <div class="slds-m-vertical_small">
+                        <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                        <p>No record found.</p>
+                    </div>
+                </div>
             </div>
-            <div class="slds-col slds-size-2_of_3">
+            <div if:false={hideOverride} class="slds-grid slds-gutters">
+                <div class="slds-col slds-size-1_of_3">
+                    <lightning-combobox 
+                        label={providerOverrideReasonLabel}
+                        options={providerOverrideReasonOptions}
+                        value={form.overrideReason}
+                        data-field="overrideReason"
+                        onchange={handleFormChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="slds-col slds-size-2_of_3">
+                </div>
             </div>
-        </div>
+        </template>
+        
     </lightning-card>
 
 </template>

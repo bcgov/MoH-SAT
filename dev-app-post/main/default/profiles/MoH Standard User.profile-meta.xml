@@ -17,11 +17,6 @@
         <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
-        <application>standard__AppLauncher</application>
-        <default>false</default>
-        <visible>false</visible>
-    </applicationVisibilities>
-    <applicationVisibilities>
         <application>standard__Chatter</application>
         <default>false</default>
         <visible>false</visible>
@@ -77,6 +72,14 @@
         <visible>false</visible>
     </applicationVisibilities>
     <layoutAssignments>
+        <layout>Account-SA Account Layout</layout>
+        <recordType>Account.Business_Account</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-SA DEC Layout</layout>
+        <recordType>Account.DEC</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Adjudication_Criteria__c-Adjudication Criteria Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -85,6 +88,9 @@
     <layoutAssignments>
         <layout>Case-SA Request</layout>
         <recordType>Case.Special_Authority_Request</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-SA Contact Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Drug__c-Drug Layout</layout>
@@ -100,7 +106,29 @@
     <layoutAssignments>
         <layout>Request_Detail__c-Request Detail Layout</layout>
     </layoutAssignments>
-    <custom>true</custom>
+    <layoutAssignments>
+        <layout>Step_Action__c-Adjudication</layout>
+        <recordType>Step_Action__c.Adjudication</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Action__c-Owner Assignment</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Action__c-Owner Assignment</layout>
+        <recordType>Step_Action__c.Owner_Assignment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Action__c-Pharmanet Payload</layout>
+        <recordType>Step_Action__c.Pharmanet_Payload</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Criteria__c-Step Criteria Layout</layout>
+    </layoutAssignments>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Account.DEC</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>Case.Special_Authority_Request</recordType>
@@ -273,10 +301,6 @@
     <userPermissions>
         <enabled>false</enabled>
         <name>ChatterEditOwnRecordPost</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>false</enabled>
-        <name>ChatterFileLink</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
@@ -1110,4 +1134,11 @@
         <enabled>false</enabled>
         <name>ViewUserPII</name>
     </userPermissions>
+    <loginFlows>
+        <flow>Default_Login_Actions</flow>
+        <flowType>UI</flowType>
+        <friendlyName>User setup</friendlyName>
+        <uiLoginFlowType>VisualWorkflow</uiLoginFlowType>
+        <useLightningRuntime>false</useLightningRuntime>
+    </loginFlows>
 </Profile>

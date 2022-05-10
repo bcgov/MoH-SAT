@@ -1,35 +1,109 @@
 <template>
-    <template if:true={isString}>
-        <lightning-formatted-text value={record.String_Value__c}></lightning-formatted-text>
-    </template>
-    <template if:true={isDatetime}>
-        <lightning-formatted-date-time 
-            value={record.Datetime_Value__c}
-            month="long"
-            day="numeric"
-            year="numeric"
-            hour="numeric"
-            minute="numeric"
-            second="numeric"
-            time-zone={timezone}
-        ></lightning-formatted-date-time>
-    </template>
-    <template if:true={isDate}>
-        <lightning-formatted-date-time 
-            value={record.Date_Value__c}
-            month="long"
-            day="numeric"
-            year="numeric"
-            time-zone="UTC"
-        ></lightning-formatted-date-time>
-    </template>
-    <template if:true={isDecimal}>
-        <lightning-formatted-number 
-            value={record.Decimal_Value__c}
-            maximum-fraction-digits="9"
-        ></lightning-formatted-number>
-    </template>
-    <template if:true={isBoolean}>
-        <lightning-input type="checkbox" checked={record.Boolean_Value__c} disabled></lightning-input>
-    </template>
+    <div class="value-cell slds-grid slds-gutters">
+        <div class="controls slds-text-align_left">
+            <template if:true={showEdit}>
+                <lightning-button-icon
+                    icon-name="utility:edit"    
+                    variant="container" 
+                    alternative-text="edit" 
+                    title="Edit"
+                    size="x-small"
+                    onclick={editHandler}>
+                </lightning-button-icon>
+            </template>
+        </div>      
+
+        <div class="slds-col">
+            <template if:true={isViewing}>
+                <template if:true={isString}>
+                    <lightning-formatted-text value={value}></lightning-formatted-text>
+                    <template if:true={valueLabel}>
+                        <span class="slds-m-left_xx-small slds-text-color_weak">
+                            (<lightning-formatted-text value={valueLabel}></lightning-formatted-text>)
+                        </span>
+                    </template>
+                </template>
+                <template if:true={isDatetime}>
+                    <lightning-formatted-date-time 
+                        value={value}
+                        month="long"
+                        day="numeric"
+                        year="numeric"
+                        hour="numeric"
+                        minute="numeric"
+                        second="numeric"
+                        time-zone={timezone}
+                    ></lightning-formatted-date-time>
+                </template>
+                <template if:true={isDate}>
+                    <lightning-formatted-date-time 
+                        value={value}
+                        month="long"
+                        day="numeric"
+                        year="numeric"
+                        time-zone="UTC"
+                    ></lightning-formatted-date-time>
+                </template>
+                <template if:true={isDecimal}>
+                    <lightning-formatted-number 
+                        value={value}
+                        maximum-fraction-digits="9"
+                    ></lightning-formatted-number>
+                </template>
+                <template if:true={isBoolean}>
+                    <lightning-input type="checkbox" checked={value} disabled></lightning-input>
+                </template>
+            </template>
+            <template if:true={isEditing}>
+                <lightning-record-edit-form
+                    record-id={recordId}
+                    object-api-name="Request_Detail__c"
+                    onsubmit={submitHandler}
+                    onsuccess={successHandler}>
+                    <div class="slds-grid">
+                        <div class="slds-col">
+                            <lightning-messages></lightning-messages>
+            
+                            <template if:true={isString}>
+                                <lightning-input-field field-name="String_Value__c" variant="label-hidden"></lightning-input-field>
+                            </template>
+                            <template if:true={isDatetime}>
+                                <lightning-input-field field-name="Datetime_Value__c" variant="label-hidden"></lightning-input-field>
+                            </template>
+                            <template if:true={isDate}>
+                                <lightning-input-field field-name="Date_Value__c" variant="label-hidden"></lightning-input-field>
+                            </template>
+                            <template if:true={isDecimal}>
+                                <lightning-input-field field-name="Decimal_Value__c" variant="label-hidden"></lightning-input-field>
+                            </template>
+                            <template if:true={isBoolean}>
+                                <lightning-input-field field-name="Boolean_Value__c" variant="label-hidden"></lightning-input-field>
+                            </template>
+                        </div>
+                    
+                        <div class="slds-m-left_small">
+                            <lightning-button-icon
+                                icon-name="utility:check"    
+                                variant="container" 
+                                alternative-text="Save" 
+                                title="Save"
+                                size="x-small"
+                                type="submit">
+                            </lightning-button-icon>
+                            <lightning-button-icon
+                                icon-name="utility:close"    
+                                variant="container" 
+                                alternative-text="Cancel" 
+                                title="Cancel"
+                                size="x-small"
+                                type="reset"
+                                onclick={cancelHandler}>
+                            </lightning-button-icon>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+            </template>
+        </div>  
+    </div>
+    
 </template>

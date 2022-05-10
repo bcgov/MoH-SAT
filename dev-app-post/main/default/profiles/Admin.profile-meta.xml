@@ -15,14 +15,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>AdjudicationCriteria</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>AdjudicationCriteriaTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>AdjudicationService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -35,19 +27,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ApexBasedAdjudication</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>BenefitsResponse</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CriteriaBasedAdjudication</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CriteriaBasedAdjudicationTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -352,16 +332,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Drug__c.Adjudication_Strategy__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Drug__c.Apex_Class__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Drug__c.Auto_Adjudication_Requirements__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -387,11 +357,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Drug__c.Criteria_Logic__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Drug__c.Drug_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -403,11 +368,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Drug__c.Practitioner_Exemptions__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Drug__c.Special_Authority_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -460,6 +420,19 @@
         <field>Request_Detail__c.String_Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Keycloak_Roles__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <layoutAssignments>
+        <layout>Account-SA Account Layout</layout>
+        <recordType>Account.Business_Account</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-SA DEC Layout</layout>
+        <recordType>Account.DEC</recordType>
+    </layoutAssignments>
     <layoutAssignments>
         <layout>Adjudication_Criteria__c-Adjudication Criteria Layout</layout>
     </layoutAssignments>
@@ -469,6 +442,9 @@
     <layoutAssignments>
         <layout>Case-SA Request</layout>
         <recordType>Case.Special_Authority_Request</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-SA Contact Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Drug__c-Drug Layout</layout>
@@ -486,6 +462,24 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Request_Detail__c-Request Detail Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Action__c-Adjudication</layout>
+        <recordType>Step_Action__c.Adjudication</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Action__c-Owner Assignment</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Action__c-Owner Assignment</layout>
+        <recordType>Step_Action__c.Owner_Assignment</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Action__c-Pharmanet Payload</layout>
+        <recordType>Step_Action__c.Pharmanet_Payload</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Step_Criteria__c-Step Criteria Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -524,6 +518,11 @@
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Account.DEC</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <default>true</default>
         <recordType>Case.Special_Authority_Request</recordType>
         <visible>true</visible>
@@ -537,6 +536,21 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>PersonAccount.Provider</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Step_Action__c.Adjudication</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Step_Action__c.Owner_Assignment</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Step_Action__c.Pharmanet_Payload</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>

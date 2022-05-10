@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>MoH_Letterhead</letterhead>
+    <name>IBD DBAAC Template</name>
+    <style>freeForm</style>
+    <subject>IBD DBAAC - Inflammatory Bowel Disease Drug Benefit Adjudication Advisory Committee</subject>
+    <textOnly>Hello Doctors,
+
+This week&apos;s cases have been posted in the Portal for your review. Link to the Portal
+
+Meeting will be held on {!External_Committee__c.Start_Time__c}. Thank you to everyone who helped get these cases ready.
+
+Please click on Log In to enter your username and password to view your cases.
+
+DIAL IN:  1-888-952-9304
+
+PASSWORD:      467872
+
+{!External_Committee__c.Email_Message__c}
+
+{!External_Committee__c.Agenda__c}
+
+
+
+Thank you
+
+The Special Authority Team
+
+
+
+Special Authority respectfully acknowledges that the land on which we live and work is on the territory of the Coast Salish peoples-
+
+Lekwungen and W̱SÁNEĆ nations
+
+
+
+This email is intended only for the use of the individual or organization to whom it is addressed. It may contain information that is privileged or confidential. Any distribution, disclosure, copying, or other use by anyone else is strictly prohibited. If you have received this in error, please telephone or e-mail the sender immediately and delete the message.</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

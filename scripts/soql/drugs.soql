@@ -1,0 +1,4 @@
+select OwnerId, Approval_Details__c, Auto_Adjudication_Requirements__c, Auto_Push_to_Pharmanet__c, Auto_Validate_Patient__c, Auto_Validate_Provider__c, Brand_Drug_Name__c, CDEC_Recommendation__c, Criteria_Website__c, DBC_R_R__c, Drug_Code__c, Drug_Review_Results__c, Form__c, Health_Canada_monograph__c, PharmaNet_RDP_code__c, Pharmacist_Notes__c, Practitioner_Exemptions__c, Special_Notes__c, Strength__c, Tech_Sheet__c, Name
+from Drug__c
+where Drug_Code__c != null
+order by Drug_Code__c asc

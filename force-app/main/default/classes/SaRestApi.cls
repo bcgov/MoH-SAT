@@ -4,7 +4,7 @@ global with sharing class SaRestApi {
     global static void doPost() {
         RestRequest req = RestContext.request;
         
-        SpecialAuthorityRequest sar = SarBuilder.build(req.requestBody.toString());
+        SpecialAuthorityRequest sar = new JsonSarBuilder(req.requestBody.toString()).build();
         sar.save();
 
         Case c = [select Id, CaseNumber from Case where Id = :sar.saCase.Id];
@@ -46,7 +46,7 @@ global with sharing class SaRestApi {
 
     private static String postResponse(String caseNumber) {
         return String.format(
-            'Special Authority (SA) has received your request. Your reference number is {0}. ' + 
+            'Special Authority (SA) has received your request. Your Special Authority reference number is {0}. ' + 
             'The coverage decision will be sent to the fax number entered on the eForm. ' +
             'Patients can view the status of the SA request on their Health Gateway profile.', new String[] {
             caseNumber

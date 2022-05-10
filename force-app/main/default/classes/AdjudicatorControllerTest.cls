@@ -13,7 +13,7 @@ public with sharing class AdjudicatorControllerTest {
 
         try {
             Test.startTest();
-            AdjudicatorController.runAdjudicator(record.Id);
+            AdjudicatorController.runAdjudicator(record.Id, false);
             Test.stopTest();
             system.assert(true);
         } catch (Exception e) {
@@ -27,7 +27,7 @@ public with sharing class AdjudicatorControllerTest {
 
         try {
             Test.startTest();
-            AdjudicatorController.runAdjudicator(notACaseId);
+            AdjudicatorController.runAdjudicator(notACaseId, false);
             Test.stopTest();
             system.assert(false, 'An expected exception was not thrown.');
         } catch (Exception e) {

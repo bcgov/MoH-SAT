@@ -19,8 +19,11 @@ export default class ProviderLookup extends LightningElement {
     hideOverride = false;
 
     form = {
+        isDec: false,
         overrideReason: 'None'
     };
+
+    showBody = !this.form.isDec;
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
     accountObjInfo;
@@ -65,15 +68,23 @@ export default class ProviderLookup extends LightningElement {
     }
 
     get providerId() {
-        return this.template.querySelector('.providerIdentifier').value;
+        return this.template.querySelector('.providerIdentifier')?.value?.trim();
     }
 
     get providerIdType() {
-        return this.template.querySelector('.providerIdType').value;
+        return this.template.querySelector('.providerIdType')?.value?.trim();
     }
 
     get providerRecordTypeId() {
         return Object.values(this.accountObjInfo.data.recordTypeInfos).find(rti => rti.name=='Provider').recordTypeId;
+    }
+
+    toggleDec(event) {
+        this.form.isDec = event.target.checked;
+        this.form.overrideReason = this.form.isDec ? 'DEC' : 'None';
+        if (!this.form.isDec) this.resetForm();
+        this.showBody = !this.form.isDec;
+        this.publishChange(this.form);
     }
 
     handleFormChange(event) {
@@ -119,7 +130,7 @@ export default class ProviderLookup extends LightningElement {
                 Provider_Type__pc: this.form.providerIdType,
                 FirstName: form.firstName,
                 LastName: form.lastName,
-                PersonBirthdate: form.personBirthdate,
+                PersonBirthdate: this.nullifyInvalidSfdcDate(form.personBirthdate)
             }
         }
         this.dispatchEvent(new CustomEvent('result', { detail: result }));
@@ -129,6 +140,7 @@ export default class ProviderLookup extends LightningElement {
         this.form = {
             providerIdentifier: this.providerId,
             providerIdType: this.providerIdType,
+            isDec: false,
             overrideReason: 'None'
         }
     }
@@ -137,6 +149,12 @@ export default class ProviderLookup extends LightningElement {
         if (!odrDateStr) return null;
         var mdy = odrDateStr.split('/');
         return mdy[2] + '-' + mdy[0] + '-' + mdy[1];
+    }
+
+    nullifyInvalidSfdcDate(sfdcDate) {
+        if (!sfdcDate) return null; 
+        var year = new Date(sfdcDate).getUTCFullYear();
+        return year < 1700 || year > 4000 ? null : sfdcDate;
     }
 
     get statusCss() {

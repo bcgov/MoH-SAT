@@ -30,10 +30,14 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Drug_Website__c</field>
+                <field>Drug_Review_Results__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PharmaNet_RDP_code__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Drug_Code__c</field>
@@ -44,11 +48,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Auto_Adjudicated__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>DINs__c</field>
+                <field>Pharmacist_Notes__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -61,18 +61,36 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Approval_Details__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Criteria_Website__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Practitioner_Exemptions__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Special_Notes__c</field>
             </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Auto_Adjudication_Requirements__c</field>
+                <field>Health_Canada_monograph__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CDEC_Recommendation__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>DBC_R_R__c</field>
             </layoutItems>
         </layoutColumns>
-        <style>OneColumn</style>
+        <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -139,17 +157,11 @@
     </quickActionList>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
+        <fields>NAME</fields>
         <fields>Order__c</fields>
-        <fields>Object_Name__c</fields>
-        <fields>Field_Name__c</fields>
-        <fields>Question_ID__c</fields>
-        <fields>Operator__c</fields>
-        <fields>String_Value__c</fields>
-        <fields>Boolean_Value__c</fields>
-        <fields>Date_Value__c</fields>
-        <fields>Datetime_Value__c</fields>
-        <fields>Decimal_Value__c</fields>
-        <relatedList>Adjudication_Criteria__c.Drug__c</relatedList>
+        <fields>Always_Run__c</fields>
+        <fields>Criteria_Logic__c</fields>
+        <relatedList>Step__c.Drug__c</relatedList>
         <sortField>Order__c</sortField>
         <sortOrder>Asc</sortOrder>
     </relatedLists>
@@ -188,7 +200,10 @@
     <relatedLists>
         <fields>NAME</fields>
         <fields>Diagnosis__c</fields>
+        <fields>Hierarchy__c</fields>
         <relatedList>Diagnosis__c.Drug__c</relatedList>
+        <sortField>Hierarchy__c</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -196,7 +211,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h1f000000bKQe</masterLabel>
+        <masterLabel>00h0i000000je8w</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

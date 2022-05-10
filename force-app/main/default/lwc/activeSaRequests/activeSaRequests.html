@@ -1,0 +1,52 @@
+<template>
+    <template if:false={hasCases}>
+        <div class="slds-box slds-text-align_center">
+            <div class="slds-m-vertical_small">
+                <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+                <p>Empty.</p>
+            </div>
+        </div>
+    </template>
+    <template if:true={hasCases}>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-label="Active SA Requests">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th>Case #</th>
+                    <th>Status</th>
+                    <th>Drug Name</th>
+                    <th>Provider</th>
+                    <th>Termination Date</th>
+                    <th>Created Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={cases.data} for:item="c">
+                    <tr key={c.Id}>
+                        <td>
+                            <a href="javascript:void(0)" onclick={viewCase} data-case-id={c.Id}>{c.CaseNumber}</a>
+                        </td>
+                        <td>
+                            {c.Status}
+                        </td>
+                        <td>
+                            {c.Drug__r.Name}
+                        </td>
+                        <td>
+                            {c.Prescriber_Name_Template__c}
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time value={c.Termination_Date__c}></lightning-formatted-date-time>
+                        </td>
+                        <td>
+                            <lightning-formatted-date-time 
+                                value={c.CreatedDate}
+                                year="numeric" month="numeric" day="numeric" 
+                                hour="numeric" minute="numeric" hour12="true"
+                            ></lightning-formatted-date-time>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </template>
+</template>

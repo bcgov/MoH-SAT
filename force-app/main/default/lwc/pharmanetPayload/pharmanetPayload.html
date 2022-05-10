@@ -1,19 +1,17 @@
 <template>
   <lightning-card title="Pharmanet Payload" icon-name="custom:custom58">
-    <lightning-button-group slot="actions">
-      <lightning-button label="Submit All" onclick={handleSubmit} disabled={isDisabled} variant="brand"></lightning-button>
-      <lightning-button-menu alternative-text="Show menu" menu-alignment="right">
-        <lightning-menu-item label="Mark as Pushed to Pharmanet" onclick={markPushedToPnet} disabled={isDisabled}></lightning-menu-item>
-      </lightning-button-menu>
-    </lightning-button-group>
-
+    <lightning-button slot="actions" label="Submit All" onclick={handleSubmit} disabled={isDisabled} variant="brand"></lightning-button>
+    
     <template if:true={hasPnetSars}>
       <div class="slds-grid">
         <div class="slds-col">
           <lightning-input type="text" label="Patient" value={patientId} readonly></lightning-input>
         </div>
-        <div class="slds-col">
+        <div class="slds-col" if:true={hasPractitionerId}>
           <lightning-input type="text" label="Practitioner" value={practitionerId} readonly></lightning-input>
+        </div>
+        <div class="slds-col" if:true={decCode}>
+          <lightning-input type="text" label="DEC" value={decCode} readonly></lightning-input>
         </div>
       </div>
     
@@ -23,5 +21,10 @@
         </div>
       </template>
     </template>
+    <div class="slds-grid slds-grid_align-end">
+      <div class="slds-col">
+        <lightning-button label="Mark as Pushed to Pharmanet" onclick={markPushedToPnet} variant="brand-outline" disabled={isPushedToPnet}></lightning-button>
+      </div>
+    </div>
   </lightning-card>
 </template>

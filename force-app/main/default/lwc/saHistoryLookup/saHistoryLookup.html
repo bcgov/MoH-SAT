@@ -1,3 +1,4 @@
+<!-- sldsValidatorIgnore -->
 <template>
   <div class="slds-p-around_x-small slds-box_large">
     <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
@@ -23,34 +24,32 @@
       </div>
     </div>
     <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
-      <lightning-layout-item flexibility="auto" padding="slds-p-left_none horizontal-medium">
-        <lightning-combobox
-          name="count"
-          label="Filter by Product Health Category"
-          value={value}
-          placeholder="None"
-          options={categories}
-          onchange={handlephcFilterChange} >
-        </lightning-combobox>
-        <div class="slds-form-element">
-          <div class="slds-form-element__control">
-            <lightning-input type="text" label="Description:" value={descriptionFilter} onchange={handleDescriptionFilterChange}></lightning-input>
-          </div>
+      <div class="slds-col slds-m-left_x-small slds-m-top_x-small slds-text-title_caps">
+        <div if:true={patientDOB}>
+          <em>{patientName}</em> | {patientDOB}
         </div>
-      </lightning-layout-item>
+      </div>
+    </div>
+    <div class="slds-box slds-box_x-small slds-m-vertical_small">
+      <div class="slds-grid slds-gutters slds-grid_vertical-align-start fix-vertical-alignment">
+        <div class="slds-col slds-size_1-of-2">
+          <lightning-input type="text" label="Filter by RDP or DIN/PIN:" value={dinRdpFilter} onchange={handleDinRdpFilterChange}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+          <lightning-input type="text" label="Filter by Description:" value={descriptionFilter} onchange={handleDescriptionFilterChange}></lightning-input>
+        </div>
+      </div>
+    </div>
   </div>
-  &nbsp;
   <!-- IF RESULTS -->
   <div if:true={hasResults}>
     <lightning-datatable
             key-field="rxNumber"
             hide-checkbox-column
             data={data}
-            columns={columns}>
+            columns={columns}
+            onrowaction={handleRowAction}>
     </lightning-datatable>
-    <!-- <div class="page-info">
-      Total Records: {totalRecords}
-    </div> -->
   </div>
 
   <!-- NO RESULTS FOUND -->
@@ -62,6 +61,33 @@
         </div>
     </div>
   </lightning-card>
+
+  <!--DISPLAY UPDATE MODAL-->
+  <template if:true={openModal}>
+    <section
+            role="dialog"
+            tabindex="-1"
+            aria-labelledby="modal-heading-01"
+            aria-modal="true"
+            aria-describedby="modal-content-id-1"
+            class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeUpdateModal}>
+            <lightning-icon icon-name="utility:close"
+                alternative-text="close"
+                variant="inverse"
+                size="small" ></lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Update SA Record</h1>
+        </header>
+        <c-pnet-sa-form update record={selectedSARecord}></c-pnet-sa-form>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+  </template>
+  
 
   <!-- ERROR CASE -->
   <c-error-display if:true={isError} error={error}></c-error-display>

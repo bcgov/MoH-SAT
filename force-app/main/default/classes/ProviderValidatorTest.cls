@@ -2,24 +2,17 @@
 public class ProviderValidatorTest {
     @isTest
     public static void ProviderValidatorTest() {
-        Drug__c drug = TestFactory.newDrug('Drug 1');
-        drug.Adjudication_Strategy__c = 'Criteria';
-        drug.Criteria_Logic__c = 'AND(1, 2)';
-        insert drug;
+        SpecialAuthorityRequest sar = TestFactory.newSpecialAuthorityRequest();
 
-        Adjudication_Criteria__c ac1 = TestFactory.newCriteria(drug, 1, 'Case', 'Origin', null, 'equals', 'Fax');
-        Adjudication_Criteria__c ac2 = TestFactory.newCriteria(drug, 2, 'Case', 'Priority', null, 'equals', 'Medium');
-        insert new Adjudication_Criteria__c[] {ac1, ac2};
+        ProviderValidator action = new ProviderValidator();
+        action.mockResult = new Provider();
+        action.mockResult.verified = true;
+        
+        Test.startTest();
+        action.execute(sar, null);
+        Test.stopTest();
 
-        Case saCase = TestFactory.newCase(drug, 'Test case 1');
-        saCase.Origin = 'Fax';
-        saCase.Priority = 'Low';
-        saCase.Provider_Validated_Date__c = Datetime.now();
-        insert saCase;
-
-        ProviderValidator pvalidator = new ProviderValidator();
-
-        SpecialAuthorityRequest sar = SpecialAuthorityRequest.build(saCase.Id); 
-        pvalidator.execute(sar);
+        system.assertEquals(true, sar.saCase.Provider_Validated__c);
+        system.assert(null != sar.saCase.Provider_Validated_Date__c);
     }
 }
