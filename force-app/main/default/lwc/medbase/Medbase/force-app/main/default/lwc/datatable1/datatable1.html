@@ -1,0 +1,10 @@
+<template>
+    <h2> Drug Datatable</h2>
+    <template if:true={drugList}>
+        <lightning-datatable data={drugList} columns={columns} key-field="Id">
+        </lightning-datatable>
+    </template>
+    <template if:true={error}>
+        {error}
+    </template>
+</template>
