@@ -1,3 +1,10 @@
+/**
+ * @description       : 
+ * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+ * @group             : 
+ * @last modified on  : 05-30-2022
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+**/
 public with sharing class FcEmailService implements Messaging.InboundEmailHandler{
 
     public Messaging.InboundEmailResult handleInboundEmail(Messaging.inboundEmail email,Messaging.InboundEnvelope env){
@@ -38,9 +45,6 @@ public with sharing class FcEmailService implements Messaging.InboundEmailHandle
         em.Subject = mail.subject;
         em.Status = '3'; 
         insert em;
-        List<EmailMessage> msg=[SELECT ID, fromName,fromAddress, relatedToId from EmailMessage];
-        EmailMessage msgs=msg.isEmpty()?null:msg[0];
-        update msgs;
     }
 
     public String findValues(String source, String key) {
