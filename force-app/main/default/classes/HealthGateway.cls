@@ -12,7 +12,7 @@ global with sharing class HealthGateway {
         public String drugName { get; set; }
         public String referenceNumber { get; set; }
         public String requestStatus { get; set; }
-        public Datetime requestedDate { get; set; }
+        public Date requestedDate { get; set; }
         public Date effectiveDate { get; set; }
         public Date expiryDate { get; set; }
 
