@@ -17,5 +17,6 @@ public class PatientTest {
         name.declared = true;
         name.givenNames = new String[] {'fname1', 'fname2'};
         p.names.add(name);
+        
     }
 }
