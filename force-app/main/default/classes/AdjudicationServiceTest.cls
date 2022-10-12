@@ -29,7 +29,6 @@ public class AdjudicationServiceTest {
         SpecialAuthorityRequest sar = new SobjectSarBuilder(queryCase('Test case 1').Id).build();
         AdjudicationService.evaluate(sar.saCase.Id);   
     }
-
     private static Case queryCase(String subject) {
         return [
             select 
