@@ -15,7 +15,7 @@ help() {
 }
 
 verbose=true;
-duration=7;
+duration=15;
 alias='sat-dev';
 
 while getopts a:d: opt 
@@ -53,7 +53,7 @@ dx() {
 }
 
 echo "Creating scratch org, \"$alias\"..."
-dx force:org:create -v devhub -a $alias -f config/project-scratch-def.json -d $duration -s
+dx force:org:create -v devhub -a $alias -f config/project-scratch-def.json -d $duration -s release=Preview
 dx force:data:record:update -u $alias -s Organization -w "Name='Special Authority Scratch Org'" -v "TimeZoneSidKey='America/Los_Angeles'"
 dx force:data:record:update -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
 
