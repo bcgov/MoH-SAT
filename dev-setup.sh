@@ -15,7 +15,7 @@ help() {
 }
 
 verbose=true;
-duration=7;
+duration=15;
 alias='sat-dev';
 
 while getopts a:d: opt 
