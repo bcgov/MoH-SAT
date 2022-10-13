@@ -10,5 +10,4 @@ public with sharing class ActionResult {
     public Boolean getValidationResult(){
         return this.validationSuccessful;
     }
-
 }
