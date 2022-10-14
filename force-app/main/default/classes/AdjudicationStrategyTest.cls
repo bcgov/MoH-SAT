@@ -17,4 +17,5 @@ public class AdjudicationStrategyTest {
     private static Case queryCase(String subject) {
         return [select Id, Subject from Case where Subject = :subject limit 1][0];
     }
+    
 }
