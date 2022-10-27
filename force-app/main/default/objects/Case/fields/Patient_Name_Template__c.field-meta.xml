@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Patient_Name_Template__c</fullName>
+    <deprecated>false</deprecated>
     <description>used for fax template</description>
     <externalId>false</externalId>
-    <formula>Account.Person_Full_Name__c</formula>
+    <formula>Contact.FirstName + &apos; &apos; +  Contact.LastName</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Patient Name (Template)</label>
     <required>false</required>
