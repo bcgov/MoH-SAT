@@ -4,6 +4,8 @@ _Integrate your scratch org with test instances of ODR, EMPI, or Filescan Connec
 
 Download [moh_dev_certs.jks](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597).
 
+Go to Setup > Identity > Certificate and Key Management > Create a self-signed certificate `dev_cert` from Key 4096 and save.
+
 Go to Setup > Identity > Identity Provider > Enable. Choose `dev_cert` and save.
 
 Go to Setup > Certificate and Key Management > and click "Import from Keystore" 
@@ -12,13 +14,19 @@ Upload the jks file. Enter "JKS Password" listed in [moh-dev-certs.txt](https://
 
 Go to Setup > Named Credentials.
 
-Edit "EMPI" named credential and set its certificate to "EMPI". Save.
+Create new Legacy credential, "EMPI" named credential, 
+- URL: https://hiat3.hcim.ehealth.gov.bc.ca 
+- Certificate: "EMPI"
+- No Authentication needed and Save.
 
-Edit "FilescanConnectWs" named credential and set its certificate to "fcws". Save.
+Create new Legacy credential "FilescanConnectWs" named credential, 
+- URL: https://filescan-dev.hlth.gov.bc.ca
+- Certificate to "fcws". 
+- No Authentication needed and Save.
 
 Edit "ODR Credentials" named credential and edit as follows:
 - URL: https://t1specauthsvc.maximusbc.ca
-- Certificate: odr
+- Certificate: "odr"
 - Username: _Refer to CERT-DEV-ODR in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)_
 - Password: _Refer to CERT-DEV-ODR in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)_
 
