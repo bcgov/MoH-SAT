@@ -134,6 +134,7 @@
             </value>
         </assignmentItems>
         <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>Create_Request_Detail_0</targetReference>
         </connector>
     </assignments>
@@ -338,6 +339,7 @@
             </value>
         </assignmentItems>
         <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>Extract_Records_for_File_0_0</targetReference>
         </connector>
     </assignments>
@@ -370,6 +372,7 @@
             </value>
         </assignmentItems>
         <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>Extract_Records_for_File_0_0</targetReference>
         </connector>
     </assignments>
@@ -386,6 +389,7 @@
             </value>
         </assignmentItems>
         <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>Extract_Records_for_File_0_0</targetReference>
         </connector>
     </assignments>
@@ -934,6 +938,7 @@
             </value>
         </assignmentItems>
         <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>Check_Active_SA_Requests_Decision</targetReference>
         </connector>
     </assignments>
@@ -2195,6 +2200,7 @@
         <locationX>3936</locationX>
         <locationY>854</locationY>
         <defaultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Provider_Details_Screen</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
@@ -2512,6 +2518,7 @@
         <locationX>4342</locationX>
         <locationY>8006</locationY>
         <defaultConnector>
+            <isGoTo>true</isGoTo>
             <targetReference>Check_Active_SA_Requests_Decision</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No - Submitter is not Prescriber</defaultConnectorLabel>
@@ -2789,6 +2796,7 @@
         <sortOrder>Asc</sortOrder>
         <valueField>Diagnosis__c</valueField>
     </dynamicChoiceSets>
+    <environments>Default</environments>
     <formulas>
         <name>ConcatenateODRPatientFirstAndLastName</name>
         <dataType>String</dataType>
@@ -6035,7 +6043,6 @@
         <fields>
             <name>Add_Diagnosis_of_Other_Drug_0_Section1</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Add_Diagnosis_of_Other_Drug_0_Section1_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6048,6 +6055,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>Other_Drug_Diagnosis_0</name>
@@ -6103,7 +6111,6 @@
         <fields>
             <name>Confirm_Patient_Provider_Details_Section1</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Confirm_Patient_Provider_Details_Section1_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6116,6 +6123,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>ParentProviderDetails</name>
@@ -6125,7 +6133,6 @@
         <fields>
             <name>Confirm_Patient_Provider_Details_Section2</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Confirm_Patient_Provider_Details_Section2_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6138,6 +6145,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>ParentSubmitterDetails</name>
@@ -6391,7 +6399,6 @@
         <fields>
             <name>Drug_c_Section1</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Drug_c_Section1_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6404,6 +6411,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>Find_Drug</name>
@@ -6523,7 +6531,7 @@
             <choiceReferences>No</choiceReferences>
             <choiceReferences>Yes</choiceReferences>
             <dataType>Boolean</dataType>
-            <defaultSelectedChoiceReference>No</defaultSelectedChoiceReference>
+            <defaultSelectedChoiceReference>Yes</defaultSelectedChoiceReference>
             <fieldText>Continue Creation of SA Request?</fieldText>
             <fieldType>RadioButtons</fieldType>
             <isRequired>true</isRequired>
@@ -6815,7 +6823,6 @@
         <fields>
             <name>Link_to_Case_Section1</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Link_to_Case_Section1_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6828,11 +6835,11 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>Link_to_Case_Section2</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Link_to_Case_Section2_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6845,11 +6852,11 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>Link_to_Case_Section3</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Link_to_Case_Section3_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6862,11 +6869,11 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>Link_to_Case_Section4</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Link_to_Case_Section4_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6879,11 +6886,11 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>Link_to_Case_Section5</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Link_to_Case_Section5_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6896,6 +6903,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>MIR_Note</name>
@@ -6915,7 +6923,6 @@
         <fields>
             <name>Link_to_Case_Section6</name>
             <fieldType>RegionContainer</fieldType>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Link_to_Case_Section6_Column1</name>
                 <fieldType>Region</fieldType>
@@ -6943,6 +6950,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
