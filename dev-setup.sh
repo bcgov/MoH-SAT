@@ -73,7 +73,7 @@ dx force:data:bulk:upsert -u $alias -s Drug__c -f data/drugs.csv -i Drug_Code__c
 dx force:data:bulk:upsert -u $alias -s Account -f data/accounts.csv -i Id -w 5 
 dx force:data:bulk:upsert -u $alias -s Account -f data/decs.csv -i Id -w 5 
 dx force:data:bulk:upsert -u $alias -s Case -f data/cases.csv -i Id -w 5
-# dx force:data:tree:import -u $alias -p data/comm-plan.json
+ dx force:data:tree:import -u $alias -p data/comm-plan.json
 dx force:apex:execute -u $alias -f scripts/apex/scratchorg-add-comm-users.apex
 dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-cases-to-ecs.apex
 dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-cases-to-queue.apex
