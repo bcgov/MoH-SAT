@@ -400,35 +400,96 @@ public with sharing class ODRIntegration {
         queryParams += '&phn=' + getPatientIdentifier(recordId);
         queryParams += '&pageSize=' + count;
         queryParams += '&pageNo=' + page;
-        if (dinList.size() > 0) {
-            queryParams += '&dinList=' + JSON.serialize(dinList);
-        }
-        System.debug(queryParams);
-        // TODO?
-        queryParams += '&startDate=1990-01-01';
+        // if (dinList.size() > 0) {
+        //     queryParams += '&dinList=' + JSON.serialize(dinList);
+        // }
+        // System.debug(queryParams);
+        // // TODO?
+        // queryParams += '&startDate=1990-01-01';
         // queryParams += '&endDate=2020-01-01';
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+        List<Integer> newdinLst = new List<Integer>();
+        List<LIst<Integer>> listOfLst = new List<LIst<Integer>>();
+        if(dinList.size()>0 && dinList.size()<800){
+            queryParams += '&dinList=' + JSON.serialize(dinList);
+        }else{
+            Integer check;
+            for(Integer i=0; i < dinList.size(); i++){ 
+                check = newdinLst.size();
+                if(i==0){
+                    newdinLst = new List<Integer>();
+                    newdinLst.add(dinList[i]);
+
+                }else if(check==800){
+                    listOfLst.add(newdinLst);
+                    newdinLst = new List<Integer>();
+                    newdinLst.add(dinList[i]);
+                }else{
+                    newdinLst.add(dinList[i]);
+                }   
+                
+                if(i==dinList.size()-1){
+                    listOfLst.add(newdinLst);
+                }
+                
+            }
+        }
+
+
+        List<CalloutResponse> callOutResponseLst = new List<CalloutResponse>();
+        for(Integer i=0; i < listOfLst.size();i++){
+            String queryParamLst='';
+            queryParamLst = queryParamLst+queryParams;
+            queryParamLst += '&dinList=' + JSON.serialize(listOfLst[i]);
+            queryParamLst += '&startDate=1990-01-01';
+            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
-                                                                         queryParams,
+                                                                         queryParamLst,
                                                                          'GET',
                                                                          null,
                                                                          'Prescription History');
-
-        if (calloutResponseObject.errorCode != 200) {
-            // ERROR
-            sar = new PrescriptionHistoryResponse();
-            sar.error = calloutResponseObject;
-        } else {
-            String resBody = calloutResponseObject.response;
-            // for (Integer i = 0; i < resBody.length(); i=i+300) {
-            //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
-            //     System.debug(resBody.substring(i,iEffectiveEnd));
-            // }
-            sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
+            callOutResponseLst.add(calloutResponseObject);
+            System.debug('the din pin size is '+listOfLst[i].size());
         }
-        System.debug(sar);
+        
+        PrescriptionHistoryResponse prescResponsRes = new PrescriptionHistoryResponse();
 
-        return sar;
+        for(CalloutResponse calloutResponseObject : callOutResponseLst){
+            if (calloutResponseObject.errorCode != 200) {
+                // ERROR
+                sar = new PrescriptionHistoryResponse();
+                sar.error = calloutResponseObject;
+                return sar;
+            } else {
+                String resBody = calloutResponseObject.response;
+                // for (Integer i = 0; i < resBody.length(); i=i+300) {
+                //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
+                //     System.debug(resBody.substring(i,iEffectiveEnd));
+                // }
+                sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
+                System.debug('null check');
+                System.debug('sar is '+sar);
+                System.debug('presc Res Res'+prescResponsRes);
+                
+
+                if(prescResponsRes!=null && prescResponsRes.medHistory!=null && sar != null && sar.medHistory != null){
+                    if(prescResponsRes.medHistory.medRecords!=null && sar.medHistory.medRecords!=null){
+                        prescResponsRes.medHistory.medRecords.addAll(sar.medHistory.medRecords);
+                    }
+                    if(prescResponsRes.medHistory.totalPages!=null && sar.medHistory.totalPages!=null){
+                        prescResponsRes.medHistory.totalPages = prescResponsRes.medHistory.totalPages + sar.medHistory.totalPages;
+                    }
+                    if(prescResponsRes.medHistory.totalRecords!=null && sar.medHistory.totalRecords!=null){
+                        prescResponsRes.medHistory.totalRecords = prescResponsRes.medHistory.totalRecords + sar.medHistory.totalRecords;
+                    } 
+                }else{
+                    prescResponsRes = sar;
+                }
+            }
+        }
+        
+        System.debug(prescResponsRes);
+
+        return prescResponsRes;
     }
 
     @AuraEnabled
