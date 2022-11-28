@@ -40,7 +40,7 @@ global with sharing class SaRestApi {
                 Status, CaseNumber, CreatedDate, Effective_Date__c, Termination_Date__c
             from Case
             where Contact.Patient_Identifier__c = :patientIdentifier
-            and Status in ('Received', 'Under Review', 'Approved', 'Not Approved', 'Cancelled')
+            and Status in ('Received', 'More Information Requested', 'Under Review', 'Approved', 'Not Approved', 'Cancelled')
         ];
     }
 
