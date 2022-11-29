@@ -400,13 +400,7 @@ public with sharing class ODRIntegration {
         queryParams += '&phn=' + getPatientIdentifier(recordId);
         queryParams += '&pageSize=' + count;
         queryParams += '&pageNo=' + page;
-        // if (dinList.size() > 0) {
-        //     queryParams += '&dinList=' + JSON.serialize(dinList);
-        // }
-        // System.debug(queryParams);
-        // // TODO?
-        // queryParams += '&startDate=1990-01-01';
-        // queryParams += '&endDate=2020-01-01';
+        
         List<Integer> newdinLst = new List<Integer>();
         List<LIst<Integer>> listOfLst = new List<LIst<Integer>>();
         if(dinList.size()>0 && dinList.size()<800){
@@ -473,10 +467,7 @@ public with sharing class ODRIntegration {
                 return sar;
             } else {
                 String resBody = calloutResponseObject.response;
-                // for (Integer i = 0; i < resBody.length(); i=i+300) {
-                //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
-                //     System.debug(resBody.substring(i,iEffectiveEnd));
-                // }
+                
                 sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
                 System.debug('null check');
                 System.debug('sar is '+sar);
