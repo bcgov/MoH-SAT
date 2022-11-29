@@ -451,6 +451,18 @@ public with sharing class ODRIntegration {
             System.debug('the din pin size is '+listOfLst[i].size());
         }
         
+        if (dinList.size() == 0 || dinList.size() < 800) {
+            
+            queryParams += '&startDate=1990-01-01';
+            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                         queryParams,
+                                                                         'GET',
+                                                                         null,
+                                                                         'Prescription History');
+            callOutResponseLst.add(calloutResponseObject);
+        }
+        
         PrescriptionHistoryResponse prescResponsRes = new PrescriptionHistoryResponse();
 
         for(CalloutResponse calloutResponseObject : callOutResponseLst){
