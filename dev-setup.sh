@@ -62,6 +62,7 @@ sfdx force:source:deploy -p dev-app-pre -u $alias
 sfdx force:source:deploy -p force-app -u $alias
 sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u $alias -w 15
 sfdx force:source:deploy -p dev-app-post -u $alias
+sfdx force:source:tracking:reset -u $alias --noprompt    
 # dx force:source:push -u $alias 
 
 echo "Assigning permissions..."
