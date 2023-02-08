@@ -27,9 +27,6 @@ jobs:
     - name: Define CI org
       run: sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
-    - name: checking config list
-      run: sfdx config:get apiVersion
-
     - name: Deploy source
       run: |
         sfdx force:source:deploy -p dev-app-pre -u ciorg
