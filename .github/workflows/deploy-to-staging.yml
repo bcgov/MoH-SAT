@@ -28,8 +28,8 @@ jobs:
     - name: Remove auth file
       run: rm -f ./sfdxurl.txt
 
-#    - name: Deploy Source in dev-app-pre
-#      run: sfdx force:source:deploy -p dev-app-pre -u SAT-STAGING -w 15
+    - name: Deploy Source in dev-app-pre
+      run: sfdx force:source:deploy -p dev-app-pre -u SAT-STAGING -w 15
 
     - name: Install version ID
       run: sfdx force:package:install --package "${{ github.event.inputs.package }}" -u SAT-STAGING -b 15 -w 15 --noprompt --wait 10
