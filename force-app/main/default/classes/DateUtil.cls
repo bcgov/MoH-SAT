@@ -23,7 +23,7 @@ public with sharing class DateUtil {
         if (String.isBlank(durationUnit) || durationUnit.equalsIgnoreCase('Indefinite')) {
             terminationDate = Date.newInstance(3000, 1, 1);
         } else if (durationUnit.equalsIgnoreCase('End of year')) {
-            terminationDate = Date.newInstance(terminationDate.year(), 12, 31);
+            terminationDate = Date.newInstance(terminationDate.year()+1, 1, 1);
         } else if (durationUnit.equalsIgnoreCase('Days')) {
             terminationDate = terminationDate.addDays(duration).addDays(1);
         } else if (durationUnit.equalsIgnoreCase('Months')) {
