@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approval_Unit_Time_Limits</fullName>
+    <active>true</active>
+    <description>This validation rule is invoked, When the approval time exceeds the suitable time frame for a given approval time unit.</description>
+    <errorConditionFormula>OR (
+    AND(ISPICKVAL(ESA_Approval_Time_Unit__c, &apos;Days&apos;), OR(ESA_Approval_Time__c &gt; 366 || ESA_Approval_Time__c &lt; 0)),
+    AND(ISPICKVAL(ESA_Approval_Time_Unit__c, &apos;Week&apos;), OR(ESA_Approval_Time__c &gt; 52 || ESA_Approval_Time__c &lt; 0)),
+    AND(ISPICKVAL(ESA_Approval_Time_Unit__c, &apos;Month&apos;), OR(ESA_Approval_Time__c &gt; 12 || ESA_Approval_Time__c &lt; 0)),
+    CONTAINS(TEXT(ESA_Approval_Time__c), &apos;.&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>ESA_Approval_Time__c</errorDisplayField>
+    <errorMessage>Cannot be negative/decimal/ Must be a positive whole integer and Termination Date cannot exceed more than a Year.</errorMessage>
+</ValidationRule>
