@@ -382,7 +382,7 @@ public with sharing class ODRIntegration {
             String resBody = calloutResponseObject.response;
             sar = (SAApprovalHistoryResponse) JSON.deserialize(resBody, SAApprovalHistoryResponse.class);
         }
-        
+        system.debug('The response is :'+ sar.saRecords);
         return sar;
     }
 

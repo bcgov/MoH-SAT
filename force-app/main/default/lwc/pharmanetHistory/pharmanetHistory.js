@@ -4,7 +4,7 @@ import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.g
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
-  { label: 'Date Dispensed', fieldName: 'dateDispensed', initialWidth: 120, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Date Dispensed', fieldName: 'dateDispensed', initialWidth: 120, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Name', fieldName: 'genericName', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
   { label: 'Strength', fieldName: 'drugStrength', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
   { label: 'Direction', fieldName: 'directions', type: 'text',initialWidth: 120,  wrapText: true, hideDefaultActions: true },
