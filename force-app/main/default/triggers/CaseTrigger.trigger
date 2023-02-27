@@ -1,4 +1,4 @@
-trigger CaseTrigger on Case (after insert) {    
+trigger CaseTrigger on Case (before insert, before update, after insert) {    
     
     if (SaSettings.triggersEnabled() && Trigger.size == 1) {
         for (Case saCase : Trigger.new) {
@@ -9,4 +9,14 @@ trigger CaseTrigger on Case (after insert) {
             }
         }
     }
+    
+    if(trigger.isBefore){
+        if(trigger.isInsert){
+            ESA_cls_caseTriggerHandler.populateTerminationDate(trigger.new, NULL, NULL);
+        }
+        if(trigger.isUpdate){
+            ESA_cls_caseTriggerHandler.populateTerminationDate(trigger.new, trigger.oldMap, trigger.newMap);
+        }
+    }
+    
 }
