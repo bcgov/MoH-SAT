@@ -38,7 +38,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         system.assertEquals(caseLst[0].termination_date__c, system.Today().addDays(7+1));
         for(case c:allCases){
             c.ESA_Approval_Time_Unit__c = NULL;
-            c.ESA_Approval_Time__c = 7;    
+            c.ESA_Approval_Time__c = NULL;    
         }
         Update allCases;
         caseLst = [select id, termination_date__c from Case where id =: allCases[0].id]; 
