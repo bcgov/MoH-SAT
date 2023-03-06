@@ -62,8 +62,6 @@ public with sharing class TestFactory {
         saCase.ContactId = queryPersonContact(patient.Id).Id;
         saCase.Provider__c = queryPersonContact(provider.Id).Id;
         saCase.Provider_Fax__c = '12505555555;';
-        saCase.ESA_Approval_Time_Unit__c = ESA_cls_constants.Case_Approval_Time_Unit_Week;
-        saCase.ESA_Approval_Time__c = 7;
         return saCase;
     }
 
