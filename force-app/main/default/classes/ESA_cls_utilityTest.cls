@@ -16,8 +16,6 @@ public class ESA_cls_utilityTest {
 @isTest
     public static case createCase(){
         case caseObj = new case();
-        caseObj.ESA_Approval_Time_Unit__c = ESA_cls_constants.Case_Approval_Time_Unit_Week;
-        caseObj.ESA_Approval_Time__c = 7;
         return caseObj;
     }    
 }
