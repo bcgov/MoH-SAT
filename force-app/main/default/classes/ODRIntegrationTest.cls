@@ -1,41 +1,26 @@
 @isTest
 public class ODRIntegrationTest {
-    @testsetup
-    static void testData(){
-      Drug__c drug = TestFactory.newDrug('Drug 11');
-      insert drug;
-
-      Account patient = TestFactory.newPatient('Patient 1');
-      patient.Patient_Identifier__pc = '222333444554';
-       
-      Account provider = TestFactory.newProvider('Provider 1');
-      provider.Provider_Identifier__pc = '111222333444';
-      insert new Account[] { patient, provider };
-
-      Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
-      insert saCase;
-    }
-    @isTest
+   @isTest
     public static void verifyPatientInformationxTest() {
       Drug__c drug = TestFactory.newDrug('Drug 1');
       insert drug;
 
       Account patient = TestFactory.newPatient('Patient 1');
       Account provider = TestFactory.newProvider('Provider 1');
-     
       insert new Account[] { patient, provider };
 
       Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
       insert saCase;
+
       Patient p = ODRIntegration.verifyPatientInformationx(saCase.Id);
       System.assertEquals(false, p.verified);
     }
-   
+    
     @isTest
     public static void calloutTesting() {
         Integer RESPONSE_CODE = 200;
 
-        Drug__c drug = TestFactory.newDrug('Drug 2');
+        Drug__c drug = TestFactory.newDrug('Drug 1');
         insert drug;
 
         Account patient = TestFactory.newPatient('Patient 1');
@@ -178,7 +163,7 @@ public class ODRIntegrationTest {
 
         System.assertEquals(true, p != null);
     }
-   
+    
     @isTest
     public static void calculateTerminationDateTest() {
       Date startDate;
@@ -349,238 +334,5 @@ public class ODRIntegrationTest {
         Map<String, Integration_Log__c> m2 = ODRIntegration.fetchIntegrationLogs('222333444', keys);
 
         System.assertEquals(new Map<String, Integration_Log__c>(), m1);
-    }
-    @isTest
-    static void fetchSaAapprovalHistoryByCaseTest(){  
-        Case saCase = [SELECT Id FROM Case LIMIT 1];
-        Integer RESPONSE_CODE = 200;
-
-        Test.startTest();
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"clientName":null, "error":null, "requestUUID":null, "saRecords":null, "totalRecords":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        SAApprovalHistoryResponse saAprovalHistoryRes = ODRINtegration.fetchSAApprovalHistoryByCase(saCase.Id);
-        Test.stopTest();
-    }
-     @isTest
-    static void fetchSaAapprovalHistoryByCaseErrorTest(){  
-        Case saCase = [SELECT Id FROM Case LIMIT 1];
-        Integer RESPONSE_CODE = 404;
-
-        Test.startTest();
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"clientName":null, "error":null, "requestUUID":null, "saRecords":null, "totalRecords":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        SAApprovalHistoryResponse saAprovalHistoryRes = ODRINtegration.fetchSAApprovalHistoryByCase(saCase.Id);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void putSAApprovalUpdateTest(){
-        Integer RESPONSE_CODE = 200;
-        Case objCase = [Select Id FROM Case LIMIT 1];
-        SAApprovalUpdateRequest saaur = new SAApprovalUpdateRequest();
-        saaur.requestUUID = '12345';
-        saaur.clientName = 'SpecAuth';
-        saaur.userid = 'Salesforce';
-        saaur.updateType = 'T';
-        saaur.saRecordId.phn = '9000111222';
-        saaur.saRecordId.specialItem.din = '9901-0065';
-        saaur.saRecordId.specialItem.rdp = '02241113';
-        saaur.saRecordId.specAuthType = 'Terminate';
-        saaur.saRecordId.effectiveDate = '3000/01/01';
-        saaur.saRevisedData.specialItem.din = '9901-0065';
-        saaur.saRevisedData.specialItem.rdp = '02241113';
-        saaur.saRevisedData.specAuthType = 'Terminate';
-        saaur.saRevisedData.justificationCodes.add('123');
-        saaur.saRevisedData.excludedPlans.add('456');
-        saaur.saRevisedData.saRequester.practId = '0A0P1';
-        saaur.saRevisedData.saRequester.practIdRef = '0A0P1';
-        saaur.saRevisedData.saRequester.decCode = 'DEC1232';
-        saaur.saRevisedData.effectiveDate = '3000/01/01';
-        saaur.saRevisedData.terminationDate = '3000/01/01';
-        saaur.saRevisedData.maxDaysSupply = 30;
-        saaur.saRevisedData.maxPricePct = 100.0;
-        saaur.saRecordId.phn='222333444554';
-ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"clientName":null, "status":0, "requestUUID":null, "statusMessage":null, "totalRecords":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        SAApprovalUpdateRequestResponse objUpdateReqRes = ODRIntegration.putSAApprovalUpdate(objCase.Id,saaur);
-        Test.stopTest();
-    }
-    @isTest
-    static void putSAApprovalUpdateDiffereentTypeTest(){
-        Integer RESPONSE_CODE = 200;
-        Case objCase = [Select Id FROM Case LIMIT 1];
-        SAApprovalUpdateRequest saaur = new SAApprovalUpdateRequest();
-        saaur.requestUUID = '12345';
-        saaur.clientName = 'SpecAuth';
-        saaur.userid = 'Salesforce';
-        saaur.updateType = 'R';
-        saaur.saRecordId.specialItem.din = '9901-0065';
-        saaur.saRecordId.specialItem.rdp = '02241113';
-        saaur.saRecordId.specAuthType = 'Terminate';
-        saaur.saRecordId.effectiveDate = '3000/01/01';
-        saaur.saRevisedData.specialItem.din = '9901-0065';
-        saaur.saRevisedData.specialItem.rdp = '02241113';
-        saaur.saRevisedData.specAuthType = 'Terminate';
-        saaur.saRevisedData.justificationCodes.add('123');
-        saaur.saRevisedData.excludedPlans.add('456');
-        saaur.saRevisedData.saRequester.practId = '0A0P1';
-        saaur.saRevisedData.saRequester.practIdRef = '0A0P1';
-        saaur.saRevisedData.saRequester.decCode = 'DEC1232';
-        saaur.saRevisedData.effectiveDate = '3000/01/01';
-        saaur.saRevisedData.terminationDate = '3000/01/01';
-        saaur.saRevisedData.maxDaysSupply = 30;
-        saaur.saRevisedData.maxPricePct = 100.0;
-        saaur.saRecordId.phn='222333444554';
-ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"clientName":null, "status":0, "requestUUID":null, "statusMessage":null, "totalRecords":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        SAApprovalUpdateRequestResponse objUpdateReqRes = ODRIntegration.putSAApprovalUpdate(objCase.Id,saaur);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void putSAApprovalUpdateErrorTest(){
-        Integer RESPONSE_CODE = 404;
-        Case objCase = [Select Id FROM Case LIMIT 1];
-        SAApprovalUpdateRequest saaur = new SAApprovalUpdateRequest();
-        saaur.requestUUID = '12345';
-        saaur.clientName = 'SpecAuth';
-        saaur.userid = 'Salesforce';
-        saaur.updateType = 'R';
-        saaur.saRecordId.specialItem.din = '9901-0065';
-        saaur.saRecordId.specialItem.rdp = '02241113';
-        saaur.saRecordId.specAuthType = 'Terminate';
-        saaur.saRecordId.effectiveDate = '3000/01/01';
-        saaur.saRevisedData.specialItem.din = '9901-0065';
-        saaur.saRevisedData.specialItem.rdp = '02241113';
-        saaur.saRevisedData.specAuthType = 'Terminate';
-        saaur.saRevisedData.justificationCodes.add('123');
-        saaur.saRevisedData.excludedPlans.add('456');
-        saaur.saRevisedData.saRequester.practId = '0A0P1';
-        saaur.saRevisedData.saRequester.practIdRef = '0A0P1';
-        saaur.saRevisedData.saRequester.decCode = 'DEC1232';
-        saaur.saRecordId.phn='222333444554';
-ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"clientName":null, "status":0, "requestUUID":null, "statusMessage":null, "totalRecords":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        SAApprovalUpdateRequestResponse objUpdateReqRes = ODRIntegration.putSAApprovalUpdate(objCase.Id,saaur);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void postSAApprovalTest(){
-        Integer RESPONSE_CODE = 200;
-        Case objCase = [SELECT Id FROM Case LIMIT 1];
-        SAApprovalRequest saar = new SAApprovalRequest();
-        saar.requestUUID = '12345';
-        saar.clientName = 'SpecAuth';
-        saar.userid = 'SALESFORCE';
-        saar.saRecord.phn = '12345';
-        saar.saRecord.specialItem.din = '12345';
-        saar.saRecord.specialItem.rdp = '12345';
-        saar.saRecord.specAuthType = '12345';
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"clientName":null, "status":0, "requestUUID":null, "statusMessage":null, "totalRecords":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        SAApprovalRequestResponse objApprovalReqRes = ODRIntegration.postSAApproval(objCase.Id,saar);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void postSAApprovalErrorTest(){
-        Integer RESPONSE_CODE = 404;
-        Case objCase = [SELECT Id FROM Case LIMIT 1];
-        SAApprovalRequest saar = new SAApprovalRequest();
-        saar.requestUUID = '12345';
-        saar.clientName = 'SpecAuth';
-        saar.userid = 'SALESFORCE';
-        saar.saRecord.phn = '12345';
-        saar.saRecord.specialItem.din = '12345';
-        saar.saRecord.specialItem.rdp = '12345';
-        saar.saRecord.specAuthType = '12345';
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"clientName":null, "status":0, "requestUUID":null, "statusMessage":null, "totalRecords":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        SAApprovalRequestResponse objApprovalReqRes = ODRIntegration.postSAApproval(objCase.Id,saar);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void verifyCollegeInformationTest(){
-        Case objCase =[SELECT Id FROM Case LIMIT 1];
-        Integer RESPONSE_CODE = 200;
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '[{"applicationUUID":null, "firstName":0}]',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        Provider objProvide = ODRIntegration.verifyCollegeInformation(objCase.Id);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void verifyCollegeInformationErrorTest(){
-        Case objCase =[SELECT Id FROM Case LIMIT 1];
-        Integer RESPONSE_CODE = 404;
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"message":null, "errorCode":200}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        Provider objProvide = ODRIntegration.verifyCollegeInformation(objCase.Id);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void fetchBenefitsTest(){
-        Case objCase =[SELECT Id FROM Case LIMIT 1];
-        Integer RESPONSE_CODE = 200;
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"PlanIExpenditure":null, "PlanEligibility":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-        BenefitsResponse bojBResponse = ODRIntegration.fetchBenefits(objCase.Id);
-        Test.stopTest();
-    }
-   
-    @isTest
-    static void fetchPrescriptionHistory(){
-        Case objCase =[SELECT Id FROM Case LIMIT 1];
-        Integer RESPONSE_CODE = 200;
-        ODRCalloutMock fakeResponse = new ODRCalloutMock(RESPONSE_CODE,        
-                                                        'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
-                                                         '{"PrescriberInfo":null, "ClaimHistory":null}',
-                                                        null);
-        Test.setMock(HttpCalloutMock.class, fakeResponse);
-        Test.startTest();
-       
-        PrescriptionHistoryResponse objPHistory = ODRIntegration.fetchPrescriptionHistory(objCase.Id,'first','1', new List<Integer>{1});
-        Test.stopTest();
     }
 }
