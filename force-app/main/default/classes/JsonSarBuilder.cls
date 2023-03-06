@@ -167,7 +167,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         return providerType.equalsIgnoreCase('Physician') || 
             providerType.equalsIgnoreCase('Pharmacist') ||
             providerType.equalsIgnoreCase('Nurse Practitioner') ||
-            providerType.equalsIgnoreCase('Psychiatric Nurse'); 
+            providerType.equalsIgnoreCase('Registered Psychiatric Nurse'); 
     }
 
     private Account buildAccount(Eform.Resource resource) {
@@ -319,7 +319,6 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         else if (role.equalsIgnoreCase('Registered Nurse')) return 'Nurse';
         else if (role.equalsIgnoreCase('Registered Nurse Practitioner')) return 'Nurse Practitioner';
         else if (role.equalsIgnoreCase('OOP Provider')) return 'Out of province provider';
-        else if (role.equalsIgnoreCase('Registered Psychiatric Nurse')) return 'Psychiatric Nurse';
         else return role;
     }
 

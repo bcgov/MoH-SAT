@@ -241,7 +241,7 @@ public with sharing class ODRIntegration {
                 practIdCode = 'B1';
             } when 'OOP Provider - Nunavit' {
                 practIdCode = 'C1';
-            } when 'Psychiatric Nurse' {
+            } when 'Registered Psychiatric Nurse' {
                 practIdCode = 'Y9';
             }            
         }
