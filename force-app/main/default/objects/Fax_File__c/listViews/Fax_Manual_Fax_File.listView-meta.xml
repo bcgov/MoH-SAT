@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Fax_Intake_Fax_File</fullName>
+    <fullName>Fax_Manual_Fax_File</fullName>
     <columns>NAME</columns>
-    <columns>Status__c</columns>
-    <columns>Urgent__c</columns>
-    <columns>OWNER.ALIAS</columns>
-    <columns>CREATED_DATE</columns>
-    <columns>CREATEDBY_USER</columns>
     <filterScope>Queue</filterScope>
     <filters>
         <field>Status__c</field>
         <operation>equals</operation>
         <value>Open</value>
     </filters>
-    <label>Fax Intake</label>
-    <queue>Fax_Intake</queue>
+    <label>Fax - Manual</label>
+    <queue>Fax_Manual</queue>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>
