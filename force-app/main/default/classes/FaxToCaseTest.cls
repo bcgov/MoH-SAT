@@ -14,7 +14,7 @@ public class FaxToCaseTest {
         cv.FirstPublishLocationId = fax.Id;
         insert cv;
 
-        Case caseRecord = new Case();
+        Case caseRecord = ESA_cls_utilityTest.createCase();
         insert caseRecord;
 
         FaxToCase.FaxAndCaseId param = new FaxToCase.FaxAndCaseId();
