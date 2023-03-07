@@ -3,12 +3,12 @@ public with sharing class FaxServiceTest {
   @TestSetup
   static void makeData(){
     System.runAs(new User(Id = UserInfo.getUserId())){
-    Case record = ESA_cls_utilityTest.createCase();
+    Case record = TestFactory.createCase();
     record.status='Approved';
     record.Provider_Fax__c='8558120171';
     insert record; 
 
-    Case record2 = ESA_cls_utilityTest.createCase();
+    Case record2 = TestFactory.createCase();
     record2.status='Approved';
     record2.Fax_Sent_Date__c=null;
     insert record2; 
