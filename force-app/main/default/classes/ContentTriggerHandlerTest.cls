@@ -2,7 +2,7 @@
 public class ContentTriggerHandlerTest {
   @isTest
   public static void ContentTriggerHandlerTest() {
-    Case record = ESA_cls_utilityTest.createCase();
+    Case record = TestFactory.createCase();
     insert record;
     Blob beforeblob=Blob.valueOf('Unit Test Attachment Body');
 
