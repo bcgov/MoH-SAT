@@ -13,15 +13,15 @@ public class FcEmailServiceTest {
         system.assertEquals('', result);
   }
   static testMethod void test_store_email_positive() {
-        Case record=new Case();
-        insert record;
+        Case record = ESA_cls_utilityTest.createCase();
+        insert record; 
         Messaging.InboundEmail emails = new Messaging.InboundEmail() ;
         emails.PlainTextBody ='STATUS:Success\n FILE NAME:00001029.pdf\n';
         new FcEmailService().storeEmail(emails,record.id);
         System.assert(record.id!=null);    
    }
   static testMethod void test_update_case_positive() {
-        Case record = new Case();
+        Case record  = ESA_cls_utilityTest.createCase();
         insert record;
         record=[Select Id, Fax_Sent_Date__c,caseNumber from Case where Id=:record.id ];
         new FcEmailService().updateCase(record.caseNumber,'Success');
@@ -29,7 +29,7 @@ public class FcEmailServiceTest {
         System.assert(results.Fax_Notification_Date__c != null);
    }
   static testMethod void  test_update_case_negative() {
-        Case record = new Case();
+        Case record  = ESA_cls_utilityTest.createCase();
         record.Fax_Sent_Date__c = null;
         insert record;
         record=[Select Id, caseNumber from Case where Id=:record.id ];
