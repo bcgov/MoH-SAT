@@ -166,7 +166,8 @@ public with sharing class JsonSarBuilder implements SarBuilder {
     private Boolean requiresTruncation(String providerType) {
         return providerType.equalsIgnoreCase('Physician') || 
             providerType.equalsIgnoreCase('Pharmacist') ||
-            providerType.equalsIgnoreCase('Nurse Practitioner'); 
+            providerType.equalsIgnoreCase('Nurse Practitioner') ||
+            providerType.equalsIgnoreCase('Registered Psychiatric Nurse'); 
     }
 
     private Account buildAccount(Eform.Resource resource) {

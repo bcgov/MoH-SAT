@@ -1,6 +1,6 @@
 @isTest
 public class ODRIntegrationTest {
-    @isTest
+   @isTest
     public static void verifyPatientInformationxTest() {
       Drug__c drug = TestFactory.newDrug('Drug 1');
       insert drug;
@@ -242,6 +242,8 @@ public class ODRIntegrationTest {
         System.assertEquals(oopY, 'B1');
         String oopNu = ODRIntegration.getPractitionerCode('OOP Provider - Nunavit');
         System.assertEquals(oopNu, 'C1');
+        String psychiatricNurse = ODRIntegration.getPractitionerCode('Registered Psychiatric Nurse');
+        System.assertEquals(psychiatricNurse, 'Y9');
 
     }
     @isTest static void formatToODRDateTest() {
