@@ -110,9 +110,17 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         account.Provider_Identifier__pc = requiresTruncation(providerType) ? identifier?.right(5) : identifier;
         account.Provider_Specialty__pc = findProviderSpecialty(resource);
         
-        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc =:providerType];
+        List<Account> existing = [select Id,Provider_Specialty__pc from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc =:providerType];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
         
+        //ESA-1472 - Appending both new and old Provider specialty values.
+       if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && !String.IsBlank(account.Provider_Specialty__pc)){
+            List<String> existingProviderSpecialties = existing.get(0).Provider_Specialty__pc.split(';');           
+            if(!existingProviderSpecialties.contains(account.Provider_Specialty__pc))
+                account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc +';'+ account.Provider_Specialty__pc;
+            else
+                account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc;
+        }
         return account;
     }
 
