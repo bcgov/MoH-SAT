@@ -7,7 +7,7 @@
 
 public class ESA_cls_constants {
 
-    public static final String Case_Approval_Time_Unit_Week = 'Week';
-    public static final String Case_Approval_Time_Unit_Month = 'Month';
-    public static final String Case_Approval_Time_Unit_Days = 'Days';
+    public static final String CASE_APPROVAL_TIME_UNIT_WEEK = 'Week';
+    public static final String CASE_APPROVAL_TIME_UNIT_MONTH = 'Month';
+    public static final String CASE_APPROVAL_TIME_UNIT_DAYS = 'Days';
 }

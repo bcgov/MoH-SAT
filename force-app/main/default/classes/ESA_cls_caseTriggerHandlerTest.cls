@@ -22,7 +22,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         for(integer i=0; i<5; i++){
             Case c = new case();
             c.Termination_date__c = NULL;
-            c.ESA_Approval_Time_Unit__c = ESA_cls_constants.Case_Approval_Time_Unit_Week;
+            c.ESA_Approval_Time_Unit__c = ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_WEEK;
             c.ESA_Approval_Time__c = 7;    
             allCases.add(c);
         }
@@ -30,7 +30,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         List<case> caseLst = [select id, termination_date__c from Case where id =: allCases[0].id]; 
         system.assertEquals(caseLst[0].termination_date__c, system.Today().addDays((7*7)+1));
         for(case c:allCases){
-            c.ESA_Approval_Time_Unit__c = ESA_cls_constants.Case_Approval_Time_Unit_Days;
+            c.ESA_Approval_Time_Unit__c = ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_DAYS;
             c.ESA_Approval_Time__c = 7;    
         }
         Update allCases;
