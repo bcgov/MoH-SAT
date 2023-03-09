@@ -605,6 +605,19 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentName>esa_LC_displayDECInformation</componentName>
+                <identifier>c_esa_LC_displayDECInformation</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Has_DEC__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>lookupFieldName</name>
                     <value>Case.Drug__c</value>
