@@ -17,6 +17,5 @@ export default class Esa_LC_displayDECInformation extends LightningElement {
 
     get accountDEC() {
         return getFieldValue(this.caseObjRecord.data, ACCOUNT_DEC);
-    }
-         
+    }     
 }
