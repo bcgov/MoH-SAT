@@ -4,7 +4,7 @@
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
 ***********************************************************************************************/
-public class ESA_cls_accountTriggerHandler {
+public with sharing class ESA_cls_accountTriggerHandler {
 
 /**
 * @author: Deepak
