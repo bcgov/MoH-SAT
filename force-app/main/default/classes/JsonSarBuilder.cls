@@ -119,8 +119,8 @@ public with sharing class JsonSarBuilder implements SarBuilder {
                
                account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc +';'+ account.Provider_Specialty__pc;
            }
-        else if(!existing.isEmpty() && String.IsBlank(existing.get(0).Provider_Specialty__pc) && 
-               String.IsBlank(account.Provider_Specialty__pc) ){
+        else if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && 
+              (String.IsBlank(account.Provider_Specialty__pc) || existing.get(0).Provider_Specialty__pc.containsIgnoreCase(account.Provider_Specialty__pc)) ){
                    
               account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc;
            }
