@@ -13,7 +13,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     public static void populateSpecialty(List<Account> newAccountList, Map<id,Account> oldAccountMap, Map<id,Account> newAccountMap) {
-        set<id> accountIdSet = new set<id>();
+        Set<id> accountIdSet = new Set<id>();
         List<Contact> conListToUpdate = new List<Contact>();
         
         for (Account accObj:newAccountList){
