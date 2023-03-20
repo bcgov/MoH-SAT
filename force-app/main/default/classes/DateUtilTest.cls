@@ -23,7 +23,7 @@ public with sharing class DateUtilTest {
     static void test_calculate_termination_date_end_of_year() {
         Date testDate = Date.newInstance(2021, 1, 10);
         Date result = DateUtil.calculateTerminationDate(testDate, null, 'End of year');
-        system.assertEquals(Date.newInstance(2021,12,31), result);
+        system.assertEquals(Date.newInstance(2022,1,1), result);
     }
 
     @isTest

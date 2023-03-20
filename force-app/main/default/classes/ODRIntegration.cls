@@ -241,7 +241,9 @@ public with sharing class ODRIntegration {
                 practIdCode = 'B1';
             } when 'OOP Provider - Nunavit' {
                 practIdCode = 'C1';
-            }
+            } when 'Registered Psychiatric Nurse' {
+                practIdCode = 'Y9';
+            }            
         }
         return practIdCode;
     }
@@ -382,7 +384,7 @@ public with sharing class ODRIntegration {
             String resBody = calloutResponseObject.response;
             sar = (SAApprovalHistoryResponse) JSON.deserialize(resBody, SAApprovalHistoryResponse.class);
         }
-        
+        system.debug('The response is :'+ sar.saRecords);
         return sar;
     }
 

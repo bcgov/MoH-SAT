@@ -2,7 +2,7 @@
 public class ContentTriggerHandlerTest {
   @isTest
   public static void ContentTriggerHandlerTest() {
-    Case record = new Case();
+    Case record = TestFactory.createCase();
     insert record;
     Blob beforeblob=Blob.valueOf('Unit Test Attachment Body');
 

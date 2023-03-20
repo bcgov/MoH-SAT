@@ -10,7 +10,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
     public JsonSarBuilder(String bundleJsonStr) {
         this.bundleJsonStr = bundleJsonStr;
     }
-
+    
     public SpecialAuthorityRequest build() {
         Drug__c drug;
         Account provider;
@@ -19,14 +19,14 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         Case saCase;
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         List<ContentVersion> contentVersions = new List<ContentVersion>();
-
+        
         Eform.Bundle bundle = Eform.parse(bundleJsonStr);
-
+        
         if (bundle.entry == null || bundle.entry.isEmpty()) return null;
-
+        
         for (Eform.Entry bundleEntry : bundle.entry) {
             Eform.Resource resource = bundleEntry.resource;
-                
+            
             try {
                 if (resource.resourceType.equalsIgnoreCase('Patient')) {
                     patient = buildPatient(bundleEntry.resource);
@@ -41,14 +41,14 @@ public with sharing class JsonSarBuilder implements SarBuilder {
                 addError('Error processing ' + resource.resourceType + ' resource.', e);
             }
         }
-
+        
         dec = buildDec(requestDetails);
-
+        
         String drugCode = findDrugCode(requestDetails);
         List<Drug__c> drugs = [select Id, Name, Drug_Code__c from Drug__c where Drug_Code__c = :drugCode];
         String drugLabel = drugs.isEmpty() ? drugCode: drugs[0].Name;
         drug = drugs.isEmpty() ? new Drug__c() : drugs[0];
-
+        
         String refNo = findReferenceNumber(bundle);
         String formSubmitter = findFormSubmitterUserName(bundle);
         
@@ -58,9 +58,9 @@ public with sharing class JsonSarBuilder implements SarBuilder {
             saCase.Description += '\n\n' + printErrors();
             saCase.OwnerId = SaSettings.getEformFaultQueueId();
         }
-
+        
         contentVersions.add(buildBundleJsonFile(refNo, bundleJsonStr));
-
+        
         return new SobjectSarBuilder(
             drug, 
             patient, 
@@ -71,7 +71,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
             contentVersions
         ).build();
     }
-
+    
     private Case buildCase(Id drugId, String drugLabel, String refNo, String formSubmitter) {
         Case caseRecord = new Case();
         caseRecord.Drug__c = drugId;
@@ -83,11 +83,11 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         caseRecord.eForm_Submitter__c = formSubmitter;
         return caseRecord;
     }
-
+    
     private Account buildPatient(Eform.Resource resource) {
         Account account = buildAccount(resource);
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Patient').getRecordTypeId();
-
+        
         String identifier = getIdentifier(resource.identifier);
         account.Patient_Identifier__pc = identifier;
         account.PersonBirthdate = Date.valueOf(resource.birthDate);
@@ -97,34 +97,46 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         
         return account;
     }
-
+    
     private Account buildProvider(Eform.Resource resource) {
         Account account = buildAccount(resource);
         account.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'Provider').getRecordTypeId();
-
+        
         String providerType = toProviderRole(findProviderRole(resource));
         String identifier = getProviderIdentifier(resource.identifier);
         identifier = requiresTruncation(providerType) ? identifier?.right(5) : identifier;
-
+        
         account.Provider_Type__pc = providerType;
         account.Provider_Identifier__pc = requiresTruncation(providerType) ? identifier?.right(5) : identifier;
         account.Provider_Specialty__pc = findProviderSpecialty(resource);
         
-        List<Account> existing = [select Id from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc =:providerType];
+        List<Account> existing = [select Id,Provider_Specialty__pc from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc =:providerType];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
         
+        //ESA-1472 - Appending both new and old Provider specialty values.
+        if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && !String.IsBlank(account.Provider_Specialty__pc)
+           && !existing.get(0).Provider_Specialty__pc.containsIgnoreCase(account.Provider_Specialty__pc) ){
+               
+               account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc +';'+ account.Provider_Specialty__pc;
+           }
+        else if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && 
+              (String.IsBlank(account.Provider_Specialty__pc) || existing.get(0).Provider_Specialty__pc.containsIgnoreCase(account.Provider_Specialty__pc)) ){
+                   
+              account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc;
+           }
+            
         return account;
     }
-
+         
     private Account buildDec(List<Request_Detail__c> requestDetails) {
         if (!hasDec(requestDetails)) return null;
-
+        
         String decCode = findDecCode(requestDetails);
         
         Account decAccount = new Account();
         decAccount.RecordTypeId = SchemaUtil.getRecordTypeInfosByDeveloperName('Account', 'DEC').getRecordTypeId();
         decAccount.DEC__c = decCode;
-
+        
         List<Account> existing = [select Id, Name from Account where DEC__c = :decCode and RecordTypeId = :decAccount.RecordTypeId];
         
         if (!existing.isEmpty()) {            
@@ -132,7 +144,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         } else {
             decAccount.Name = 'DEC from eForms: ' + decCode;
         }
-
+        
         for (Request_Detail__c rd : requestDetails) {
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.providerFaxNumber1')) decAccount.Fax = rd.String_Value__c;
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.decAddress.decStreetAddressLine1')) decAccount.ShippingStreet = rd.String_Value__c;
@@ -143,17 +155,17 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         
         return decAccount;
     }
-
+    
     private String findDecCode(List<Request_Detail__c> requestDetails) {
         for (Request_Detail__c rd : requestDetails) {
             if (rd.Question_ID__c.equalsIgnoreCase('panelDECinfo.dec')) {
                 return rd.String_Value__c;
             }
         }
-
+        
         return null;
     }
-
+    
     private Boolean hasDec(List<Request_Detail__c> requestDetails) {
         for (Request_Detail__c rd : requestDetails) {
             if (rd.Question_ID__c != null && rd.Question_ID__c.startsWithIgnoreCase('panelDECinfo')) {
@@ -162,13 +174,14 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return false;
     }
-
+    
     private Boolean requiresTruncation(String providerType) {
         return providerType.equalsIgnoreCase('Physician') || 
             providerType.equalsIgnoreCase('Pharmacist') ||
-            providerType.equalsIgnoreCase('Nurse Practitioner'); 
+            providerType.equalsIgnoreCase('Nurse Practitioner') ||
+            providerType.equalsIgnoreCase('Registered Psychiatric Nurse'); 
     }
-
+    
     private Account buildAccount(Eform.Resource resource) {
         Account account = new Account();
         Eform.Name name = getName(resource.name);
@@ -176,10 +189,10 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         account.LastName = name == null ? '(EMPTY)' : name.family;
         account.Person_Full_Name__c = account.FirstName + ' ' + account.LastName;
         if (account.FirstName.length() > 40) { account.FirstName = account.FirstName.substring(0, 40); }
-
+        
         account.Phone = getTelecom(resource.telecom, 'phone')?.value;
         account.Fax = getTelecom(resource.telecom, 'fax')?.value;
-
+        
         Eform.Address address = getAddress(resource.address);
         account.PersonMailingStreet = address == null || address.line == null ? null : String.join(address.line, ' ');
         account.PersonMailingCity = address?.city;
@@ -187,46 +200,46 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         account.PersonMailingPostalCode = address?.postalCode;
         return account;
     }
-
+    
     public List<Request_Detail__c> buildRequestDetails(Eform.Resource resource) {
         return buildRequestDetails(new List<String>(), resource.item);
     }
-
+    
     private List<Request_Detail__c> buildRequestDetails(List<String> questionIds, List<Eform.Item> qrItems) {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
-
+        
         if (qrItems == null) return requestDetails;
         
         for (Eform.Item qri : qrItems) {
             List<String> newQuestionIds = new List<String>(questionIds);
             newQuestionIds.add(qri.linkId);
-
+            
             if (qri.answer != null && qri.answer.isEmpty() == false) {
                 requestDetails.addAll(buildRequestDetails(newQuestionIds, qri));
             } else {
                 requestDetails.addAll(buildRequestDetails(newQuestionIds, qri.item)); 
             }
         }
-
+        
         return requestDetails;
     }
-
+    
     private List<Request_Detail__c> buildRequestDetails(List<String> questionIds, Eform.Item qrItem) {
         List<Request_Detail__c> requestDetails = new List<Request_Detail__c>();
         
         String newQuestionId = String.join(questionIds, '.')?.right(255);
-
+        
         for (Eform.Answer qra : qrItem.answer) {
             Request_Detail__c rd = buildRequestDetail(newQuestionId, qrItem.text, qra);
             requestDetails.add(rd);
         }
-
+        
         return requestDetails;
     }
-
+    
     private Request_Detail__c buildRequestDetail(String questionId, String questionText, Eform.Answer qra) {
         Boolean hasCoding = hasCoding(qra);
-
+        
         Request_Detail__c rd = new Request_Detail__c();
         rd.Sort_Order__c = SORT_ORDER++;
         rd.Question_ID__c = questionId;
@@ -240,26 +253,26 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         rd.Question__c = hasCoding && String.isBlank(rd.Question__c) ? qra.valueCoding.display : rd.Question__c;
         return rd;
     }
-
+    
     private Boolean hasCoding(Eform.Answer qra) {
         return qra.valueCoding != null && String.isNotBlank(qra.valueCoding.code);
     }
     private ContentVersion buildBundleJsonFile(String refNo, String bundleJsonStr) {
         String fileNameAndExt = String.format(
             'bundle{0}.json', new String[] {
-            String.isBlank(refNo) ? '' : '-' + refNo
-        });
-
+                String.isBlank(refNo) ? '' : '-' + refNo
+                    });
+        
         return buildFile(fileNameAndExt, Blob.valueOf(bundleJsonStr));
     }
     private ContentVersion buildFile(Eform.Resource resource) {
         String fileNameAndExt = resource.id;
-
+        
         if (resource.contentType == 'application/pdf') fileNameAndExt += '.pdf'; 
         
         return buildFile(fileNameAndExt, EncodingUtil.base64Decode(resource.data));
     }
-
+    
     private ContentVersion buildFile(String fileNameAndExt, Blob data) {
         ContentVersion contentVersion = new ContentVersion();
         contentVersion.ContentLocation = 'S';
@@ -268,14 +281,14 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         contentVersion.VersionData = data;
         return contentVersion;
     }
-
+    
     private String findDrugCode(List<Request_Detail__c> requestDetails) {
         for (Request_Detail__c rd : requestDetails) {
             if (String.isNotBlank(rd.Question_ID__c) && rd.Question_ID__c.endsWithIgnoreCase('medication')) return rd.String_Value__c;
         }
         return 'No drug found.';
     } 
-
+    
     private String findReferenceNumber(Eform.Bundle bundle) {
         List<Eform.Tag> tags = bundle?.meta?.tag;
         
@@ -290,7 +303,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return defaultCode;
     }
-
+    
     private String findFormSubmitterUserName(Eform.Bundle bundle) {
         List<Eform.Tag> tags = bundle?.meta?.tag;
         
@@ -305,7 +318,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return formSubmitterUserName;
     }
-
+    
     private String toProviderRole(String eformRole) {
         String role = eformRole.normalizeSpace();
         if (String.isBlank(role)) return null;
@@ -320,7 +333,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         else if (role.equalsIgnoreCase('OOP Provider')) return 'Out of province provider';
         else return role;
     }
-
+    
     private String findProviderRole(Eform.Resource resource) {
         return findQualification(resource.qualification, 'http://fhir.infoway-inforoute.ca/CodeSystem/scpqual')?.display;
     }
@@ -328,10 +341,10 @@ public with sharing class JsonSarBuilder implements SarBuilder {
     private String findProviderSpecialty(Eform.Resource resource) {
         return findQualification(resource.qualification, 'http://hl7.org/fhir/practitioner-specialty')?.code;
     }
-
+    
     private Eform.Tag findQualification(List<Eform.Qualification> qualifications, String systemValue) {
         if (qualifications == null) return null;
-
+        
         for (Eform.Qualification qualification : qualifications) {
             List<Eform.Tag> codes = qualification?.code?.coding;
             if (codes.isEmpty()) return null;
@@ -343,7 +356,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return null;
     }
-
+    
     private String getIdentifier(List<Eform.Identifier> identifiers) {
         String value = 'NULL_IDENTIFIER';
         if (identifiers == null) return value;
@@ -352,7 +365,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return value;
     }
-
+    
     private String getProviderIdentifier(List<Eform.Identifier> identifiers) {
         String value = null;
         if (identifiers == null) return value;
@@ -364,7 +377,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return value;
     }
-
+    
     private Eform.Name getName(List<Eform.Name> names) {
         if (names == null) return null;
         for (Eform.Name name : names) {
@@ -372,7 +385,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return null;
     }
-
+    
     private Eform.Telecom getTelecom(List<Eform.Telecom> telecoms, String system_z) {
         if (telecoms == null) return null;
         for (Eform.Telecom telecom : telecoms) {
@@ -381,7 +394,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return null;
     }
-
+    
     private Eform.Address getAddress(List<Eform.Address> addresses) {
         if (addresses == null) return null;
         for (Eform.Address address : addresses) {
@@ -389,14 +402,14 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         return null;
     }
-
+    
     private void addError(String subject, Exception e) {
         ERRORS.add(String.format('{0}: {1}', new String[] {
             subject,
-            e.getMessage() + '\n' + e.getStackTraceString()
-        }));
+                e.getMessage() + '\n' + e.getStackTraceString()
+                }));
     }
-
+    
     private String printErrors() {
         String result = '--- ERRORS START ---\n';
         result += String.join(ERRORS, '\n\n');

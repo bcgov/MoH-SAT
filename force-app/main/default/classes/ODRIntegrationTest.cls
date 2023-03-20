@@ -242,6 +242,8 @@ public class ODRIntegrationTest {
         System.assertEquals(oopY, 'B1');
         String oopNu = ODRIntegration.getPractitionerCode('OOP Provider - Nunavit');
         System.assertEquals(oopNu, 'C1');
+        String psychiatricNurse = ODRIntegration.getPractitionerCode('Registered Psychiatric Nurse');
+        Assert.areEqual(psychiatricNurse, 'Y9', 'Practitioner code not matching Y9');
 
     }
     @isTest static void formatToODRDateTest() {
