@@ -25,7 +25,11 @@ public with sharing class ESA_cls_accountTriggerHandler {
         } 
         List<Contact> conList = [Select Id, account.Provider_Specialty__pc from Contact Where accountID =: accountIdSet];
         for(Contact conObj: conList){
-            conObj.ESA_Provider_Specialty__c = conObj.account.Provider_Specialty__pc;
+            if(!String.isEmpty(conObj.account.Provider_Specialty__pc) && conObj.account.Provider_Specialty__pc.length() < 255){
+                conObj.ESA_Provider_Specialty__c = conObj.account.Provider_Specialty__pc;
+            } else if(!String.isEmpty(conObj.account.Provider_Specialty__pc)){
+                conObj.ESA_Provider_Specialty__c = conObj.account.Provider_Specialty__pc.substring(0,250);
+            }  
             conListToUpdate.add(new Contact(id = conObj.id, ESA_Provider_Specialty__c = conObj.ESA_Provider_Specialty__c));
         }
         if(!conListToUpdate.isEmpty()){

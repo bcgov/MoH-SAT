@@ -112,19 +112,24 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         
         List<Account> existing = [select Id,Provider_Specialty__pc from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc =:providerType];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
-        
-        //ESA-1472 - Appending both new and old Provider specialty values.
-        if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && !String.IsBlank(account.Provider_Specialty__pc)
-           && !existing.get(0).Provider_Specialty__pc.containsIgnoreCase(account.Provider_Specialty__pc) ){
-               
-               account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc +';'+ account.Provider_Specialty__pc;
-           }
-        else if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && 
-              (String.IsBlank(account.Provider_Specialty__pc) || existing.get(0).Provider_Specialty__pc.containsIgnoreCase(account.Provider_Specialty__pc)) ){
-                   
-              account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc;
-           }
-            
+        String existingValues = !existing.isEmpty() && !string.isEmpty(existing.get(0).Provider_Specialty__pc) ? existing.get(0).Provider_Specialty__pc : '';
+        List<String> existingPicklListValueList = !existing.isEmpty() && !String.isEmpty(existing.get(0).Provider_Specialty__pc) ? existingValues.split(';') : new List<String>();
+        Set<String> existingPicklListValueSet = new Set<String>();
+        String newPickListValuesSTR = '';
+        for(String existingPicklListValue: existingPicklListValueList){
+            existingPicklListValueSet.add(existingPicklListValue);
+        }
+        for(String newSpecialities: account.Provider_Specialty__pc.split(';')){
+            if(!existingPicklListValueSet.contains(newSpecialities)){
+                if(!String.isEmpty(newPickListValuesSTR)){
+                newPickListValuesSTR = !String.isBlank(newSpecialities) ? (newPickListValuesSTR + ';' + newSpecialities) : newPickListValuesSTR;
+                } else{
+                    newPickListValuesSTR = newSpecialities;
+                }
+            }
+        }
+        newPickListValuesSTR = newPickListValuesSTR.removeEnd(';');
+        account.Provider_Specialty__pc = !String.isEmpty(newPickListValuesSTR) ? (existingValues +';'+ newPickListValuesSTR) : existingValues;
         return account;
     }
          
