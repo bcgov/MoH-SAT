@@ -112,19 +112,24 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         
         List<Account> existing = [select Id,Provider_Specialty__pc from Account where Provider_Identifier__pc = :identifier and Provider_Type__pc =:providerType];
         account.Id = existing.isEmpty() ? null : existing[0].Id;
-        
-        //ESA-1472 - Appending both new and old Provider specialty values.
-        if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && !String.IsBlank(account.Provider_Specialty__pc)
-           && !existing.get(0).Provider_Specialty__pc.containsIgnoreCase(account.Provider_Specialty__pc) ){
-               
-               account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc +';'+ account.Provider_Specialty__pc;
-           }
-        else if(!existing.isEmpty() && !String.IsBlank(existing.get(0).Provider_Specialty__pc) && 
-              (String.IsBlank(account.Provider_Specialty__pc) || existing.get(0).Provider_Specialty__pc.containsIgnoreCase(account.Provider_Specialty__pc)) ){
-                   
-              account.Provider_Specialty__pc = existing.get(0).Provider_Specialty__pc;
-           }
-            
+        String existingValues = !existing.isEmpty() && !string.isEmpty(existing.get(0).Provider_Specialty__pc) ? existing.get(0).Provider_Specialty__pc : '';
+        List<String> existingProviderValueList = !existing.isEmpty() && !String.isEmpty(existing.get(0).Provider_Specialty__pc) ? existingValues.split(';') : new List<String>();
+        Set<String> existingProviderValueSet = new Set<String>();
+        String newProviderValuesSTR = '';
+        for(String existingProviderValue: existingProviderValueList){
+            existingProviderValueSet.add(existingProviderValue);
+        }
+        for(String newSpecialities: account.Provider_Specialty__pc.split(';')){
+            if(!existingProviderValueSet.contains(newSpecialities)){
+                if(!String.isEmpty(newProviderValuesSTR) && !newProviderValuesSTR.containsIgnoreCase(newSpecialities)){
+                newProviderValuesSTR = !String.isBlank(newSpecialities) ? (newProviderValuesSTR + ';' + newSpecialities) : newProviderValuesSTR;
+                } else{
+                    newProviderValuesSTR = newSpecialities;
+                }
+            }
+        }
+        newProviderValuesSTR = newProviderValuesSTR.removeEnd(';');
+        account.Provider_Specialty__pc = !String.isEmpty(newProviderValuesSTR) ? (existingValues +';'+ newProviderValuesSTR) : existingValues;
         return account;
     }
          
