@@ -121,7 +121,7 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         }
         for(String newSpecialities: account.Provider_Specialty__pc.split(';')){
             if(!existingPicklListValueSet.contains(newSpecialities)){
-                if(!String.isEmpty(newPickListValuesSTR)){
+                if(!String.isEmpty(newPickListValuesSTR) && !newPickListValuesSTR.containsIgnoreCase(newSpecialities)){
                 newPickListValuesSTR = !String.isBlank(newSpecialities) ? (newPickListValuesSTR + ';' + newSpecialities) : newPickListValuesSTR;
                 } else{
                     newPickListValuesSTR = newSpecialities;
