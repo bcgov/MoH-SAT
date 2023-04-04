@@ -119,12 +119,14 @@ public with sharing class JsonSarBuilder implements SarBuilder {
         for(String existingProviderValue: existingProviderValueList){
             existingProviderValueSet.add(existingProviderValue.normalizeSpace());
         }
-        for(String newSpecialities: account.Provider_Specialty__pc.split(';')){
-            if(!existingProviderValueSet.contains(newSpecialities.normalizeSpace())){
-                if(!String.isEmpty(newProviderValuesSTR) && !newProviderValuesSTR.containsIgnoreCase(newSpecialities)){
-                    newProviderValuesSTR = !String.isBlank(newSpecialities) ? (newProviderValuesSTR + ';' + newSpecialities) : newProviderValuesSTR;
-                } else{
-                    newProviderValuesSTR = newSpecialities;
+        if(!String.isEmpty(account.Provider_Specialty__pc)){
+            for(String newSpecialities: account.Provider_Specialty__pc.split(';')){
+                if(!existingProviderValueSet.contains(newSpecialities.normalizeSpace())){
+                    if(!String.isEmpty(newProviderValuesSTR) && !newProviderValuesSTR.containsIgnoreCase(newSpecialities)){
+                        newProviderValuesSTR = !String.isBlank(newSpecialities) ? (newProviderValuesSTR + ';' + newSpecialities) : newProviderValuesSTR;
+                    } else{
+                        newProviderValuesSTR = newSpecialities;
+                    }
                 }
             }
         }
