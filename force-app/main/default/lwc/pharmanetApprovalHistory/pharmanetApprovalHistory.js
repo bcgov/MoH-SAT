@@ -5,10 +5,10 @@ import getPatientIdentifier from '@salesforce/apex/ODRIntegration.getPatientIden
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
-  { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
-  { label: 'RDP or DIN/PIN', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true },
+  { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true,sortable: "true" },
+  { label: 'RDP or DIN/PIN', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true,sortable: "true" },
   { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true, sortable: "true" },
   { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
   { label: 'Pract ID', fieldName: 'practId', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Pract ID Ref', fieldName: 'practIdRef', type: 'text', wrapText: true, hideDefaultActions: true },
@@ -36,11 +36,35 @@ export default class PharmanetApprovalHistory extends LightningElement {
   openModal = false;
   selectedSARecord;
   saApprovalRequestFormatData = [];
-
+  sortBy;
+  sortDirection;
+  initialRecords;
   connectedCallback() {
     this.fetchItems();
   }
+  doSorting(event) {
+    this.sortBy = event.detail.fieldName;
+    this.sortDirection = event.detail.sortDirection;
+    this.sortData(this.sortBy, this.sortDirection);
+  }
 
+  sortData(fieldname, direction) {
+    let parseData = JSON.parse(JSON.stringify(this.data));
+    // Return the value stored in the field
+    let keyValue = (a) => {
+        return a[fieldname];
+    };
+    // cheking reverse direction
+    let isReverse = direction === 'asc' ? 1: -1;
+    // sorting data
+    parseData.sort((x, y) => {
+        x = keyValue(x) ? keyValue(x) : ''; // handling null values
+        y = keyValue(y) ? keyValue(y) : '';
+        // sorting values based on direction
+        return isReverse * ((x > y) - (y > x));
+    });
+    this.data = parseData;
+  } 
   get hasPermissions(){
     return hasSAApprovalUpdate;
   }
@@ -197,5 +221,29 @@ export default class PharmanetApprovalHistory extends LightningElement {
       });
       this.dispatchEvent(event);
     }
+  }
+
+  handleSearch (event){
+    const searchKey = event.target.value;
+    if(!this.initialRecords){
+      this.initialRecords = JSON.parse(JSON.stringify(this.data));
+    }else{
+      this.data = JSON.parse(JSON.stringify(this.initialRecords));
+    }
+    if (searchKey) {
+        if (this.data) {
+            let searchRecords = [];
+
+            for (let record of this.data) {
+                if(record.dinrdp.includes(searchKey) || record.description.includes(searchKey)){
+                  searchRecords.push(record);
+                  //break;
+                }
+            }
+            this.data = searchRecords;
+        }
+      }else{
+        this.data = this.initialRecords;
+      }
   }
 }
