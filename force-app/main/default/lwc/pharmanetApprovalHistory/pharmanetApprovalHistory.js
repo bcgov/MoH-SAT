@@ -235,9 +235,8 @@ export default class PharmanetApprovalHistory extends LightningElement {
             let searchRecords = [];
 
             for (let record of this.data) {
-                if(record.dinrdp.includes(searchKey) || record.description.includes(searchKey)){
+                if(((record.dinrdp).toLowerCase()).includes(searchKey.toLowerCase()) || ((record.description).toLowerCase()).includes(searchKey.toLowerCase())){
                   searchRecords.push(record);
-                  //break;
                 }
             }
             this.data = searchRecords;
