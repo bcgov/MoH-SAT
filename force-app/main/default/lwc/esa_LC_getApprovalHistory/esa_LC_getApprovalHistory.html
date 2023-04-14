@@ -1,0 +1,36 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <!-- <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner> -->
+    <lightning-card if:true={loaded}>
+      <h3 slot="title">
+          <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
+          &nbsp;SA Approval History
+      </h3>
+    </lightning-card>
+    &nbsp;
+    <!-- IF RESULTS -->
+    <lightning-card if:true={hasResults}>
+      <lightning-datatable
+              key-field="rxNumber"
+              hide-checkbox-column
+              data={data}
+              columns={columns}>
+      </lightning-datatable>
+      <div class="page-info">
+        Total Records: {totalRecords}
+      </div>
+    </lightning-card>
+  
+    <!-- NO RESULTS FOUND -->
+    <lightning-card if:true={completeAndNoResults}>
+      <div class="slds-text-align_center">
+          <div class="slds-m-vertical_small">
+              <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
+              <p>No SA Approval History.</p>
+          </div>
+      </div>
+    </lightning-card>
+  
+    <!-- ERROR CASE -->
+    <c-error-display if:true={isError} error={error}></c-error-display>
+  </template>
