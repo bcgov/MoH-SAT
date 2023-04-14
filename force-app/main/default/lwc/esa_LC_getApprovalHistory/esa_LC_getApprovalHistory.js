@@ -1,4 +1,4 @@
-import { LightningElement, api, wire, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import fetchSAApprovalHistory from '@salesforce/apex/ODRIntegration.fetchSAApprovalHistory';
 import fetchIntegrationLogs from '@salesforce/apex/ODRIntegration.fetchIntegrationLogs';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
@@ -33,10 +33,10 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
   saApprovalRequestFormatData = [];
 
   connectedCallback() {
-    this.fetchItems();
+    this.fetchItem();
   }
 
-  async fetchItems() {
+  async fetchItem() {
     console.log('called'+this.phn);
     let data = await fetchSAApprovalHistory({recordId: this.phn});
    
