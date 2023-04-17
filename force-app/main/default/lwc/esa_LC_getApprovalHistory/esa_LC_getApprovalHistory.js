@@ -140,25 +140,27 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
           if (records.length == 1){
           this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", record.effectiveDate).replace("TERMINATIONDATE", record.terminationDate); 
           if (todaysDate < terminationDate){
-            this.terminationDateOpt = terminationDate;
-            this.effectiveDateOpt = new Date(record.effectiveDate);
+            populateDates(terminationDate, record.effectiveDate);
           }      
           } else if(item['dinrdp'].replace("-","") == this.RDPCode.replace("-","")){
             if (todaysDate <= terminationDate){
                 if(!terminationDateMax){
                     this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", record.effectiveDate).replace("TERMINATIONDATE", record.terminationDate);   
-                    terminationDateMax = terminationDate; 
-                    this.terminationDateOpt = terminationDateMax;
-                    this.effectiveDateOpt = new Date(record.effectiveDate);
+                    terminationDateMax = terminationDate;
+                    populateDates(terminationDateMax, record.effectiveDate);
                 } else if(terminationDateMax <= terminationDate){
                     this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", record.effectiveDate).replace("TERMINATIONDATE", record.terminationDate);
-                    this.terminationDateOpt = record.terminationDate;
-                    this.effectiveDateOpt = new Date(record.effectiveDate);       
+                    populateDates(record.terminationDate, record.effectiveDate);
                 }
             }
           }
         });
         this.data = dataArray;  
+  }
+
+  populateDates(terminationDate, effectiveDate){
+    this.terminationDateOpt = terminationDate;
+    this.effectiveDateOpt = new Date(effectiveDate);
   }
 
   generateSingleKey(record){
