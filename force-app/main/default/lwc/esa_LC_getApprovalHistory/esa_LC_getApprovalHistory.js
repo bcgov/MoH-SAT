@@ -96,61 +96,61 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
         let todaysDate = new Date();
         let terminationDateMax;
 
-        records.forEach(record => {
+        records.forEach(rec => {
           // Needed because SAApprovalHistoryResponse is a different format than SAApprovalRequest.
           let saRecord = {saRecord: {
-            saRequester: record.saRequester,
-            specialItem: record.specialItem,
-            specAuthType: record.specAuthType,
-            justificationCodes: record.justificationCodes,
-            excludedPlans: record.excludedPlans,
-            effectiveDate: record.effectiveDate,
-            terminationDate: record.terminationDate,
-            maxDaysSupply: record.maxDaysSupply,
-            maxPricePct: record.maxPricePct
+            saRequester: rec.saRequester,
+            specialItem: rec.specialItem,
+            specAuthType: rec.specAuthType,
+            justificationCodes: rec.justificationCodes,
+            excludedPlans: rec.excludedPlans,
+            effectiveDate: rec.effectiveDate,
+            terminationDate: rec.terminationDate,
+            maxDaysSupply: rec.maxDaysSupply,
+            maxPricePct: rec.maxPricePct
           }};
 
           let item = {};
-          item['description'] = record.specialItem.itemDescription;
-          item['dinrdp'] = this.convertDINPIN(record.specAuthType, record.specialItem.din || record.specialItem.rdp);
-          item['specAuthType'] = this.convertSAType(record.specAuthType);
-          item['effectiveDate'] = record.effectiveDate;
-          item['terminationDate'] = record.terminationDate;
-          item['practId'] = record.saRequester.practId;
-          item['practIdRef'] = record.saRequester.practIdRef;
+          item['description'] = rec.specialItem.itemDescription;
+          item['dinrdp'] = this.convertDINPIN(rec.specAuthType, rec.specialItem.din || rec.specialItem.rdp);
+          item['specAuthType'] = this.convertSAType(rec.specAuthType);
+          item['effectiveDate'] = rec.effectiveDate;
+          item['terminationDate'] = rec.terminationDate;
+          item['practId'] = rec.saRequester.practId;
+          item['practIdRef'] = rec.saRequester.practIdRef;
           item['excludedPlans'] = "";
-          record.excludedPlans.forEach(ep => {
+          rec.excludedPlans.forEach(ep => {
             if (item['excludedPlans'] == "") {
               item['excludedPlans'] = ep;
             } else {
               item['excludedPlans'] += ", " + ep
             }
           });
-          item['maxDaysSupply'] = record.maxDaysSupply;
-          item['pharmacyID'] = record.saRequester.pharmacyID;
+          item['maxDaysSupply'] = rec.maxDaysSupply;
+          item['pharmacyID'] = rec.saRequester.pharmacyID;
           // Not coming in response.
-          item['decCode'] = record.saRequester.decCode;
-          item['createdBy'] = record.createdBy;
-          item['integrationLog'] = this.getLatestLog(this.generateSingleKey(record), logs);
+          item['decCode'] = rec.saRequester.decCode;
+          item['createdBy'] = rec.createdBy;
+          item['integrationLog'] = this.getLatestLog(this.generateSingleKey(rec), logs);
           item['index'] = index;
           saRecord.index = index++;
           dataArray.push(item);
           this.saApprovalRequestFormatData.push(saRecord); 
-          let terminationDate = new Date(record.terminationDate);
+          let terminationDate = new Date(rec.terminationDate);
           if (records.length == 1){
-          this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", record.effectiveDate).replace("TERMINATIONDATE", record.terminationDate); 
+          this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate); 
           if (todaysDate < terminationDate){
-            populateDates(terminationDate, record.effectiveDate);
+            populateDates(terminationDate, rec.effectiveDate);
           }      
           } else if(item['dinrdp'].replace("-","") == this.RDPCode.replace("-","")){
             if (todaysDate <= terminationDate){
                 if(!terminationDateMax){
-                    this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", record.effectiveDate).replace("TERMINATIONDATE", record.terminationDate);   
+                    this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate);   
                     terminationDateMax = terminationDate;
                     populateDates(terminationDateMax, record.effectiveDate);
                 } else if(terminationDateMax <= terminationDate){
-                    this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", record.effectiveDate).replace("TERMINATIONDATE", record.terminationDate);
-                    populateDates(record.terminationDate, record.effectiveDate);
+                    this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate);
+                    populateDates(rec.terminationDate, rec.effectiveDate);
                 }
             }
           }
