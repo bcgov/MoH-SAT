@@ -33,10 +33,11 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
   saApprovalRequestFormatData = [];
 
   connectedCallback() {
-    this.fetchItem();
+    this.fetchItems();
   }
 
-  async fetchItem() {
+  async fetchItems() {
+    console.log('called'+this.phn);
     let data = await fetchSAApprovalHistory({recordId: this.phn});
    
     if (data && data.error == null) {
@@ -46,50 +47,7 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
       this.totalRecords = data.totalRecords;
        
       if (this.totalRecords > 0) {
-        handleSuccess(records, logs);
-      } else {
-        this.hasResults = false;
-        this.completeAndNoResults = true;
-      }
-      this.loaded = true;
-    } else {
-      this.isError = true;
-      this.loaded = true;
-      this.error = data.error.errorMessage;
-      const event = new ShowToastEvent({
-        title: 'Pharmanet Error',
-        message: data.error.errorMessage
-      });
-      this.dispatchEvent(event);
-    }
-  }
-
-  convertDINPIN(type, value) {
-    if (type == 'R') {
-      return value.substr(0,4) + '-' + value.substr(4);
-    } else {
-      return value;
-    }
-  }
-
-  convertSAType(type) {
-    let convertedValue = '';
-    switch (type) {
-      case 'L':
-        convertedValue = 'LCA';
-        break;
-      case 'B':
-        convertedValue = 'Non-Benefit';
-        break;
-      case 'R':
-        convertedValue = 'RDP';
-        break;
-    }
-    return convertedValue;
-  }
-
-  handleSuccess(records, logs){
-    this.completeAndNoResults = false;
+        this.completeAndNoResults = false;
         this.hasResults = true;
         let dataArray = [];
         let index = 0;
@@ -140,27 +98,64 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
           if (records.length == 1){
           this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate); 
           if (todaysDate < terminationDate){
-            populateDates(terminationDate, rec.effectiveDate);
+            this.terminationDateOpt = terminationDate;
+            this.effectiveDateOpt = new Date(record.effectiveDate);
           }      
           } else if(item['dinrdp'].replace("-","") == this.RDPCode.replace("-","")){
             if (todaysDate <= terminationDate){
                 if(!terminationDateMax){
                     this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate);   
-                    terminationDateMax = terminationDate;
-                    populateDates(terminationDateMax, record.effectiveDate);
+                    terminationDateMax = terminationDate; 
+                    this.terminationDateOpt = terminationDateMax;
+                    this.effectiveDateOpt = new Date(rec.effectiveDate);
                 } else if(terminationDateMax <= terminationDate){
                     this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate);
-                    populateDates(rec.terminationDate, rec.effectiveDate);
+                    this.terminationDateOpt = rec.terminationDate;
+                    this.effectiveDateOpt = new Date(rec.effectiveDate);       
                 }
             }
           }
         });
-        this.data = dataArray;  
+        this.data = dataArray;
+      } else {
+        this.hasResults = false;
+        this.completeAndNoResults = true;
+      }
+      this.loaded = true;
+    } else {
+      this.isError = true;
+      this.loaded = true;
+      this.error = data.error.errorMessage;
+      const event = new ShowToastEvent({
+        title: 'Pharmanet Error',
+        message: data.error.errorMessage
+      });
+      this.dispatchEvent(event);
+    }
   }
 
-  populateDates(terminationDate, effectiveDate){
-    this.terminationDateOpt = terminationDate;
-    this.effectiveDateOpt = new Date(effectiveDate);
+  convertDINPIN(type, value) {
+    if (type == 'R') {
+      return value.substr(0,4) + '-' + value.substr(4);
+    } else {
+      return value;
+    }
+  }
+
+  convertSAType(type) {
+    let convertedValue = '';
+    switch (type) {
+      case 'L':
+        convertedValue = 'LCA';
+        break;
+      case 'B':
+        convertedValue = 'Non-Benefit';
+        break;
+      case 'R':
+        convertedValue = 'RDP';
+        break;
+    }
+    return convertedValue;
   }
 
   generateSingleKey(record){
