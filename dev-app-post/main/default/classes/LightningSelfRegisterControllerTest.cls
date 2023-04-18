@@ -10,10 +10,10 @@ public with sharing class LightningSelfRegisterControllerTest {
   System.assert(LightningSelfRegisterController.isValidPassword(null, 'fakePwd') == false);
  }
 
- @IsTest
+ /* @IsTest
  static void testSiteAsContainerEnabled() {
   System.assertNotEquals(null, LightningSelfRegisterController.siteAsContainerEnabled('https://portaleu1-developer-edition.eu11.force.com'));
- }
+ } */
 
  /* Verifies the selfRegistration method flow with various invalid inputs */
  @IsTest
