@@ -52,7 +52,9 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
         let dataArray = [];
         let index = 0;
         let todaysDate = new Date();
-        let terminationDateMax;
+        todaysDate = new Date(todaysDate.getFullYear() +'/'+(todaysDate.getMonth() + 1) + '/'+ todaysDate.getDate());
+        let terminationDateMaxArray = records[0].terminationDate.split('-');
+        let terminationDateMax = new Date(terminationDateMaxArray[0] + '/' + terminationDateMaxArray[1] + '/' + terminationDateMaxArray[2]);
 
         records.forEach(rec => {
           // Needed because SAApprovalHistoryResponse is a different format than SAApprovalRequest.
@@ -94,25 +96,22 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
           saRecord.index = index++;
           dataArray.push(item);
           this.saApprovalRequestFormatData.push(saRecord); 
-          let terminationDate = new Date(rec.terminationDate);
-          if (records.length == 1){
-          this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate); 
-          if (todaysDate < terminationDate){
+          let terminationDateArray = rec.terminationDate.split('-');
+          let terminationDate = new Date(terminationDateArray[0] + '/' + terminationDateArray[1] + '/' + terminationDateArray[2]);
+          let isTodayNTerminationDateEqual = (todaysDate - terminationDate == 0);
+          let isRDPEqual = (item['dinrdp'].replace("-","") == this.RDPCode.replace("-",""));
+          if (records.length == 1 && isRDPEqual){
+          if (todaysDate < terminationDate || isTodayNTerminationDateEqual){
             this.terminationDateOpt = terminationDate;
-            this.effectiveDateOpt = new Date(record.effectiveDate);
+            this.effectiveDateOpt = new Date(rec.effectiveDate);
+            this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate); 
           }      
-          } else if(item['dinrdp'].replace("-","") == this.RDPCode.replace("-","")){
-            if (todaysDate <= terminationDate){
-                if(!terminationDateMax){
-                    this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate);   
-                    terminationDateMax = terminationDate; 
-                    this.terminationDateOpt = terminationDateMax;
-                    this.effectiveDateOpt = new Date(rec.effectiveDate);
-                } else if(terminationDateMax <= terminationDate){
-                    this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate);
-                    this.terminationDateOpt = rec.terminationDate;
-                    this.effectiveDateOpt = new Date(rec.effectiveDate);       
-                }
+          } else if(isRDPEqual){
+            if ((todaysDate < terminationDate || isTodayNTerminationDateEqual) && ((terminationDateMax < terminationDate) || (terminationDateMax - terminationDate == 0))){
+              this.terminationDateOpt = rec.terminationDate;
+              this.effectiveDateOpt = new Date(rec.effectiveDate); 
+              terminationDateMax = terminationDate;
+              this.rationalText = this.rationalTextLabel.replace("EFFECTIVEDATE", rec.effectiveDate).replace("TERMINATIONDATE", rec.terminationDate);
             }
           }
         });
