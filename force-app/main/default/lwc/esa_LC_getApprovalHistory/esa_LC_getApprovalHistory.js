@@ -37,7 +37,6 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
   }
 
   async fetchItems() {
-    console.log('called'+this.phn);
     let data = await fetchSAApprovalHistory({recordId: this.phn});
    
     if (data && data.error == null) {
@@ -79,11 +78,11 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
           item['practId'] = rec.saRequester.practId;
           item['practIdRef'] = rec.saRequester.practIdRef;
           item['excludedPlans'] = "";
-          rec.excludedPlans.forEach(ep => {
+          rec.excludedPlans.forEach(exclPlansRec => {
             if (item['excludedPlans'] == "") {
-              item['excludedPlans'] = ep;
+              item['excludedPlans'] = exclPlansRec;
             } else {
-              item['excludedPlans'] += ", " + ep
+              item['excludedPlans'] += ", " + exclPlansRec
             }
           });
           item['maxDaysSupply'] = rec.maxDaysSupply;
