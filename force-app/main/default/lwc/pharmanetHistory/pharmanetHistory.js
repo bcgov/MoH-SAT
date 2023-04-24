@@ -189,6 +189,11 @@ export default class PharmanetHistory extends LightningElement {
             dataArray.push(item);
           });
           this.data = dataArray;
+          this.data.sort((a, b) => {
+            let c = Date.parse(new Date(a.datedispensed));
+            let d = Date.parse(new Date(b.datedispensed));
+            return d-c;
+            });
         } else {
           this.hasResults = false;
           this.completeAndNoResults = true;

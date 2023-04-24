@@ -3056,6 +3056,7 @@
         <label>Create New Patient Record</label>
         <locationX>4626</locationX>
         <locationY>6422</locationY>
+        <assignRecordIdToReference>existingPatientAccount.Id</assignRecordIdToReference>
         <connector>
             <targetReference>Get_Final_Patient_ID</targetReference>
         </connector>
@@ -3096,7 +3097,6 @@
             </value>
         </inputAssignments>
         <object>Account</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
         <name>Create_New_Patient_Record_2</name>
@@ -4273,7 +4273,7 @@
             <field>AccountId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Create_New_Patient_Record</elementReference>
+                <elementReference>existingPatientAccount.Id</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -4540,7 +4540,7 @@
         <locationY>6062</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_New_Patient_Record</targetReference>
+            <targetReference>verifyNewAccount</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
