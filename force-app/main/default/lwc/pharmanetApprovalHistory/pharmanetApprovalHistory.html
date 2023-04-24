@@ -1,38 +1,53 @@
 <!-- sldsValidatorIgnore -->
 <template>
   <!-- <lightning-spinner if:false={loaded} alternative-text="Loading" size="small"></lightning-spinner> -->
-  <lightning-card if:true={loaded}>
-    <h3 slot="title">
+  <lightning-card>
+    <template if:true={loaded}>
+      <h3 slot="title">
         <lightning-icon icon-name="custom:custom58" size="small"></lightning-icon>
         &nbsp;SA Approval History
-    </h3>
-  </lightning-card>
-  &nbsp;
-  <!-- IF RESULTS -->
-  <lightning-card if:true={hasResults}>
-    <lightning-datatable
-            key-field="rxNumber"
-            hide-checkbox-column
-            data={data}
-            columns={columns}
-            onrowaction={handleRowAction}>
-    </lightning-datatable>
-    <div class="page-info">
-      Total Records: {totalRecords}
-    </div>
-  </lightning-card>
-
-  <!-- NO RESULTS FOUND -->
-  <lightning-card if:true={completeAndNoResults}>
-    <div class="slds-text-align_center">
+      </h3>
+    </template>
+    <!-- IF RESULTS -->
+    <template if:true={hasResults}>
+      <lightning-layout multiple-rows>
+        <lightning-layout-item size="4" padding="around-small">
+            <lightning-input
+                name="enter-search"
+                label="Search"
+                type="search"
+                onchange={handleSearch}
+            ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item size="8" padding="around-small"></lightning-layout-item>
+        </lightning-layout>
+        <lightning-datatable
+                key-field="rxNumber"
+                hide-checkbox-column
+                data={data}
+                columns={columns}
+                onrowaction={handleRowAction}
+                sorted-by={sortBy}
+                sorted-direction={sortDirection}
+                onsort={doSorting}>
+        </lightning-datatable>
+      <div class="page-info">
+        Total Records: {totalRecords}
+      </div>
+    
+    </template>
+    <!-- NO RESULTS FOUND -->
+    <template if:true={completeAndNoResults}>
+      <div class="slds-text-align_center">
         <div class="slds-m-vertical_small">
             <p><lightning-icon icon-name="utility:info_alt" alternative-text="Info" ></lightning-icon></p>
             <p>No SA Approval History.</p>
         </div>
-    </div>
+      </div>
+    </template>
   </lightning-card>
 
-  <!--DISPLAY TERMINATE MODAL-->
+   <!--DISPLAY TERMINATE MODAL-->
   <template if:true={openModal}>
     <section
             role="dialog"
