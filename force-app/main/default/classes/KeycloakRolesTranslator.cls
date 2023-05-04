@@ -2,33 +2,22 @@ public with sharing class KeycloakRolesTranslator {
     
     @InvocableMethod(label='Apply Permission Sets' description='Applies permission sets on user.')
     public static void translateUserRoles() {
+        User user = [select Id, Keycloak_Roles__c, ProfileId, Profile.Name from User where Id = :UserInfo.getUserId()];
 
-        try {
+        List<PermissionSet> permissionSets = new List<PermissionSet>();
+        permissionSets.addAll(getDefaultPermissionSets(user.Profile.Name));
+        permissionSets.addAll(getPermissionSets(user.Keycloak_Roles__c));
 
-            User user = [select Id, Keycloak_Roles__c, ProfileId, Profile.Name from User where Id = :UserInfo.getUserId()];
-
-            List<PermissionSet> permissionSets = new List<PermissionSet>();
-            permissionSets.addAll(getDefaultPermissionSets(user.Profile.Name));
-            permissionSets.addAll(getPermissionSets(user.Keycloak_Roles__c));
-
-            List<PermissionSetAssignment> psas = new List<PermissionSetAssignment>();
-            
-            if(!permissionSets.isEmpty()){
-                for (PermissionSet ps : permissionSets) {
-                    psas.add(new PermissionSetAssignment(
-                        PermissionSetId = ps.Id,
-                        AssigneeId=UserInfo.getUserId()
-                    ));
-                }
-            }
-
-            removeExistingPermsets();
-            if(!psas.isEmpty()){
-                insert psas;
-            }
-        } catch (Exception e) {
-            System.debug('Exception has occured'+e.getMessage());
+        List<PermissionSetAssignment> psas = new List<PermissionSetAssignment>();
+        for (PermissionSet ps : permissionSets) {
+            psas.add(new PermissionSetAssignment(
+                PermissionSetId = ps.Id,
+                AssigneeId=UserInfo.getUserId()
+            ));
         }
+
+        removeExistingPermsets();
+        insert psas;
     }
 
     public static Set<String> parseRoles(String keycloakRoles) {
@@ -76,11 +65,7 @@ public with sharing class KeycloakRolesTranslator {
     }
 
     private static void removeExistingPermsets() {
-        List<PermissionSetAssignment> permissionSetLst = [select Id from PermissionSetAssignment where AssigneeId = :UserInfo.getUserId() and PermissionSet.Name in :getExternallyManagedPermissionSets()];
-        
-        if(!permissionSetLst.isEmpty()){
-            delete permissionSetLst;
-        } 
+        delete [select Id from PermissionSetAssignment where AssigneeId = :UserInfo.getUserId() and PermissionSet.Name in :getExternallyManagedPermissionSets()];
     }
 
     private static final Map<String, List<String>> PROFILE_PERMSETS = new Map<String, List<String>>{
