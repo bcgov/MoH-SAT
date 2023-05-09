@@ -33,11 +33,12 @@ jobs:
     - name: Package Upgrade
       run: sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15 -c
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: New package version build.
-        commit_options: '--no-verify --signoff'
-        file_pattern: sfdx-project.json
-        repository: .
-        skip_dirty_check: true
-        skip_fetch: true
+    # Commenting these below to check whether we can create the package version
+    # - uses: stefanzweifel/git-auto-commit-action@v4
+    #   with:
+    #     commit_message: New package version build.
+    #     commit_options: '--no-verify --signoff'
+    #     file_pattern: sfdx-project.json
+    #     repository: .
+    #     skip_dirty_check: true
+    #     skip_fetch: true
