@@ -387,7 +387,30 @@ public with sharing class ODRIntegration {
         system.debug('The response is :'+ sar.saRecords);
         return sar;
     }
-
+    
+    @AuraEnabled(cacheable = true)
+    public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(Id recordId, String page, String totalCount, List<Integer> dinList, String searchKey, String displayCount) {
+        if(String.isBlank(searchKey)){
+            return fetchPrescriptionHistory(recordId, page, displayCount, dinList);
+        }
+        
+        PrescriptionHistoryResponse resObj = fetchPrescriptionHistory(recordId, page, totalCount, dinList);
+        Integer returnRecordCount = 0;
+        Integer displayCountInt = !String.isBlank(displayCount) ? Integer.valueOf(displayCount) : 0;
+        List<PrescriptionHistoryResponse.MedRecords> medRecordsList = new List<PrescriptionHistoryResponse.MedRecords>();
+        for(PrescriptionHistoryResponse.MedRecords medObj : resObj.medHistory.medRecords){
+            if(returnRecordCount < displayCountInt){
+                if((medObj.dinpin != NULL && String.valueOf(medObj.dinpin).containsIgnoreCase(searchKey)) || 
+                   (!String.isEmpty(medObj.genericName) && medObj.genericName.containsIgnoreCase(searchKey))){
+                       medRecordsList.add(medObj);
+                       returnRecordCount = returnRecordCount + 1;
+                   }
+            }
+        }
+        resObj.medHistory.MedRecords = medRecordsList;
+        return resObj;
+    }
+    
     @AuraEnabled
     public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count, List<Integer> dinList) {
         System.debug('Fetch Data');

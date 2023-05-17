@@ -1,18 +1,19 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import fetchPrescriptionHistory from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistory';
+import fetchPrescriptionHistoryWithSearchKey from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistoryWithSearchKey';
 import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.getProductHealthCategories';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
-  { label: 'Date Dispensed', fieldName: 'dateDispensed', initialWidth: 120, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'Name', fieldName: 'genericName', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
+  { label: 'Date Dispensed', fieldName: 'dateDispensed', initialWidth: 120, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true, sortable: "true" },
+  { label: 'Name', fieldName: 'genericName', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true, sortable: "true" },
   { label: 'Strength', fieldName: 'drugStrength', type: 'text', initialWidth: 120, wrapText: true, hideDefaultActions: true },
   { label: 'Direction', fieldName: 'directions', type: 'text',initialWidth: 120,  wrapText: true, hideDefaultActions: true },
   { label: 'Quantity', fieldName: 'quantity', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Days Supply', fieldName: 'daysSupply', hideDefaultActions: true },
   { label: 'Days Last Filled', fieldName: 'daysSince', hideDefaultActions: true },
   { label: 'Status', fieldName: 'rxStatus', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
+  { label: 'Prescriber', fieldName: 'prescriberName', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true, sortable: "true" },
   { label: 'SA Applied', fieldName: 'saTypeApplied', wrapText: true, hideDefaultActions: true },
   { label: 'Plan Code', fieldName: 'planCode', wrapText: true, hideDefaultActions: true },
   { label: 'Claimed amount', fieldName: 'claimAmount', wrapText: true, hideDefaultActions: true },
@@ -38,6 +39,11 @@ export default class PharmanetHistory extends LightningElement {
   totalRecords = 0;
   pageNumber = 1;
   totalPages = 0;
+  sortBy;
+  sortDirection;
+  initialRecords;
+  searchKey;
+  searchRecordCount;
 
   // TODO: Populate via din list picker.
   dinList = [];
@@ -139,11 +145,10 @@ export default class PharmanetHistory extends LightningElement {
     fetchPrescriptionHistory({recordId: this.recordId, page: this.pageNumber, count: this.count, dinList: this.dinList})
     .then(data => {
       if (data && data.error == null) {
-        // console.log("medHistory:", data.medHistory);
         const records = data.medHistory && data.medHistory.medRecords;
         this.totalRecords = data.medHistory && data.medHistory.totalRecords;
+        this.searchRecordCount = this.totalRecords;
         this.totalPages = data.medHistory && data.medHistory.totalPages;
-
         if (this.totalRecords > 0) {
           this.completeAndNoResults = false;
           this.hasResults = true;
@@ -213,4 +218,113 @@ export default class PharmanetHistory extends LightningElement {
       }
     });
   }
+
+  doSorting(event) {
+    this.sortBy = event.detail.fieldName;
+    this.sortDirection = event.detail.sortDirection;
+    this.sortData(this.sortBy, this.sortDirection);
+  }
+
+  sortData(fieldname, direction) {
+    let parseData = JSON.parse(JSON.stringify(this.data));
+    // Return the value stored in the field
+    let keyValue = (a) => {
+        return a[fieldname];
+    };
+    // cheking reverse direction
+    let isReverse = direction === 'asc' ? 1: -1;
+    // sorting data
+    parseData.sort((x, y) => {
+        x = keyValue(x) ? keyValue(x) : ''; // handling null values
+        y = keyValue(y) ? keyValue(y) : '';
+        // sorting values based on direction
+        return isReverse * ((x > y) - (y > x));
+    });
+    this.data = parseData;
+  } 
+
+  handleSearch (event){
+    this.searchKey = event.target.value;
+  }
+  
+  @wire(fetchPrescriptionHistoryWithSearchKey,{recordId: '$recordId', page: '$pageNumber', totalCount: '$totalRecords', dinList: '$dinList', searchKey: '$searchKey', displayCount: '$count'})
+  fetchHistoryRecords({data, error}){
+    if(data) {
+      if (data && data.error == null) {
+        const records = data.medHistory && data.medHistory.medRecords;
+        this.totalRecords = data.medHistory && data.medHistory.totalRecords;
+        this.totalPages = data.medHistory && data.medHistory.totalPages; 
+        this.searchRecordCount = records.length;
+        if (this.totalRecords > 0) {
+          this.completeAndNoResults = false;
+          this.hasResults = true;
+          let dataArray = [];
+          let i = 0;
+          records.forEach(rec => {
+            let item = {};
+
+            item['key'] = i++;
+            item['rxNumber'] = rec.rxNumber;
+            item['quantity'] = rec.quantity;
+            item['refills'] = rec.refills;
+            item['dateDispensed'] = rec.dateDispensed;
+            item['dinpin'] = rec.dinpin;
+            item['genericName'] = rec.genericName;
+            item['drugStrength'] = rec.drugStrength;
+            item['directions'] = rec.directions;
+            item['daysSupply'] = rec.daysSupply;
+            item['daysSince'] = rec.daysSinceLastFill;
+
+            if (rec.dispensingPharmacy) {
+              item['dispensingPharmacyName'] = rec.dispensingPharmacy.pharmacyId
+                + ", " + rec.dispensingPharmacy.name
+                + ", T:" + rec.dispensingPharmacy.phoneNumber
+                + ", F:" + rec.dispensingPharmacy.faxNumber;
+            }
+
+            if (rec.claimHistory) {
+            item['saTypeApplied'] = rec.claimHistory.saTypeApplied;
+            item['acceptedAmount'] = rec.claimHistory.acceptedAmount;
+            item['claimAmount'] = rec.claimHistory.claimAmount;
+            item['planCode'] = rec.claimHistory.planCode;
+            }
+
+            if (rec.prescriberInfo) {
+            item['prescriberName'] = rec.prescriberInfo.name + ", "
+            + ", " + rec.prescriberInfo.licenseNo
+            + ", T:" + rec.prescriberInfo.phoneNumber
+            + ", F:" + rec.prescriberInfo.faxNumber;
+            }
+
+            item['rxStatus'] = rec.rxStatus;
+            dataArray.push(item);
+          });
+          this.data = dataArray;
+          this.data.sort((a, b) => {
+            let c = Date.parse(new Date(a.datedispensed));
+            let d = Date.parse(new Date(b.datedispensed));
+            return d-c;
+            });
+        } else {
+          this.hasResults = false;
+          this.completeAndNoResults = true;
+          this.pageNumber = 1;
+        }
+        this.loaded = true;
+        this.updatePageButtons();
+      } else {
+        this.isError = true;
+        this.loaded = true;
+        this.error = data.error.errorMessage;
+        const event = new ShowToastEvent({
+          title: 'Pharmanet Error',
+          message: data.error.errorMessage
+        });
+        this.dispatchEvent(event);
+      }
+    }
+    else if(error){
+      console.log(error);
+    }
+  } 
 }
