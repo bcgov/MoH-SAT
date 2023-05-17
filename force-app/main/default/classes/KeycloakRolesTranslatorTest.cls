@@ -83,6 +83,6 @@ public with sharing class KeycloakRolesTranslatorTest {
             result.add(psa.PermissionSet.Name.toLowerCase());
         }
 
-        return result; //Test for sfdx-project.json
+        return result;
     }
 }
