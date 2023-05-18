@@ -217,21 +217,17 @@ export default class PharmanetHistory extends LightningElement {
   }
 
   sortData(fieldname, direction) {
-    let parseData = JSON.parse(JSON.stringify(this.data));
-    // Return the value stored in the field
+    let parseDataObj = JSON.parse(JSON.stringify(this.data));
     let keyValue = (a) => {
         return a[fieldname];
     };
-    // cheking reverse direction
     let isReverse = direction === 'asc' ? 1: -1;
-    // sorting data
-    parseData.sort((x, y) => {
-        x = keyValue(x) ? keyValue(x) : ''; // handling null values
-        y = keyValue(y) ? keyValue(y) : '';
-        // sorting values based on direction
-        return isReverse * ((x > y) - (y > x));
+    parseDataObj.sort((a, b) => {
+        a = keyValue(a) ? keyValue(a) : ''; 
+        b = keyValue(b) ? keyValue(b) : '';
+        return isReverse * ((a > b) - (b > a));
     });
-    this.data = parseData;
+    this.data = parseDataObj;
   } 
 
   handleSearch (event){
@@ -291,10 +287,10 @@ export default class PharmanetHistory extends LightningElement {
             dataArray.push(item);
           });
           this.data = dataArray;
-          this.data.sort((a, b) => {
-            let c = Date.parse(new Date(a.datedispensed));
-            let d = Date.parse(new Date(b.datedispensed));
-            return d-c;
+          this.data.sort((x, y) => {
+            let a = Date.parse(new Date(x.datedispensed));
+            let b = Date.parse(new Date(y.datedispensed));
+            return b-a;
             });
         } else {
           this.handlePharmanetSuccess();
