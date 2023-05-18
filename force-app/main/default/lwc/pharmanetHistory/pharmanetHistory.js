@@ -200,21 +200,12 @@ export default class PharmanetHistory extends LightningElement {
             return d-c;
             });
         } else {
-          this.hasResults = false;
-          this.completeAndNoResults = true;
-          this.pageNumber = 1;
+          this.handlePharmanetSuccess();
         }
         this.loaded = true;
         this.updatePageButtons();
       } else {
-        this.isError = true;
-        this.loaded = true;
-        this.error = data.error.errorMessage;
-        const event = new ShowToastEvent({
-          title: 'Pharmanet Error',
-          message: data.error.errorMessage
-        });
-        this.dispatchEvent(event);
+          this.handlePharmanetError(data);
       }
     });
   }
@@ -306,25 +297,33 @@ export default class PharmanetHistory extends LightningElement {
             return d-c;
             });
         } else {
-          this.hasResults = false;
-          this.completeAndNoResults = true;
-          this.pageNumber = 1;
+          this.handlePharmanetSuccess();
         }
         this.loaded = true;
         this.updatePageButtons();
       } else {
-        this.isError = true;
-        this.loaded = true;
-        this.error = data.error.errorMessage;
-        const event = new ShowToastEvent({
-          title: 'Pharmanet Error',
-          message: data.error.errorMessage
-        });
-        this.dispatchEvent(event);
+          this.handlePharmanetError(data);
       }
     }
     else if(error){
       console.log(error);
     }
   } 
+
+  handlePharmanetSuccess(){
+    this.hasResults = false;
+    this.completeAndNoResults = true;
+    this.pageNumber = 1;
+  }
+
+  handlePharmanetError(data){
+    this.isError = true;
+    this.loaded = true;
+    this.error = data.error.errorMessage;
+    const event = new ShowToastEvent({
+    title: 'Pharmanet Error',
+    message: data.error.errorMessage
+        });
+       this.dispatchEvent(event);
+  }
 }
