@@ -9,13 +9,14 @@ public with sharing class ESA_cls_CaseUpdate implements Action {
 		sar.saCase.ESA_Approval_Time__c = actionParams.duration;
         sar.saCase.ESA_Approval_Time_Unit__c = actionParams.durationUnit;
         if(String.isNotBlank(actionParams.rationale)){
-            if(String.isNotBlank(sar.saCase.Rationale__c))
+            if(String.isNotBlank(sar.saCase.Rationale__c)){
         	sar.saCase.Rationale__c = sar.saCase.Rationale__c + '<br/>'+actionParams.rationale;
         	}
         else{
             sar.saCase.Rationale__c =actionParams.rationale;
+            }
         }
          sar.saCase.Max_Days_Supply__c = String.Valueof(actionParams.daysSupply);
-        return new ActionResult();
+         return new ActionResult();
     }
 }
