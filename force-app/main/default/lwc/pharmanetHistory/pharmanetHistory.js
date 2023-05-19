@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import fetchPrescriptionHistory from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistory';
 import fetchPrescriptionHistoryWithSearchKey from '@salesforce/apex/ODRIntegration.fetchPrescriptionHistoryWithSearchKey';
 import getProductHealthCategories from '@salesforce/apex/ProductHealthCategory.getProductHealthCategories';
@@ -118,7 +118,7 @@ export default class PharmanetHistory extends LightningElement {
     } else {
       this.dinList = [];
     }
-    this.fetchItems();
+    //this.fetchItems();
   }
 
   // Count Options
@@ -232,79 +232,79 @@ export default class PharmanetHistory extends LightningElement {
 
   handleSearch (event){
     this.searchKey = event.target.value;
+    if(!this.searchKey){
+      this.fetchItems();
+    }
   }
   
-  @wire(fetchPrescriptionHistoryWithSearchKey,{recordId: '$recordId', page: '$pageNumber', totalCount: '$totalRecords', dinList: '$dinList', searchKey: '$searchKey', displayCount: '$count'})
-  fetchHistoryRecords({data, error}){
-    if(data) {
+  handleGetPharmanetHistory(){
+    fetchPrescriptionHistoryWithSearchKey({recordId: this.recordId, page: this.pageNumber, totalCount: this.totalRecords, dinList: this.dinList, searchKey: this.searchKey, displayCount: this.count})
+    .then(data => { 
       if (data && data.error == null) {
-        const records = data.medHistory && data.medHistory.medRecords;
-        this.totalRecords = data.medHistory && data.medHistory.totalRecords;
-        this.totalPages = data.medHistory && data.medHistory.totalPages; 
-        this.searchRecordCount = records.length;
-        if (this.totalRecords > 0) {
-          this.completeAndNoResults = false;
-          this.hasResults = true;
-          let dataArray = [];
-          let i = 0;
-          records.forEach(rec => {
-            let item = {};
-
-            item['key'] = i++;
-            item['rxNumber'] = rec.rxNumber;
-            item['quantity'] = rec.quantity;
-            item['refills'] = rec.refills;
-            item['dateDispensed'] = rec.dateDispensed;
-            item['dinpin'] = rec.dinpin;
-            item['genericName'] = rec.genericName;
-            item['drugStrength'] = rec.drugStrength;
-            item['directions'] = rec.directions;
-            item['daysSupply'] = rec.daysSupply;
-            item['daysSince'] = rec.daysSinceLastFill;
-
-            if (rec.dispensingPharmacy) {
-              item['dispensingPharmacyName'] = rec.dispensingPharmacy.pharmacyId
-                + ", " + rec.dispensingPharmacy.name
-                + ", T:" + rec.dispensingPharmacy.phoneNumber
-                + ", F:" + rec.dispensingPharmacy.faxNumber;
-            }
-
-            if (rec.claimHistory) {
-            item['saTypeApplied'] = rec.claimHistory.saTypeApplied;
-            item['acceptedAmount'] = rec.claimHistory.acceptedAmount;
-            item['claimAmount'] = rec.claimHistory.claimAmount;
-            item['planCode'] = rec.claimHistory.planCode;
-            }
-
-            if (rec.prescriberInfo) {
-            item['prescriberName'] = rec.prescriberInfo.name + ", "
-            + ", " + rec.prescriberInfo.licenseNo
-            + ", T:" + rec.prescriberInfo.phoneNumber
-            + ", F:" + rec.prescriberInfo.faxNumber;
-            }
-
-            item['rxStatus'] = rec.rxStatus;
-            dataArray.push(item);
-          });
-          this.data = dataArray;
-          this.data.sort((x, y) => {
-            let a = Date.parse(new Date(x.datedispensed));
-            let b = Date.parse(new Date(y.datedispensed));
-            return b-a;
-            });
-        } else {
-          this.handlePharmanetSuccess();
+      const records = data.medHistory && data.medHistory.medRecords;
+      this.totalRecords = data.medHistory && data.medHistory.totalRecords;
+      this.totalPages = data.medHistory && data.medHistory.totalPages; 
+      this.searchRecordCount = records.length;
+      if (this.totalRecords > 0) {
+        this.completeAndNoResults = false;
+        this.hasResults = true;
+        let dataArray = [];
+        let i = 0;
+        records.forEach(rec => {
+        let item = {};
+    
+        item['key'] = i++;
+        item['rxNumber'] = rec.rxNumber;
+        item['quantity'] = rec.quantity;
+        item['refills'] = rec.refills;
+        item['dateDispensed'] = rec.dateDispensed;
+        item['dinpin'] = rec.dinpin;
+        item['genericName'] = rec.genericName;
+        item['drugStrength'] = rec.drugStrength;
+        item['directions'] = rec.directions;
+        item['daysSupply'] = rec.daysSupply;
+        item['daysSince'] = rec.daysSinceLastFill;
+    
+        if (rec.dispensingPharmacy) {
+          item['dispensingPharmacyName'] = rec.dispensingPharmacy.pharmacyId
+          + ", " + rec.dispensingPharmacy.name
+          + ", T:" + rec.dispensingPharmacy.phoneNumber
+          + ", F:" + rec.dispensingPharmacy.faxNumber;
         }
-        this.loaded = true;
-        this.updatePageButtons();
+    
+        if (rec.claimHistory) {
+        item['saTypeApplied'] = rec.claimHistory.saTypeApplied;
+        item['acceptedAmount'] = rec.claimHistory.acceptedAmount;
+        item['claimAmount'] = rec.claimHistory.claimAmount;
+        item['planCode'] = rec.claimHistory.planCode;
+        }
+    
+        if (rec.prescriberInfo) {
+        item['prescriberName'] = rec.prescriberInfo.name + ", "
+        + ", " + rec.prescriberInfo.licenseNo
+        + ", T:" + rec.prescriberInfo.phoneNumber
+        + ", F:" + rec.prescriberInfo.faxNumber;
+        }
+    
+        item['rxStatus'] = rec.rxStatus;
+        dataArray.push(item);
+        });
+        this.data = dataArray;
+        this.data.sort((x, y) => {
+        let a = Date.parse(new Date(x.datedispensed));
+        let b = Date.parse(new Date(y.datedispensed));
+        return b-a;
+        });
       } else {
-          this.handlePharmanetError(data);
+        this.handlePharmanetSuccess();
       }
-    }
-    else if(error){
-      console.log(error);
-    }
-  } 
+      this.loaded = true;
+      this.updatePageButtons();
+      } else {
+        this.handlePharmanetError(data);
+      }
+    });
+    } 
 
   handlePharmanetSuccess(){
     this.hasResults = false;

@@ -38,7 +38,10 @@
             ></lightning-input>
       </lightning-layout-item>
       <lightning-layout-item flexibility="auto" size="6" padding="slds-p-left_none horizontal-medium">
-      </lightning-layout-item>
+        <div class="slds-m-top_medium slds-p-top_x-small">
+        <lightning-button variant="Search" label="Search" title="Search" onclick={handleGetPharmanetHistory} class="slds-m-left_x-small"></lightning-button>
+        </div>
+      </lightning-layout-item>      
     </lightning-layout>
   </div>
   <lightning-card if:true={hasResults}>
