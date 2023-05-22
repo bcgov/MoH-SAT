@@ -33,7 +33,13 @@ public with sharing class PharmanetSubmissionTest {
             null, 
             'Indefinite',
             null,
+            null,
+            null,
+            null,
             null
+            
         );
     }
+    
+    
 }
