@@ -28,20 +28,38 @@
         onchange={handleCountChange} ></lightning-combobox>
     </lightning-layout-item>
     </lightning-layout>
+    <lightning-layout>
+      <lightning-layout-item flexibility="auto" size="6" padding="slds-p-left_none horizontal-medium">
+        <lightning-input
+                name="enter-search"
+                label="Filter by DINPIN or Name"
+                type="search"
+                onchange={handleSearch}
+            ></lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item flexibility="auto" size="6" padding="slds-p-left_none horizontal-medium">
+        <div class="slds-m-top_medium slds-p-top_x-small">
+        <lightning-button variant="Search" label="Search" title="Search" onclick={handleGetPharmanetHistory} class="slds-m-left_x-small"></lightning-button>
+        </div>
+      </lightning-layout-item>      
+    </lightning-layout>
   </div>
   <lightning-card if:true={hasResults}>
     <lightning-datatable
             key-field="key"
             hide-checkbox-column
             data={data}
-            columns={columns}>
+            columns={columns}
+            sorted-by={sortBy}
+            sorted-direction={sortDirection}
+            onsort={doSorting}>
     </lightning-datatable>
     <div class="nav-buttons">
         <button disabled={isFirstPage} onclick={handlePrevPage}>Previous Page</button>
         <button disabled={isLastPage} onclick={handleNextPage}>Next Page</button>
     </div>
     <div class="page-info">
-      Total Records: {totalRecords}
+      Total Records: {searchRecordCount}
       Page ({pageNumber} of {totalPages})
     </div>
   </lightning-card>
