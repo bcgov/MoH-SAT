@@ -394,4 +394,28 @@ public with sharing class TestFactory {
             new List<ContentVersion>()
         ).build();
     }
+    
+     public static Step_Action__c newCaseUpdateStepAction(
+        Step__c step,
+        Integer Order,
+        Integer daysSupply,
+        Integer duration,
+        String durationUnit,
+      	String subject,
+        String description,
+        String rationale) {
+            
+            Step_Action__c record = new Step_Action__c();
+            record.Step__c = step.Id;
+            record.RecordTypeId = getRecordTypeInfosByDeveloperName('Step_Action__c', 'ESA_RT_Case_Update').getRecordTypeId();
+            record.Order__c = Order;
+            record.Days_Supply__c = daysSupply;
+            record.Duration__c = duration;
+            record.Duration_Unit__c = durationUnit;
+            record.ESA_Subject__c = subject;
+            record.ESA_Description__c = description;
+            record.ESA_Rationale__c = rationale;
+            return record;
+            
+        }
 }

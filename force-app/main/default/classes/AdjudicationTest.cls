@@ -4,32 +4,22 @@ public with sharing class AdjudicationTest {
     @isTest
     static void test_action() {
         SpecialAuthorityRequest sar = TestFactory.newSpecialAuthorityRequest();
-        StepAction stepAction = newAction('Approved');
-
+		Step_Action__c record = AdjudicationTest.getStepActionRecord();
+        StepAction action = new StepAction(record);
         Test.startTest();
-        Action action = new Adjudication();
-        action.execute(sar, stepAction);
+         action.run(sar);
         Test.stopTest();
 
-        system.assertEquals(sar.saCase.Status, stepAction.adjudicationStatus);
+        system.assertEquals(sar.saCase.Status, 'Approved');
         system.assert(null != sar.saCase.Auto_Adjudicated_Date__c);
     }
 
-    private static StepAction newAction(String status) {
-        return new StepAction(
-            StepAction.ActionType.ADJUDICATION,
-            null,
-            null,
-            status,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        );
+    
+    Private static Step_Action__c getStepActionRecord(){
+        Step_Action__c record = new Step_Action__c();
+            record.RecordTypeId = TestFactory.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId();
+            record.Adjudication_Status__c = 'Approved';
+            
+            return record;
     }
 }

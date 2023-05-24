@@ -139,7 +139,7 @@ public without sharing class AdjudicationStrategy {
                         Order__c, OwnerId, RecordTypeId,
                         Adjudication_Status__c, Days_Supply__c, Excluded_Plans__c, Justification_Codes__c, 
                         Key_Type__c, Pharmanet_Code__c, Price_Percent__c, SA_Type__c,
-                        Duration__c, Duration_Unit__c
+                        Duration__c, Duration_Unit__c,ESA_Subject__c,ESA_Description__c,ESA_Rationale__c
                     from Step_Actions__r
                     order by Order__c asc
                 )
