@@ -403,8 +403,7 @@ public with sharing class TestFactory {
         String durationUnit,
       	String subject,
         String description,
-        String rationale) {
-            
+        String rationale) {          
             Step_Action__c record = new Step_Action__c();
             record.Step__c = step.Id;
             record.RecordTypeId = getRecordTypeInfosByDeveloperName('Step_Action__c', 'ESA_RT_Case_Update').getRecordTypeId();
@@ -415,7 +414,6 @@ public with sharing class TestFactory {
             record.ESA_Subject__c = subject;
             record.ESA_Description__c = description;
             record.ESA_Rationale__c = rationale;
-            return record;
-            
+            return record;          
         }
 }

@@ -9,24 +9,24 @@
   <!-- IF RESULTS -->
   <div class="c-container">
     <lightning-layout>
-    <lightning-layout-item flexibility="auto" padding="slds-p-left_none horizontal-medium">
-      <lightning-combobox
-        name="count"
-        label="Filter by Product Health Category"
-        value={value}
-        placeholder="None"
-        options={categories}
-        onchange={handlephcFilterChange} ></lightning-combobox>
-    </lightning-layout-item>
-    <lightning-layout-item flexibility="auto" padding="horizontal-medium">
-      <lightning-combobox
-        name="count"
-        label="Results to show"
-        value={value}
-        placeholder="10"
-        options={countOptions}
-        onchange={handleCountChange} ></lightning-combobox>
-    </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="slds-p-left_none horizontal-medium">
+          <lightning-combobox
+            name="count"
+            label="Filter by Product Health Category"
+            value={value}
+            placeholder="None"
+            options={categories}
+            onchange={handlephcFilterChange} ></lightning-combobox>
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="auto" padding="horizontal-medium">
+              <lightning-combobox
+                name="count"
+                label="Results to show"
+                value={value}
+                placeholder="10"
+                options={countOptions}
+                onchange={handleCountChange} ></lightning-combobox>
+        </lightning-layout-item>
     </lightning-layout>
     <lightning-layout>
       <lightning-layout-item flexibility="auto" size="6" padding="slds-p-left_none horizontal-medium">

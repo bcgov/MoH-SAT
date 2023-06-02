@@ -388,6 +388,7 @@ public with sharing class ODRIntegration {
         return sar;
     }
     
+    // To fetch the prescription in all the records with given search key(ESA-2109)
     @AuraEnabled(cacheable = true)
     public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(Id recordId, String page, String totalCount, List<Integer> dinList, String searchKey, String displayCount) {
         if(String.isBlank(searchKey)){
@@ -398,16 +399,20 @@ public with sharing class ODRIntegration {
         Integer returnRecordCount = 0;
         Integer displayCountInt = !String.isBlank(displayCount) ? Integer.valueOf(displayCount) : 0;
         List<PrescriptionHistoryResponse.MedRecords> medRecordsList = new List<PrescriptionHistoryResponse.MedRecords>();
-        for(PrescriptionHistoryResponse.MedRecords medObj : resObj.medHistory.medRecords){
-            if(returnRecordCount < displayCountInt){
-                if((medObj.dinpin != NULL && String.valueOf(medObj.dinpin).containsIgnoreCase(searchKey)) || 
-                   (!String.isEmpty(medObj.genericName) && medObj.genericName.containsIgnoreCase(searchKey))){
-                       medRecordsList.add(medObj);
-                       returnRecordCount = returnRecordCount + 1;
-                   }
+        if(resObj.medHistory != NULL && !resObj.medHistory.medRecords.isEmpty()){
+            for(PrescriptionHistoryResponse.MedRecords medObj : resObj.medHistory.medRecords){
+                if(returnRecordCount < displayCountInt){
+                    if((medObj.dinpin != NULL && String.valueOf(medObj.dinpin).containsIgnoreCase(searchKey)) || 
+                       (!String.isEmpty(medObj.genericName) && medObj.genericName.containsIgnoreCase(searchKey))){
+                           medRecordsList.add(medObj);
+                           returnRecordCount = returnRecordCount + 1;
+                       }
+                }else{
+                    break;
+                }
             }
+            resObj.medHistory.MedRecords = medRecordsList;
         }
-        resObj.medHistory.MedRecords = medRecordsList;
         return resObj;
     }
     

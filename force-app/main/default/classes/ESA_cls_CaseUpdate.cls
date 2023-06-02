@@ -1,3 +1,8 @@
+/** 
+ * Created to perform the case update step action and invoked form Step Action apex calss
+ * @param SpecialAuthorityRequest & StepAction 
+ * @return  ActionResult instance 
+**/
 public with sharing class ESA_cls_CaseUpdate implements Action {
     public ActionResult execute(SpecialAuthorityRequest sar, StepAction actionParams) {
         if(String.isNotBlank(actionParams.subject)){
