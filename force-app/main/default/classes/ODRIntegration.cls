@@ -388,7 +388,7 @@ public with sharing class ODRIntegration {
         return sar;
     }
     
-    // To fectch the prescription in all the records with given search key(ESA-2109)
+    // To fetch the prescription in all the records with given search key(ESA-2109)
     @AuraEnabled(cacheable = true)
     public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(Id recordId, String page, String totalCount, List<Integer> dinList, String searchKey, String displayCount) {
         if(String.isBlank(searchKey)){
