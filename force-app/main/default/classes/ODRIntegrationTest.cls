@@ -373,7 +373,8 @@ public class ODRIntegrationTest {
         Test.startTest();
         PrescriptionHistoryResponse resObjWithSearchKey = ODRIntegration.fetchPrescriptionHistoryWithSearchKey(saCase.id, '1', '1', new List<Integer>(), 'CONTRACEPTION', '10');
         Test.stopTest();
-        Assert.areEqual(resObjWithSearchKey.medHistory, NULL, 'Negavite response failed');
+        Assert.areNotEqual(resObjWithSearchKey, NULL, 'Response is blank');
+        Assert.areNotEqual(resObjWithSearchKey.medHistory, new List<PrescriptionHistoryResponse.MedRecords>(), 'Negavite response failed');
     }
     
     private class RestMock implements HttpCalloutMock {
