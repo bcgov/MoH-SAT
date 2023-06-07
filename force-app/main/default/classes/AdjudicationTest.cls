@@ -10,12 +10,12 @@ public with sharing class AdjudicationTest {
          action.run(sar);
         Test.stopTest();
 
-        system.assertEquals(sar.saCase.Status, 'Approved');
+        system.assertEquals(sar.saCase.Status, 'Approved','Case status failed to update as Approved');
         system.assert(null != sar.saCase.Auto_Adjudicated_Date__c);
     }
 
     
-    Private static Step_Action__c getStepActionRecord(){
+    private static Step_Action__c getStepActionRecord(){
         Step_Action__c record = new Step_Action__c();
             record.RecordTypeId = TestFactory.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId();
             record.Adjudication_Status__c = 'Approved';

@@ -1,6 +1,7 @@
 /** 
  * @author: accenture_sat_team
- * @description: Created to perform the case update step action and invoked form Step Action apex calss
+ * @description: This class will be called from Step Action apex calss when the Case Update step action executed in the Adjucation process
+ * which gets triggered when Adjudication button clicked or automatic adjucation during case creation.
  * @param: SpecialAuthorityRequest & StepAction 
  * @return:  ActionResult instance 
 **/
