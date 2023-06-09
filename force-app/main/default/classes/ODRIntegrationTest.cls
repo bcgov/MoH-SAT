@@ -335,4 +335,71 @@ public class ODRIntegrationTest {
 
         System.assertEquals(new Map<String, Integration_Log__c>(), m1);
     }
+    
+    @isTest
+    public Static void fetchPrescriptionHistoryWithSearchKey_Test(){
+        Drug__c drug = TestFactory.newDrug('Drug 1');
+        insert drug;
+        
+        Account patient = TestFactory.newPatient('Patient 1');
+        Account provider = TestFactory.newProvider('Provider 1');
+        insert new Account[] { patient, provider };
+            
+        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+        insert saCase;
+        
+        Test.setMock(HttpCalloutMock.class, new RestMock());
+        Test.startTest();
+        PrescriptionHistoryResponse resObjWithSearchKey = ODRIntegration.fetchPrescriptionHistoryWithSearchKey(saCase.id, '1', '1', new List<Integer>(), 'CONTRACEPTION', '10');
+        PrescriptionHistoryResponse resObjWithOutSearchKey = ODRIntegration.fetchPrescriptionHistoryWithSearchKey(saCase.id, '1', '1', new List<Integer>(), 'Test', '10');
+        Test.stopTest();
+        Assert.areEqual(resObjWithSearchKey.medHistory.medRecords.size(), 1, 'Search Failed');
+        Assert.areEqual(resObjWithOutSearchKey.medHistory.medRecords.size(), 0, 'Search Failed for searchKey with is not in response generic name');
+    }
+    
+    @isTest
+    public Static void fetchPrescriptionHistoryWithSearchKey_Test_Negative(){
+        Drug__c drug = TestFactory.newDrug('Drug 1');
+        insert drug;
+        
+        Account patient = TestFactory.newPatient('Patient 1');
+        Account provider = TestFactory.newProvider('Provider 1');
+        insert new Account[] { patient, provider };
+            
+        Case saCase = TestFactory.newCase(drug, patient, provider, 'Test case 1');
+        insert saCase;
+        
+        Test.setMock(HttpCalloutMock.class, new RestMock_Negative());
+        Test.startTest();
+        PrescriptionHistoryResponse resObjWithSearchKey = ODRIntegration.fetchPrescriptionHistoryWithSearchKey(saCase.id, '1', '1', new List<Integer>(), 'CONTRACEPTION', '10');
+        Test.stopTest();
+        Assert.areNotEqual(resObjWithSearchKey, NULL, 'Response is blank');
+        Assert.areNotEqual(resObjWithSearchKey.medHistory, new List<PrescriptionHistoryResponse.MedRecords>(), 'Negavite response failed');
+    }
+    
+    private class RestMock implements HttpCalloutMock {
+
+        public HTTPResponse respond(HTTPRequest req) {
+            String RxHistoryBody = '{"requestUUID":"549bc49d-7f4e-8adb-93da-e25c0781acf5","clientName":"SpecAuth","medHistory":{"totalRecords":726,"totalPages":726,"medRecords":[{"rxNumber":190959,"dateDispensed":"2023-05-10","daysSinceLastFill":0,"rxStatus":"F","dinpin":98890016,"genericName":"PA CONTRACEPTION-NO RX REFER","drugStrength":null,"quantity":10,"daysSupply":10,"refills":0,"directions":"TEST","claimHistory":{"claimAmount":130,"acceptedAmount":0,"planCode":" ","saTypeApplied":null},"prescriberInfo":{"name":"COBB, HERMINA","idRef":"91","licenseNo":"12133","phoneNumber":"+12501979750","faxNumber":"+12502247750","paymentAddress":{"addrLine1":"904-145  13 ST E","addrLine2":null,"city":"NORTH VANCOUVER","postalCode":"V7L2L4","province":"BC","country":"CAN"}},"dispensingPharmacy":{"pharmacyId":"BC00000L31","name":"PHARMACY L31","phoneNumber":"+12504054175","faxNumber":"+1250999500","siteAddress":{"addrLine1":"2620 QUADRA ST","addrLine2":null,"city":"VICTORIA","postalCode":"V8X1W2","province":"BC","country":"CAN"}}}]},"adverseReactions":[]}';
+
+            HTTPResponse res = new HTTPResponse();
+            res.setHeader('Content-Type', 'text/json');
+            res.setBody(RxHistoryBody);
+            res.setStatusCode(200);
+            return res;
+        }
+    }
+    
+    private class RestMock_Negative implements HttpCalloutMock {
+
+        public HTTPResponse respond(HTTPRequest req) {
+            String RxHistoryBody = '{"requestUUID":"549bc49d-7f4e-8adb-93da-e25c0781acf5","clientName":"SpecAuth","medHistory":{"totalRecords":726,"totalPages":726,"medRecords":[{"rxNumber":190959,"dateDispensed":"2023-05-10","daysSinceLastFill":0,"rxStatus":"F","dinpin":98890016,"genericName":"PA CONTRACEPTION-NO RX REFER","drugStrength":null,"quantity":10,"daysSupply":10,"refills":0,"directions":"TEST","claimHistory":{"claimAmount":130,"acceptedAmount":0,"planCode":" ","saTypeApplied":null},"prescriberInfo":{"name":"COBB, HERMINA","idRef":"91","licenseNo":"12133","phoneNumber":"+12501979750","faxNumber":"+12502247750","paymentAddress":{"addrLine1":"904-145  13 ST E","addrLine2":null,"city":"NORTH VANCOUVER","postalCode":"V7L2L4","province":"BC","country":"CAN"}},"dispensingPharmacy":{"pharmacyId":"BC00000L31","name":"PHARMACY L31","phoneNumber":"+12504054175","faxNumber":"+1250999500","siteAddress":{"addrLine1":"2620 QUADRA ST","addrLine2":null,"city":"VICTORIA","postalCode":"V8X1W2","province":"BC","country":"CAN"}}}]},"adverseReactions":[]}';
+
+            HTTPResponse res = new HTTPResponse();
+            res.setHeader('Content-Type', 'text/json');
+            res.setBody(RxHistoryBody);
+            res.setStatusCode(400);
+            return res;
+        }
+    }
 }

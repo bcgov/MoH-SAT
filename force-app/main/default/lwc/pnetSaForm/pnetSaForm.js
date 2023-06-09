@@ -1,10 +1,13 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import submitSinglePnetSar from '@salesforce/apex/PharmanetPayloadController.submitSinglePnetSar';
 import submitSaApprovalUpdate from '@salesforce/apex/PharmanetPayloadController.submitSaApprovalUpdate';
 import getDescription from '@salesforce/apex/DescriptionLookup.getDescription';
 import UserPreferencesShowFaxToGuestUsers from '@salesforce/schema/User.UserPreferencesShowFaxToGuestUsers';
+import FLD_MAX_DAYS_SUPPLY from '@salesforce/schema/Case.Max_Days_Supply__c';
+import { getRecord } from "lightning/uiRecordApi";
+
 
 export default class PnetSaForm extends LightningElement {
     @api
@@ -26,6 +29,26 @@ export default class PnetSaForm extends LightningElement {
     terminate = false;
 
     description;
+    maxDaysSupply;
+    payloadMaxDaysSupply;
+
+    @wire(getRecord, { recordId: "$caseId", fields: [FLD_MAX_DAYS_SUPPLY]})
+    cases({data, error}){
+        if(data) {
+          let maxDaysSupply = data.fields.Max_Days_Supply__c.value;
+          if(maxDaysSupply){
+            this.maxDaysSupply = data.fields.Max_Days_Supply__c.value;
+            this._record.maxDaysSupply = this.maxDaysSupply;
+          }
+          else {
+            this.maxDaysSupply = this._record.maxDaysSupply;
+            this._record.maxDaysSupply = this.payloadMaxDaysSupply;
+          }
+        }
+        else if (error){
+            console.log(error);
+        }
+    }
 
     async connectedCallback() {
         let param = this.isRdp == true ? this._record.rdpFormatted : this._record.din;
@@ -70,6 +93,7 @@ export default class PnetSaForm extends LightningElement {
         if (this.original_record.excludedPlans != this._record.excludedPlans) saRevisedData.excludedPlans = this.strToArr(this._record.excludedPlans);
         if (this.original_record.effectiveDate != this._record.effectiveDate) saRevisedData.effectiveDate = this.dateSfdcToOdr(this._record.effectiveDate);
         if (this.original_record.maxDaysSupply != this._record.maxDaysSupply) saRevisedData.maxDaysSupply = this._record.maxDaysSupply; 
+        this.payloadMaxDaysSupply = this._record.maxDaysSupply;
 
         console.log("SA REVISED DATA");
         console.log(saRevisedData);

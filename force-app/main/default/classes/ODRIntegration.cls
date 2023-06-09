@@ -387,7 +387,41 @@ public with sharing class ODRIntegration {
         system.debug('The response is :'+ sar.saRecords);
         return sar;
     }
-
+    
+/** 
+ * @author: accenture_sat_team
+ * @description: To fectch the prescription in all the records with given search key(ESA-2109)
+ * @param: recordId, page, totalCount, dinList, searchKey, displayCount 
+ * @return:  Perscription History Records with search key. 
+**/
+@AuraEnabled(cacheable = true)
+public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(Id recordId, String page, String totalCount, List<Integer> dinList, String searchKey, String displayCount) {
+    if(String.isBlank(searchKey)){
+        return fetchPrescriptionHistory(recordId, page, displayCount, dinList);
+    }
+    
+    PrescriptionHistoryResponse resObj = fetchPrescriptionHistory(recordId, page, totalCount, dinList);
+    Integer returnRecordCount = 0;
+    Integer displayCountInt = !String.isBlank(displayCount) ? Integer.valueOf(displayCount) : 0;
+    List<PrescriptionHistoryResponse.MedRecords> medRecordsList = new List<PrescriptionHistoryResponse.MedRecords>();
+    if(resObj.medHistory != NULL && !resObj.medHistory.medRecords.isEmpty()){
+        for(PrescriptionHistoryResponse.MedRecords medObj : resObj.medHistory.medRecords){
+            Boolean isReturnCountLessNSearchKeyContains = returnRecordCount < displayCountInt && 
+                ((medObj.dinpin != NULL && String.valueOf(medObj.dinpin).containsIgnoreCase(searchKey)) || 
+                 (!String.isEmpty(medObj.genericName) && medObj.genericName.containsIgnoreCase(searchKey)));
+            if(isReturnCountLessNSearchKeyContains){
+                medRecordsList.add(medObj);
+                returnRecordCount = returnRecordCount + 1;                       
+            }
+            else if(returnRecordCount >= displayCountInt){
+                break;
+            }
+        }
+        resObj.medHistory.MedRecords = medRecordsList;
+    }
+    return resObj;
+}
+    
     @AuraEnabled
     public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count, List<Integer> dinList) {
         System.debug('Fetch Data');

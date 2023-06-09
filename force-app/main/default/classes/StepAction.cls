@@ -6,7 +6,8 @@ public with sharing class StepAction {
         PHARMANET_PAYLOAD, 
         PROVIDER_VALIDATION,
         PATIENT_VALIDATION,
-        PHARMANET_SUBMISSION
+        PHARMANET_SUBMISSION,
+        CASE_UPDATE
     }
     
     public ActionType actionType { get; private set; }
@@ -20,6 +21,9 @@ public with sharing class StepAction {
     public String keyType { get; private set; }
     public String saType { get; private set; }
     public String pharmanetCode { get; private set; }
+    public String subject { get; private set; }
+    public String description { get; private set; }
+    public String rationale  { get; private set; }
     public List<String> excludedPlans { get; private set; }
     public List<String> justificationCodes { get; private set; }
     public Boolean executed { get; set; }
@@ -48,7 +52,10 @@ public with sharing class StepAction {
             Integer duration,
             String durationUnit,
             List<String> excludedPlans,
-            List<String> justificationCodes
+            List<String> justificationCodes,
+        	String subject,
+        	String description,
+        	String rationale
     ) {
         this(actionType);
         this.order = order;
@@ -63,6 +70,9 @@ public with sharing class StepAction {
         this.durationUnit = durationUnit;
         this.excludedPlans = excludedPlans;
         this.justificationCodes = justificationCodes;
+        this.subject = subject;
+        this.description = description;
+        this.rationale = rationale;
     }
 
     public StepAction(Step_Action__c record) {
@@ -79,7 +89,10 @@ public with sharing class StepAction {
             record.Duration__c?.intValue(),
             record.Duration_Unit__c,
             record.Excluded_Plans__c?.split(';'),
-            record.Justification_Codes__c?.split(';')
+            record.Justification_Codes__c?.split(';'),
+            record.ESA_Subject__c,
+            record.ESA_Description__c,
+            record.ESA_Rationale__c
         );
     }
 
@@ -94,6 +107,9 @@ public with sharing class StepAction {
     public Boolean isProviderValidation(){
         return this.actionType == StepAction.ActionType.PROVIDER_VALIDATION;
     }
+    public Boolean isCaseUpdate(){
+        return this.actionType == StepAction.ActionType.CASE_UPDATE;
+    }
 
     private static StepAction.ActionType toEnum(Id recordTypeId) {
         StepAction.ActionType result = null;
@@ -104,7 +120,9 @@ public with sharing class StepAction {
             result = StepAction.ActionType.OWNER_ASSIGNMENT;
         } else if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Pharmanet_Payload').getRecordTypeId()) {
             result = StepAction.ActionType.PHARMANET_PAYLOAD;
-        } 
+         } else if (recordTypeId == SchemaUtil.getRecordTypeInfosByDeveloperName('Step_Action__c', 'ESA_RT_Case_Update').getRecordTypeId()) {
+            result = StepAction.ActionType.CASE_UPDATE;
+        }
 
         return result;
     }
@@ -138,6 +156,8 @@ public with sharing class StepAction {
             apexClass = ProviderValidator.class;
         } else if (this.actionType == StepAction.ActionType.PHARMANET_SUBMISSION) {
             apexClass = PharmanetSubmission.class;
+        } else if (this.actionType == StepAction.ActionType.CASE_UPDATE) {
+            apexClass = ESA_cls_CaseUpdate.class;
         }
 
         return apexClass;
