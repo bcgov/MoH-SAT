@@ -37,7 +37,7 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
   }
 
   async fetchItems() {
-    let data = await fetchSAApprovalHistory({recordId: this.phn});
+    let data = await fetchSAApprovalHistory({phn: this.phn});
    
     if (data && data.error == null) {
     let keys = this.generateKeys(data.saRecords);
