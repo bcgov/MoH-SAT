@@ -611,6 +611,7 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
         req.setHeader('Content-Type','application/json');
         req.setEndpoint(uri);
         req.setMethod(method);
+        req.setTimeout(60000);
         
         System.debug(methodBody);
         
