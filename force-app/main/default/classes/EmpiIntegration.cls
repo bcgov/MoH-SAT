@@ -96,6 +96,7 @@ public with sharing class EmpiIntegration {
         
         Empi.QUPA_AR101102_Port stub = new Empi.QUPA_AR101102_Port();
         stub.endpoint_x = 'callout:empi/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc'; // TEST
+        stub.timeout_x = 60000;
         
         Patient p = new Patient();
         p.phn = phn;
