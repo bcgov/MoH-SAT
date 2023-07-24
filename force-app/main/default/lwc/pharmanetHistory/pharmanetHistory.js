@@ -238,6 +238,8 @@ export default class PharmanetHistory extends LightningElement {
   }
   
   handleGetPharmanetHistory(){
+    this.pageNumber = 1;
+    this.totalPages = 1;
     fetchPrescriptionHistoryWithSearchKey({recordId: this.recordId, page: this.pageNumber, totalCount: this.totalRecords, dinList: this.dinList, searchKey: this.searchKey, displayCount: this.count})
     .then(data => { 
       if (data && data.error == null) {
