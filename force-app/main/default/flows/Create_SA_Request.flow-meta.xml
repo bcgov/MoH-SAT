@@ -122,23 +122,6 @@
     </actionCalls>
     <apiVersion>57.0</apiVersion>
     <assignments>
-        <name>Assign_Case_ID</name>
-        <label>Assign Case ID to Var</label>
-        <locationX>842</locationX>
-        <locationY>11102</locationY>
-        <assignmentItems>
-            <assignToReference>New_Case_Id</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Create_SA_Request_Other_0</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Create_Request_Detail_0</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Assign_Case_ID_0</name>
         <label>Assign Parent Case Values</label>
         <locationX>866</locationX>
@@ -179,6 +162,40 @@
             </value>
         </assignmentItems>
         <connector>
+            <targetReference>Create_Request_Detail_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_ID_to_Var_duplicate</name>
+        <label>Assign Case ID to Var_duplicate</label>
+        <locationX>842</locationX>
+        <locationY>10058</locationY>
+        <assignmentItems>
+            <assignToReference>New_Case_Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Create_SA_Request_Other_providerDuplicateSub</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Create_Request_Detail_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_ID_to_Var_not_duplicate</name>
+        <label>Assign Case ID to Var_not_duplicate</label>
+        <locationX>1106</locationX>
+        <locationY>10058</locationY>
+        <assignmentItems>
+            <assignToReference>New_Case_Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Create_SA_Request_Other_0</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
             <targetReference>Create_Request_Detail_0</targetReference>
         </connector>
     </assignments>
@@ -1747,6 +1764,58 @@
         </rules>
     </decisions>
     <decisions>
+        <description>Request Type = Duplicate Submission</description>
+        <name>duplicateSubmissionCheck_DECCaseCheck</name>
+        <label>duplicateSubmissionCheck_DECCaseCheck</label>
+        <locationX>358</locationX>
+        <locationY>9842</locationY>
+        <defaultConnector>
+            <targetReference>Create_SA_Request_Other_DEC_dupe</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Duplicate_DEC_CaseCheck</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Final_Request_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Duplicate_Submission</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_SA_Request_Other_DEC_Duplicate_Submission</targetReference>
+            </connector>
+            <label>Duplicate_DEC_CaseCheck</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Request Type = Duplicate Submission</description>
+        <name>duplicateSubmissionCheck_providerCaseCheck</name>
+        <label>duplicateSubmissionCheck_providerCaseCheck</label>
+        <locationX>974</locationX>
+        <locationY>9842</locationY>
+        <defaultConnector>
+            <targetReference>Create_SA_Request_Other_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Duplicate_providerCaseCheck</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Final_Request_Type</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Duplicate_Submission</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_SA_Request_Other_providerDuplicateSub</targetReference>
+            </connector>
+            <label>Duplicate_providerCaseCheck</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>HasFaxFile</name>
         <label>Has Fax File?</label>
         <locationX>358</locationX>
@@ -2102,7 +2171,7 @@
         <locationX>600</locationX>
         <locationY>10862</locationY>
         <defaultConnector>
-            <targetReference>Create_SA_Request_Other_0</targetReference>
+            <targetReference>duplicateSubmissionCheck_providerCaseCheck</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -2116,7 +2185,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_SA_Request_Other_DEC_dupe</targetReference>
+                <targetReference>duplicateSubmissionCheck_DECCaseCheck</targetReference>
             </connector>
             <label>DEC case</label>
         </rules>
@@ -2699,7 +2768,7 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
-    <description>Development Related to ESA-1316</description>
+    <description>Development Related to ESA-1316_v1.3</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -3820,7 +3889,190 @@
         <locationX>842</locationX>
         <locationY>10982</locationY>
         <connector>
-            <targetReference>Assign_Case_ID</targetReference>
+            <targetReference>Assign_Case_ID_to_Var_not_duplicate</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>Final_Patient_ID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Drug__c</field>
+            <value>
+                <elementReference>DRUGRECORDID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ParentId</field>
+            <value>
+                <elementReference>Parent_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider_Fax__c</field>
+            <value>
+                <elementReference>Provider_Fax.value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider__c</field>
+            <value>
+                <elementReference>Final_Provider_ID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_SA_Request_Type_Id_Other.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Request_Type__c</field>
+            <value>
+                <elementReference>Final_Request_Type</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Submitter__c</field>
+            <value>
+                <elementReference>Final_Submitter_ID</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_SA_Request_Other_DEC_dupe</name>
+        <label>Create SA Request Other DEC</label>
+        <locationX>490</locationX>
+        <locationY>9950</locationY>
+        <connector>
+            <targetReference>Create_Request_Detail_0_0</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>Final_Patient_ID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>DEC__c</field>
+            <value>
+                <elementReference>Lookup_to_DEC.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Drug__c</field>
+            <value>
+                <elementReference>DRUGRECORDID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ParentId</field>
+            <value>
+                <elementReference>Parent_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Prescriber_Override_Reason__c</field>
+            <value>
+                <stringValue>DEC</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_SA_Request_Type_Id_Other.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Request_Type__c</field>
+            <value>
+                <elementReference>Final_Request_Type</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_SA_Request_Other_DEC_Duplicate_Submission</name>
+        <label>Create SA Request Other DEC_Duplicate_Submission</label>
+        <locationX>226</locationX>
+        <locationY>9950</locationY>
+        <connector>
+            <targetReference>Create_Request_Detail_0_0</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>Final_Patient_ID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>DEC__c</field>
+            <value>
+                <elementReference>Lookup_to_DEC.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Drug__c</field>
+            <value>
+                <elementReference>DRUGRECORDID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Effective_Date__c</field>
+            <value>
+                <elementReference>effectiveDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ParentId</field>
+            <value>
+                <elementReference>Parent_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Prescriber_Override_Reason__c</field>
+            <value>
+                <stringValue>DEC</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Rationale__c</field>
+            <value>
+                <elementReference>rationalText</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_SA_Request_Type_Id_Other.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Request_Type__c</field>
+            <value>
+                <elementReference>Final_Request_Type</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Termination_Date__c</field>
+            <value>
+                <elementReference>terminationDate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_SA_Request_Other_providerDuplicateSub</name>
+        <label>Create SA Request Other_providerDuplicateSub</label>
+        <locationX>842</locationX>
+        <locationY>9950</locationY>
+        <connector>
+            <targetReference>Assign_Case_ID_to_Var_duplicate</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -3880,77 +4132,6 @@
             <field>Submitter__c</field>
             <value>
                 <elementReference>Final_Submitter_ID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Termination_Date__c</field>
-            <value>
-                <elementReference>terminationDate</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Case</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordCreates>
-    <recordCreates>
-        <name>Create_SA_Request_Other_DEC_dupe</name>
-        <label>Create SA Request Other DEC</label>
-        <locationX>358</locationX>
-        <locationY>10982</locationY>
-        <connector>
-            <targetReference>Create_Request_Detail_0_0</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>ContactId</field>
-            <value>
-                <elementReference>Final_Patient_ID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>DEC__c</field>
-            <value>
-                <elementReference>Lookup_to_DEC.recordId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Drug__c</field>
-            <value>
-                <elementReference>DRUGRECORDID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Effective_Date__c</field>
-            <value>
-                <elementReference>effectiveDate</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ParentId</field>
-            <value>
-                <elementReference>Parent_Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Prescriber_Override_Reason__c</field>
-            <value>
-                <stringValue>DEC</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Rationale__c</field>
-            <value>
-                <elementReference>rationalText</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>Get_SA_Request_Type_Id_Other.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Request_Type__c</field>
-            <value>
-                <elementReference>Final_Request_Type</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
