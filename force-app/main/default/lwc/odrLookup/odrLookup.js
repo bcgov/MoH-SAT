@@ -50,11 +50,11 @@ export default class OdrLookup extends LightningElement {
     }
 
     isPrescriberValid() { // Added this.prescriberResult as we are trying to access prescriberResult.overrideReason without checking if the prescriberResult is undefined or not
-        return !this.showPrescriber || (this.prescriber && this.prescriberResult.verified) || this.hasOverride(this.prescriberResult && this.prescriberResult.overrideReason);
+        return !this.showPrescriber || (this.prescriber && this.prescriberResult.verified) || this.hasOverride(this.prescriberResult) || this.hasOverride(this.prescriberResult.overrideReason);
     }
 
     isPatientValid() { // Added this.patientResult as we are trying to access patientResult.overrideReason without checking if the patientResult is undefined or not
-        return !this.showPatient || (this.patient && this.patientResult.verified) || this.hasOverride(this.patientResult && this.patientResult.overrideReason);
+        return !this.showPatient || (this.patient && this.patientResult.verified) || this.hasOverride(this.patientResult) || this.hasOverride(this.patientResult.overrideReason);
     }
 
     isSubmitterValid() {
