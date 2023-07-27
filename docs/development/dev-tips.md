@@ -25,8 +25,8 @@ Create new Legacy credential "FilescanConnectWs" named credential,
 - No Authentication needed and Save.
 
 Edit "ODR Credentials" named credential and edit as follows:
-- URL: https://t1specauthsvc.maximusbc.ca
-- Certificate: "odr"
+- URL: https://odrdev.hlth.gov.bc.ca
+- Certificate: "maximus"
 - Username: _Refer to CERT-DEV-ODR in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)_
 - Password: _Refer to CERT-DEV-ODR in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)_
 
