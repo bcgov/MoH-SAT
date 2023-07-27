@@ -54,7 +54,7 @@ export default class OdrLookup extends LightningElement {
     }
 
     isPatientValid() {
-        return !this.showPatient || (this.patient && this.patientResult.verified) || tthis.hasOverride(this.patientResult && this.patientResult.overrideReason);
+        return !this.showPatient || (this.patient && this.patientResult.verified) || this.hasOverride(this.patientResult && this.patientResult.overrideReason);
     }
 
     isSubmitterValid() {
