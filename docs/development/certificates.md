@@ -10,7 +10,7 @@ If the custodian returns with a .cer or .crt file, go to Salesforce > Setup > Se
 
 Click “Update Signed Certificate” and upload the .cer or .crt file. A successful renewal will accept the certificate with a new expiration date.
 
-Seek help from an Salesforce or IT professional if:
+Reach out to the Operational Support team if:
 - The custodian returns a signed and renewed certificate in any format other than a .cer or
 .crt file.
 - Salesforce does not accept the .cer or .crt file.
@@ -20,7 +20,7 @@ Follow these steps for uploading a new certificate provided in PFX format.
 
 Salesforce does not support PFX, but JKS (Java Key Store).  You must first convert it to JKS before importing it in setup.
 
-Make sure you have keytool command line utility from Java installed.  OSX will have this natively installed in the terminal.
+Make sure you have keytool command line utility from Java installed. OSX will have this natively installed in the terminal.
 
 In order to convert the PFX file correctly, you need to obtain the source alias used for the certiicate.  To obtain that, run the following command:
 
@@ -44,4 +44,4 @@ You can now use that alias and generate the JKS file.  It will ask you for the p
 
 `keytool -importkeystore -srckeystore <your cert file name here>.pfx -destkeystore keystorefile.jks -srcstoretype pkcs12 -deststoretype jks -destalias <name_your_certificate_here> -srcalias MyCertificateAlias`
 
-This will generate a file called `keystorefile.jks`.
+This will generate a file called `keystorefile.jks` which can then be uploaded to Salesforce.
