@@ -50,11 +50,11 @@ export default class OdrLookup extends LightningElement {
     }
 
     isPrescriberValid() {
-        return !this.showPrescriber || (this.prescriber && this.prescriberResult.verified) || this.hasOverride(this.prescriberResult && this.prescriberResult.overrideReason);
+        return !this.showPrescriber || (this.prescriber && this.prescriberResult.verified) || (this.prescriberResult && this.prescriberResult.overrideReason);
     }
 
     isPatientValid() {
-        return !this.showPatient || (this.patient && this.patientResult.verified) || this.hasOverride(this.patientResult && this.patientResult.overrideReason);
+        return !this.showPatient || (this.patient && this.patientResult.verified) || (this.patientResult && this.patientResult.overrideReason);
     }
 
     isSubmitterValid() {
