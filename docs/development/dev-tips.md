@@ -1,36 +1,42 @@
 # Developer Tips
-### Integrate Scratch Org with External Systems. 
+## Integrate Scratch Org with External Systems. 
 _Integrate your scratch org with test instances of ODR, EMPI, or Filescan Connect Web Service._
-
-Download [moh_dev_certs.jks](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597).
-
-Go to Setup > Identity > Certificate and Key Management > Create a self-signed certificate `dev_cert` from Key 4096 and save.
-
-Go to Setup > Identity > Identity Provider > Enable. Choose `dev_cert` and save.
-
-Go to Setup > Certificate and Key Management > and click "Import from Keystore" 
-
-Upload the jks file. Enter "JKS Password" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)
+### Install the needed certificates:
+- Download [moh_dev_certs.jks](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597).
+- Go to Setup > Identity > Certificate and Key Management > Create a self-signed certificate `dev_cert` from Key 4096 and save.
+- Go to Setup > Identity > Identity Provider > Enable. Choose `dev_cert` and save.
+- Go to Setup > Certificate and Key Management > and click "Import from Keystore" 
+- Upload the jks file. Enter "JKS Password" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)
+### Create the needed Named Credentials
+_The names of these Named Credentials are CASE SENSITIVE as they are api names that are referenced in code. Please match this carefullly, especially for EMPI as the Label and Name do not match._
 
 Go to Setup > Named Credentials.
 
-Create new Legacy credential, "EMPI" named credential, 
+Create new Legacy Named Credential "EMPI"
+- Label: EMPI
+- Name: empi
 - URL: https://hiat3.hcim.ehealth.gov.bc.ca 
-- Certificate: "EMPI"
-- No Authentication needed and Save.
+- Certificate: "empi"
+- Identity Type: Anonymous
+- Athenticaion Protocol: No Authentication needed
 
-Create new Legacy credential "FilescanConnectWs" named credential, 
+Create new Legacy Named credential "FilescanConnectWs"
+- Label: FilescanConnectWs
+- Name: FilescanConnectWs
 - URL: https://filescan-dev.hlth.gov.bc.ca
 - Certificate to "fcws". 
-- No Authentication needed and Save.
+- Identity Type: Anonymous
+- Athenticaion Protocol: No Authentication needed
 
-Edit "ODR Credentials" named credential and edit as follows:
+Create new Legacy Named Credential "ODR Credentials"
+- Label: ODR Credentials
+- Name: ODR_Credentials
 - URL: https://odrdev.hlth.gov.bc.ca
 - Certificate: "maximus"
 - Username: _Refer to CERT-DEV-ODR in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)_
 - Password: _Refer to CERT-DEV-ODR in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)_
 
-### Receive Accuroute Emails on Scratch Org
+## Receive Accuroute Emails on Scratch Org
 _Receive fax job status emails from the developer instance of Filescan Connect Web Service (filescan-dev.hlth.gov.bc.ca)_
 
 Go to Setup > Email Services
