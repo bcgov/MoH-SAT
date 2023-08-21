@@ -2768,7 +2768,7 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
-    <description>Development Related to ESA-1316_v1.3</description>
+    <description>Development Related to ESA-1876, passing the provider_fax value to DEC Cases.</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -3810,6 +3810,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Provider_Fax__c</field>
+            <value>
+                <elementReference>Provider_Fax.value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>RecordTypeId</field>
             <value>
                 <elementReference>Get_SA_Request_Type_Id_Other.Id</elementReference>
@@ -3981,6 +3987,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Provider_Fax__c</field>
+            <value>
+                <elementReference>Provider_Fax.value</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>RecordTypeId</field>
             <value>
                 <elementReference>Get_SA_Request_Type_Id_Other.Id</elementReference>
@@ -4037,6 +4049,12 @@
             <field>Prescriber_Override_Reason__c</field>
             <value>
                 <stringValue>DEC</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider_Fax__c</field>
+            <value>
+                <elementReference>Provider_Fax.value</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
