@@ -2768,7 +2768,7 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
-    <description>Development Related to ESA-1876, passing the provider_fax value to DEC Cases.</description>
+    <description>Development Related to ESA-1876, ESA-2240 passing the provider_fax value to DEC Cases.</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -6991,7 +6991,7 @@
         </connector>
         <fields>
             <name>Patient_Summary_Text</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Patient Identifier: {!Get_Patient_Record_0_0.Patient_Identifier__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Name: &lt;span style=&quot;color: rgb(32, 33, 36); font-family: Roboto, arial, sans-serif; background-color: rgb(255, 255, 255);&quot;&gt;{!ODRPatient.FirstName}{!ODRPatient.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Provider Date of Birth: {!ODRPatient.PersonBirthdate}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Patient Identifier: {!Get_Patient_Record_0_0.Patient_Identifier__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Name: &lt;span style=&quot;color: rgb(32, 33, 36); font-family: Roboto, arial, sans-serif; background-color: rgb(255, 255, 255);&quot;&gt;{!ODRPatient.FirstName}{!ODRPatient.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: {!ODRPatient.PersonBirthdate}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -7010,7 +7010,7 @@
         </connector>
         <fields>
             <name>Patient_Summary_Text_0</name>
-            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Patient Identifier: {!ODRPatient.Patient_Identifier__pc}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Name: &lt;span style=&quot;background-color: rgb(255, 255, 255); font-family: Roboto, arial, sans-serif; color: rgb(32, 33, 36);&quot;&gt;{!ODRPatient.FirstName}{!ODRPatient.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Provider Date of Birth: {!ODRPatient.PersonBirthdate}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;b&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Patient Identifier: {!ODRPatient.Patient_Identifier__pc}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Name: &lt;span style=&quot;background-color: rgb(255, 255, 255); font-family: Roboto, arial, sans-serif; color: rgb(32, 33, 36);&quot;&gt;{!ODRPatient.FirstName}{!ODRPatient.LastName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: {!ODRPatient.PersonBirthdate}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
