@@ -54,7 +54,7 @@ public with sharing class ESA_cls_ExternalCommitteeTriggerHandler {
         Map<id,External_Committee__c> parentECMap = new Map<id,External_Committee__c>([Select id, External_Committee_Type__c from External_Committee__c Where id =: parentIds]);      
         for(External_Committee__c ec : newMeetings){
             if(parentECMap.get(ec.getCloneSourceId()) !=null && parentECMap.get(ec.getCloneSourceId()).External_Committee_Type__c != ec.External_Committee_Type__c){
-                ec.addError('External Committee type cannot be changed for cloned meetings');
+               ec.addError( System.Label.ESA_CL_ExternalCommitteTypeError);
             }
         }       
     }    
