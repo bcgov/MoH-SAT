@@ -4,7 +4,7 @@
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
 ***********************************************************************************************/
-public class ESA_cls_ExternalCommitteeTriggerHandler {
+public with sharing class ESA_cls_ExternalCommitteeTriggerHandler {
     public static boolean cloneOpenCases_runsOne = TRUE;
     public static void cloneOpenCases(List<External_Committee__c> newMeetings){
         cloneOpenCases_runsOne = FALSE;
