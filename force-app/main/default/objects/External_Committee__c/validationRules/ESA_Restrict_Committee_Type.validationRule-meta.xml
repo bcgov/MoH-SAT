@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ESA_Restrict_Committee_Type</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISCHANGED( External_Committee_Type__c )</errorConditionFormula>
+    <errorDisplayField>External_Committee_Type__c</errorDisplayField>
+    <errorMessage>External Committee Type cannot be changed for cloned meetings.</errorMessage>
+</ValidationRule>
