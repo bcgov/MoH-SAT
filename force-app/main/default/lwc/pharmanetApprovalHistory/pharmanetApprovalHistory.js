@@ -9,7 +9,7 @@ const columns = [
   { label: 'RDP or DIN/PIN', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true,sortable: "true" },
   { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true, sortable: "true" },
-  { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true, sortable: "true" },
   { label: 'Pract ID', fieldName: 'practId', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'Pract ID Ref', fieldName: 'practIdRef', type: 'text', wrapText: true, hideDefaultActions: true },
   { label: 'DaysSupply', fieldName: 'maxDaysSupply', type: 'text', wrapText: true, hideDefaultActions: true },

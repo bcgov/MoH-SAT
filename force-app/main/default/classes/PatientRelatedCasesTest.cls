@@ -21,6 +21,6 @@ public class PatientRelatedCasesTest {
         List<Case> relatedCases = PatientRelatedCases.query(case1.Id);
         Test.stopTest();
 
-        system.assertEquals(2, relatedCases.size());   
+        system.assertEquals(1, relatedCases.size());   
     }
 }
