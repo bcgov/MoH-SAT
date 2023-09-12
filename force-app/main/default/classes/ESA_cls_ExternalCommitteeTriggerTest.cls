@@ -15,12 +15,14 @@ public class ESA_cls_ExternalCommitteeTriggerTest {
     
     @isTest 
     public static void testExternalCommitteClone(){
-        External_Committee__c ec = [Select id, External_Committee_Type__c from External_Committee__c limit 1];
+        External_Committee__c ec = [SELECT id, External_Committee_Type__c 
+                                    FROM External_Committee__c 
+                                    LIMIT 1];
         Test.startTest();
         External_Committee__c eccopy = ec.clone();
         insert eccopy;
         Assert.areEqual(ec.External_Committee_Type__c,eccopy.External_Committee_Type__c	, 'External Committee type should not be modfified'); 
-        Assert.areNotEqual('',eccopy.Id	, 'External Committee insert failed'); 
+        Assert.areNotEqual(NULL,eccopy.Id, 'External Committee insert failed'); 
         
         Test.stopTest();
         
