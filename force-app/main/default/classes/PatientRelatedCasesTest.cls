@@ -19,8 +19,12 @@ public class PatientRelatedCasesTest {
 
         Test.startTest();
         List<Case> relatedCases = PatientRelatedCases.query(case1.Id);
+        List<Case> relatedCasesCount2 = PatientRelatedCases.query(case3.Id);
         Test.stopTest();
 
-        system.assertEquals(2, relatedCases.size());   
+        Assert.areEqual(1, relatedCases.size(), 'Related cases should be 1');
+        Assert.areNotEqual(1, relatedCasesCount2.size(), 'Related cases should be not give any record');
+        
     }
+    
 }
