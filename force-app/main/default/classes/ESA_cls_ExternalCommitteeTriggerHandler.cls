@@ -8,7 +8,6 @@ public with sharing class ESA_cls_ExternalCommitteeTriggerHandler {
     public static void cloneOpenCases(List<External_Committee__c> newMeetings){
         cloneOpenCases_runsOne = FALSE;
         Map<id,id> sourceIdVsRecIds  = new Map<id,id>();
-        Map<id,List<Case>> openCaseMap = new Map<id,List<Case>>();
         for(External_Committee__c ec : newMeetings){
             if(ec.isClone()){
                 sourceIdVsRecIds.put(ec.getCloneSourceId(), ec.id);
