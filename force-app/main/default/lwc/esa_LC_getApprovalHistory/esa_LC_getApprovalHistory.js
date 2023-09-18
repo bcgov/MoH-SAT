@@ -98,7 +98,7 @@ export default class Esa_LC_getApprovalHistory extends LightningElement {
           let terminationDateArray = rec.terminationDate.split('-');
           let terminationDate = new Date(terminationDateArray[0] + '/' + terminationDateArray[1] + '/' + terminationDateArray[2]);
           let isTodayNTerminationDateEqual = (todaysDate - terminationDate == 0);
-          let isRDPEqual = (item['dinrdp'].replace("-","") == this.RDPCode.replace("-",""));
+          let isRDPEqual = (item['dinrdp'] && this.RDPCode && item['dinrdp'].replace("-","") == this.RDPCode.replace("-",""));
           if (records.length == 1 && isRDPEqual){
           if (todaysDate < terminationDate || isTodayNTerminationDateEqual){
             this.terminationDateOpt = terminationDate;

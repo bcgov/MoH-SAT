@@ -6,10 +6,10 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import hasSAApprovalUpdate from '@salesforce/customPermission/Access_SA_Approval_Update';
 
 const columns = [
-  { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true },
-  { label: 'RDP or DIN/PIN', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true },
-  { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
-  { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true },
+  { label: 'Description', fieldName: 'description', type: 'text', wrapText: true, initialWidth: 120, hideDefaultActions: true, sortable: "true" },
+  { label: 'RDP or DIN/PIN', fieldName: 'dinrdp', type: 'text', wrapText: true, hideDefaultActions: true, sortable: "true" },
+  { label: 'Effective Date', fieldName: 'effectiveDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true, sortable: "true" },
+  { label: 'Termination Date', fieldName: 'terminationDate', wrapText: true, type: 'date-local', typeAttributes:{ month: "2-digit", day: "2-digit" }, hideDefaultActions: true, sortable: "true" },
   { label: 'Auth Type', fieldName: 'specAuthType', type: 'text', wrapText: true, hideDefaultActions: true },
 ];
 
@@ -22,6 +22,9 @@ export default class SaHistoryLookup extends LightningElement {
   loaded = false;
   patientName;
   patientDOB;
+  sortBy;
+  sortDirection;
+  initialRecords;
   
   hasResults = false;
   completeAndNoResults = false;
@@ -237,5 +240,29 @@ export default class SaHistoryLookup extends LightningElement {
       });
       this.dispatchEvent(event);
     }
+  }
+
+  doSorting(event) {
+    this.sortBy = event.detail.fieldName;
+    this.sortDirection = event.detail.sortDirection;
+    this.sortData(this.sortBy, this.sortDirection);
+  }
+
+  sortData(fieldname, direction) {
+    let parseData = JSON.parse(JSON.stringify(this.data));
+    // Return the value stored in the field
+    let keyValue = (a) => {
+        return a[fieldname];
+    };
+    // cheking reverse direction
+    let isReverse = direction === 'asc' ? 1: -1;
+    // sorting data
+    parseData.sort((x, y) => {
+        x = keyValue(x) ? keyValue(x) : ''; // handling null values
+        y = keyValue(y) ? keyValue(y) : '';
+        // sorting values based on direction
+        return isReverse * ((x > y) - (y > x));
+    });
+    this.data = parseData;
   }
 }
