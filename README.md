@@ -7,7 +7,7 @@ For contributors implementing features or bug fixes:
 $ ./dev-setup.sh
 ```
 ## Inbound REST API Documentation
-See [here](https://bcgov.github.io/MoH-SAT/) for specification and documentation of inbound APIs.
+See [here](https://bcgov.github.io/MoH-SAT/) for specification and documentation of inbound APIs
 
 ## Misc. Docs
 #### Environment Setup
