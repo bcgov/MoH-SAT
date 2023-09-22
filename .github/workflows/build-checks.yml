@@ -5,7 +5,7 @@ jobs:
   build-check:
     runs-on: ubuntu-latest
     env:
-      SFDX_DISABLE_SOURCE_MEMBER_POLLING: true
+      SF_DISABLE_SOURCE_MEMBER_POLLING: true
     steps:
 
     - uses: actions/checkout@v3
@@ -29,10 +29,12 @@ jobs:
 
     - name: Deploy source
       run: |
-        sfdx force:source:deploy -p dev-app-pre -u ciorg
-        sfdx force:source:deploy -p force-app -u ciorg
-        sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u ciorg -w 15
-        sfdx force:source:deploy -p dev-app-post -u ciorg
+        sf project deploy start -d dev-app-pre -o ciorg
+        sf project deploy start -d force-app -o ciorg
+        sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
+        sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
+        sf project deploy start -d dev-app-post -o ciorg -c
+  # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
       # sfdx force:source:push -u ciorg
 
     - name: Assign permission set and set user role
