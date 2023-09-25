@@ -2768,7 +2768,7 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
-    <description>Development Related to ESA-1876, ESA-2240 passing the provider_fax value to DEC Cases.</description>
+    <description>Development Related to ESA-2238, Adding Bypass Validation rule to Update Patient/Provider Records</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -5749,7 +5749,7 @@
         <locationX>5154</locationX>
         <locationY>6182</locationY>
         <connector>
-            <targetReference>Submitter_is_Prescriber</targetReference>
+            <targetReference>Update_Patient_Record_With_ODR_Info_BypassValidation</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -5763,6 +5763,12 @@
             <field>Birthdate</field>
             <value>
                 <elementReference>ODRPatient.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ESA_Bypass_Validation__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -5785,7 +5791,7 @@
         <locationX>4890</locationX>
         <locationY>6182</locationY>
         <connector>
-            <targetReference>Submitter_is_Prescriber</targetReference>
+            <targetReference>Update_Patient_Record_With_ODR_InfoDEC_BypassValidation</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -5802,6 +5808,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>ESA_Bypass_Validation__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>FirstName</field>
             <value>
                 <elementReference>ODRPatient.FirstName</elementReference>
@@ -5811,6 +5823,54 @@
             <field>LastName</field>
             <value>
                 <elementReference>ODRPatient.LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Patient_Record_With_ODR_Info_BypassValidation</name>
+        <label>Update Patient Record With ODR Info__BypassValidation</label>
+        <locationX>5418</locationX>
+        <locationY>5642</locationY>
+        <connector>
+            <targetReference>Submitter_is_Prescriber</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Patient_Record_0_0.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ESA_Bypass_Validation__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Patient_Record_With_ODR_InfoDEC_BypassValidation</name>
+        <label>Update Patient Record With ODR InfoDEC__BypassValidation</label>
+        <locationX>5154</locationX>
+        <locationY>5642</locationY>
+        <connector>
+            <targetReference>Submitter_is_Prescriber</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Patient_Record_0_0.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ESA_Bypass_Validation__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
             </value>
         </inputAssignments>
         <object>Contact</object>
@@ -5936,12 +5996,36 @@
         <object>Case</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Provider_Record_Bypass_Validation_to_False</name>
+        <label>Update Provider Record Bypass Validation to False</label>
+        <locationX>5781</locationX>
+        <locationY>4010</locationY>
+        <connector>
+            <targetReference>Create_Patient</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Provider_Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ESA_Bypass_Validation__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Provider_Record_With_ODR_Info</name>
         <label>Update Provider Record With ODR Info</label>
         <locationX>5517</locationX>
         <locationY>4358</locationY>
         <connector>
-            <targetReference>Create_Patient</targetReference>
+            <targetReference>Update_Provider_Record_Bypass_Validation_to_False</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -5955,6 +6039,12 @@
             <field>Birthdate</field>
             <value>
                 <elementReference>ODRPrescriber.PersonBirthdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ESA_Bypass_Validation__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -6241,7 +6331,7 @@
         <locationX>4362</locationX>
         <locationY>6422</locationY>
         <connector>
-            <targetReference>Get_Final_Patient_ID</targetReference>
+            <targetReference>UpdateAccountRecord_BypassValidation</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -6251,6 +6341,12 @@
                 <elementReference>existingPatientAccount.Id</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>ESA_Bypass_Validation__pc</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>FirstName</field>
             <value>
@@ -6285,6 +6381,30 @@
             <field>RecordTypeId</field>
             <value>
                 <elementReference>Get_Patient_Record_Type_Id.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>UpdateAccountRecord_BypassValidation</name>
+        <label>UpdateAccountRecord_BypassValidation</label>
+        <locationX>4626</locationX>
+        <locationY>5858</locationY>
+        <connector>
+            <targetReference>Get_Final_Patient_ID</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>existingPatientAccount.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ESA_Bypass_Validation__pc</field>
+            <value>
+                <booleanValue>false</booleanValue>
             </value>
         </inputAssignments>
         <object>Account</object>
