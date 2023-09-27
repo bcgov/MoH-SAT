@@ -1,0 +1,44 @@
+<messaging:emailTemplate recipientType="Contact"
+  relatedToType="External_Committee__c"
+  subject="DBAAC Meeting Minutes">
+  <messaging:htmlEmailBody >
+    <html>
+      <body>
+        <STYLE type="text/css">
+          TH {font-size: 11px; font-face: arial;background: #CCCCCC;
+               border-width: 1; text-align: center;  } 
+          TD  {font-size: 11px; font-face: verdana; vertical-align: top; } 
+          TABLE {border: solid #CCCCCC; border-width: 4}
+          TR {border: solid #CCCCCC; border-width: 4}
+        </STYLE>
+        <font face="arial" size="2">
+          <p>Hello Drs,</p>
+          <p>Please review the minutes from the recent meeting and let us know if they are accurate by forwarding the response to {!relatedTo.ESA_MOM_POC_EmailIds__c}.</p>
+          <table border="10">
+            <tr > 
+               <th>External committee name</th>
+               <th>Case Number</th>
+               <th>Drug Name</th>
+               <th>DBAAC Recommendation</th>
+               <th>Rationale field</th>
+            </tr>
+            <apex:repeat var="cx" value="{!relatedTo.Cases__r}">
+              <tr>
+                <td>{!cx.External_Committee__r.Name}</td>
+                <td>{!cx.CaseNumber}</td>
+                <td>{!cx.Drug__r.Name}</td>
+                <td>{!cx.EC_recommendations__c}</td>
+                <td><apex:outputText escape="false" value="{!cx.Rationale__c}" /></td>
+              </tr>
+            </apex:repeat>                 
+          </table>
+          <p />
+        </font>
+        <p> From SA team </P>
+        <p><I> We acknowledge and offer respect to the lək̓ʷəŋən peoples, known today as the Songhees and Esquimalt Nations, and the W̱SÁNEĆ Nations on whose traditional territory we live and work, and whose historical relationship with the land continues to this day. </I></p>
+        <p><I> <b>Warning:</b> This email is intended only for the use of the individual or organization to whom it is addressed. It may contain information that is privileged or confidential. Any distribution, disclosure, copying, or other use by anyone else is strictly prohibited. If you have received this in error, please telephone or e-mail the sender immediately and delete the message </I></p>
+      </body>
+    </html>
+  </messaging:htmlEmailBody> 
+    
+</messaging:emailTemplate>
