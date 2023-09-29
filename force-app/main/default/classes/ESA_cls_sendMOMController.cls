@@ -18,10 +18,14 @@ public with sharing class ESA_cls_sendMOMController {
             EmailTemplate emailTemplate = [SELECT Id,Subject,Description,HtmlValue,DeveloperName,Body 
                                            FROM EmailTemplate WHERE name = 'ESA_ET_sendCasesMOM'];
             
+            OrgWideEmailAddress[] owea = [SELECT Id FROM OrgWideEmailAddress WHERE Address = 'noreply@hlthsa.gov.bc.ca'];
+            
             for(Contact conObj: contactIdVsRec.values()){
                 Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
                 message.setTargetObjectId(conObj.Id); 
-                message.setSenderDisplayName('SA Team');
+                if(!owea.isEmpty()){
+                    message.setOrgWideEmailAddressId(owea.get(0).Id);
+                }
                 message.setTemplateID(emailTemplate.Id); 
                 message.setWhatId(externalCommitteIdList[0]);
                 message.toAddresses = new List<String>{conObj.email};
