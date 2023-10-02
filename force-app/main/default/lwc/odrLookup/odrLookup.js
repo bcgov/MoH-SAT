@@ -7,6 +7,7 @@ export default class OdrLookup extends LightningElement {
     prescriberResult;
     submitterResult;
     patientResult;
+    providerIdentifier;
     @api patient;
     @api prescriber;
     @api submitter;
@@ -17,6 +18,8 @@ export default class OdrLookup extends LightningElement {
         this.prescriberResult = event.detail;
         this.prescriber = this.prescriberResult?.sobject;
         this.prescriberOverrideReason = this.prescriberResult?.overrideReason;
+        this.providerIdentifier = this.prescriberResult?.sobject?.Provider_Identifier__pc;
+
     }
     
     handleSubmitter(event) {
@@ -50,11 +53,23 @@ export default class OdrLookup extends LightningElement {
     }
 
     isPrescriberValid() { // Added this.prescriberResult as we are trying to access prescriberResult.overrideReason without checking if the prescriberResult is undefined or not
-        return !this.showPrescriber || (this.prescriber && this.prescriberResult.verified) || this.prescriberResult?.overrideReason;
+        let prescriberOverriderReason;
+        if(this.prescriberResult!=undefined && (this.prescriberResult.overrideReason != 'None')){
+            prescriberOverriderReason = this.prescriberResult.overrideReason;
+        }else{
+            prescriberOverriderReason = undefined;
+        }
+        return !this.showPrescriber || (this.prescriber && this.prescriberResult?.verified) || prescriberOverriderReason;
     }
 
     isPatientValid() { // Added this.patientResult as we are trying to access patientResult.overrideReason without checking if the patientResult is undefined or not
-        return !this.showPatient || (this.patient && this.patientResult.verified) || this.patientResult?.overrideReason;
+        let patientOverriderReason;
+        if(this.patientResult!=undefined && (this.patientResult.overrideReason != 'None')){
+            patientOverriderReason = this.patientResult.overrideReason;
+        }else{
+            patientOverriderReason = undefined;
+        }
+        return !this.showPatient || (this.patient && this.patientResult?.verified) || patientOverriderReason;
     }
 
     isSubmitterValid() {
