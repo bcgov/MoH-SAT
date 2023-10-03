@@ -19,7 +19,6 @@ export default class OdrLookup extends LightningElement {
         this.prescriber = this.prescriberResult?.sobject;
         this.prescriberOverrideReason = this.prescriberResult?.overrideReason;
         this.providerIdentifier = this.prescriberResult?.sobject?.Provider_Identifier__pc;
-
     }
     
     handleSubmitter(event) {
