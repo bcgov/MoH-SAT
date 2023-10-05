@@ -51,7 +51,7 @@ export default class OdrLookup extends LightningElement {
         }
     }
 
-    isPrescriberValid() { // Added this.prescriberResult as we are trying to access prescriberResult.overrideReason without checking if the prescriberResult is undefined or not
+    isPrescriberValid() { // Added  this.prescriberResult as we are trying to access prescriberResult.overrideReason without checking if the prescriberResult is undefined or not
         let prescriberOverriderReason;
         if(this.prescriberResult!=undefined && (this.prescriberResult.overrideReason != 'None')){
             prescriberOverriderReason = this.prescriberResult.overrideReason;
