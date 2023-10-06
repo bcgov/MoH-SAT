@@ -48,7 +48,10 @@
             hide-checkbox-column
             data={data}
             columns={columns}
-            onrowaction={handleRowAction}>
+            onrowaction={handleRowAction}
+            sorted-by={sortBy}
+            sorted-direction={sortDirection}
+            onsort={doSorting}>
     </lightning-datatable>
   </div>
 
