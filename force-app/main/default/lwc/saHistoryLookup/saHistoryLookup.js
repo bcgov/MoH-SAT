@@ -245,11 +245,11 @@ export default class SaHistoryLookup extends LightningElement {
   doSorting(event) {
     this.sortBy = event.detail.fieldName;
     this.sortDirection = event.detail.sortDirection;
-    this.sortData(this.sortBy, this.sortDirection);
+    this.handleSortData(this.sortBy, this.sortDirection);
   }
 
-  sortData(fieldname, direction) {
-    let parseData = JSON.parse(JSON.stringify(this.data));
+  handleSortData(fieldname, direction) {
+    let parseDataObj = JSON.parse(JSON.stringify(this.data));
     // Return the value stored in the field
     let keyValue = (a) => {
         return a[fieldname];
@@ -257,12 +257,12 @@ export default class SaHistoryLookup extends LightningElement {
     // cheking reverse direction
     let isReverse = direction === 'asc' ? 1: -1;
     // sorting data
-    parseData.sort((x, y) => {
+    parseDataObj.sort((x, y) => {
         x = keyValue(x) ? keyValue(x) : ''; // handling null values
         y = keyValue(y) ? keyValue(y) : '';
         // sorting values based on direction
         return isReverse * ((x > y) - (y > x));
     });
-    this.data = parseData;
+    this.data = parseDataObj;
   }
 }
