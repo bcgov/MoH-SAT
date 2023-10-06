@@ -82,6 +82,13 @@
                 <booleanValue>false</booleanValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>FinalPatientAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Final_Patient_ID.AccountId</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
         </connector>
@@ -96,6 +103,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Final_Patient_ID_2.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>FinalPatientAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Final_Patient_ID_2.AccountId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -190,6 +204,13 @@
                 <elementReference>Get_Existing_Patient_Dummy_Account.Name</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>FinalPatientAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Existing_Patient_Dummy_Account.AccountId</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Update_Existing_Patient_Record_With_ODR_Info</targetReference>
         </connector>
@@ -218,6 +239,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Existing_Patient_Dummy_Account_0.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>FinalPatientAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Existing_Patient_Dummy_Account_0.AccountId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -282,6 +310,13 @@
                 <elementReference>Get_Not_Provided_PHN_Final_Patient_ID.Id</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>FinalPatientAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Existing_Patient_Dummy_Account_0.AccountId</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Submitter_is_Prescriber</targetReference>
         </connector>
@@ -326,6 +361,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_Patient_Record_0_0.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>FinalPatientAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Patient_Record_0_0.AccountId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1505,7 +1547,7 @@
             <label>Yes - 3rd Party Submission</label>
         </rules>
     </decisions>
-    <description>Truncates Patient and Provider first names to &lt; 40 characters. Adds full name to Person_Full_Name__c field.</description>
+    <description>Hibc ServiceAccount</description>
     <dynamicChoiceSets>
         <name>CaseOrigin</name>
         <dataType>Picklist</dataType>
@@ -2228,6 +2270,12 @@
             <targetReference>Get_Service_Account_ID</targetReference>
         </connector>
         <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>FinalPatientAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>ContactId</field>
             <value>
                 <elementReference>Final_Patient_ID</elementReference>
@@ -2286,6 +2334,12 @@
         <connector>
             <targetReference>Get_Service_Account_ID_0</targetReference>
         </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>FinalPatientAccountId</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>ContactId</field>
             <value>
@@ -4584,6 +4638,14 @@
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Stores account Id of the contact Id</description>
+        <name>FinalPatientAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
         <isOutput>false</isOutput>
     </variables>
     <variables>
