@@ -1,0 +1,26 @@
+<template>
+    
+    <lightning-datatable
+                data-id = "stamps"
+                key-field="Id"
+                data={recordsToDisplay}
+                columns={columns}
+                selected-rows={selectedRows}
+                onrowselection={handleRowSelection}>
+        </lightning-datatable>
+
+       <!--PAGE NAVIGATION-->
+       <div class="slds-align_absolute-center" style="height:5rem">
+        <!--<lightning-button disabled={bDisableFirst} icon-name="utility:jump_to_left" label="First" class="slds-p-horizontal_x-small" alternative-text="first page" onclick={firstPage}></lightning-button>  -->
+        <lightning-button disabled={bDisableFirst} icon-name="utility:chevronleft" label="Previous" alternative-text="Previous" onclick={previousPage}></lightning-button>
+        &nbsp;
+        <span class="slds-badge">{pageNumber} &nbsp;of&nbsp; {totalPages}</span>
+        &nbsp;
+        <lightning-button disabled={bDisableLast} icon-name="utility:chevronright" label="Next" alternative-text="Next" onclick={nextPage} class="slds-p-horizontal_x-small" icon-position="right"></lightning-button>
+                 
+    </div>
+    <div class="slds-align_right"></div>
+        <!--<lightning-button disabled={bDisableLast} icon-name="utility:jump_to_right" label="Last" alternative-text="last page" onclick={lastPage} icon-position="right"></lightning-button>  -->
+        <lightning-button  label="Add to Case" alternative-text="Save" onclick={Save} class="slds-p-horizontal_x-small" icon-position="right"></lightning-button>
+   
+</template>
