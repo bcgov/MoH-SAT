@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ESA_MOM_POC_EmailIds__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(TEXT(External_Committee_Type__c),
+&apos;IBD DBAAC&apos;, &apos; and let us know if they are accurate by forwarding the response to Denise.Vatcher@gov.bc.ca and Dustin.Woo@gov.bc.ca&apos;,
+&apos;AR DBAAC&apos;, &apos; and let us know if they are accurate by forwarding the response to Jason.Gordon@gov.bc.ca and Joanne.Bolzonello@gov.bc.ca&apos;,
+&apos;PP DBAAC&apos;, &apos; and let us know if they are accurate by forwarding the response to Joanne.Bolzonello@gov.bc.ca and Sonia.Drummond@gov.bc.ca&apos;,
+&apos;Hepatitis DBAAC&apos;, &apos; and let us know if they are accurate by forwarding the response to Enny.Oetomo@gov.bc.ca and Megan.D.Weston@gov.bc.ca and Mathew.Chiang@gov.bc.ca&apos;,
+&apos;MS DBAAC&apos;, &apos; and let us know if they are accurate by forwarding the response to Michael.Ma@gov.bc.ca and Megan.D.Weston@gov.bc.ca&apos;,
+&apos;PAH DBAAC&apos;, &apos; and let us know if they are accurate by forwarding the response to Jason.Gordon@gov.bc.ca&apos;,&apos;&apos;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>MOM POC EmailIds</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
