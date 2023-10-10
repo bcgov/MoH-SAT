@@ -13,6 +13,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ESA_cls_CaseSuperStampHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>EmpiLookup</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -64,6 +68,14 @@
         <apexClass>SimilarCases</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>ESA_CMD_General_Stamps__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>ESA_CMD_Super_Stamps__mdt</name>
+    </customMetadataTypeAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.DEC__c</field>
@@ -212,6 +224,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.ESA_Approval_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ESA_General_Stamps__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ESA_Super_Stamp__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -644,7 +666,7 @@
         <field>External_Committee__c.EC_To_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+        <fieldPermissions>
         <editable>true</editable>
         <field>External_Committee__c.Email_Message__c</field>
         <readable>true</readable>
