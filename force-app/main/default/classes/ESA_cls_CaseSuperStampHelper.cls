@@ -1,5 +1,9 @@
+/**********************************************************************************************
+* @Author:      Vasanthi 
+* @Date:        3 Oct 2023
+* @Description: This class is used as a controller for esa_LC_SuperStamps component to retreive custom metadata   
+***********************************************************************************************/
 public class ESA_cls_CaseSuperStampHelper {
-
 @AuraEnabled(Cacheable = true)
     public static List<ESA_CMD_General_Stamps__mdt> getGeneralStamp(){
         List<ESA_CMD_General_Stamps__mdt> generalStamps = [Select id,ESA_Stamp_Text__c from ESA_CMD_General_Stamps__mdt ];
