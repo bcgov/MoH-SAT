@@ -24,12 +24,12 @@ const columns2 = [
 ];
 
 export default class Esa_LC_SuperStamps extends LightningElement {
-    @api recordId;
-    @api isSuperStamp= false;
-    isGeneralStamps = true;
-    records = [];
-    columns ;
-    record = {};
+   @api recordId;
+   @api isSuperStamp= false;
+   isGeneralStamps = true;
+   records = [];
+   columns ;
+   record = {};
    pageSize = 10;
    totalRecords;
    pageNumber = 1;
@@ -135,7 +135,7 @@ export default class Esa_LC_SuperStamps extends LightningElement {
             }
         });
 
-        this.selectedRows = [...selectedItemsSet];
+        this.selectedRows = [...selectedItemsSet];        
   }
 
     processUpdate(){
@@ -161,12 +161,15 @@ export default class Esa_LC_SuperStamps extends LightningElement {
         });
     }
 
-    Save(){
+    save(){
     const fields = {};
-    let  selectedRows = this.template.querySelector('[data-id= "stamps"]').getSelectedRows();
+    let selected = this.selectedRows;
+    let selectedRows = this.records.filter(function (el) {
+            return selected.includes(el.Id);
+             });
        this.selectedText = this.isGeneralStamps ? this.generalStampText : this.superStampText;
         for(let i=0; i< selectedRows.length; i++){
-         this.selectedText = this.isGeneralStamps ? this.selectedText +'\n'+ selectedRows[i].Stamp_Text__c : this.selectedText +'\n'+ selectedRows[i].Super_Stamp__c ;          
+         this.selectedText = this.isGeneralStamps ? this.selectedText +'\n'+ selectedRows[i].ESA_Stamp_Text__c : this.selectedText +'\n'+ selectedRows[i].ESA_Super_Stamp__c ;          
         }
 
       fields[ID_FIELD.fieldApiName] = this.recordId;
