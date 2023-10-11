@@ -17,7 +17,7 @@ public with sharing class  ESA_cls_CaseSuperStampHelper {
         List<ESA_CMD_Super_Stamps__mdt> superStamps = new List<ESA_CMD_Super_Stamps__mdt>();
         if(currentCase.size()>0){
         superStamps = [SELECT id,ESA_Drug_Name__c,ESA_Super_Stamp__c 
-                       FROM ESA_CMD_Super_Stamps__mdt 
+                       FROM ESA_CMD_Super_Stamps__mdt
                        WHERE ESA_Drug_Name__c =: currentCase[0].Drug__r.Name];
         }
         return superStamps;                 
