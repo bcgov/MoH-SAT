@@ -21,7 +21,7 @@ public with sharing class ESA_cls_sendMOMController {
             OrgWideEmailAddress[] owea = [SELECT Id FROM OrgWideEmailAddress WHERE Address = 'noreply@hlthsa.gov.bc.ca'];
             
             for(Contact conObj: contactIdVsRec.values()){
-                Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+                Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage(); 
                 message.setTargetObjectId(conObj.Id); 
                 if(!owea.isEmpty()){
                     message.setOrgWideEmailAddressId(owea.get(0).Id);
