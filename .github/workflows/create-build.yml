@@ -28,7 +28,7 @@ jobs:
     - name: Authenticate DevHub
       run: |
         echo ${{ secrets.SALESFORCE_DEVHUB_AUTH }} > sfdxurl.txt
-        sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub –setdefaultdevhubusername
+        sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub -–setdefaultdevhubusername
         
 
     - name: Package Upgrade
