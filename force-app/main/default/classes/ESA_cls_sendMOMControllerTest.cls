@@ -28,9 +28,9 @@ public class ESA_cls_sendMOMControllerTest {
         Test.startTest();
         returnStringNegative = ESA_cls_sendMOMController.sendMOM(NULL);
         returnString = ESA_cls_sendMOMController.sendMOM(new List<Id>{externalCommitteList[0].Id});
-        Test.stopTest();
         Integer afterInvocations = Limits.getEmailInvocations();
         Assert.areEqual(1, afterInvocations, 'Email has not been sent');
+        Test.stopTest();
         Assert.areNotEqual(TRUE, returnStringNegative.isEmpty(), 'Exception occured in Negative');
     }
     
