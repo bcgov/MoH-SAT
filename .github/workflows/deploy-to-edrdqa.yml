@@ -22,8 +22,8 @@ jobs:
 
     - name: Authenticate with Sandbox
       run: |
-#        echo ${{ secrets.SALESFORCE_STAGE_AUTH }} > sfdxurl.txt
-#        sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias SAT-EDRDQA
+         echo ${{ secrets.SALESFORCE_EDRDQA_AUTH }} > sfdxurl.txt
+         sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias SAT-EDRDQA
 
     - name: Remove auth file
       run: rm -f ./sfdxurl.txt
