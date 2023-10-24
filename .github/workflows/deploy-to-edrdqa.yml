@@ -1,0 +1,47 @@
+name: Deploy to EDRDQA
+on: 
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'This workflow is under construction'
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: 'Install Salesforce CLI'
+      run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
+          mkdir ~/sfdx
+          tar xJf sf-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+          echo "$HOME/sfdx/bin" >> $GITHUB_PATH
+          ~/sfdx/bin/sf version
+
+    - name: Authenticate with Sandbox
+      run: |
+#        echo ${{ secrets.SALESFORCE_STAGE_AUTH }} > sfdxurl.txt
+#        sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias SAT-EDRDQA
+
+    - name: Remove auth file
+      run: rm -f ./sfdxurl.txt
+
+    - name: Deploy Source in dev-app-pre
+      run: sfdx force:source:deploy -p dev-app-pre -u SAT-EDRDQA -w 15
+
+#    - name: Install version ID
+#      run: sfdx force:package:install --package "${{ github.event.inputs.package }}" -u SAT-EDRDQA -b 15 -w 15 --noprompt --wait 10
+
+    - name: Deploy metadata
+      run: sfdx force:source:deploy -p force-app -u SAT-EDRDQA -w 15
+
+    - name: Re-deploy metadata
+      run: sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u SAT-EDRDQA -w 15
+
+    - name: Deploy Source in dev-app-post
+      run: sfdx force:source:deploy -p dev-app-post -u SAT-EDRDQA -w 15
+
+#    - name: Deploy destructive changes
+#      run: sdfx force:mdapi:deploy --postdestructivechanges destructiveChanges -u SAT-STAGING -o -g -l RunLocalTests -w 15
