@@ -10,5 +10,4 @@ public class ESA_cls_constants {
     public static final String CASE_APPROVAL_TIME_UNIT_WEEK = 'Weeks';
     public static final String CASE_APPROVAL_TIME_UNIT_MONTH = 'Months';
     public static final String CASE_APPROVAL_TIME_UNIT_DAYS = 'Days';
-    public static final String CASE_APPROVAL_TIME_UNIT_YEARS = 'Years';
 }
