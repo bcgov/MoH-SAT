@@ -106,6 +106,8 @@ public with sharing class SpecialAuthorityRequest {
             );
 
         sarBody.saRecord.terminationDate = DateUtil.formatToOdrDate(terminationDate);
+        // Assigning the Termination Date to case record by calculating it from the utility class
+        this.saCase.Termination_Date__c = terminationDate;
 
         if (hasDec()) {
             sarBody.saRecord.saRequester.decCode = this.dec.DEC__c;
@@ -115,6 +117,13 @@ public with sharing class SpecialAuthorityRequest {
         }
 
         saApprovalRequests.add(sarBody);
+        // Updating the case record after assigning the termination date
+        if(this.saCase.Termination_Date__c != NULL){
+            Case cs = new Case();
+            cs.Id = this.saCase.Id;
+            cs.Termination_Date__c = this.saCase.Termination_Date__c;
+            update cs;
+        }
     }
 
     public void addAdjudicationError(String target){
