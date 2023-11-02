@@ -21,5 +21,6 @@ public with sharing class AdjudicationTest {
             record.Adjudication_Status__c = 'Approved';
             
             return record;
+            //
     }
 }
