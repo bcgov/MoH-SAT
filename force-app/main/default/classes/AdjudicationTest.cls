@@ -20,6 +20,6 @@ public with sharing class AdjudicationTest {
             record.RecordTypeId = TestFactory.getRecordTypeInfosByDeveloperName('Step_Action__c', 'Adjudication').getRecordTypeId();
             record.Adjudication_Status__c = 'Approved';
             
-            return record;//
+            return record;
     }
 }
