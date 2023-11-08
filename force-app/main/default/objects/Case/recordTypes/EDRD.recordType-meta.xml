@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD</fullName>
+    <active>true</active>
+    <businessProcess>EDRD_Case_Adjudication</businessProcess>
+    <compactLayoutAssignment>EDRD_Compact_Layout</compactLayoutAssignment>
+    <label>EDRD</label>
+    <picklistValues>
+        <picklist>Diagnosis_HIBC_Manual__c</picklist>
+        <values>
+            <fullName>Patient missed a fill and is within 21 days from expiry in PharmaNet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The patient has failed to respond to 4-6 days of oral metronidazole at doses of 500 mg three times per day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The patient has symptoms of moderate to severe disease or is experiencing a second disease recurrence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The patient is allergic%2C resistant or intolerant to metronidazole</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>The patient was initiated on vancomycin as an inpatient and requires continuation of vancomycin to complete their full course of therapy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Treatment of osteoarthritis as an adjunct to NSAID therapy when additional pain-relief is required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Treatment of osteoarthritis only as monotherapy</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Diagnosis_Manual__c</picklist>
+        <values>
+            <fullName>Barrett%27s esophagus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Connective tissue disease %28e%2Eg%2E%2C lupus%2C scleroderma%2C crest%29%2C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cough or angioedema AND patient is currently taking stable doses of telmisartan and amlodipine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Depression</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duodenal ulcer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Eradication of helicobacter pylori%2C as part of triple therapy %28maximum 14 day approval%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gastric ulcer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gastroesophageal reflux disease %28GERD%29%2C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patient has experienced angioedema on an Angiotensin Converting Enzyme Inhibitor %28ACE-I%29%2E Full coverage will be provided for all First Line ARBs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patient has experienced intractable cough on an ACE-I OR has experienced angioedema on an ACE-I%2E Full coverage will be provided for all First Line ARBs%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Patient has experienced intractable cough on an Angiotensin Converting Enzyme Inhibitor %28ACE-I%29%2E Full coverage will be provided for all First Line ARBs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reflux esophagitis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Treatment failure or intolerance to at least one other sulfonylurea drug %28e%2Eg%2E%2C glyburide%2C tolbutamide%29 at adequate doses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zollinger-Ellison syndrome</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Drug_HIBC_Manual__c</picklist>
+        <values>
+            <fullName>Acetaminophen 500mg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NRT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vancomycin</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Drug_Manual__c</picklist>
+        <values>
+            <fullName>Bupropion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Candesartan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gliclazide</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Losartan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pantoprazole Magnesium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rabeprazole</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telmisartan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Valsartan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EC_Conditions__c</picklist>
+        <values>
+            <fullName>Approved with additional drug %5Bthis is different from %E2%80%98recommend additional drug%E2%80%99%5D</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved with alternate start date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved with different dose</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved with different drug</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EC_recommendations__c</picklist>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved%2C with conditions %28alternate dose%2Fdrug%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Needs more information from prescriber %28MIR%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recommend additional drug %28specific to HEP%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EDRD_Coverage_Status__c</picklist>
+        <values>
+            <fullName>Denied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EDRD_Frequency_Unit__c</picklist>
+        <values>
+            <fullName>daily</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>once</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>weekly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>yearly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EDRD_Funding_Duration_Unit__c</picklist>
+        <values>
+            <fullName>days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>months%28%3D30 days%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>once</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>weeks%28%3D7 days%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>years%28%3D364 days%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EDRD_Insurance_Provider__c</picklist>
+        <values>
+            <fullName>Alberta Blue Cross</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CLC Welfare Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMSG Western Benefit Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Canada Life</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chambers of Commerce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ClaimSecure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Co-Operators</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Desjardins</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equitable Life of Canada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facet</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Green Shield</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Medical Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GroupSource</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Johnston Group</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manitoba Blue Cross</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manulife</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>My Group Health</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pacific Blue Cross</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SSQ Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SunLife</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Westland Insurance</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EDRD_Units__c</picklist>
+        <values>
+            <fullName>kcal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>mg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ml</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>units</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>vector genomes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ESA_Approval_Time_Unit__c</picklist>
+        <values>
+            <fullName>Days</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Months</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weeks</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>HIBC_Error_Report_Picklist__c</picklist>
+        <values>
+            <fullName>HIBC Error Report Queue</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Hold_Reason__c</picklist>
+        <values>
+            <fullName>Hold_for_Collaboration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pause_Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Waiting_for_Call_Back</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Patient_Override_Reason__c</picklist>
+        <values>
+            <fullName>Invalid PHN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No PHN Provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Patient name does not match PHN</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Prescriber_Override_Reason__c</picklist>
+        <values>
+            <fullName>None</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>Routine</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Urgent</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Reason</picklist>
+        <values>
+            <fullName>Complex functionality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions not clear</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New problem</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>User didn%27t attend training</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Request_Type__c</picklist>
+        <values>
+            <fullName>Appeal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Backdate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate_Submission</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extension</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MIR_Response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Renewal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Switch biologic</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SA_Type__c</picklist>
+        <values>
+            <fullName>B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>L</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>R</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
