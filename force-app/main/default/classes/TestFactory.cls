@@ -416,4 +416,11 @@ public with sharing class TestFactory {
             record.ESA_Rationale__c = rationale;
             return record;          
         }
+    
+    public static Case createEDRDCase(ID recordTypeId, ID accountId) {
+        Case EDRDCase = new Case();
+        EDRDCase.AccountID = accountId;
+        EDRDCase.RecordTypeId = recordTypeId;
+        return EDRDCase;
+    }
 }

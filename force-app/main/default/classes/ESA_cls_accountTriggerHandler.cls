@@ -3,9 +3,10 @@
 * @Date:        09 Mar 2023
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
+                11 Nov -  EDRD-82           -  Accenture   -  Added Close Case method on Account Inactive
 ***********************************************************************************************/
 public with sharing class ESA_cls_accountTriggerHandler {
-
+    
 /**
 * @author: Deepak
 * @date: 09 Mar 2023
@@ -20,7 +21,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
             
             Boolean isSpecialtyChanged = trigger.isUpdate && oldAccountMap.get(accObj.id).Provider_Specialty__pc != newAccountMap.get(accObj.id).Provider_Specialty__pc;
             if (trigger.isInsert || isSpecialtyChanged){
-               accountIdSet.add(accObj.id);
+                accountIdSet.add(accObj.id);
             } 
         } 
         List<Contact> conList = [Select Id, account.Provider_Specialty__pc, ESA_Provider_Specialty__c from Contact Where accountID =: accountIdSet];
@@ -35,7 +36,37 @@ public with sharing class ESA_cls_accountTriggerHandler {
             conListToUpdate.add(new Contact(id = conObj.id, ESA_Provider_Specialty__c = conObj.ESA_Provider_Specialty__c));
         }
         if(!conListToUpdate.isEmpty()){
-          Update conListToUpdate;
+            Update conListToUpdate;
         } 
+    }
+    
+/**
+* @author: Deepak
+* @date: 10 Nov 2023
+* @description: The purpose of this method is to close related cases on patient inactive.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/ 
+    public static void closeCaseOnAccInactive(List<Account> newAccountList, Map<id,Account> oldAccountMap, Map<id,Account> newAccountMap) {
+        Set<Id> patientIdSet = new Set<Id>();
+        for(account patientRec: newAccountList){
+            Boolean isPatientActiveChange = (oldAccountMap.get(patientRec.id).EDRD_Patient_Active__pc != newAccountMap.get(patientRec.id).EDRD_Patient_Active__pc
+                                             && newAccountMap.get(patientRec.id).EDRD_Patient_Active__pc) || 
+                (oldAccountMap.get(patientRec.id).Patient_is_Deceased__pc != newAccountMap.get(patientRec.id).Patient_is_Deceased__pc
+                 && !newAccountMap.get(patientRec.id).Patient_is_Deceased__pc);
+            
+            if(isPatientActiveChange){
+                patientIdSet.add(patientRec.id);
+            }
+            if(!patientIdSet.isEmpty()){
+                List<Case> casesToUpdate = [SELECT id, Status FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
+                                            AND IsClosed = FALSE];
+                for(Case caseObj: casesToUpdate){
+                    caseObj.status = 'Other';
+                }
+                if(!casesToUpdate.isEmpty()){
+                    Update casesToUpdate;
+                }
+            }
+        }
     }
 }

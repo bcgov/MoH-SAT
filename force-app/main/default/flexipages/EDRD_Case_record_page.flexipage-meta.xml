@@ -72,6 +72,16 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Ref_No__c</fieldItem>
+                <identifier>RecordEDRD_Ref_No_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Type</fieldItem>
                 <identifier>RecordTypeField</identifier>
             </fieldInstance>
@@ -224,10 +234,16 @@
                 <fieldItem>Record.EDRD_Please_specify_other__c</fieldItem>
                 <identifier>RecordEDRD_Please_specify_other_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_Insurance_Provider__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Other</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_Coverage_Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Yes</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
