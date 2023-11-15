@@ -57,15 +57,15 @@ public with sharing class ESA_cls_accountTriggerHandler {
             if(isPatientActiveChange){
                 patientIdSet.add(patientRec.id);
             }
-            if(!patientIdSet.isEmpty()){
-                List<Case> casesToUpdate = [SELECT id, Status FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
-                                            AND IsClosed = FALSE];
-                for(Case caseObj: casesToUpdate){
-                    caseObj.status = 'Other';
-                }
-                if(!casesToUpdate.isEmpty()){
-                    Update casesToUpdate;
-                }
+        }
+        if(!patientIdSet.isEmpty()){
+            List<Case> casesToUpdate = [SELECT id, Status FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
+                                        AND IsClosed = FALSE];
+            for(Case caseObj: casesToUpdate){
+                caseObj.status = 'Other';
+            }
+            if(!casesToUpdate.isEmpty()){
+                Update casesToUpdate;
             }
         }
     }
