@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_Closed_Other</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+ISPICKVAL(Status , &apos;Other&apos;),
+ISBLANK(EDRD_Notes__c)
+)</errorConditionFormula>
+    <errorMessage>If a case is closed as other, please provide the reason in the EDRD Notes.</errorMessage>
+</ValidationRule>

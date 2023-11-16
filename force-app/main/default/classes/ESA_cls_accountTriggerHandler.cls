@@ -59,10 +59,16 @@ public with sharing class ESA_cls_accountTriggerHandler {
             }
         }
         if(!patientIdSet.isEmpty()){
-            List<Case> casesToUpdate = [SELECT id, Status FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
+            List<Case> casesToUpdate = [SELECT id, Status, Account.Patient_is_Deceased__pc, Account.EDRD_Patient_Active__pc, EDRD_Notes__c FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
                                         AND IsClosed = FALSE];
             for(Case caseObj: casesToUpdate){
-                caseObj.status = 'Other';
+                if(caseObj.Account.Patient_is_Deceased__pc){
+                    caseObj.status = 'Patient Deceased';
+                }else{
+                    caseObj.status = 'Other';
+                    String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
+                    caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_Inactive;
+                }
             }
             if(!casesToUpdate.isEmpty()){
                 Update casesToUpdate;
