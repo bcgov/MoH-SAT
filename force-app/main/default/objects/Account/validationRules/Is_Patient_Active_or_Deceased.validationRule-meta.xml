@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Patient_Active_or_Deceased</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( EDRD_Patient_Active__pc  = TRUE, Patient_is_Deceased__pc = TRUE)</errorConditionFormula>
+    <errorMessage>Only ONE of Deceased or Active checkboxes can be checked at one time</errorMessage>
+</ValidationRule>
