@@ -46,26 +46,25 @@ public with sharing class ESA_cls_accountTriggerHandler {
 * @description: The purpose of this method is to close related cases on patient inactive.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
-    public static void closeCaseOnAccInactive(List<Account> newAccountList, Map<id,Account> oldAccountMap, Map<id,Account> newAccountMap) {
+    public static void closeCaseOnAccDeceased(List<Account> newAccountList, Map<id,Account> oldAccountMap, Map<id,Account> newAccountMap) {
         Set<Id> patientIdSet = new Set<Id>();
         for(account patientRec: newAccountList){
-            Boolean isPatientActiveChange = (oldAccountMap.get(patientRec.id).EDRD_Patient_Active__pc != newAccountMap.get(patientRec.id).EDRD_Patient_Active__pc
-                                             && newAccountMap.get(patientRec.id).EDRD_Patient_Active__pc) || 
-                (oldAccountMap.get(patientRec.id).Patient_is_Deceased__pc != newAccountMap.get(patientRec.id).Patient_is_Deceased__pc
-                 && !newAccountMap.get(patientRec.id).Patient_is_Deceased__pc);
+            Boolean isPatientDeceasedChange = (oldAccountMap.get(patientRec.id).Patient_is_Deceased__pc != newAccountMap.get(patientRec.id).Patient_is_Deceased__pc
+                                               && !newAccountMap.get(patientRec.id).Patient_is_Deceased__pc);
             
-            if(isPatientActiveChange){
+            if(isPatientDeceasedChange){
                 patientIdSet.add(patientRec.id);
             }
         }
         if(!patientIdSet.isEmpty()){
-            List<Case> casesToUpdate = [SELECT id, Status, Account.Patient_is_Deceased__pc, Account.EDRD_Patient_Active__pc, EDRD_Notes__c FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
+            List<Case> casesToUpdate = [SELECT id, Status, Account.Patient_is_Deceased__pc, Account.EDRD_Patient_Active__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c 
+                                        FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
                                         AND IsClosed = FALSE];
+            
             for(Case caseObj: casesToUpdate){
                 if(caseObj.Account.Patient_is_Deceased__pc){
-                    caseObj.status = 'Patient Deceased';
-                }else{
-                    caseObj.status = 'Other';
+                    caseObj.status = 'Funding Denied';
+                    caseObj.EDRD_Case_closure_reasons__c = 'Patient Deceased';
                     String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
                     caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_Inactive;
                 }

@@ -38,7 +38,7 @@ public class ESA_cls_accountTriggerHandlerTest {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
     @isTest
-    public static void closeCaseOnAccInactive_positive(){
+    public static void closeCaseOnAccDeceased_positive(){
         Account providerAccount = TestFactory.newProvider('Test');
         insert providerAccount;
         String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
