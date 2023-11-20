@@ -29,8 +29,8 @@ jobs:
 
     - name: Deploy source
       run: |
-        sf project deploy start -d dev-app-pre -o ciorg
-        sf project deploy start -d force-app -o ciorg
+        sf project deploy start -d dev-app-pre -o ciorg --ignore-warnings
+        sf project deploy start -d force-app -o ciorg 
         sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
         sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
         sf project deploy start -d dev-app-post -o ciorg -c
