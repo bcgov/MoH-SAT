@@ -66,7 +66,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
                     caseObj.status = 'Funding Denied';
                     caseObj.EDRD_Case_closure_reasons__c = 'Patient Deceased';
                     String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
-                    caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_Inactive;
+                    caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_deceased;
                 }
             }
             if(!casesToUpdate.isEmpty()){
