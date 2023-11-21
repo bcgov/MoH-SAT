@@ -26,8 +26,7 @@ jobs:
         sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias devhub --set-default-dev-hub
        # sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
     - name: Define CI org
-      run:
-      sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg
+      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Deploy source
@@ -37,7 +36,7 @@ jobs:
         sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
         sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
         sf project deploy start -d dev-app-post -o ciorg -c
-  # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
+      # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
       # sfdx force:source:push -u ciorg
 
     - name: Assign permission set and set user role
