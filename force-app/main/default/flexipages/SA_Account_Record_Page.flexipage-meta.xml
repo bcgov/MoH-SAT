@@ -126,7 +126,7 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText</identifier>
                 <visibilityRule>
-                    <booleanFilter>((1 OR 2) AND (3 OR 4))</booleanFilter>
+                    <booleanFilter>((1 OR 2) AND (3 OR 4) AND 5)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Patient_is_Deceased__pc}</leftValue>
                         <operator>EQUAL</operator>
@@ -146,6 +146,11 @@
                         <leftValue>{!$User.Profile.Name}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>Administrator</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Patient</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
