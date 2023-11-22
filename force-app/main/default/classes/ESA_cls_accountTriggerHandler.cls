@@ -57,7 +57,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
             }
         }
         if(!patientIdSet.isEmpty()){
-            List<Case> casesToUpdate = [SELECT id, Status, Account.Patient_is_Deceased__pc, Account.EDRD_Patient_Active__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c 
+            List<Case> casesToUpdate = [SELECT id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c 
                                         FROM Case WHERE AccountID =: patientIdSet AND RecordType.developername = 'EDRD'
                                         AND IsClosed = FALSE];
             

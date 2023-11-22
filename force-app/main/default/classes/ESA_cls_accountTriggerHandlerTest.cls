@@ -46,7 +46,6 @@ public class ESA_cls_accountTriggerHandlerTest {
         insert EDRDCase;
         Test.startTest();
         providerAccount.Patient_is_Deceased__pc = true;
-        providerAccount.EDRD_Patient_Active__pc = false;
         Update providerAccount;
         Test.stopTest(); 
         
