@@ -116,53 +116,17 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>decorate</name>
-                    <value>true</value>
+                    <name>tabs</name>
+                    <value>Facet-976174a0-8b4d-4ca6-9b07-50fbbb16c00d</value>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>richTextValue</name>
-                    <value>&lt;p&gt;The patient is marked as inactive in EDRD so the associated EDRD cases will be closed automatically.&lt;/p&gt;</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
-                <visibilityRule>
-                    <booleanFilter>((1 OR 2) AND (3 OR 4) AND 5)</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Patient_is_Deceased__pc}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.EDRD_Patient_Active__pc}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!$User.UserRole.Name}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>EDRD</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!$User.Profile.Name}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Administrator</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.Name}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Patient</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <componentName>flexipage:tabset</componentName>
+                <identifier>flexipage_tabset</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-703d43f7-56e1-423e-8d0b-5be9eed805b6</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset1</identifier>
+                <componentName>force:recordDetailPanelMobile</componentName>
+                <identifier>force_recordDetailPanelMobile</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>
