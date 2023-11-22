@@ -23,9 +23,11 @@ jobs:
     - name: Authenticate DevHub
       run: |
         echo ${{ secrets.SALESFORCE_DEVHUB_AUTH }} > sfdxurl.txt
-        sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
+        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias devhub --set-default-dev-hub
+       # sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
     - name: Define CI org
-      run: sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
+      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg
+      # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Deploy source
       run: |
@@ -34,17 +36,20 @@ jobs:
         sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
         sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
         sf project deploy start -d dev-app-post -o ciorg -c
-  # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
+      # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
       # sfdx force:source:push -u ciorg
 
     - name: Assign permission set and set user role
       run: |
-        sfdx force:user:permset:assign -u ciorg -n SA_Administrator
-        sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
+          sf force:user:permset:assign -o ciorg -n SA_Administrator
+          sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
+        # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
+        # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
         
     - name: Run Apex test
       run: sfdx force:apex:test:run -c -r human
 
     - name: Delete scratch org
       if: ${{ always() }}
-      run: sfdx force:org:delete -u ciorg -p
+      run: sf org delete scratch -o ciorg -p
+      # sfdx force:org:delete -u ciorg -p
