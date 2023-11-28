@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <apiVersion>59.0</apiVersion>
+    <apiVersion>57.0</apiVersion>
     <assignments>
         <name>Store_Updated_EDRD_Cases</name>
         <label>Store Updated EDRD Cases</label>
@@ -249,7 +249,7 @@
             <label>closeEDRDassociatedCase_inactivePatient</label>
         </rules>
     </decisions>
-    <description>Development Related to EDRD-264</description>
+    <description>Development Related to EDRD-264 UpdatedV4</description>
     <dynamicChoiceSets>
         <name>careProgramEnrolInactive_picklistSet</name>
         <dataType>Picklist</dataType>
@@ -381,8 +381,8 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>deactivate_patient_Checkbox</name>
-        <label>deactivate patient Checkbox</label>
+        <name>deactivate_patient_CPE_Record</name>
+        <label>deactivate_patient_CPE_Record</label>
         <locationX>380</locationX>
         <locationY>458</locationY>
         <connector>
@@ -396,12 +396,6 @@
                 <elementReference>get_careProgramEnrollee_Record.Id</elementReference>
             </value>
         </filters>
-        <inputAssignments>
-            <field>Inactive_Reason__c</field>
-            <value>
-                <elementReference>Patient_Inactive_Reason</elementReference>
-            </value>
-        </inputAssignments>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -538,7 +532,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>deactivate_patient_Checkbox</targetReference>
+            <targetReference>deactivate_patient_CPE_Record</targetReference>
         </connector>
         <fields>
             <name>Copy_1_of_Deactivate_Patient_screenName</name>
