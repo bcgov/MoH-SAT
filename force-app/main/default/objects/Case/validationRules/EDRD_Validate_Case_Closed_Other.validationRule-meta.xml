@@ -4,8 +4,9 @@
     <active>true</active>
     <errorConditionFormula>AND(
 ISCHANGED(Status),
-ISPICKVAL(Status , &apos;Other&apos;),
+ISPICKVAL(Status , &apos;Cancelled&apos;),
+ISPICKVAL(EDRD_Case_closure_reasons__c, &apos;Other&apos;),
 ISBLANK(EDRD_Notes__c)
 )</errorConditionFormula>
-    <errorMessage>If a case is closed as other, please provide the reason in the Notes.</errorMessage>
+    <errorMessage>If a case is closed as Cancelled and Case Closure Reason is Other, please provide the reason in the Notes.</errorMessage>
 </ValidationRule>
