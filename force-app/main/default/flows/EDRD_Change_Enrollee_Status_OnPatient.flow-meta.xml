@@ -249,7 +249,7 @@
             <label>closeEDRDassociatedCase_inactivePatient</label>
         </rules>
     </decisions>
-    <description>Development Related to EDRD-264 UpdatedV4</description>
+    <description>Development Related to EDRD-264</description>
     <dynamicChoiceSets>
         <name>careProgramEnrolInactive_picklistSet</name>
         <dataType>Picklist</dataType>
@@ -381,8 +381,8 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>deactivate_patient_CPE_Record</name>
-        <label>deactivate_patient_CPE_Record</label>
+        <name>deactivate_patient_Checkbox</name>
+        <label>deactivate patient Checkbox</label>
         <locationX>380</locationX>
         <locationY>458</locationY>
         <connector>
@@ -396,6 +396,12 @@
                 <elementReference>get_careProgramEnrollee_Record.Id</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>Inactive_Reason__c</field>
+            <value>
+                <elementReference>Patient_Inactive_Reason</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>Status</field>
             <value>
@@ -532,7 +538,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>deactivate_patient_CPE_Record</targetReference>
+            <targetReference>deactivate_patient_Checkbox</targetReference>
         </connector>
         <fields>
             <name>Copy_1_of_Deactivate_Patient_screenName</name>
