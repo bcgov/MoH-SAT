@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_MOHFundingApp_Denied</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+EDRD_MOHFunding_Denied__c,
+EDRD_MOHFunding_Approved__c
+)</errorConditionFormula>
+    <errorMessage>Only one checkbox should be selected. Funding Approved and Funding Denied together cannot be selected.</errorMessage>
+</ValidationRule>

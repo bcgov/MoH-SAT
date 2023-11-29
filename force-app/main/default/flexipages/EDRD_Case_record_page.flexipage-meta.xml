@@ -577,10 +577,80 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Simplified_Review__c</fieldItem>
+                <identifier>RecordEDRD_Pharmacist_Simplified_Review_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Review_Fits_Criteria__c</fieldItem>
+                <identifier>RecordEDRD_Pharmacist_Review_Fits_Criteria_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Review_Notes__c</fieldItem>
+                <identifier>RecordEDRD_Pharmacist_Review_Notes_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Review_Pathway__c</fieldItem>
+                <identifier>RecordEDRD_Pharmacist_Review_Pathway_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-a7140cba-392e-4b5b-8d75-a429b0099dd5</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Review_Funding_Duration__c</fieldItem>
+                <identifier>RecordEDRD_Pharmacist_Review_Funding_Duration_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Review_Funding_Duration_Unit__c</fieldItem>
+                <identifier>RecordPharmacist_Review_Funding_Duration_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Review_Not_Meet_Criteria__c</fieldItem>
+                <identifier>RecordPharmacist_Review_Reason_Does_Not_Meet_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-c8f6d94d-6040-40eb-a9c8-ca92bc2e5df2</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -609,10 +679,129 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Recommendation_Review__c</fieldItem>
+                <identifier>RecordEDRD_SC_Recommendation_Review_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Review_Fits_Criteria__c</fieldItem>
+                <identifier>RecordEDRD_SC_Review_Fits_Criteria_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Review_Notes__c</fieldItem>
+                <identifier>RecordEDRD_SC_Review_Notes_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Review_Pathway__c</fieldItem>
+                <identifier>RecordEDRD_SC_Review_Pathway_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-b48d692d-9ef6-4759-9fdf-228dfed48aff</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Review_Funding_Duration__c</fieldItem>
+                <identifier>RecordEDRD_SC_Review_Funding_Duration_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Review_Funding_Duration_Unit__c</fieldItem>
+                <identifier>RecordEDRD_SC_Review_Funding_Duration_Unit_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Review_Not_Meet_Criteria__c</fieldItem>
+                <identifier>RecordSC_Review_Reason_Does_Not_Meet_Criteria_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-357e5b36-c51b-4193-9c9b-538e7f5af3b5</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -641,10 +830,148 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Recommendation_Review__c</fieldItem>
+                <identifier>RecordEDRD_AC_Recommendation_Review_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Fits_Criteria__c</fieldItem>
+                <identifier>RecordEDRD_AC_Review_Fits_Criteria_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Notes__c</fieldItem>
+                <identifier>RecordEDRD_AC_Review_Notes_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-17843c44-a783-49a4-83e3-d421cfaa9798</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Funding_Duration__c</fieldItem>
+                <identifier>RecordEDRD_AC_Review_Funding_Duration_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Funding_Duration_Unit__c</fieldItem>
+                <identifier>RecordEDRD_AC_Review_Funding_Duration_Unit_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Not_Meet_Criteria__c</fieldItem>
+                <identifier>RecordAC_Review_Reason_Does_Not_Meet_Criteri_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-9f97fff2-a14b-4416-8093-3b4f0cb8b64a</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -673,10 +1000,150 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHFunding_Approved__c</fieldItem>
+                <identifier>RecordEDRD_MOHFunding_Approved_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHFunding_Expiry_Date__c</fieldItem>
+                <identifier>RecordEDRD_MOHFunding_Expiry_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHApproved_Funding_Duration__c</fieldItem>
+                <identifier>RecordEDRD_MOHApproved_Funding_Duration_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHApproved_Funding_Duration_Unit__c</fieldItem>
+                <identifier>RecordEDRD_MOHApproved_Funding_Duration_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHApproved_Frequency__c</fieldItem>
+                <identifier>RecordEDRD_MOHApproved_Frequency_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHApproved_Frequency_Unit__c</fieldItem>
+                <identifier>RecordEDRD_MOHApproved_Frequency_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHDrug_Cost_Forecast__c</fieldItem>
+                <identifier>RecordEDRD_MOHDrug_Cost_Forecast_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-be4aeb41-9d35-46a7-9525-7009f497e028</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHFunding_Denied__c</fieldItem>
+                <identifier>RecordEDRD_MOHFunding_Denied_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHApproved_Dosage__c</fieldItem>
+                <identifier>RecordEDRD_MOHApproved_Dosage_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHIndefinite_Funding__c</fieldItem>
+                <identifier>RecordEDRD_MOHIndefinite_Funding_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHFunding_Extended__c</fieldItem>
+                <identifier>RecordEDRD_MOHFunding_Extended_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHFunding_Extension_Date__c</fieldItem>
+                <identifier>RecordEDRD_MOHFunding_Extension_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHPharmaNet_Approval__c</fieldItem>
+                <identifier>RecordEDRD_MOHPharmaNet_Approval_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_MOHComments__c</fieldItem>
+                <identifier>RecordEDRD_MOHComments_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-6d307740-43c5-4d23-8a4b-05017b3a4424</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1083,14 +1550,14 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>forceChatter:recordFeedContainer</componentName>
-                <identifier>forceChatter_recordFeedContainer2</identifier>
+                <componentInstanceProperties>
+                    <name>context</name>
+                    <value>RECORD</value>
+                </componentInstanceProperties>
+                <componentName>forceChatter:publisher</componentName>
+                <identifier>forceChatter_publisher</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-3aab376b-6e48-4a13-908b-683308f17a36</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1105,20 +1572,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-3aab376b-6e48-4a13-908b-683308f17a36</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Standard.Tab.collaborate</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab5</identifier>
-            </componentInstance>
-        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -1164,7 +1617,7 @@
         </properties>
         <properties>
             <name>saveOptions</name>
-            <value>[{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;SHOW_CHECKBOX_WITH_DEFAULT_ON&quot;},{&quot;name&quot;:&quot;triggerOtherEmail&quot;,&quot;value&quot;:&quot;SHOW_CHECKBOX_WITH_DEFAULT_OFF&quot;}]</value>
+            <value>[{&quot;name&quot;:&quot;UseDefaultAssignmentRule&quot;,&quot;value&quot;:&quot;APPLY_OPTION_WITHOUT_CHECKBOX_DISPLAY&quot;},{&quot;name&quot;:&quot;triggerOtherEmail&quot;,&quot;value&quot;:&quot;SHOW_CHECKBOX_WITH_DEFAULT_OFF&quot;}]</value>
         </properties>
     </template>
     <type>RecordPage</type>
