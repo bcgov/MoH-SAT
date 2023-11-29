@@ -49,6 +49,14 @@
                 <behavior>Required</behavior>
                 <field>PersonBirthdate</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>EDRD_Age__pc</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_Eligibility_Form_Signed_Date__pc</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -63,7 +71,13 @@
                 <field>PersonMailingAddress</field>
             </layoutItems>
         </layoutColumns>
-        <style>OneColumn</style>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PersonOtherAddress</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -130,13 +144,15 @@
             <sortOrder>3</sortOrder>
         </platformActionListItems>
     </platformActionList>
-    <relatedContent>
-        <relatedContentItems>
-            <layoutItem>
-                <component>runtime_sales_social:socialPanel</component>
-            </layoutItem>
-        </relatedContentItems>
-    </relatedContent>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>ObservationStatus</fields>
+        <fields>ObservedSubject</fields>
+        <fields>EffectiveDateTime</fields>
+        <fields>ObservedValueUnit</fields>
+        <fields>ObservedValueNumerator</fields>
+        <relatedList>CareObservation</relatedList>
+    </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>NewCase</excludeButtons>
@@ -151,6 +167,12 @@
         <relatedList>RelatedCaseList</relatedList>
         <sortField>CASES.CREATED_DATE_DATE_ONLY</sortField>
         <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <fields>CareProgram</fields>
+        <fields>Status</fields>
+        <fields>LastModifiedDate</fields>
+        <relatedList>CareProgramEnrollees</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedFileList</relatedList>
