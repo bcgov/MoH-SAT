@@ -419,8 +419,22 @@ public with sharing class TestFactory {
     
     public static Case createEDRDCase(ID recordTypeId, ID accountId) {
         Case EDRDCase = new Case();
-        EDRDCase.AccountID = accountId;
+        EDRDCase.AccountId = accountId;
         EDRDCase.RecordTypeId = recordTypeId;
         return EDRDCase;
+    }
+    
+     public static CareProgram createCareProgram(String Name){
+        CareProgram CareProgramObj = new CareProgram();
+         CareProgramObj.Name = Name;
+         return CareProgramObj;
+    }
+    
+    public static CareProgramEnrollee createCareProgramEnrollee(String Name, ID accountId, ID CareProgramId){
+        CareProgramEnrollee CareProgramEnrolleeObj = new CareProgramEnrollee();
+        CareProgramEnrolleeObj.Name = Name;
+        CareProgramEnrolleeObj.AccountId = accountId;
+        CareProgramEnrolleeObj.CareProgramId = CareProgramId;
+        return CareProgramEnrolleeObj;
     }
 }

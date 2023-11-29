@@ -44,6 +44,10 @@ public class ESA_cls_accountTriggerHandlerTest {
         String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         Case EDRDCase = TestFactory.createEDRDCase(caseRecordTypeID, providerAccount.Id);
         insert EDRDCase;
+        careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
+        insert careProgramRec;
+        CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', providerAccount.Id, careProgramRec.Id);
+        insert CareProgramEnrolleeRec;
         Test.startTest();
         providerAccount.Patient_is_Deceased__pc = true;
         Update providerAccount;
