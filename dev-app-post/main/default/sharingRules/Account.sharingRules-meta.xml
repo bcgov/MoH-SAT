@@ -34,4 +34,24 @@
             <roleAndSubordinates>Developer</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Admin_and_Staff</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>If Account recordtype = Manufacturer/Patient/Provider, those records will be shared with users having role EDRD admins &amp; staff</description>
+        <label>EDRD Admin and Staff</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Manufacturer,Patient,Provider</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>
