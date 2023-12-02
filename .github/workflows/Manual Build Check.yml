@@ -1,0 +1,64 @@
+name: Manual Build Check
+on: 
+  workflow_dispatch:
+
+jobs:
+  build-check:
+    runs-on: ubuntu-latest
+    env:
+      SF_DISABLE_SOURCE_MEMBER_POLLING: true
+    steps:
+
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+
+    - name: 'Install Salesforce CLI'
+      run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
+          mkdir ~/sfdx
+          tar xJf sf-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+          echo "$HOME/sfdx/bin" >> $GITHUB_PATH
+          ~/sfdx/bin/sf version
+ 
+    - name: Authenticate DevHub
+      run: |
+        echo ${{ secrets.SALESFORCE_DEVHUB_AUTH }} > sfdxurl.txt
+        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias devhub --set-default-dev-hub
+       # sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
+    - name: Define CI org
+      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg
+      # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
+
+    - name: Deploy source dev-app-pre
+      run: sf project deploy start -d dev-app-pre -o ciorg 
+ 
+    - name: Deploy source force-app
+      run: sf project deploy start -d force-app -o ciorg 
+ 
+    - name: Deploy source default objects
+      run: sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
+ 
+    - name: Deploy source default queues
+      run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
+ 
+    - name: Deploy source default dev-app-post
+      run: sf project deploy start -d dev-app-post -o ciorg -c
+      # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
+      # sfdx force:source:push -u ciorg
+
+    - name: Assign permission set and set user role
+      run: |
+          sf force:user:permset:assign -o ciorg -n SA_Administrator
+          sf force:user:permset:assign -o ciorg -n HealthCloudFoundation
+          sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
+        # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
+        # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
+        
+    - name: Run Apex test
+      run: sfdx force:apex:test:run -c -r human
+
+    - name: Delete scratch org
+      if: ${{ always() }}
+      run: sf org delete scratch -o ciorg -p
+      # sfdx force:org:delete -u ciorg -p
