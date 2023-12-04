@@ -4,8 +4,8 @@
     <active>true</active>
     <errorConditionFormula>AND(
 EDRD_MOHFunding_Extended__c,
-OR(EDRD_MOHFunding_Denied__c, EDRD_MOHIndefinite_Funding__c, NOT(EDRD_MOHFunding_Approved__c)), 
+OR(EDRD_MOHFunding_Denied__c, EDRD_MOHIndefinite_Funding__c, NOT(EDRD_MOHFunding_Approved__c), EDRD_MOHFunding_Approved__c),
 ISBLANK(EDRD_MOHFunding_Extension_Date__c)
 )</errorConditionFormula>
-    <errorMessage>If Funding Extended is selected, it should be Funding Approved, but Funding Denied or Indefinite Funding cannot be selected and Please provide Funding Extended Date.</errorMessage>
+    <errorMessage>If Funding Extended is selected, it should be Funding Approved, and Funding Denied or Indefinite Funding cannot be selected and Please provide Funding Extended Date.</errorMessage>
 </ValidationRule>
