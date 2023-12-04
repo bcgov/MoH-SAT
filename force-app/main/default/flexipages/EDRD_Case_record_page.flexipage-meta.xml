@@ -697,8 +697,8 @@
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -714,8 +714,8 @@
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -731,8 +731,8 @@
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -748,8 +748,8 @@
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -769,8 +769,8 @@
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -786,8 +786,8 @@
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -804,8 +804,8 @@
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Fits_Criteria__c}</leftValue>
@@ -855,13 +855,13 @@
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -878,13 +878,13 @@
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -901,13 +901,36 @@
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Pathway__c</fieldItem>
+                <identifier>RecordEDRD_AC_Review_Pathway_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -928,13 +951,13 @@
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -951,13 +974,13 @@
                     <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -974,13 +997,13 @@
                     <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
+                        <operator>NE</operator>
+                        <rightValue>Sent to MOH</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!Record.EDRD_SC_Review_Fits_Criteria__c}</leftValue>
@@ -1396,6 +1419,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection7</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>SC Review</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1414,6 +1444,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection8</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>AC Review</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
