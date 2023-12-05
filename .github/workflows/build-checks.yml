@@ -29,6 +29,12 @@ jobs:
       run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
+     - name: Set deployment user standard security
+      run: |
+          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud"
+          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud Platform"
+          sf force:user:permset:assign -o ciorg -n HealthCloudFoundation
+
     - name: Deploy source dev-app-pre
       run: sf project deploy start -d dev-app-pre -o ciorg 
  
@@ -46,12 +52,9 @@ jobs:
       # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
       # sfdx force:source:push -u ciorg
 
-    - name: Set deployment user security
+    - name: Set deployment user custom security
       run: |
           sf force:user:permset:assign -o ciorg -n SA_Administrator
-          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud"
-          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud Platform"
-          sf force:user:permset:assign -o ciorg -n HealthCloudFoundation
           sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
         # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
         # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex

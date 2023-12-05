@@ -56,6 +56,9 @@ echo "Creating scratch org, \"$alias\"..."
 dx force:org:create -v devhub -a $alias -f config/project-scratch-def.json -d $duration -s
 dx force:data:record:update -u $alias -s Organization -w "Name='Special Authority Scratch Org'" -v "TimeZoneSidKey='America/Los_Angeles'"
 dx force:data:record:update -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
+sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud"
+sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud Platform"
+sfdx force:user:permset:assign -u $alias -n HealthCloudFoundation
 
 echo "Uploading source code..."
 sfdx force:source:deploy -p dev-app-pre -u $alias
@@ -67,10 +70,7 @@ sfdx force:source:tracking:reset -u $alias --noprompt
 
 echo "Assigning permissions..."
 sfdx force:user:permset:assign -u $alias -n SA_Administrator
-sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud"
-sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud Platform"
-sfdx force:user:permset:assign -u $alias -n HealthCloudFoundation
-dx force:apex:execute -u $alias -f scripts/apex/scratchorg-set-current-user.apex
+sfdx force:apex:execute -u $alias -f scripts/apex/scratchorg-set-current-user.apex
 
 echo "Uploading data..."
 dx force:data:bulk:upsert -u $alias -s Drug__c -f data/drugs.csv -i Drug_Code__c -w 5 
