@@ -47,9 +47,11 @@ jobs:
       # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
       # sfdx force:source:push -u ciorg
 
-    - name: Assign permission set and set user role
+    - name: Set deployment user security
       run: |
           sf force:user:permset:assign -o ciorg -n SA_Administrator
+          sf force:user:permsetlicense:assign -o ciorg -n "Health Cloud"
+          sf force:user:permsetlicense:assign -o ciorg -n "Health Cloud Platform"
           sf force:user:permset:assign -o ciorg -n HealthCloudFoundation
           sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
         # sfdx force:user:permset:assign -u ciorg -n SA_Administrator

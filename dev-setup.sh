@@ -66,7 +66,10 @@ sfdx force:source:tracking:reset -u $alias --noprompt
 # dx force:source:push -u $alias 
 
 echo "Assigning permissions..."
-dx force:user:permset:assign -u $alias -n SA_Administrator
+sfdx force:user:permset:assign -u $alias -n SA_Administrator
+sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud"
+sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud Platform"
+sfdx force:user:permset:assign -u $alias -n HealthCloudFoundation
 dx force:apex:execute -u $alias -f scripts/apex/scratchorg-set-current-user.apex
 
 echo "Uploading data..."
