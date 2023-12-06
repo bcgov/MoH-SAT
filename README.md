@@ -19,5 +19,5 @@ For admins and developers new with scratch orgs and git: [docs/development/dev-t
 #### CI/CD
 For the release manager or the repo admin: [docs/development/cicd.md](docs/development/cicd.md) 
 
-#### SSL Certificates
+#### SSL  Certificates
 For the System Administrator renewing SSL client certificates: [docs/development/certificates.md](docs/development/certificates.md)
