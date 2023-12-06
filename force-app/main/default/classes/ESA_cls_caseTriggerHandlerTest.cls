@@ -53,7 +53,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     @isTest public static void manageAssignmentRuleTest(){
-        Id caseRecType = Schema.SObjectType.Case.getRecordTypeInfosByName().get('EDRD').getRecordTypeId();
+        Id caseRecType = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         Case testCase = new Case(
             Subject = 'Test Case',
             Description ='Test');
