@@ -7,8 +7,8 @@
                4 Dec23 -   EDRD-332         -  Accenture   -  Change case status according to RPH, SC, AC Review Field
 ***********************************************************************************************/
 
-public with sharing class ESA_cls_caseTriggerHandler {
-    
+public with sharing class ESA_cls_caseTriggerHandler {    
+    public static boolean firstrun= true;    
 /**
 * @author: Deepak
 * @date: 23 Feb 2023
@@ -34,8 +34,28 @@ public with sharing class ESA_cls_caseTriggerHandler {
             
         }
     }
-
-    
+/**
+* @author: Rahul
+* @date: 9 Dec 2023
+* @description: The purpose of this method is to manage the case assignment in case of inline edit
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/  
+    public static void manageAssignmentRule(List<Case> cases, Map<Id, Case> oldCaseMap){
+        AssignmentRule  AR = new AssignmentRule();
+        AR = [select id from AssignmentRule where SobjectType = 'Case' and Active = true limit 1];
+        Database.DMLOptions dmlOpts = new Database.DMLOptions();
+        dmlOpts.assignmentRuleHeader.assignmentRuleId= AR.id;
+        List<Case> caseAssignment = new List<Case>();
+        For(Case c :[Select Id,OwnerId FROM Case WHERE Id in :cases]){
+            system.debug('OwnerId ='+c.OwnerId);
+            if(c.OwnerId == oldCaseMap.get(c.Id).OwnerId){
+                c.setOptions(dmlOpts);
+                caseAssignment.add(c);
+            }
+        }
+        system.debug('Updating');
+        update caseAssignment;
+    }
 /**
 * @author: Deepak
 * @date: 04 Dec 2023
