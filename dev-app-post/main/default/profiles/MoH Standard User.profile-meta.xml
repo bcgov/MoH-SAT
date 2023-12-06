@@ -12,6 +12,11 @@
         <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
+        <application>EDRD_APP_Case_Management</application>
+        <default>false</default>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
         <application>standard__AllTabSet</application>
         <default>false</default>
         <visible>false</visible>
@@ -80,7 +85,17 @@
         <recordType>Account.DEC</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Account-Manufacturer</layout>
+        <recordType>Account.Manufacturer</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Adjudication_Criteria__c-Adjudication Criteria Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CareProgram-Care Program Layout</layout>
+    </layoutAssignments>
+	<layoutAssignments>
+        <layout>CareProgramEnrollee-Care Program Enrollee Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-SA Request</layout>
@@ -90,10 +105,21 @@
         <recordType>Case.Special_Authority_Request</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-EDRD Layout</layout>
+        <recordType>Case.EDRD</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Contact-SA Contact Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>CareObservation-Care Observation Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Drug__c-Drug Layout</layout>
+    </layoutAssignments>
+	<layoutAssignments>
+        <layout>Medication-Medication Layout</layout>
+        <recordType>Medication.EDRD</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>PersonAccount-Patient Layout</layout>
@@ -123,6 +149,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Step_Criteria__c-Step Criteria Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UnitOfMeasure-Unit of Measure Layout</layout>
     </layoutAssignments>
     <recordTypeVisibilities>
         <default>false</default>
@@ -171,6 +200,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>standard-Case</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Medication</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <userLicense>Salesforce</userLicense>

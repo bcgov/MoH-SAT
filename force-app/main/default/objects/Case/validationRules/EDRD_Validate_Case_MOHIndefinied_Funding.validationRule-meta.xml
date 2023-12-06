@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_MOHIndefinied_Funding</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+EDRD_MOHIndefinite_Funding__c,
+OR(EDRD_MOHFunding_Extended__c, EDRD_MOHFunding_Denied__c, NOT(EDRD_MOHFunding_Approved__c))
+)</errorConditionFormula>
+    <errorMessage>If Indefinite Funding is selected, it should be Funding Approved, but  Funding Denied or Funding Extended cannot be selected.</errorMessage>
+</ValidationRule>
