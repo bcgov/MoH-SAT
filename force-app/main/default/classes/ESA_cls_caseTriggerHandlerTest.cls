@@ -63,8 +63,11 @@ public class ESA_cls_caseTriggerHandlerTest {
         Test.startTest();
         update testCase;
         Test.stopTest();
-        Case caCheck = [ SELECT Id,Owner.Name FROM Case WHERE Id =: testCase.Id ];
-        Assert.areNotEqual(Userinfo.getUserId(), caCheck.OwnerId, 'Should be the queue not the user');
+        Case caCheck = [ SELECT Id,Owner.Name, OwnerId FROM Case WHERE Id =: testCase.Id ];
+        Assert.areNotEqual(Userinfo.getUserId(), caCheck.OwnerId, 'Should be not be the user');
+        system.debug(caCheck.OwnerId);
+        String sub = 'abcde'.substring(2);
+        Assert.areEqual('00G',String.valueOf(caCheck.OwnerId).substring(0,3));
     }
 /**
 * @author: Deepak

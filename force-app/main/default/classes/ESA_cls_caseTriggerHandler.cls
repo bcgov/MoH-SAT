@@ -47,13 +47,11 @@ public with sharing class ESA_cls_caseTriggerHandler {
         dmlOpts.assignmentRuleHeader.assignmentRuleId= AR.id;
         List<Case> caseAssignment = new List<Case>();
         For(Case c :[Select Id,OwnerId FROM Case WHERE Id in :cases]){
-            system.debug('OwnerId ='+c.OwnerId);
             if(c.OwnerId == oldCaseMap.get(c.Id).OwnerId){
                 c.setOptions(dmlOpts);
                 caseAssignment.add(c);
             }
         }
-        system.debug('Updating');
         update caseAssignment;
     }
 /**
