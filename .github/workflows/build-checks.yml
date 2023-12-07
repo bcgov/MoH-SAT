@@ -26,7 +26,7 @@ jobs:
         sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias devhub --set-default-dev-hub
        # sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
     - name: Define CI org
-      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg
+      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg -w 15
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Set deployment user standard security
