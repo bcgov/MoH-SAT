@@ -41,18 +41,19 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */  
     public static void manageAssignmentRule(List<Case> cases, Map<Id, Case> oldCaseMap){
-        AssignmentRule  AR = new AssignmentRule();
-        AR = [select id from AssignmentRule where SobjectType = 'Case' and Active = true limit 1];
-        Database.DMLOptions dmlOpts = new Database.DMLOptions();
-        dmlOpts.assignmentRuleHeader.assignmentRuleId= AR.id;
-        List<Case> caseAssignment = new List<Case>();
-        For(Case c :[Select Id,OwnerId FROM Case WHERE Id in :cases]){
-            if(c.OwnerId == oldCaseMap.get(c.Id).OwnerId){
-                c.setOptions(dmlOpts);
-                caseAssignment.add(c);
+        AssignmentRule[] AR = [select id from AssignmentRule where SobjectType = 'Case' and Active = true limit 1];
+        if(AR!= null && !AR.isEmpty()){
+            Database.DMLOptions dmlOpts = new Database.DMLOptions();
+            dmlOpts.assignmentRuleHeader.assignmentRuleId= AR[0].id;
+            List<Case> caseAssignment = new List<Case>();
+            For(Case c :[Select Id,OwnerId FROM Case WHERE Id in :cases]){
+                if(c.OwnerId == oldCaseMap.get(c.Id).OwnerId){
+                    c.setOptions(dmlOpts);
+                    caseAssignment.add(c);
+                }
             }
+            update caseAssignment;
         }
-        update caseAssignment;
     }
 /**
 * @author: Deepak
