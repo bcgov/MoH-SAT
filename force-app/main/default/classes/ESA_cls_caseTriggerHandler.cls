@@ -92,5 +92,4 @@ public with sharing class ESA_cls_caseTriggerHandler {
         }
         return status;
     }
-    
 }
