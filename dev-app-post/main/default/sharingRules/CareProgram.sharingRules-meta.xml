@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EDRD_CareProgram_ShareEditWithEDRDAdmins</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Care Program Share Edit access With EDRD Admins</description>
+        <label>EDRD_CareProgram_ShareEditWithEDRDAdmins</label>
+        <sharedTo>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_CareProgram_ShareReadWithEDRDStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Care Program Share Read access With EDRD Staff</description>
+        <label>EDRD_CareProgram_ShareReadWithEDRDStaff</label>
+        <sharedTo>
+            <role>EDRD_Staff</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
