@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>EDRD_Medication_ShareDeveloperWithEDRDAdmins</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Medication Share Developer owned With EDRD Admins</description>
+        <label>EDRD_Medication_ShareDeveloperWithEDRDAdmins</label>
+        <sharedTo>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Developer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EDRD_Medication_ShareWithEDRDAdmins</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Medication Share Within EDRD Admins owned by EDRD Admins</description>
+        <label>EDRD_Medication_ShareWithEDRDAdmins</label>
+        <sharedTo>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>EDRD_Admin</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
