@@ -46,8 +46,27 @@ public class ESA_cls_caseTriggerHandlerTest {
         caseLst = [select id, termination_date__c from Case where id =: allCases[0].id]; 
         system.assertEquals(caseLst[0].termination_date__c, NULL);
     }
-    
-
+    /**
+* @author: Rahul
+* @date: 04 Dec 2023
+* @description: The purpose of this method is to cover Testcoverage of manageAssignmentRule
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/ 
+    @isTest public static void manageAssignmentRuleTest(){
+        Id caseRecType = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        Case testCase = new Case(
+            Subject = 'Test Case',
+            Description ='Test');
+        insert testCase;
+        testCase.subject ='Test Case 1';
+        testCase.RecordTypeId = caseRecType;
+        Test.startTest();
+        update testCase;
+        Test.stopTest();
+        Case caCheck = [ SELECT Id,Owner.Name, OwnerId FROM Case WHERE Id =: testCase.Id ];
+        Assert.areNotEqual(Userinfo.getUserId(), caCheck.OwnerId, 'Should be not be the user');
+        Assert.areEqual('00G',String.valueOf(caCheck.OwnerId).substring(0,3));
+    }
 /**
 * @author: Deepak
 * @date: 04 Dec 2023
