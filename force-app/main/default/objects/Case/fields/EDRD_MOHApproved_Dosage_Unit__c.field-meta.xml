@@ -4,6 +4,36 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
     <label>Approved Dosage Unit</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5</booleanFilter>
+        <filterItems>
+            <field>UnitOfMeasure.Name</field>
+            <operation>equals</operation>
+            <value>Milligram</value>
+        </filterItems>
+        <filterItems>
+            <field>UnitOfMeasure.Name</field>
+            <operation>equals</operation>
+            <value>Milliliter</value>
+        </filterItems>
+        <filterItems>
+            <field>UnitOfMeasure.Name</field>
+            <operation>equals</operation>
+            <value>Units</value>
+        </filterItems>
+        <filterItems>
+            <field>UnitOfMeasure.Name</field>
+            <operation>equals</operation>
+            <value>kilocalorie</value>
+        </filterItems>
+        <filterItems>
+            <field>UnitOfMeasure.Name</field>
+            <operation>equals</operation>
+            <value>Vector Genomes</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
     <referenceTo>UnitOfMeasure</referenceTo>
     <relationshipLabel>Cases</relationshipLabel>
     <relationshipName>Cases</relationshipName>
