@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_MOHStatus</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+EDRD_MOHFunding_Denied__c = false, 
+EDRD_MOHFunding_Approved__c = false,
+ISPICKVAL(PRIORVALUE(Status),&apos;MOH Review&apos;),
+OR(ISPICKVAL(Status,&apos;Cancelled&apos;),
+ISPICKVAL(Status,&apos;Funding Approved&apos;),
+ISPICKVAL(Status,&apos;Funding Denied&apos;))
+)</errorConditionFormula>
+    <errorMessage>Provide Funding decision details before closing Case.</errorMessage>
+</ValidationRule>
