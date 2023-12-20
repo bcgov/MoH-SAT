@@ -57,7 +57,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
             }
         }
         if(!patientIdSet.isEmpty()){
-            List<Case> casesToUpdate = [SELECT id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c 
+            List<Case> casesToUpdate = [SELECT id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_Closure_Reasons__c 
                                         FROM Case WHERE AccountID IN: patientIdSet AND RecordType.developername = 'EDRD'
                                         AND IsClosed = FALSE];
             List<CareProgramEnrollee> enrolleToUpdate = [SELECT id, CareProgramId, Status, Inactive_Reason__c 
@@ -67,7 +67,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
             for(Case caseObj: casesToUpdate){
                 if(caseObj.Account.Patient_is_Deceased__pc){
                     caseObj.status = 'Cancelled';
-                    caseObj.EDRD_Case_closure_reasons__c = 'Patient Deceased';
+                    caseObj.EDRD_Case_Closure_Reasons__c = 'Patient Deceased';
                     String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
                     caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_deceased;
                 }

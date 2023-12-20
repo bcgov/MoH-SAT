@@ -5,8 +5,8 @@
     <errorConditionFormula>AND(
 ISCHANGED(Status),
 OR((ISPICKVAL(Status , &apos;Funding Denied&apos;)), (ISPICKVAL(Status , &apos;Cancelled&apos;))),
-ISBLANK(TEXT(EDRD_Case_closure_reasons__c))
+ISBLANK(TEXT(EDRD_Case_Closure_Reasons__c))
 )</errorConditionFormula>
-    <errorDisplayField>EDRD_Case_closure_reasons__c</errorDisplayField>
+    <errorDisplayField>EDRD_Case_Closure_Reasons__c</errorDisplayField>
     <errorMessage>If a case is closed as Cancelled or Funding Denied, please provide the reason in the Case closure reasons.</errorMessage>
 </ValidationRule>
