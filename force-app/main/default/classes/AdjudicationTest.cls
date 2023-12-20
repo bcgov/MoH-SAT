@@ -12,6 +12,7 @@ public with sharing class AdjudicationTest {
 
         system.assertEquals(sar.saCase.Status, 'Approved','Case status failed to update as Approved');
         system.assert(null != sar.saCase.Auto_Adjudicated_Date__c);
+        // Test- Build Trigger
     }
 
     
