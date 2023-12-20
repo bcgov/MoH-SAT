@@ -5,6 +5,7 @@
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
                1 Dec23 -   EDRD-170         -   Rahul      -  Manage case assignment
                4 Dec23 -   EDRD-332         -  Accenture   -  Change case status according to RPH, SC, AC Review Field
+              16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -91,5 +92,41 @@ public with sharing class ESA_cls_caseTriggerHandler {
             status = 'MOH Review';
         }
         return status;
+    }
+    
+/**
+* @author: Deepak
+* @date: 15 Dec 2023
+* @description: The purpose of this method is to Sync case field values with Medication Request.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/ 
+    public static void syncCaseToMR(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+        List<MedicationRequest> MRListToUpdate = new List<MedicationRequest>();
+        Set<String> caseStatusValueSet = new Set<String>{'Received - Awaiting Verification', 'SC Review', 'AC Review', 'MOH Review'};
+        Set<Id> caseIdSet = new Set<Id>();
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        for(Case caseObj: newCaseMap.values()){
+            Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
+            Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
+            Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
+            Boolean isCaseStatusChangedTo = isStatusChanged && ((
+                                               caseStatusValueSet.Contains(caseObj.Status) &&
+                                               !caseStatusValueSet.Contains(oldCaseMap.get(caseObj.id).Status)) ||
+                                               (!caseStatusValueSet.Contains(caseObj.Status) &&
+                                               caseStatusValueSet.Contains(oldCaseMap.get(caseObj.id).Status)));
+            if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged)){
+                caseIdSet.add(caseObj.Id);
+            }
+        }
+        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
+            MRObj.Status = caseStatusValueSet.Contains(MRObj.Case__r.Status) ? 'Active' : MRObj.Case__r.Status;
+            MRObj.Type = MRObj.Case__r.Type;
+            MRObj.Priority = MRObj.Case__r.Priority;
+            MRListToUpdate.add(MRObj);
+        }
+        
+        if(!MRListToUpdate.isEmpty()){
+            Update MRListToUpdate;
+        }
     }
 }

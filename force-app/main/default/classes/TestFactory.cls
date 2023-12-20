@@ -437,4 +437,51 @@ public with sharing class TestFactory {
         CareProgramEnrolleeObj.CareProgramId = CareProgramId;
         return CareProgramEnrolleeObj;
     }
+    
+    public static MedicationRequest createMedicationRequest(Id MedicationId, Id CaseId, Id PrescriberId, Id PatientId){
+        MedicationRequest medicationRequestObj = new MedicationRequest();
+        medicationRequestObj.Case__c = CaseId;
+        medicationRequestObj.MedicationId = MedicationId;
+        medicationRequestObj.RequesterId = PrescriberId;
+        medicationRequestObj.PatientId = PatientId;
+        medicationRequestObj.Status = 'Active';
+        medicationRequestObj.Type = 'New';
+        return medicationRequestObj; 
+    }
+    
+    public static Medication createMedication(){
+        Medication medicationObj = new Medication();
+        medicationObj.Name = 'TEST Name';
+        return medicationObj;
+    }
+    
+    private static User prepareUser(String roleId, String profId, String firstName, String lastName) {  
+        String orgId = UserInfo.getOrganizationId();  
+        String dateString =   
+        String.valueof(Datetime.now()).replace(' ','').replace(':','').replace('-','');  
+        Integer randomInt = Integer.valueOf(math.rint(math.random()*1000000));  
+        String uniqueName = orgId + dateString + randomInt;  
+        User tempUser = new User(  
+            FirstName = firstName,  
+            LastName = lastName,  
+            email = uniqueName + '@sfdc' + orgId + '.org',  
+            Username = uniqueName + '@sfdc' + orgId + '.org',  
+            EmailEncodingKey = 'ISO-8859-1',  
+            Alias = uniqueName.substring(18, 23),  
+            TimeZoneSidKey = 'America/Los_Angeles',  
+            LocaleSidKey = 'en_US',  
+            LanguageLocaleKey = 'en_US',  
+            ProfileId = profId
+        );    
+        if( String.isBlank(roleId) == false ){
+            tempUser.UserRoleId = roleId;
+        }
+        return tempUser;  
+    }
+
+    public static User createCommunityUser(String contactId, String profId, String firstName, String lastName) {
+        User tempUser = prepareUser('', profId, firstName, lastName);
+        tempUser.ContactId = contactId;
+        return tempUser;
+    }
 }
