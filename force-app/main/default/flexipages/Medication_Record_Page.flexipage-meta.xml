@@ -58,38 +58,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Status</fieldItem>
-                <identifier>RecordStatusField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.BrandNameAlternative</fieldItem>
                 <identifier>RecordBrandNameAlternativeField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.ManufacturerId</fieldItem>
-                <identifier>RecordManufacturerIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Ministry_Listing_Date__c</fieldItem>
-                <identifier>RecordMinistry_Listing_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -110,20 +80,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Initial_Recommended_Dosage__c</fieldItem>
-                <identifier>RecordInitial_Recommended_Dosage_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Renewal_Recommended_Dosage__c</fieldItem>
-                <identifier>RecordRenewal_Recommended_Dosage_cField</identifier>
+                <fieldItem>Record.Status</fieldItem>
+                <identifier>RecordStatusField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -132,8 +92,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Max_Initiation_Funding_Duration__c</fieldItem>
-                <identifier>RecordMax_Initiation_Funding_Duration_cField</identifier>
+                <fieldItem>Record.ManufacturerId</fieldItem>
+                <identifier>RecordManufacturerIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -142,42 +102,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.If_Other_specify_MaxInitiation_duration__c</fieldItem>
-                <identifier>RecordIf_Other_specify_Max_Initiation_duratio_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Max_Initiation_Funding_Duration__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>other</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Max_Renewal_Funding_Duration__c</fieldItem>
-                <identifier>RecordMax_Renewal_Funding_Duration_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.If_Other_specify_Max_Renewal_duration__c</fieldItem>
-                <identifier>RecordIf_Other_specify_Max_Renewal_duration_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Max_Renewal_Funding_Duration__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>other</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.Ministry_Listing_Date__c</fieldItem>
+                <identifier>RecordMinistry_Listing_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ac9f511a-cee7-41a5-bff0-1e96e0afb1a4</name>
@@ -212,10 +138,278 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Initial_Recommended_Dosage__c</fieldItem>
+                <identifier>RecordInitial_Recommended_Dosage_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Max_Initiation_Funding_Duration__c</fieldItem>
+                <identifier>RecordMax_Initiation_Funding_Duration_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.If_Other_specify_MaxInitiation_duration__c</fieldItem>
+                <identifier>RecordIf_Other_specify_Max_Initiation_duratio_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Max_Initiation_Funding_Duration__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>other</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-f8ff2302-fcca-4e2b-acb8-527749b472a9</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Renewal_Recommended_Dosage__c</fieldItem>
+                <identifier>RecordRenewal_Recommended_Dosage_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Max_Renewal_Funding_Duration__c</fieldItem>
+                <identifier>RecordMax_Renewal_Funding_Duration_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.If_Other_specify_Max_Renewal_duration__c</fieldItem>
+                <identifier>RecordIf_Other_specify_Max_Renewal_duration_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Max_Renewal_Funding_Duration__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>other</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-9ce946eb-b29c-483c-ac44-600f0a069c50</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f8ff2302-fcca-4e2b-acb8-527749b472a9</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column7</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-9ce946eb-b29c-483c-ac44-600f0a069c50</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column8</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-89a76063-a2d3-433f-bbd7-3d96bb72dcbf</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Initial_Dosage__c</fieldItem>
+                <identifier>RecordHC_Initial_Dosage_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Initial_Dosage_Units__c</fieldItem>
+                <identifier>RecordHC_Initial_Dosage_Units_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Initial_Funding_Duration__c</fieldItem>
+                <identifier>RecordHC_Initial_Funding_Duration_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Initial_Funding_Duration_Unit__c</fieldItem>
+                <identifier>RecordHC_Initial_Funding_Duration_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Initial_Frequency__c</fieldItem>
+                <identifier>RecordHC_Initial_Frequency_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Initial_Frequency_Unit__c</fieldItem>
+                <identifier>RecordHC_initial_Frequency_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-eef7f331-5eec-4e61-bbc6-9da7dd5aad4c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Renewal_Dosage__c</fieldItem>
+                <identifier>RecordHC_Renewal_Dosage_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Renewal_Dosage_Units__c</fieldItem>
+                <identifier>RecordHC_Renewal_Dosage_Units_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Renewal_Funding_Duration__c</fieldItem>
+                <identifier>RecordHC_Renewal_Funding_Duration_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Renewal_Funding_Duration_Unit__c</fieldItem>
+                <identifier>RecordHC_Renewal_Funding_Duration_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Renewal_Frequency__c</fieldItem>
+                <identifier>RecordHC_Renewal_Frequency_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.HC_Renewal_Frequency_Unit__c</fieldItem>
+                <identifier>RecordHC_Renewal_Frequency_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-73b4c1f8-37d2-4a88-b151-68d80466434f</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-eef7f331-5eec-4e61-bbc6-9da7dd5aad4c</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-73b4c1f8-37d2-4a88-b151-68d80466434f</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-228cbbc4-00a6-4070-8997-867f5cf0f189</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CreatedById</fieldItem>
                 <identifier>RecordCreatedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CreatedDate</fieldItem>
+                <identifier>RecordCreatedDateField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-11ca7c0a-d9de-4694-9f33-eaab41ef27d7</name>
@@ -230,6 +424,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.LastModifiedById</fieldItem>
                 <identifier>RecordLastModifiedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.LastModifiedDate</fieldItem>
+                <identifier>RecordLastModifiedDateField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-539fedd2-64ad-4d47-90d2-42e0bfa3529e</name>
@@ -282,6 +486,42 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-89a76063-a2d3-433f-bbd7-3d96bb72dcbf</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Dosage Information</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-228cbbc4-00a6-4070-8997-867f5cf0f189</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Health Canada Recommendations</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-70d07c97-35b1-467f-aa13-14952d94c0c0</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -306,10 +546,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-35567a82-f150-4819-a711-1a7d080ec2f0</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -322,24 +558,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>active</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-35567a82-f150-4819-a711-1a7d080ec2f0</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Standard.Tab.relatedLists</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-a3bf1538-50c6-4cbc-8b37-4e2a80b000c0</name>
