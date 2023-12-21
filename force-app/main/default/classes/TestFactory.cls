@@ -484,4 +484,22 @@ public with sharing class TestFactory {
         tempUser.ContactId = contactId;
         return tempUser;
     }
+    
+    public static UnitOfMeasure createUnitOfMeasure(){
+        UnitOfMeasure UOMObj = new UnitOfMeasure();
+        UOMObj.Name = 'Milligram';
+        UOMObj.UnitCode = 'mg';
+        return UOMObj;
+    }
+    
+    public static MedicinalIngredient createMedicinalIngredient(Id MedicationId, Id UnitOfMeasureId){
+        MedicinalIngredient MIObj = new MedicinalIngredient();
+        MIObj.DIN__c = '12345678';
+        MIObj.StrengthNumerator = 300;
+        MIObj.StrengthNumeratorUnitId = UnitOfMeasureId;
+        MIObj.Unit_Price__c = 100;
+        MIObj.ParentRecordId = MedicationId;
+        MIObj.IngredientId = MedicationId;
+        return MIObj;
+    }
 }
