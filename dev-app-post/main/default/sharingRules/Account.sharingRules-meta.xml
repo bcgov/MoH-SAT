@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EDRD_Admin</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Edit</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <label>EDRD Admin</label>
+        <sharedTo>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Manufacturer,Patient,Provider</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Staff</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <label>EDRD Staff</label>
+        <sharedTo>
+            <role>EDRD_Staff</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Manufacturer,Patient,Provider</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>ESA_Account_ShareWithSAAdminAndInternalSubordinates</fullName>
         <accessLevel>Edit</accessLevel>
@@ -34,24 +72,4 @@
             <roleAndSubordinates>Developer</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
-    <sharingCriteriaRules>
-        <fullName>EDRD_Admin_and_Staff</fullName>
-        <accessLevel>Read</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Read</contactAccessLevel>
-            <opportunityAccessLevel>None</opportunityAccessLevel>
-        </accountSettings>
-        <description>If Account recordtype = Manufacturer/Patient/Provider, those records will be shared with users having role EDRD admins &amp; staff</description>
-        <label>EDRD Admin and Staff</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Manufacturer,Patient,Provider</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
 </SharingRules>
