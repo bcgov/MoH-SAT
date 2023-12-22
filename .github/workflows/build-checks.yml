@@ -51,8 +51,8 @@ jobs:
     - name: Deploy source default queues
       run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
  
-    #- name: Deploy source default dev-app-post
-    # run: sf project deploy start -d dev-app-post -o ciorg -c
+    - name: Deploy source default dev-app-post
+      run: sf project deploy start -d dev-app-post -o ciorg -c
       # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
       # sfdx force:source:push -u ciorg
 
