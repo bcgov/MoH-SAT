@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_validate_DosageAndStrengthUnits</fullName>
+    <active>true</active>
+    <errorConditionFormula>Strength_Units__c != Dosage_Units__r.Name</errorConditionFormula>
+    <errorMessage>The Strength Unit and Dosage Unit should be the same. So please change Dosage Units according to Strength Units.</errorMessage>
+</ValidationRule>
