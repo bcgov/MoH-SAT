@@ -114,7 +114,9 @@ public class ESA_cls_caseTriggerHandlerTest {
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         Case MRCase = TestFactory.createEDRDCase(recordTypeCaseEDRD, RequestorAccount.Id);
         insert MRCase;
-        MedicationRequest MedicationRequestRec = TestFactory.createMedicationRequest(MRCase.Id, requestorAccount.Id, patientAccount.Id); 
+        Medication MedicationRec = TestFactory.createMedication();
+        insert MedicationRec;
+        MedicationRequest MedicationRequestRec = TestFactory.createMedicationRequest(MedicationRec.Id, MRCase.Id, requestorAccount.Id, patientAccount.Id); 
         insert MedicationRequestRec;
         try{
             Test.startTest();
