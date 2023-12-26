@@ -19,6 +19,11 @@
         <operation>equals</operation>
         <value>Case.EDRD</value>
     </filters>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Cancelled</value>
+    </filters>
     <label>My EDRD Open Cases</label>
     <sharedTo>
         <group>EDRD_Physicians</group>
