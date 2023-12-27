@@ -5,7 +5,7 @@
         <name>Store_Updated_EDRD_Cases</name>
         <label>Store Updated EDRD Cases</label>
         <locationX>534</locationX>
-        <locationY>1322</locationY>
+        <locationY>1538</locationY>
         <assignmentItems>
             <assignToReference>update_EDRD_Cases</assignToReference>
             <operator>Add</operator>
@@ -21,7 +21,7 @@
         <name>Update_EDRD_Case_Status_to_Closed_Other</name>
         <label>Update EDRD Case Status to Closed_Other</label>
         <locationX>534</locationX>
-        <locationY>1214</locationY>
+        <locationY>1430</locationY>
         <assignmentItems>
             <assignToReference>iterate_EDRD_open_cases.Status</assignToReference>
             <operator>Assign</operator>
@@ -134,7 +134,7 @@
         <name>ActivatePatient_decision</name>
         <label>ActivatePatient_decision</label>
         <locationX>1238</locationX>
-        <locationY>458</locationY>
+        <locationY>674</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>ActivePatient_Choice</name>
@@ -156,7 +156,7 @@
         <name>Check_Patient_is_Active</name>
         <label>Check Patient is Active</label>
         <locationX>990</locationX>
-        <locationY>242</locationY>
+        <locationY>458</locationY>
         <defaultConnector>
             <targetReference>active_noCPE_Screen</targetReference>
         </defaultConnector>
@@ -224,7 +224,7 @@
         <name>check_update_list_is_not_empty</name>
         <label>check update list is not empty</label>
         <locationX>446</locationX>
-        <locationY>1514</locationY>
+        <locationY>1730</locationY>
         <defaultConnector>
             <targetReference>Inactive_update_Screen_noCases</targetReference>
         </defaultConnector>
@@ -249,7 +249,7 @@
         <name>closeEDRDCase_inactivePatient</name>
         <label>closeEDRDCase_inactivePatient</label>
         <locationX>644</locationX>
-        <locationY>782</locationY>
+        <locationY>998</locationY>
         <defaultConnector>
             <targetReference>inactive_PatientScreen</targetReference>
         </defaultConnector>
@@ -274,7 +274,7 @@
         <name>closePatientScreen</name>
         <label>closePatientScreen</label>
         <locationX>347</locationX>
-        <locationY>458</locationY>
+        <locationY>674</locationY>
         <defaultConnector>
             <targetReference>deactivate_patient_Checkbox</targetReference>
         </defaultConnector>
@@ -295,6 +295,31 @@
             <label>closePatientdeactive Screen</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>User_HasCPEEdit_access</name>
+        <label>User_HasCPEEdit access</label>
+        <locationX>1444</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>User_noCPEEditScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>user_HasCPEAccess</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>hasCPEEditAccess</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_Patient_is_Active</targetReference>
+            </connector>
+            <label>user_HasCPEAccess</label>
+        </rules>
+    </decisions>
     <description>Development Related to EDRD-264_added close screen</description>
     <dynamicChoiceSets>
         <name>careProgramEnrolInactive_picklistSet</name>
@@ -311,7 +336,7 @@
         <name>iterate_EDRD_open_cases</name>
         <label>iterate EDRD open cases</label>
         <locationX>446</locationX>
-        <locationY>1106</locationY>
+        <locationY>1322</locationY>
         <collectionReference>getAssociatedEDRDCaseRecords</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -343,11 +368,11 @@
     <recordLookups>
         <name>get_careProgramEnrollee_Record</name>
         <label>get_careProgramEnrollee_Record</label>
-        <locationX>990</locationX>
+        <locationX>1444</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Check_Patient_is_Active</targetReference>
+            <targetReference>get_UserRecordAccess</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -365,7 +390,7 @@
         <name>get_recordTypeId_of_EDRD_Case</name>
         <label>get recordTypeId of EDRD Case</label>
         <locationX>446</locationX>
-        <locationY>890</locationY>
+        <locationY>1106</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>getAssociatedEDRDCaseRecords</targetReference>
@@ -392,10 +417,44 @@
         </outputAssignments>
     </recordLookups>
     <recordLookups>
+        <name>get_UserRecordAccess</name>
+        <label>get_UserRecordAccess</label>
+        <locationX>1444</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>User_HasCPEEdit_access</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>get_careProgramEnrollee_Record.Id</elementReference>
+            </value>
+        </filters>
+        <object>UserRecordAccess</object>
+        <outputAssignments>
+            <assignToReference>hasCPEEditAccess</assignToReference>
+            <field>HasEditAccess</field>
+        </outputAssignments>
+        <outputAssignments>
+            <assignToReference>CPE_RecordId</assignToReference>
+            <field>RecordId</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
         <name>getAssociatedEDRDCaseRecords</name>
         <label>getAssociatedEDRDCaseRecords</label>
         <locationX>446</locationX>
-        <locationY>998</locationY>
+        <locationY>1214</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>iterate_EDRD_open_cases</targetReference>
@@ -430,7 +489,7 @@
         <name>deactivate_patient_Checkbox</name>
         <label>deactivate patient Checkbox</label>
         <locationX>644</locationX>
-        <locationY>566</locationY>
+        <locationY>782</locationY>
         <connector>
             <targetReference>Deactivate_Patient</targetReference>
         </connector>
@@ -460,7 +519,7 @@
         <name>Update_Case_CloseStatus_Other</name>
         <label>Update Case CloseStatus_Other</label>
         <locationX>314</locationX>
-        <locationY>1622</locationY>
+        <locationY>1838</locationY>
         <connector>
             <targetReference>Inactive_update_Screen</targetReference>
         </connector>
@@ -470,7 +529,7 @@
         <name>update_Patient</name>
         <label>update Patient</label>
         <locationX>1106</locationX>
-        <locationY>566</locationY>
+        <locationY>782</locationY>
         <connector>
             <targetReference>patientactive_displayMsgScreen</targetReference>
         </connector>
@@ -500,7 +559,7 @@
         <name>Activate_Patient</name>
         <label>Activate Patient</label>
         <locationX>1238</locationX>
-        <locationY>350</locationY>
+        <locationY>566</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -529,7 +588,7 @@
         <name>active_noCPE_Screen</name>
         <label>active_noCPE_Screen</label>
         <locationX>1634</locationX>
-        <locationY>350</locationY>
+        <locationY>566</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -550,7 +609,7 @@
         <name>Deactivate_Patient</name>
         <label>Deactivate Patient</label>
         <locationX>644</locationX>
-        <locationY>674</locationY>
+        <locationY>890</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -579,7 +638,7 @@
         <name>Deactivate_Patient_Screen</name>
         <label>Deactivate Patient Screen</label>
         <locationX>347</locationX>
-        <locationY>350</locationY>
+        <locationY>566</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -629,7 +688,7 @@
         <name>Deactive_noCPE_Screen</name>
         <label>deactive_noCPE_Screen</label>
         <locationX>50</locationX>
-        <locationY>566</locationY>
+        <locationY>782</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -650,7 +709,7 @@
         <name>inactive_PatientScreen</name>
         <label>inactive_PatientScreen</label>
         <locationX>842</locationX>
-        <locationY>890</locationY>
+        <locationY>1106</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -671,7 +730,7 @@
         <name>Inactive_update_Screen</name>
         <label>Inactive_update Screen</label>
         <locationX>314</locationX>
-        <locationY>1730</locationY>
+        <locationY>1946</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -692,7 +751,7 @@
         <name>Inactive_update_Screen_noCases</name>
         <label>Inactive_update Screen</label>
         <locationX>578</locationX>
-        <locationY>1622</locationY>
+        <locationY>1838</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -713,7 +772,7 @@
         <name>patientactive_displayMsgScreen</name>
         <label>patientactive_displayMsgScreen</label>
         <locationX>1106</locationX>
-        <locationY>674</locationY>
+        <locationY>890</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -730,8 +789,24 @@
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
+    <screens>
+        <name>User_noCPEEditScreen</name>
+        <label>User_noCPEEditScreen</label>
+        <locationX>1898</locationX>
+        <locationY>458</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>User_noEditScreen_display</name>
+            <fieldText>&lt;p&gt;{!$Label.EDRD_label_UserNoCPEAccessEdit}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
     <start>
-        <locationX>864</locationX>
+        <locationX>1318</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>get_careProgramEnrollee_Record</targetReference>
@@ -739,11 +814,25 @@
     </start>
     <status>Active</status>
     <variables>
+        <name>CPE_RecordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
         <name>EDRDRecordTypeId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>hasCPEEditAccess</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>recordId</name>
