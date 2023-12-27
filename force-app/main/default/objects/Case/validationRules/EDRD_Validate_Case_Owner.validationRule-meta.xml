@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_Owner</fullName>
+    <active>true</active>
+    <errorConditionFormula>RecordType.Name =&quot;EDRD&quot; &amp;&amp; ISCHANGED( OwnerId ) &amp;&amp; IF(Owner:Queue.DeveloperName = &quot;&quot;,Owner:User.Profile.Name != &quot;System Administrator&quot; &amp;&amp; Owner:User.Profile.Name = &quot;EDRD Prescriber Community User&quot; &amp;&amp; NOT(CONTAINS(Owner:User.UserRole.Name,&quot;EDRD&quot;)) ,Owner:Queue.DeveloperName != &quot;EDRD_Ministry_Queue&quot; &amp;&amp; Owner:Queue.DeveloperName != &quot;EDRD_PSP_Queue&quot;)</errorConditionFormula>
+    <errorMessage>EDRD cases can only be assigned to EDRD queues.</errorMessage>
+</ValidationRule>
