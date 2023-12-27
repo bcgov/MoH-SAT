@@ -52,7 +52,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @date: 04 Dec 2023
 * @description: The purpose of this method is to cover Testcoverage of manageAssignmentRule
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-***/ 
+*/ 
     @isTest public static void manageAssignmentRuleTest(){
         Id caseRecType = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         Case testCase = new Case(
