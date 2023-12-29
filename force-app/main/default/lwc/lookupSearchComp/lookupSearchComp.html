@@ -1,0 +1,26 @@
+<template>
+  <lightning-card title= "Patient Information" icon-name= "standard:Account">
+    <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small">
+   <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+     <lightning-input label="Patient Identifier" name="patientSearch" type = "search" onchange={handlekeychange} value={patientPHN} placeholder="Enter Identifier Number"></lightning-input>
+    </div>
+     <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2" style="margin-top: 22px;">
+     <lightning-button variant="brand" label="Search" class="btnSearch" onclick={handleSearch} ></lightning-button>
+     <template if:true={showRemoveButton}>
+     <lightning-button variant="brand" label="Clear" class="btnClear" onclick={han0dleRemoveResults} style="padding-left: 5px"></lightning-button>
+    </template>
+     </div>
+     
+    </div>
+    <div if:true={messageResult} class="slds-var-p-horizontal_small">
+      <p class="slds-text-color_error"> No result found. Please type correct Patient Identifier Number </p>
+    </div>
+    <div style="width: 400px;">
+      <lightning-input label="Patient Name" value={Name} disabled></lightning-input>
+    </div>
+      <div style="width: 400px;">
+      <lightning-input label="Birthdate" value={Birthdate} disabled></lightning-input>      
+     </div>
+     
+  </lightning-card>
+ </template>
