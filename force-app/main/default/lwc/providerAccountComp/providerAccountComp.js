@@ -1,6 +1,5 @@
 import { LightningElement, api, wire} from 'lwc';
 import getProviderAccount from '@salesforce/apex/EDRDAccountLookupController.getProviderAccount';
-
 export default class ProviderAccountComp extends LightningElement {
     @api accountPHN = '';
     @api providerPHN;
@@ -49,7 +48,6 @@ export default class ProviderAccountComp extends LightningElement {
             }
             getProviderAccount({providerAct : this.accountPHN})
             .then(result => {
-                console.log('result', JSON.stringify(result));
                 this.accountList = result;
                 this.Name = result[0].Name;
                 this.ProviderAccId = result[0].Id;

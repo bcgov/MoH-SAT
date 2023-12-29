@@ -1,6 +1,5 @@
 import { LightningElement, api, wire } from 'lwc';
 import getAccount from '@salesforce/apex/EDRDAccountLookupController.getAccount';
-
 export default class CustomObjectForm extends LightningElement {
     @api accountPHN = '';
     @api patientPHN;
@@ -40,7 +39,6 @@ export default class CustomObjectForm extends LightningElement {
             }
             getAccount({actPHN : this.accountPHN})
             .then(result => {
-                console.log('result', JSON.stringify(result));
                 this.accountList = result;
                 this.Birthdate = result[0].PersonContact.Birthdate;
                 this.Name = result[0].Name;
