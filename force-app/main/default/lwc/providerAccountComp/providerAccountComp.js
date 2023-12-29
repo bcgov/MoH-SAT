@@ -15,7 +15,6 @@ export default class ProviderAccountComp extends LightningElement {
     @api ProviderIdentifier;
     @api required;
     validity = true;
-
     @api
      Validate(){
         if(this.validateInput()){
@@ -29,7 +28,6 @@ export default class ProviderAccountComp extends LightningElement {
             };
         }
      }
-    
     @wire(getProviderAccount, {providerAct: '$accountPHN'})
        retrieveAccount ({error, data}) {
        if (data){
@@ -37,21 +35,18 @@ export default class ProviderAccountComp extends LightningElement {
           this.showsearchedvalues = data.length > 0;
           this.messageResult = data.length === 0 && this.accountPHN !== '';
           } else if (error) {
-           
             console.error(error);       
             }
     }    
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
            }
-    
     handleSearch() {
             if(!this.accountPHN) {
                 this.errorMsg = 'Please enter account name to search.';
                 this.accountList = undefined;
                 return;
             }
-     
             getProviderAccount({providerAct : this.accountPHN})
             .then(result => {
                 console.log('result', JSON.stringify(result));
@@ -61,7 +56,6 @@ export default class ProviderAccountComp extends LightningElement {
                 this.ProviderIdentifier = result[0].Patient_Identifier__pc;
                 this.Type = result[0].Provider_Type__pc;
                 this.showRemoveButton=true;
-
             })
             .catch(error => {
                 this.accountList = undefined;
@@ -75,18 +69,14 @@ export default class ProviderAccountComp extends LightningElement {
                 }
             }) 
         }
-
         handleRemoveResults(){
-            // Clear the search results and other related properties
         this.accountList = [];
         this.Name = '';
         this.ProviderAccId = '';
         this.Type = '';
         this.providerPHN = '';
         this.showRemoveButton=false;
-
         }
-
         ValidInput(){
             if(!this.value){
                 this.validity = false;
@@ -95,6 +85,4 @@ export default class ProviderAccountComp extends LightningElement {
             }
             return this.validity;
         }
-    
-      
     }

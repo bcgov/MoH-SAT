@@ -19,21 +19,6 @@ export default class CustomObjectForm extends LightningElement {
     @api Zipcode;
     @api PostalCode;
     validity = true;
-
-    /*@api
-     Validate(){
-        if(this.validateInput()){
-            return{
-                isValid: true
-            };
-        }else{
-            return{
-                isValid: false,
-                errorMessage: this.messageResult
-            };
-        }
-     }*/
-    
     @wire(getAccount, {actPHN: '$accountPHN'})
        retrieveAccount ({error, data}) {
        if (data){
@@ -41,21 +26,18 @@ export default class CustomObjectForm extends LightningElement {
           this.showsearchedvalues = data.length > 0;
           this.messageResult = data.length === 0 && this.accountPHN !== '';
           } else if (error) {
-           
             console.error(error);       
             }
     }    
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
            }
-    
     handleSearch() {
             if(!this.accountPHN) {
                 this.errorMsg = 'Please enter account name to search.';
                 this.accountList = undefined;
                 return;
             }
-     
             getAccount({actPHN : this.accountPHN})
             .then(result => {
                 console.log('result', JSON.stringify(result));
@@ -64,10 +46,7 @@ export default class CustomObjectForm extends LightningElement {
                 this.Name = result[0].Name;
                 this.AccountId = result[0].Id;
                 this.showRemoveButton=true;
-               
-
             })
-            
             .catch(error => {
                 this.accountList = undefined;
                 this.messageResult = true;
@@ -79,11 +58,8 @@ export default class CustomObjectForm extends LightningElement {
                     }
                 }
             }) 
-           
         }
-
         handleRemoveResults(){
-            // Clear the search results and other related properties
         this.accountList = [];
         this.Birthdate = '';
         this.Name = '';
@@ -91,17 +67,5 @@ export default class CustomObjectForm extends LightningElement {
         this.accountPHN = '';
         this.patientPHN = '';
         this.showRemoveButton=false;
-        
-
         }
-
-        /*ValidInput(){
-            if(!this.value){
-                this.validity = false;
-            } else{
-                this.validity = true;
-            }
-            return this.validity;
-        }*/
-    
     }
