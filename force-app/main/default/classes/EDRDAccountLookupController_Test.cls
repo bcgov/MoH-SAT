@@ -28,7 +28,6 @@ public class EDRDAccountLookupController_Test {
         System.assertEquals(1, result.size(), 'Expected one account in the result list');
         Account retrievedAccount = result[0];
         System.assertEquals('Test Patient Account', retrievedAccount.LastName, 'Unexpected Account Name');
-        System.assertEquals('Test Patient Account', retrievedAccount.LastName, 'Unexpected Contact Name');
         System.assertEquals('8910947511', retrievedAccount.Patient_Identifier__pc, 'Unexpected Contact Patient Identifier');
         System.assertEquals(Date.newInstance(2000, 1, 1), retrievedAccount.PersonBirthdate, 'Unexpected Contact Birthdate');
         System.assertNotEquals(testPatientAccount.Patient_Identifier__pc, 'DifferentValue', 'Expected different Contact Patient Identifier');
