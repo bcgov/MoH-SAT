@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HealthCloudGA__CannotCreateInactiveRecord</fullName>
+    <active>true</active>
+    <description>Ensures that a record cannot be created as Inactive</description>
+    <errorConditionFormula>AND(ISNEW(),HealthCloudGA__Active__c == false)</errorConditionFormula>
+    <errorMessage>A Contact-Contact Relationship cannot be created as Inactive.</errorMessage>
+</ValidationRule>

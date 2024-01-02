@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HealthCloudGA__Role__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Related Role</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>HealthCloudGA__ReciprocalRole__c.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>Contact Role</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>HealthCloudGA__ReciprocalRole__c</referenceTo>
+    <relationshipName>ContactReciprocalRole</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
