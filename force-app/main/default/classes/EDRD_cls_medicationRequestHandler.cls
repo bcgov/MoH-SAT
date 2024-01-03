@@ -66,7 +66,7 @@ public with sharing class EDRD_cls_medicationRequestHandler {
             days = 30;
         }else if(Unit == 'Yearly' || Unit == 'Years'){
             days = 364;
-        }else if(Unit == 'Once' || Unit == 'Once'){
+        }else if(Unit == 'Once'){
             days = 1;
         }
         return days;
