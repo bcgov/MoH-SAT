@@ -3,22 +3,37 @@
     <active>true</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
+    <description>DR for Extract Patient Details for New/Renewal Case Form</description>
     <errorIgnored>false</errorIgnored>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
-    <name>EdrdExtractPatientDetail</name>
+    <name>EDRDDRExtractPatientDetails</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem5</globalKey>
+        <inputFieldName>Contacts:AccountId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractPatientDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>PatAccId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
         <filterValue>phn</filterValue>
-        <globalKey>EdrdExtractPatientDetailCustom0jIAq0000001KeDMAUItem0</globalKey>
+        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem0</globalKey>
         <inputFieldName>Patient_Identifier__c</inputFieldName>
         <inputObjectName>Contact</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EdrdExtractPatientDetail</name>
+        <name>EDRDDRExtractPatientDetails</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Contacts</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -28,11 +43,39 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EdrdExtractPatientDetailCustom8826</globalKey>
+        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem2</globalKey>
+        <inputFieldName>Contacts:Birthdate</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractPatientDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>PatientBirthDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem1</globalKey>
+        <inputFieldName>Contacts:Name</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractPatientDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>PatientName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem4</globalKey>
         <inputFieldName>Contacts:Id</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EdrdExtractPatientDetail</name>
+        <name>EDRDDRExtractPatientDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>IdPatient</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -42,48 +85,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EdrdExtractPatientDetailCustom8965</globalKey>
+        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem3</globalKey>
         <inputFieldName>Contacts:Phone</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EdrdExtractPatientDetail</name>
+        <name>EDRDDRExtractPatientDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PatientInformation:PatientPhone</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EdrdExtractPatientDetailCustom3634</globalKey>
-        <inputFieldName>Contacts:Birthdate</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EdrdExtractPatientDetail</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PatientInformation:PatientBirthDate</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EdrdExtractPatientDetailCustom8707</globalKey>
-        <inputFieldName>Contacts:Name</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EdrdExtractPatientDetail</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PatientInformation:PatientName</outputFieldName>
+        <outputFieldName>Phone</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;PHN&quot; : &quot;{phn}&quot;
+  &quot;phn&quot; : &quot;{phn}&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
@@ -92,7 +107,7 @@
     <sourceObjectDefault>false</sourceObjectDefault>
     <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
     <type>Extract</type>
-    <uniqueName>EdrdExtractPatientDetail_1</uniqueName>
+    <uniqueName>EDRDDRExtractPatientDetails_1</uniqueName>
     <versionNumber>1.0</versionNumber>
     <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
 </OmniDataTransform>
