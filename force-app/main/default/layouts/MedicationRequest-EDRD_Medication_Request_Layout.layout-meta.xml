@@ -60,7 +60,7 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Medication_Information__c</field>
             </layoutItems>
             <layoutItems>
@@ -83,8 +83,18 @@
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
         <label>Adjudication Information</label>
-        <layoutColumns/>
-        <layoutColumns/>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Indication__c</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>Medical_Diagnosis__c</field>
+            </layoutItems>
+        </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
