@@ -343,7 +343,6 @@ public with sharing class ODRIntegration {
             String resBody = calloutResponseObject.response;
             bres = (BenefitsResponse) JSON.deserialize(resBody, BenefitsResponse.class);
         }
-
         System.debug(bres);
         return bres;
     }
