@@ -505,7 +505,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>MedicationRequest.Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -531,7 +531,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>MedicationRequest.Indication__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>MedicationRequest.List_Price_per_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationRequest.Medical_Diagnosis__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -567,6 +577,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>MedicationRequest.RequesterId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>MedicationRequest.Strength_Units__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -714,6 +729,15 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
+        <object>Medical_Diagnosis__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Medication</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -768,6 +792,10 @@
         <recordType>PersonAccount.Provider</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Medical_Diagnosis__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <userPermissions>
         <enabled>true</enabled>
         <name>TransferAnyCase</name>
