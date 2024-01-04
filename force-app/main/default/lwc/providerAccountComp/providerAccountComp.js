@@ -13,36 +13,12 @@ export default class ProviderAccountComp extends LightningElement {
     @api ProviderAccId;
     @api ProviderIdentifier;
     @api required;
-    validity = true;
-    @api
-     Validate(){
-        if(this.validateInput()){
-            return{
-                isValid: true
-            };
-        }else{
-            return{
-                isValid: false,
-                errorMessage: this.messageResult
-            };
-        }
-     }
-    @wire(getProviderAccount, {providerAct: '$accountPHN'})
-       retrieveAccount ({error, data}) {
-       if (data){
-          this.accountList = data;
-          this.showsearchedvalues = data.length > 0;
-          this.messageResult = data.length === 0 && this.accountPHN !== '';
-          } else if (error) {
-            console.error(error);       
-            }
-    }    
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
            }
     handleSearch() {
             if(!this.accountPHN) {
-                this.errorMsg = 'Please enter account name to search.';
+                this.messageResult=true;
                 this.accountList = undefined;
                 return;
             }
@@ -54,6 +30,7 @@ export default class ProviderAccountComp extends LightningElement {
                 this.ProviderIdentifier = result[0].Patient_Identifier__pc;
                 this.Type = result[0].Provider_Type__pc;
                 this.showRemoveButton=true;
+                this.messageResult=false;
             })
             .catch(error => {
                 this.accountList = undefined;
@@ -74,13 +51,6 @@ export default class ProviderAccountComp extends LightningElement {
         this.Type = '';
         this.providerPHN = '';
         this.showRemoveButton=false;
-        }
-        ValidInput(){
-            if(!this.value){
-                this.validity = false;
-            } else{
-                this.validity = true;
-            }
-            return this.validity;
+        this.messageResult=false;
         }
     }

@@ -17,23 +17,12 @@ export default class CustomObjectForm extends LightningElement {
     @api state;
     @api Zipcode;
     @api PostalCode;
-    validity = true;
-    @wire(getAccount, {actPHN: '$accountPHN'})
-       retrieveAccount ({error, data}) {
-       if (data){
-          this.accountList = data;
-          this.showsearchedvalues = data.length > 0;
-          this.messageResult = data.length === 0 && this.accountPHN !== '';
-          } else if (error) {
-            console.error(error);       
-            }
-    }    
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
            }
     handleSearch() {
             if(!this.accountPHN) {
-                this.errorMsg = 'Please enter account name to search.';
+                this.messageResult = true;
                 this.accountList = undefined;
                 return;
             }
@@ -44,6 +33,7 @@ export default class CustomObjectForm extends LightningElement {
                 this.Name = result[0].Name;
                 this.AccountId = result[0].Id;
                 this.showRemoveButton=true;
+                this.messageResult = false;
             })
             .catch(error => {
                 this.accountList = undefined;
@@ -65,5 +55,6 @@ export default class CustomObjectForm extends LightningElement {
         this.accountPHN = '';
         this.patientPHN = '';
         this.showRemoveButton=false;
+        this.messageResult = false;
         }
     }
