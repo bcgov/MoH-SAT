@@ -16,22 +16,22 @@ public class EDRD_cls_medicinalIngredientHandlerTest {
 */    
     @isTest
     public static void updateOpenMedicationRequest_positive(){
-        Account requestorAccount = TestFactory.newProvider('Provider Test');
-        insert requestorAccount;
-        Account patientAccount = TestFactory.newPatient('Patient Test');
-        insert patientAccount;
+        Account requestorAccountRec = TestFactory.newProvider('Provider Test');
+        insert requestorAccountRec;
+        Account patientAccountRec = TestFactory.newPatient('Patient Test');
+        insert patientAccountRec;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        Case MRCase = TestFactory.createEDRDCase(recordTypeCaseEDRD, RequestorAccount.Id);
+        Case MRCase = TestFactory.createEDRDCase(recordTypeCaseEDRD, RequestorAccountRec.Id);
         insert MRCase;
         Medication MedicationRec = TestFactory.createMedication();
         insert MedicationRec;
-        UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
-        insert UOMRec;
-        MedicinalIngredient MIRec = TestFactory.createMedicinalIngredient(MedicationRec.Id, UOMRec.Id);
+        UnitOfMeasure UOMeasureRec = TestFactory.createUnitOfMeasure();
+        insert UOMeasureRec;
+        MedicinalIngredient MIRec = TestFactory.createMedicinalIngredient(MedicationRec.Id, UOMeasureRec.Id);
         insert MIRec;
-        MedicationRequest MRObj = TestFactory.createMedicationRequest(MedicationRec.Id, MRCase.Id, requestorAccount.Id, patientAccount.Id); 
-        MRObj.Dosage__c = 300;
-        MRObj.Dosage_Units__c = UOMRec.Id;
+        MedicationRequest MRObj = TestFactory.createMedicationRequest(MedicationRec.Id, MRCase.Id, requestorAccountRec.Id, patientAccountRec.Id); 
+        MRObj.Dosage__c = 600;
+        MRObj.Dosage_Units__c = UOMeasureRec.Id;
         MRObj.Requested_Frequency__c = 1;
         MRObj.Requested_Frequency_Unit__c = 'Monthly';
         MRObj.Requested_Funding_Duration__c = 2;
@@ -42,7 +42,7 @@ public class EDRD_cls_medicinalIngredientHandlerTest {
         MIRec.Unit_Price__c = 200;
         Update MIRec;
         Test.stopTest();
-        Assert.areEqual([SELECT Id, Expenditure_Estimate__c FROM MedicationRequest WHERE Id =: MRObj.Id].get(0).Expenditure_Estimate__c, 400, 'Expenditure Estimate Calculation has Failed');
+        Assert.areEqual([SELECT Id, Expenditure_Estimate__c FROM MedicationRequest WHERE Id =: MRObj.Id].get(0).Expenditure_Estimate__c, 800, 'Expenditure Estimate Calculation has Failed');
         Assert.areNotEqual([SELECT Id, Expenditure_Estimate__c FROM MedicationRequest WHERE Id =: MRObj.Id].get(0).Expenditure_Estimate__c, NULL, 'Expenditure Estimate Calculation has Populated Blank value');
     }
 }
