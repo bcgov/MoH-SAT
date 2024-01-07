@@ -29,12 +29,12 @@ trigger EDRD_tgr_MedicationRequest on MedicationRequest (before insert, before U
                                                     MRObj.Requested_Frequency_Unit__c != NULL && MRObj.Requested_Funding_Duration__c != NULL &&
                                                     MRObj.Requested_Funding_Duration_Unit__c != NULL && MRObj.List_Price_per_Unit__c != NULL && MRObj.Strength__c != NULL);
                 if((trigger.isInsert || isCalculateInputChanged) && iscalculateInputNotBlank){
-                       MRObj.Expenditure_Estimate__c = EDRD_cls_medicationRequestHandler.populateMRExpenditureEstimate(MRObj.Dosage__c, MRObj.Dosage_Units__c, MRObj.Requested_Frequency__c, 
+                    MRObj.Expenditure_Estimate__c = EDRD_cls_medicationRequestHandler.populateMRExpenditureEstimate(MRObj.Dosage__c, MRObj.Dosage_Units__c, MRObj.Requested_Frequency__c, 
                                                                                                                     MRObj.Requested_Frequency_Unit__c, MRObj.Requested_Funding_Duration__c,
                                                                                                                     MRObj.Requested_Funding_Duration_Unit__c, MRObj.List_Price_per_Unit__c, MRObj.Strength__c);
-                   }else {
-                       MRObj.Expenditure_Estimate__c = NULL;
-                   }
+                }else if(!iscalculateInputNotBlank){
+                    MRObj.Expenditure_Estimate__c = NULL;
+                }
             }
             if(!MRListValidate.isEmpty()){
                EDRD_cls_medicationRequestHandler.validateMedicationRequest(MRListValidate);
