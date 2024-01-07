@@ -39,7 +39,7 @@ jobs:
       run: sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u SAT-EDRDQA -w 15
 
     - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o ciorg -c 
+      run: sfdx force:source:deploy -p OmniStudio-Components -u SAT-EDRDQA -w 15
 
     - name: Deploy Source in dev-app-post
       run: sfdx force:source:deploy -p dev-app-post -u SAT-EDRDQA -w 15
