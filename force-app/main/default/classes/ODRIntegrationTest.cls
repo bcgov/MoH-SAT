@@ -352,6 +352,11 @@ public class ODRIntegrationTest {
         Test.startTest();
         PrescriptionHistoryResponse resObjWithSearchKey = ODRIntegration.fetchPrescriptionHistoryWithSearchKey(saCase.id, '1', '1', new List<Integer>(), 'CONTRACEPTION', '10');
         PrescriptionHistoryResponse resObjWithOutSearchKey = ODRIntegration.fetchPrescriptionHistoryWithSearchKey(saCase.id, '1', '1', new List<Integer>(), 'Test', '10');
+        PrescriptionHistoryResponse resObjWithOutSearchKey1 = ODRIntegration.fetchPrescriptionHistoryWithSearchKey(saCase.id, '1', '1', new List<Integer>(), '', '10');
+        
+        SAApprovalHistoryResponse sar = ODRIntegration.fetchSAApprovalHistoryByCase(saCase.Id);
+        
+        BenefitsResponse br = ODRIntegration.fetchBenefits(saCase.Id);
         Test.stopTest();
         Assert.areEqual(resObjWithSearchKey.medHistory.medRecords.size(), 1, 'Search Failed');
         Assert.areEqual(resObjWithOutSearchKey.medHistory.medRecords.size(), 0, 'Search Failed for searchKey with is not in response generic name');

@@ -121,8 +121,6 @@ public with sharing class ODRIntegration {
             // ERROR
             System.debug('*******************xxx');
             System.debug(calloutResponseObject.errorCode);
-            // saarr = new SAApprovalRequestResponse();
-            // saarr.error = calloutResponseObject;
             p = new Provider();
             p.verified = false;
         } else {
@@ -130,16 +128,7 @@ public with sharing class ODRIntegration {
             System.debug('*******************');
             System.debug(resBody);
 
-            // {
-            //     applicationUUID: "",
-            //     firstName: "",
-            //     middleInitial: "",
-            //     lastName: "",
-            //     dateofBirth: "",
-            //     status: "",
-            //     effectiveDate: "",
-            // }
-
+            
             // TODO: This should really be receiving an object, but using this for now as the API is returning
             // an array instead of a list.
             List<Provider> providers = (List<Provider>) JSON.deserialize(resBody, List<Provider>.class);
@@ -324,22 +313,26 @@ public with sharing class ODRIntegration {
         return saaUpdateResponse;
     }
 
+   
+
     @AuraEnabled
     public static BenefitsResponse fetchBenefits(Id recordId) {
         System.debug('Fetch Benefits');
 
         BenefitsResponse bres = null;
 
-        String queryParams = '?clientName=SpecAuth';
-        queryParams += '&requestUUID=' + getUUIDString();
-        queryParams += '&phn=' + getPatientIdentifier(recordId);
-        queryParams += '&userid=' + getUserIdentifier();
+        String queryParams = '';
 
+        Map<String, String> jsonMap = new Map<String, String>();
+        jsonMap.put('clientName', 'SpecAuth');
+        jsonMap.put('requestUUID', getUUIDString());
+        jsonMap.put('userid', getUserIdentifier());
+        jsonMap.put('phn', getPatientIdentifier(recordId));
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/benefits',
                                                                          queryParams,
-                                                                         'GET',
-                                                                         null,
+                                                                         'POST',
+                                                                         JSON.serialize(jsonMap),
                                                                          'Patient Benefit Plan');
 
         if (calloutResponseObject.errorCode != 200) {
@@ -350,7 +343,6 @@ public with sharing class ODRIntegration {
             String resBody = calloutResponseObject.response;
             bres = (BenefitsResponse) JSON.deserialize(resBody, BenefitsResponse.class);
         }
-
         System.debug(bres);
         return bres;
     }
@@ -360,21 +352,28 @@ public with sharing class ODRIntegration {
         return fetchSAApprovalHistory(getPatientIdentifier(recordId));
     }
 
+    
+
     @AuraEnabled(cacheable=true)
     public static SAApprovalHistoryResponse fetchSAApprovalHistory(String phn) {
         SAApprovalHistoryResponse sar = null;
 
-        String queryParams = '?clientName=SpecAuth';
-        queryParams += '&requestUUID=' + getUUIDString();
-        queryParams += '&userid=' + getUserIdentifier();
-        queryParams += '&phn=' + phn;
-        queryParams += '&startDate=1990-01-01';
+        String queryParams = '';
+
+
+        Map<String, String> jsonMap = new Map<String, String>();
+        jsonMap.put('clientName', 'SpecAuth');
+        jsonMap.put('requestUUID', getUUIDString());
+        jsonMap.put('userid', getUserIdentifier());
+        jsonMap.put('phn', phn);
+        jsonMap.put('startDate', '1990-01-01');
+        jsonMap.put('endDate','3000-01-01');
         
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(null,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
                                                                          queryParams,
-                                                                         'GET',
-                                                                         null,
+                                                                         'POST',
+                                                                         JSON.serialize(jsonMap),
                                                                          'SA Approval History');
 
         if (calloutResponseObject.errorCode != 200) {
@@ -422,6 +421,7 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
     return resObj;
 }
     
+
     @AuraEnabled
     public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count, List<Integer> dinList) {
         System.debug('Fetch Data');
@@ -430,107 +430,34 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
 
         PrescriptionHistoryResponse sar = null;
 
-        String queryParams = '?clientName=SpecAuth';
-        queryParams += '&requestUUID=' + getUUIDString();
-        queryParams += '&userid=' + getUserIdentifier();
-        queryParams += '&phn=' + getPatientIdentifier(recordId);
-        queryParams += '&pageSize=' + count;
-        queryParams += '&pageNo=' + page;
-        
-        List<Integer> newdinLst = new List<Integer>();
-        List<LIst<Integer>> listOfLst = new List<LIst<Integer>>();
-        if(dinList.size()>0 && dinList.size()<800){
-            queryParams += '&dinList=' + JSON.serialize(dinList);
-        }else{
-            Integer check;
-            for(Integer i=0; i < dinList.size(); i++){ 
-                check = newdinLst.size();
-                if(i==0){
-                    newdinLst = new List<Integer>();
-                    newdinLst.add(dinList[i]);
+        String queryParams = '';
 
-                }else if(check==800){
-                    listOfLst.add(newdinLst);
-                    newdinLst = new List<Integer>();
-                    newdinLst.add(dinList[i]);
-                }else{
-                    newdinLst.add(dinList[i]);
-                }   
-                
-                if(i==dinList.size()-1){
-                    listOfLst.add(newdinLst);
-                }
-                
-            }
-        }
-
-
-        List<CalloutResponse> callOutResponseLst = new List<CalloutResponse>();
-        for(Integer i=0; i < listOfLst.size();i++){
-            String queryParamLst='';
-            queryParamLst = queryParamLst+queryParams;
-            queryParamLst += '&dinList=' + JSON.serialize(listOfLst[i]);
-            queryParamLst += '&startDate=1990-01-01';
-            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
-                                                                         queryParamLst,
-                                                                         'GET',
-                                                                         null,
-                                                                         'Prescription History');
-            callOutResponseLst.add(calloutResponseObject);
-            System.debug('the din pin size is '+listOfLst[i].size());
-        }
-        
-        if (dinList.size() == 0 || dinList.size() < 800) {
-            
-            queryParams += '&startDate=1990-01-01';
-            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+        Map<String, String> jsonMap = new Map<String, String>();
+        jsonMap.put('clientName', 'SpecAuth');
+        jsonMap.put('requestUUID', getUUIDString());
+        jsonMap.put('userid', getUserIdentifier());
+        jsonMap.put('phn', getPatientIdentifier(recordId));
+        jsonMap.put('pageSize', count);
+        jsonMap.put('pageNo',page);
+        jsonMap.put('sort','ASC');        
+       
+        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
                                                                          queryParams,
-                                                                         'GET',
-                                                                         null,
+                                                                         'POST',
+                                                                         JSON.serialize(jsonMap),
                                                                          'Prescription History');
-            callOutResponseLst.add(calloutResponseObject);
+        if(calloutResponseObject.errorCode != 200){
+            sar = new PrescriptionHistoryResponse();
+            sar.error = calloutResponseObject;
+            return sar; 
+        }else{
+            String resBody = calloutResponseObject.response;
+            sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
         }
-        
+
         PrescriptionHistoryResponse prescResponsRes = new PrescriptionHistoryResponse();
-
-        for(CalloutResponse calloutResponseObject : callOutResponseLst){
-            if (calloutResponseObject.errorCode != 200) {
-                // ERROR
-                sar = new PrescriptionHistoryResponse();
-                sar.error = calloutResponseObject;
-                return sar;
-            } else {
-                String resBody = calloutResponseObject.response;
-                // for (Integer i = 0; i < resBody.length(); i=i+300) {
-                //     Integer iEffectiveEnd = (i+300 > (resBody.length()) ? resBody.length()-1 : i+300);
-                //     System.debug(resBody.substring(i,iEffectiveEnd));
-                // }
-                sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
-                System.debug('null check');
-                System.debug('sar is '+sar);
-                System.debug('presc Res Res'+prescResponsRes);
-                
-
-                if(prescResponsRes!=null && prescResponsRes.medHistory!=null && sar != null && sar.medHistory != null){
-                    if(prescResponsRes.medHistory.medRecords!=null && sar.medHistory.medRecords!=null){
-                        prescResponsRes.medHistory.medRecords.addAll(sar.medHistory.medRecords);
-                    }
-                    if(prescResponsRes.medHistory.totalPages!=null && sar.medHistory.totalPages!=null){
-                        prescResponsRes.medHistory.totalPages = prescResponsRes.medHistory.totalPages + sar.medHistory.totalPages;
-                    }
-                    if(prescResponsRes.medHistory.totalRecords!=null && sar.medHistory.totalRecords!=null){
-                        prescResponsRes.medHistory.totalRecords = prescResponsRes.medHistory.totalRecords + sar.medHistory.totalRecords;
-                    } 
-                }else{
-                    prescResponsRes = sar;
-                }
-            }
-        }
-        
-        System.debug(prescResponsRes);
-
+        prescResponsRes = sar;
         return prescResponsRes;
     }
 
