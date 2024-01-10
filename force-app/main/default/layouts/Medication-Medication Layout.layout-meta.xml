@@ -103,15 +103,25 @@
     </platformActionList>
     <relatedLists>
         <fields>Name</fields>
+        <fields>Ingredient</fields>
+        <fields>IsActive</fields>
+        <relatedList>MedicinalIngredientParent</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
         <fields>IdValue</fields>
         <fields>IdType</fields>
         <relatedList>Identifiers</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
-        <fields>Ingredient</fields>
-        <fields>IsActive</fields>
-        <relatedList>MedicinalIngredientParent</relatedList>
+        <fields>MedicationCode</fields>
+        <fields>MedicationRequestGroup</fields>
+        <relatedList>MedReq_Medication</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Medical_Diagnosis__c.Medication__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
