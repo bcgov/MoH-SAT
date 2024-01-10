@@ -112,7 +112,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
         <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem7</globalKey>
@@ -124,6 +124,20 @@
         <outputCreationSequence>2.0</outputCreationSequence>
         <outputFieldName>CaseId</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem19</globalKey>
+        <inputFieldName>PatientInformation:CaseType</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>Type</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -142,7 +156,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem9</globalKey>
         <inputFieldName>PatientInformation:PatientName</inputFieldName>
@@ -156,8 +170,22 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <defaultValue>Completed</defaultValue>
         <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem21</globalKey>
+        <inputFieldName>PrescriberId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>RequesterId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Completed</defaultValue>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem8</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -170,17 +198,30 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
+        <defaultValue>Active</defaultValue>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem11</globalKey>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem20</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
+        <outputFieldName>Status</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem23</globalKey>
+        <inputFieldName>PatAccId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>PatientId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -200,163 +241,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <defaultValue>British Columbia</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem13</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>OmniscriptIdentifier</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem12</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedFieldName>Id</linkedFieldName>
-        <linkedObjectSequence>2.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>AssessmentId</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem15</globalKey>
-        <inputFieldName>DeclarationAndSignature:Date</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>DateTime</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem14</globalKey>
-        <inputFieldName>DeclarationAndSignature:Consent</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>Consent__c</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem17</globalKey>
-        <inputFieldName>DeclarationAndSignature:SignedInitial</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>SignedBy</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem16</globalKey>
-        <inputFieldName>DeclarationAndSignature:Reason</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>Reason__c</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem18</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem19</globalKey>
-        <inputFieldName>PatientInformation:CaseType</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
-        <outputFieldName>Type</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem21</globalKey>
-        <inputFieldName>ProviderId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
-        <outputFieldName>RequesterId</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <defaultValue>Active</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem20</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
-        <outputFieldName>Status</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem23</globalKey>
-        <inputFieldName>PatAccId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
-        <outputFieldName>PatientId</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem22</globalKey>
@@ -364,7 +248,7 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>MedicationId</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -380,7 +264,7 @@
         <linkedObjectSequence>1.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>5.0</outputCreationSequence>
+        <outputCreationSequence>4.0</outputCreationSequence>
         <outputFieldName>LinkedEntityId</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -396,7 +280,7 @@
         <linkedObjectSequence>1.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>Case__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -411,7 +295,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>5.0</outputCreationSequence>
+        <outputCreationSequence>4.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -421,13 +305,42 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem26</globalKey>
-        <inputFieldName>DrugandDosage:UploadEligibilityForm:data</inputFieldName>
+        <inputFieldName>UploadAttachment:UploadEligibilityForm:data</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>5.0</outputCreationSequence>
+        <outputCreationSequence>4.0</outputCreationSequence>
         <outputFieldName>ContentDocumentId</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom3966</globalKey>
+        <inputFieldName>PatientInformation:PatientIdentifier</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Patient_Identifier__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem18</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>

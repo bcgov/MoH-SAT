@@ -58,11 +58,11 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem29</globalKey>
-        <inputFieldName>DrugandDosage:UploadSupportingDoc:data</inputFieldName>
+        <inputFieldName>UploadAttachment:UploadSupportingDoc:data</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>6.0</outputCreationSequence>
+        <outputCreationSequence>5.0</outputCreationSequence>
         <outputFieldName>ContentDocumentId</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -77,7 +77,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>6.0</outputCreationSequence>
+        <outputCreationSequence>5.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -93,7 +93,7 @@
         <linkedObjectSequence>1.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>6.0</outputCreationSequence>
+        <outputCreationSequence>5.0</outputCreationSequence>
         <outputFieldName>LinkedEntityId</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -246,20 +246,6 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem11</globalKey>
-        <inputFieldName>DeclarationAndSignature:Reason</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>Reason__c</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem10</globalKey>
         <inputFieldName>PatientInformation:PatientName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -274,99 +260,12 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem13</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedFieldName>Id</linkedFieldName>
-        <linkedObjectSequence>2.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>AssessmentId</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem12</globalKey>
-        <inputFieldName>DeclarationAndSignature:SignedInitial</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>SignedBy</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem15</globalKey>
-        <inputFieldName>DeclarationAndSignature:Consent</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>Consent__c</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <defaultValue>British Columbia</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem14</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>OmniscriptIdentifier</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem16</globalKey>
-        <inputFieldName>DeclarationAndSignature:Date</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>DateTime</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem17</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>AssessmentSignature</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem19</globalKey>
         <inputFieldName>PatientInformation:CaseType</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>Type</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -381,7 +280,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -391,11 +290,11 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem21</globalKey>
-        <inputFieldName>ProviderId</inputFieldName>
+        <inputFieldName>PrescriberId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>RequesterId</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -409,7 +308,7 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>Status</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -423,7 +322,7 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>PatientId</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -437,7 +336,7 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>MedicationId</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -447,11 +346,11 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRcreateRequestCustom0jIAq0000001akbMAAItem25</globalKey>
-        <inputFieldName>DrugandDosage:UploadEligibilityForm:data</inputFieldName>
+        <inputFieldName>UploadAttachment:UploadEligibilityForm:data</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>5.0</outputCreationSequence>
+        <outputCreationSequence>4.0</outputCreationSequence>
         <outputFieldName>ContentDocumentId</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -467,7 +366,7 @@
         <linkedObjectSequence>1.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>4.0</outputCreationSequence>
+        <outputCreationSequence>3.0</outputCreationSequence>
         <outputFieldName>Case__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -482,7 +381,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>5.0</outputCreationSequence>
+        <outputCreationSequence>4.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
@@ -498,7 +397,7 @@
         <linkedObjectSequence>1.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequest</name>
-        <outputCreationSequence>5.0</outputCreationSequence>
+        <outputCreationSequence>4.0</outputCreationSequence>
         <outputFieldName>LinkedEntityId</outputFieldName>
         <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
