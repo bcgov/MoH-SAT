@@ -14,7 +14,6 @@ export default class ProviderAccountComp extends LightningElement {
     @api accountList = [];
     @api Type;
     @api Name;
-    @api ProviderIdentifier;
     @api availableActions = [];
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
@@ -30,7 +29,6 @@ export default class ProviderAccountComp extends LightningElement {
                 this.accountList = result;
                 this.Name = result[0].Name;
                 this.ProviderAccId = result[0].Id;
-                this.ProviderIdentifier = result[0].Patient_Identifier__pc;
                 this.Type = result[0].Provider_Type__pc;
                 this.showRemoveButton=true;
                 this.messageResult=false;

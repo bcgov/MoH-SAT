@@ -14,12 +14,6 @@ export default class CustomObjectForm extends LightningElement {
     @api accountList = [];
     @api Birthdate;
     @api Name;
-    @api street;
-    @api city;
-    @api Country;
-    @api state;
-    @api Zipcode;
-    @api PostalCode;
     @api availableActions = [];
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
