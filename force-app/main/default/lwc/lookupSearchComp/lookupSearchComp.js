@@ -1,4 +1,8 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api } from 'lwc';
+import {
+    FlowNavigationBackEvent,
+    FlowNavigationNextEvent
+  } from "lightning/flowSupport";
 import getAccount from '@salesforce/apex/EDRDAccountLookupController.getAccount';
 export default class CustomObjectForm extends LightningElement {
     @api accountPHN = '';
@@ -17,6 +21,7 @@ export default class CustomObjectForm extends LightningElement {
     @api state;
     @api Zipcode;
     @api PostalCode;
+    @api availableActions = [];
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
            }
@@ -34,6 +39,7 @@ export default class CustomObjectForm extends LightningElement {
                 this.AccountId = result[0].Id;
                 this.showRemoveButton=true;
                 this.messageResult = false;
+                this.resultLength=result.length;
             })
             .catch(error => {
                 this.accountList = undefined;
@@ -53,8 +59,23 @@ export default class CustomObjectForm extends LightningElement {
         this.Name = '';
         this.AccountId = '';
         this.accountPHN = '';
-        this.patientPHN = '';
         this.showRemoveButton=false;
         this.messageResult = false;
+        this.resultLength=0;
         }
-    }
+        handleNext(){
+        if (this.resultLength === 0 || this.resultLength === undefined ||!this.accountPHN) {
+          this.messageResult = true;
+          this.accountList = undefined;
+        }else if (this.availableActions.find((action) => action === "NEXT")){
+               const navigateNextEvent = new FlowNavigationNextEvent();
+               this.dispatchEvent(navigateNextEvent);
+               }
+        }
+        handleBack(){
+            if (this.availableActions.find((action) => action === "BACK")){
+                const navigateBackEvent = new FlowNavigationBackEvent();
+                this.dispatchEvent(navigateBackEvent);
+                }
+        }
+}

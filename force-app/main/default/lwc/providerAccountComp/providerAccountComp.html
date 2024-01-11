@@ -2,7 +2,7 @@
     <lightning-card title= "Provider Information" icon-name= "standard:Account">
       <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small">
      <div class="slds-col slds-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2">
-       <lightning-input label="Provider Identifier" required={required} name={providerPHN} type = "search" onchange={handlekeychange} value={providerPHN} placeholder="Enter Identifier Number"></lightning-input>
+       <lightning-input label="Provider Identifier" name={providerPHN} type = "search" onchange={handlekeychange} value={providerPHN} placeholder="Enter Identifier Number"></lightning-input>
       </div>
        <div class="slds-col slds-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2" style="margin-top: 22px;">
        <lightning-button variant="brand" label="Search" class="btnSearch" onclick={handleSearch} ></lightning-button>
@@ -20,5 +20,10 @@
       <div style="width: 200px;">
         <lightning-input label="Provider Name" value={Name} disabled></lightning-input>
       </div>
-        </lightning-card>
+    </br>
+    <footer class="slds-modal__footer" style="background-color: white;">
+      <lightning-button class="slds-button_neutral" label="Previous" onclick={handleBack}> </lightning-button>
+      <lightning-button class="slds-button_brand" label="Next" onclick={handleNext} variant="brand"></lightning-button>
+   </footer>
+  </lightning-card>
    </template>

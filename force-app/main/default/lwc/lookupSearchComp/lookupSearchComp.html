@@ -21,6 +21,10 @@
       <div style="width: 400px;">
       <lightning-input label="Birthdate" value={Birthdate} disabled></lightning-input>      
      </div>
-     
+    </br>
+    <footer class="slds-modal__footer" style="background-color: white;">
+      <lightning-button class="slds-button_neutral" label="Previous" onclick={handleBack}> </lightning-button>
+      <lightning-button class="slds-button_brand" label="Next" onclick={handleNext} variant="brand"></lightning-button>
+   </footer>
   </lightning-card>
  </template>

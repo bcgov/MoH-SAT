@@ -1,4 +1,8 @@
-import { LightningElement, api, wire} from 'lwc';
+import { LightningElement, api } from 'lwc';
+import {
+    FlowNavigationBackEvent,
+    FlowNavigationNextEvent
+  } from "lightning/flowSupport";
 import getProviderAccount from '@salesforce/apex/EDRDAccountLookupController.getProviderAccount';
 export default class ProviderAccountComp extends LightningElement {
     @api accountPHN = '';
@@ -12,7 +16,7 @@ export default class ProviderAccountComp extends LightningElement {
     @api Name;
     @api ProviderAccId;
     @api ProviderIdentifier;
-    @api required;
+    @api availableActions = [];
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
            }
@@ -31,6 +35,7 @@ export default class ProviderAccountComp extends LightningElement {
                 this.Type = result[0].Provider_Type__pc;
                 this.showRemoveButton=true;
                 this.messageResult=false;
+                this.resultLength=result.length;
             })
             .catch(error => {
                 this.accountList = undefined;
@@ -45,12 +50,28 @@ export default class ProviderAccountComp extends LightningElement {
             }) 
         }
         handleRemoveResults(){
-        this.accountList = [];
-        this.Name = '';
-        this.ProviderAccId = '';
-        this.Type = '';
-        this.providerPHN = '';
-        this.showRemoveButton=false;
-        this.messageResult=false;
+            this.accountList = [];
+            this.Name = '';
+            this.ProviderAccId = '';
+            this.Type = '';
+            this.providerPHN = '';
+            this.showRemoveButton=false;
+            this.messageResult=false;
+            this.resultLength=0;
+            }
+        handleNext(){
+        if (this.resultLength === 0 || this.resultLength === undefined ||!this.accountPHN){
+          this.messageResult = true;
+          this.accountList = undefined;
+        }else if (this.availableActions.find((action) => action === "NEXT")){
+               const navigateNextEvent = new FlowNavigationNextEvent();
+               this.dispatchEvent(navigateNextEvent);
+               }
+        }
+        handleBack(){
+            if (this.availableActions.find((action) => action === "BACK")){
+                const navigateBackEvent = new FlowNavigationBackEvent();
+                this.dispatchEvent(navigateBackEvent);
+                }
         }
     }
