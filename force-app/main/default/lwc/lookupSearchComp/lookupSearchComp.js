@@ -14,6 +14,13 @@ export default class CustomObjectForm extends LightningElement {
     @api accountList = [];
     @api Birthdate;
     @api Name;
+    @api AccountId;
+    @api street;
+    @api city;
+    @api Country;
+    @api state;
+    @api Zipcode;
+    @api PostalCode;
     @api availableActions = [];
     handlekeychange(event) {
             this.accountPHN = event.currentTarget.value; 
@@ -30,7 +37,6 @@ export default class CustomObjectForm extends LightningElement {
                 this.Birthdate = result[0].PersonContact.Birthdate;
                 this.Name = result[0].Name;
                 this.AccountId = result[0].Id;
-                this.patientPHN = result[0].Patient_Identifier__pc;
                 this.showRemoveButton=true;
                 this.messageResult = false;
                 this.resultLength=result.length;
