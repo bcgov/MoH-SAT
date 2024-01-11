@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+        <sharingCriteriaRules>
+        <fullName>EDRD_Physicians_Patient_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>Read</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Providing Patient record read access to the EDRD Physicians</description>
+        <label>EDRD Physicians Patient Access</label>
+        <sharedTo>
+            <group>EDRD_Physicians</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Patient,Provider</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>EDRD_Staff</fullName>
         <accessLevel>Edit</accessLevel>
@@ -19,4 +39,4 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-</SharingRules>
+    </SharingRules>
