@@ -14,7 +14,6 @@ export default class ProviderAccountComp extends LightningElement {
     @api accountList = [];
     @api Type;
     @api Name;
-    @api ProviderAccId;
     @api ProviderIdentifier;
     @api availableActions = [];
     handlekeychange(event) {
