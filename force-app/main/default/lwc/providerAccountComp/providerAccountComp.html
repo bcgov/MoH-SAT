@@ -14,15 +14,15 @@
       <div if:true={messageResult} class="slds-p-horizontal_small">
         <p class="slds-text-color_error"> No result found. Please type correct Provider Identifier Number </p>     
       </div>
-      <div style="width: 200px;">
+      <div style="width: 400px;">
         <lightning-input label="Provider Type" value={Type} disabled></lightning-input>
       </div>
-      <div style="width: 200px;">
+      <div style="width: 400px;">
         <lightning-input label="Provider Name" value={Name} disabled></lightning-input>
       </div>
     </br>
     <footer class="slds-modal__footer" style="background-color: white;">
-      <lightning-button class="slds-button_neutral" label="Previous" onclick={handleBack}> </lightning-button>
+      <lightning-button class="slds-button_neutral" label="Previous" onclick={handleBack} style="margin-right: 5px;"> </lightning-button>
       <lightning-button class="slds-button_brand" label="Next" onclick={handleNext} variant="brand"></lightning-button>
    </footer>
   </lightning-card>
