@@ -54,29 +54,6 @@ handleSearch() {
     }) 
 }
 handleRemoveResults(){
-    this.resetForm();
-    this.showRemoveButton = false;
-}
-handleNext(){
-    if (this.shouldShowErrorMessage()) {
-        this.handleNoSearchResult();
-    } else if (this.shouldDispatchNextEvent()) {
-        const navigateNextEvent = new FlowNavigationNextEvent();
-        this.dispatchEvent(navigateNextEvent);
-    }
-}
-handleBack(){
-    if (this.availableActions.includes('BACK')) {
-        const navigateBackEvent = new FlowNavigationBackEvent();
-        this.dispatchEvent(navigateBackEvent);
-    }
-}
-// Helper methods
-handleNoSearchResult() {
-    this.accountList = [];
-    this.messageResult = true;
-}
-resetForm() {
     this.accountList = [];
     this.Birthdate = '';
     this.Name = '';
@@ -84,11 +61,32 @@ resetForm() {
     this.accountPHN = '';
     this.messageResult = false;
     this.resultLength = 0;
+    this.showRemoveButton = false;
 }
+handleNext() {
+    if (this.shouldShowErrorMessage()) {
+        this.handleNoSearchResult();
+    } else if (this.shouldDispatchAction('NEXT')) {
+        this.dispatchFlowEvent(FlowNavigationNextEvent);
+    }
+}
+handleBack() {
+    if (this.shouldDispatchAction('BACK')) {
+        this.dispatchFlowEvent(FlowNavigationBackEvent);
+    }
+}
+// Helper methods
 shouldShowErrorMessage() {
     return this.resultLength === 0 || this.resultLength === undefined || !this.accountPHN;
 }
-shouldDispatchNextEvent() {
-    return this.availableActions.includes('NEXT');
+handleNoSearchResult() {
+    this.messageResult = true;
+}
+shouldDispatchAction(action) {
+    return this.availableActions.includes(action);
+}
+dispatchFlowEvent(eventType) {
+    const flowEvent = new eventType();
+    this.dispatchEvent(flowEvent);
 }
 }
