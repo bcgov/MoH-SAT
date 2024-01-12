@@ -49,30 +49,7 @@ handleSearch() {
             }
         }) 
     }
-    handleRemoveResults(){
-        this.resetForm();
-    this.showRemoveButton = false;
-}
-handleNext(){
-    if (this.shouldShowErrorMessage()) {
-        this.handleNoSearchResult();
-    } else if (this.shouldDispatchNextEvent()) {
-        const navigateNextEvent = new FlowNavigationNextEvent();
-        this.dispatchEvent(navigateNextEvent);
-    }
-}
-handleBack(){
-    if (this.availableActions.includes('BACK')) {
-        const navigateBackEvent = new FlowNavigationBackEvent();
-        this.dispatchEvent(navigateBackEvent);
-    }
-}
-    // Helper methods
-handleNoSearchResult() {
-    this.accountList = [];
-    this.messageResult = true;
-}
-resetForm() {
+handleRemoveResults(){
     this.accountList = [];
     this.Name = '';
     this.ProviderAccId = '';
@@ -81,11 +58,21 @@ resetForm() {
     this.showRemoveButton=false;
     this.messageResult=false;
     this.resultLength=0;
+    this.showRemoveButton = false;
 }
-shouldShowErrorMessage() {
-    return this.resultLength === 0 || this.resultLength === undefined || !this.accountPHN;
-}
-shouldDispatchNextEvent() {
-    return this.availableActions.includes('NEXT');
-}
+handleNext(){
+    if (this.resultLength === 0 || this.resultLength === undefined ||!this.accountPHN) {
+      this.messageResult = true;
+      this.accountList = undefined;
+    }else if (this.availableActions.find((action) => action === "NEXT")){
+           const navigateNextEvent = new FlowNavigationNextEvent();
+           this.dispatchEvent(navigateNextEvent);
+           }
+    }
+    handleBack(){
+        if (this.availableActions.find((action) => action === "BACK")){
+            const navigateBackEvent = new FlowNavigationBackEvent();
+            this.dispatchEvent(navigateBackEvent);
+            }
+    }
 }

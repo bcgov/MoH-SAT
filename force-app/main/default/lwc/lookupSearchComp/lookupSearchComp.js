@@ -75,7 +75,6 @@ handleBack() {
         this.dispatchFlowEvent(FlowNavigationBackEvent);
     }
 }
-// Helper methods
 shouldShowErrorMessage() {
     return this.resultLength === 0 || this.resultLength === undefined || !this.accountPHN;
 }
