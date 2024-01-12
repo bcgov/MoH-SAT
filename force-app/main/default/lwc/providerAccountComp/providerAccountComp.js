@@ -84,5 +84,5 @@ shouldDispatchAction(action) {
 dispatchFlowEvent(eventType) {
     const flowEvent = new eventType();
     this.dispatchEvent(flowEvent);
-}
+ }
 }
