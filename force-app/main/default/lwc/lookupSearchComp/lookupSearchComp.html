@@ -10,7 +10,6 @@
      <lightning-button variant="brand" label="Clear" class="btnClear" onclick={handleRemoveResults} style="padding-left: 5px"></lightning-button>
     </template>
      </div>
-     
     </div>
     <div if:true={messageResult} class="slds-var-p-horizontal_small">
       <p class="slds-text-color_error"> No result found. Please type correct Patient Identifier Number </p>
@@ -21,6 +20,10 @@
       <div style="width: 400px;">
       <lightning-input label="Birthdate" value={Birthdate} disabled></lightning-input>      
      </div>
-     
+    </br>
+    <footer class="slds-modal__footer" style="background-color: white;">
+      <lightning-button class="slds-button_neutral" label="Previous" onclick={handleBack} style="margin-right: 5px;"> </lightning-button>
+      <lightning-button class="slds-button_brand" label="Next" onclick={handleNext} variant="brand"></lightning-button>
+   </footer>
   </lightning-card>
  </template>
