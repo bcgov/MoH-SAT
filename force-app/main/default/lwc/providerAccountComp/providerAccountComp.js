@@ -60,29 +60,19 @@ handleRemoveResults(){
     this.resultLength=0;
     this.showRemoveButton = false;
 }
-handleNext() {
-    if (this.shouldShowErrorMessage()) {
-        this.handleNoSearchResult();
-    } else if (this.shouldDispatchAction('NEXT')) {
-        this.dispatchFlowEvent(FlowNavigationNextEvent);
+handleNext(){
+    if (this.resultLength === 0 || this.resultLength === undefined ||!this.accountPHN) {
+      this.messageResult = true;
+      this.accountList = undefined;
+    }else if (this.availableActions.find((action) => action === "NEXT")){
+           const navigateNextEvent = new FlowNavigationNextEvent();
+           this.dispatchEvent(navigateNextEvent);
+           }
     }
-}
-handleBack() {
-    if (this.shouldDispatchAction('BACK')) {
-        this.dispatchFlowEvent(FlowNavigationBackEvent);
+    handleBack(){
+        if (this.availableActions.find((action) => action === "BACK")){
+            const navigateBackEvent = new FlowNavigationBackEvent();
+            this.dispatchEvent(navigateBackEvent);
+            }
     }
-}
-shouldShowErrorMessage() {
-    return this.resultLength === 0 || this.resultLength === undefined || !this.accountPHN;
-}
-handleNoSearchResult() {
-    this.messageResult = true;
-}
-shouldDispatchAction(action) {
-    return this.availableActions.includes(action);
-}
-dispatchFlowEvent(eventType) {
-    const flowEvent = new eventType();
-    this.dispatchEvent(flowEvent);
- }
 }
