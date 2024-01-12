@@ -59,6 +59,7 @@ handleRemoveResults(){
     this.Name = '';
     this.AccountId = '';
     this.accountPHN = '';
+    this.patientPHN = '';
     this.messageResult = false;
     this.resultLength = 0;
     this.showRemoveButton = false;
