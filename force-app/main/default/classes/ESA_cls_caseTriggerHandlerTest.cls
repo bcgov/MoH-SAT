@@ -58,10 +58,13 @@ public class ESA_cls_caseTriggerHandlerTest {
         Case testCase = new Case(
             Subject = 'Test Case',
             Description ='Test');
-        insert testCase;
-        testCase.subject ='Test Case 1';
         testCase.RecordTypeId = caseRecType;
+        Database.DMLOptions dmo = new Database.DMLOptions();
+        dmo.assignmentRuleHeader.useDefaultRule = true;
+        testCase.setOptions(dmo);
+        insert testCase;
         Test.startTest();
+        testCase.subject ='Test Case 1';
         update testCase;
         Test.stopTest();
         Case caCheck = [ SELECT Id,Owner.Name, OwnerId FROM Case WHERE Id =: testCase.Id ];
