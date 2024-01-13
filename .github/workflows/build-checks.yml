@@ -29,6 +29,9 @@ jobs:
       run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg -w 15
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
+    - name: Installing SF managed packages
+      run: sf package install --package "04t4W000000YWaz" -o ciorg -w 15 --noprompt 
+
     - name: Set deployment user standard security
       run: |
           sf force:user:permsetlicense:assign -u ciorg -n "OmniStudio"
