@@ -32,7 +32,7 @@ jobs:
       run: sf project deploy start -d dev-app-pre -o SAT-STAGING -w 15
 
     - name: Install version ID
-      run: sf package install --package "${{ github.event.inputs.package }}" -o SAT-STAGING -b 15 -w 15 --noprompt --wait 10
+      run: sf package install --package "${{ github.event.inputs.package }}" -o SAT-STAGING -b 15 --noprompt --wait 10
 
     - name: Re-deploy default objects
       run: sf project deploy start -d force-app/main/default/objects -o SAT-STAGING -w 15
