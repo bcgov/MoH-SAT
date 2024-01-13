@@ -2,7 +2,7 @@ name: Build Check
 on: [pull_request_target]
 
 jobs:
-  automatic-build-check:
+  build-check:
     runs-on: ubuntu-latest
     env:
       SF_DISABLE_SOURCE_MEMBER_POLLING: true
@@ -23,54 +23,31 @@ jobs:
     - name: Authenticate DevHub
       run: |
         echo ${{ secrets.SALESFORCE_DEVHUB_AUTH }} > sfdxurl.txt
-        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias devhub --set-default-dev-hub
-       # sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
+        sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
     - name: Define CI org
-      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg -w 15
-      # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
+      run: sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
-    - name: Set deployment user standard security
+    - name: Installing SF managed packages
+      run: sf package install --package "04t4W000000YWaz" -o ciorg -w 15
+
+    - name: Deploy source
       run: |
-          sf force:user:permsetlicense:assign -u ciorg -n "OmniStudio"
-          sf force:user:permsetlicense:assign -u ciorg -n "OmniStudio User"
-          sf force:user:permset:assign -o ciorg -n OmniStudioAdmin
-          sf force:user:permset:assign -o ciorg -n OmniStudioExecution
-          sf force:user:permset:assign -o ciorg -n OmniStudioUser
-          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud"
-          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud Platform"
-          sf force:user:permset:assign -o ciorg -n HealthCloudFoundation
-
-    - name: Deploy source dev-app-pre
-      run: sf project deploy start -d dev-app-pre -o ciorg 
- 
-    - name: Deploy source force-app
-      run: sf project deploy start -d force-app -o ciorg 
- 
-    - name: Deploy source default objects
-      run: sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
- 
-    - name: Deploy source default queues
-      run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
-
-    - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o ciorg -c
- 
-    - name: Deploy source default dev-app-post
-      run: sf project deploy start -d dev-app-post -o ciorg -c
-      # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
+        sf project deploy start -d dev-app-pre -o ciorg
+        sf project deploy start -d force-app -o ciorg
+        sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
+        sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
+        sf project deploy start -d dev-app-post -o ciorg -c
+  # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
       # sfdx force:source:push -u ciorg
-      
-    - name: Set deployment user custom security
+
+    - name: Assign permission set and set user role
       run: |
-          sf force:user:permset:assign -o ciorg -n SA_Administrator
-          sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
-        # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
-        # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
+        sfdx force:user:permset:assign -u ciorg -n SA_Administrator
+        sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
         
     - name: Run Apex test
       run: sfdx force:apex:test:run -c -r human
 
     - name: Delete scratch org
       if: ${{ always() }}
-      run: sf org delete scratch -o ciorg -p
-      # sfdx force:org:delete -u ciorg -p
+      run: sfdx force:org:delete -u ciorg -p
