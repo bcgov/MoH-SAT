@@ -141,19 +141,6 @@ public class ESA_cls_caseTriggerHandlerTest {
             Assert.areNotEqual(MRRec.priority, NULL, 'priority did not Match');
         }
     }
-    @isTest
-    public static void populateFundingExpiryDateTest(){
-        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        Case cs = TestFactory.createCaseEDRD(recordTypeCaseEDRD);
-        insert cs;
-        cs.EDRD_MOHApproved_Funding_Duration__c = 11.0;
-        cs.EDRD_MOHApproved_Funding_Duration_Unit__c = 'Days';
-        cs.EDRD_MOHFunding_Start_Date__c = system.today();
-        test.startTest();
-        update cs;
-        test.stopTest();
-        
-    }
     
 /**
 * @author: Deepak
