@@ -6,6 +6,7 @@
                1 Dec23 -   EDRD-170         -   Rahul      -  Manage case assignment
                4 Dec23 -   EDRD-332         -  Accenture   -  Change case status according to RPH, SC, AC Review Field
               16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
+                09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -126,4 +127,29 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Update MRListToUpdate;
         }
     }
+    
+/**
+* @author: Deepak
+* @date: 09 Jan 2024
+* @description: The purpose of this method is to calculate DrugForecast on Case.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    public static void calDrugForecast(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+        Map<Id, case> caseIdVsRec = new Map<Id, case>();
+        for(Case caseObj: newCaseMap.values()){
+            Boolean isInputFieldsChanged = (newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage_Unit__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency_Unit__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c);
+            caseIdVsRec.put(CaseObj.id, caseObj);
+        }
+        Map<Id, Decimal> caseIdVsForcastAmnt = EDRD_cls_medicationRequestHandler.calDrugForecastOnCase(caseIdVsRec.KeySet(), caseIdVsRec);
+        if(!caseIdVsForcastAmnt.isEmpty()){
+            for(Case caseObj: newCaseMap.values()){
+                caseObj.EDRD_MOHDrug_Cost_Forecast__c = caseIdVsForcastAmnt.ContainsKey(caseObj.Id) ? caseIdVsForcastAmnt.get(caseObj.Id) : NULL;
+            }  
+        }
+    } 
 }

@@ -44,24 +44,17 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>iterate_EDRD_open_cases.EDRD_MOHFunding_Denied__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>iterate_EDRD_open_cases.EDRD_MOHFunding_Approved__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>iterate_EDRD_open_cases.EDRD_MOHIndefinite_Funding__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>iterate_EDRD_open_cases.EDRD_MOHFunding_Decision__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Denied</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -345,7 +338,7 @@
             <label>user_HasCPEAccess</label>
         </rules>
     </decisions>
-    <description>Development Related to EDRD-264_added close screen and Permission check for Standard Users</description>
+    <description>Updated the according to EDRD-MOH Layout Changes, EDRD-399</description>
     <dynamicChoiceSets>
         <name>careProgramEnrolInactive_picklistSet</name>
         <dataType>Picklist</dataType>
