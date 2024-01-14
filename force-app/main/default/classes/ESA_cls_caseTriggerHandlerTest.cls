@@ -53,7 +53,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @description: The purpose of this method is to cover Testcoverage of manageAssignmentRule
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
-    @isTest public static void manageAssignmentRuleTest(){
+    @isTest (seeAllData=true) public static void manageAssignmentRuleTest(){
         Id caseRecType = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         Case testCase = new Case(
             Subject = 'Test Case',
@@ -110,24 +110,24 @@ public class ESA_cls_caseTriggerHandlerTest {
 */    
     @isTest
     public static void syncCaseToMR_positive(){
-        Account requestorAccount = TestFactory.newProvider('Provider Test');
-        insert requestorAccount;
-        Account patientAccount = TestFactory.newPatient('Patient Test');
-        insert patientAccount;
+        Account requestorAcc = TestFactory.newProvider('Provider Test');
+        insert requestorAcc;
+        Account patientAcc = TestFactory.newPatient('Patient Test');
+        insert patientAcc;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        Case MRCase = TestFactory.createEDRDCase(recordTypeCaseEDRD, RequestorAccount.Id);
-        insert MRCase;
-        Medication MedicationRec = TestFactory.createMedication();
-        insert MedicationRec;
-        MedicationRequest MedicationRequestRec = TestFactory.createMedicationRequest(MedicationRec.Id, MRCase.Id, requestorAccount.Id, patientAccount.Id); 
+        Case caseMR = TestFactory.createEDRDCase(recordTypeCaseEDRD, RequestorAcc.Id);
+        insert caseMR;
+        Medication MediRec = TestFactory.createMedication();
+        insert MediRec;
+        MedicationRequest MedicationRequestRec = TestFactory.createMedicationRequest(MediRec.Id, caseMR.Id, requestorAcc.Id, patientAcc.Id); 
         insert MedicationRequestRec;
         try{
             Test.startTest();
-            MRCase.Status = 'Funding Approved';
-            MRCase.Type = 'Renewal';
-            MRCase.Priority = 'Routine';
+            caseMR.Status = 'Funding Approved';
+            caseMR.Type = 'Renewal';
+            caseMR.Priority = 'Routine';
             ESA_cls_caseTriggerHandler.firstrun = true;
-            Update MRcase;
+            Update caseMR;
             Test.stopTest();
         } 
         catch(exception e){
@@ -163,39 +163,39 @@ public class ESA_cls_caseTriggerHandlerTest {
 */    
     @isTest
     public static void calDrugForecast_positive(){
-        Account requestorAccount1 = TestFactory.newProvider('Provider Test');
-        insert requestorAccount1;
-        Account patientAccount1 = TestFactory.newPatient('Patient Test');
-        insert patientAccount1;
+        Account reqstAccount1 = TestFactory.newProvider('Provider Test');
+        insert reqstAccount1;
+        Account patntAccount1 = TestFactory.newPatient('Patient Test');
+        insert patntAccount1;
         UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
         insert UOMRec;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        Case MRCase = TestFactory.createEDRDCase(recordTypeCaseEDRD, RequestorAccount1.Id);
-        MRCase.EDRD_MOHApproved_Dosage__c = 300;
-        MRCase.EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
-        MRCase.EDRD_MOHApproved_Frequency__c = 1;
-        MRCase.EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
-        MRCase.EDRD_MOHApproved_Funding_Duration__c = 1;
-        MRCase.EDRD_MOHApproved_Funding_Duration_Unit__c = 'Weeks';
-        insert MRCase;
+        Case caseMReq = TestFactory.createEDRDCase(recordTypeCaseEDRD, reqstAccount1.Id);
+        caseMReq.EDRD_MOHApproved_Dosage__c = 300;
+        caseMReq.EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
+        caseMReq.EDRD_MOHApproved_Frequency__c = 1;
+        caseMReq.EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
+        caseMReq.EDRD_MOHApproved_Funding_Duration__c = 1;
+        caseMReq.EDRD_MOHApproved_Funding_Duration_Unit__c = 'Weeks';
+        insert caseMReq;
         Medication MedicationRec = TestFactory.createMedication();
         insert MedicationRec;
         MedicinalIngredient MIRec = TestFactory.createMedicinalIngredient(MedicationRec.Id, UOMRec.Id);
         insert MIRec;
-        MedicationRequest MRObj = TestFactory.createMedicationRequest(MedicationRec.Id, MRCase.Id, requestorAccount1.Id, patientAccount1.Id); 
-        MRObj.Dosage__c = 300;
-        MRObj.Dosage_Units__c = UOMRec.Id;
-        MRObj.Requested_Frequency__c = 1;
-        MRObj.Requested_Frequency_Unit__c = 'Weekly';
-        MRObj.Requested_Funding_Duration__c = 1;
-        MRObj.Requested_Funding_Duration_Unit__c = 'Weeks';
-        MRObj.Medication_Information__c = MIRec.Id;
-        insert MRObj;
+        MedicationRequest MRqObj = TestFactory.createMedicationRequest(MedicationRec.Id, caseMReq.Id, reqstAccount1.Id, patntAccount1.Id); 
+        MRqObj.Dosage__c = 300;
+        MRqObj.Dosage_Units__c = UOMRec.Id;
+        MRqObj.Requested_Frequency__c = 1;
+        MRqObj.Requested_Frequency_Unit__c = 'Weekly';
+        MRqObj.Requested_Funding_Duration__c = 1;
+        MRqObj.Requested_Funding_Duration_Unit__c = 'Weeks';
+        MRqObj.Medication_Information__c = MIRec.Id;
+        insert MRqObj;
         Test.startTest();
-        MRCase.EDRD_MOHApproved_Funding_Duration_Unit__c = 'Years';
-        Update MRcase;
+        caseMReq.EDRD_MOHApproved_Funding_Duration_Unit__c = 'Years';
+        Update caseMReq;
         Test.stopTest();
-        Assert.areEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: MRCase.Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, 5200, 'Calculation Failed');
-        Assert.areNotEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: MRCase.Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, NULL, 'Calculation Populated Blank value');
+        Assert.areEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: caseMReq.Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, 5200, 'Calculation Failed');
+        Assert.areNotEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: caseMReq.Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, NULL, 'Calculation Populated Blank value');
     }
 }
