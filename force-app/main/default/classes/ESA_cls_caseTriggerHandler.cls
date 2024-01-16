@@ -7,6 +7,7 @@
                4 Dec23 -   EDRD-332         -  Accenture   -  Change case status according to RPH, SC, AC Review Field
               16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
                 09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
+                15 Jan -   EDRD-525         -  Accenture   -  Update AC Recommendation Review
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -152,4 +153,25 @@ public with sharing class ESA_cls_caseTriggerHandler {
             }  
         }
     } 
+    
+/**
+* @author: Deepak
+* @date: 15 Jan 2024
+* @description: The purpose of this method is to Update AC Recommendation Review.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/  
+    public static void assignACRecReview(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+        Set<String> caseSCReviewValueSet = new Set<String>{'Sent to MOH'};
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        for(Case caseObj: newCaseMap.values()){
+            Boolean isSCReviewChanged = oldCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c;
+            
+            if(recordTypeCaseEDRD == caseObj.RecordTypeId && isSCReviewChanged && caseSCReviewValueSet.Contains(caseObj.EDRD_SC_Review_Pathway__c)){
+                caseObj.EDRD_AC_Recommendation_Review__c = 'Not Applicable';
+            }else if(recordTypeCaseEDRD == caseObj.RecordTypeId && isSCReviewChanged && !String.isEmpty(caseObj.EDRD_SC_Review_Pathway__c)){
+                caseObj.EDRD_AC_Recommendation_Review__c = NULL;
+            }
+        }
+    }
+
 }

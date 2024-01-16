@@ -6,6 +6,8 @@
                 1 Dec23 -   EDRD-170        -   Rahul      -  Manage case assignment
                 4 Dec23 -   EDRD-332        -  Accenture   -  Change case status according to RPH, SC, AC Review Field
                16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
+                09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
+                15 Jan -   EDRD-525         -  Accenture   -  Update AC Recommendation Review
 ***********************************************************************************************/
 
 @isTest
@@ -184,5 +186,30 @@ public class ESA_cls_caseTriggerHandlerTest {
         Test.stopTest();
         Assert.areEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: caseMReq.Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, 5200, 'Calculation Failed');
         Assert.areNotEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: caseMReq.Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, NULL, 'Calculation Populated Blank value');
+    }
+    
+/**
+* @author: Deepak
+* @date: 15 Jan 2024
+* @description: The purpose of this method is to cover Testcoverage of assignACRecReview
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void assignACRecReview_positive(){
+        Account reqstAcc = TestFactory.newProvider('Provider Test');
+        insert reqstAcc;
+        Account patntAcc = TestFactory.newPatient('Patient Test');
+        insert patntAcc;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        Case caseRec = TestFactory.createEDRDCase(recordTypeCaseEDRD, reqstAcc.Id);
+        insert caseRec;
+        Test.startTest();
+        caseRec.EDRD_SC_Review_Pathway__c = 'Sent to AC';
+        Update caseRec;
+        caseRec.EDRD_SC_Review_Pathway__c = 'Sent to MOH';
+        Update caseRec;
+        Test.stopTest();
+        Assert.areEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRec.Id].get(0).EDRD_AC_Recommendation_Review__c, 'Not Applicable', 'AC Recommendation Review update Failed');
+        Assert.areNotEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRec.Id].get(0).EDRD_AC_Recommendation_Review__c, NULL, 'AC Recommendation Review Populated Blank value');
     }
 }
