@@ -47,10 +47,10 @@ public with sharing class ESA_cls_caseTriggerHandler {
         Database.DMLOptions dmlOpts = new Database.DMLOptions();
         dmlOpts.assignmentRuleHeader.useDefaultRule = true;
         List<Case> caseAssignment = new List<Case>();
-        For(Case c :[Select Id,OwnerId, Status FROM Case WHERE Id in :cases]){
-            if(c.OwnerId == oldCaseMap.get(c.Id).OwnerId && c.status != oldCaseMap.get(c.Id).Status){
-                c.setOptions(dmlOpts);
-                caseAssignment.add(c);
+        For(Case newCase :[Select Id,OwnerId, Status FROM Case WHERE Id in :cases]){
+            if(newCase.OwnerId == oldCaseMap.get(newCase.Id).OwnerId && newCase.status != oldCaseMap.get(newCase.Id).Status){
+                newCase.setOptions(dmlOpts);
+                caseAssignment.add(newCase);
             }
         }
         update caseAssignment;

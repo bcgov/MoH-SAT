@@ -1,5 +1,5 @@
 /**********************************************************************************************
-* @Author:      Suman 
+* @author:      Suman 
 * @Date:        08 Dec 2023
 * @Description: The purpose of this class is to cover Code coverage of EDRDAccountLookupController
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
@@ -25,12 +25,12 @@ public class EDRDAccountLookupController_Test {
         Test.startTest();
         List<Account> result = EDRDAccountLookupController.getAccount('8910947511');
         Test.stopTest();
-        System.assertEquals(1, result.size(), 'Expected one account in the result list');
+        Assert.areEqual(1, result.size(), 'Expected one account in the result list');
         Account retrievedAccount = result[0];
-        System.assertEquals('Test Patient Account', retrievedAccount.LastName, 'Unexpected Account Name');
-        System.assertEquals('8910947511', retrievedAccount.Patient_Identifier__pc, 'Unexpected Contact Patient Identifier');
-        System.assertEquals(Date.newInstance(2000, 1, 1), retrievedAccount.PersonBirthdate, 'Unexpected Contact Birthdate');
-        System.assertNotEquals(testPatientAccount.Patient_Identifier__pc, 'DifferentValue', 'Expected different Contact Patient Identifier');
+        Assert.areEqual('Test Patient Account', retrievedAccount.LastName, 'Unexpected Account Name');
+        Assert.areEqual('8910947511', retrievedAccount.Patient_Identifier__pc, 'Unexpected Contact Patient Identifier');
+        Assert.areEqual(Date.newInstance(2000, 1, 1), retrievedAccount.PersonBirthdate, 'Unexpected Contact Birthdate');
+        Assert.areNotEqual(testPatientAccount.Patient_Identifier__pc, 'DifferentValue', 'Expected different Contact Patient Identifier');
 }    
 /**
 * @author: Suman
@@ -50,11 +50,11 @@ public class EDRDAccountLookupController_Test {
         Test.startTest();
         List<Account> result = EDRDAccountLookupController.getProviderAccount('11AA086');
         Test.stopTest();
-        System.assertEquals(1, result.size(), 'Expected one account in the result list');
+        Assert.areEqual(1, result.size(), 'Expected one account in the result list');
         Account retrievedAccount = result[0];       
-        System.assertEquals(testProviderAccount.Id, retrievedAccount.Id, 'Unexpected Account Id');
-        System.assertEquals(testProviderAccount.LastName, retrievedAccount.LastName, 'Unexpected Account Name');
-        System.assertEquals(testProviderAccount.Provider_Identifier__pc, retrievedAccount.PersonContact.Provider_Identifier__c, 'Unexpected Contact Provider Identifier');
-        System.assertNotEquals(testProviderAccount.Provider_Identifier__pc, 'DifferentValue', 'Expected different Contact Provider Identifier');
+        Assert.areEqual(testProviderAccount.Id, retrievedAccount.Id, 'Unexpected Account Id');
+        Assert.areEqual(testProviderAccount.LastName, retrievedAccount.LastName, 'Unexpected Account Name');
+        Assert.areEqual(testProviderAccount.Provider_Identifier__pc, retrievedAccount.PersonContact.Provider_Identifier__c, 'Unexpected Contact Provider Identifier');
+        Assert.areNotEqual(testProviderAccount.Provider_Identifier__pc, 'DifferentValue', 'Expected different Contact Provider Identifier');
     }
 }
