@@ -18,7 +18,9 @@ export default class ProviderAccountComp extends LightningElement {
 @api ProviderIdentifier;
 @api availableActions = [];
 handlekeychange(event) {
-        this.accountPHN = event.currentTarget.value; 
+    if (event.currentTarget) {
+        this.accountPHN = event.currentTarget.value;
+    }
         }
 handleSearch() {
         if(!this.accountPHN) {
@@ -28,6 +30,7 @@ handleSearch() {
         }
         getProviderAccount({providerAct : this.accountPHN})
         .then(result => {
+            if (result && Array.isArray(result) && result.length > 0){
             this.accountList = result;
             this.Name = result[0].Name;
             this.ProviderAccId = result[0].Id;
@@ -36,6 +39,11 @@ handleSearch() {
             this.showRemoveButton=true;
             this.messageResult=false;
             this.resultLength=result.length;
+            }else {
+            this.accountList = undefined;
+            this.messageResult = true;
+            }
+            
         })
         .catch(error => {
             this.accountList = undefined;
@@ -55,6 +63,7 @@ handleRemoveResults(){
     this.ProviderAccId = '';
     this.Type = '';
     this.providerPHN = '';
+    this.accountPHN ='';
     this.showRemoveButton=false;
     this.messageResult=false;
     this.resultLength=0;
