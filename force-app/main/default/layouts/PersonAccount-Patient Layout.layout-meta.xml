@@ -4,7 +4,7 @@
     <excludeButtons>ChangeRecordType</excludeButtons>
     <excludeButtons>CreateCallList</excludeButtons>
     <excludeButtons>CreateSurveyInvitation</excludeButtons>
-        <excludeButtons>Delete</excludeButtons>
+    <excludeButtons>Delete</excludeButtons>
     <excludeButtons>IncludeOffline</excludeButtons>
     <excludeButtons>IsotopeSubscription</excludeButtons>
     <excludeButtons>PartnerScorecard</excludeButtons>
@@ -145,6 +145,21 @@
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
+        <fields>ACCOUNT.NAME</fields>
+        <fields>ACCCONRELATION.ROLES</fields>
+        <fields>ACCCONRELATION.IS_ACTIVE</fields>
+        <relatedList>RelatedContactAccountRelationList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>CONTACT.FULL_NAME</fields>
+        <fields>CONTACT.ACCOUNT_NAME</fields>
+        <fields>CONTACT.TITLE</fields>
+        <fields>CONTACT.EMAIL</fields>
+        <fields>CONTACT.PHONE1</fields>
+        <fields>ACCCONRELATION.ROLES</fields>
+        <relatedList>RelatedAccountContactRelationList</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>Name</fields>
         <fields>ObservationStatus</fields>
         <fields>ObservedSubject</fields>
@@ -170,6 +185,7 @@
     </relatedLists>
     <relatedLists>
         <fields>CareProgram</fields>
+        <fields>Name</fields>
         <fields>Status</fields>
         <fields>LastModifiedDate</fields>
         <relatedList>CareProgramEnrollees</relatedList>

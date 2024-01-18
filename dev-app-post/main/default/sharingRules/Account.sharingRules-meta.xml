@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingCriteriaRules>
-        <fullName>EDRD_Admin</fullName>
+        <sharingCriteriaRules>
+        <fullName>EDRD_Physicians_Patient_Access</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
-            <caseAccessLevel>Edit</caseAccessLevel>
+            <caseAccessLevel>Read</caseAccessLevel>
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <label>EDRD Admin</label>
+        <description>Providing Patient record read access to the EDRD Physicians</description>
+        <label>EDRD Physicians Patient Access</label>
         <sharedTo>
-            <role>EDRD_Admin</role>
+            <group>EDRD_Physicians</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Manufacturer,Patient,Provider</value>
+            <value>Patient,Provider</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>EDRD_Staff</fullName>
-        <accessLevel>Read</accessLevel>
+        <accessLevel>Edit</accessLevel>
         <accountSettings>
             <caseAccessLevel>Read</caseAccessLevel>
-            <contactAccessLevel>Read</contactAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
         <label>EDRD Staff</label>
@@ -38,38 +39,4 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingOwnerRules>
-        <fullName>ESA_Account_ShareWithSAAdminAndInternalSubordinates</fullName>
-        <accessLevel>Edit</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Edit</contactAccessLevel>
-            <opportunityAccessLevel>Edit</opportunityAccessLevel>
-        </accountSettings>
-        <description>This sharing rule enables account sharing within the internal role SAT role hierarchy</description>
-        <label>ESA_Account_ShareWithSAAdminAndInternalSubordinates</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>SA_Admin</roleAndSubordinatesInternal>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinates>SA_Admin</roleAndSubordinates>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>ESA_Account_ShareWithSAAdminAndSubordinates</fullName>
-        <accessLevel>Edit</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Edit</contactAccessLevel>
-            <opportunityAccessLevel>Edit</opportunityAccessLevel>
-        </accountSettings>
-        <description>This sharing rule enables the account created by developer and below roles to be shared with SAT internal role hierarchy.</description>
-        <label>ESA_Account_ShareWithSAAdminAndSubordinates</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>SA_Admin</roleAndSubordinatesInternal>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinates>Developer</roleAndSubordinates>
-        </sharedFrom>
-    </sharingOwnerRules>
-</SharingRules>
+    </SharingRules>

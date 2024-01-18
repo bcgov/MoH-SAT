@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <description>DR for Post  Details  For New/Renewal Case Form with out Supplementary Doc</description>
+    <errorIgnored>false</errorIgnored>
+    <expectedInputJson>{
+  &quot;vlcTimeTracking&quot; : {
+    &quot;DrugandDosage&quot; : null,
+    &quot;DeclarationAndSignature&quot; : null,
+    &quot;ExtractLoginUserId&quot; : null,
+    &quot;PatientInformation&quot; : null,
+    &quot;DataRaptorPostAction1&quot; : null
+  },
+  &quot;vlcPersistentComponent&quot; : { },
+  &quot;userTimeZone&quot; : null,
+  &quot;userProfile&quot; : null,
+  &quot;userName&quot; : null,
+  &quot;userId&quot; : null,
+  &quot;timeStamp&quot; : null,
+  &quot;ContextId&quot; : null,
+  &quot;DrugandDosage&quot; : {
+    &quot;UploadSupportingDoc&quot; : [ {
+      &quot;data&quot; : null,
+      &quot;size&quot; : null,
+      &quot;filename&quot; : null
+    } ],
+    &quot;UploadEligibilityForm&quot; : [ {
+      &quot;data&quot; : null,
+      &quot;size&quot; : null,
+      &quot;filename&quot; : null
+    } ],
+    &quot;SelectADrug&quot; : null
+  },
+  &quot;DeclarationAndSignature&quot; : {
+    &quot;Date&quot; : null,
+    &quot;Reason&quot; : null,
+    &quot;Consent&quot; : null,
+    &quot;SignedInitial&quot; : null
+  },
+  &quot;PatientInformation&quot; : {
+    &quot;ProviderId&quot; : null,
+    &quot;IdPatient&quot; : null,
+    &quot;Phone&quot; : null,
+    &quot;CaseType&quot; : null,
+    &quot;ProviderName&quot; : null,
+    &quot;PatientIdentifier&quot; : null,
+    &quot;PatientBirthDate&quot; : null,
+    &quot;PatientName&quot; : null
+  }
+}</expectedInputJson>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem3</globalKey>
+        <inputFieldName>IdPatient</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ContactId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem4</globalKey>
+        <inputFieldName>ProviderId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Provider__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Received - Awaiting Verification</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem1</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Status</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem13</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedFieldName>Id</linkedFieldName>
+        <linkedObjectSequence>1.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Case__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem2</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem14</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem7</globalKey>
+        <inputFieldName>PatientInformation:PatientIdentifier</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Patient_Identifier__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem8</globalKey>
+        <inputFieldName>PatientInformation:CaseType</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Type</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Portal</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem5</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Origin</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem6</globalKey>
+        <inputFieldName>CaseRecTypeId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem11</globalKey>
+        <inputFieldName>DrugandDosage:SelectADrug</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>MedicationId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem12</globalKey>
+        <inputFieldName>PatAccId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>PatientId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Active</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem9</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Status</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem10</globalKey>
+        <inputFieldName>PrescriberId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>RequesterId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom5433</globalKey>
+        <inputFieldName>UploadAttachment:UploadEligibilityForm:data</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>ContentDocumentId</outputFieldName>
+        <outputObjectName>ContentDocumentLink</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom3562</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedFieldName>Id</linkedFieldName>
+        <linkedObjectSequence>1.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>LinkedEntityId</outputFieldName>
+        <outputObjectName>ContentDocumentLink</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>EDRD_Medication_Request</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom7269</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <lookupByFieldName>DeveloperName</lookupByFieldName>
+        <lookupObjectName>RecordType</lookupObjectName>
+        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom0jIAq0000001dwzMAAItem0</globalKey>
+        <inputFieldName>PatientInformation:CaseType</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Type</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDDRcreateRequestWithNoSupplementoryDocCustom718</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>EDRDDRcreateRequestWithNoSupplementoryDoc</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>ContentDocumentLink</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>SObject</outputType>
+    <previewJsonData>{
+  &quot;vlcTimeTracking&quot; : {
+    &quot;DrugandDosage&quot; : null,
+    &quot;DeclarationAndSignature&quot; : null,
+    &quot;ExtractLoginUserId&quot; : null,
+    &quot;PatientInformation&quot; : null,
+    &quot;DataRaptorPostAction1&quot; : null
+  },
+  &quot;vlcPersistentComponent&quot; : { },
+  &quot;userTimeZone&quot; : null,
+  &quot;userProfile&quot; : null,
+  &quot;userName&quot; : null,
+  &quot;userId&quot; : null,
+  &quot;timeStamp&quot; : null,
+  &quot;ContextId&quot; : null,
+  &quot;DrugandDosage&quot; : {
+    &quot;UploadSupportingDoc&quot; : [ {
+      &quot;data&quot; : null,
+      &quot;size&quot; : null,
+      &quot;filename&quot; : null
+    } ],
+    &quot;UploadEligibilityForm&quot; : [ {
+      &quot;data&quot; : null,
+      &quot;size&quot; : null,
+      &quot;filename&quot; : null
+    } ],
+    &quot;SelectADrug&quot; : null
+  },
+  &quot;DeclarationAndSignature&quot; : {
+    &quot;Date&quot; : null,
+    &quot;Reason&quot; : null,
+    &quot;Consent&quot; : null,
+    &quot;SignedInitial&quot; : null
+  },
+  &quot;PatientInformation&quot; : {
+    &quot;ProviderId&quot; : null,
+    &quot;IdPatient&quot; : null,
+    &quot;Phone&quot; : null,
+    &quot;CaseType&quot; : null,
+    &quot;ProviderName&quot; : null,
+    &quot;PatientIdentifier&quot; : null,
+    &quot;PatientBirthDate&quot; : null,
+    &quot;PatientName&quot; : null
+  }
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Load</type>
+    <uniqueName>EDRDDRcreateRequestWithNoSupplementoryDoc_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>
