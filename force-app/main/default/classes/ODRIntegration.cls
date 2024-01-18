@@ -439,7 +439,7 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
         jsonMap.put('phn', getPatientIdentifier(recordId));
         jsonMap.put('pageSize', count);
         jsonMap.put('pageNo',page);
-        jsonMap.put('sort','ASC');        
+        jsonMap.put('sort','DESC');        
        
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
                                                                          'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
