@@ -2,11 +2,11 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_Validate_MOH_Funding_approved</fullName>
     <active>true</active>
+    <description>This Validation Rule applies when someone tries to close the case as Funding Denied or Cancelled, even though the funding decision is Approved.</description>
     <errorConditionFormula>AND(
-EDRD_MOHFunding_Approved__c,
-ISBLANK(EDRD_MOHFunding_Expiry_Date__c),
-NOT(EDRD_MOHIndefinite_Funding__c)
+ISPICKVAL( EDRD_MOHFunding_Decision__c, &quot;Approved&quot;), 
+OR(ISPICKVAL( Status, &quot;Cancelled&quot;),
+ISPICKVAL( Status, &quot;Funding Denied&quot;))
 )</errorConditionFormula>
-    <errorDisplayField>EDRD_Funding_Expiry_Date__c</errorDisplayField>
-    <errorMessage>If Funding is approved, please provide the Funding Expiry Date in the MOH section.</errorMessage>
+    <errorMessage>If Funding decision is Approved, then case cannot be closed as Funding Denied or Cancelled.</errorMessage>
 </ValidationRule>
