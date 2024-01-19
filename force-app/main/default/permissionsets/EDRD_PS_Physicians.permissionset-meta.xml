@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-        <fieldPermissions>
+    <classAccesses>
+        <apexClass>EDRD_myPatientsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_myPatientsControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.Description</field>
         <readable>true</readable>
