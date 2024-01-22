@@ -6,6 +6,7 @@
                1 Dec23 -   EDRD-170         -   Rahul      -  Manage case assignment
                4 Dec23 -   EDRD-332         -  Accenture   -  Change case status according to RPH, SC, AC Review Field
               16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
+              19 Jan-    EDRD-338			- Accenture		-Update Funding Expiry Date
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -125,5 +126,56 @@ public with sharing class ESA_cls_caseTriggerHandler {
         if(!MRListToUpdate.isEmpty()){
             Update MRListToUpdate;
         }
+    }
+    /**
+* @author: Rahul
+* @date: 19 Jan 2024
+* @description: The purpose to Update Funding Expiry and Extension dates
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/  
+    public static void calculateFundingExpiry(List<Case> cases, Map<Id, Case> oldCaseMap){
+        for(Case newCase : cases){
+            if(newCase.EDRD_MOHFunding_Decision__c != null && newCase.EDRD_MOHFunding_Decision__c != 'Denied'){
+                Boolean updateExpiryDate = (newCase.EDRD_MOHFunding_Start_Date__c != null || newCase.EDRD_MOHFunding_Extension_Date__c!= null) && 
+                    newCase.EDRD_MOHApproved_Funding_Duration__c != null &&
+                    newCase.EDRD_MOHApproved_Funding_Duration_Unit__c!= null &&
+                    (newCase.EDRD_MOHFunding_Decision__c == 'Approved' || newCase.EDRD_MOHFunding_Decision__c == 'Extended');
+                Boolean isStartDateChanged;
+                Boolean isEndDateChanged;
+                if(trigger.isUpdate && updateExpiryDate){
+                    isEndDateChanged = (newCase.EDRD_MOHFunding_Expiry_Date__c != oldCaseMap.get(newCase.id).EDRD_MOHFunding_Expiry_Date__c) ||
+                        (newCase.EDRD_MOHFunding_Extension_Date__c != oldCaseMap.get(newCase.id).EDRD_MOHFunding_Extension_Date__c);
+                    isStartDateChanged = (newCase.EDRD_MOHFunding_Start_Date__c != oldCaseMap.get(newCase.id).EDRD_MOHFunding_Start_Date__c);
+                }
+                if(trigger.isInsert && updateExpiryDate){
+                    isEndDateChanged = newCase.EDRD_MOHFunding_Expiry_Date__c != null || newCase.EDRD_MOHFunding_Extension_Date__c != null;
+                    isStartDateChanged = newCase.EDRD_MOHFunding_Start_Date__c != null;
+                }
+                if(isStartDateChanged && !isEndDateChanged && newCase.EDRD_MOHIndefinite_Funding__c != null && !newCase.EDRD_MOHIndefinite_Funding__c){
+                    if(newCase.EDRD_MOHFunding_Decision__c == 'Approved'){
+                        newCase.EDRD_MOHFunding_Expiry_Date__c = populateExpiryDate(newCase.EDRD_MOHFunding_Start_Date__c,newCase.EDRD_MOHApproved_Funding_Duration__c,newCase.EDRD_MOHApproved_Funding_Duration_Unit__c);
+                    }else if(newCase.EDRD_MOHFunding_Decision__c == 'Extended'){
+                        newCase.EDRD_MOHFunding_Extension_Date__c = populateExpiryDate(newCase.EDRD_MOHFunding_Start_Date__c,Integer.valueOf(newCase.EDRD_MOHApproved_Funding_Duration__c),newCase.EDRD_MOHApproved_Funding_Duration_Unit__c);
+                    }
+                }
+                if(newCase.EDRD_MOHIndefinite_Funding__c){
+                    newCase.EDRD_MOHFunding_Expiry_Date__c = null;
+                    newCase.EDRD_MOHFunding_Extension_Date__c = null;
+                }
+            }}
+    }
+    public static Date populateExpiryDate(Date startDate, Decimal duration, String unit){
+        Date expDate;
+        Integer durationRound = Integer.valueOf(duration.round(System.RoundingMode.CEILING));
+        if(unit == 'Days'){
+            expDate = startDate.addDays(durationRound);
+        }else if(unit == 'Weeks'){
+            expDate = startDate.addDays(durationRound*7);
+        }else if(unit == 'Months'){
+            expDate = startDate.addMonths(durationRound);
+        }else if(unit == 'Years'){
+            expDate = startDate.addYears(durationRound);
+        }
+        return expDate;
     }
 }
