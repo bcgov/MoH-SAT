@@ -7,7 +7,6 @@
 				01 Dec -  EDRD-170          -  Accenture   -  Assignment rule for Cases
                 04 Dec -  EDRD-332          -  Accenture   -  Change Case Status on EDRD
                 15 Dec -  EDRD-282          -  Accenture   -  Sync MR Fields values to Case Fields values
-                19 Jan -  EDRD-338          -  Accenture   -  Update Funding Expiry and Extension Date
 ***********************************************************************************************/
 trigger CaseTrigger on Case (before insert, before update, after insert, after update) {    
     
@@ -32,7 +31,6 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
              ESA_cls_caseTriggerHandler.populateTerminationDate(trigger.new, trigger.oldMap, trigger.newMap);
              ESA_cls_caseTriggerHandler.assignStatus(trigger.oldMap, trigger.newMap);            
         }
-        ESA_cls_caseTriggerHandler.calculateFundingExpiry(trigger.new, trigger.oldMap);
     }
     if(trigger.isAfter && trigger.isUpdate){
         if(ESA_cls_caseTriggerHandler.firstrun){
