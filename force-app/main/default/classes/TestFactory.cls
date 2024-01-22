@@ -423,16 +423,6 @@ public with sharing class TestFactory {
         EDRDCase.RecordTypeId = recordTypeId;
         return EDRDCase;
     }
-    public static List<Case> createEDRDCase(Integer noOfRecords, ID recordTypeId, ID accountId) {
-        List<Case> caseList = new List<Case>();
-        for(Integer i=0; i< noOfRecords; i++){
-            Case EDRDCase = new Case();
-            EDRDCase.AccountId = accountId;
-            EDRDCase.RecordTypeId = recordTypeId;
-            caseList.add(EDRDCase);
-        }
-        return caseList;
-    }
     
      public static CareProgram createCareProgram(String Name){
         CareProgram CareProgramObj = new CareProgram();
