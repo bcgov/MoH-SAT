@@ -14,20 +14,27 @@ public with sharing class EDRD_myPatientsController {
     @AuraEnabled(cacheable=true)
     public static List<Contact> getPatientList() {
         List<Contact> contactList = new List<Contact>();
-        List<user> users = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
-        if(users[0].AccountId != null &&
+        List<user> users = new List<User>();
+        if(User.SObjectType.getDescribe().isAccessible() &&
+           Schema.SObjectType.User.fields.AccountId.isAccessible()){
+               users = [SELECT Id, AccountId FROM User WHERE Id = :UserInfo.getUserId() LIMIT 1];
+           }
+        if(users!= null && users[0].AccountId != null &&
            Contact.SObjectType.getDescribe().isAccessible() &&
            Schema.SObjectType.Contact.fields.Name.isAccessible() &&
            Schema.SObjectType.Contact.fields.Birthdate.isAccessible() &&
-           Schema.SObjectType.Contact.fields.Patient_Identifier__c.isAccessible()){
-               contactList = [SELECT Id,Name, Birthdate, Patient_Identifier__c 
-                              FROM Contact
-                              WHERE Id IN
-                              (SELECT ContactId 
-                               FROM AccountContactRelation 
-                               WHERE AccountId = :users[0].AccountId and IsActive = true)
-                              LIMIT 50000];
-           }
+           Schema.SObjectType.Contact.fields.Patient_Identifier__c.isAccessible() &&
+           AccountContactRelation.SObjectType.getDescribe().isAccessible() &&
+           Schema.SObjectType.AccountContactRelation.fields.ContactId.isAccessible()
+          ){
+              contactList = [SELECT Id,Name, Birthdate, Patient_Identifier__c 
+                             FROM Contact
+                             WHERE Id IN
+                             (SELECT ContactId 
+                              FROM AccountContactRelation 
+                              WHERE AccountId = :users[0].AccountId and IsActive = true)
+                             LIMIT 50000];
+          }
         return contactList;
     }
 }
