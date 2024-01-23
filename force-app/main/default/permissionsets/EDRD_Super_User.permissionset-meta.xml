@@ -185,22 +185,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_AC_Review_Fits_Criteria__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.EDRD_AC_Review_Funding_Duration_Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_AC_Review_Funding_Duration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_AC_Review_Not_Meet_Criteria__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -225,6 +215,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.EDRD_Case_Fits_Criteria__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.EDRD_Case_Reason_Does_Not_Meet_Criteria__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.EDRD_Case_closure_reasons__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -238,7 +238,12 @@
         <field>Case.EDRD_Eligibility_Form_Signed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.EDRD_Funding_Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_Insurance_Provider__c</field>
         <readable>true</readable>
@@ -290,12 +295,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Approved__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-        <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Denied__c</field>
+        <field>Case.EDRD_MOHFunding_Decision__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -305,15 +305,15 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Extended__c</field>
+        <field>Case.EDRD_MOHFunding_Extension_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Extension_Date__c</field>
+        <field>Case.EDRD_MOHFunding_Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_MOHIndefinite_Funding__c</field>
         <readable>true</readable>
@@ -378,24 +378,14 @@
         <field>Case.EDRD_SC_Recommendation_Review__c</field>
         <readable>true</readable>
     </fieldPermissions>
-<fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_SC_Review_Fits_Criteria__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_SC_Review_Funding_Duration_Unit__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_SC_Review_Funding_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
-<fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_SC_Review_Not_Meet_Criteria__c</field>
+        <field>Case.EDRD_SC_Review_Funding_Duration_Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -411,6 +401,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_of_Coverage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Indication__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Medication_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -431,16 +431,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Priority</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Indication__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.Medication_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
