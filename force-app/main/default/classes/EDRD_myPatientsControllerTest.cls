@@ -20,8 +20,8 @@ public class EDRD_myPatientsControllerTest {
             Account provider = TestFactory.newProvider('Provider Test');
             insert provider;
             Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
-            Id ContactId = [SELECT Id FROM Contact WHERE AccountID =: provider.Id].get(0).Id;
-            communityUser = TestFactory.createCommunityUser(ContactId, profileObj.Id, 'Test1', 'Test');
+            Id contactId = [SELECT Id FROM Contact WHERE AccountID =: provider.Id].get(0).Id;
+            communityUser = TestFactory.createCommunityUser(contactId, profileObj.Id, 'Test1', 'Test');
             insert communityUser;
             Account patientAccount = TestFactory.newPatient('Patient Test');
             insert patientAccount;
