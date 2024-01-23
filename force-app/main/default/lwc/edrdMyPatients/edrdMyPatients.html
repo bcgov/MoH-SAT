@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="My Patients" icon-name="standard:contact">
+        <div class="slds-p-horizontal_small">
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="6" padding="around-small"></lightning-layout-item>
+                <lightning-layout-item size="6" padding="around-small">
+                    <lightning-input type="search" label="Search Patients" onchange={handleSearch}></lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+            <template if:true={data}>
+                <lightning-datatable
+                     data={data}
+                     columns={columns}
+                     key-field="Id"
+                     onrowaction={handleRowAction}
+                     hide-checkbox-column="true"
+                     show-row-number-column="true">
+                </lightning-datatable>
+            </template>
+            <template if:true={error}>{errror}</template>
+        </div>
+    </lightning-card>
+</template>
