@@ -108,11 +108,6 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
             Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
-            Boolean isCaseStatusChangedTo = isStatusChanged && ((
-                                               caseStatusValueSet.Contains(caseObj.Status) &&
-                                               !caseStatusValueSet.Contains(oldCaseMap.get(caseObj.id).Status)) ||
-                                               (!caseStatusValueSet.Contains(caseObj.Status) &&
-                                               caseStatusValueSet.Contains(oldCaseMap.get(caseObj.id).Status)));
             if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged)){
                 caseIdSet.add(caseObj.Id);
             }
