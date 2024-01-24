@@ -31,6 +31,7 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
              ESA_cls_caseTriggerHandler.populateTerminationDate(trigger.new, trigger.oldMap, trigger.newMap);
              ESA_cls_caseTriggerHandler.assignStatus(trigger.oldMap, trigger.newMap);            
         }
+        ESA_cls_caseTriggerHandler.calculateFundingExpiryDate(trigger.new, trigger.oldMap);
     }
     if(trigger.isAfter && trigger.isUpdate){
         if(ESA_cls_caseTriggerHandler.firstrun){

@@ -126,4 +126,56 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Update MRListToUpdate;
         }
     }
+     /**
+* @author: Rahul
+* @date: 19 Jan 2024
+* @description: The purpose to Update Funding Expiry and Extension dates
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/  
+    public static void calculateFundingExpiryDate(List<Case> cases, Map<Id, Case> oldCaseMap){
+        for(Case caseObj : cases){
+            if(caseObj.EDRD_MOHFunding_Decision__c != null && caseObj.EDRD_MOHFunding_Decision__c != 'Denied'){
+                Boolean updateExpiryDate = (caseObj.EDRD_MOHFunding_Start_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c!= null) && 
+                    caseObj.EDRD_MOHApproved_Funding_Duration__c != null &&
+                    caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c!= null &&
+                    (caseObj.EDRD_MOHFunding_Decision__c == 'Approved' || caseObj.EDRD_MOHFunding_Decision__c == 'Extended');
+                Boolean isStartDateChanged;
+                Boolean isEndDateChanged;
+                if(trigger.isUpdate && updateExpiryDate){
+                    isEndDateChanged = (caseObj.EDRD_MOHFunding_Expiry_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Expiry_Date__c) ||
+                        (caseObj.EDRD_MOHFunding_Extension_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Extension_Date__c);
+                    isStartDateChanged = (caseObj.EDRD_MOHFunding_Start_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Start_Date__c);
+                }
+                if(trigger.isInsert && updateExpiryDate){
+                    isEndDateChanged = caseObj.EDRD_MOHFunding_Expiry_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c != null;
+                    isStartDateChanged = caseObj.EDRD_MOHFunding_Start_Date__c != null;
+                }
+                if(isStartDateChanged && !isEndDateChanged && caseObj.EDRD_MOHIndefinite_Funding__c != null && !caseObj.EDRD_MOHIndefinite_Funding__c){
+                    if(caseObj.EDRD_MOHFunding_Decision__c == 'Approved'){
+                        caseObj.EDRD_MOHFunding_Expiry_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,caseObj.EDRD_MOHApproved_Funding_Duration__c,caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
+                    }else if(caseObj.EDRD_MOHFunding_Decision__c == 'Extended'){
+                        caseObj.EDRD_MOHFunding_Extension_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,Integer.valueOf(caseObj.EDRD_MOHApproved_Funding_Duration__c),caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
+                    }
+                }
+                if(caseObj.EDRD_MOHIndefinite_Funding__c){
+                    caseObj.EDRD_MOHFunding_Expiry_Date__c = null;
+                    caseObj.EDRD_MOHFunding_Extension_Date__c = null;
+                }
+            }}
+    }
+    public static Date populateExpiryDate(Date startDate, Decimal duration, String unit){
+        Date expDate;
+        Integer durationRound = Integer.valueOf(duration.round(System.RoundingMode.CEILING));
+        system.debug('duration '+durationRound);
+        if(unit == 'Days'){
+            expDate = startDate.addDays(durationRound);
+        }else if(unit == 'Weeks'){
+            expDate = startDate.addDays(durationRound*7);
+        }else if(unit == 'Months'){
+            expDate = startDate.addMonths(durationRound);
+        }else if(unit == 'Years'){
+            expDate = startDate.addYears(durationRound);
+        }
+        return expDate;
+    }
 }

@@ -140,4 +140,35 @@ public class ESA_cls_caseTriggerHandlerTest {
             Assert.areNotEqual(MRRec.priority, NULL, 'priority did not Match');
         }
     }
+     /**
+* @author: Rahul
+* @date: 19 Jan 2024
+* @description: The purpose of this method is to cover Testcoverage of calculateFundingExpiry
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void populateFundingExpiryDateTest(){
+        Account account1 = TestFactory.newProvider('Provider Test');
+        insert account1;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> cases = TestFactory.createEDRDCase(3, recordTypeCaseEDRD, account1.Id);
+        insert cases;
+        cases[0].EDRD_MOHFunding_Start_Date__c = system.Today();
+        cases[0].EDRD_MOHFunding_Decision__c = 'Approved';
+        cases[0].EDRD_MOHApproved_Funding_Duration__c = 7.0;
+        cases[0].EDRD_MOHApproved_Funding_Duration_Unit__c = 'Days';
+        cases[0].EDRD_MOHIndefinite_Funding__c = false;
+        cases[1].EDRD_MOHFunding_Start_Date__c = system.Today();
+        cases[1].EDRD_MOHFunding_Decision__c = 'Extended';
+        cases[1].EDRD_MOHApproved_Funding_Duration__c = 7.0;
+        cases[1].EDRD_MOHApproved_Funding_Duration_Unit__c = 'Days';
+        cases[1].EDRD_MOHIndefinite_Funding__c = false;
+        test.startTest();
+        update cases;
+        test.stopTest();
+        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: cases.get(0).Id].get(0).EDRD_MOHFunding_Expiry_Date__c, system.Today()+7, 'Funding expiry date updated');
+        Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: cases.get(0).Id].get(0).EDRD_MOHFunding_Expiry_Date__c, NULL, 'Funding expiry conains value');
+        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, system.Today()+7, 'Funding expiry Extension date updated');
+        Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, NULL, 'Funding expiry extension conains value');
+    }
 }
