@@ -94,7 +94,6 @@ public with sharing class ESA_cls_caseTriggerHandler {
         }
         return status;
     }
-    
 /**
 * @author: Deepak
 * @date: 15 Dec 2023
