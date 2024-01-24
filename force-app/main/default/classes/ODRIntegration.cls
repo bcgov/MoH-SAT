@@ -391,7 +391,8 @@ public with sharing class ODRIntegration {
  * @author: accenture_sat_team
  * @description: To fectch the prescription in all the records with given search key(ESA-2109)
  * @param: recordId, page, totalCount, dinList, searchKey, displayCount 
- * @return:  Perscription History Records with search key. 
+ * @return:  Perscription History Records with search key.
+ * Modified : CGI 
 **/
 @AuraEnabled(cacheable = true)
 public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(Id recordId, String page, String totalCount, List<Integer> dinList, String searchKey, String displayCount) {
@@ -421,43 +422,108 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
     return resObj;
 }
     
-
+    // Fetch Prescription History
     @AuraEnabled
     public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count, List<Integer> dinList) {
-        System.debug('Fetch Data');
-        System.debug(page);
-        System.debug(count);
-
+        
         PrescriptionHistoryResponse sar = null;
 
-        String queryParams = '';
-
-        Map<String, String> jsonMap = new Map<String, String>();
+        // Build Request Body
+        Map<String, Object> jsonMap = new Map<String, Object>();
         jsonMap.put('clientName', 'SpecAuth');
         jsonMap.put('requestUUID', getUUIDString());
         jsonMap.put('userid', getUserIdentifier());
         jsonMap.put('phn', getPatientIdentifier(recordId));
         jsonMap.put('pageSize', count);
-        jsonMap.put('pageNo',page);
-        jsonMap.put('sort','DESC');        
-       
-        CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
-                                                                         queryParams,
-                                                                         'POST',
-                                                                         JSON.serialize(jsonMap),
-                                                                         'Prescription History');
-        if(calloutResponseObject.errorCode != 200){
-            sar = new PrescriptionHistoryResponse();
-            sar.error = calloutResponseObject;
-            return sar; 
-        }else{
-            String resBody = calloutResponseObject.response;
-            sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
+        jsonMap.put('pageNo', page);
+        jsonMap.put('sort', 'DESC');
+
+        List<Integer> newdinLst = new List<Integer>();
+        List<List<Integer>> listOfLst = new List<List<Integer>>();
+        List<CalloutResponse> callOutResponseLst = new List<CalloutResponse>();
+
+        // Check if dinList is empty or less than 800, make a single callout
+        if (dinList.size() == 0 || dinList.size() < 800) {
+            jsonMap.put('dinList', dinList);
+            jsonMap.put('startDate', '1900-01-01');
+
+            CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                            'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                            null,
+                                                                            'POST',
+                                                                            JSON.serialize(jsonMap),
+                                                                            'Prescription History');
+            callOutResponseLst.add(calloutResponseObject);
+        }
+        else {
+            // Split dinList into chunks of 800 for multiple callouts
+            for (Integer i = 0; i < dinList.size(); i++) {
+                // If the newdinLst is empty, add the current element
+                if (newdinLst.size() == 0) {
+                    newdinLst.add(dinList[i]);
+                }
+                // If the newdinLst size is 800, add it to the listOfLst and start a new list
+                else if (newdinLst.size() == 800) {
+                    listOfLst.add(newdinLst);
+                    newdinLst = new List<Integer>{dinList[i]};
+                }
+                // If the newdinLst size is less than 800, simply add the current element
+                else {
+                    newdinLst.add(dinList[i]);
+                }
+                // Add the last chunk to the list
+                if (i == dinList.size() - 1) {
+                    listOfLst.add(newdinLst);
+                }
+            }
+
+             // Callout made for each list seperately to avoid governor limits
+            for (List<Integer> batch : listOfLst) {
+                jsonMap.put('dinList', batch);
+                jsonMap.put('startDate', '1900-01-01');
+
+                CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
+                                                                                'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                                null,
+                                                                                'POST',
+                                                                                JSON.serialize(jsonMap),
+                                                                                'Prescription History');
+                callOutResponseLst.add(calloutResponseObject);
+                System.debug('the din pin size is ' + batch.size());
+            }
         }
 
+
         PrescriptionHistoryResponse prescResponsRes = new PrescriptionHistoryResponse();
-        prescResponsRes = sar;
+
+        // Combine responses from multiple callouts
+        for (CalloutResponse calloutResponseObject : callOutResponseLst) {
+            if (calloutResponseObject.errorCode != 200) {
+                // ERROR
+                sar = new PrescriptionHistoryResponse();
+                sar.error = calloutResponseObject;
+                return sar;
+            } else {
+                String resBody = calloutResponseObject.response;
+                sar = (PrescriptionHistoryResponse) JSON.deserialize(resBody, PrescriptionHistoryResponse.class);
+                
+                // Combine data from individual responses
+                if (prescResponsRes != null && prescResponsRes.medHistory != null && sar != null && sar.medHistory != null) {
+                    if (prescResponsRes.medHistory.medRecords != null && sar.medHistory.medRecords != null) {
+                        prescResponsRes.medHistory.medRecords.addAll(sar.medHistory.medRecords);
+                    }
+                    if (prescResponsRes.medHistory.totalPages != null && sar.medHistory.totalPages != null) {
+                        prescResponsRes.medHistory.totalPages = prescResponsRes.medHistory.totalPages + sar.medHistory.totalPages;
+                    }
+                    if (prescResponsRes.medHistory.totalRecords != null && sar.medHistory.totalRecords != null) {
+                        prescResponsRes.medHistory.totalRecords = prescResponsRes.medHistory.totalRecords + sar.medHistory.totalRecords;
+                    }
+                } else {
+                    prescResponsRes = sar;
+                }
+            }
+        }
+        
         return prescResponsRes;
     }
 
