@@ -1015,7 +1015,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 6,
-  &quot;label&quot; : &quot;Serch a Drug&quot;,
+  &quot;label&quot; : &quot;Search a Drug&quot;,
   &quot;bundle&quot; : &quot;EDRDDRExtractDosagesInfoNewType&quot;,
   &quot;ignoreCache&quot; : true,
   &quot;dataRaptor Input Parameters&quot; : [ {
@@ -1664,7 +1664,7 @@
   } ],
   &quot;ignoreCache&quot; : true,
   &quot;bundle&quot; : &quot;EDRDDRExtractDosagesInfoRenewalType&quot;,
-  &quot;label&quot; : &quot;Serch a Drug&quot;,
+  &quot;label&quot; : &quot;Search a Drug&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
             <sequenceNumber>2.0</sequenceNumber>
@@ -1946,7 +1946,7 @@
             <name>CaseType</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;Request Type&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1984,6 +1984,36 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>LineBreak1</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak1&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak2</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak2&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
             <name>PatientBirthDate</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -2010,9 +2040,9 @@
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Patient Birthdate&quot;,
-  &quot;controlWidth&quot; : 7
+  &quot;controlWidth&quot; : 3
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Date</type>
         </childElements>
         <childElements>
@@ -2022,7 +2052,7 @@
             <name>PatientIdentifier</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 2,
   &quot;label&quot; : &quot;Enter PHN&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -2086,10 +2116,56 @@
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Patient Name&quot;,
-  &quot;controlWidth&quot; : 7
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Text</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>PhnNotFoundErrorMessage</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;PhnNotFoundErrorMessage&quot;,
+  &quot;validateExpression&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;0&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;PhnCount&quot;
+      } ]
+    }
+  },
+  &quot;messages&quot; : [ {
+    &quot;value&quot; : true,
+    &quot;type&quot; : &quot;Success&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;active&quot; : false
+  }, {
+    &quot;value&quot; : false,
+    &quot;type&quot; : &quot;Requirement&quot;,
+    &quot;text&quot; : &quot;[5:28 PM] Gupta, Komal D. Phn Not Found&quot;,
+    &quot;active&quot; : true
+  } ],
+  &quot;hideLabel&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;0&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;PhnCount&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Validation</type>
         </childElements>
         <childElements>
             <isActive>false</isActive>
@@ -2212,9 +2288,9 @@
   &quot;ignoreCache&quot; : true,
   &quot;bundle&quot; : &quot;EDRDDRExtractPatientDetails&quot;,
   &quot;label&quot; : &quot;Search Patient&quot;,
-  &quot;controlWidth&quot; : 8
+  &quot;controlWidth&quot; : 2
 }</propertySetConfig>
-            <sequenceNumber>5.0</sequenceNumber>
+            <sequenceNumber>6.0</sequenceNumber>
             <type>DataRaptor Extract Action</type>
         </childElements>
         <childElements>
@@ -2297,9 +2373,9 @@
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
-  &quot;nextWidth&quot; : &quot;8&quot;,
+  &quot;nextWidth&quot; : &quot;6&quot;,
   &quot;nextLabel&quot; : &quot;Proceed to Drug And Dosages&quot;,
-  &quot;previousWidth&quot; : &quot;5&quot;,
+  &quot;previousWidth&quot; : &quot;4&quot;,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;validationRequired&quot; : true,
   &quot;label&quot; : &quot;PATIENT INFORMATION&quot;
@@ -2879,5 +2955,5 @@
     <type>EDRD</type>
     <uniqueName>EDRD_CaseNewRenewForm_English_11</uniqueName>
     <versionNumber>11.0</versionNumber>
-    <webComponentKey>60d8e1a9-c599-4ba5-c75b-9f37dcf74d5b</webComponentKey>
+    <webComponentKey>b8815091-a2b1-877e-a1da-f5cd684ece17</webComponentKey>
 </OmniScript>
