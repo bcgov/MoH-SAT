@@ -6,6 +6,8 @@
                1 Dec23 -   EDRD-170         -   Rahul      -  Manage case assignment
                4 Dec23 -   EDRD-332         -  Accenture   -  Change case status according to RPH, SC, AC Review Field
               16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
+                09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
+                15 Jan -   EDRD-525         -  Accenture   -  Update AC Recommendation Review
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -106,11 +108,6 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
             Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
-            Boolean isCaseStatusChangedTo = isStatusChanged && ((
-                                               caseStatusValueSet.Contains(caseObj.Status) &&
-                                               !caseStatusValueSet.Contains(oldCaseMap.get(caseObj.id).Status)) ||
-                                               (!caseStatusValueSet.Contains(caseObj.Status) &&
-                                               caseStatusValueSet.Contains(oldCaseMap.get(caseObj.id).Status)));
             if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged)){
                 caseIdSet.add(caseObj.Id);
             }
@@ -126,4 +123,50 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Update MRListToUpdate;
         }
     }
+    
+/**
+* @author: Deepak
+* @date: 09 Jan 2024
+* @description: The purpose of this method is to calculate DrugForecast on Case.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    public static void calDrugForecast(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+        Map<Id, case> caseIdVsRec = new Map<Id, case>();
+        for(Case caseObj: newCaseMap.values()){
+            Boolean isInputFieldsChanged = (newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage_Unit__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency_Unit__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c);
+            caseIdVsRec.put(CaseObj.id, caseObj);
+        }
+        Map<Id, Decimal> caseIdVsForcastAmnt = EDRD_cls_medicationRequestHandler.calDrugForecastOnCase(caseIdVsRec.KeySet(), caseIdVsRec);
+        if(!caseIdVsForcastAmnt.isEmpty()){
+            for(Case caseObj: newCaseMap.values()){
+                caseObj.EDRD_MOHDrug_Cost_Forecast__c = caseIdVsForcastAmnt.ContainsKey(caseObj.Id) ? caseIdVsForcastAmnt.get(caseObj.Id) : NULL;
+            }  
+        }
+    } 
+    
+/**
+* @author: Deepak
+* @date: 15 Jan 2024
+* @description: The purpose of this method is to Update AC Recommendation Review.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/  
+    public static void assignACRecReview(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+        Set<String> caseSCReviewValueSet = new Set<String>{'Sent to MOH'};
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        for(Case caseObj: newCaseMap.values()){
+            Boolean isSCReviewChanged = oldCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c;
+            
+            if(recordTypeCaseEDRD == caseObj.RecordTypeId && isSCReviewChanged && caseSCReviewValueSet.Contains(caseObj.EDRD_SC_Review_Pathway__c)){
+                caseObj.EDRD_AC_Recommendation_Review__c = 'Not Applicable';
+            }else if(recordTypeCaseEDRD == caseObj.RecordTypeId && isSCReviewChanged && !String.isEmpty(caseObj.EDRD_SC_Review_Pathway__c)){
+                caseObj.EDRD_AC_Recommendation_Review__c = NULL;
+            }
+        }
+    }
+
 }

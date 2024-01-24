@@ -6,6 +6,8 @@
                 1 Dec23 -   EDRD-170        -   Rahul      -  Manage case assignment
                 4 Dec23 -   EDRD-332        -  Accenture   -  Change case status according to RPH, SC, AC Review Field
                16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
+                09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
+                15 Jan -   EDRD-525         -  Accenture   -  Update AC Recommendation Review
 ***********************************************************************************************/
 
 @isTest
@@ -53,7 +55,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @description: The purpose of this method is to cover Testcoverage of manageAssignmentRule
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
-    @isTest public static void manageAssignmentRuleTest(){
+    @isTest (seeAllData=true) public static void manageAssignmentRuleTest(){
         Id caseRecType = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         Case testCase = new Case(
             Subject = 'Test Case',
@@ -110,28 +112,29 @@ public class ESA_cls_caseTriggerHandlerTest {
 */    
     @isTest
     public static void syncCaseToMR_positive(){
-        Account requestorAccount = TestFactory.newProvider('Provider Test');
-        insert requestorAccount;
-        Account patientAccount = TestFactory.newPatient('Patient Test');
-        insert patientAccount;
+        Account requestorAcc = TestFactory.newProvider('Provider Test');
+        insert requestorAcc;
+        Account patientAcc = TestFactory.newPatient('Patient Test');
+        insert patientAcc;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        Case MRCase = TestFactory.createEDRDCase(recordTypeCaseEDRD, RequestorAccount.Id);
-        insert MRCase;
-        Medication MedicationRec = TestFactory.createMedication();
-        insert MedicationRec;
-        MedicationRequest MedicationRequestRec = TestFactory.createMedicationRequest(MedicationRec.Id, MRCase.Id, requestorAccount.Id, patientAccount.Id); 
-        insert MedicationRequestRec;
+        List<Case> caseMRList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, RequestorAcc.Id);
+        insert caseMRList;
+        List<Medication> MediRecList = TestFactory.createMedication(1, 'Test Medication');
+        insert MediRecList;
+        List<MedicationRequest> MedicationRequestList = TestFactory.createMedicationRequest(1, MediRecList.get(0).Id, caseMRList.get(0).Id, requestorAcc.Id, patientAcc.Id); 
+        insert MedicationRequestList;
         try{
             Test.startTest();
-            MRCase.Status = 'Funding Approved';
-            MRCase.Type = 'Renewal';
-            MRCase.Priority = 'Routine';
-            Update MRcase;
+            caseMRList.get(0).Status = 'Funding Approved';
+            caseMRList.get(0).Type = 'Renewal';
+            caseMRList.get(0).Priority = 'Routine';
+            ESA_cls_caseTriggerHandler.firstrun = true;
+            Update caseMRList;
             Test.stopTest();
         } 
         catch(exception e){
             MedicationRequest MRRec =[SELECT Id, Status, Type, Priority, Case__c, Case__r.Status, Case__r.priority, Case__r.Type
-                                      FROM MedicationRequest WHERE Id =: MedicationRequestRec.id];
+                                      FROM MedicationRequest WHERE Id =: MedicationRequestList.get(0).id];
             Assert.areEqual(MRRec.Status, MRRec.Case__r.Status, 'Status did not Match');
             Assert.areEqual(MRRec.Type, MRRec.Case__r.Type, 'Type did not Match');
             Assert.areEqual(MRRec.priority, MRRec.Case__r.priority, 'priority did not Match');
@@ -139,5 +142,74 @@ public class ESA_cls_caseTriggerHandlerTest {
             Assert.areNotEqual(MRRec.Type, NULL, 'Type did not Match');
             Assert.areNotEqual(MRRec.priority, NULL, 'priority did not Match');
         }
+    }
+    
+/**
+* @author: Deepak
+* @date: 14 Jan 2024
+* @description: The purpose of this method is to cover Testcoverage of calDrugForecast
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void calDrugForecast_positive(){
+        Account reqstAccount1 = TestFactory.newProvider('Provider Test');
+        insert reqstAccount1;
+        Account patntAccount1 = TestFactory.newPatient('Patient Test');
+        insert patntAccount1;
+        UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
+        insert UOMRec;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> caseMReqList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, reqstAccount1.Id);
+        caseMReqList.get(0).EDRD_MOHApproved_Dosage__c = 300;
+        caseMReqList.get(0).EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
+        caseMReqList.get(0).EDRD_MOHApproved_Frequency__c = 1;
+        caseMReqList.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
+        caseMReqList.get(0).EDRD_MOHApproved_Funding_Duration__c = 1;
+        caseMReqList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Weeks';
+        insert caseMReqList;
+        List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
+        insert MedicationRecList;
+        List<MedicinalIngredient> MIRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        insert MIRecList;
+        List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, caseMReqList.get(0).Id, reqstAccount1.Id, patntAccount1.Id); 
+        MRList.get(0).Dosage__c = 300;
+        MRList.get(0).Dosage_Units__c = UOMRec.Id;
+        MRList.get(0).Requested_Frequency__c = 1;
+        MRList.get(0).Requested_Frequency_Unit__c = 'Weekly';
+        MRList.get(0).Requested_Funding_Duration__c = 1;
+        MRList.get(0).Requested_Funding_Duration_Unit__c = 'Weeks';
+        MRList.get(0).Medication_Information__c = MIRecList.get(0).Id;
+        insert MRList;
+        Test.startTest();
+        caseMReqList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Years';
+        Update caseMReqList;
+        Test.stopTest();
+        Assert.areEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: caseMReqList.get(0).Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, 5200, 'Calculation Failed');
+        Assert.areNotEqual([SELECT Id, EDRD_MOHDrug_Cost_Forecast__c FROM Case WHERE Id =: caseMReqList.get(0).Id].get(0).EDRD_MOHDrug_Cost_Forecast__c, NULL, 'Calculation Populated Blank value');
+    }
+    
+/**
+* @author: Deepak
+* @date: 15 Jan 2024
+* @description: The purpose of this method is to cover Testcoverage of assignACRecReview
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void assignACRecReview_positive(){
+        Account reqstAcc = TestFactory.newProvider('Provider Test');
+        insert reqstAcc;
+        Account patntAcc = TestFactory.newPatient('Patient Test');
+        insert patntAcc;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> caseRecList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, reqstAcc.Id);
+        insert caseRecList;
+        Test.startTest();
+        caseRecList.get(0).EDRD_SC_Review_Pathway__c = 'Sent to AC';
+        Update caseRecList;
+        caseRecList.get(0).EDRD_SC_Review_Pathway__c = 'Sent to MOH';
+        Update caseRecList;
+        Test.stopTest();
+        Assert.areEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRecList.get(0).Id].get(0).EDRD_AC_Recommendation_Review__c, 'Not Applicable', 'AC Recommendation Review update Failed');
+        Assert.areNotEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRecList.get(0).Id].get(0).EDRD_AC_Recommendation_Review__c, NULL, 'AC Recommendation Review Populated Blank value');
     }
 }
