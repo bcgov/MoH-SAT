@@ -9,6 +9,8 @@
                 15 Dec -  EDRD-282          -  Accenture   -  Sync MR Fields values to Case Fields values
                 09 Jan -  EDRD-139          -  Accenture   -  update Forecast On Case
                 15 Jan -  EDRD-525          -  Accenture   -  Update AC Recommendation Review
+                19 Jan -  EDRD-338          -  Accenture   -  Update Funding Expiry and Extension Date
+                19 Jan-   EDRD-382			- Accenture	   -  Validate Eligibility Form Sign date and Eligibility form Attachment
 ***********************************************************************************************/
 trigger CaseTrigger on Case (before insert, before update, after insert, after update) {    
     
@@ -35,7 +37,9 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
             ESA_cls_caseTriggerHandler.assignStatus(trigger.oldMap, trigger.newMap);
             ESA_cls_caseTriggerHandler.calDrugForecast(trigger.oldMap, trigger.newMap);
             ESA_cls_caseTriggerHandler.assignACRecReview(trigger.oldMap, trigger.newMap);
+            ESA_cls_caseTriggerHandler.validateAttachmentForMOHReview(trigger.new, trigger.oldMap);
         }
+        ESA_cls_caseTriggerHandler.calculateFundingExpiryDate(trigger.new, trigger.oldMap);
     }
     
     if(trigger.isAfter && trigger.isUpdate){

@@ -5,9 +5,10 @@
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
                 1 Dec23 -   EDRD-170        -   Rahul      -  Manage case assignment
                 4 Dec23 -   EDRD-332        -  Accenture   -  Change case status according to RPH, SC, AC Review Field
-               16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
+               16 Dec23 -   EDRD-282        -  Accenture   -  Sync MR Fields values to Case Fields values
                 09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
                 15 Jan -   EDRD-525         -  Accenture   -  Update AC Recommendation Review
+                19 Jan-    EDRD-338			- Accenture	   -  Update Funding Expiry Date
 ***********************************************************************************************/
 
 @isTest
@@ -17,7 +18,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @author: Deepak
 * @date: 23 Feb 2023
 * @description: The purpose of this method is to cover Testcoverage of populateTerminationDate
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */  
     
     @isTest
@@ -53,7 +54,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @author: Rahul
 * @date: 04 Dec 2023
 * @description: The purpose of this method is to cover Testcoverage of manageAssignmentRule
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     @isTest (seeAllData=true) public static void manageAssignmentRuleTest(){
         Id caseRecType = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
@@ -77,7 +78,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @author: Deepak
 * @date: 04 Dec 2023
 * @description: The purpose of this method is to cover Testcoverage of assignStatus
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */      
    @isTest
     public static void assignStatusTest(){
@@ -108,7 +109,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @author: Deepak
 * @date: 15 Dec 2023
 * @description: The purpose of this method is to cover Testcoverage of syncCaseToMR
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
     @isTest
     public static void syncCaseToMR_positive(){
@@ -148,7 +149,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @author: Deepak
 * @date: 14 Jan 2024
 * @description: The purpose of this method is to cover Testcoverage of calDrugForecast
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
     @isTest
     public static void calDrugForecast_positive(){
@@ -192,7 +193,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @author: Deepak
 * @date: 15 Jan 2024
 * @description: The purpose of this method is to cover Testcoverage of assignACRecReview
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
     @isTest
     public static void assignACRecReview_positive(){
@@ -211,5 +212,36 @@ public class ESA_cls_caseTriggerHandlerTest {
         Test.stopTest();
         Assert.areEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRecList.get(0).Id].get(0).EDRD_AC_Recommendation_Review__c, 'Not Applicable', 'AC Recommendation Review update Failed');
         Assert.areNotEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRecList.get(0).Id].get(0).EDRD_AC_Recommendation_Review__c, NULL, 'AC Recommendation Review Populated Blank value');
+    }
+/**
+* @author: Rahul
+* @date: 19 Jan 2024
+* @description: The purpose of this method is to cover Testcoverage of calculateFundingExpiry
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void populateFundingExpiryDateTest(){
+        Account account1 = TestFactory.newProvider('Provider Test');
+        insert account1;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> cases = TestFactory.createEDRDCase(3, recordTypeCaseEDRD, account1.Id);
+        insert cases;
+        cases[0].EDRD_MOHFunding_Start_Date__c = system.Today();
+        cases[0].EDRD_MOHFunding_Decision__c = 'Approved';
+        cases[0].EDRD_MOHApproved_Funding_Duration__c = 7.0;
+        cases[0].EDRD_MOHApproved_Funding_Duration_Unit__c = 'Days';
+        cases[0].EDRD_MOHIndefinite_Funding__c = false;
+        cases[1].EDRD_MOHFunding_Start_Date__c = system.Today();
+        cases[1].EDRD_MOHFunding_Decision__c = 'Extended';
+        cases[1].EDRD_MOHApproved_Funding_Duration__c = 7.0;
+        cases[1].EDRD_MOHApproved_Funding_Duration_Unit__c = 'Days';
+        cases[1].EDRD_MOHIndefinite_Funding__c = false;
+        test.startTest();
+        update cases;
+        test.stopTest();
+        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: cases.get(0).Id].get(0).EDRD_MOHFunding_Expiry_Date__c, system.Today()+7, 'Funding expiry date updated');
+        Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: cases.get(0).Id].get(0).EDRD_MOHFunding_Expiry_Date__c, NULL, 'Funding expiry conains value');
+        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, system.Today()+7, 'Funding expiry Extension date updated');
+        Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, NULL, 'Funding expiry extension conains value');
     }
 }
