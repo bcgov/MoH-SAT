@@ -37,7 +37,7 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
             ESA_cls_caseTriggerHandler.calDrugForecast(trigger.oldMap, trigger.newMap);
             ESA_cls_caseTriggerHandler.assignACRecReview(trigger.oldMap, trigger.newMap);
         }
-        ESA_cls_caseTriggerHandler.calculateFundingExpiry(trigger.new, trigger.oldMap);
+        ESA_cls_caseTriggerHandler.calculateFundingExpiryDate(trigger.new, trigger.oldMap);
     }
     
     if(trigger.isAfter && trigger.isUpdate){
