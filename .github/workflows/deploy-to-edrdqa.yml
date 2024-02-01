@@ -27,7 +27,7 @@ jobs:
       run: rm -f ./sfdxurl.txt
 
     - name: Deploy Source in dev-app-pre
-      run: sf project deploy start -d dev-app-pre -o SAT-EDRDQA -w 15 --ignore-conflicts flag
+      run: sf project deploy start -d dev-app-pre -o SAT-EDRDQA -w 15 --ignore-conflicts
 
 #    - name: Install version ID
 #      run: sfdx force:package:install --package "${{ github.event.inputs.package }}" -u SAT-EDRDQA -b 15 -w 15 --noprompt --wait 10

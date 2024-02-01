@@ -26,7 +26,7 @@ jobs:
       run: rm -f ./sfdxurl.txt
 
     - name: Deploy Source in dev-app-pre
-      run: sf project deploy start -d dev-app-pre -o SAT-EDRDUAT -w 15 --ignore-conflicts flag
+      run: sf project deploy start -d dev-app-pre -o SAT-EDRDUAT -w 15 --ignore-conflicts 
 
     - name: Deploy metadata
       run: sf project deploy start -d force-app -o SAT-EDRDUAT -w 15
