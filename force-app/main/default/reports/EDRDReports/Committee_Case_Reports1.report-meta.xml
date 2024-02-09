@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Assessment$Case.Medication_Name__c</field>
+    </columns>
+    <columns>
+        <field>Assessment.AssessmentQuestionResponse$Question_Text__c</field>
+    </columns>
+    <columns>
+        <field>Assessment.AssessmentQuestionResponse$ResponseText</field>
+    </columns>
+    <columns>
+        <field>Assessment$Case</field>
+    </columns>
+    <columns>
+        <field>Assessment$Case.Status</field>
+    </columns>
+    <columns>
+        <field>Assessment$Case.Type</field>
+    </columns>
+    <columns>
+        <field>Assessment$Case.Priority</field>
+    </columns>
+    <columns>
+        <field>Assessment$Case.EDRD_Coverage_Status__c</field>
+    </columns>
+    <description>[Report] Sending reports out</description>
+    <filter>
+        <criteriaItems>
+            <column>Assessment$Case.RecordType</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Case.EDRD</value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Committee Case Reports (Excel format)</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Assessments__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>Assessment$Case</sortColumn>
+    <sortOrder>Desc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Assessment$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
