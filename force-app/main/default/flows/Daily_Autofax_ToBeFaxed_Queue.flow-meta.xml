@@ -4,7 +4,7 @@
         <name>send_fax</name>
         <label>send_fax</label>
         <locationX>176</locationX>
-        <locationY>323</locationY>
+        <locationY>252</locationY>
         <actionName>FaxService</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -15,11 +15,11 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>54.0</apiVersion>
+    <apiVersion>59.0</apiVersion>
     <description>Updated Record Type</description>
     <environments>Default</environments>
-    <interviewLabel>Send Fax to Accuroute {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Send Fax to Accuroute</label>
+    <interviewLabel>Daily Autofax ToBeFaxed Queue {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Daily Autofax ToBeFaxed Queue</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -45,33 +45,26 @@
         <connector>
             <targetReference>send_fax</targetReference>
         </connector>
-        <filterLogic>1 AND 2 AND (3 OR 4) AND 5</filterLogic>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OwnerId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>00G5W000000MiSkUAK</stringValue>
+            </value>
+        </filters>
         <filters>
             <field>Status</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Approved</stringValue>
+                <stringValue>Currently Approved</stringValue>
             </value>
         </filters>
         <filters>
-            <field>Pushed_to_Pnet__c</field>
-            <operator>EqualTo</operator>
+            <field>Provider_Fax__c</field>
+            <operator>NotEqualTo</operator>
             <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>IsChanged</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Pushed_to_Pnet__c</field>
-            <operator>IsChanged</operator>
-            <value>
-                <booleanValue>true</booleanValue>
+                <stringValue></stringValue>
             </value>
         </filters>
         <filters>
@@ -82,8 +75,12 @@
             </value>
         </filters>
         <object>Case</object>
-        <recordTriggerType>Update</recordTriggerType>
-        <triggerType>RecordAfterSave</triggerType>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2023-12-08</startDate>
+            <startTime>16:15:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
     </start>
     <status>Active</status>
 </Flow>
