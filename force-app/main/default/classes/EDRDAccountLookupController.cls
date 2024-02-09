@@ -31,7 +31,7 @@ public with sharing class EDRDAccountLookupController{
         List<Account> accountList = new List<Account>();
         if (!String.isBlank(providerAct)){
             string providerPHNumber = providerAct;
-            accountList = [SELECT Id, Name,LastName, Provider_Identifier__pc, PersonContact.Provider_Identifier__c, Provider_Type__pc from Account Where PersonContact.Provider_Identifier__c LIKE :providerPHNumber ORDER BY createdDate DESC LIMIT 5];
+            accountList = [SELECT Id, Name,LastName, Provider_Identifier__pc, PersonContact.Provider_Identifier__c, PersonContact.Provider_Type__c, Provider_Type__pc from Account Where PersonContact.Provider_Type__c = 'Physician' AND PersonContact.Provider_Identifier__c LIKE :providerPHNumber ORDER BY createdDate DESC LIMIT 5];
         } 
         return accountList;
     }

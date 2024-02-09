@@ -85,20 +85,37 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem3</globalKey>
-        <inputFieldName>Contacts:Phone</inputFieldName>
+        <formulaConverted>| &quot;SELECT/\/\/COUNT()/\/\/FROM/\/\/CONTACT/\/\/WHERE/\/\/Patient_Identifier__c/\/\/=/\/\/&apos;{0}&apos;&quot; var:phn COUNTQUERY</formulaConverted>
+        <formulaExpression>COUNTQUERY(&quot;SELECT COUNT() FROM CONTACT WHERE Patient_Identifier__c = &apos;{0}&apos;&quot; , phn)</formulaExpression>
+        <formulaResultPath>PhnCount</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>EDRDDRExtractPatientDetailsCustom325</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractPatientDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractPatientDetailsCustom9725</globalKey>
+        <inputFieldName>PhnCount</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRExtractPatientDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Phone</outputFieldName>
+        <outputFieldName>PhnCount</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;phn&quot; : &quot;{phn}&quot;
+  &quot;phn&quot; : &quot;77777&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

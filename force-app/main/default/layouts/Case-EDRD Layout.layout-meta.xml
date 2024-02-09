@@ -39,6 +39,14 @@
                 <behavior>Edit</behavior>
                 <field>Subject</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_Case_Fits_Criteria__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_Case_Reason_Does_Not_Meet_Criteria__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -66,7 +74,7 @@
                 <field>EDRD_Notes__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>EDRD_Eligibility_Form_Signed_Date__c</field>
             </layoutItems>
         </layoutColumns>
@@ -181,15 +189,11 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>SC Recommendations</label>
+        <label>SC Recommendation</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EDRD_SC_Recommendation_Review__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EDRD_SC_Review_Fits_Criteria__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -209,10 +213,6 @@
                 <behavior>Edit</behavior>
                 <field>EDRD_SC_Review_Funding_Duration_Unit__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EDRD_SC_Review_Not_Meet_Criteria__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -220,15 +220,11 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>AC Recommendations</label>
+        <label>AC Recommendation</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EDRD_AC_Recommendation_Review__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EDRD_AC_Review_Fits_Criteria__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -248,10 +244,6 @@
                 <behavior>Edit</behavior>
                 <field>EDRD_AC_Review_Funding_Duration_Unit__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EDRD_AC_Review_Not_Meet_Criteria__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -263,11 +255,15 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>EDRD_MOHFunding_Approved__c</field>
+                <field>EDRD_MOHFunding_Start_Date__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EDRD_MOHFunding_Expiry_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_MOHFunding_Decision__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -291,14 +287,6 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EDRD_MOHFunding_Denied__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EDRD_MOHFunding_Extended__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EDRD_MOHFunding_Extension_Date__c</field>
@@ -443,11 +431,19 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
-        <fields>AssessmentRating</fields>
         <fields>AssessmentStatus</fields>
         <fields>EffectiveDateTime</fields>
         <fields>ExpirationDateTime</fields>
         <relatedList>Assessments</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>TASK.SUBJECT</fields>
+        <fields>TASK.WHO_NAME</fields>
+        <fields>ACTIVITY.TASK</fields>
+        <fields>TASK.DUE_DATE</fields>
+        <fields>CORE.USERS.FULL_NAME</fields>
+        <fields>TASK.LAST_UPDATE</fields>
+        <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

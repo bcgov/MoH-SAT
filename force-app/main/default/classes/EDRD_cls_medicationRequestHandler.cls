@@ -2,7 +2,10 @@
 * @Author:      Deepak 
 * @Date:        14 Dec 2023
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
-* @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
+* @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
+				19 Dec -  EDRD-282          -  Accenture   -  Added populateMRExpenditureEstimate Method
+                09 Jan -  EDRD-139          -  Accenture   -  Added calDrugForecastOnCase Method
+                09 Jan -  EDRD-139          -  Accenture   -  Added updateForecastOnCase Method
 ***********************************************************************************************/
 public with sharing class EDRD_cls_medicationRequestHandler {
     
@@ -30,45 +33,69 @@ public with sharing class EDRD_cls_medicationRequestHandler {
         }
     }
     
- /**
+    
+/**
 * @author: Deepak
-* @date: 19 Dec 2023
-* @description: The purpose of this method is to calculate drug forecast on Medication Request.
+* @date: 09 Jan 2024
+* @description: The purpose of this method is to return DrugForecast with Respect to Case.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-*/ 
-    public static Decimal populateMRExpenditureEstimate(Decimal Dosage, String DosageUnits, Decimal RecFrequency, 
-                                                     String RecFrequencyUnits, Decimal RecFundingDuration, 
-                                                     String RecFundingDurationUnit, Decimal ListPrice, Decimal Strength)
-    {
-        Decimal noOfUnit = 0;
-        Integer RecFrequencyUnitsDays = returnDaysFrmUnits(RecFrequencyUnits);
-        Integer RecFundingDurationUnitDays = returnDaysFrmUnits(RecFundingDurationUnit);        
+*/    
+    public static Map<Id, Decimal> calDrugForecastOnCase(Set<Id> caseIdSet, Map<Id, case> caseIdVsRec){
+        Map<Id, Decimal> caseIdVsForcastAmnt = new Map<Id, Decimal>();
+        Boolean isInputNotBlank = false;
+        List<MedicationRequest> MRCaseList = [SELECT Id, Case__c, Case__r.EDRD_MOHApproved_Dosage__c, Case__r.EDRD_MOHApproved_Dosage_Unit__c,
+                                              Case__r.EDRD_MOHApproved_Frequency__c, Case__r.EDRD_MOHApproved_Frequency_Unit__c, 
+                                              Case__r.EDRD_MOHApproved_Funding_Duration__c, Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c,
+                                              Medication_Information__c, Strength__c, Strength_Units__c, List_Price_per_Unit__c FROM MedicationRequest
+                                              WHERE Case__c IN: caseIdSet AND recordType.developerName = 'EDRD_Medication_Request'];
         
-        noOfUnit = Math.ceil((RecFundingDurationUnitDays * RecFundingDuration)/(RecFrequencyUnitsDays));
-        noOfUnit = noOfUnit * RecFrequency ;
-        Integer reqStandrdDosePerDose = 0;
-        
-        do {
-            reqStandrdDosePerDose = reqStandrdDosePerDose + 1;
-            Strength = Strength * reqStandrdDosePerDose;
-        } while (Strength/Dosage < 1);
-        
-        return (noOfUnit * reqStandrdDosePerDose * ListPrice);
-    }      
-
-    private static Integer returnDaysFrmUnits(String Unit){
-        Integer days = 0;
-        if(Unit == 'Daily' || Unit == 'Days'){
-           days = 1;
-        }else if(Unit == 'Weekly' || Unit == 'Weeks'){
-            days = 7;
-        }else if(Unit == 'Monthly' || Unit == 'Months'){
-            days = 30;
-        }else if(Unit == 'Yearly' || Unit == 'Years'){
-            days = 364;
-        }else if(Unit == 'Once'){
-            days = 1;
+        for(MedicationRequest MRObj: MRCaseList){
+            Decimal Dosage, RecFrequency, RecFundingDuration;
+            String RecFrequencyUnits, DosageUnits, RecFundingDurationUnit;
+            Boolean isFromCaseTrigger = caseIdVsRec.ContainsKey(MRObj.Case__c);
+            
+            Dosage = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Dosage__c : MRObj.Case__r.EDRD_MOHApproved_Dosage__c;
+            DosageUnits = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Dosage_Unit__c : MRObj.Case__r.EDRD_MOHApproved_Dosage_Unit__c;
+            RecFrequency = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Frequency__c : MRObj.Case__r.EDRD_MOHApproved_Frequency__c;
+            RecFrequencyUnits = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Frequency_Unit__c : MRObj.Case__r.EDRD_MOHApproved_Frequency_Unit__c;
+            RecFundingDuration = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Funding_Duration__c : MRObj.Case__r.EDRD_MOHApproved_Funding_Duration__c;
+            RecFundingDurationUnit = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Funding_Duration_Unit__c : MRObj.Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c;
+            
+            isInputNotBlank = (Dosage != NULL && DosageUnits != NULL && RecFrequency != NULL && 
+                               RecFrequencyUnits != NULL && RecFundingDuration != NULL &&
+                               RecFundingDurationUnit != NULL && MRObj.List_Price_per_Unit__c != NULL && MRObj.Strength__c != NULL);
+            
+            if(isInputNotBlank){
+                Decimal forecastDrugOncase = EDRD_cls_DrugCostCalculator.populateMRExpenditureEstimate(Dosage, 
+                                                                                                   DosageUnits, 
+                                                                                                   RecFrequency, 
+                                                                                                   RecFrequencyUnits,
+                                                                                                   RecFundingDuration,
+                                                                                                   RecFundingDurationUnit,
+                                                                                                   MRObj.List_Price_per_Unit__c, 
+                                                                                                   MRObj.Strength__c);
+                caseIdVsForcastAmnt.put(MRObj.Case__c, forecastDrugOncase);
+            }
         }
-        return days;
-    }    
+        return caseIdVsForcastAmnt;
+    }
+ 
+/**
+* @author: Deepak
+* @date: 09 Jan 2024
+* @description: The purpose of this method is to Update Drug Forecast cost.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/  
+    public static void updateForecastOnCase(Set<Id> caseIdSet){
+        List<Case> caseListToUpdate = new List<Case>();
+        Map<Id, Decimal> caseIdVsForcastAmnt = calDrugForecastOnCase(caseIdSet, new Map<Id, case>());
+        for(Id CaseId: caseIdSet){
+            caseListToUpdate.add(new Case(Id = CaseId,
+                                          EDRD_MOHDrug_Cost_Forecast__c = caseIdVsForcastAmnt.ContainsKey(CaseId) 
+                                          ? caseIdVsForcastAmnt.get(CaseId) : NULL));
+        }
+        if(!caseListToUpdate.isEmpty()){
+            Update caseListToUpdate;
+        }
+    }
 }

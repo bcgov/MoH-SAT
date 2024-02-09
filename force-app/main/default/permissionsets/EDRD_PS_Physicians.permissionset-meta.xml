@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-        <fieldPermissions>
+    <classAccesses>
+        <apexClass>EDRD_myPatientsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_myPatientsControllerTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.Description</field>
         <readable>true</readable>
@@ -77,22 +85,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.EDRD_AC_Review_Fits_Criteria__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.EDRD_AC_Review_Funding_Duration_Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.EDRD_AC_Review_Funding_Duration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.EDRD_AC_Review_Not_Meet_Criteria__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -113,6 +111,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.EDRD_Annual_Max_Coverage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.EDRD_Case_Fits_Criteria__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+         <editable>true</editable>
+        <field>Case.EDRD_Case_Reason_Does_Not_Meet_Criteria__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -181,13 +189,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.EDRD_MOHFunding_Approved__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.EDRD_MOHFunding_Denied__c</field>
+        <editable>true</editable>
+        <field>Case.EDRD_MOHFunding_Decision__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -197,12 +200,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.EDRD_MOHFunding_Extended__c</field>
+        <field>Case.EDRD_MOHFunding_Extension_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.EDRD_MOHFunding_Extension_Date__c</field>
+        <editable>true</editable>
+        <field>Case.EDRD_MOHFunding_Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -272,22 +275,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.EDRD_SC_Review_Fits_Criteria__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.EDRD_SC_Review_Funding_Duration_Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.EDRD_SC_Review_Funding_Duration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.EDRD_SC_Review_Not_Meet_Criteria__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -368,11 +361,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.EDRD_Age__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.EDRD_Eligibility_Form_Signed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -555,6 +543,16 @@
         <field>Task.WhoId</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medical_Diagnosis__c.Healthcare_Diagnosis__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medical_Diagnosis__c.Medication__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>EDRD Physicians</label>
     <license>Customer Community Plus</license>
@@ -684,6 +682,24 @@
         <object>MedicinalIngredient</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>UnitOfMeasure</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Medical_Diagnosis__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Account.Manufacturer</recordType>
         <visible>true</visible>
@@ -708,4 +724,8 @@
         <enabled>true</enabled>
         <name>AssessmentPlatformUser</name>
     </userPermissions>
-    </PermissionSet>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>PortalSuperUser</name>
+    </userPermissions>
+</PermissionSet>

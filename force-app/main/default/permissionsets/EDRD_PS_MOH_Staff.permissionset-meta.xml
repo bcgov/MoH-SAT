@@ -98,22 +98,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_AC_Review_Fits_Criteria__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Case.EDRD_AC_Review_Funding_Duration_Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_AC_Review_Funding_Duration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_AC_Review_Not_Meet_Criteria__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -138,6 +128,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.EDRD_Case_Fits_Criteria__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.EDRD_Case_Reason_Does_Not_Meet_Criteria__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.EDRD_Case_closure_reasons__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -147,7 +147,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.EDRD_Eligibility_Form_Signed_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -203,12 +203,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Approved__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-        <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Denied__c</field>
+        <field>Case.EDRD_MOHFunding_Decision__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -218,15 +213,15 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Extended__c</field>
+        <field>Case.EDRD_MOHFunding_Extension_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Extension_Date__c</field>
+        <field>Case.EDRD_MOHFunding_Start_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_MOHIndefinite_Funding__c</field>
         <readable>true</readable>
@@ -291,11 +286,6 @@
         <field>Case.EDRD_SC_Recommendation_Review__c</field>
         <readable>true</readable>
     </fieldPermissions>
-<fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_SC_Review_Fits_Criteria__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_SC_Review_Funding_Duration_Unit__c</field>
@@ -304,11 +294,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_SC_Review_Funding_Duration__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-<fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_SC_Review_Not_Meet_Criteria__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -393,11 +378,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Contact.EDRD_Eligibility_Form_Signed_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Contact.ESA_Provider_Specialty__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -474,6 +454,66 @@
         <fieldPermissions>
         <editable>true</editable>
         <field>Medication.BrandNameAlternative</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Initial_Dosage_Units__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Initial_Dosage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Initial_Frequency_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Initial_Frequency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Initial_Funding_Duration_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Initial_Funding_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Renewal_Dosage_Units__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Renewal_Dosage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Renewal_Frequency_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Renewal_Frequency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Renewal_Funding_Duration_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Medication.HC_Renewal_Funding_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -574,6 +614,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>MedicationRequest.Medication_Information__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationRequest.Other_Medication_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
