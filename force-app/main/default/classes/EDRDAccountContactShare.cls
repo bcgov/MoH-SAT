@@ -10,7 +10,6 @@ public class EDRDAccountContactShare {
                 if (record != null && record.Contact.AccountId != null) {
                     contactIds.add(record.Contact.AccountId);
                     acr = record;
-                    System.debug('contactIds ' +contactIds);
                 }
             }
 
@@ -20,7 +19,7 @@ public class EDRDAccountContactShare {
                         accountToMedicationRequestMap.put(patientMedicationRequest.PatientId, new Set<Id>());
                     }
                     accountToMedicationRequestMap.get(patientMedicationRequest.PatientId).add(patientMedicationRequest.Id);
-                    System.debug('accountToMedicationRequestMap ' +accountToMedicationRequestMap);
+                    
                 }
             }
             if (acr != null && acr.Account.PersonContactId != null) {
@@ -30,7 +29,6 @@ public class EDRDAccountContactShare {
                             accountToUserMap.put(acr.Account.PersonContactId, new Set<Id>());
                         }
                         accountToUserMap.get(acr.Account.PersonContactId).add(userRecord.Id);
-                        System.debug('accountToUserMap ' + accountToUserMap);
                     }
                 }
             }
@@ -38,7 +36,6 @@ public class EDRDAccountContactShare {
             List<MedicationRequestShare> medicationRequestSharesToInsert = new List<MedicationRequestShare>();
             for (Id contactId : accountToMedicationRequestMap.keySet()) {
                 for (Id userId : accountToUserMap.get(acr.Account.PersonContactId)) {
-                    System.debug('userId ' + userId);
                     if (accountToUserMap.containsKey(acr.Account.PersonContactId)) {
                         for (Id medicationRequestId : accountToMedicationRequestMap.get(contactId)) {
                             MedicationRequestShare newMedicationRequestShare = new MedicationRequestShare();
@@ -53,7 +50,6 @@ public class EDRDAccountContactShare {
 
             if (!medicationRequestSharesToInsert.isEmpty()) {
                 insert medicationRequestSharesToInsert;
-                System.debug('medicationRequestSharesToInsert ' + medicationRequestSharesToInsert);
             }
         } catch (Exception err) {
             System.debug('An error occurred: ' + err.getMessage());

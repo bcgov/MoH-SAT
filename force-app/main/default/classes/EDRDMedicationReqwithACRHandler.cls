@@ -61,7 +61,6 @@ public class EDRDMedicationReqwithACRHandler {
 
             if (!medicationRequestSharesToInsert.isEmpty()) {
                 insert medicationRequestSharesToInsert;
-                System.debug('medicationRequestSharesToInsert '+medicationRequestSharesToInsert);
             }
         } catch (Exception err) {
             System.debug('An error occurred: ' + err.getMessage());

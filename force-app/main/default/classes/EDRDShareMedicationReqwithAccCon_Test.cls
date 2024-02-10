@@ -16,10 +16,8 @@ public class EDRDShareMedicationReqwithAccCon_Test {
     static void testShareMedicationRequestsWithPatientAccount() {
         Account testAccount = new Account(LastName = 'Test Account');
         insert testAccount;
-        System.debug('testAccount '+testAccount);
         Contact testContact = new Contact(LastName = 'Test Contact', Id = testAccount.PersonContactId);
         insert testContact;
-        System.debug('testContact '+testContact);
         User testUser = new User(
             ContactId = testContact.Id,
             Alias = 'testUser',
@@ -34,10 +32,8 @@ public class EDRDShareMedicationReqwithAccCon_Test {
             LanguageLocaleKey = 'en_US'
         );
         insert testUser;
-        System.debug('testUser '+testUser);
         Medication testMedication = new Medication(Name = 'Test Medication');
         insert testMedication;
-        System.debug('testMedication '+testMedication);
         MedicationRequest testMedicationRequest = new MedicationRequest(
             PatientId = testAccount.Id, 
             Type = 'New', 
@@ -45,7 +41,6 @@ public class EDRDShareMedicationReqwithAccCon_Test {
             MedicationId = testMedication.Id
         );
         insert testMedicationRequest;
-        System.debug('testMedicationRequest '+testMedicationRequest);
         Test.startTest();
         EDRDMedicationReqwithACRHandler.shareMedicationRequestsWithPatientAccount(new List<MedicationRequest>{ testMedicationRequest });
         Test.stopTest();

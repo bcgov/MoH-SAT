@@ -13,21 +13,15 @@ public class EDRDAccountContactShare_Test {
 */
     @isTest
     static void testAccountContactMedicationRequestSharing() {
-        // Create test data for AccountContactRelation
         Account testAccount = new Account(LastName='Test Account');
         insert testAccount;
-        System.debug('testAccount '+testAccount);
-
         Contact testContact = new Contact(FirstName='Test', LastName='Contact', Id=testAccount.PersonContactId);
         insert testContact;
-        System.debug('testContact '+testContact);
-
         AccountContactRelation testAcr = new AccountContactRelation(
             AccountId = testAccount.Id,
             ContactId = testContact.Id
         );
         insert testAcr;
-         System.debug('testContact '+testContact);
             User testUser = new User(
             ContactId = testContact.Id,
             Alias = 'testUser',
@@ -38,14 +32,11 @@ public class EDRDAccountContactShare_Test {
             TimeZoneSidKey = 'America/New_York',
             LocaleSidKey = 'en_US',
             EmailEncodingKey = 'UTF-8',
-            ProfileId = '00eAq000001euB0', // Assigning a valid profile
+            ProfileId = '00eAq000001euB0',
             LanguageLocaleKey = 'en_US'
         );
-        System.debug('testUser '+testUser);
         Medication testMedication = new Medication(Name = 'Test Medication');
         insert testMedication;
-        System.debug('testMedication '+testMedication);
-        // Create test data for MedicationRequest
         MedicationRequest testMedicationRequest = new MedicationRequest(
         PatientId = testAccount.Id,
         Type = 'New', 
@@ -53,12 +44,9 @@ public class EDRDAccountContactShare_Test {
         MedicationId = testMedication.Id
         );
         insert testMedicationRequest;
-        System.debug('testMedicationRequest '+testMedicationRequest);
-
         Test.startTest();
         EDRDAccountContactShare.accountContactMedicationRequestSharing(new List<AccountContactRelation>{testAcr});
         Test.stopTest();
-        // For example, check if MedicationRequestShare records were inserted as expected
         List<MedicationRequestShare> medicationRequestShares = [SELECT Id FROM MedicationRequestShare WHERE ParentId = :testMedicationRequest.Id];
         Assert.areNotEqual(0, medicationRequestShares.size(), 'MedicationRequestShares should have been inserted');
         Assert.areEqual('Read', medicationRequestShares[0].AccessLevel, 'AccessLevel should be Read');
