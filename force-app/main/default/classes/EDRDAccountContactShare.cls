@@ -1,0 +1,62 @@
+public class EDRDAccountContactShare {
+    @InvocableMethod
+    public static void accountContactMedicationRequestSharing(List<AccountContactRelation> newRecords) {
+        try {
+            Set<Id> contactIds = new Set<Id>();
+            Map<Id, Set<Id>> accountToMedicationRequestMap = new Map<Id, Set<Id>>();
+            Map<Id, Set<Id>> accountToUserMap = new Map<Id, Set<Id>>();
+            AccountContactRelation acr = null;
+            for (AccountContactRelation record : [SELECT Id, ContactId, Contact.AccountId, Account.PersonContactId, AccountId FROM AccountContactRelation Order By CreatedDate DESC LIMIT 1]) {
+                if (record != null && record.Contact.AccountId != null) {
+                    contactIds.add(record.Contact.AccountId);
+                    acr = record;
+                    System.debug('contactIds ' +contactIds);
+                }
+            }
+
+            if (!contactIds.isEmpty()) {
+                for (MedicationRequest patientMedicationRequest : [SELECT Id, PatientId FROM MedicationRequest WHERE PatientId IN :contactIds]) {
+                    if (!accountToMedicationRequestMap.containsKey(patientMedicationRequest.PatientId)) {
+                        accountToMedicationRequestMap.put(patientMedicationRequest.PatientId, new Set<Id>());
+                    }
+                    accountToMedicationRequestMap.get(patientMedicationRequest.PatientId).add(patientMedicationRequest.Id);
+                    System.debug('accountToMedicationRequestMap ' +accountToMedicationRequestMap);
+                }
+            }
+            if (acr != null && acr.Account.PersonContactId != null) {
+                for (User userRecord : [SELECT Id FROM User WHERE ContactId = :acr.Account.PersonContactId]) {
+                    if (userRecord.Id != null) {
+                        if (!accountToUserMap.containsKey(acr.Account.PersonContactId)) {
+                            accountToUserMap.put(acr.Account.PersonContactId, new Set<Id>());
+                        }
+                        accountToUserMap.get(acr.Account.PersonContactId).add(userRecord.Id);
+                        System.debug('accountToUserMap ' + accountToUserMap);
+                    }
+                }
+            }
+
+            List<MedicationRequestShare> medicationRequestSharesToInsert = new List<MedicationRequestShare>();
+            for (Id contactId : accountToMedicationRequestMap.keySet()) {
+                for (Id userId : accountToUserMap.get(acr.Account.PersonContactId)) {
+                    System.debug('userId ' + userId);
+                    if (accountToUserMap.containsKey(acr.Account.PersonContactId)) {
+                        for (Id medicationRequestId : accountToMedicationRequestMap.get(contactId)) {
+                            MedicationRequestShare newMedicationRequestShare = new MedicationRequestShare();
+                            newMedicationRequestShare.ParentId = medicationRequestId;
+                            newMedicationRequestShare.UserOrGroupId = userId;
+                            newMedicationRequestShare.AccessLevel = 'Read';
+                            medicationRequestSharesToInsert.add(newMedicationRequestShare);
+                        }
+                    }
+                }
+            }
+
+            if (!medicationRequestSharesToInsert.isEmpty()) {
+                insert medicationRequestSharesToInsert;
+                System.debug('medicationRequestSharesToInsert ' + medicationRequestSharesToInsert);
+            }
+        } catch (Exception err) {
+            System.debug('An error occurred: ' + err.getMessage());
+        }
+    }
+}
