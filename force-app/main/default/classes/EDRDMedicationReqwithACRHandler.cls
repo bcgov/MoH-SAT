@@ -3,7 +3,7 @@
 * @Date:        07 Feb 2023
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 ***********************************************************************************************/
-public class EDRDMedicationReqwithACRHandler {
+public with sharing class EDRDMedicationReqwithACRHandler {
 /** 
 * @author: Suman
 * @date:  07 Feb 2023

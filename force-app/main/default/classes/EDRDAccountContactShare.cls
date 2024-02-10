@@ -1,4 +1,15 @@
-public class EDRDAccountContactShare {
+/**********************************************************************************************
+* @Author:      Suman 
+* @Date:        08 Feb 2023
+* @Description: The purpose of this class is to create methods which can be used by Flow EDRD Account Contact Case Share
+***********************************************************************************************/
+public with sharing class EDRDAccountContactShare {
+/** 
+* @author: Suman
+* @date:  07 Feb 2023
+* @description: The purpose of this method is to share New MedicationRequest details with to all associated Account's of a Contact for newly created AccountContact relation.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
     @InvocableMethod
     public static void accountContactMedicationRequestSharing(List<AccountContactRelation> newRecords) {
         try {
