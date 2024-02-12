@@ -9,7 +9,7 @@ public with sharing class EDRDMedicationReqwithACRHandler {
 * @date:  07 Feb 2023
 * @description: The purpose of this method is to share New MedicationRequest to all associated Account's of Pateint for whom MedicationRequest is created.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-*/   
+*/  
     public static void shareMedicationRequestsWithPatientAccount(List<MedicationRequest> newMedicationRequests) {
         try {
             Set<Id> accountIds = new Set<Id>();

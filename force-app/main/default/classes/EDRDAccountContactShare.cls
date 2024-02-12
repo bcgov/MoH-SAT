@@ -23,7 +23,6 @@ public with sharing class EDRDAccountContactShare {
                     acr = record;
                 }
             }
-
             if (!contactIds.isEmpty()) {
                 for (MedicationRequest patientMedicationRequest : [SELECT Id, PatientId FROM MedicationRequest WHERE PatientId IN :contactIds]) {
                     if (!accountToMedicationRequestMap.containsKey(patientMedicationRequest.PatientId)) {
