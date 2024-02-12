@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_EDRD_Cases</fullName>
+    <fullName>My_Open_Cases</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>Patient_Identifier__c</columns>
     <columns>EDRD_Ref_No__c</columns>
@@ -11,12 +11,9 @@
     <columns>CASES.CREATED_DATE</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>CASES.RECORDTYPE</field>
+        <field>CASES.STATUS</field>
         <operation>equals</operation>
-        <value>Case.EDRD</value>
+        <value>Received,SC Review,AC Review,MOH Review</value>
     </filters>
-    <label>All EDRD Cases</label>
-    <sharedTo>
-        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
-    </sharedTo>
+    <label>My Open Cases</label>
 </ListView>

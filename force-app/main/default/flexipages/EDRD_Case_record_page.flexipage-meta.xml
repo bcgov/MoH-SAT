@@ -147,7 +147,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.EDRD_Ref_No__c</fieldItem>
                 <identifier>RecordEDRD_Ref_No_cField</identifier>
@@ -479,7 +479,7 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.EDRD_RPH_Review_Fits_Criteria__c</fieldItem>
+                <fieldItem>Record.EDRD_Case_Eligible_For_Rph_Review__c</fieldItem>
                 <identifier>RecordEDRD_Pharmacist_Review_Fits_Criteria_cField</identifier>
             </fieldInstance>
         </itemInstances>
@@ -533,8 +533,25 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.EDRD_RPH_Review_Not_Meet_Criteria__c</fieldItem>
-                <identifier>RecordPharmacist_Review_Reason_Does_Not_Meet_cField</identifier>
+                <fieldItem>Record.EDRD_Patient_Meets_Criteria_for_Rph__c</fieldItem>
+                <identifier>RecordEDRD_Patient_Meets_Criteria_for_Rph_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_RPH_Patient_Not_Meet_Criteria__c</fieldItem>
+                <identifier>RecordEDRD_Rph_Reason_Not_Meet_Criteria_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_Patient_Meets_Criteria_for_Rph__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c8f6d94d-6040-40eb-a9c8-ca92bc2e5df2</name>
@@ -619,6 +636,33 @@
                 <identifier>RecordEDRD_SC_Review_Funding_Duration_Unit_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Patient_Meets_Criteria_for_SC__c</fieldItem>
+                <identifier>RecordEDRD_Patient_Meets_Criteria_for_SC_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Reason_Patient_Not_Meet_Criteria__c</fieldItem>
+                <identifier>RecordEDRD_SC_Reason_Patient_Not_Meet_Criteria_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_Patient_Meets_Criteria_for_SC__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-357e5b36-c51b-4193-9c9b-538e7f5af3b5</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -699,6 +743,33 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.EDRD_AC_Review_Funding_Duration_Unit__c</fieldItem>
                 <identifier>RecordEDRD_AC_Review_Funding_Duration_Unit_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Patient_Meets_Criteria_for_AC__c</fieldItem>
+                <identifier>RecordEDRD_Patient_Meets_Criteria_for_AC_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Reason_Patient_Not_Meet_Criteria__c</fieldItem>
+                <identifier>RecordEDRD_AC_Reason_Patient_Not_Meet_Criteria_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_Patient_Meets_Criteria_for_AC__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>No</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-9f97fff2-a14b-4416-8093-3b4f0cb8b64a</name>
