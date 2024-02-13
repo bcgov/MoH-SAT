@@ -12,6 +12,79 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem18</globalKey>
+        <inputFieldName>Medications:HC_Renewal_Frequency_Unit__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RenewalFrequencyUnits</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem19</globalKey>
+        <inputFieldName>Medications:Based_on_Weight__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Weight</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <filterValue>RenewalIndicationId</filterValue>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom400</globalKey>
+        <inputFieldName>Id</inputFieldName>
+        <inputObjectName>Medical_Diagnosis__c</inputObjectName>
+        <inputObjectQuerySequence>2.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>IndicationRenewalNames</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom3471</globalKey>
+        <inputFieldName>IndicationRenewalNames:Healthcare_Diagnosis__r.Name</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>IndicationNameRenewals</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom8389</globalKey>
+        <inputFieldName>Medications:HC_Initial_Dosage_Units__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RequestedDosageUnitId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
         <filterValue>MedicationId</filterValue>
         <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem0</globalKey>
@@ -43,55 +116,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem3</globalKey>
-        <inputFieldName>Medications:Max_Initiation_Funding_Duration__c</inputFieldName>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem13</globalKey>
+        <inputFieldName>Medications:HC_Renewal_Dosage__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRExtractDosagesInfoRenewalType</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>MaxInitialFundDuration</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem15</globalKey>
-        <inputFieldName>Medications:HC_Renewal_Funding_Duration__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractDosagesInfoRenewalType</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RenewalFundingDuration</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem4</globalKey>
-        <inputFieldName>Medications:Max_Renewal_Funding_Duration__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractDosagesInfoRenewalType</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>MaxRenewFundDuration</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem16</globalKey>
-        <inputFieldName>Medications:HC_Renewal_Funding_Duration_Unit__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractDosagesInfoRenewalType</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RenewalFundingDurationUnits</outputFieldName>
+        <outputFieldName>RenewalDosage</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -113,20 +144,6 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem13</globalKey>
-        <inputFieldName>Medications:HC_Renewal_Dosage__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractDosagesInfoRenewalType</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RenewalDosage</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem2</globalKey>
         <inputFieldName>Medications:Renewal_Recommended_Dosage__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -134,6 +151,34 @@
         <name>EDRDDRExtractDosagesInfoRenewalType</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>RenewalRecDose</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem3</globalKey>
+        <inputFieldName>Medications:Max_Initiation_Funding_Duration__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>MaxInitialFundDuration</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem4</globalKey>
+        <inputFieldName>Medications:Max_Renewal_Funding_Duration__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>MaxRenewFundDuration</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -155,6 +200,34 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem15</globalKey>
+        <inputFieldName>Medications:HC_Renewal_Funding_Duration__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RenewalFundingDuration</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem16</globalKey>
+        <inputFieldName>Medications:HC_Renewal_Funding_Duration_Unit__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRExtractDosagesInfoRenewalType</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RenewalFundingDurationUnits</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem17</globalKey>
         <inputFieldName>Medications:HC_Renewal_Frequency__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -166,37 +239,10 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem18</globalKey>
-        <inputFieldName>Medications:HC_Renewal_Frequency_Unit__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractDosagesInfoRenewalType</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RenewalFrequencyUnits</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractDosagesInfoRenewalTypeCustom0jIAq0000001i8fMAAItem19</globalKey>
-        <inputFieldName>Medications:Based_on_Weight__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractDosagesInfoRenewalType</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Weight</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;MedicationId&quot; : &quot;0itAq00000003xBIAQ&quot;
+  &quot;MedicationId&quot; : &quot;0itAq00000002LBIAY&quot;,
+  &quot;RenewalIndicationId&quot; : &quot;a1nAq00000CealpIAB&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
