@@ -53,4 +53,7 @@ trigger EDRD_tgr_MedicationRequest on MedicationRequest (before insert, before U
             EDRD_cls_medicationRequestHandler.updateForecastOnCase(caseIdSet);
         }
     }
+    if (Trigger.isAfter && Trigger.isInsert) {
+        EDRDMedicationReqwithACRHandler.shareMedicationRequestsWithPatientAccount(Trigger.new);
+    }
 }
