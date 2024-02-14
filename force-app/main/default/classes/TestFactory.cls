@@ -499,7 +499,7 @@ public with sharing class TestFactory {
     
     public static UnitOfMeasure createUnitOfMeasure(){
         UnitOfMeasure UOMObj = new UnitOfMeasure();
-        UOMObj.Name = 'Milligram';
+        UOMObj.Name = 'Milligrams';
         UOMObj.UnitCode = 'mg';
         return UOMObj;
     }

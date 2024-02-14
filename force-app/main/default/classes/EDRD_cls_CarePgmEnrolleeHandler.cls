@@ -13,6 +13,7 @@ public with sharing class EDRD_cls_CarePgmEnrolleeHandler {
 */ 
     public static void updateEnrolleeName(List<CareProgramEnrollee> carePgmEnrolleeList){
         Integer recordCount = [SELECT COUNT() FROM CareProgramEnrollee WHERE CareProgram.Name = 'EDRD'];
+        Id careProgramId = [SELECT Id FROM CareProgram WHERE Name = 'EDRD' LIMIT 1].get(0).Id;
         Set<Id> accountIds = new Set<Id>();
         for(CareProgramEnrollee cpe :carePgmEnrolleeList){
             accountIds.add(cpe.AccountId);
@@ -22,11 +23,13 @@ public with sharing class EDRD_cls_CarePgmEnrolleeHandler {
                                                              WHERE ID =:accountIds]);
         String countInString;
         for(CareProgramEnrollee carePgmEnrollee: carePgmEnrolleeList){
-            recordCount = recordCount+1;
-            countInString = String.valueOf(recordCount).leftPad(5, '0');
-            String firstName = accountList.get(carePgmEnrollee.AccountId).FirstName;
-            String lastName = accountList.get(carePgmEnrollee.AccountId).LastName;
-            carePgmEnrollee.Name = countInString +'-'+firstName.LEFT(1)+lastName.LEFT(1);
+            if(carePgmEnrollee.CareProgramId == careProgramId){
+                recordCount = recordCount+1;
+                countInString = String.valueOf(recordCount).leftPad(5, '0');
+                String firstName = accountList.get(carePgmEnrollee.AccountId).FirstName !=null ? accountList.get(carePgmEnrollee.AccountId).FirstName : '';
+                String lastName = accountList.get(carePgmEnrollee.AccountId).LastName !=null ? accountList.get(carePgmEnrollee.AccountId).LastName : '';
+                carePgmEnrollee.Name = countInString +'-'+firstName.LEFT(1)+lastName.LEFT(1);
+            }
         }        
     }
 }
