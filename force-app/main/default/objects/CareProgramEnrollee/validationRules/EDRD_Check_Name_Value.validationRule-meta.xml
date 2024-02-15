@@ -5,7 +5,8 @@
     <description>Validation rule to prevent editing the name for EDRD Enrollee</description>
     <errorConditionFormula>AND(
   NOT(ISNEW()),
-  NOT(ISBLANK(PRIORVALUE( Name))),
+ISCHANGED(Name),
+NOT(ISBLANK(PRIORVALUE( Name))),
 CareProgram.Name=&apos;EDRD&apos;
 )</errorConditionFormula>
     <errorMessage>Not allowed to change the Name value.</errorMessage>
