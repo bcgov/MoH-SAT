@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingCriteriaRules>
+    <sharingOwnerRules>
         <fullName>Account_ShareWithSATGroup</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
@@ -13,13 +13,10 @@
         <sharedTo>
             <group>All_SAT_Team_Members</group>
         </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Patient,Business Account,DEC,Person,Provider</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
+        <sharedFrom>
+            <group>All_SAT_Team_Members</group>
+        </sharedFrom>
+    </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>ESA_Account_ShareWithSAAdminAndInternalSubordinates</fullName>
         <accessLevel>Edit</accessLevel>
