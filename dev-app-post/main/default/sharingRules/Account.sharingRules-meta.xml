@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>Account_ShareWithSATGroup</fullName>
+        <accessLevel>Edit</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Edit</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>This Sharing Rule expand the access (Read/Write) of Account records to ALL SAT Team Members group</description>
+        <label>Account_ShareWithSATGroup</label>
+        <sharedTo>
+            <group>All_SAT_Team_Members</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>All_SAT_Team_Members</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>ESA_Account_ShareWithSAAdminAndInternalSubordinates</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
