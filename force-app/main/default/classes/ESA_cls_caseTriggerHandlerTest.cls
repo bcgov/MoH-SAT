@@ -244,4 +244,67 @@ public class ESA_cls_caseTriggerHandlerTest {
         Assert.areEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, system.Today()+7, 'Funding expiry Extension date updated');
         Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, NULL, 'Funding expiry extension conains value');
     }
+/**
+* @author: Rahul
+* @date: 14 Feb 2024
+* @description: The purpose of this method is to cover Positivie Scenario for validateAttachmentForMOHReview
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    @isTest
+    public static void validateAttachmentTestPositive() {
+        Account account1 = TestFactory.newProvider('Provider Test');
+        insert account1;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> cases = TestFactory.createEDRDCase(2, recordTypeCaseEDRD, account1.Id);
+        insert cases;
+        ContentVersion contentVersion = new ContentVersion(
+            Title = 'Test',
+            PathOnClient = 'Test.jpg',
+            VersionData = Blob.valueOf('Test Content'),
+            IsMajorVersion = true
+        );
+        insert contentVersion;    
+        List<ContentDocument> documents = [
+            SELECT Id, Title, LatestPublishedVersionId 
+            FROM ContentDocument
+        ];
+        ContentDocumentLink cdl = new ContentDocumentLink();
+        cdl.LinkedEntityId = cases[0].id;
+        cdl.ContentDocumentId = documents[0].Id;
+        cdl.ShareType = 'V';
+        insert cdl;
+        cases[0].EDRD_Eligibility_Form_Signed_Date__c = Date.newInstance(2023, 1, 1);
+        cases[0].Status = 'MOH Review';
+        cases[1].Status = 'MOH Review';
+        cases[1].EDRD_Bypass_Eligibility_Form__c = true;
+        test.startTest();
+        update cases;
+        test.stopTest();
+        Assert.areEqual(cases[0].Status,'MOH Review', 'Status should be MoH Review');
+        Assert.areNotEqual(cases[0].Status,Null, 'Status should not be null');
+        Assert.areEqual(cases[1].Status,'MOH Review', 'Status should be MoH Review');
+        Assert.areNotEqual(cases[1].Status,Null, 'Status should not be null');
+    }
+/**
+* @author: Rahul
+* @date: 14 Feb 2024
+* @description: The purpose of this method is to cover Negative scenario for validateAttachmentForMOHReview
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    @isTest
+    public static void validateAttachmentTestNegative() {
+        Account account1 = TestFactory.newProvider('Provider Test');
+        insert account1;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> cases = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, account1.Id);
+        insert cases;
+        cases[0].Status = 'MOH Review';
+        test.startTest();
+        try{
+            update cases[0];
+        }catch(Exception e){
+            Assert.isTrue(e.getMessage().contains(Label.Validation_Error_AttachDocumentMOHReview), 'Expected error');
+        }
+        test.stopTest();
+    }
 }
