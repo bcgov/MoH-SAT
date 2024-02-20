@@ -88,6 +88,7 @@ public class ESA_cls_caseTriggerHandlerTest {
             caseObj.EDRD_RPH_Review_Pathway__c = '';
             caseObj.EDRD_SC_Review_Pathway__c = '';
             caseObj.EDRD_AC_Review_Pathway__c = '';
+            caseObj.EDRD_Bypass_Eligibility_Form__c = true;
             allCases.add(caseObj);
         }
         insert allCases;        
@@ -203,6 +204,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         insert patntAcc;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         List<Case> caseRecList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, reqstAcc.Id);
+        caseRecList.get(0).EDRD_Bypass_Eligibility_Form__c=true;
         insert caseRecList;
         Test.startTest();
         caseRecList.get(0).EDRD_SC_Review_Pathway__c = 'Sent to AC';
