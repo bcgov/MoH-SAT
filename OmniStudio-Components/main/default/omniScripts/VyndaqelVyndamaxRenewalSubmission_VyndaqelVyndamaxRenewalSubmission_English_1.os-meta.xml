@@ -101,7 +101,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;1. Does the patient have any of the following new comorbidities/events?&quot;,
+  &quot;label&quot; : &quot;1. Does the patient have any of the following new comorbidities/events? (Please check all that apply)&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -174,7 +174,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;2a. The patient’s median survival without treatment as per the Gillmore Staging System:&quot;,
+  &quot;label&quot; : &quot;2a. The patients median survival without treatment as per the Gillmore Staging System&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -187,15 +187,18 @@
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Stage I (69.2 Months)&quot;,
     &quot;developerName&quot; : &quot;Stage I (69.2 Months)&quot;,
-    &quot;value&quot; : &quot;Stage I (69.2 Months)&quot;
+    &quot;value&quot; : &quot;Stage I (69.2 Months)&quot;,
+    &quot;setAll&quot; : false
   }, {
     &quot;name&quot; : &quot;Stage II (46.7 months) &quot;,
     &quot;developerName&quot; : &quot;Stage II (46.7 months) &quot;,
-    &quot;value&quot; : &quot;Stage II (46.7 months) &quot;
+    &quot;value&quot; : &quot;Stage II (46.7 months) &quot;,
+    &quot;setAll&quot; : false
   }, {
     &quot;name&quot; : &quot;Stage III (24.1 Months)&quot;,
     &quot;developerName&quot; : &quot;Stage III (24.1 Months)&quot;,
-    &quot;value&quot; : &quot;Stage III (24.1 Months)&quot;
+    &quot;value&quot; : &quot;Stage III (24.1 Months)&quot;,
+    &quot;setAll&quot; : false
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -218,7 +221,7 @@
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>1.0</sequenceNumber>
-                <type>Multi-select</type>
+                <type>Radio</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q2</uniqueIndex>
             </childElements>
             <childElements>
@@ -231,7 +234,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;2b. The patient’s estimated life expectancy without treatment [Minimum 6 Months Required]:&quot;,
+  &quot;label&quot; : &quot;2b. The patients estimated life expectancy without treatment [Minimum 6 Months Required]&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -244,11 +247,13 @@
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;&gt; 6 Months&quot;,
     &quot;developerName&quot; : &quot;&gt; 6 Months&quot;,
-    &quot;value&quot; : &quot;&gt; 6 Months&quot;
+    &quot;value&quot; : &quot;&gt; 6 Months&quot;,
+    &quot;setAll&quot; : false
   }, {
     &quot;name&quot; : &quot;&lt; 6 Months&quot;,
     &quot;developerName&quot; : &quot;&lt; 6 Months&quot;,
-    &quot;value&quot; : &quot;&lt; 6 Months&quot;
+    &quot;value&quot; : &quot;&lt; 6 Months&quot;,
+    &quot;setAll&quot; : false
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -271,7 +276,7 @@
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>2.0</sequenceNumber>
-                <type>Multi-select</type>
+                <type>Radio</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q3</uniqueIndex>
             </childElements>
             <childElements>
@@ -284,7 +289,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;2c. Please indicate the patient’s most recent values for:&quot;,
+  &quot;label&quot; : &quot;2c. Please indicate the patients most recent values for:&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -340,10 +345,10 @@
                 <name>Tafamidis_Renew_Patient_Overview_Q4_R1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;i. BNP/NT-proBNP (Circle one)&quot;,
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;i. BNP/NT-proBNP (Specify which one)&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -354,13 +359,13 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -378,10 +383,10 @@
                 <name>Tafamidis_Renew_Patient_Overview_Q4_R2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;ii. eGFR:&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -392,13 +397,13 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -416,10 +421,10 @@
                 <name>Tafamidis_Renew_Patient_Overview_Q4_R3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;iii. Troponin I&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -430,13 +435,13 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -493,7 +498,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;3b. Patient’ current NYHA Class:&quot;,
+  &quot;label&quot; : &quot;3b. Patients current NYHA Class:&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -576,9 +581,9 @@
   &quot;label&quot; : &quot;TRANSTHYRETIN-MEDIATED AMYLOIDOSIS, CARDIOMYOPATHY RENEWAL SUBMISSION&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3,
+  &quot;previousWidth&quot; : 3.0,
   &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3,
+  &quot;nextWidth&quot; : 3.0,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
@@ -589,14 +594,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
+    &quot;remoteTimeout&quot; : 30000.0,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
@@ -625,5 +630,5 @@
     <type>VyndaqelVyndamaxRenewalSubmission</type>
     <uniqueName>VyndaqelVyndamaxRenewalSubmission_VyndaqelVyndamaxRenewalSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>ba381664-d518-101b-b411-7e73d9b2932a</webComponentKey>
+    <webComponentKey>0d412cd0-5376-c155-0fe3-717c62fe77ae</webComponentKey>
 </OmniScript>
