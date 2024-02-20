@@ -191,18 +191,20 @@ public with sharing class ESA_cls_caseTriggerHandler {
                 caseIdToAttachmentCount.put((Id) result.get('LinkedEntityId'), (Integer) result.get('attachmentCount'));
             }
             for (Case caseObj : newCases) {
-                Integer attachmentCount = caseIdToAttachmentCount.get(caseObj.Id) != null ? caseIdToAttachmentCount.get(caseObj.Id) : 0;
-                if (oldCaseMap.containsKey(caseObj.Id)){
-                    Boolean isStatusChanging = (oldCaseMap.get(caseObj.Id).Status == 'Received - Awaiting Verification' || oldCaseMap.get(caseObj.Id).Status == 'SC Review'
-                                                || oldCaseMap.get(caseObj.Id).Status == 'AC Review' || oldCaseMap.get(caseObj.Id).Status == 'Received') &&
-                        caseObj.Status == 'MOH Review';
-                    Boolean isSignedDateInvalid = caseObj.EDRD_Eligibility_Form_Signed_Date__c == null ||
-                        caseObj.EDRD_Eligibility_Form_Signed_Date__c < Date.newInstance(2022, 1, 1);
-                    Boolean isNoAttachment = attachmentCount == 0;
-                    if (isStatusChanging && isNoAttachment) {
-                        caseObj.addError(Label.Validation_Error_AttachDocumentMOHReview);
-                    }else if (isStatusChanging && isSignedDateInvalid) {
-                        caseObj.addError(Label.Validation_Error_EDRDEligibilityFormSignedDate);
+                if(!caseObj.EDRD_Bypass_Eligibility_Form__c){
+                    Integer attachmentCount = caseIdToAttachmentCount.get(caseObj.Id) != null ? caseIdToAttachmentCount.get(caseObj.Id) : 0;
+                    if (oldCaseMap.containsKey(caseObj.Id)){
+                        Boolean isStatusChanging = (oldCaseMap.get(caseObj.Id).Status == 'Received - Awaiting Verification' || oldCaseMap.get(caseObj.Id).Status == 'SC Review'
+                                                    || oldCaseMap.get(caseObj.Id).Status == 'AC Review' || oldCaseMap.get(caseObj.Id).Status == 'Received') &&
+                            caseObj.Status == 'MOH Review';
+                        Boolean isSignedDateInvalid = caseObj.EDRD_Eligibility_Form_Signed_Date__c == null ||
+                            caseObj.EDRD_Eligibility_Form_Signed_Date__c < Date.newInstance(2022, 1, 1);
+                        Boolean isNoAttachment = attachmentCount == 0;
+                        if (isStatusChanging && isNoAttachment) {
+                            caseObj.addError(Label.Validation_Error_AttachDocumentMOHReview);
+                        }else if (isStatusChanging && isSignedDateInvalid) {
+                            caseObj.addError(Label.Validation_Error_EDRDEligibilityFormSignedDate);
+                        }
                     }
                 }
             }
