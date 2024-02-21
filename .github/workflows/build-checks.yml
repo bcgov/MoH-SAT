@@ -8,7 +8,7 @@ jobs:
       SF_DISABLE_SOURCE_MEMBER_POLLING: true
     steps:
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.sha }}
 
@@ -30,7 +30,7 @@ jobs:
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Installing SF managed packages
-      run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --noprompt 
+      run: sf package install --package "04t4W000000YWaz" -o ciorg -w 15 --noprompt 
 
     - name: Set deployment user standard security
       run: |
