@@ -49,7 +49,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>EDRDCareObservationCustom9934</globalKey>
-        <inputFieldName>PatAccId</inputFieldName>
+        <inputFieldName>PatientInformation:PatAccId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDCareObservation</name>
@@ -136,8 +136,8 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| TODAY</formulaConverted>
-        <formulaExpression>TODAY()</formulaExpression>
+        <formulaConverted>| NOW</formulaConverted>
+        <formulaExpression>NOW()</formulaExpression>
         <formulaResultPath>EffectiveDate</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
         <globalKey>EDRDCareObservationCustom3234</globalKey>
@@ -154,8 +154,6 @@
     <previewJsonData>{
   &quot;vlcTimeTracking&quot; : {
     &quot;SearchPatient&quot; : null,
-    &quot;DrugandDosage&quot; : null,
-    &quot;DRUGANDDOSAGERENEWAL&quot; : null,
     &quot;DRcreateCareObservation&quot; : null
   },
   &quot;vlcPersistentComponent&quot; : { },
@@ -166,10 +164,13 @@
   &quot;timeStamp&quot; : null,
   &quot;ContextId&quot; : null,
   &quot;DrugandDosage&quot; : {
-    &quot;PatientWeight&quot; : 78
+    &quot;PatientWeight&quot; : null
   },
   &quot;DRUGANDDOSAGERENEWAL&quot; : {
     &quot;RenewalWeight&quot; : null
+  },
+  &quot;PatientInformation&quot; : {
+    &quot;PatientName&quot; : null
   }
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
