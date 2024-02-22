@@ -187,6 +187,28 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm + &quot;/\/\/&quot; + CONCAT</formulaConverted>
+        <formulaExpression>CONCAT(DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication +&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm+&quot; &quot;)</formulaExpression>
+        <formulaResultPath>OtherMedDetail</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>EDRDDRcreateRequestWithNoEligiblityCustom4619</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoEligiblity</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
