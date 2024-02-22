@@ -520,8 +520,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Supplier var:Brand CONCAT</formulaConverted>
-        <formulaExpression>CONCAT(Supplier, Brand)</formulaExpression>
+        <formulaConverted>| var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm + &quot;/\/\/&quot; + CONCAT</formulaConverted>
+        <formulaExpression>CONCAT(DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication +&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm+&quot; &quot;)</formulaExpression>
         <formulaResultPath>OtherMedDetail</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
         <globalKey>EDRDDRcreateRequestCustom8939</globalKey>
@@ -637,10 +642,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>SObject</outputType>
-    <previewJsonData>{
-  &quot;Brand&quot; : &quot;abc&quot;,
-  &quot;Supplier&quot; : &quot;cde&quot;
-}</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
     <rollbackOnError>false</rollbackOnError>
