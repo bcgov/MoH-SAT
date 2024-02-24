@@ -3,9 +3,12 @@
     <fullName>EDRD_Validate_MedicationStatus</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-OR( isNew(),
-isChanged(MedicationId)),
-NOT(ISPICKVAL(Medication.Status, &apos;Active&apos;)))</errorConditionFormula>
+RecordType.DeveloperName = &apos;EDRD_Medication_Request&apos;,
+OR(
+IsNew(),
+IsChanged(MedicationId)),
+NOT(ISPICKVAL(Medication.Status, &apos;Active&apos;))
+)</errorConditionFormula>
     <errorDisplayField>MedicationId</errorDisplayField>
     <errorMessage>The Medication Request cannot be created for an inactive Medication (drug).</errorMessage>
 </ValidationRule>
