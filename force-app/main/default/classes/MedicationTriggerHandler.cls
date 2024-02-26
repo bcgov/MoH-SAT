@@ -4,7 +4,7 @@
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
 ***********************************************************************************************/
-public with sharing class EDRD_cls_MedicationHandler {
+public with sharing class MedicationTriggerHandler {
     
 /**
 * @author: Deepak
@@ -49,7 +49,7 @@ public with sharing class EDRD_cls_MedicationHandler {
             Update caseListToUpdate;
         }
         if(!accountIdVsNotificationDetails.isEmpty()){
-            EDRD_cls_MedicationHandler.sendNotification(accountIdVsNotificationDetails);
+            MedicationTriggerHandler.sendNotification(accountIdVsNotificationDetails);
         }
     }
     
@@ -62,7 +62,7 @@ public with sharing class EDRD_cls_MedicationHandler {
     Private static void sendNotification(Map<Id, Map<String, String>> accountIdVsNotificationDetails){
         List<User> userList = [SELECT Id, Contact.AccountId FROM USER WHERE Contact.AccountId IN: accountIdVsNotificationDetails.KeySet()];
         List<CustomNotificationType> TemplateInfoDetail = [SELECT Id, DeveloperName FROM CustomNotificationType
-                                                            WHERE DeveloperName='EDRD_BellNotificationForProviders'];
+                                                           WHERE DeveloperName='EDRD_BellNotificationForProviders'];
         for(User userObj:userList){
             Map<String, String> notificationDetails = accountIdVsNotificationDetails.get(UserObj.Contact.accountId);
             Messaging.CustomNotification cusNotification = new Messaging.CustomNotification();

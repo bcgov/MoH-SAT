@@ -4,6 +4,6 @@
 * @Description: The purpose of this Trigger is to trigger on particular events for CareProgramEnrollee
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
 ***********************************************************************************************/
-trigger EDRD_tgr_CarePgmEnrollee on CareProgramEnrollee (before insert) {
-	EDRD_cls_CarePgmEnrolleeHandler.updateEnrolleeName(trigger.new);
+trigger CarePgmEnrolleeTrigger on CareProgramEnrollee (before insert) {
+	CarePgmEnrolleeTriggerHandler.updateEnrolleeName(trigger.new);
 }
