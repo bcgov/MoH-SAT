@@ -4,7 +4,8 @@
     <active>true</active>
     <description>This Validation Rule applies when someone tries to close the case as Funding Denied or Cancelled, even though the funding decision is Approved.</description>
     <errorConditionFormula>AND(
-ISPICKVAL( EDRD_MOHFunding_Decision__c, &quot;Approved&quot;), 
+RecordType.DeveloperName = &apos;EDRD&apos;,
+ISPICKVAL( EDRD_MOHFunding_Decision__c, &quot;Approved&quot;),
 OR(ISPICKVAL( Status, &quot;Cancelled&quot;),
 ISPICKVAL( Status, &quot;Funding Denied&quot;))
 )</errorConditionFormula>
