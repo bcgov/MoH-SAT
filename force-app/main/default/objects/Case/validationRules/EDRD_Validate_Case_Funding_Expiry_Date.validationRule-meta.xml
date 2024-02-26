@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_Funding_Expiry_Date</fullName>
+    <active>true</active>
+    <description>This validation rule fires when the funding decision is &quot;approved&quot; and someone tries to close the case with the blank value of the funding expiry date.</description>
+    <errorConditionFormula>AND(
+ISCHANGED(Status),
+ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Approved&quot;),
+ISBLANK(EDRD_MOHFunding_Expiry_Date__c),
+ISPICKVAL(PRIORVALUE(Status),&apos;MOH Review&apos;),
+OR(ISPICKVAL(Status,&apos;Cancelled&apos;),
+ISPICKVAL(Status,&apos;Funding Approved&apos;),
+ISPICKVAL(Status,&apos;Funding Denied&apos;))
+)</errorConditionFormula>
+    <errorMessage>If the Funding Decision is &quot;Approved&quot;, then the case cannot be closed with the blank values of Funding Expiry Date.</errorMessage>
+</ValidationRule>

@@ -3,13 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-
     - name: 'Install Salesforce CLI'
       run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
@@ -17,7 +15,6 @@ jobs:
           tar xJf sf-linux-x64.tar.xz -C ~/sfdx --strip-components 1
           echo "$HOME/sfdx/bin" >> $GITHUB_PATH
           ~/sfdx/bin/sf version
-
     - name: Authenticate with Sandbox
       run: |
          echo ${{ secrets.SALESFORCE_EDRDQA_AUTH }} > sfdxurl.txt

@@ -42,8 +42,8 @@ public class ESA_cls_accountTriggerHandlerTest {
         Account providerAccount = TestFactory.newProvider('Test');
         insert providerAccount;
         String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        Case EDRDCase = TestFactory.createEDRDCase(caseRecordTypeID, providerAccount.Id);
-        insert EDRDCase;
+        List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, providerAccount.Id);
+        insert EDRDCaseList;
         careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
         insert careProgramRec;
         CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', providerAccount.Id, careProgramRec.Id);

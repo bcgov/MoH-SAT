@@ -38,7 +38,8 @@ public with sharing class EDRD_cls_MedicationHandler {
                 caseListToUpdate.add(new Case(Id = MRObj.Case__c, 
                                               Status = 'Cancelled', 
                                               EDRD_Case_closure_reasons__c = 'Other',
-                                              EDRD_MOHFunding_Denied__c = true,
+                                              EDRD_MOHFunding_Decision__c = 'Denied',
+                                              EDRD_MOHIndefinite_Funding__c = false,
                                               EDRD_Notes__c = !String.IsBlank(MRObj.Case__r.EDRD_Notes__c) 
                                               ? MRObj.Case__r.EDRD_Notes__c + '\n' + label.EDRD_label_closeCase_DrugInactive 
                                               : label.EDRD_label_closeCase_DrugInactive));            
