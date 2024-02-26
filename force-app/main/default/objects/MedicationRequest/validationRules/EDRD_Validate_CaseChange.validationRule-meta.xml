@@ -3,6 +3,7 @@
     <fullName>EDRD_Validate_CaseChange</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD_Medication_Request&apos;,
 ISCHANGED(Case__c)
 )</errorConditionFormula>
     <errorDisplayField>Case__c</errorDisplayField>

@@ -4,6 +4,7 @@
     <active>true</active>
     <description>This Validation Rule applies when someone tries to close the case with blank values of funding decision.</description>
     <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD&apos;,
 ISCHANGED(Status),
 NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Approved&quot;)),
 NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Denied&quot;)),

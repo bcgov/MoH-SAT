@@ -4,6 +4,7 @@
     <active>true</active>
     <description>This validation rule fires when the Funding Decision is &quot;Extended&quot;, and someone tries to close the case with the blank values of Extension End Date.</description>
     <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD&apos;,
 ISCHANGED(Status),
 ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Extended&quot;),
 ISBLANK(EDRD_MOHFunding_Extension_Date__c),
