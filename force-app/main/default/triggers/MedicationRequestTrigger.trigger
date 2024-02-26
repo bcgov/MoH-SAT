@@ -14,9 +14,6 @@ trigger MedicationRequestTrigger on MedicationRequest (before insert, before Upd
     if(trigger.isBefore){
         if(trigger.isInsert || trigger.isUpdate){
             for(MedicationRequest MRObj : trigger.new){
-               /* if(MRObj.Dosage_Units_Name__c != MRObj.Strength_Units__c){
-                    MRObj.addError(label.EDRD_label_DosageAndStrengthUnits);
-                } */
                 if(trigger.isInsert && MRObj.Case__c != NULL){
                        MRListValidate.add(MRObj);
                    }
