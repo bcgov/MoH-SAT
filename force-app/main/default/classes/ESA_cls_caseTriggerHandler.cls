@@ -142,7 +142,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
                                             newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c);
             caseIdVsRec.put(CaseObj.id, caseObj);
         }
-        Map<Id, Decimal> caseIdVsForcastAmnt = EDRD_cls_medicationRequestHandler.calDrugForecastOnCase(caseIdVsRec.KeySet(), caseIdVsRec);
+        Map<Id, Decimal> caseIdVsForcastAmnt = medicationRequestTriggerHandler.calDrugForecastOnCase(caseIdVsRec.KeySet(), caseIdVsRec);
         if(!caseIdVsForcastAmnt.isEmpty()){
             for(Case caseObj: newCaseMap.values()){
                 caseObj.EDRD_MOHDrug_Cost_Forecast__c = caseIdVsForcastAmnt.ContainsKey(caseObj.Id) ? caseIdVsForcastAmnt.get(caseObj.Id) : NULL;
@@ -169,50 +169,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
             }
         }
     }
-/**
-* @author: Suman
-* @date: 18 Jan 2024
-* @description: The purpose of this method is to check Eligibility form signed date and to throw Validation.
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-*/
-    public static void validateAttachmentForMOHReview(List<Case> newCases, Map<Id, Case> oldCaseMap) {
-        try{
-            Set<Id> caseIds = new Set<Id>();
-            for (Case caseObj : newCases){
-                caseIds.add(caseObj.id);
-            }
-            Map<Id, Integer> caseIdToAttachmentCount = new Map<Id, Integer>();
-            for (AggregateResult result : [
-                SELECT LinkedEntityId, COUNT(Id) attachmentCount
-                FROM ContentDocumentLink
-                WHERE LinkedEntityId IN :caseIds
-                GROUP BY LinkedEntityId
-            ]) {
-                caseIdToAttachmentCount.put((Id) result.get('LinkedEntityId'), (Integer) result.get('attachmentCount'));
-            }
-            for (Case caseObj : newCases) {
-                if(!caseObj.EDRD_Bypass_Eligibility_Form__c){
-                    Integer attachmentCount = caseIdToAttachmentCount.get(caseObj.Id) != null ? caseIdToAttachmentCount.get(caseObj.Id) : 0;
-                    if (oldCaseMap.containsKey(caseObj.Id)){
-                        Boolean isStatusChanging = (oldCaseMap.get(caseObj.Id).Status == 'Received - Awaiting Verification' || oldCaseMap.get(caseObj.Id).Status == 'SC Review'
-                                                    || oldCaseMap.get(caseObj.Id).Status == 'AC Review' || oldCaseMap.get(caseObj.Id).Status == 'Received') &&
-                            caseObj.Status == 'MOH Review';
-                        Boolean isSignedDateInvalid = caseObj.EDRD_Eligibility_Form_Signed_Date__c == null ||
-                            caseObj.EDRD_Eligibility_Form_Signed_Date__c < Date.newInstance(2022, 1, 1);
-                        Boolean isNoAttachment = attachmentCount == 0;
-                        if (isStatusChanging && isNoAttachment) {
-                            caseObj.addError(Label.Validation_Error_AttachDocumentMOHReview);
-                        }else if (isStatusChanging && isSignedDateInvalid) {
-                            caseObj.addError(Label.Validation_Error_EDRDEligibilityFormSignedDate);
-                        }
-                    }
-                }
-            }
-        }catch (Exception err) {
-            System.debug('Exception caught: ' + err.getMessage());
-        }
-    }
-/**
+    /**
 * @author: Rahul
 * @date: 19 Jan 2024
 * @description: The purpose to Update Funding Expiry and Extension dates
@@ -263,5 +220,48 @@ public with sharing class ESA_cls_caseTriggerHandler {
             expDate = startDate.addYears(durationRound);
         }
         return expDate;
+    }
+    /**
+* @author: Suman
+* @date: 18 Jan 2024
+* @description: The purpose of this method is to check Eligibility form signed date and to throw Validation.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    public static void validateAttachmentForMOHReview(List<Case> newCases, Map<Id, Case> oldCaseMap) {
+        try{
+            Set<Id> caseIds = new Set<Id>();
+            for (Case caseObj : newCases){
+                caseIds.add(caseObj.id);
+            }
+            Map<Id, Integer> caseIdToAttachmentCount = new Map<Id, Integer>();
+            for (AggregateResult result : [
+                SELECT LinkedEntityId, COUNT(Id) attachmentCount
+                FROM ContentDocumentLink
+                WHERE LinkedEntityId IN :caseIds
+                GROUP BY LinkedEntityId
+            ]) {
+                caseIdToAttachmentCount.put((Id) result.get('LinkedEntityId'), (Integer) result.get('attachmentCount'));
+            }
+            for (Case caseObj : newCases) {
+                if(!caseObj.EDRD_Bypass_Eligibility_Form__c){
+                    Integer attachmentCount = caseIdToAttachmentCount.get(caseObj.Id) != null ? caseIdToAttachmentCount.get(caseObj.Id) : 0;
+                    if (oldCaseMap.containsKey(caseObj.Id)){
+                        Boolean isStatusChanging = (oldCaseMap.get(caseObj.Id).Status == 'Received - Awaiting Verification' || oldCaseMap.get(caseObj.Id).Status == 'SC Review'
+                                                    || oldCaseMap.get(caseObj.Id).Status == 'AC Review' || oldCaseMap.get(caseObj.Id).Status == 'Received') &&
+                            caseObj.Status == 'MOH Review';
+                        Boolean isSignedDateInvalid = caseObj.EDRD_Eligibility_Form_Signed_Date__c == null ||
+                            caseObj.EDRD_Eligibility_Form_Signed_Date__c < Date.newInstance(2022, 1, 1);
+                        Boolean isNoAttachment = attachmentCount == 0;
+                        if (isStatusChanging && isNoAttachment) {
+                            caseObj.addError(Label.Validation_Error_AttachDocumentMOHReview);
+                        }else if (isStatusChanging && isSignedDateInvalid) {
+                            caseObj.addError(Label.Validation_Error_EDRDEligibilityFormSignedDate);
+                        }
+                    }
+                }
+            }
+        }catch (Exception err) {
+            System.debug('Exception caught: ' + err.getMessage());
+        }
     }
 }

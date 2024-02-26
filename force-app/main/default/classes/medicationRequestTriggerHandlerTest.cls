@@ -1,12 +1,12 @@
 /**********************************************************************************************
 * @Author:      Deepak 
 * @Date:        14 Dec 2023
-* @Description: The purpose of this class is to cover Code coverage of EDRD_cls_medicationRequestHandler
+* @Description: The purpose of this class is to cover Code coverage of medicationRequestTriggerHandler
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
 ***********************************************************************************************/
 
 @isTest
-public class EDRD_cls_medicationRequestHandlerTest {
+public class medicationRequestTriggerHandlerTest {
     
 /**
 * @author: Deepak

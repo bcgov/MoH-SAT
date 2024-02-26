@@ -7,7 +7,7 @@
                 09 Jan -  EDRD-139          -  Accenture   -  Added calDrugForecastOnCase Method
                 09 Jan -  EDRD-139          -  Accenture   -  Added updateForecastOnCase Method
 ***********************************************************************************************/
-public with sharing class EDRD_cls_medicationRequestHandler {
+public with sharing class medicationRequestTriggerHandler {
     
 /**
 * @author: Deepak
