@@ -1,10 +1,10 @@
 /**********************************************************************************************
-* @Author:      Deepak 
+* @Author:      Accenture 
 * @Date:        07 Jan 2024
 * @Description: The purpose of this Trigger is to trigger on particular events
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
 ***********************************************************************************************/
-trigger EDRD_tgr_MedicinalIngredient on MedicinalIngredient (after update) {
+trigger MedicinalIngredientTrigger on MedicinalIngredient (after update) {
     
     Set<Id> MedicinalIDSet = new Set<Id>();
     if(trigger.isAfter && trigger.isUpdate){
@@ -13,9 +13,9 @@ trigger EDRD_tgr_MedicinalIngredient on MedicinalIngredient (after update) {
                 MedicinalIDSet.add(MIObj.Id);
             }
         }
-        if(!MedicinalIDSet.isEmpty() && EDRD_cls_medicinalIngredientHandler.updateOpenMedicationRequest_RunOnce){
-            EDRD_cls_medicinalIngredientHandler.updateOpenMedicationRequest(MedicinalIDSet);
-            EDRD_cls_medicinalIngredientHandler.updateOpenMedicationRequest_RunOnce = false;
+        if(!MedicinalIDSet.isEmpty() && medicinalIngredientTriggerHandler.updateOpenMedicationRequest_RunOnce){
+            medicinalIngredientTriggerHandler.updateOpenMedicationRequest(MedicinalIDSet);
+            medicinalIngredientTriggerHandler.updateOpenMedicationRequest_RunOnce = false;
         }
     }
     

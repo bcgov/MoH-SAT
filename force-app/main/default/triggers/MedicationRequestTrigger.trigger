@@ -1,5 +1,5 @@
 /**********************************************************************************************
-* @Author:      Deepak 
+* @Author:      Accenture 
 * @Date:        14 Dec 2023
 * @Description: The purpose of this Trigger is to trigger on particular events
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
@@ -7,7 +7,7 @@
                 09 Jan -  EDRD-139          -  Accenture   -  Calculate Drug Forecast with Respect to Case
                 09 Jan -  EDRD-139          -  Accenture   -  update Forecast On Case
 ***********************************************************************************************/
-trigger EDRD_tgr_MedicationRequest on MedicationRequest (before insert, before Update, after Update) {
+trigger MedicationRequestTrigger on MedicationRequest (before insert, before Update, after Update) {
     
     List<MedicationRequest> MRListValidate = new List<MedicationRequest>();
     
@@ -37,7 +37,7 @@ trigger EDRD_tgr_MedicationRequest on MedicationRequest (before insert, before U
                 }
             }
             if(!MRListValidate.isEmpty()){
-               EDRD_cls_medicationRequestHandler.validateMedicationRequest(MRListValidate);
+               medicationRequestTriggerHandler.validateMedicationRequest(MRListValidate);
             }
         }
     }
@@ -50,7 +50,7 @@ trigger EDRD_tgr_MedicationRequest on MedicationRequest (before insert, before U
             }
         }
         if(!caseIdSet.isEmpty()){
-            EDRD_cls_medicationRequestHandler.updateForecastOnCase(caseIdSet);
+            medicationRequestTriggerHandler.updateForecastOnCase(caseIdSet);
         }
     }
     if (Trigger.isAfter && Trigger.isInsert) {

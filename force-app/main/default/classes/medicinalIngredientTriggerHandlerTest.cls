@@ -1,12 +1,12 @@
 /**********************************************************************************************
 * @Author:      Deepak 
 * @Date:        07 Jan 2024
-* @Description: The purpose of this class is to cover Code coverage of EDRD_cls_medicinalIngredientHandler
+* @Description: The purpose of this class is to cover Code coverage of medicinalIngredientTriggerHandler
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
 ***********************************************************************************************/
 
 @isTest
-public class EDRD_cls_medicinalIngredientHandlerTest {
+public class medicinalIngredientTriggerHandlerTest {
     
 /**
 * @author: Deepak

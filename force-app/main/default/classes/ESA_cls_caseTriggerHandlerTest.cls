@@ -246,6 +246,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         Assert.areEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, system.Today()+7, 'Funding expiry Extension date updated');
         Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, NULL, 'Funding expiry extension conains value');
     }
+
 /**
 * @author: Rahul
 * @date: 14 Feb 2024
@@ -287,8 +288,9 @@ public class ESA_cls_caseTriggerHandlerTest {
         Assert.areEqual(cases[1].Status,'MOH Review', 'Status should be MoH Review');
         Assert.areNotEqual(cases[1].Status,Null, 'Status should not be null');
     }
+
 /**
-* @author: Rahul
+* @author: Suman
 * @date: 14 Feb 2024
 * @description: The purpose of this method is to cover Negative scenario for validateAttachmentForMOHReview
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]

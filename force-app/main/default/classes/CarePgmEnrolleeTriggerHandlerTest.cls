@@ -1,11 +1,11 @@
 /**********************************************************************************************
 * @Author:      Accenture
 * @Date:        30/01/2024
-* @Description: The purpose of this class is cover the coverage for EDRD_cls_CarePgmEnrolleeHandler
+* @Description: The purpose of this class is cover the coverage for CarePgmEnrolleeTriggerHandler
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
 ***********************************************************************************************/
 @isTest
-public class EDRD_cls_CarePgmEnrolleeHandlerTest {
+public class CarePgmEnrolleeTriggerHandlerTest {
     /**
 * @author: Accenture
 * @date: 30/01/2024
