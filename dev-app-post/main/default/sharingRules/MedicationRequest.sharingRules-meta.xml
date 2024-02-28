@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EDRD_MedicationRequest_ShareEditWithEDRDAdmins</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Medication Request With EDRDAdmins for EDIT access</description>
+        <label>EDRD_MedicationRequest_ShareEditWithEDRDAdmins</label>
+        <sharedTo>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Medication Request</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_MedicationRequest_ShareReadWithEDRDStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Medication Request With EDRDStaff for READ access</description>
+        <label>EDRD_MedicationRequest_ShareReadWithEDRDStaff</label>
+        <sharedTo>
+            <role>EDRD_Staff</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Medication Request</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
