@@ -4,6 +4,15 @@
     <deleteConstraint>SetNull</deleteConstraint>
     <externalId>false</externalId>
     <label>Healthcare Diagnosis</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>CodeSetBundle.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>EDRD Code Set Bundle</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>CodeSetBundle</referenceTo>
     <relationshipLabel>Medical Diagnosis</relationshipLabel>
     <relationshipName>Medical_Diagnosis</relationshipName>

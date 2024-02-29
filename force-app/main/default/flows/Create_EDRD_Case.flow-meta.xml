@@ -44,7 +44,7 @@
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Case_Type</leftValueReference>
-                <operator>Contains</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <elementReference>New</elementReference>
                 </rightValue>
@@ -112,6 +112,7 @@
             <label>Other Medication Details</label>
         </rules>
     </decisions>
+    <description>Changes related to EDRD-695 with required fields</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -128,6 +129,23 @@
         <picklistField>Type</picklistField>
         <picklistObject>Case</picklistObject>
         <sortOrder>Desc</sortOrder>
+    </dynamicChoiceSets>
+    <dynamicChoiceSets>
+        <name>IndicationChoiceSet</name>
+        <dataType>String</dataType>
+        <displayField>Indication_Name__c</displayField>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Medication__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Medication.recordId</elementReference>
+            </value>
+        </filters>
+        <object>Medical_Diagnosis__c</object>
+        <sortField>Indication_Name__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <valueField>Id</valueField>
     </dynamicChoiceSets>
     <dynamicChoiceSets>
         <name>RequestedFrequencyUnits</name>
@@ -192,6 +210,12 @@
             <field>Dosage__c</field>
             <value>
                 <elementReference>Dosage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Medical_Diagnosis__c</field>
+            <value>
+                <elementReference>Select_Indication.selectedChoiceValues</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -290,6 +314,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Medical_Diagnosis__c</field>
+            <value>
+                <elementReference>Select_Indication.selectedChoiceValues</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>MedicationId</field>
             <value>
                 <elementReference>Medication.recordId</elementReference>
@@ -361,7 +391,7 @@
         <name>New_case_Creation_for_Rec_type_New</name>
         <label>New case Creation for Rec type New</label>
         <locationX>116</locationX>
-        <locationY>2138</locationY>
+        <locationY>2246</locationY>
         <connector>
             <targetReference>Get_Newly_created_Case</targetReference>
         </connector>
@@ -546,7 +576,7 @@
         <locationY>998</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_EDRD_MR_Record_Type</targetReference>
+            <targetReference>Indication_Screen</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -796,6 +826,34 @@
         </outputAssignments>
     </recordLookups>
     <screens>
+        <name>Indication_Screen</name>
+        <label>Indication Screen</label>
+        <locationX>248</locationX>
+        <locationY>1106</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_EDRD_MR_Record_Type</targetReference>
+        </connector>
+        <fields>
+            <name>Search_Indication</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;Search Indication&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Select_Indication</name>
+            <choiceReferences>IndicationChoiceSet</choiceReferences>
+            <extensionName>flowruntime:choiceLookup</extensionName>
+            <fieldText>Select Indication</fieldText>
+            <fieldType>ComponentChoice</fieldType>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Medication_Request</name>
         <label>Medication Request</label>
         <locationX>248</locationX>
@@ -850,12 +908,19 @@
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <visibilityRule>
-                <conditionLogic>and</conditionLogic>
+                <conditionLogic>or</conditionLogic>
                 <conditions>
                     <leftValueReference>Medication.recordName</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
-                        <stringValue>Other</stringValue>
+                        <elementReference>Other</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Medication.recordName</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>other</stringValue>
                     </rightValue>
                 </conditions>
             </visibilityRule>
@@ -881,7 +946,7 @@
         </fields>
         <fields>
             <name>ShowMedicationInformation</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Medication Name : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!VarMedicationInformationRec.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Brand : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!VarMedicationInformationRec.BrandNameAlternative}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Initial Recommended Dosage: &lt;/strong&gt;{!VarMedicationInformationRec.Initial_Recommended_Dosage__c}&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Renewal Recommended Dosage: &lt;/strong&gt;{!VarMedicationInformationRec.Renewal_Recommended_Dosage__c}&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Max Initiation Funding Duration: &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!VarMedicationInformationRec.Max_Initiation_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Max Renewal Funding Duration: &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Max_Renewal_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Medication Name : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Brand : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.BrandNameAlternative}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Initial Recommended Dosage: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Initial_Recommended_Dosage__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Renewal Recommended Dosage: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Renewal_Recommended_Dosage__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0); font-size: 12px;&quot;&gt;Max Initiation Funding Duration: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 12px; background-color: rgb(255, 255, 255);&quot;&gt;{!VarMedicationInformationRec.Max_Initiation_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0); font-size: 12px;&quot;&gt;Max Renewal Funding Duration: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 12px;&quot;&gt;{!VarMedicationInformationRec.Max_Renewal_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -896,9 +961,9 @@
                     <defaultValue>
                         <elementReference>VarMedicationInformationRec.HC_Initial_Dosage__c</elementReference>
                     </defaultValue>
-                    <fieldText>Dosage</fieldText>
+                    <fieldText>Requested Dosage</fieldText>
                     <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
                 <fields>
@@ -909,7 +974,7 @@
                     </defaultValue>
                     <fieldText>Requested Funding Duration</fieldText>
                     <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
                 <fields>
@@ -920,7 +985,7 @@
                     </defaultValue>
                     <fieldText>Requested Frequency</fieldText>
                     <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
                 <inputParameters>
@@ -962,9 +1027,30 @@
                             <elementReference>VarMedicationInformationRec.HC_Initial_Dosage_Units__r.Id</elementReference>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Medication.recordName</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <elementReference>Other</elementReference>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>displayDosageUnits</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;Requested Dosage Units&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!VarMedicationInformationRec.HC_Initial_Dosage_Units__r.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;     &lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>Requested_Funding_Duration_Units</name>
@@ -975,7 +1061,7 @@
                     </defaultValue>
                     <fieldText>Requested Funding Duration Units</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                 </fields>
                 <fields>
                     <name>Requested_Frequency_Units</name>
@@ -986,7 +1072,7 @@
                     </defaultValue>
                     <fieldText>Requested Frequency Units</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -1170,7 +1256,7 @@
         </fields>
         <fields>
             <name>ShowMedicationInformation_Renewal</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Medication Name : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!VarMedicationInformationRec.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Brand : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px;&quot;&gt;{!VarMedicationInformationRec.BrandNameAlternative}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Initial Recommended Dosage: &lt;/strong&gt;{!VarMedicationInformationRec.Initial_Recommended_Dosage__c}&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px;&quot;&gt;Renewal Recommended Dosage: &lt;/strong&gt;{!VarMedicationInformationRec.Renewal_Recommended_Dosage__c}&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0); font-size: 12px;&quot;&gt;Max Initiation Funding Duration: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 12px; background-color: rgb(255, 255, 255);&quot;&gt;{!VarMedicationInformationRec.Max_Initiation_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0); font-size: 12px;&quot;&gt;Max Renewal Funding Duration: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-size: 12px;&quot;&gt;{!VarMedicationInformationRec.Max_Renewal_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Medication Name : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Brand : &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.BrandNameAlternative}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Initial Recommended Dosage: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Initial_Recommended_Dosage__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Renewal Recommended Dosage: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Renewal_Recommended_Dosage__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Max Initiation Funding Duration: &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;{!VarMedicationInformationRec.Max_Initiation_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;Max Renewal Funding Duration: &lt;/strong&gt;&lt;span style=&quot;font-size: 12px; color: rgb(0, 0, 0);&quot;&gt;{!VarMedicationInformationRec.Max_Renewal_Funding_Duration__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -1185,9 +1271,9 @@
                     <defaultValue>
                         <elementReference>VarMedicationInformationRec.HC_Renewal_Dosage__c</elementReference>
                     </defaultValue>
-                    <fieldText>Dosage</fieldText>
+                    <fieldText>Requested Dosage</fieldText>
                     <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
                 <fields>
@@ -1198,7 +1284,7 @@
                     </defaultValue>
                     <fieldText>Requested Funding Duration</fieldText>
                     <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
                 <fields>
@@ -1209,7 +1295,7 @@
                     </defaultValue>
                     <fieldText>Requested Frequency</fieldText>
                     <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
                 <inputParameters>
@@ -1251,9 +1337,30 @@
                             <elementReference>VarMedicationInformationRec.HC_Renewal_Dosage_Units__r.Id</elementReference>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>required</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Medication.recordName</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <elementReference>Other</elementReference>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>displayRenewalDosage</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;Requested Dosage Units&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!VarMedicationInformationRec.HC_Renewal_Dosage_Units__r.Name}﻿&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;   &lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>Renewal_Requested_Funding_Duration_Units</name>
@@ -1264,7 +1371,7 @@
                     </defaultValue>
                     <fieldText>Requested Funding Duration Units</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                 </fields>
                 <fields>
                     <name>Renewal_Requested_Frequency_Units</name>
@@ -1275,7 +1382,7 @@
                     </defaultValue>
                     <fieldText>Requested Frequency Units</fieldText>
                     <fieldType>DropdownBox</fieldType>
-                    <isRequired>false</isRequired>
+                    <isRequired>true</isRequired>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -1474,7 +1581,7 @@
         </fields>
         <fields>
             <name>SuccessfulMessage</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(42, 44, 41);&quot;&gt;EDRD Case #&lt;/strong&gt;&lt;a href=&quot;/{!StoreNewCase.Id}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(72, 121, 144);&quot;&gt;&lt;strong&gt;{!StoreNewCase.CaseNumber}&lt;/strong&gt;&lt;/a&gt;&lt;strong&gt; ha&lt;/strong&gt;&lt;strong style=&quot;color: rgb(42, 44, 41);&quot;&gt;s been created successfully. &lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(42, 44, 41);&quot;&gt;EDRD Case #&lt;/strong&gt;&lt;a href=&quot;/{!StoreNewCase.Id}&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot; style=&quot;color: rgb(12, 46, 237);&quot;&gt;&lt;strong&gt;{!StoreNewCase.CaseNumber}&lt;/strong&gt;&lt;/a&gt;&lt;strong&gt; ha&lt;/strong&gt;&lt;strong style=&quot;color: rgb(42, 44, 41);&quot;&gt;s been created successfully. &lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
