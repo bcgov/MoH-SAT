@@ -1753,34 +1753,17 @@
                 <name>Alglucosidase_Alpha_Patient_History_Late_Q1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 7,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;Diagnosis of Pompe confirmed by:&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
-  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;text&quot; : &quot;Diagnosis of Pompe confirmed by:&quot;,
   &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>0.0</sequenceNumber>
-                <type>Text</type>
+                <type>Text Block</type>
                 <uniqueIndex>Alglucosidase_Alpha_Patient_History_Late_Q1</uniqueIndex>
             </childElements>
             <childElements>
@@ -1792,7 +1775,7 @@
                 <name>Alglucosidase_Alpha_Patient_History_Late_Q1_R1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 7,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;a.  Enzyme assay&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1814,8 +1797,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;,
-  &quot;placeholder&quot; : &quot;Date Of Test&quot;
+  &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>1.0</sequenceNumber>
                 <type>Date</type>
@@ -1830,7 +1812,7 @@
                 <name>Alglucosidase_Alpha_Patient_History_Late_Q1_R2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 7,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;b. Mutation analysis&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1852,12 +1834,87 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;,
-  &quot;placeholder&quot; : &quot;Date Of Test&quot;
+  &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Date</type>
                 <uniqueIndex>Alglucosidase_Alpha_Patient_History_Late_Q1_R2</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Alglucosidase_Alpha_Patient_History_Late_Q1_R3</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 9,
+  &quot;label&quot; : &quot;Comment&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>2.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Alglucosidase_Alpha_Patient_History_Late_Q1_R3</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Alglucosidase_Alpha_Patient_History_Late_Q1_R4</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 9,
+  &quot;label&quot; : &quot;Comment&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>4.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Alglucosidase_Alpha_Patient_History_Late_Q1_R4</uniqueIndex>
             </childElements>
             <childElements>
                 <designerCustomizationType>Discovery Framework</designerCustomizationType>
@@ -1910,7 +1967,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Radio</type>
                 <uniqueIndex>Alglucosidase_Alpha_Patient_History_Late_Q2</uniqueIndex>
             </childElements>
@@ -1956,7 +2013,7 @@
   &quot;minDate&quot; : &quot;&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Date</type>
                 <uniqueIndex>Alglucosidase_Alpha_Patient_History_Late_Q2_R1</uniqueIndex>
             </childElements>
@@ -2003,7 +2060,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Alglucosidase_Alpha_Patient_History_Late_Q2_R2</uniqueIndex>
             </childElements>
@@ -2014,7 +2071,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Patient History with Late On Set Pompe (Pompe)&quot;,
+  &quot;label&quot; : &quot;Patient History with Late Onset Pompe&quot;,
   &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2484,7 +2541,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Primary outcome to be followed (select all appropriate outcomes)&quot;,
+  &quot;label&quot; : &quot;Primary outcome to be followed (fill in all appropriate outcomes)&quot;,
   &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2694,5 +2751,5 @@
     <type>MyozymeInitialSubmission</type>
     <uniqueName>MyozymeInitialSubmission_MyozymeInitialSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>d86f728d-06e9-01b3-be8c-d0a26d7680d6</webComponentKey>
+    <webComponentKey>ecf0e09a-da7f-2632-8b9d-918570db56b5</webComponentKey>
 </OmniScript>
