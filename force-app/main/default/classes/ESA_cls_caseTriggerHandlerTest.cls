@@ -127,16 +127,20 @@ public class ESA_cls_caseTriggerHandlerTest {
         insert MedicationRequestList;
         try{
             Test.startTest();
+            Case CaseList = [SELECT Id, Status, Priority, Type from Case Where id =:caseMRList.get(0).Id ];
+            caseMRList.get(0).EDRD_Bypass_Eligibility_Form__c = TRUE;
+            caseMRList.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
             caseMRList.get(0).Status = 'Funding Approved';
             caseMRList.get(0).Type = 'Renewal';
             caseMRList.get(0).Priority = 'Routine';
+            caseMRList.get(0).EDRD_MOHIndefinite_Funding__c = false;
             ESA_cls_caseTriggerHandler.firstrun = true;
             Update caseMRList;
             Test.stopTest();
         } 
         catch(exception e){
             MedicationRequest MRRec =[SELECT Id, Status, Type, Priority, Case__c, Case__r.Status, Case__r.priority, Case__r.Type
-                                      FROM MedicationRequest WHERE Id =: MedicationRequestList.get(0).id];
+                                      FROM MedicationRequest WHERE Id =: MedicationRequestList.get(0).id AND Case__c =:caseMRList.get(0).Id];
             Assert.areEqual(MRRec.Status, MRRec.Case__r.Status, 'Status did not Match');
             Assert.areEqual(MRRec.Type, MRRec.Case__r.Type, 'Type did not Match');
             Assert.areEqual(MRRec.priority, MRRec.Case__r.priority, 'priority did not Match');
