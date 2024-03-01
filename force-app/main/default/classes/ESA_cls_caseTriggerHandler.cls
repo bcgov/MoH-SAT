@@ -112,6 +112,9 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
             Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
+            System.debug('isStatusChanged' + isStatusChanged);
+            System.debug('isTypeChanged' + isTypeChanged);
+            System.debug('isProrityChanged' + isProrityChanged);
             if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged)){
                 caseIdSet.add(caseObj.Id);
             }
@@ -180,41 +183,38 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */  
     public static void calculateFundingExpiryDate(List<Case> cases, Map<Id, Case> oldCaseMap){
-        try{
-            for(Case caseObj : cases){
-                if(caseObj.EDRD_MOHFunding_Decision__c != null && caseObj.EDRD_MOHFunding_Decision__c != 'Denied'){
-                    Boolean updateExpiryDate = (caseObj.EDRD_MOHFunding_Start_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c!= null) && 
-                        caseObj.EDRD_MOHApproved_Funding_Duration__c != null &&
-                        caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c!= null &&
-                        (caseObj.EDRD_MOHFunding_Decision__c == 'Approved' || caseObj.EDRD_MOHFunding_Decision__c == 'Extended');
-                    Boolean isStartDateChanged;
-                    Boolean isEndDateChanged;
-                    if(trigger.isUpdate && updateExpiryDate){
-                        isEndDateChanged = (caseObj.EDRD_MOHFunding_Expiry_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Expiry_Date__c) ||
-                            (caseObj.EDRD_MOHFunding_Extension_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Extension_Date__c);
-                        isStartDateChanged = (caseObj.EDRD_MOHFunding_Start_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Start_Date__c);
-                    }
-                    if(trigger.isInsert && updateExpiryDate){
-                        isEndDateChanged = caseObj.EDRD_MOHFunding_Expiry_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c != null;
-                        isStartDateChanged = caseObj.EDRD_MOHFunding_Start_Date__c != null;
-                    }
-                    if(isStartDateChanged && !isEndDateChanged && caseObj.EDRD_MOHIndefinite_Funding__c != null && !caseObj.EDRD_MOHIndefinite_Funding__c){
-                        if(caseObj.EDRD_MOHFunding_Decision__c == 'Approved'){
-                            caseObj.EDRD_MOHFunding_Expiry_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,caseObj.EDRD_MOHApproved_Funding_Duration__c,caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
-                        }else if(caseObj.EDRD_MOHFunding_Decision__c == 'Extended'){
-                            caseObj.EDRD_MOHFunding_Extension_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,Integer.valueOf(caseObj.EDRD_MOHApproved_Funding_Duration__c),caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
-                        }
-                    }
-                    if(caseObj.EDRD_MOHIndefinite_Funding__c){
-                        caseObj.EDRD_MOHFunding_Expiry_Date__c = null;
-                        caseObj.EDRD_MOHFunding_Extension_Date__c = null;
+        for(Case caseObj : cases){
+            if(caseObj.EDRD_MOHFunding_Decision__c != null && caseObj.EDRD_MOHFunding_Decision__c != 'Denied'){
+                Boolean updateExpiryDate = (caseObj.EDRD_MOHFunding_Start_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c!= null) && 
+                    caseObj.EDRD_MOHApproved_Funding_Duration__c != null &&
+                    caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c!= null &&
+                    (caseObj.EDRD_MOHFunding_Decision__c == 'Approved' || caseObj.EDRD_MOHFunding_Decision__c == 'Extended');
+                Boolean isStartDateChanged = false;
+                Boolean isEndDateChanged = false;
+                if(trigger.isUpdate && updateExpiryDate){
+                    isEndDateChanged = (caseObj.EDRD_MOHFunding_Expiry_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Expiry_Date__c) ||
+                        (caseObj.EDRD_MOHFunding_Extension_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Extension_Date__c);
+                    isStartDateChanged = (caseObj.EDRD_MOHFunding_Start_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Start_Date__c);
+                }
+                if(trigger.isInsert && updateExpiryDate){
+                    isEndDateChanged = caseObj.EDRD_MOHFunding_Expiry_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c != null;
+                    isStartDateChanged = caseObj.EDRD_MOHFunding_Start_Date__c != null;
+                }
+                if(isStartDateChanged && !isEndDateChanged && caseObj.EDRD_MOHIndefinite_Funding__c != null && !caseObj.EDRD_MOHIndefinite_Funding__c){
+                    if(caseObj.EDRD_MOHFunding_Decision__c == 'Approved'){
+                        caseObj.EDRD_MOHFunding_Expiry_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,caseObj.EDRD_MOHApproved_Funding_Duration__c,caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
+                    }else if(caseObj.EDRD_MOHFunding_Decision__c == 'Extended'){
+                        caseObj.EDRD_MOHFunding_Extension_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,Integer.valueOf(caseObj.EDRD_MOHApproved_Funding_Duration__c),caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
                     }
                 }
+                if(caseObj.EDRD_MOHIndefinite_Funding__c){
+                    caseObj.EDRD_MOHFunding_Expiry_Date__c = null;
+                    caseObj.EDRD_MOHFunding_Extension_Date__c = null;
+                }
             }
-        }catch(exception e){
-            System.debug('Exception caught: ' + err.getMessage());
         }
     }
+    
     public static Date populateExpiryDate(Date startDate, Decimal duration, String unit){
         Date expDate;
         Integer durationRound = Integer.valueOf(duration.round(System.RoundingMode.CEILING));
