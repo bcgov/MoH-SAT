@@ -13,12 +13,24 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>EDRD_AQResponse_ShareDeveloperWithEDRDAdminStaff</fullName>
+        <fullName>EDRD_AQResponse_ShareDeveloperWithEDRDAdmins</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share Developer owned With EDRD Admin and EDRD Staff</description>
-        <label>EDRD_AQResponse_ShareDeveloperWithEDRDAdminStaff</label>
+        <description>Share Developer owned with EDRD Admins</description>
+        <label>EDRD_AQResponse_ShareDeveloperWithEDRDAdmins</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Developer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EDRD_AQResponse_ShareDeveloperWithEDRDStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Developer owned with EDRD Staff</description>
+        <label>EDRD_AQResponse_ShareDeveloperWithEDRDStaff</label>
+        <sharedTo>
+            <role>EDRD_Staff</role>
         </sharedTo>
         <sharedFrom>
             <role>Developer</role>
@@ -37,12 +49,24 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDAdminStaff</fullName>
+        <fullName>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDAdmins</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>share EDRD Physicians owned with EDRD Admin &amp; Staff for Read &amp; Write</description>
-        <label>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDAdminStaff</label>
+        <description>Share EDRDPhysicians with EDRDAdmins</description>
+        <label>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDAdmins</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <sharedFrom>
+            <group>EDRD_Physicians</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share EDRDPhysicians with EDRDStaff</description>
+        <label>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDStaff</label>
+        <sharedTo>
+            <role>EDRD_Staff</role>
         </sharedTo>
         <sharedFrom>
             <group>EDRD_Physicians</group>
