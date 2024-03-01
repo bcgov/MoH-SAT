@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>EDRD_AQResponse_ShareDeveloperWithDeveloper</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>ShareDeveloper owned With other Developers</description>
+        <label>EDRD_AQResponse_ShareDeveloperWithDeveloper</label>
+        <sharedTo>
+            <role>Developer</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>Developer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EDRD_AQResponse_ShareDeveloperWithEDRDAdminStaff</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share Developer owned With EDRD Admin and EDRD Staff</description>
+        <label>EDRD_AQResponse_ShareDeveloperWithEDRDAdminStaff</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <role>Developer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EDRD_AQResponse_ShareEDRDPhysiciansWithDeveloper</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>ShareEDRDPhysicians owned With Developer</description>
+        <label>EDRD_AQResponse_ShareEDRDPhysiciansWithDeveloper</label>
+        <sharedTo>
+            <role>Developer</role>
+        </sharedTo>
+        <sharedFrom>
+            <group>EDRD_Physicians</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDAdminStaff</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>share EDRD Physicians owned with EDRD Admin &amp; Staff for Read &amp; Write</description>
+        <label>EDRD_AQResponse_ShareEDRDPhysiciansWithEDRDAdminStaff</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        </sharedTo>
+        <sharedFrom>
+            <group>EDRD_Physicians</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

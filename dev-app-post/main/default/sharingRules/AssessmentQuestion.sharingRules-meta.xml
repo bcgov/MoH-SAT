@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EDRD_AssessmentQuestion_ShareWithEDRDAdmins_Staff</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>share Assessment Question with EDRD Admin and EDRD Staff</description>
+        <label>EDRD_AssessmentQuestion_ShareWithEDRDAdmins_Staff</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>QuestionCategory</field>
+            <operation>equals</operation>
+            <value>EDRD - Demographic</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_AssessmentQuestion_ShareWithEDRDDeveloper</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Share with EDRD Developer for READ &amp; EDIT access</description>
+        <label>EDRD_AssessmentQuestion_ShareWithEDRDDeveloper</label>
+        <sharedTo>
+            <role>Developer</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>QuestionCategory</field>
+            <operation>equals</operation>
+            <value>EDRD - Demographic</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_AssessmentQuestion_ShareWithEDRDPhysicians</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share with EDRDPhysicians for READ access</description>
+        <label>EDRD_AssessmentQuestion_ShareWithEDRDPhysicians</label>
+        <sharedTo>
+            <group>EDRD_Physicians</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>QuestionCategory</field>
+            <operation>equals</operation>
+            <value>EDRD - Demographic</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>
