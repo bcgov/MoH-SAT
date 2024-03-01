@@ -112,9 +112,6 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
             Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
-            System.debug('isStatusChanged' + isStatusChanged);
-            System.debug('isTypeChanged' + isTypeChanged);
-            System.debug('isProrityChanged' + isProrityChanged);
             if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged)){
                 caseIdSet.add(caseObj.Id);
             }
@@ -214,7 +211,6 @@ public with sharing class ESA_cls_caseTriggerHandler {
             }
         }
     }
-    
     public static Date populateExpiryDate(Date startDate, Decimal duration, String unit){
         Date expDate;
         Integer durationRound = Integer.valueOf(duration.round(System.RoundingMode.CEILING));
