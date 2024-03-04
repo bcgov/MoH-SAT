@@ -20,26 +20,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>EDRD_Admin_and_Staff</fullName>
-        <accessLevel>Read</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>Read</contactAccessLevel>
-            <opportunityAccessLevel>Read</opportunityAccessLevel>
-        </accountSettings>
-        <description>If Account recordtype = Manufacturer/Patient/Provider, those records will be shared with users having role EDRD admins &amp; staff</description>
-        <label>EDRD Admin and Staff</label>
-        <sharedTo>
-            <roleAndSubordinates>EDRD_Admin</roleAndSubordinates>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Manufacturer,Patient,Provider</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>EDRD_Physicians_Patient_Access</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
