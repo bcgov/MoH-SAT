@@ -186,8 +186,8 @@ public with sharing class ESA_cls_caseTriggerHandler {
                     caseObj.EDRD_MOHApproved_Funding_Duration__c != null &&
                     caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c!= null &&
                     (caseObj.EDRD_MOHFunding_Decision__c == 'Approved' || caseObj.EDRD_MOHFunding_Decision__c == 'Extended');
-                Boolean isStartDateChanged;
-                Boolean isEndDateChanged;
+                Boolean isStartDateChanged = false;
+                Boolean isEndDateChanged = false;
                 if(trigger.isUpdate && updateExpiryDate){
                     isEndDateChanged = (caseObj.EDRD_MOHFunding_Expiry_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Expiry_Date__c) ||
                         (caseObj.EDRD_MOHFunding_Extension_Date__c != oldCaseMap.get(caseObj.id).EDRD_MOHFunding_Extension_Date__c);

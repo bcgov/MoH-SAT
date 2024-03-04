@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_MedicinalIngredients</fullName>
+    <fullName>All_EDRD_Medicinal_Ingredients</fullName>
     <columns>Name</columns>
     <columns>ParentRecord</columns>
     <columns>Ingredient</columns>
@@ -12,5 +12,14 @@
     <columns>StrengthDenominator</columns>
     <columns>StrengthDenominatorUnit</columns>
     <filterScope>Everything</filterScope>
-    <label>All Medicinal Ingredients</label>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>MedicinalIngredient.EDRD_Medicinal_Ingredient</value>
+    </filters>
+    <label>All EDRD Medicinal Ingredients</label>
+    <sharedTo>
+        <role>Developer</role>
+        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+    </sharedTo>
 </ListView>
