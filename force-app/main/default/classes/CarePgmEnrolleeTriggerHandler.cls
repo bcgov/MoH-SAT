@@ -18,7 +18,7 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
         for(CareProgramEnrollee cpe :carePgmEnrolleeList){
             accountIds.add(cpe.AccountId);
         }
-        Map<Id, Account> accountList = new Map<Id, Account>([Select Id,FirstName,LastName
+        Map<Id, Account> accIdVsRec = new Map<Id, Account>([Select Id,FirstName,LastName
                                                              FROM Account
                                                              WHERE ID =:accountIds]);
         String countInString;
@@ -26,8 +26,8 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
             if(carePgmEnrollee.CareProgramId == careProgramId){
                 recordCount = recordCount+1;
                 countInString = String.valueOf(recordCount).leftPad(5, '0');
-                String firstName = accountList.get(carePgmEnrollee.AccountId).FirstName !=null ? accountList.get(carePgmEnrollee.AccountId).FirstName : '';
-                String lastName = accountList.get(carePgmEnrollee.AccountId).LastName !=null ? accountList.get(carePgmEnrollee.AccountId).LastName : '';
+                String firstName = accIdVsRec?.get(carePgmEnrollee.AccountId)?.FirstName ?? '';
+                String lastName = accIdVsRec?.get(carePgmEnrollee.AccountId)?.LastName ?? '';
                 carePgmEnrollee.Name = countInString +'-'+firstName.LEFT(1)+lastName.LEFT(1);
             }
         }        
