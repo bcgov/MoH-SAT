@@ -4,7 +4,7 @@
     <designerCustomizationType>Discovery Framework</designerCustomizationType>
     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>true</isOmniScriptEmbeddable>
@@ -245,7 +245,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;INCLUSION CRITERIA&quot;,
-  &quot;collapse&quot; : true,
+  &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -322,7 +322,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;EXCLUSION CRITERIA&quot;,
-  &quot;collapse&quot; : true,
+  &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -706,7 +706,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;INITIATION CRITERIA&quot;,
-  &quot;collapse&quot; : true,
+  &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -949,29 +949,21 @@
     &quot;developerName&quot; : &quot;Anemia (Hgb &lt;90 g/L)&quot;,
     &quot;value&quot; : &quot;Anemia (Hgb &lt;90 g/L)&quot;
   }, {
-    &quot;name&quot; : &quot;Malignancies, including workup for suspected&quot;,
-    &quot;developerName&quot; : &quot;Malignancies, including workup for suspected&quot;,
-    &quot;value&quot; : &quot;Malignancies, including workup for suspected&quot;
+    &quot;name&quot; : &quot;Dementia&quot;,
+    &quot;developerName&quot; : &quot;Dementia&quot;,
+    &quot;value&quot; : &quot;Dementia&quot;
   }, {
-    &quot;name&quot; : &quot;History of falls and/or fracture&quot;,
-    &quot;developerName&quot; : &quot;History of falls and/or fracture&quot;,
-    &quot;value&quot; : &quot;History of falls and/or fracture&quot;
-  }, {
-    &quot;name&quot; : &quot;Advanced dementia&quot;,
-    &quot;developerName&quot; : &quot;Advanced dementia&quot;,
-    &quot;value&quot; : &quot;Advanced dementia&quot;
+    &quot;name&quot; : &quot;New or recurrent malignancies&quot;,
+    &quot;developerName&quot; : &quot;New or recurrent malignancies&quot;,
+    &quot;value&quot; : &quot;New or recurrent malignancies&quot;
   }, {
     &quot;name&quot; : &quot;Palliative care or residing in long-term care facility&quot;,
     &quot;developerName&quot; : &quot;Palliative care or residing in long-term care facility&quot;,
     &quot;value&quot; : &quot;Palliative care or residing in long-term care facility&quot;
   }, {
-    &quot;name&quot; : &quot;GI bleed requiring intervention&quot;,
-    &quot;developerName&quot; : &quot;GI bleed requiring intervention&quot;,
-    &quot;value&quot; : &quot;GI bleed requiring intervention&quot;
-  }, {
-    &quot;name&quot; : &quot;Infections requiring hospitalization (IV antibiotics)&quot;,
-    &quot;developerName&quot; : &quot;Infections requiring hospitalization (IV antibiotics)&quot;,
-    &quot;value&quot; : &quot;Infections requiring hospitalization (IV antibiotics)&quot;
+    &quot;name&quot; : &quot;Unplanned hospitalizations of any kind in the past year&quot;,
+    &quot;developerName&quot; : &quot;Unplanned hospitalizations of any kind in the past year&quot;,
+    &quot;value&quot; : &quot;Unplanned hospitalizations of any kind in the past year&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -1347,7 +1339,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;4d. Number of cardiac-related hospitalizations over the past year:&quot;,
+  &quot;label&quot; : &quot;4d. Clinical Frailty Scale Score&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
@@ -1375,6 +1367,43 @@
                 <type>Text Area</type>
                 <uniqueIndex>Tafamidis_Initial_Patient_Overview_Q7</uniqueIndex>
             </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Tafamidis_Initial_Patient_Overview_Q8</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;Date of Frailty Score:&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;dateType&quot; : &quot;string&quot;,
+  &quot;modelDateFormat&quot; : &quot;yyyy-MM-dd&quot;,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;minDate&quot; : &quot;&quot;,
+  &quot;maxDate&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>13.0</sequenceNumber>
+                <type>Date</type>
+                <uniqueIndex>Tafamidis_Initial_Patient_Overview_Q8</uniqueIndex>
+            </childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
@@ -1383,7 +1412,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;PATIENT OVERVIEW&quot;,
-  &quot;collapse&quot; : true,
+  &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -1456,5 +1485,5 @@
     <type>VyndaqelVyndamaxInitialSubmission</type>
     <uniqueName>VyndaqelVyndamaxInitialSubmission_VyndaqelVyndamaxInitialSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>df3d01ae-2782-5dda-54ce-5b39b2076bc3</webComponentKey>
+    <webComponentKey>609f79a0-95d1-c86e-9e4b-c524f328a183</webComponentKey>
 </OmniScript>
