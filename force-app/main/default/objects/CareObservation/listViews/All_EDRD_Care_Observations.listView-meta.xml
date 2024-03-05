@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All</fullName>
+    <fullName>All_EDRD_Care_Observations</fullName>
     <columns>Name</columns>
     <columns>LastModifiedDate</columns>
     <columns>LastModifiedBy</columns>
@@ -12,5 +12,14 @@
     <columns>ObservedValueUnit</columns>
     <columns>ObservedValueNumerator</columns>
     <filterScope>Everything</filterScope>
-    <label>All</label>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>CareObservation.EDRD_Care_Observation</value>
+    </filters>
+    <label>All EDRD Care Observations</label>
+    <sharedTo>
+        <role>Developer</role>
+        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+    </sharedTo>
 </ListView>

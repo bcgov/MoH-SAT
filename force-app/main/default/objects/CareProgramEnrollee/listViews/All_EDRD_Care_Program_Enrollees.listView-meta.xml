@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_EDRD_Care_Program_Enrollees</fullName>
+    <columns>Name</columns>
+    <columns>LastModifiedDate</columns>
+    <columns>LastModifiedBy</columns>
+    <columns>CareProgram</columns>
+    <columns>Account</columns>
+    <columns>Lead</columns>
+    <columns>User</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>CareProgram</field>
+        <operation>equals</operation>
+        <value>EDRD</value>
+    </filters>
+    <label>All EDRD Care Program Enrollees</label>
+    <sharedTo>
+        <role>Developer</role>
+        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>
