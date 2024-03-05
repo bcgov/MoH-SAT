@@ -7,8 +7,7 @@
 RecordType.DeveloperName = &apos;EDRD&apos;,
 ISCHANGED(Status),
 ISBLANK(TEXT(EDRD_MOHFunding_Decision__c)),
-OR(ISPICKVAL(Status,&apos;Cancelled&apos;),
-ISPICKVAL(Status,&apos;Funding Approved&apos;),
+OR(ISPICKVAL(Status,&apos;Funding Approved&apos;),
 ISPICKVAL(Status,&apos;Funding Denied&apos;))
 )</errorConditionFormula>
     <errorMessage>The case cannot be closed without a funding decision.</errorMessage>

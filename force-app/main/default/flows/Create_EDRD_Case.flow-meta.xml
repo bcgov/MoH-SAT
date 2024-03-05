@@ -86,7 +86,7 @@
         <locationX>248</locationX>
         <locationY>1214</locationY>
         <defaultConnector>
-            <targetReference>Medication_details_New_Renewal_decision</targetReference>
+            <targetReference>Indication_Screen</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Medication Details</defaultConnectorLabel>
         <rules>
@@ -112,7 +112,7 @@
             <label>Other Medication Details</label>
         </rules>
     </decisions>
-    <description>Changes related to EDRD-695 with required fields</description>
+    <description>Changes related to EDRD-695, Indication Screen with required fields</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -576,7 +576,7 @@
         <locationY>998</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Indication_Screen</targetReference>
+            <targetReference>Get_EDRD_MR_Record_Type</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -828,13 +828,13 @@
     <screens>
         <name>Indication_Screen</name>
         <label>Indication Screen</label>
-        <locationX>248</locationX>
-        <locationY>1106</locationY>
+        <locationX>446</locationX>
+        <locationY>1322</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Get_EDRD_MR_Record_Type</targetReference>
+            <targetReference>Medication_details_New_Renewal_decision</targetReference>
         </connector>
         <fields>
             <name>Search_Indication</name>
@@ -904,7 +904,7 @@
         <fields>
             <name>Medication_Name</name>
             <dataType>String</dataType>
-            <fieldText>Medication Name</fieldText>
+            <fieldText>Enter Other Medication Name</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>false</isRequired>
             <visibilityRule>
@@ -1135,7 +1135,7 @@
         </connector>
         <fields>
             <name>DisplayOtherMedicine</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Other Medication Details&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Please Enter Other Medication Details&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -1145,12 +1145,9 @@
                 <name>Other_Medication_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Other_Medication_Name</name>
+                    <name>Other_Indication</name>
                     <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>Medication_Name</elementReference>
-                    </defaultValue>
-                    <fieldText>Medication Name</fieldText>
+                    <fieldText>Indication</fieldText>
                     <fieldType>InputField</fieldType>
                     <isRequired>false</isRequired>
                 </fields>
@@ -1182,13 +1179,6 @@
             </fields>
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>Other_Indication</name>
-            <dataType>String</dataType>
-            <fieldText>Indication</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
         </fields>
         <fields>
             <name>Supplier</name>
