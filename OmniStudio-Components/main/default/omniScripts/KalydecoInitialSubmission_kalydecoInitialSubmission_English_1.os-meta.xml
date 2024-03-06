@@ -125,10 +125,10 @@
                 <name>Cystic_Fibrosis_Intial_Drug_Information_Q1_R3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Please provide written confirmation of denial of coverage&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -139,14 +139,14 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;data&quot; : &quot;No&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;Cystic_Fibrosis_Intial_Drug_Information_Q1&quot;
       } ]
@@ -154,7 +154,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -173,7 +173,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;If yes, please indicate date therapy was started&quot;,
+  &quot;label&quot; : &quot;Please indicate date therapy was started&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -218,10 +218,10 @@
                 <name>Cystic_Fibrosis_Intial_Drug_Information_Q3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Other options considered&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -232,13 +232,22 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;No&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Cystic_Fibrosis_Intial_Drug_Information_Q1&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
+  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -304,7 +313,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>0.0</sequenceNumber>
                 <type>Text</type>
                 <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q10</uniqueIndex>
             </childElements>
@@ -343,9 +352,64 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Text</type>
                 <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q11</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Cystic_Fibrosis_Intial_Submission_Information_Q2</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;If the patient is on a lung transplant list, please indicated the following:&quot;,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;horizontalMode&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Yes&quot;,
+    &quot;developerName&quot; : &quot;Yes&quot;,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;setAll&quot; : false
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;developerName&quot; : &quot;No&quot;,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;setAll&quot; : false
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;enableCaption&quot; : true,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>2.0</sequenceNumber>
+                <type>Radio</type>
+                <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q2</uniqueIndex>
             </childElements>
             <childElements>
                 <designerCustomizationType>Discovery Framework</designerCustomizationType>
@@ -382,7 +446,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Text</type>
                 <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q2_R1</uniqueIndex>
             </childElements>
@@ -421,7 +485,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Text</type>
                 <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q2_R2</uniqueIndex>
             </childElements>
@@ -459,7 +523,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q3</uniqueIndex>
             </childElements>
@@ -497,7 +561,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q4</uniqueIndex>
             </childElements>
@@ -552,7 +616,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Radio</type>
                 <uniqueIndex>Cystic_Fibrosis_Intial_Submission_Information_Q9</uniqueIndex>
             </childElements>
@@ -2292,15 +2356,15 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>CYSTICFIBROSISInitialSubmission</name>
+        <name>ivacaftor-InitialSubmission</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;CYSTIC FIBROSIS G551D, G1244E, G1349D, G178R, G551S, S1251N, S1255P, S549N or S549R or R117H mutation in the CFTR gene - INITIAL&quot;,
+  &quot;label&quot; : &quot;ivacaftor - Initial Submission&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3.0,
+  &quot;previousWidth&quot; : 3,
   &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3.0,
+  &quot;nextWidth&quot; : 3,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
@@ -2311,14 +2375,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000.0,
+  &quot;remoteTimeout&quot; : 30000,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000.0,
+    &quot;remoteTimeout&quot; : 30000,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
@@ -2347,5 +2411,5 @@
     <type>KalydecoInitialSubmission</type>
     <uniqueName>KalydecoInitialSubmission_kalydecoInitialSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>2ff5f3c2-9578-7b09-b203-eb52fe9aef40</webComponentKey>
+    <webComponentKey>aa771368-1472-cf94-84d3-8e4748d6e560</webComponentKey>
 </OmniScript>

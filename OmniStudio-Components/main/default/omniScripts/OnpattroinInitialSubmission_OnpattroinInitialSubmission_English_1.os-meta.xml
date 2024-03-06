@@ -270,10 +270,376 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Patisiran_Initial_Initiation_Criteria_Q6</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;Does the patient exhibit severe heart failure symptoms \ndefined as New York Heart Association (NYHA) class III or \nIV, independent of acute illness?&quot;,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;horizontalMode&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Yes&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;autoAdv&quot; : null
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;autoAdv&quot; : null
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100,
+  &quot;optionHeight&quot; : 100,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;enableCaption&quot; : true,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Radio</type>
+                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q6</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Patisiran_Initial_Initiation_Criteria_Q6_R1</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;If Yes, Please Provide Explanation&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Patisiran_Initial_Initiation_Criteria_Q6&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>1.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q6_R1</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Patisiran_Initial_Initiation_Criteria_Q7</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;Has the patient undergone a liver transplant?&quot;,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;horizontalMode&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Yes&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;autoAdv&quot; : null
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;autoAdv&quot; : null
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100,
+  &quot;optionHeight&quot; : 100,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;enableCaption&quot; : true,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>2.0</sequenceNumber>
+                <type>Radio</type>
+                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q7</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Patisiran_Initial_Initiation_Criteria_Q7_R1</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;If Yes, Please Provide Explanation&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Patisiran_Initial_Initiation_Criteria_Q7&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>3.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q7_R1</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Patisiran_Initial_Initiation_Criteria_Q8</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;Will the patient use patisiran in combination with other\ninterfering ribonucleic acid drugs or transthyretin stabilizers \nused to treat hATTR?&quot;,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;horizontalMode&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Yes&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;autoAdv&quot; : null
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;developerName&quot; : null,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;autoAdv&quot; : null
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100,
+  &quot;optionHeight&quot; : 100,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;enableCaption&quot; : true,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>4.0</sequenceNumber>
+                <type>Radio</type>
+                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q8</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Patisiran_Initial_Initiation_Criteria_Q8_R1</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;If Yes, Please Provide Explanation&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Patisiran_Initial_Initiation_Criteria_Q8&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>5.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q8_R1</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Patisiran_Initial_Initiation_Criteria_Q9</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;Additional Notes:&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0.0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>6.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q9</uniqueIndex>
+            </childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>EXCLUSIONCRITERIA</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;EXCLUSION CRITERIA&quot;,
+  &quot;collapse&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Block</type>
+        </childElements>
+        <childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
                 <name>Patisiran_Initial_Initiation_Criteria_Q1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 7,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Does the patient have a confirmed genetic diagnosis of hATTR?&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
@@ -328,7 +694,7 @@
                 <name>Patisiran_Initial_Initiation_Criteria_Q1_R1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;GENETIC REPORT MUST BE INCLUDED IN SUBMISSION&quot;,
   &quot;text&quot; : &quot;GENETIC REPORT MUST BE INCLUDED IN SUBMISSION&quot;,
   &quot;show&quot; : null,
@@ -337,7 +703,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Text Block</type>
                 <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q1_R1</uniqueIndex>
             </childElements>
@@ -375,7 +741,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q2</uniqueIndex>
             </childElements>
@@ -443,56 +809,60 @@
                 <name>Patisiran_Initial_Initiation_Criteria_Q3_R1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Polyneuropathy Disability (PND) stage I ≤ IIIB; OR&quot;,
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;If yes, please complete&quot;,
+  &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : false,
+  &quot;horizontalMode&quot; : false,
+  &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
-  &quot;checkLabel&quot; : &quot;Polyneuropathy Disability (PND) stage I ≤ IIIB; OR&quot;,
-  &quot;show&quot; : null,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Polyneuropathy Disability (PND) stage I ≤ IIIB; &quot;,
+    &quot;developerName&quot; : &quot;Polyneuropathy Disability (PND) stage I ≤ IIIB; &quot;,
+    &quot;value&quot; : &quot;Polyneuropathy Disability (PND) stage I ≤ IIIB; &quot;,
+    &quot;setAll&quot; : false
+  }, {
+    &quot;name&quot; : &quot;Familial Amyloidotic Polyneuropathy (FAP) stage I or II&quot;,
+    &quot;developerName&quot; : &quot;Familial Amyloidotic Polyneuropathy (FAP) stage I or II&quot;,
+    &quot;value&quot; : &quot;Familial Amyloidotic Polyneuropathy (FAP) stage I or II&quot;,
+    &quot;setAll&quot; : false
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes, patient is symptomatic with early-stage neuropathy, defined as&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Patisiran_Initial_Initiation_Criteria_Q3&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100,
+  &quot;optionHeight&quot; : 100,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>4.0</sequenceNumber>
-                <type>Checkbox</type>
+                <type>Radio</type>
                 <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q3_R1</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q3_R2</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Familial Amyloidotic Polyneuropathy (FAP) stage I or II&quot;,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : false,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;checkLabel&quot; : &quot;Familial Amyloidotic Polyneuropathy (FAP) stage I or II&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
-                <type>Checkbox</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q3_R2</uniqueIndex>
             </childElements>
             <childElements>
                 <designerCustomizationType>Discovery Framework</designerCustomizationType>
@@ -528,7 +898,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q4</uniqueIndex>
             </childElements>
@@ -566,353 +936,9 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>7.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q5</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q6</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Does the patient exhibit severe heart failure symptoms \ndefined as New York Heart Association (NYHA) class III or \nIV, independent of acute illness?&quot;,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;horizontalMode&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : &quot;No&quot;,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;setAll&quot; : false
-  }, {
-    &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : &quot;Yes&quot;,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;setAll&quot; : false
-  } ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100.0,
-  &quot;optionHeight&quot; : 100.0,
-  &quot;imageCountInRow&quot; : 3.0,
-  &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>8.0</sequenceNumber>
-                <type>Radio</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q6</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q6_R1</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;If Yes, Please Provide Explanation&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Patisiran_Initial_Initiation_Criteria_Q6&quot;
-      } ]
-    }
-  },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>9.0</sequenceNumber>
-                <type>Text Area</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q6_R1</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q7</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Has the patient undergone a liver transplant?&quot;,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;horizontalMode&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : &quot;No&quot;,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;setAll&quot; : false
-  }, {
-    &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : &quot;Yes&quot;,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;setAll&quot; : false
-  } ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100.0,
-  &quot;optionHeight&quot; : 100.0,
-  &quot;imageCountInRow&quot; : 3.0,
-  &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>10.0</sequenceNumber>
-                <type>Radio</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q7</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q7_R1</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;If Yes, Please Provide Explanation&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Patisiran_Initial_Initiation_Criteria_Q7&quot;
-      } ]
-    }
-  },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>11.0</sequenceNumber>
-                <type>Text Area</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q7_R1</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q8</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Will the patient use patisiran in combination with other\ninterfering ribonucleic acid drugs or transthyretin stabilizers \nused to treat hATTR?&quot;,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;horizontalMode&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;No&quot;,
-    &quot;developerName&quot; : &quot;No&quot;,
-    &quot;value&quot; : &quot;No&quot;,
-    &quot;setAll&quot; : false
-  }, {
-    &quot;name&quot; : &quot;Yes&quot;,
-    &quot;developerName&quot; : &quot;Yes&quot;,
-    &quot;value&quot; : &quot;Yes&quot;,
-    &quot;setAll&quot; : false
-  } ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100.0,
-  &quot;optionHeight&quot; : 100.0,
-  &quot;imageCountInRow&quot; : 3.0,
-  &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>12.0</sequenceNumber>
-                <type>Radio</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q8</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q8_R1</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;If Yes, Please Provide Explanation&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Patisiran_Initial_Initiation_Criteria_Q8&quot;
-      } ]
-    }
-  },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>13.0</sequenceNumber>
-                <type>Text Area</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q8_R1</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>Patisiran_Initial_Initiation_Criteria_Q9</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Additional Notes:&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>14.0</sequenceNumber>
-                <type>Text Area</type>
-                <uniqueIndex>Patisiran_Initial_Initiation_Criteria_Q9</uniqueIndex>
             </childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -940,15 +966,15 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>HEREDITARYTRANSTHYRETINAMYLOIDOSISINITIALSUBMISSION</name>
+        <name>patisiran-InitialSubmission</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;HEREDITARY TRANSTHYRETIN AMYLOIDOSIS INITIAL SUBMISSION&quot;,
+  &quot;label&quot; : &quot;patisiran - Initial Submission&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3.0,
+  &quot;previousWidth&quot; : 3,
   &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3.0,
+  &quot;nextWidth&quot; : 3,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
@@ -959,14 +985,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000.0,
+  &quot;remoteTimeout&quot; : 30000,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000.0,
+    &quot;remoteTimeout&quot; : 30000,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
@@ -995,5 +1021,5 @@
     <type>OnpattroinInitialSubmission</type>
     <uniqueName>OnpattroinInitialSubmission_OnpattroinInitialSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>de821a95-d651-b1d3-6d86-0c7249b5539c</webComponentKey>
+    <webComponentKey>9d8f00ee-5239-d2aa-9922-18552598946f</webComponentKey>
 </OmniScript>
