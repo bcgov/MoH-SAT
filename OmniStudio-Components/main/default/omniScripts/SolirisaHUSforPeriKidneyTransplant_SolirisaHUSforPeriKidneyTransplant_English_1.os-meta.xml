@@ -172,28 +172,6 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>AHUS_Peri_Transplant_Drug_Information_Q4</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Instructions: Complete section A&quot;,
-  &quot;text&quot; : &quot;Instructions: Complete section A&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
-                <type>Text Block</type>
-                <uniqueIndex>AHUS_Peri_Transplant_Drug_Information_Q4</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
                 <name>Atypical_Hemolytic_Uremic_Syndrome_Initial_Drug_Information_Q1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
@@ -375,7 +353,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>AHUS_Initial_Patient_Quality_of_Life_Q1</uniqueIndex>
             </childElements>
@@ -413,7 +391,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>AHUS_Initial_Patient_Quality_of_Life_Q2</uniqueIndex>
             </childElements>
@@ -451,9 +429,31 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>AHUS_Initial_Patient_Quality_of_Life_Q3</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>AHUS_Initial_Patient_Quality_of_Life_Q4</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;What QOL improvement is expected with response to therapy?  Provide most important specifics, both positive and negative, to this patient&quot;,
+  &quot;text&quot; : &quot;What QOL improvement is expected with response to therapy?  Provide most important specifics, both positive and negative, to this patient&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>0.0</sequenceNumber>
+                <type>Text Block</type>
+                <uniqueIndex>AHUS_Initial_Patient_Quality_of_Life_Q4</uniqueIndex>
             </childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -462,7 +462,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Patient Quality of Life – What QOL improvement is expected with response to therapy? Provide most important specifics both positive and negative to this patient:&quot;,
+  &quot;label&quot; : &quot;Patient Quality of Life&quot;,
   &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -487,8 +487,8 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Initiation Criteria&quot;,
-  &quot;text&quot; : &quot;Initiation Criteria&quot;,
+  &quot;label&quot; : &quot;Approval requires a confirmed diagnosis of aHUS with an unacceptably high risk of relapse.  All of criteria 1, 2 and 3 must be met.  Approval is for 6 months only.  After eculizumab withdrawal, we suggest the monitoring strategy noted below, and approval for one urgent dose will be provided in the event of relapse with further coverage requiring completion of the Post-Transplant Recurrence application form.&quot;,
+  &quot;text&quot; : &quot;Approval requires a confirmed diagnosis of aHUS with an unacceptably high risk of relapse.  All of criteria 1, 2 and 3 must be met.  Approval is for 6 months only.  After eculizumab withdrawal, we suggest the monitoring strategy noted below, and approval for one urgent dose will be provided in the event of relapse with further coverage requiring completion of the Post-Transplant Recurrence application form.&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -509,7 +509,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;h) Medication induced TMA: provide a list of all medications the patient was exposed to within 1 month of disease onset. If this includes any of the following, a detailed explanation must be provided explaining why the original presentation was not\r\nsecondary to medication-related TMA:\r\na. Cisplatin; Gemcitabine; Mitomycin; Clopidogrel/ ticlopidine; Quinine; Interferon α,β; Anti-vascular endothelial growth factor; alemtuzumab; Cyclosporine / tacrolimus; Ciprofloxacin; Illicit drugs [e.g. cocaine, heroin, ecstasy]; proteasome inhibitors&quot;,
+  &quot;label&quot; : &quot;h) Medication induced TMA: provide a list of all medications the patient was exposed to within 1 month of disease onset. If this includes any of the following, a detailed explanation must be provided explaining why the original presentation was not\r\nsecondary to medication-related TMA:\r\nCisplatin; Gemcitabine; Mitomycin; Clopidogrel/ ticlopidine; Quinine; Interferon α,β; Anti-vascular endothelial growth factor; Alemtuzumab; Cyclosporine / tacrolimus; Ciprofloxacin; Illicit drugs [e.g. cocaine, heroin, ecstasy]; Proteasome inhibitors&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -1181,15 +1181,15 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;3. Demonstrate the CURRENT presence of TMA in the ALLOGRAFT: either (a) or (b)&quot;,
-  &quot;text&quot; : &quot;3. Demonstrate the CURRENT presence of TMA in the ALLOGRAFT: either (a) or (b)&quot;,
+  &quot;label&quot; : &quot;3. Demonstrate an unacceptable high risk of relapse: either (a) or (b)&quot;,
+  &quot;text&quot; : &quot;3. Demonstrate an unacceptable high risk of relapse: either (a) or (b)&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>39.0</sequenceNumber>
+                <sequenceNumber>42.0</sequenceNumber>
                 <type>Text Block</type>
                 <uniqueIndex>AHUS_Initial_First_Presentation_of_Recurrent_Q16</uniqueIndex>
             </childElements>
@@ -1203,7 +1203,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Unexplained thrombocytopenia (platelet &lt;150 x 109/L or a significant reduction from baseline) AND the presence of hemolysis (schistocytes AND either\r\nincreased LDH or low haptoglobin)&quot;,
+  &quot;label&quot; : &quot;b) Tissue biopsy confirming TMA&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -1244,7 +1244,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>40.0</sequenceNumber>
+                <sequenceNumber>39.0</sequenceNumber>
                 <type>Radio</type>
                 <uniqueIndex>AHUS_Initial_First_Presentation_of_Recurrent_Q17</uniqueIndex>
             </childElements>
@@ -1281,7 +1281,7 @@
   &quot;minDate&quot; : &quot;&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>41.0</sequenceNumber>
+                <sequenceNumber>40.0</sequenceNumber>
                 <type>Date</type>
                 <uniqueIndex>AHUS_Initial_First_Presentation_of_Recurrent_Q17_1</uniqueIndex>
             </childElements>
@@ -1319,7 +1319,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>42.0</sequenceNumber>
+                <sequenceNumber>41.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>AHUS_Initial_First_Presentation_of_Recurrent_Q17_2</uniqueIndex>
             </childElements>
@@ -1485,7 +1485,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;b) Malignant hypertension: Provide blood pressure results\na. If blood pressure was elevated at the time of presentation, evidence must be provided to support ongoing hemolysis that persists after adequate blood pressure control&quot;,
+  &quot;label&quot; : &quot;b) Malignant hypertension: Provide blood pressure results. If blood pressure was elevated at the time of presentation, evidence must be provided to support ongoing hemolysis that persists after adequate blood pressure control&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -1615,7 +1615,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;c) STEC-related TMA\na. For all patients with diarrhea within 1 week of presentation, the results of a stool culture and/or shiga-toxin PCR must be provided&quot;,
+  &quot;label&quot; : &quot;c) STEC-related TMA. For all patients with diarrhea within 1 week of presentation, the results of a stool culture and/or shiga-toxin PCR must be provided&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -1875,7 +1875,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;e) Pre-eclampsia, HELLP syndrome, pregnancy-related TTP: provide pregnancy test results in all women of child bearing age\na. If the patient was pregnant, a detailed explanation must be provided justifying why this was not TMA secondary to pregnancy&quot;,
+  &quot;label&quot; : &quot;e) Pre-eclampsia, HELLP syndrome, pregnancy-related TTP: provide pregnancy test results in all women of child bearing age. If the patient was pregnant, a detailed explanation must be provided justifying why this was not TMA secondary to pregnancy.&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2544,7 +2544,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Section A: Peri-transplant prophylaxis to prevent disease recurrence&quot;,
+  &quot;label&quot; : &quot;Initiation Criteria&quot;,
   &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -2618,5 +2618,5 @@
     <type>SolirisaHUSforPeriKidneyTransplant</type>
     <uniqueName>SolirisaHUSforPeriKidneyTransplant_SolirisaHUSforPeriKidneyTransplant_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>6a7d216a-d924-81bc-795e-27a2da57e4d6</webComponentKey>
+    <webComponentKey>396e7c9d-22b1-a2c0-4321-d26fee2d837a</webComponentKey>
 </OmniScript>
