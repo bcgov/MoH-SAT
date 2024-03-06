@@ -14,31 +14,37 @@ jobs:
 
     - name: 'Install Salesforce CLI'
       run: |
-          wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
+          wget https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
           mkdir ~/sfdx
-          tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+          tar xJf sf-linux-x64.tar.xz -C ~/sfdx --strip-components 1
           echo "$HOME/sfdx/bin" >> $GITHUB_PATH
-          ~/sfdx/bin/sfdx version
+          ~/sfdx/bin/sf version
       
     - name: Authenticate with Sandbox
       run: |
         echo ${{ secrets.SALESFORCE_BUILD_AUTH }} > sfdxurl.txt
-        sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias SAT-BUILD
+        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias SAT-BUILD
 
     - name: Remove auth file
       run: rm -f ./sfdxurl.txt
 
     - name: Deploy Source in dev-app-pre
-      run: sfdx force:source:deploy -p dev-app-pre -u SAT-BUILD -w 15 -l RunLocalTests
+      run: sf project deploy start -d dev-app-pre -o SAT-BUILD -w 15 -l RunLocalTests
 
     - name: Install version ID
-      run: sfdx force:package:install --package "${{ github.event.inputs.package }}" -u SAT-BUILD -b 15 -w 15 --noprompt --wait 10
+      run: sf package install --package "${{ github.event.inputs.package }}" -o SAT-BUILD -b 15 --noprompt --wait 10
 
-    - name: Re-deploy metadata
-      run: sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u SAT-BUILD -w 15 -l RunLocalTests
+    - name: Re-deploy default objects
+      run: sf project deploy start -d force-app/main/default/objects -o SAT-BUILD -w 15 -l RunLocalTests
+
+    - name: Re-deploy default queues 
+      run: sf project deploy start -d force-app/main/default/queues -o SAT-BUILD -w 15 -l RunLocalTests
+
+    - name: Deploy source default OmniStudio-Components 
+      run: sf project deploy start -d OmniStudio-Components -o SAT-BUILD -w 15 -l RunLocalTests
 
     - name: Deploy Source in dev-app-post
-      run: sfdx force:source:deploy -p dev-app-post -u SAT-BUILD -w 15 -l RunLocalTests
+      run: sf project deploy start -d dev-app-post -o SAT-BUILD -w 15 -l RunLocalTests
 
 #    - name: Deploy destructive changes
 #      run: sfdx force:mdapi:deploy -d destructiveChanges -u SAT-BUILD -o -g -l RunLocalTests -w 15
