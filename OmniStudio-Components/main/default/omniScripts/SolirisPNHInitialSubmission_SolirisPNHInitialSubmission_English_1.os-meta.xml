@@ -724,33 +724,50 @@
                 <name>EculizumabPNH_Initial_Submission_Information_Q4</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 11,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;Is the patient currently receiving eculizumab? And if yes, please indicate when it was started&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
+  &quot;horizontalMode&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
-  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Yes&quot;,
+    &quot;developerName&quot; : &quot;Yes&quot;,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;setAll&quot; : false
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;developerName&quot; : &quot;No&quot;,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;setAll&quot; : false
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
+  &quot;optionWidth&quot; : 100.0,
+  &quot;optionHeight&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3.0,
+  &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>3.0</sequenceNumber>
-                <type>Text Area</type>
+                <type>Radio</type>
                 <uniqueIndex>EculizumabPNH_Initial_Submission_Information_Q4</uniqueIndex>
             </childElements>
             <childElements>
@@ -787,7 +804,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>EculizumabPNH_Initial_Submission_Information_Q5</uniqueIndex>
             </childElements>
@@ -825,9 +842,102 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>EculizumabPNH_Initial_Submission_Information_Q6</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>EculizumabPNH_Initial_Submission_Q4_R1</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;Date&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;dateType&quot; : &quot;string&quot;,
+  &quot;modelDateFormat&quot; : &quot;yyyy-MM-dd&quot;,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;EculizumabPNH_Initial_Submission_Information_Q4&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;minDate&quot; : &quot;&quot;,
+  &quot;maxDate&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>4.0</sequenceNumber>
+                <type>Date</type>
+                <uniqueIndex>EculizumabPNH_Initial_Submission_Q4_R1</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>EculizumabPNH_Initial_Submission_Q4_R2</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 7,
+  &quot;label&quot; : &quot;Comments&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;EculizumabPNH_Initial_Submission_Information_Q4&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>5.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>EculizumabPNH_Initial_Submission_Q4_R2</uniqueIndex>
             </childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -855,15 +965,15 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>PAROXYSMALNOCTURNALHEMOGLOBINURIAINITIALSUBMISSION</name>
+        <name>eculizumab - PNH Initial Submission</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;PAROXYSMAL NOCTURNAL HEMOGLOBINURIA INITIAL SUBMISSION&quot;,
+  &quot;label&quot; : &quot;eculizumab - PNH Initial Submission&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3.0,
+  &quot;previousWidth&quot; : 3,
   &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3.0,
+  &quot;nextWidth&quot; : 3,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
@@ -874,14 +984,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000.0,
+  &quot;remoteTimeout&quot; : 30000,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000.0,
+    &quot;remoteTimeout&quot; : 30000,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
@@ -910,5 +1020,5 @@
     <type>SolirisPNHInitialSubmission</type>
     <uniqueName>SolirisPNHInitialSubmission_SolirisPNHInitialSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>24cfdcd7-1c58-b20a-a6af-3ffe32c9e568</webComponentKey>
+    <webComponentKey>52814069-b0ff-1412-88e1-a81ae6577dfb</webComponentKey>
 </OmniScript>

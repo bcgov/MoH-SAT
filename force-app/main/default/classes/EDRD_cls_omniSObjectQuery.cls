@@ -25,6 +25,17 @@ global class EDRD_cls_omniSObjectQuery implements omniStudio.VlocityOpenInterfac
             }
             outMap.put('options', UIoptions);
         }
+        else if(methodName.equals('RenewalMedicationNames')){
+            List<Map<String,String>> UIoptions = new List<Map<String,String>>();
+            
+            for(Medication medObj : [SELECT Id, Name FROM Medication WHERE Status = 'Active' AND One_time_Dose__c = FALSE ORDER BY Name ASC]){
+                Map<String,String> tempMap = new Map<String,String>();
+                tempMap.put('name', medObj.Id);
+                tempMap.put('value', medObj.Name);  
+                UIoptions.add(tempMap);
+            }
+            outMap.put('options', UIoptions);
+        }
         return true;
-    }
+    } 
 }
