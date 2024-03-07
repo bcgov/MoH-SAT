@@ -77,7 +77,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;DISCONTINUATION CRITERIA&quot;,
-  &quot;collapse&quot; : true,
+  &quot;collapse&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
@@ -101,7 +101,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;1. Does the patient have any of the following new comorbidities/events? (Please check all that apply)&quot;,
+  &quot;label&quot; : &quot;1. Does the patient have any of the following new comorbidities/events?&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -116,29 +116,21 @@
     &quot;developerName&quot; : &quot;Anemia (Hgb &lt;90 g/L)&quot;,
     &quot;value&quot; : &quot;Anemia (Hgb &lt;90 g/L)&quot;
   }, {
-    &quot;name&quot; : &quot;Malignancies, including workup for suspected&quot;,
-    &quot;developerName&quot; : &quot;Malignancies, including workup for suspected&quot;,
-    &quot;value&quot; : &quot;Malignancies, including workup for suspected&quot;
+    &quot;name&quot; : &quot;Dementia&quot;,
+    &quot;developerName&quot; : &quot;Dementia&quot;,
+    &quot;value&quot; : &quot;Dementia&quot;
   }, {
-    &quot;name&quot; : &quot;Falls and/or fractures&quot;,
-    &quot;developerName&quot; : &quot;Falls and/or fractures&quot;,
-    &quot;value&quot; : &quot;Falls and/or fractures&quot;
+    &quot;name&quot; : &quot;New or recurrent malignancies&quot;,
+    &quot;developerName&quot; : &quot;New or recurrent malignancies&quot;,
+    &quot;value&quot; : &quot;New or recurrent malignancies&quot;
   }, {
-    &quot;name&quot; : &quot;Advanced dementia&quot;,
-    &quot;developerName&quot; : &quot;Advanced dementia&quot;,
-    &quot;value&quot; : &quot;Advanced dementia&quot;
+    &quot;name&quot; : &quot;Palliative care or residing in long-term care facility&quot;,
+    &quot;developerName&quot; : &quot;Palliative care or residing in long-term care facility&quot;,
+    &quot;value&quot; : &quot;Palliative care or residing in long-term care facility&quot;
   }, {
-    &quot;name&quot; : &quot;Palliative&quot;,
-    &quot;developerName&quot; : &quot;Palliative&quot;,
-    &quot;value&quot; : &quot;Palliative&quot;
-  }, {
-    &quot;name&quot; : &quot;GI bleed requiring intervention&quot;,
-    &quot;developerName&quot; : &quot;GI bleed requiring intervention&quot;,
-    &quot;value&quot; : &quot;GI bleed requiring intervention&quot;
-  }, {
-    &quot;name&quot; : &quot;Infections requiring hospitalization&quot;,
-    &quot;developerName&quot; : &quot;Infections requiring hospitalization&quot;,
-    &quot;value&quot; : &quot;Infections requiring hospitalization&quot;
+    &quot;name&quot; : &quot;Unplanned hospitalizations of any kind in the past year&quot;,
+    &quot;developerName&quot; : &quot;Unplanned hospitalizations of any kind in the past year&quot;,
+    &quot;value&quot; : &quot;Unplanned hospitalizations of any kind in the past year&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -163,6 +155,44 @@
                 <sequenceNumber>0.0</sequenceNumber>
                 <type>Multi-select</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q1</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Tafamidis_Renew_Patient_Overview_Q1_R1</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;Please provide details:&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0.0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>1.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q1_R1</uniqueIndex>
             </childElements>
             <childElements>
                 <designerCustomizationType>Discovery Framework</designerCustomizationType>
@@ -220,7 +250,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Radio</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q2</uniqueIndex>
             </childElements>
@@ -275,7 +305,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Radio</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q3</uniqueIndex>
             </childElements>
@@ -300,17 +330,15 @@
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;i. BNP/NT-proBNP (Circle one)&quot;,
-    &quot;developerName&quot; : &quot;i. BNP/NT-proBNP (Circle one)&quot;,
-    &quot;value&quot; : &quot;i. BNP/NT-proBNP (Circle one)&quot;
+    &quot;name&quot; : &quot;i. BNP&quot;,
+    &quot;developerName&quot; : &quot;i. BNP&quot;,
+    &quot;value&quot; : &quot;i. BNP&quot;,
+    &quot;setAll&quot; : false
   }, {
-    &quot;name&quot; : &quot;ii. eGFR:&quot;,
-    &quot;developerName&quot; : &quot;ii. eGFR:&quot;,
-    &quot;value&quot; : &quot;ii. eGFR:&quot;
-  }, {
-    &quot;name&quot; : &quot;iii. Troponin I&quot;,
-    &quot;developerName&quot; : &quot;iii. Troponin I&quot;,
-    &quot;value&quot; : &quot;iii. Troponin I&quot;
+    &quot;name&quot; : &quot;ii. NT-proBNP&quot;,
+    &quot;developerName&quot; : &quot;ii. NT-proBNP&quot;,
+    &quot;value&quot; : &quot;ii. NT-proBNP&quot;,
+    &quot;setAll&quot; : false
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -332,8 +360,8 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
-                <type>Multi-select</type>
+                <sequenceNumber>4.0</sequenceNumber>
+                <type>Radio</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q4</uniqueIndex>
             </childElements>
             <childElements>
@@ -345,8 +373,8 @@
                 <name>Tafamidis_Renew_Patient_Overview_Q4_R1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;i. BNP/NT-proBNP (Specify which one)&quot;,
+  &quot;controlWidth&quot; : 6,
+  &quot;label&quot; : &quot;BNP :&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -362,7 +390,16 @@
   &quot;minLength&quot; : 0,
   &quot;maxLength&quot; : 255,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;i. BNP&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Tafamidis_Renew_Patient_Overview_Q4&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;debounceValue&quot; : 0,
@@ -370,7 +407,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q4_R1</uniqueIndex>
             </childElements>
@@ -383,8 +420,8 @@
                 <name>Tafamidis_Renew_Patient_Overview_Q4_R2</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;ii. eGFR:&quot;,
+  &quot;controlWidth&quot; : 6,
+  &quot;label&quot; : &quot;eGFR :&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -408,7 +445,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q4_R2</uniqueIndex>
             </childElements>
@@ -421,8 +458,8 @@
                 <name>Tafamidis_Renew_Patient_Overview_Q4_R3</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;iii. Troponin I&quot;,
+  &quot;controlWidth&quot; : 6,
+  &quot;label&quot; : &quot;Troponin I :&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
@@ -446,9 +483,56 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
+                <sequenceNumber>8.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q4_R3</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Tafamidis_Renew_Patient_Overview_Q4_R4</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 6,
+  &quot;label&quot; : &quot;NT-proBNP :&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;ii. NT-proBNP&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Tafamidis_Renew_Patient_Overview_Q4&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>6.0</sequenceNumber>
+                <type>Text Area</type>
+                <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q4_R4</uniqueIndex>
             </childElements>
             <childElements>
                 <designerCustomizationType>Discovery Framework</designerCustomizationType>
@@ -460,7 +544,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;3a. Number of cardiac-related hospitalizations over the past year:&quot;,
+  &quot;label&quot; : &quot;3a. Clinical Frailty Scale Score:&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
@@ -484,9 +568,46 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>7.0</sequenceNumber>
+                <sequenceNumber>9.0</sequenceNumber>
                 <type>Text Area</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q5</uniqueIndex>
+            </childElements>
+            <childElements>
+                <designerCustomizationType>Discovery Framework</designerCustomizationType>
+                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>Tafamidis_Renew_Patient_Overview_Q5_R1</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;Date of Frailty Score:&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;dateType&quot; : &quot;string&quot;,
+  &quot;modelDateFormat&quot; : &quot;yyyy-MM-dd&quot;,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;minDate&quot; : &quot;&quot;,
+  &quot;maxDate&quot; : &quot;&quot;
+}</propertySetConfig>
+                <sequenceNumber>10.0</sequenceNumber>
+                <type>Date</type>
+                <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q5_R1</uniqueIndex>
             </childElements>
             <childElements>
                 <designerCustomizationType>Discovery Framework</designerCustomizationType>
@@ -545,7 +666,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>8.0</sequenceNumber>
+                <sequenceNumber>11.0</sequenceNumber>
                 <type>Multi-select</type>
                 <uniqueIndex>Tafamidis_Renew_Patient_Overview_Q6</uniqueIndex>
             </childElements>
@@ -575,10 +696,10 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>TRANSTHYRETIN-MEDIATEDAMYLOIDOSISCARDIOMYOPATHYRENEWALSUBMISSION</name>
+        <name>tafamidis-RenewalSubmission</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;TRANSTHYRETIN-MEDIATED AMYLOIDOSIS, CARDIOMYOPATHY RENEWAL SUBMISSION&quot;,
+  &quot;label&quot; : &quot;tafamidis - Renewal Submission&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;previousWidth&quot; : 3.0,
@@ -630,5 +751,5 @@
     <type>VyndaqelVyndamaxRenewalSubmission</type>
     <uniqueName>VyndaqelVyndamaxRenewalSubmission_VyndaqelVyndamaxRenewalSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>0d412cd0-5376-c155-0fe3-717c62fe77ae</webComponentKey>
+    <webComponentKey>bb431dca-07e6-89e2-dd57-cb74e146f115</webComponentKey>
 </OmniScript>

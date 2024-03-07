@@ -401,6 +401,25 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>IndicationText</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&lt;h3 style=\&quot;text-align: right;\&quot;&gt;&lt;span style=\&quot;color: #000000;\&quot;&gt;&lt;span class=\&quot;ui-provider gr bma bhg bmb bmc bmd bme bmf bmg bmh bmi bmj bmk bml bmm bmn bmo bmp bmq bmr bms bmt bmu bmv bmw bmx bmy bmz bna bnb bnc bnd bne bnf bng\&quot; dir=\&quot;ltr\&quot;&gt;Please ensure you select the correct indication.&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
             <name>IndicationValueRenewal</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -473,7 +492,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;dataJSON&quot; : false,
   &quot;show&quot; : null,
-  &quot;text&quot; : &quot;&lt;div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;HEALTH CANADA (HC) Recommended Dose &amp;amp; Funding Info for %SelectDrugRenewal% :&lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;&lt;/div&gt;\n&lt;div&gt;&amp;nbsp;&lt;/div&gt;\n&lt;div&gt;&amp;nbsp;&lt;/div&gt;\n&lt;/div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;Renewal Recommended Dosage&amp;nbsp; : &lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;%RenewalDosage%&lt;/div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;Maximum Renewal Funding Duration: &lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;%RenewalFundingDuration%&lt;/div&gt;\n&lt;div&gt;&amp;nbsp;&lt;/div&gt;\n&lt;div&gt;\n&lt;div&gt;\n&lt;div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;Initial Recommended Dosage:&lt;/strong&gt;&lt;/em&gt;&lt;/span&gt; &amp;nbsp;%InitialRecDose%&lt;/div&gt;\n&lt;/div&gt;\n&lt;/div&gt;\n&lt;div&gt;&lt;em&gt;&lt;strong&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;Maximum Initiation Funding Duration:&lt;/span&gt;&amp;nbsp; &lt;/strong&gt;&lt;/em&gt;%MaxInitialFundDuration%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;HEALTH CANADA (HC) Recommended Dose &amp;amp; Funding Info for %SelectDrugRenewal% :&lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;&lt;/div&gt;\n&lt;div&gt;&amp;nbsp;&lt;/div&gt;\n&lt;/div&gt;\n&lt;div&gt;\n&lt;div&gt;\n&lt;div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;Initial Recommended Dosage:&lt;/strong&gt;&lt;/em&gt;&lt;/span&gt; &amp;nbsp;%InitialRecDose%&lt;/div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;Renewal Recommended Dosage&amp;nbsp; : &lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;%RenewalRecDose%&lt;/div&gt;\n&lt;div&gt;&amp;nbsp;&lt;/div&gt;\n&lt;/div&gt;\n&lt;/div&gt;\n&lt;div&gt;&lt;em&gt;&lt;strong&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;Maximum Initiation Funding Duration:&lt;/span&gt;&amp;nbsp; &lt;/strong&gt;&lt;/em&gt;%MaxInitialFundDuration%&lt;/div&gt;\n&lt;div&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;em&gt;&lt;strong&gt;Maximum Renewal Funding Duration: &lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;%MaxRenewFundDuration%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
@@ -1790,31 +1809,6 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
-        <embeddedOmniScriptKey>ProcysbiInitialSubmission|ProcysbiInitialSubmission|English</embeddedOmniScriptKey>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>PROCYSBIINITIALSUBMISSION</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;Type&quot; : &quot;ProcysbiInitialSubmission&quot;,
-  &quot;Sub Type&quot; : &quot;ProcysbiInitialSubmission&quot;,
-  &quot;Language&quot; : &quot;English&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;MedicationNameRenewal&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;cysteamine&quot;
-      } ]
-    }
-  }
-}</propertySetConfig>
-        <sequenceNumber>18.0</sequenceNumber>
-        <type>OmniScript</type>
-    </omniProcessElements>
-    <omniProcessElements>
         <childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2170,7 +2164,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>25.0</sequenceNumber>
+        <sequenceNumber>24.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2242,7 +2236,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>40.0</sequenceNumber>
+        <sequenceNumber>39.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2648,5 +2642,5 @@
     <type>EDRD</type>
     <uniqueName>EDRD_RenewForm_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>a991c180-329d-a115-652c-f806482153ae</webComponentKey>
+    <webComponentKey>a73a4e5c-50e0-def5-5c2d-97f893bb62fd</webComponentKey>
 </OmniScript>
