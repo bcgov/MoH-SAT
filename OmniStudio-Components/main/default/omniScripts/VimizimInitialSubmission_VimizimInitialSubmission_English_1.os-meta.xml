@@ -616,21 +616,20 @@
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
-  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;dateType&quot; : &quot;string&quot;,
+  &quot;modelDateFormat&quot; : &quot;yyyy-MM-dd&quot;,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
+  &quot;disOnTplt&quot; : false,
+  &quot;minDate&quot; : &quot;&quot;,
+  &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
                 <sequenceNumber>9.0</sequenceNumber>
-                <type>Text Area</type>
+                <type>Date</type>
                 <uniqueIndex>Mucopolysaccharidosis_Type_IVA_Initial_Patient_Evaluation_Q9_R2</uniqueIndex>
             </childElements>
             <isActive>true</isActive>
@@ -665,25 +664,16 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Attach evidence of confirmed diagnostic testing of N-acetylgalacosamine-6 sulfate sulfatase (GALNS) activity in peripheral blood leukocytes or fibroblasts (excluding multiple sulfatase deficiency) through enzymatic assay AND Morquio A gene mutation analysis&quot;,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
+  &quot;label&quot; : &quot;Attach evidence of confirmed diagnostic testing of N-acetylgalacosamine-6 sulfate sulfatase (GALNS) activity in peripheral blood leukocytes or fibroblasts (excluding multiple sulfatase deficiency) through enzymatic assay AND Morquio A gene mutation analysis.(Please attach diagnostic testing on the next screen)&quot;,
+  &quot;text&quot; : &quot;Attach evidence of confirmed diagnostic testing of N-acetylgalacosamine-6 sulfate sulfatase (GALNS) activity in peripheral blood leukocytes or fibroblasts (excluding multiple sulfatase deficiency) through enzymatic assay AND Morquio A gene mutation analysis.(Please attach diagnostic testing on the next screen)&quot;,
   &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;uploadContDoc&quot; : true,
-  &quot;contentParentId&quot; : [ ],
-  &quot;extraPayload&quot; : { },
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteOptions&quot; : { },
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  }
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>0.0</sequenceNumber>
-                <type>File</type>
+                <type>Text Block</type>
                 <uniqueIndex>Mucopolysaccharidosis_Type_IVA_Initial_Confirmed_Diagnosis_Q1</uniqueIndex>
             </childElements>
             <isActive>true</isActive>
@@ -1164,9 +1154,9 @@
   &quot;label&quot; : &quot;elosulfase alfa - Initial Submission&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3,
+  &quot;previousWidth&quot; : 3.0,
   &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3,
+  &quot;nextWidth&quot; : 3.0,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
@@ -1177,14 +1167,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
+    &quot;remoteTimeout&quot; : 30000.0,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
@@ -1213,5 +1203,5 @@
     <type>VimizimInitialSubmission</type>
     <uniqueName>VimizimInitialSubmission_VimizimInitialSubmission_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>342284d4-66b9-12d3-ad25-6a4f6cfd931c</webComponentKey>
+    <webComponentKey>0d8117ec-fec4-c0f2-ddf2-51212944c1b5</webComponentKey>
 </OmniScript>
