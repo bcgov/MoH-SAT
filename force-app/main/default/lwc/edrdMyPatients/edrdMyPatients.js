@@ -19,7 +19,7 @@ const columns = [
         type: 'text'
     },
     {
-        label: 'BirthDate',
+        label: 'Birthdate',
         fieldName: 'Birthdate',
         type: 'Date'
     }
