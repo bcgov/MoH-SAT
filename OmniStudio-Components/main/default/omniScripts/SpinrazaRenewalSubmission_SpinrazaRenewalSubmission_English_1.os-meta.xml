@@ -4,7 +4,7 @@
     <designerCustomizationType>Discovery Framework</designerCustomizationType>
     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>true</isOmniScriptEmbeddable>
@@ -76,54 +76,32 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Test type&quot;,
+  &quot;label&quot; : &quot;Motor function assessment, please indicate the type of assessment (HINE, CHOP INTEND, HFMSE, RULM etc) and the following&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
-  &quot;horizontalMode&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
-  &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;HINE Section&quot;,
-    &quot;developerName&quot; : &quot;HINE Section&quot;,
-    &quot;value&quot; : &quot;HINE Section&quot;,
-    &quot;setAll&quot; : false
-  }, {
-    &quot;name&quot; : &quot;CHOP Intend&quot;,
-    &quot;developerName&quot; : &quot;CHOP Intend&quot;,
-    &quot;value&quot; : &quot;CHOP Intend&quot;,
-    &quot;setAll&quot; : false
-  }, {
-    &quot;name&quot; : &quot;HFMSE&quot;,
-    &quot;developerName&quot; : &quot;HFMSE&quot;,
-    &quot;value&quot; : &quot;HFMSE&quot;,
-    &quot;setAll&quot; : false
-  } ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100.0,
-  &quot;optionHeight&quot; : 100.0,
-  &quot;imageCountInRow&quot; : 3.0,
-  &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
                 <sequenceNumber>1.0</sequenceNumber>
-                <type>Radio</type>
+                <type>Text Area</type>
                 <uniqueIndex>Nusinersen_Renewal_Maintenance_Q2</uniqueIndex>
             </childElements>
             <childElements>
@@ -136,7 +114,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Baseline score date of test&quot;,
+  &quot;label&quot; : &quot;Date of baseline score&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
@@ -212,7 +190,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Most recent assessment date of test&quot;,
+  &quot;label&quot; : &quot;Date of most recent  score&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : false,
@@ -322,44 +300,6 @@
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>Nusinersen_Renewal_Maintenance_Q6</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Provide baseline and current motor milestone function results (as assessed by using the\nHammersmith Infant Neurological Examination [HINE] Section 2 or other age appropriate motor milestone function exam.)&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0.0,
-  &quot;maxLength&quot; : 255.0,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0.0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>9.0</sequenceNumber>
-                <type>Text Area</type>
-                <uniqueIndex>Nusinersen_Renewal_Maintenance_Q6</uniqueIndex>
-            </childElements>
-            <childElements>
-                <designerCustomizationType>Discovery Framework</designerCustomizationType>
-                <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
                 <name>Nusinersen_Renewal_Maintenance_Q7</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
@@ -405,7 +345,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>10.0</sequenceNumber>
+                <sequenceNumber>9.0</sequenceNumber>
                 <type>Radio</type>
                 <uniqueIndex>Nusinersen_Renewal_Maintenance_Q7</uniqueIndex>
             </childElements>
@@ -451,7 +391,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>11.0</sequenceNumber>
+                <sequenceNumber>10.0</sequenceNumber>
                 <type>Number</type>
                 <uniqueIndex>Nusinersen_Renewal_Maintenance_Q7_R1</uniqueIndex>
             </childElements>
@@ -465,7 +405,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Does the patient require permanent invasive ventilation? Yes/No\nPermanent invasive ventilation is defined as the use of tracheostomy and a ventilator due to progression of SMA that is not due to an identifiable\nand reversible cause.&quot;,
+  &quot;label&quot; : &quot;Does the patient require permanent invasive ventilation?  Permanent invasive ventilation is defined as the use of tracheostomy and a ventilator due to progression of SMA that is not due to an identifiable and reversible cause.&quot;,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -506,7 +446,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>12.0</sequenceNumber>
+                <sequenceNumber>11.0</sequenceNumber>
                 <type>Radio</type>
                 <uniqueIndex>Nusinersen_Renewal_Maintenance_Q8</uniqueIndex>
             </childElements>
@@ -640,9 +580,9 @@
   &quot;label&quot; : &quot;nusinersen - Renewal Submission&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3,
+  &quot;previousWidth&quot; : 3.0,
   &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3,
+  &quot;nextWidth&quot; : 3.0,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
@@ -653,14 +593,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
+    &quot;remoteTimeout&quot; : 30000.0,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
