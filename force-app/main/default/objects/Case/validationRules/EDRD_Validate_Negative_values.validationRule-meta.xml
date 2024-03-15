@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Negative_values</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD&apos;,
+OR(
+(EDRD_of_Coverage__c &lt; 0),
+(EDRD_Annual_Max_Coverage__c &lt; 0),
+(EDRD_Lifetime_Max_Coverage__c &lt; 0))
+)</errorConditionFormula>
+    <errorMessage>The % of Coverage or Annual Max Coverage or Lifetime Max Coverage values in Extended Health Benefits cannot be Negative.</errorMessage>
+</ValidationRule>

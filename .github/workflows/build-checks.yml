@@ -53,7 +53,7 @@ jobs:
  
     - name: Deploy source default queues
       run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
- 
+
     - name: Deploy source default OmniStudio-Components 
       run: sf project deploy start -d OmniStudio-Components -o ciorg -c
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_MOHFunding_Extended</fullName>
+    <active>true</active>
+    <description>This Validation Rule applies when someone tries to close the case as Funding Denied or Cancelled, even though the funding decision is Extended.</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD&apos;,
+ISPICKVAL( EDRD_MOHFunding_Decision__c, &quot;Extended&quot;),
+OR(ISPICKVAL( Status, &quot;Cancelled&quot;),
+ISPICKVAL( Status, &quot;Funding Denied&quot;))
+)</errorConditionFormula>
+    <errorMessage>If Funding decision is Extended, then case cannot be closed as Funding Denied or Cancelled.</errorMessage>
+</ValidationRule>

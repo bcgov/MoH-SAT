@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Case_MOHStatus</fullName>
+    <active>true</active>
+    <description>This Validation Rule applies when someone tries to close the case with blank values of funding decision.</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD&apos;,
+ISCHANGED(Status),
+NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Approved&quot;)),
+NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Denied&quot;)),
+NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Extended&quot;)),
+ISPICKVAL(PRIORVALUE(Status),&apos;MOH Review&apos;),
+OR(ISPICKVAL(Status,&apos;Cancelled&apos;),
+ISPICKVAL(Status,&apos;Funding Approved&apos;),
+ISPICKVAL(Status,&apos;Funding Denied&apos;))
+)</errorConditionFormula>
+    <errorDisplayField>EDRD_MOHFunding_Decision__c</errorDisplayField>
+    <errorMessage>Please provide the Funding Decision details before closing the case.</errorMessage>
+</ValidationRule>

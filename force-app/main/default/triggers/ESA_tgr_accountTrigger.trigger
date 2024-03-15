@@ -3,6 +3,7 @@
 * @Date:        09 Mar 2023
 * @Description: The purpose of this Trigger is to trigger on particular events
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
+                11 Nov -  EDRD-82           -  Accenture   -  Added Close Case method on Account Inactive
 ***********************************************************************************************/
 trigger ESA_tgr_accountTrigger on account (after insert, after update) {
     
@@ -13,6 +14,7 @@ trigger ESA_tgr_accountTrigger on account (after insert, after update) {
         }
         if(trigger.isUpdate){
             ESA_cls_accountTriggerHandler.populateSpecialty(trigger.new, trigger.newMap, trigger.oldMap);
+            ESA_cls_accountTriggerHandler.closeCaseOnAccDeceased(trigger.new, trigger.newMap, trigger.oldMap);
         }
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_MedicationStatus</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD_Medication_Request&apos;,
+OR(
+IsNew(),
+IsChanged(MedicationId)),
+NOT(ISPICKVAL(Medication.Status, &apos;Active&apos;))
+)</errorConditionFormula>
+    <errorDisplayField>MedicationId</errorDisplayField>
+    <errorMessage>The Medication Request cannot be created for an inactive Medication (drug).</errorMessage>
+</ValidationRule>
