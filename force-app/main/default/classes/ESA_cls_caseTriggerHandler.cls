@@ -20,24 +20,44 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @description: The purpose of this method is to populate termination date based on Approval time/time unit
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-    public static void populateTerminationDate(List<Case> newCases, Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
-        for(Case caseObj:newCases){
-            Boolean isInputsChange = trigger.isUpdate && (oldCaseMap.get(caseObj.id).ESA_Approval_Time__c != newCaseMap.get(caseObj.id).ESA_Approval_Time__c ||
-                                                          oldCaseMap.get(caseObj.id).ESA_Approval_Time_Unit__c != newCaseMap.get(caseObj.id).ESA_Approval_Time_Unit__c);
-            if((trigger.isInsert && caseObj.Termination_Date__c == NULL) || isInputsChange){
-                if(caseObj.ESA_Approval_Time__c != NULL && caseObj.ESA_Approval_Time_Unit__c != NULL){
-                    caseObj.Termination_Date__c = ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_WEEK.containsIgnoreCase(caseObj.ESA_Approval_Time_Unit__c) ? System.Today().addDays((Integer.valueOf(caseObj.ESA_Approval_Time__c)*7)+1)
-                        : ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_MONTH.containsIgnoreCase(caseObj.ESA_Approval_Time_Unit__c) ? System.Today().addMonths(Integer.valueOf(caseObj.ESA_Approval_Time__c)).addDays(1)
-                            : ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_DAYS.containsIgnoreCase(caseObj.ESA_Approval_Time_Unit__c) ? System.Today().addDays((Integer.valueOf(caseObj.ESA_Approval_Time__c))+1)
-                                : NULL;
-                    
+    public static void populateTerminationDate(List<Case> allNewCases, Map<id,Case> allOldCaseMap, Map<id,Case> allNewCaseMap){
+
+        List<Case> newCases = new List<Case>();
+        Map<id,Case> oldCaseMap = new Map<id,Case>();
+        Map<id,Case> newCaseMap = new Map<id,Case>();
+
+        for(Case cs : allNewCases){
+
+            if(cs.Record_Type_Name__c == 'Special_Authority_Request'){
+                newCases.add(cs);
+                if(allOldCaseMap != NULL && allOldCaseMap.size()>0){
+                    oldCaseMap.put(cs.Id, allOldCaseMap.get(cs.Id));
                 }
-                else {
-                    caseObj.Termination_Date__c = NULL;
+                if(allNewCaseMap != NULL && allNewCaseMap.size()>0){
+                    newCaseMap.put(cs.Id, allNewCaseMap.get(cs.Id));
                 }
             }
-            
         }
+
+        if(newCases != NULL && newCases.size()>0){
+            for(Case caseObj:newCases){
+                Boolean isInputsChange = trigger.isUpdate && (oldCaseMap.get(caseObj.id).ESA_Approval_Time__c != newCaseMap.get(caseObj.id).ESA_Approval_Time__c ||
+                                                              oldCaseMap.get(caseObj.id).ESA_Approval_Time_Unit__c != newCaseMap.get(caseObj.id).ESA_Approval_Time_Unit__c);
+                if((trigger.isInsert && caseObj.Termination_Date__c == NULL) || isInputsChange){
+                    if(caseObj.ESA_Approval_Time__c != NULL && caseObj.ESA_Approval_Time_Unit__c != NULL){
+                        caseObj.Termination_Date__c = ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_WEEK.containsIgnoreCase(caseObj.ESA_Approval_Time_Unit__c) ? System.Today().addDays((Integer.valueOf(caseObj.ESA_Approval_Time__c)*7)+1)
+                            : ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_MONTH.containsIgnoreCase(caseObj.ESA_Approval_Time_Unit__c) ? System.Today().addMonths(Integer.valueOf(caseObj.ESA_Approval_Time__c)).addDays(1)
+                                : ESA_cls_constants.CASE_APPROVAL_TIME_UNIT_DAYS.containsIgnoreCase(caseObj.ESA_Approval_Time_Unit__c) ? System.Today().addDays((Integer.valueOf(caseObj.ESA_Approval_Time__c))+1)
+                                    : NULL;
+                        
+                    }
+                    else {
+                        caseObj.Termination_Date__c = NULL;
+                    }
+                }
+                
+            }
+        }   
     }
     
 /**
