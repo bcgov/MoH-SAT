@@ -3,6 +3,7 @@
     <fullName>EDRD_Validate_Case_Closed_FundingDenied</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD&apos;,
 ISCHANGED(Status),
 OR((ISPICKVAL(Status , &apos;Funding Denied&apos;)), (ISPICKVAL(Status , &apos;Cancelled&apos;))),
 ISBLANK(TEXT(EDRD_Case_closure_reasons__c))

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         ref: main
         persist-credentials: true
@@ -34,13 +34,13 @@ jobs:
         
 
     - name: Package Upgrade
-      run: sfdx package version create --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=15 --dev-debug 
+      run: sfdx package version create --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=15 --dev-debug --code-coverage
       # sfdx package version create  --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=15 --code-coverage
       # sf package version create  --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=15 -c
       # sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15 -c
 
     # Commenting these below to check whether we can create the package version
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: New package version build.
         commit_options: '--no-verify --signoff'

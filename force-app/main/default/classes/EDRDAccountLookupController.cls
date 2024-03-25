@@ -3,7 +3,7 @@
 * @Date:        07 Dec 2023
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 ***********************************************************************************************/
-Public with sharing class EDRDAccountLookupController{
+public with sharing class EDRDAccountLookupController{
 /** 
 * @author: Suman
 * @date: 07 Dec 2023
@@ -13,7 +13,7 @@ Public with sharing class EDRDAccountLookupController{
     @AuraEnabled(cacheable=true)
     public static List<Account> getAccount(string actPHN){
         List<Account> accList = new List<Account>();
-        if (actPHN !='' || actPHN != null){
+        if (!String.isBlank(actPHN)){
             string accountIdentificationNumber = actPHN ;
             accList = [SELECT Id, Name,LastName,PersonContact.Birthdate,PersonBirthdate,
                        PersonContact.Patient_Identifier__c, Patient_Identifier__pc from Account Where PersonContact.Patient_Identifier__c LIKE :accountIdentificationNumber ORDER BY createdDate DESC LIMIT 5];
@@ -29,9 +29,9 @@ Public with sharing class EDRDAccountLookupController{
     @AuraEnabled(cacheable=true)
     public static List<Account> getProviderAccount(string providerAct){
         List<Account> accountList = new List<Account>();
-        if (providerAct != null || providerAct != ''){
+        if (!String.isBlank(providerAct)){
             string providerPHNumber = providerAct;
-            accountList = [SELECT Id, Name,LastName, Provider_Identifier__pc, PersonContact.Provider_Identifier__c, Provider_Type__pc from Account Where PersonContact.Provider_Identifier__c LIKE :providerPHNumber ORDER BY createdDate DESC LIMIT 5];
+            accountList = [SELECT Id, Name,LastName, Provider_Identifier__pc, PersonContact.Provider_Identifier__c, PersonContact.Provider_Type__c, Provider_Type__pc from Account Where PersonContact.Provider_Type__c = 'Physician' AND PersonContact.Provider_Identifier__c LIKE :providerPHNumber ORDER BY createdDate DESC LIMIT 5];
         } 
         return accountList;
     }

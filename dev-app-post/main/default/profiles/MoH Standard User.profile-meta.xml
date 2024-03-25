@@ -3,8 +3,8 @@
     <fullName>MoH Standard User</fullName>
     <applicationVisibilities>
         <application>Case_Management</application>
-        <default>true</default>
-        <visible>true</visible>
+        <default>true</default> 
+        <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
         <application>Drug_Management</application>
@@ -105,11 +105,26 @@
         <layout>CareObservation-Care Observation Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>CareObservation-EDRD Care Observation Layout</layout>
+        <recordType>CareObservation.EDRD_Care_Observation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CodeSet-Code Set Layout</layout>
+    </layoutAssignments>
+	<layoutAssignments>
+        <layout>CodeSetBundle-EDRD Code Set Bundle Layout</layout>
+        <recordType>CodeSetBundle.EDRD_Code_Set_Bundle</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Drug__c-Drug Layout</layout>
     </layoutAssignments>
 	<layoutAssignments>
         <layout>Medication-Medication Layout</layout>
         <recordType>Medication.EDRD</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>MedicinalIngredient-EDRD Medicinal Ingredient Layout</layout>
+        <recordType>MedicinalIngredient.EDRD_Medicinal_Ingredient</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>MedicationRequest-EDRD_Medication_Request_Layout</layout>

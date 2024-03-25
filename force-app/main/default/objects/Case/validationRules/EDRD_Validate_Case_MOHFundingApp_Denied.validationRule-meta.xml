@@ -2,9 +2,11 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_Validate_Case_MOHFundingApp_Denied</fullName>
     <active>true</active>
+    <description>This Validation Rule applies when someone tries to close the case as Funding Approved, even though the funding decision is denied.</description>
     <errorConditionFormula>AND(
-EDRD_MOHFunding_Denied__c,
-EDRD_MOHFunding_Approved__c
+RecordType.DeveloperName = &apos;EDRD&apos;,
+ISPICKVAL( EDRD_MOHFunding_Decision__c, &quot;Denied&quot;),
+ISPICKVAL( Status, &quot;Funding Approved&quot;)
 )</errorConditionFormula>
-    <errorMessage>Only one checkbox should be selected. Funding Approved and Funding Denied together cannot be selected.</errorMessage>
+    <errorMessage>If Funding decision is Denied, then case cannot be closed as Funding Approved.</errorMessage>
 </ValidationRule>

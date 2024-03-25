@@ -417,11 +417,15 @@ public with sharing class TestFactory {
             return record;          
         }
     
-    public static Case createEDRDCase(ID recordTypeId, ID accountId) {
-        Case EDRDCase = new Case();
-        EDRDCase.AccountId = accountId;
-        EDRDCase.RecordTypeId = recordTypeId;
-        return EDRDCase;
+    public static List<Case> createEDRDCase(Integer noOfRecords, ID recordTypeId, ID accountId) {
+        List<Case> caseList = new List<Case>();
+        for(Integer i=0; i< noOfRecords; i++){
+            Case EDRDCase = new Case();
+            EDRDCase.AccountId = accountId;
+            EDRDCase.RecordTypeId = recordTypeId;
+            caseList.add(EDRDCase);
+        }
+        return caseList;
     }
     
      public static CareProgram createCareProgram(String Name){
@@ -438,21 +442,29 @@ public with sharing class TestFactory {
         return CareProgramEnrolleeObj;
     }
     
-    public static MedicationRequest createMedicationRequest(Id MedicationId, Id CaseId, Id PrescriberId, Id PatientId){
-        MedicationRequest medicationRequestObj = new MedicationRequest();
-        medicationRequestObj.Case__c = CaseId;
-        medicationRequestObj.MedicationId = MedicationId;
-        medicationRequestObj.RequesterId = PrescriberId;
-        medicationRequestObj.PatientId = PatientId;
-        medicationRequestObj.Status = 'Active';
-        medicationRequestObj.Type = 'New';
-        return medicationRequestObj; 
+    public static List<MedicationRequest> createMedicationRequest(Integer noOfRecord, Id MedicationId, Id CaseId, Id PrescriberId, Id PatientId){
+        List<MedicationRequest> MRList = new List<MedicationRequest>();
+        for(Integer i = 0; i < noOfRecord; i++){
+            MedicationRequest medicationRequestObj = new MedicationRequest();
+            medicationRequestObj.Case__c = CaseId;
+            medicationRequestObj.MedicationId = MedicationId;
+            medicationRequestObj.RequesterId = PrescriberId;
+            medicationRequestObj.PatientId = PatientId;
+            medicationRequestObj.Status = 'Active';
+            medicationRequestObj.Type = 'New';
+            MRList.add(medicationRequestObj);
+        }
+        return MRList; 
     }
     
-    public static Medication createMedication(){
-        Medication medicationObj = new Medication();
-        medicationObj.Name = 'TEST Name';
-        return medicationObj;
+    public static List<Medication> createMedication(Integer noOfRecord, String Name){
+        List<Medication> MedList = new List<Medication>();
+        for(Integer i=0; i< noOfRecord; i++){
+            Medication medicationObj = new Medication();
+            medicationObj.Name = Name;
+            MedList.add(medicationObj);
+        }
+        return MedList;
     }
     
     private static User prepareUser(String roleId, String profId, String firstName, String lastName) {  
@@ -487,19 +499,23 @@ public with sharing class TestFactory {
     
     public static UnitOfMeasure createUnitOfMeasure(){
         UnitOfMeasure UOMObj = new UnitOfMeasure();
-        UOMObj.Name = 'Milligram';
+        UOMObj.Name = 'Milligrams';
         UOMObj.UnitCode = 'mg';
         return UOMObj;
     }
     
-    public static MedicinalIngredient createMedicinalIngredient(Id MedicationId, Id UnitOfMeasureId){
-        MedicinalIngredient MIObj = new MedicinalIngredient();
-        MIObj.DIN__c = '12345678';
-        MIObj.StrengthNumerator = 300;
-        MIObj.StrengthNumeratorUnitId = UnitOfMeasureId;
-        MIObj.Unit_Price__c = 100;
-        MIObj.ParentRecordId = MedicationId;
-        MIObj.IngredientId = MedicationId;
-        return MIObj;
+    public static List<MedicinalIngredient> createMedicinalIngredient(Integer noOfRecords, Id MedicationId, Id UnitOfMeasureId){
+        List<MedicinalIngredient> MIList = new List<MedicinalIngredient>();
+        for(Integer i=0; i<noOfRecords; i++){
+            MedicinalIngredient MIObj = new MedicinalIngredient();
+            MIObj.DIN__c = '12345678';
+            MIObj.StrengthNumerator = 300;
+            MIObj.StrengthNumeratorUnitId = UnitOfMeasureId;
+            MIObj.Unit_Price__c = 100;
+            MIObj.ParentRecordId = MedicationId;
+            MIObj.IngredientId = MedicationId;
+            MIList.add(MIObj);
+        }
+        return MIList;
     }
 }

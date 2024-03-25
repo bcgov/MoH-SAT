@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Integration_Log_ShareWithSAAdmin</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This Sharing Rule expand the access (Read/Write) of Integration Log records to ALL SAT Team Members group</description>
+        <label>Integration_Log_ShareWithSAAdmin</label>
+        <sharedTo>
+            <role>SA_Admin</role>
+        </sharedTo>
+        <sharedFrom>
+            <group>All_SAT_Team_Members</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Integration_Log_ShareWithSADeveloper</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This Sharing Rule expand the access (Read/Write) of Integration Log records to ALL SAT Team Members group</description>
+        <label>Integration_Log_ShareWithSADeveloper</label>
+        <sharedTo>
+            <role>Developer</role>
+        </sharedTo>
+        <sharedFrom>
+            <group>All_SAT_Team_Members</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Integration_Log_ShareWithSAManager</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This Sharing Rule expand the access (Read/Write) of Integration Log records to ALL SAT Team Members group</description>
+        <label>Integration_Log_ShareWithSAManager</label>
+        <sharedTo>
+            <role>SA_Manager</role>
+        </sharedTo>
+        <sharedFrom>
+            <group>All_SAT_Team_Members</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Integration_Log_ShareWithSAstaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This Sharing Rule expand the access (Read) of Integration Log records to ALL SAT Team Members group</description>
+        <label>Integration_Log_ShareWithSAstaff</label>
+        <sharedTo>
+            <group>All_SAT_Team_Members</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>All_SAT_Team_Members</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>

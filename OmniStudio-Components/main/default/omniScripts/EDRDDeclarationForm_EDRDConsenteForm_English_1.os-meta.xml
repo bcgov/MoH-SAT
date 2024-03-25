@@ -63,7 +63,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
+            <sequenceNumber>0.0</sequenceNumber>
             <type>Radio</type>
             <uniqueIndex>ConfirmingRelevantExpertise</uniqueIndex>
         </childElements>
@@ -77,15 +77,15 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
-  &quot;label&quot; : &quot;Personal information on this form is collected, used and disclosed under the authority of, and in accordance with, the British Columbia Pharmaceutical Services Act and Freedom of Information and Protection of Privacy Act. It will not be disclosed to any persons without the patient’s consent. The information you provide will be relevant to and used solely to (a) provide exceptional coverage for the medication requested, (b) to implement, monitor and evaluate this and other Ministry programs, and (c) to manage and plan for the health system generally.\n\nI have discussed with the patient the purpose of releasing information to B.C Ministry of Health to obtain exceptional coverage for the  requested medication.&quot;,
-  &quot;text&quot; : &quot;Personal information on this form is collected, used and disclosed under the authority of, and in accordance with, the British Columbia Pharmaceutical Services Act and Freedom of Information and Protection of Privacy Act. It will not be disclosed to any persons without the patient’s consent. The information you provide will be relevant to and used solely to (a) provide exceptional coverage for the medication requested, (b) to implement, monitor and evaluate this and other Ministry programs, and (c) to manage and plan for the health system generally.&lt;br/&gt;&lt;br/&gt;I have discussed with the patient the purpose of releasing information to B.C Ministry of Health to obtain exceptional coverage for the  requested medication.&quot;,
+  &quot;label&quot; : &quot;Personal information on this form is collected, used and disclosed under the authority of, and in accordance with, the British Columbia Pharmaceutical Services Act and Freedom of Information and Protection of Privacy Act. It will not be disclosed to any persons without the patient’s consent. The information you provide will be relevant to and used solely to (a) provide exceptional coverage for the medication requested, (b) to implement, monitor and evaluate this and other Ministry programs, and (c) to manage and plan for the health system generally.\r\n\r\nI have discussed with the patient the purpose of releasing information to B.C Ministry of Health to obtain exceptional coverage for their requested medication.&quot;,
+  &quot;text&quot; : &quot;Personal information on this form is collected, used and disclosed under the authority of, and in accordance with, the British Columbia Pharmaceutical Services Act and Freedom of Information and Protection of Privacy Act. It will not be disclosed to any persons without the patient’s consent. The information you provide will be relevant to and used solely to (a) provide exceptional coverage for the medication requested, (b) to implement, monitor and evaluate this and other Ministry programs, and (c) to manage and plan for the health system generally.&lt;br/&gt;&lt;br/&gt;I have discussed with the patient the purpose of releasing information to B.C Ministry of Health to obtain exceptional coverage for their requested medication.&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>0.0</sequenceNumber>
+            <sequenceNumber>2.0</sequenceNumber>
             <type>Text Block</type>
             <uniqueIndex>DeclarationConsentMessage</uniqueIndex>
         </childElements>
@@ -133,7 +133,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>2.0</sequenceNumber>
+            <sequenceNumber>1.0</sequenceNumber>
             <type>Text</type>
             <uniqueIndex>ReasonforNotHavingRelevantExpertise</uniqueIndex>
         </childElements>
@@ -154,7 +154,7 @@
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
+  &quot;readOnly&quot; : true,
   &quot;defaultValue&quot; : &quot;TODAY()&quot;,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
@@ -170,7 +170,7 @@
   &quot;minDate&quot; : &quot;TODAY()&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
+            <sequenceNumber>4.0</sequenceNumber>
             <type>Date</type>
             <uniqueIndex>SignedDate</uniqueIndex>
         </childElements>
@@ -209,7 +209,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
+            <sequenceNumber>3.0</sequenceNumber>
             <type>Text</type>
             <uniqueIndex>Treating_Clinician_Signature</uniqueIndex>
         </childElements>
@@ -224,9 +224,9 @@
   &quot;label&quot; : &quot;DECLARATION&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3,
+  &quot;previousWidth&quot; : 3.0,
   &quot;nextLabel&quot; : &quot;Submit&quot;,
-  &quot;nextWidth&quot; : 3,
+  &quot;nextWidth&quot; : 3.0,
   &quot;cancelLabel&quot; : &quot;Cancel&quot;,
   &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
   &quot;saveLabel&quot; : &quot;Save for later&quot;,
@@ -237,14 +237,14 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;remoteClass&quot; : &quot;&quot;,
   &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteTimeout&quot; : 30000.0,
   &quot;remoteOptions&quot; : { },
   &quot;knowledgeOptions&quot; : {
     &quot;language&quot; : &quot;English&quot;,
     &quot;publishStatus&quot; : &quot;Online&quot;,
     &quot;keyword&quot; : &quot;&quot;,
     &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
+    &quot;remoteTimeout&quot; : 30000.0,
     &quot;typeFilter&quot; : &quot;&quot;
   },
   &quot;show&quot; : null,
@@ -273,5 +273,5 @@
     <type>EDRDDeclarationForm</type>
     <uniqueName>EDRDDeclarationForm_EDRDConsenteForm_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>20550e57-c002-1be1-1ac3-99bf2012176b</webComponentKey>
+    <webComponentKey>a4fd5b7e-c0b7-d813-925d-9d68a524694f</webComponentKey>
 </OmniScript>
