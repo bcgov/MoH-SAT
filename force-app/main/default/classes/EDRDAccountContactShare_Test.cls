@@ -22,6 +22,7 @@ public class EDRDAccountContactShare_Test {
             ContactId = testContact.Id
         );
         insert testAcr;
+         Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
             User testUser = new User(
             ContactId = testContact.Id,
             Alias = 'testUser',
@@ -32,7 +33,7 @@ public class EDRDAccountContactShare_Test {
             TimeZoneSidKey = 'America/New_York',
             LocaleSidKey = 'en_US',
             EmailEncodingKey = 'UTF-8',
-            ProfileId = '00eAq000001euB0',
+            ProfileId = profileObj.Id, // Assigning a valid profile
             LanguageLocaleKey = 'en_US'
         );
         Medication testMedication = new Medication(Name = 'Test Medication');

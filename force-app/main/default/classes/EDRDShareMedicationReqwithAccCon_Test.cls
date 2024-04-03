@@ -18,6 +18,7 @@ public class EDRDShareMedicationReqwithAccCon_Test {
         insert testAccount;
         Contact testContact = new Contact(LastName = 'Test Contact', Id = testAccount.PersonContactId);
         insert testContact;
+        Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
         User testUser = new User(
             ContactId = testContact.Id,
             Alias = 'testUser',
@@ -28,7 +29,7 @@ public class EDRDShareMedicationReqwithAccCon_Test {
             TimeZoneSidKey = 'America/New_York', // Provide a valid time zone
             LocaleSidKey = 'en_US',
             EmailEncodingKey = 'UTF-8',
-            ProfileId = '00eAq000001euB0', // Assigning a valid profile
+            ProfileId = profileObj.Id, // Assigning a valid profile
             LanguageLocaleKey = 'en_US'
         );
         insert testUser;
