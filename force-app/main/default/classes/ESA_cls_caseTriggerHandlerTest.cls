@@ -178,6 +178,8 @@ public class ESA_cls_caseTriggerHandlerTest {
         List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
         insert MedicationRecList;
         List<MedicinalIngredient> MIRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MIRecList.get(0).RecordtypeId = recordTypeEDRDMI;
         insert MIRecList;
         List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, caseMReqList.get(0).Id, reqstAccount1.Id, patntAccount1.Id); 
         MRList.get(0).Dosage__c = 300;

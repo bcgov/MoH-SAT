@@ -23,8 +23,14 @@ public class medicationRequestTriggerHandlerTest {
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         List<Case> MRCaseList = TestFactory.createEDRDCase(2, recordTypeCaseEDRD, RequestorAccount.Id);
         insert MRCaseList;
+        UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
+        insert UOMRec;
         List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
         insert MedicationRecList;
+        List<MedicinalIngredient> MInRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MInRecList.get(0).RecordtypeId = recordTypeEDRDMI;
+        insert MInRecList;
         List<MedicationRequest> MedicationRequestList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, MRCaseList.get(0).Id, requestorAccount.Id, patientAccount.Id); 
         insert MedicationRequestList;
         try{
@@ -59,6 +65,8 @@ public class medicationRequestTriggerHandlerTest {
         UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
         insert UOMRec;
         List<MedicinalIngredient> MIRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MIRecList.get(0).RecordtypeId = recordTypeEDRDMI;
         insert MIRecList;
         List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, MRCaseList.get(0).Id, requestorAccount.Id, patientAccount.Id); 
         MRList.get(0).Dosage__c = 300;
@@ -107,6 +115,8 @@ public class medicationRequestTriggerHandlerTest {
         List<MedicinalIngredient> MIRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
         insert MIRecList;
         List<MedicinalIngredient> MIRecList1 = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MIRecList1.get(0).RecordtypeId = recordTypeEDRDMI;
         insert MIRecList1;
         List<MedicationRequest> MRObjList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, MRCaseList.get(0).Id, requestorAccount1.Id, patientAccount1.Id); 
         MRObjList.get(0).Dosage__c = 300;

@@ -39,18 +39,18 @@ public class ESA_cls_accountTriggerHandlerTest {
 */    
     @isTest
     public static void closeCaseOnAccDeceased_positive(){
-        Account providerAccount = TestFactory.newPatient('Test');
-        insert providerAccount;
+        Account patientAccount = TestFactory.newPatient('Test');
+        insert patientAccount;
         String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, providerAccount.Id);
+        List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, patientAccount.Id);
         insert EDRDCaseList;
         careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
         insert careProgramRec;
-        CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', providerAccount.Id, careProgramRec.Id);
+        CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', patientAccount.Id, careProgramRec.Id);
         insert CareProgramEnrolleeRec;
         Test.startTest();
-        providerAccount.Patient_is_Deceased__pc = true;
-        Update providerAccount;
+        patientAccount.Patient_is_Deceased__pc = true;
+        Update patientAccount;
         Test.stopTest(); 
         
         Assert.areEqual([SELECT Id FROM Case WHERE isClosed = false].isEmpty(), True, 'Cases are not closed');
