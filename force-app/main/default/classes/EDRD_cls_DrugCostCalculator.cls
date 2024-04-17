@@ -4,7 +4,7 @@
 * @Description: The purpose of this class is to calculate drug forecast on Medication Request/Case.
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
 ***********************************************************************************************/
-public with sharing class EDRD_cls_DrugCostCalculator {
+public class EDRD_cls_DrugCostCalculator {
 
 /**
 * @author: Deepak
