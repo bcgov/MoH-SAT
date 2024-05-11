@@ -40,9 +40,6 @@ jobs:
     - name: Re-deploy default queues 
       run: sf project deploy start -d force-app/main/default/queues -o SAT-BUILD -w 15 -l RunLocalTests
 
-    - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o SAT-BUILD -w 15 -l RunLocalTests
-
     - name: Deploy Source in dev-app-post
       run: sf project deploy start -d dev-app-post -o SAT-BUILD -w 15 -l RunLocalTests
 

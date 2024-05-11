@@ -30,9 +30,6 @@ jobs:
       run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
-    - name: Installing SF managed packages
-      run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --noprompt 
-
     - name: Set deployment user standard security
       run: |
           sf force:user:permsetlicense:assign -u ciorg -n "OmniStudio"
@@ -55,9 +52,6 @@ jobs:
     - name: Deploy source default queues
       run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
  
-    - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o ciorg -c
-
     - name: Deploy source default dev-app-post
       run: sf project deploy start -d dev-app-post -o ciorg -c
       # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 

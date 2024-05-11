@@ -43,7 +43,7 @@ public with sharing class KeycloakRolesTranslator {
 
     private static List<PermissionSet> getDefaultPermissionSets(String profileName) {
         Set<String> permissionSetNames = new Set<String>();
-      
+        permissionSetNames.add('Multi_Factor_Authentication');
         permissionSetNames.addAll(PROFILE_PERMSETS.get(profileName));
         permissionSetNames.remove(null);
 
@@ -85,6 +85,9 @@ public with sharing class KeycloakRolesTranslator {
 
     private static final Map<String, List<String>> PROFILE_PERMSETS = new Map<String, List<String>>{
         'System Administrator' => new String[] {
+            'MoH_Standard_User'
+        },
+        'MoH Standard User' => new String[] {
             'MoH_Standard_User'
         },
         'External Committee Community Users' => new String[] {

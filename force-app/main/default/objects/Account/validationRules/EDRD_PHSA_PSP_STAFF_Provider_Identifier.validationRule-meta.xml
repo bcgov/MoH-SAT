@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>EDRD_PHSA_PSP_STAFF_Provider_Identifier</fullName>
-    <active>true</active>
-    <description>EDRD_PHSA_PSP_STAFF shouldn&apos;t be able to edit the Provider Identifier</description>
-    <errorConditionFormula>AND(NOT(ISNEW()),$Permission.EDRD_PHSA_PSP_Staff, ISCHANGED( Provider_Identifier__pc )  )</errorConditionFormula>
-    <errorMessage>You don&apos;t have permission to edit the Provider Identifier.</errorMessage>
-</ValidationRule>

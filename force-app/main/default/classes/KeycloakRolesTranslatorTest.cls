@@ -52,6 +52,8 @@ public with sharing class KeycloakRolesTranslatorTest {
 
         Set<String> psas = getPermissionSets(me.Id);
 
+        system.assert(psas.contains('multi_factor_authentication'));
+        system.assert(psas.contains('moh_standard_user'));
         system.assert(psas.contains('sa_drug_manager'));
         system.assert(psas.contains('sa_administrator'));
     }
