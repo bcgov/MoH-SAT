@@ -33,7 +33,9 @@ public class medicinalIngredientTriggerHandlerTest {
         insert MRCaseList;
         List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
         insert MedicationRecList;
+        Id recordTypeMIEDRD = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
         List<MedicinalIngredient> MIRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMeasureRec.Id);
+        MIRecList.get(0).recordTypeId = recordTypeMIEDRD;
         insert MIRecList;
         List<MedicationRequest> MRObjList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, MRCaseList.get(0).Id, requestorAccountRec.Id, patientAccountRec.Id); 
         MRObjList.get(0).Dosage__c = 600;
