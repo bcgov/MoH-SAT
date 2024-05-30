@@ -113,6 +113,8 @@ public class medicationRequestTriggerHandlerTest {
         List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
         insert MedicationRecList;
         List<MedicinalIngredient> MIRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        Id recordTypeMIEDRD = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MIRecList.get(0).RecordtypeId = recordTypeMIEDRD;
         insert MIRecList;
         List<MedicinalIngredient> MIRecList1 = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
         Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
