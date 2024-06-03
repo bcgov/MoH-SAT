@@ -27,6 +27,8 @@ public class EDRD_cls_DrugCostCalculatorTest {
         UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
         insert UOMRec;
         List<MedicinalIngredient> MInRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MInRecList.get(0).RecordtypeId = recordTypeEDRDMI;
         insert MInRecList;
         List<MedicationRequest> MReqObjList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, MRCaseList.get(0).Id, reqAccount.Id, patntAccount.Id); 
         MReqObjList.get(0).Dosage__c = 300;
