@@ -12,46 +12,36 @@ public class EDRDShareMedicationReqwithAccCon_Test {
 * @description: The purpose of this method is to cover Testcoverage of shareMedicationRequestsWithPatientAccount method
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */
-   @isTest
+    @isTest
     static void testShareMedicationRequestsWithPatientAccount() {
-        Account testAccount = new Account(LastName = 'Test Account');
-        insert testAccount;
-        Contact testContact = new Contact(LastName = 'Test Contact', Id = testAccount.PersonContactId);
-        insert testContact;
-        Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
-        User testUser = new User(
-            ContactId = testContact.Id,
-            Alias = 'testUser',
-            Email = 'test@example.com',
-            FirstName = 'Test',
-            LastName = 'User',
-            Username = 'testuser@example.com',
-            TimeZoneSidKey = 'America/New_York', // Provide a valid time zone
-            LocaleSidKey = 'en_US',
-            EmailEncodingKey = 'UTF-8',
-            ProfileId = profileObj.Id, // Assigning a valid profile
-            LanguageLocaleKey = 'en_US'
-        );
-        insert testUser;
-        Medication testMedication = new Medication(Name = 'Test Medication');
-        insert testMedication;
-        MedicationRequest testMedicationRequest = new MedicationRequest(
-            PatientId = testAccount.Id, 
-            Type = 'New', 
-            Status = 'Active', 
-            MedicationId = testMedication.Id
-        );
-        insert testMedicationRequest;
+        Account requestorAccount = TestFactory.newProvider('Provider Test');
+        insert requestorAccount;
+        Account patientAccount1 = TestFactory.newPatient('Patient Test');
+        insert patientAccount1;
+        Id ContactId = [SELECT Id FROM Contact WHERE AccountID =: requestorAccount.Id].get(0).Id;
+        Profile profileObj1 = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
+        User communityUser = TestFactory.createCommunityUser(ContactId, profileObj1.Id, 'Test1', 'Test');
+        insert communityUser;
+        List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
+        insert MedicationRecList;
+        List<MedicationRequest> MedicationRequestRecList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, NULL, requestorAccount.Id, patientAccount1.Id); 
+        insert MedicationRequestRecList;
+        
+        Id patientContactId = [SELECT Id FROM Contact Where accountId =: patientAccount1.Id].get(0).Id;
+        AccountContactRelation ACRObj = new AccountContactRelation();
+        ACRObj.AccountId = requestorAccount.Id;
+        ACRObj.ContactId = patientContactId;
+        ACRObj.Roles = 'Physician';
+        insert ACRObj;
+        
         Test.startTest();
-        EDRDMedicationReqwithACRHandler.shareMedicationRequestsWithPatientAccount(new List<MedicationRequest>{ testMedicationRequest });
+        EDRDMedicationReqwithACRHandler.shareMedicationRequestsWithPatientAccount(MedicationRequestRecList);
         Test.stopTest();
-        List<MedicationRequestShare> medicationRequestShares = [
-            SELECT Id, ParentId, UserOrGroupId, AccessLevel
-            FROM MedicationRequestShare
-            WHERE ParentId = :testMedicationRequest.Id
-        ];
-        Assert.areEqual(1, medicationRequestShares.size(), 'One MedicationRequestShare record should be created.');
-        Assert.areNotEqual(null, testMedicationRequest.MedicationId, 'MedicationId should not be null.');
-
+        List<MedicationRequestShare> medicationRequestShares = [SELECT Id, ParentId, UserOrGroupId, AccessLevel
+                                                                FROM MedicationRequestShare
+                                                                WHERE ParentId = :MedicationRequestRecList[0].Id];
+        
+        Assert.areEqual(2, medicationRequestShares.size(), 'Two MedicationRequestShare record should be created.');
+        Assert.areNotEqual(null, MedicationRequestRecList[0].MedicationId, 'MedicationId should not be null.');
     }
 }

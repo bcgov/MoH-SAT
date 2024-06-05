@@ -132,14 +132,16 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
             Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
-            if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged)){
+            Boolean isEDRDRefChanged = oldCaseMap.get(caseObj.id).EDRD_Ref_No__c != newCaseMap.get(caseObj.id).EDRD_Ref_No__c;
+            if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged || isEDRDRefChanged)){
                 caseIdSet.add(caseObj.Id);
             }
         }
-        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
+        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority, Case__r.EDRD_Ref_No__c FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
             MRObj.Status = caseStatusValueSet.Contains(MRObj.Case__r.Status) ? 'Active' : MRObj.Case__r.Status;
             MRObj.Type = MRObj.Case__r.Type;
             MRObj.Priority = MRObj.Case__r.Priority;
+            MRObj.EDRD_Reference_Number__c = !String.isBlank(MRObj.Case__r.EDRD_Ref_No__c) ? MRObj.Case__r.EDRD_Ref_No__c : NULL;
             MRListToUpdate.add(MRObj);
         }
         

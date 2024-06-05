@@ -10,7 +10,7 @@
                 09 Jan -  EDRD-139          -  Accenture   -  update Forecast On Case
                 15 Jan -  EDRD-525          -  Accenture   -  Update AC Recommendation Review
                 19 Jan -  EDRD-338          -  Accenture   -  Update Funding Expiry and Extension Date
-                19 Jan-   EDRD-382			- Accenture	   -  Validate Eligibility Form Sign date and Eligibility form Attachment
+                19 Jan-   EDRD-382			-  Accenture   -  Validate Eligibility Form Sign date and Eligibility form Attachment
 ***********************************************************************************************/
 trigger CaseTrigger on Case (before insert, before update, after insert, after update) {    
     
@@ -44,7 +44,8 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
     }
     
     if(trigger.isAfter && trigger.isUpdate){
-        if(ESA_cls_caseTriggerHandler.firstrun){
+        
+        if(ESA_cls_caseTriggerHandler.firstrun || test.isRunningTest()){
             ESA_cls_caseTriggerHandler.firstrun = false;
             ESA_cls_caseTriggerHandler.manageAssignmentRule(trigger.new, trigger.oldMap);
             ESA_cls_caseTriggerHandler.syncCaseToMR(trigger.oldMap, trigger.newMap);
