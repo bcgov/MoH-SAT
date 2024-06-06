@@ -13,44 +13,36 @@ public class EDRDAccountContactShare_Test {
 */
     @isTest
     static void testAccountContactMedicationRequestSharing() {
-        Account testAccount = new Account(LastName='Test Account');
-        insert testAccount;
-        Contact testContact = new Contact(FirstName='Test', LastName='Contact', Id=testAccount.PersonContactId);
-        insert testContact;
-        AccountContactRelation testAcr = new AccountContactRelation(
-            AccountId = testAccount.Id,
-            ContactId = testContact.Id
-        );
-        insert testAcr;
-         Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
-            User testUser = new User(
-            ContactId = testContact.Id,
-            Alias = 'testUser',
-            Email = 'test@example.com',
-            FirstName = 'Test',
-            LastName = 'User',
-            Username = 'testuser@example.com',
-            TimeZoneSidKey = 'America/New_York',
-            LocaleSidKey = 'en_US',
-            EmailEncodingKey = 'UTF-8',
-            ProfileId = profileObj.Id, // Assigning a valid profile
-            LanguageLocaleKey = 'en_US'
-        );
-        Medication testMedication = new Medication(Name = 'Test Medication');
-        insert testMedication;
-        MedicationRequest testMedicationRequest = new MedicationRequest(
-        PatientId = testAccount.Id,
-        Type = 'New', 
-        Status = 'Active', 
-        MedicationId = testMedication.Id
-        );
-        insert testMedicationRequest;
+        Account providerAccount = TestFactory.newProvider('Provider Test');
+        insert providerAccount;
+        Account patientAccount1 = TestFactory.newPatient('Patient Test');
+        insert patientAccount1;
+        Id ContactId = [SELECT Id FROM Contact WHERE AccountID =: providerAccount.Id].get(0).Id;
+        Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
+        User communityUser = TestFactory.createCommunityUser(ContactId, profileObj.Id, 'Test1', 'Test');
+        insert communityUser;
+        List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
+        insert MedicationRecList;
+        List<MedicationRequest> MedicationRequestRecList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, NULL, providerAccount.Id, patientAccount1.Id); 
+        insert MedicationRequestRecList;
+        
+        Id patientContactId = [SELECT Id FROM Contact Where accountId =: patientAccount1.Id].get(0).Id;
+        AccountContactRelation ACRObj = new AccountContactRelation();
+        ACRObj.AccountId = providerAccount.Id;
+        ACRObj.ContactId = patientContactId;
+        ACRObj.Roles = 'Physician';
+        insert ACRObj;
+        List<AccountContactRelation> aCRList = [SELECT Id, ContactId, Contact.AccountId, Account.PersonContactId, AccountId 
+                                                FROM AccountContactRelation Order By CreatedDate DESC LIMIT 1];
+        
         Test.startTest();
-        EDRDAccountContactShare.accountContactMedicationRequestSharing(new List<AccountContactRelation>{testAcr});
+        EDRDAccountContactShare.accountContactMedicationRequestSharing(aCRList);
         Test.stopTest();
-        List<MedicationRequestShare> medicationRequestShares = [SELECT Id FROM MedicationRequestShare WHERE ParentId = :testMedicationRequest.Id];
+        List<MedicationRequestShare> medicationRequestShares = [SELECT Id, AccessLevel, UserOrGroup.Name FROM MedicationRequestShare 
+                                                                WHERE ParentId = :MedicationRequestRecList[0].Id ORDER BY AccessLevel];
+        
         Assert.areNotEqual(0, medicationRequestShares.size(), 'MedicationRequestShares should have been inserted');
         Assert.areEqual('Read', medicationRequestShares[0].AccessLevel, 'AccessLevel should be Read');
-
+        Assert.areEqual('All', medicationRequestShares[1].AccessLevel, 'AccessLevel should be ALL');
     }
 }
