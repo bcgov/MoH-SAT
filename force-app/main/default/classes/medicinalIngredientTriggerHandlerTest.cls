@@ -45,6 +45,8 @@ public class medicinalIngredientTriggerHandlerTest {
         MRObjList.get(0).Requested_Funding_Duration__c = 2;
         MRObjList.get(0).Requested_Funding_Duration_Unit__c = 'Months';
         MRObjList.get(0).Medication_Information__c = MIRecList.get(0).Id;
+        Id recordTypeMREDRD = Schema.SObjectType.MedicationRequest.getRecordTypeInfosByDeveloperName().get('EDRD_Medication_Request').getRecordTypeId();
+        MRObjList.get(0).recordTypeId = recordTypeMREDRD;
         insert MRObjList;
         Test.startTest();        
         MIRecList.get(0).Unit_Price__c = 200;

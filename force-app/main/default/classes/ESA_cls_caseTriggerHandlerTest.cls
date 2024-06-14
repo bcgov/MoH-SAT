@@ -189,6 +189,8 @@ public class ESA_cls_caseTriggerHandlerTest {
         MRList.get(0).Requested_Funding_Duration__c = 1;
         MRList.get(0).Requested_Funding_Duration_Unit__c = 'Weeks';
         MRList.get(0).Medication_Information__c = MIRecList.get(0).Id;
+        Id recordTypeMREDRD = Schema.SObjectType.MedicationRequest.getRecordTypeInfosByDeveloperName().get('EDRD_Medication_Request').getRecordTypeId();
+        MRList.get(0).recordTypeId = recordTypeMREDRD;
         insert MRList;
         Test.startTest();
         caseMReqList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Years';
