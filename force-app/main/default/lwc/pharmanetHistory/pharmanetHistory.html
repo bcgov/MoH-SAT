@@ -16,6 +16,7 @@
             value={value}
             placeholder="None"
             options={categories}
+            disabled={loadingData}
             onchange={handlephcFilterChange} ></lightning-combobox>
         </lightning-layout-item>
         <lightning-layout-item flexibility="auto" padding="horizontal-medium">
@@ -25,6 +26,7 @@
                 value={value}
                 placeholder="10"
                 options={countOptions}
+                disabled={loadingData}
                 onchange={handleCountChange} ></lightning-combobox>
         </lightning-layout-item>
     </lightning-layout>
@@ -34,12 +36,16 @@
                 name="enter-search"
                 label="Filter by DINPIN or Name"
                 type="search"
+                minlength="3"
+                message-when-too-short="Your search key must not be less than 3 characters."
+                placeholder="please enter atleast 3 characters"
+                disabled={loadingData}
                 onchange={handleSearch}
             ></lightning-input>
       </lightning-layout-item>
       <lightning-layout-item flexibility="auto" size="6" padding="slds-p-left_none horizontal-medium">
         <div class="slds-m-top_medium slds-p-top_x-small">
-        <lightning-button variant="Search" label="Search" title="Search" onclick={handleGetPharmanetHistory} class="slds-m-left_x-small"></lightning-button>
+        <lightning-button variant="Search" label="Search" title="Search" onclick={handleGetPharmanetHistory} class="slds-m-left_x-small" disabled={disableSearch}></lightning-button>
         </div>
       </lightning-layout-item>      
     </lightning-layout>
@@ -63,7 +69,13 @@
       Page ({pageNumber} of {totalPages})
     </div>
   </lightning-card>
-
+  <lightning-card if:true={loadingData}>
+    <div class="slds-text-align_center">
+      <div class="slds-m-vertical_small">
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+      </div>
+    </div>
+  </lightning-card>
   <!-- NO RESULTS FOUND -->
   <lightning-card if:true={completeAndNoResults}>
     <div class="slds-text-align_center">

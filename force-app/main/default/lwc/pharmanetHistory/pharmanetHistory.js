@@ -44,6 +44,10 @@ export default class PharmanetHistory extends LightningElement {
   initialRecords;
   searchKey;
   searchRecordCount;
+  totalRecordsCount;
+  searchData =[];
+  loadingData = true;
+  disableSearch = true;
 
   // TODO: Populate via din list picker.
   dinList = [];
@@ -67,8 +71,12 @@ export default class PharmanetHistory extends LightningElement {
     this.handlePageChange();
   }
   handlePageChange() {
-    // Call the service and update stuff.
-    this.fetchItems();
+    if(!this.searchKey){
+      // Call the service and update stuff.
+      this.fetchItems();
+    }else{
+      this.getDataForPage();
+    }
   }
 
   updatePageButtons() {
@@ -133,7 +141,14 @@ export default class PharmanetHistory extends LightningElement {
   // Count change handler
   handleCountChange(event) {
     this.count = event.detail.value;
-    this.fetchItems();
+    if(!this.searchKey){
+      this.fetchItems();
+    }else{
+      this.pageNumber = 1;
+      this.totalPages = Math.ceil(this.searchData.length/this.count);
+      this.getDataForPage();
+    }
+    
   }
 
   connectedCallback() {
@@ -142,16 +157,22 @@ export default class PharmanetHistory extends LightningElement {
   }
 
   fetchItems() {
+    this.loadingData = true;
+    this.disableSearch = true;
+    this.hasResults = false;
     fetchPrescriptionHistory({recordId: this.recordId, page: this.pageNumber, count: this.count, dinList: this.dinList})
     .then(data => {
       if (data && data.error == null) {
         const records = data.medHistory && data.medHistory.medRecords;
         this.totalRecords = data.medHistory && data.medHistory.totalRecords;
         this.searchRecordCount = this.totalRecords;
+        this.totalRecordsCount = data.medHistory && data.medHistory.totalRecords;
         this.totalPages = data.medHistory && data.medHistory.totalPages;
         if (this.totalRecords > 0) {
           this.completeAndNoResults = false;
           this.hasResults = true;
+          this.loadingData = false;
+          this.disableSearch = false;
           let dataArray = [];
           let i = 0;
           records.forEach(record => {
@@ -232,24 +253,35 @@ export default class PharmanetHistory extends LightningElement {
 
   handleSearch (event){
     this.searchKey = event.target.value;
-    if(!this.searchKey){
+    this.disableSearch = false;
+    if(this.searchKey && this.searchKey.length >0 && this.searchKey.length < 3){
+      this.disableSearch = true;
+    }
+    if(!this.searchKey && !this.disableSearch){
       this.fetchItems();
     }
   }
   
   handleGetPharmanetHistory(){
     this.pageNumber = 1;
-    this.totalPages = 1;
-    fetchPrescriptionHistoryWithSearchKey({recordId: this.recordId, page: this.pageNumber, totalCount: this.totalRecords, dinList: this.dinList, searchKey: this.searchKey, displayCount: this.count})
+    this.loadingData = true;
+    this.disableSearch = true;
+    this.hasResults = false;
+    //this.totalPages = 1;
+    fetchPrescriptionHistoryWithSearchKey({recordId: this.recordId, page: this.pageNumber, totalCount: this.totalRecords, dinList: this.dinList, searchKey: this.searchKey, displayCount: this.totalRecordsCount})
     .then(data => { 
       if (data && data.error == null) {
       const records = data.medHistory && data.medHistory.medRecords;
       this.totalRecords = data.medHistory && data.medHistory.totalRecords;
-      this.totalPages = data.medHistory && data.medHistory.totalPages; 
+      //this.totalPages = data.medHistory && data.medHistory.totalPages; 
+      this.totalPages = Math.ceil(records.length/this.count);
+
       this.searchRecordCount = records.length;
       if (this.totalRecords > 0) {
         this.completeAndNoResults = false;
         this.hasResults = true;
+        this.loadingData = false;
+        this.disableSearch = false;
         let dataArray = [];
         let i = 0;
         records.forEach(rec => {
@@ -292,11 +324,14 @@ export default class PharmanetHistory extends LightningElement {
         dataArray.push(item);
         });
         this.data = dataArray;
+        
         this.data.sort((x, y) => {
         let a = Date.parse(new Date(x.datedispensed));
         let b = Date.parse(new Date(y.datedispensed));
         return b-a;
         });
+        this.searchData = this.data;
+        this.getDataForPage();
       } else {
         this.handlePharmanetSuccess();
       }
@@ -308,8 +343,19 @@ export default class PharmanetHistory extends LightningElement {
     });
     } 
 
+  getDataForPage(){
+    const startIndex = (this.pageNumber - 1) * this.count;
+    //const endIndex = startIndex + this.count;
+    let tempData = [...this.searchData];
+    this.data = tempData.splice(startIndex, this.count);
+    this.updatePageButtons();
+
+  }
+
   handlePharmanetSuccess(){
     this.hasResults = false;
+    this.loadingData = false;
+    this.disableSearch = false;
     this.completeAndNoResults = true;
     this.pageNumber = 1;
   }
