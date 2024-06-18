@@ -126,7 +126,6 @@ export default class PharmanetHistory extends LightningElement {
     } else {
       this.dinList = [];
     }
-    //this.fetchItems();
   }
 
   // Count Options
@@ -267,13 +266,12 @@ export default class PharmanetHistory extends LightningElement {
     this.loadingData = true;
     this.disableSearch = true;
     this.hasResults = false;
-    //this.totalPages = 1;
+    
     fetchPrescriptionHistoryWithSearchKey({recordId: this.recordId, page: this.pageNumber, totalCount: this.totalRecords, dinList: this.dinList, searchKey: this.searchKey, displayCount: this.totalRecordsCount})
     .then(data => { 
       if (data && data.error == null) {
       const records = data.medHistory && data.medHistory.medRecords;
-      this.totalRecords = data.medHistory && data.medHistory.totalRecords;
-      //this.totalPages = data.medHistory && data.medHistory.totalPages; 
+      this.totalRecords = data.medHistory && data.medHistory.totalRecords; 
       this.totalPages = Math.ceil(records.length/this.count);
 
       this.searchRecordCount = records.length;
@@ -345,7 +343,6 @@ export default class PharmanetHistory extends LightningElement {
 
   getDataForPage(){
     const startIndex = (this.pageNumber - 1) * this.count;
-    //const endIndex = startIndex + this.count;
     let tempData = [...this.searchData];
     this.data = tempData.splice(startIndex, this.count);
     this.updatePageButtons();
