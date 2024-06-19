@@ -39,7 +39,7 @@ public class ESA_cls_accountTriggerHandlerTest {
 */    
     @isTest
     public static void closeCaseOnAccDeceased_positive(){
-        Account providerAccount = TestFactory.newProvider('Test');
+        Account providerAccount = TestFactory.newPatient('Test');
         insert providerAccount;
         String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, providerAccount.Id);
