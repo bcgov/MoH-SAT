@@ -1,0 +1,11 @@
+<template>
+    <lightning-card  variant="Narrow" icon-name="action:approval">
+        <h1 slot="title" class="slds-text-heading_large" style="font-size:30px">
+            <b> {label.EDRD_label_SaveForLaterAcknowledge} </b>
+        </h1>
+        <p class="slds-p-horizontal_small">{label.EDRD_label_SaveForLaterAcknowledge_HelpText}</p>
+        <div slot="footer" class="slds-clearfix">
+          <lightning-button label="Finish" title="Non-primary action" onclick={handleRefresh} class="slds-m-left_x-small slds-float_right"></lightning-button>
+        </div>
+    </lightning-card>
+</template>
