@@ -14,13 +14,14 @@ public with sharing class medicationRequestTriggerHandler {
 * @date: 14 Dec 2023
 * @description: The purpose of this method is to validate the Medication Request Insert.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     20 Jun -     EDRD-764		 -  Accenture   -  Populate EDRD Reference number
 */ 
     public static void validateMedicationRequest(List<MedicationRequest> MRListValidate){
         Set<Id> caseIdSet = new Set<Id>();
         for(MedicationRequest MRObj: MRListValidate){
             caseIdSet.add(MRObj.Case__c);
         }
-        Map<Id, Case> caseIdVsRec = new Map<Id, case> ([SELECT Id, (SELECT Id, Case__c FROM Medication_Requests__r) 
+        Map<Id, Case> caseIdVsRec = new Map<Id, case> ([SELECT Id, EDRD_Ref_No__c, (SELECT Id, Case__c FROM Medication_Requests__r)
                                      FROM Case WHERE ID IN: caseIdSet]);
         
         for(MedicationRequest MRObj : MRListValidate){
@@ -30,9 +31,11 @@ public with sharing class medicationRequestTriggerHandler {
             if(isMRInsertNHasOldMR){
                 MRObj.addError(label.EDRD_label_MR_duplicateCase);
             }
+            else{
+                MRObj.EDRD_Reference_Number__c = caseIdVsRec.get(MRObj.Case__c).EDRD_Ref_No__c;
+            }
         }
-    }
-    
+    }  
     
 /**
 * @author: Deepak
