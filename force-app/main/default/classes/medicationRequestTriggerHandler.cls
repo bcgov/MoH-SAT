@@ -21,7 +21,7 @@ public with sharing class medicationRequestTriggerHandler {
         for(MedicationRequest MRObj: MRListValidate){
             caseIdSet.add(MRObj.Case__c);
         }
-        Map<Id, Case> caseIdVsRec = new Map<Id, case> ([SELECT Id, EDRD_Ref_No__c, (SELECT Id, Case__c FROM Medication_Requests__r)
+        Map<Id, Case> caseIdVsRec = new Map<Id, case> ([SELECT Id, EDRD_Ref_No__c, (SELECT Id, Case__c FROM Medication_Requests__r) 
                                      FROM Case WHERE ID IN: caseIdSet]);
         
         for(MedicationRequest MRObj : MRListValidate){
@@ -35,7 +35,7 @@ public with sharing class medicationRequestTriggerHandler {
                 MRObj.EDRD_Reference_Number__c = caseIdVsRec.get(MRObj.Case__c).EDRD_Ref_No__c;
             }
         }
-    }  
+    }   
     
 /**
 * @author: Deepak
