@@ -6,9 +6,10 @@
                 1 Dec23 -   EDRD-170        -   Rahul      -  Manage case assignment
                 4 Dec23 -   EDRD-332        -  Accenture   -  Change case status according to RPH, SC, AC Review Field
                16 Dec23 -   EDRD-282        -  Accenture   -  Sync MR Fields values to Case Fields values
-                09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
-                15 Jan -   EDRD-525         -  Accenture   -  Update AC Recommendation Review
-                19 Jan-    EDRD-338			- Accenture	   -  Update Funding Expiry Date
+                09 Jan -    EDRD-139        -  Accenture   -  calculate DrugForecast on Case
+                15 Jan -    EDRD-525        -  Accenture   -  Update AC Recommendation Review
+                19 Jan-     EDRD-338		-  Accenture   -  Update Funding Expiry Date
+                20 Jun-     EDRD-764		-  Accenture   -  Populate EDRD Reference number
 ***********************************************************************************************/
 
 @isTest
@@ -178,6 +179,8 @@ public class ESA_cls_caseTriggerHandlerTest {
         List<Medication> MedicationRecList = TestFactory.createMedication(1, 'Test Medication');
         insert MedicationRecList;
         List<MedicinalIngredient> MIRecList = TestFactory.createMedicinalIngredient(1, MedicationRecList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MIRecList.get(0).RecordtypeId = recordTypeEDRDMI;
         insert MIRecList;
         List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, MedicationRecList.get(0).Id, caseMReqList.get(0).Id, reqstAccount1.Id, patntAccount1.Id); 
         MRList.get(0).Dosage__c = 300;
@@ -187,6 +190,8 @@ public class ESA_cls_caseTriggerHandlerTest {
         MRList.get(0).Requested_Funding_Duration__c = 1;
         MRList.get(0).Requested_Funding_Duration_Unit__c = 'Weeks';
         MRList.get(0).Medication_Information__c = MIRecList.get(0).Id;
+        Id recordTypeMREDRD = Schema.SObjectType.MedicationRequest.getRecordTypeInfosByDeveloperName().get('EDRD_Medication_Request').getRecordTypeId();
+        MRList.get(0).recordTypeId = recordTypeMREDRD;
         insert MRList;
         Test.startTest();
         caseMReqList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Years';
@@ -317,4 +322,28 @@ public class ESA_cls_caseTriggerHandlerTest {
         }
         test.stopTest();
     }
+    
+/**
+* @author: Deepak
+* @date: 20 Jun 2024
+* @description: The purpose of this method is to cover Testcoverage of populateEDRDRefNumber.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    @isTest
+    public static void populateEDRDRefNumber_Test(){
+        Account patientAcc = TestFactory.newPatient('Test');
+        insert patientAcc;
+        String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, patientAcc.Id);
+        careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
+        insert careProgramRec;
+        CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', patientAcc.Id, careProgramRec.Id);
+        insert CareProgramEnrolleeRec;
+        Test.startTest();
+        insert EDRDCaseList;
+        Test.stopTest();
+        Assert.areEqual([SELECT Id, EDRD_Ref_No__c FROM Case WHERE Id =: EDRDCaseList].get(0).EDRD_Ref_No__c, '00001-TT', 'EDRD Reference Number & Name should match');
+        Assert.areNotEqual([SELECT Id, EDRD_Ref_No__c FROM Case WHERE Id =: EDRDCaseList].get(0).EDRD_Ref_No__c, NULL, 'EDRD Reference Number is null');
+    }
+    
 }

@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_Manufactuers</fullName>
+    <fullName>All_EDRD_Providers</fullName>
     <columns>ACCOUNT.NAME</columns>
+    <columns>Provider_Type__pc</columns>
+    <columns>Provider_Identifier__pc</columns>
+    <columns>ACCOUNT.PHONE1</columns>
+    <columns>ACCOUNT.PHONE2</columns>
+    <columns>PC_ADDRESS2_CITY</columns>
+    <columns>PC_ADDRESS2_ZIP</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>ACCOUNT.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Account.Manufacturer</value>
+        <value>PersonAccount.Provider</value>
     </filters>
-    <label>All EDRD Manufacturers</label>
+    <label>All EDRD Providers</label>
     <sharedTo>
         <role>Developer</role>
         <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
