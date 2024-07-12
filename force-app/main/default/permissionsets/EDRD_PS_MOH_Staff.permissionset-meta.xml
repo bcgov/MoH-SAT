@@ -413,12 +413,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.EDRD_Ref_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact.ESA_Provider_Specialty__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.Fax</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.Legacy_EDRD_Ref_No__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -912,7 +922,7 @@
         <object>Contact</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-        <objectPermissions>
+    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
@@ -1016,11 +1026,11 @@
         <recordType>PersonAccount.Patient</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-        <recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>PersonAccount.Provider</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-        <tabSettings>
+    <tabSettings>
         <tab>Medical_Diagnosis__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>

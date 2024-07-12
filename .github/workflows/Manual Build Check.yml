@@ -47,7 +47,7 @@ jobs:
       run: sf project deploy start -d dev-app-pre -o ciorg 
  
     - name: Deploy source force-app
-      run: sf project deploy start -d force-app -o ciorg 
+      run: sf project deploy start -d force-app -o ciorg --ignore-conflicts
  
     - name: Deploy source default objects
       run: sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
