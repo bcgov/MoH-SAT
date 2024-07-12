@@ -51,7 +51,7 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
         }  
         
         if(!accList.isEmpty()){
-            Database.update(accList, false);
+            Database.update(accList, true);
         }
     }
 }
