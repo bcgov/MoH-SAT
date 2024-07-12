@@ -43,14 +43,11 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
 */ 
     public static void updateEnrolleeNameOnAcc(List<CareProgramEnrollee> carePgmEnrolleeList){
         List<Account> accList = new List<Account>();
-        String cPEDRD = 'EDRD';
         List<CareProgramEnrollee> cPEList =[SELECT Id, CareProgram.Name FROM CareProgramEnrollee 
-                                           WHERE Id IN: carePgmEnrolleeList];
+                                            WHERE Id IN: carePgmEnrolleeList and CareProgram.Name = 'EDRD'];
         
         for(CareProgramEnrollee carePgmEnrollee: carePgmEnrolleeList){
-            if(cPEDRD.equalsIgnoreCase(carePgmEnrollee.CareProgram.Name)){
-                accList.add(new Account(Id = carePgmEnrollee.AccountId, EDRD_Ref_No__pc = carePgmEnrollee.Name));
-            }
+            accList.add(new Account(Id = carePgmEnrollee.AccountId, EDRD_Ref_No__pc = carePgmEnrollee.Name));
         }  
         
         if(!accList.isEmpty()){
