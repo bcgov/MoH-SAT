@@ -3,17 +3,19 @@
 * @Date:        23 Feb 2023
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
-1 Dec23 -   EDRD-170         -   Rahul      -  Manage case assignment
-4 Dec23 -   EDRD-332         -  Accenture   -  Change case status according to RPH, SC, AC Review Field
-16 Dec23 -   EDRD-282         -  Accenture   -  Sync MR Fields values to Case Fields values
-09 Jan -   EDRD-139         -  Accenture   -  calculate DrugForecast on Case
-15 Jan -   EDRD-525         -  Accenture   -  Update AC Recommendation Review
-19 Jan-    EDRD-338			- Accenture		-Update Funding Expiry Date
-19 Jan-    EDRD-382			- Accenture		-Validate Eligibility Form Sign date and Eligibility form Attachment
+                1 Dec23 -   EDRD-170          -   Rahul       -  Manage case assignment
+                4 Dec23 -   EDRD-332          -  Accenture    -  Change case status according to RPH, SC, AC Review Field
+                16 Dec23 -  EDRD-282          -  Accenture    -  Sync MR Fields values to Case Fields values
+                09 Jan -    EDRD-139          -  Accenture    -  calculate DrugForecast on Case
+                15 Jan -    EDRD-525          -  Accenture    -  Update AC Recommendation Review
+                19 Jan-     EDRD-338		  -  Accenture	  -  Update Funding Expiry Date
+                19 Jan-     EDRD-382		  -  Accenture	  -  Validate Eligibility Form Sign date and Eligibility form Attachment
+                20 Jun-     EDRD-764		  -  Accenture    -  Populate EDRD Reference number
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
-    public static boolean firstrun= true;    
+    public static boolean firstrun= true;  
+    public static Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
 /**
 * @author: Deepak
 * @date: 23 Feb 2023
@@ -132,14 +134,16 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
             Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
-            if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged)){
+            Boolean isEDRDRefChanged = oldCaseMap.get(caseObj.id).EDRD_Ref_No__c != newCaseMap.get(caseObj.id).EDRD_Ref_No__c;
+            if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged || isEDRDRefChanged)){
                 caseIdSet.add(caseObj.Id);
             }
         }
-        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
+        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority, Case__r.EDRD_Ref_No__c FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
             MRObj.Status = caseStatusValueSet.Contains(MRObj.Case__r.Status) ? 'Active' : MRObj.Case__r.Status;
             MRObj.Type = MRObj.Case__r.Type;
             MRObj.Priority = MRObj.Case__r.Priority;
+            MRObj.EDRD_Reference_Number__c = !String.isBlank(MRObj.Case__r.EDRD_Ref_No__c) ? MRObj.Case__r.EDRD_Ref_No__c : NULL;
             MRListToUpdate.add(MRObj);
         }
         
@@ -289,4 +293,39 @@ public with sharing class ESA_cls_caseTriggerHandler {
             System.debug('Exception caught: ' + err.getMessage());
         }
     }
+    
+/**
+* @author: Deepak
+* @date: 20 Jun 2024
+* @description: The purpose of this method is to Populate EDRD Reference number from CareProgramEnrollee.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    public static void populateEDRDRefNumber(List<Case> newCaseList, Map<Id, Case> newCaseMap, Map<Id, Case> oldCaseMap){
+        Map<Id, Case> patientIdVsCase = new Map<Id, Case>();
+        Map<Id, CareProgramEnrollee> patientIdVsCarePrgEnrolle = new Map<Id, CareProgramEnrollee>();
+        
+        for(Case caseObj: newCaseList){
+            Boolean isAccountIdChanged = trigger.isUpdate && newCaseMap.get(caseObj.Id).accountId != oldCaseMap.get(caseObj.Id).accountId;
+            if(!String.isEmpty(caseObj.AccountId) && caseObj.RecordTypeId == recordTypeCaseEDRD && 
+               (trigger.isInsert || isAccountIdChanged)){
+                   patientIdVsCase.put(caseObj.AccountId, caseObj);
+               }
+        }
+        if(!patientIdVsCase.isEmpty()){
+            List<Account> accList = [SELECT Id, Name, (SELECT Id, Name, CareProgramId FROM AccountCareProgramEnrollees 
+                                                       WHERE CareProgram.Name = 'EDRD') FROM Account 
+                                     WHERE Id IN: patientIdVsCase.keySet()];
+            
+            for(Account accObj : accList){
+                if(!accObj.AccountCareProgramEnrollees.isEmpty()){
+                    patientIdVsCarePrgEnrolle.put(accObj.Id, accOBj.AccountCareProgramEnrollees[0]);
+                }            
+            }
+            
+            for(Case caseObj: newCaseList){
+                caseObj.EDRD_Ref_No__c = patientIdVsCarePrgEnrolle?.get(CaseObj?.AccountId)?.Name;
+            }
+        }
+    }
+    
 }

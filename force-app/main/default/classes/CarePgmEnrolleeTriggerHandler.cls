@@ -3,6 +3,8 @@
 * @Date:        30/01/2024
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
+               30-Jan24     EDRD-624           Accenture      update the name based on record count 
+               11-Jul24     EDRD-764           Accenture      update the Account Ref. No based on CPE Name
 ***********************************************************************************************/
 public with sharing class CarePgmEnrolleeTriggerHandler {
     /**
@@ -31,5 +33,25 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
                 carePgmEnrollee.Name = countInString +'-'+firstName.LEFT(1)+lastName.LEFT(1);
             }
         }        
+    }
+    
+/**
+* @author: Deepak
+* @date: 11/07/2024
+* @description: The purpose of this method is update the Account Ref. No based on CPE Name
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/ 
+    public static void updateEnrolleeNameOnAcc(List<CareProgramEnrollee> carePgmEnrolleeList){
+        List<Account> accList = new List<Account>();
+        List<CareProgramEnrollee> cPEList =[SELECT Id, CareProgram.Name FROM CareProgramEnrollee 
+                                            WHERE Id IN: carePgmEnrolleeList and CareProgram.Name = 'EDRD'];
+        
+        for(CareProgramEnrollee carePgmEnrollee: carePgmEnrolleeList){
+            accList.add(new Account(Id = carePgmEnrollee.AccountId, EDRD_Ref_No__pc = carePgmEnrollee.Name));
+        }  
+        
+        if(!accList.isEmpty()){
+            Database.update(accList, true);
+        }
     }
 }
