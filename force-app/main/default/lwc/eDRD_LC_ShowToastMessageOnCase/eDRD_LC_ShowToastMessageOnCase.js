@@ -13,7 +13,7 @@ const FIELDS = [ STATUS_FIELD, EFS_DATE_FIELD, RECORD_TYPE_FIELD ];
 const TRIGGER_STATUSES = ['Received - Awaiting Verification', 'SC Review', 'AC Review', 'MOH Review'];
 const TARGET_RECORD_TYPE = 'EDRD';
 
-export default class EDRD_LC_ShowToastMessageOnCase extends LightningElement {
+export default class eDRD_LC_ShowToastMessageOnCase extends LightningElement {
     @api recordId;
     @api relatedRecordId;
     oldValue;

@@ -5,7 +5,7 @@
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
                15-Jan24     EDRD-731           Accenture      Controller to pass boolean value
 ***********************************************************************************************/
-public class EDRD_cls_ShowToastMsgController {    
+public with sharing class EDRD_cls_ShowToastMsgController {    
 /**
 * @author: Deepak
 * @date: 15/07/2024
