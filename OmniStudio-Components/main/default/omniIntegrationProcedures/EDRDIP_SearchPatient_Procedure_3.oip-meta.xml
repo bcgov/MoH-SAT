@@ -44,77 +44,8 @@
   &quot;label&quot; : &quot;DataRaptorExtractAction3&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
-        <type>DataRaptor Extract Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>DataRaptorPostAction1</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
-  &quot;failOnStepError&quot; : true,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalInput&quot; : {
-    &quot;PatientName&quot; : &quot;%EDRDDRFetchPatientDetails:PatientName%&quot;
-  },
-  &quot;additionalOutput&quot; : { },
-  &quot;failureResponse&quot; : { },
-  &quot;sendOnlyAdditionalInput&quot; : true,
-  &quot;returnOnlyAdditionalOutput&quot; : false,
-  &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;bundle&quot; : &quot;&quot;,
-  &quot;chainOnStep&quot; : false,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;DataRaptorPostAction1&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
-        <type>DataRaptor Post Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>DataRaptorTurboAction1</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
-  &quot;failOnStepError&quot; : true,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalInput&quot; : { },
-  &quot;additionalOutput&quot; : { },
-  &quot;failureResponse&quot; : { },
-  &quot;sendOnlyAdditionalInput&quot; : false,
-  &quot;returnOnlyAdditionalOutput&quot; : false,
-  &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;bundle&quot; : &quot;Extractindicationbasedondrug&quot;,
-  &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;inputParam&quot; : &quot;PrescriberId&quot;,
-    &quot;element&quot; : &quot;PrescriberId&quot;
-  } ],
-  &quot;chainOnStep&quot; : false,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;ignoreCache&quot; : false,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;DataRaptorTurboAction1&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
         <sequenceNumber>1.0</sequenceNumber>
-        <type>DataRaptor Turbo Action</type>
+        <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <isActive>true</isActive>
@@ -152,7 +83,7 @@
   &quot;label&quot; : &quot;DataMapperTurboAction2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>DataRaptor Turbo Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -191,43 +122,7 @@
   &quot;label&quot; : &quot;DataRaptorExtractAction3&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
-        <type>DataRaptor Extract Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>false</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>EDRDDRExtractPatientDetails</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;executionConditionalFormula&quot; : &quot;&quot;,
-  &quot;failureConditionalFormula&quot; : &quot;&quot;,
-  &quot;failOnStepError&quot; : true,
-  &quot;useFormulas&quot; : true,
-  &quot;additionalInput&quot; : { },
-  &quot;additionalOutput&quot; : { },
-  &quot;failureResponse&quot; : { },
-  &quot;sendOnlyAdditionalInput&quot; : false,
-  &quot;returnOnlyAdditionalOutput&quot; : false,
-  &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;bundle&quot; : &quot;EDRDDRExtractPatientDetails&quot;,
-  &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;inputParam&quot; : &quot;phn&quot;,
-    &quot;element&quot; : &quot;PatientIdentifier&quot;
-  } ],
-  &quot;chainOnStep&quot; : false,
-  &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;ignoreCache&quot; : true,
-  &quot;show&quot; : null,
-  &quot;label&quot; : &quot;DataRaptorExtractAction1&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>3.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -256,7 +151,7 @@
   &quot;label&quot; : &quot;ResponseAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>5.0</sequenceNumber>
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -282,7 +177,7 @@
   &quot;label&quot; : &quot;SetValues1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessKey>EDRDIP_SearchPatient</omniProcessKey>
@@ -317,5 +212,5 @@
     <type>EDRDIP</type>
     <uniqueName>EDRDIP_SearchPatient_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>380e4be1-5ed2-dea7-0e29-b6d8494f3283</webComponentKey>
+    <webComponentKey>d02204d4-db68-4025-a9cd-71577f166c49</webComponentKey>
 </OmniIntegrationProcedure>
