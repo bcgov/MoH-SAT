@@ -462,6 +462,7 @@ public with sharing class TestFactory {
         for(Integer i=0; i< noOfRecord; i++){
             Medication medicationObj = new Medication();
             medicationObj.Name = Name;
+            medicationObj.Status = 'Active';
             MedList.add(medicationObj);
         }
         return MedList;
@@ -517,5 +518,22 @@ public with sharing class TestFactory {
             MIList.add(MIObj);
         }
         return MIList;
+    }
+    
+    public static ContentDocumentLink createContentDocumentLinkOnCase(Id CaseId){
+        ContentVersion contentVersion = new ContentVersion(
+            Title = 'Test Document',
+            PathOnClient = 'testdocument.txt',
+            VersionData = Blob.valueOf('Test Content')
+        );
+        insert contentVersion;
+        
+        ContentDocumentLink cDL = new ContentDocumentLink(
+            ContentDocumentId = [SELECT ContentDocumentId FROM ContentVersion 
+                                 WHERE Id = :contentVersion.Id].ContentDocumentId,
+            LinkedEntityId = caseId,
+            ShareType = 'V'
+        );
+        return cDL;
     }
 }

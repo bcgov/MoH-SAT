@@ -14,7 +14,8 @@ public with sharing class EDRD_cls_ShowToastMsgController {
 */ 
     @AuraEnabled
     public static Boolean isAttachmentPresent(String caseId){
-        List<ContentDocumentLink> cDLList = [SELECT Id FROM ContentDocumentLink where LinkedEntityId =: caseId];
+        List<ContentDocumentLink> cDLList = [SELECT Id FROM ContentDocumentLink where LinkedEntityId =: caseId 
+                                             AND LinkedEntityId != NULL];
         return !(cDLList.isEmpty());
     }
 }
