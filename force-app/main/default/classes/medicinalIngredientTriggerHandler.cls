@@ -21,7 +21,7 @@ public with sharing class medicinalIngredientTriggerHandler {
                                           Case__r.EDRD_MOHApproved_Frequency__c, Case__r.EDRD_MOHApproved_Frequency_Unit__c, 
                                           Case__r.EDRD_MOHApproved_Funding_Duration__c, Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c 
                                           FROM MedicationRequest WHERE Medication_Information__c IN: MedicinalIDSet 
-                                          AND Status = 'Active' AND RecordType.DeveloperName = 'EDRD_Medication_Request'];
+                                          AND Status = 'Active' AND RecordType.DeveloperName = 'EDRD_Medication_Request' AND Case__c != NULL];
         
         List<MedicationRequest> MRListToUpdate = new List<MedicationRequest>();
         List<Case> caseListToUpdate = new List<Case>();
