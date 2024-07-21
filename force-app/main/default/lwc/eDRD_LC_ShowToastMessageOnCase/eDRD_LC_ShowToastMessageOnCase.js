@@ -23,7 +23,6 @@ export default class eDRD_LC_ShowToastMessageOnCase extends LightningElement {
         fields: FIELDS
     })
     getCaseRecord(result) {
-        console.log(this.oldValue);
 
         if (result.data?.fields?.RecordType?.displayValue === TARGET_RECORD_TYPE) {
             if (!this.oldValue) {
@@ -51,7 +50,7 @@ export default class eDRD_LC_ShowToastMessageOnCase extends LightningElement {
                 }
             })
             .catch(error => {
-                console.error(error);
+                console.log(error);
             });
     }
 
