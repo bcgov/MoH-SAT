@@ -56,6 +56,14 @@ echo "Creating scratch org, \"$alias\"..."
 dx force:org:create -v devhub -a $alias -f config/project-scratch-def.json -d $duration -s
 dx force:data:record:update -u $alias -s Organization -w "Name='Special Authority Scratch Org'" -v "TimeZoneSidKey='America/Los_Angeles'"
 dx force:data:record:update -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
+
+echo "Installing OmniStudio managed package"
+sf package install --package "04t4W000003ChfPQAS" -u $alias -w 15 --noprompt 
+
+echo "Installing Health Cloud managed package"
+sf package install --package "04t4W000002V2Ub" -u $alias -w 15 --noprompt 
+
+echo "Set deployment user standard security"
 sfdx force:user:permsetlicense:assign -u $alias -n "OmniStudio"
 sfdx force:user:permsetlicense:assign -u $alias -n "OmniStudio User"
 sfdx force:user:permset:assign -u $alias -n OmniStudioAdmin
@@ -67,7 +75,9 @@ sfdx force:user:permset:assign -u $alias -n HealthCloudFoundation
 echo "Uploading source code..."
 sfdx force:source:deploy -p dev-app-pre -u $alias
 sfdx force:source:deploy -p force-app -u $alias
-sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u $alias -w 15
+sfdx force:source:deploy -p force-app/main/default/objects -u $alias
+sfdx force:source:deploy -p force-app/main/default/queues -u $alias
+sfdx force:source:deploy -p OmniStudio-Components -u $alias
 sfdx force:source:deploy -p dev-app-post -u $alias
 sfdx force:source:tracking:reset -u $alias --noprompt    
 # dx force:source:push -u $alias 
