@@ -40,7 +40,6 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
             ESA_cls_caseTriggerHandler.assignStatus(trigger.oldMap, trigger.newMap);
             ESA_cls_caseTriggerHandler.calDrugForecast(trigger.oldMap, trigger.newMap);
             ESA_cls_caseTriggerHandler.assignACRecReview(trigger.oldMap, trigger.newMap);
-            ESA_cls_caseTriggerHandler.validateAttachmentForMOHReview(trigger.new, trigger.oldMap);
             ESA_cls_caseTriggerHandler.populateEDRDRefNumber(trigger.new, trigger.newMap, trigger.oldMap);
         }
         ESA_cls_caseTriggerHandler.calculateFundingExpiryDate(trigger.new, trigger.oldMap);

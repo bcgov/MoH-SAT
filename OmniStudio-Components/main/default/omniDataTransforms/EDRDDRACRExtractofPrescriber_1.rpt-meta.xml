@@ -1,55 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
-    <description>DR for Extract Patient Details for New/Renewal Case Form</description>
     <errorIgnored>false</errorIgnored>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
-    <name>EDRDDRExtractPatientDetails</name>
+    <name>EDRDDRACRExtractofPrescriber</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem5</globalKey>
-        <inputFieldName>Contacts:AccountId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractPatientDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PatAccId</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractPatientDetailsCustom9725</globalKey>
-        <inputFieldName>PhnCount</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractPatientDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PhnCount</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>ContactId</filterValue>
-        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem0</globalKey>
-        <inputFieldName>Id</inputFieldName>
-        <inputObjectName>Contact</inputObjectName>
+        <filterValue>&apos;True&apos;</filterValue>
+        <globalKey>EDRDDRACRExtractofPrescriber06699207487854641</globalKey>
+        <inputFieldName>IsActive</inputFieldName>
+        <inputObjectName>AccountContactRelation</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractPatientDetails</name>
+        <name>EDRDDRACRExtractofPrescriber</name>
         <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Contacts</outputFieldName>
+        <outputFieldName>ACR</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -57,14 +28,29 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Contacts var:null != 1 0 IF</formulaConverted>
-        <formulaExpression>IF(Contacts != null,1,0)</formulaExpression>
-        <formulaResultPath>PhnCount</formulaResultPath>
-        <formulaSequence>1.0</formulaSequence>
-        <globalKey>EDRDDRExtractPatientDetailsCustom325</globalKey>
+        <globalKey>EDRDDRACRExtractofPrescriber41879628060931284</globalKey>
+        <inputFieldName>ACR:ContactId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractPatientDetails</name>
+        <name>EDRDDRACRExtractofPrescriber</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldFormat>List&lt;String&gt;</outputFieldFormat>
+        <outputFieldName>ACRContactIds</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| &quot;SELECT/\/\/COUNT()/\/\/FROM/\/\/AccountContactRelation/\/\/WHERE/\/\/AccountId/\/\/=/\/\/&apos;{0}&apos;&quot; var:AccId COUNTQUERY</formulaConverted>
+        <formulaExpression>COUNTQUERY(&quot;SELECT COUNT() FROM AccountContactRelation WHERE AccountId = &apos;{0}&apos;&quot; , AccId)</formulaExpression>
+        <formulaResultPath>ACRCount</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>EDRDDRACRExtractofPrescriber22291191261057097</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRACRExtractofPrescriber</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -74,13 +60,16 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem1</globalKey>
-        <inputFieldName>Contacts:Name</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <filterOperator>=</filterOperator>
+        <filterValue>AccId</filterValue>
+        <globalKey>EDRDDRACRExtractofPrescriber8882366749948822</globalKey>
+        <inputFieldName>AccountId</inputFieldName>
+        <inputObjectName>AccountContactRelation</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractPatientDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PatientName</outputFieldName>
+        <name>EDRDDRACRExtractofPrescriber</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>ACR</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -88,34 +77,34 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem2</globalKey>
-        <inputFieldName>Contacts:Birthdate</inputFieldName>
+        <globalKey>EDRDDRACRExtractofPrescriber5247348976096211</globalKey>
+        <inputFieldName>ACR:AccountId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractPatientDetails</name>
+        <name>EDRDDRACRExtractofPrescriber</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PatientBirthDate</outputFieldName>
+        <outputFieldName>ACRAccountId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRExtractPatientDetailsCustom0jIAq0000001amDMAQItem4</globalKey>
-        <inputFieldName>Contacts:Id</inputFieldName>
+        <globalKey>EDRDDRACRExtractofPrescriber2315760656126291</globalKey>
+        <inputFieldName>ACRCount</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRExtractPatientDetails</name>
+        <name>EDRDDRACRExtractofPrescriber</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>IdPatient</outputFieldName>
+        <outputFieldName>ACRCount</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;ContactId&quot; : &quot;003Aq00000J1GXXIA3&quot;
+  &quot;AccId&quot; : &quot;001Aq00000HqMi1IAF&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
@@ -124,7 +113,7 @@
     <sourceObjectDefault>false</sourceObjectDefault>
     <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
     <type>Extract</type>
-    <uniqueName>EDRDDRExtractPatientDetails_1</uniqueName>
+    <uniqueName>EDRDDRACRExtractofPrescriber_1</uniqueName>
     <versionNumber>1.0</versionNumber>
     <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
 </OmniDataTransform>
