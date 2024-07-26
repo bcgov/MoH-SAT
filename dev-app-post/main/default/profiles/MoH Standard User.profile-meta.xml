@@ -2,8 +2,13 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MoH Standard User</fullName>
     <applicationVisibilities>
-        <application>Case_Management</application>
+        <application>Home</application>
         <default>true</default> 
+        <visible>ture</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
+        <application>Case_Management</application>
+        <default>false</default> 
         <visible>false</visible>
     </applicationVisibilities>
     <applicationVisibilities>
@@ -168,9 +173,9 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <default>true</default>
+        <default>false</default>
         <recordType>Case.Special_Authority_Request</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
