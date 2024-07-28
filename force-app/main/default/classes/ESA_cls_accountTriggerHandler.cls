@@ -90,7 +90,8 @@ public with sharing class ESA_cls_accountTriggerHandler {
             for(Case caseObj: casesToUpdate){
                 if(caseObj.Account.Patient_is_Deceased__pc){
                     caseObj.status = 'Cancelled';
-                    caseObj.EDRD_Case_closure_reasons__c = 'Patient Deceased';
+                    caseObj.EDRD_Case_Closure_Reasons__c = 'Patient Deceased';
+                    caseObj.EDRD_MOHFunding_Decision__c = 'Denied';
                     String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
                     caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_deceased;
                 }
