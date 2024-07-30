@@ -32,7 +32,7 @@ public with sharing class medicationRequestTriggerHandler {
                 MRObj.addError(label.EDRD_label_MR_duplicateCase);
             }
             else{
-                MRObj.EDRD_Reference_Number__c = caseIdVsRec.get(MRObj.Case__c).EDRD_Ref_No__c;
+                MRObj.EDRD_Reference_Number__c = caseIdVsRec?.get(MRObj.Case__c)?.EDRD_Ref_No__c;
             }
         }
     }   
