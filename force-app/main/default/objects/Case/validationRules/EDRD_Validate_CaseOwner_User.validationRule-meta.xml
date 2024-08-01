@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_CaseOwner_User</fullName>
+    <active>true</active>
+    <description>This rule is created for EDRD as EDRD cases can only be assigned to EDRD users, if not EDRD queues.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(OwnerId),
+    RecordType.Name = &quot;EDRD&quot;,
+    ISBLANK(Owner:Queue.DeveloperName),
+    Owner:User.Profile.Name != &quot;System Administrator&quot;,
+    NOT(CONTAINS(Owner:User.UserRole.Name, &quot;EDRD&quot;))
+)</errorConditionFormula>
+    <errorMessage>EDRD cases can only be assigned to EDRD Users.</errorMessage>
+</ValidationRule>
