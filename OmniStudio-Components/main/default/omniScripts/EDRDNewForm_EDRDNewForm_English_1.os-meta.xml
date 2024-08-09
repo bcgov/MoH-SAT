@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>New submission Form</description>
+    <description>New submission Form with eforms</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
@@ -73,7 +73,7 @@
   &quot;Language&quot; : &quot;English&quot;,
   &quot;show&quot; : null
 }</propertySetConfig>
-        <sequenceNumber>34.0</sequenceNumber>
+        <sequenceNumber>36.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -157,7 +157,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>35.0</sequenceNumber>
+        <sequenceNumber>37.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -216,7 +216,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>36.0</sequenceNumber>
+        <sequenceNumber>38.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -275,7 +275,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>37.0</sequenceNumber>
+        <sequenceNumber>39.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -334,7 +334,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>38.0</sequenceNumber>
+        <sequenceNumber>40.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -389,7 +389,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>39.0</sequenceNumber>
+        <sequenceNumber>41.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -837,7 +837,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
+            <sequenceNumber>7.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -875,7 +875,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>5.0</sequenceNumber>
+            <sequenceNumber>6.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -920,7 +920,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
+            <sequenceNumber>5.0</sequenceNumber>
             <type>Number</type>
         </childElements>
         <childElements>
@@ -1179,7 +1179,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -1189,7 +1189,7 @@
             <name>SearchDrug</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 7,
   &quot;label&quot; : &quot;Select Dosage and Load Initial/Renewal eForm&quot;,
   &quot;bundle&quot; : &quot;EDRDDRExtractDosagesInfoNewType&quot;,
   &quot;ignoreCache&quot; : true,
@@ -1230,7 +1230,7 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
+            <sequenceNumber>4.0</sequenceNumber>
             <type>DataRaptor Extract Action</type>
         </childElements>
         <childElements>
@@ -1295,6 +1295,25 @@
 }</propertySetConfig>
             <sequenceNumber>0.0</sequenceNumber>
             <type>Lookup</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock1</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 5,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -1371,6 +1390,31 @@
   }
 }</propertySetConfig>
         <sequenceNumber>32.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>EmpavaliInitialSubmission|EmpavaliInitialSubmission|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>EMPAVELIINITIALSUBMISSION</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;EmpavaliInitialSubmission&quot;,
+  &quot;Sub Type&quot; : &quot;EmpavaliInitialSubmission&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;pegcetacoplan&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MedicationName&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>34.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1758,6 +1802,31 @@
   }
 }</propertySetConfig>
         <sequenceNumber>21.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>OxlumoIntialSubmission|OxlumoIntialSubmission|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>OXLUMOINITIALSUBMISSION</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;OxlumoIntialSubmission&quot;,
+  &quot;Sub Type&quot; : &quot;OxlumoIntialSubmission&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;lumasiran&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MedicationName&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>33.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2289,7 +2358,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>40.0</sequenceNumber>
+        <sequenceNumber>42.0</sequenceNumber>
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2323,7 +2392,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>42.0</sequenceNumber>
+        <sequenceNumber>44.0</sequenceNumber>
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2524,7 +2593,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>41.0</sequenceNumber>
+        <sequenceNumber>43.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2736,7 +2805,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;h3&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;/span&gt;&lt;/strong&gt;&lt;/h3&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;h3&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;br /&gt;Upload Genetic Reports/Consult notes/Lab reports in eligibility forms&lt;br /&gt;Upload Other relevant documents in supporting docs&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/h3&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -2853,7 +2922,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>33.0</sequenceNumber>
+        <sequenceNumber>35.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2941,5 +3010,5 @@
     <type>EDRDNewForm</type>
     <uniqueName>EDRDNewForm_EDRDNewForm_English_8</uniqueName>
     <versionNumber>8.0</versionNumber>
-    <webComponentKey>f2af3d0a-9987-1726-079f-dd89cda72df2</webComponentKey>
+    <webComponentKey>7cefcd99-fb14-167d-2795-5efd7014c618</webComponentKey>
 </OmniScript>
