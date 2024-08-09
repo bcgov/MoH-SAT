@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>EDRD Renewal Submission Form Final</description>
+    <description>EDRD Renewal Submission Form with eforms</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
@@ -106,7 +106,7 @@
   &quot;Language&quot; : &quot;English&quot;,
   &quot;show&quot; : null
 }</propertySetConfig>
-        <sequenceNumber>32.0</sequenceNumber>
+        <sequenceNumber>34.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -190,7 +190,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>33.0</sequenceNumber>
+        <sequenceNumber>35.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -249,7 +249,7 @@
   &quot;label&quot; : &quot;DRcreateRequestNoDocEDRD&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>34.0</sequenceNumber>
+        <sequenceNumber>36.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -308,7 +308,7 @@
   &quot;label&quot; : &quot;DRcreateRequestWithNoEligiblityEDRD&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>35.0</sequenceNumber>
+        <sequenceNumber>37.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -367,7 +367,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>36.0</sequenceNumber>
+        <sequenceNumber>38.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -426,7 +426,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>37.0</sequenceNumber>
+        <sequenceNumber>39.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -894,7 +894,7 @@
             <name>RenewalIndicationId</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;RenewalIndicationId&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -918,7 +918,7 @@
             <name>RenewalMedicationDrugId</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 2,
   &quot;label&quot; : &quot;RenewalMedicationDrugId&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1028,7 +1028,7 @@
   &quot;ignoreCache&quot; : true,
   &quot;bundle&quot; : &quot;EDRDDRExtractDosagesInfoRenewalType&quot;,
   &quot;label&quot; : &quot;Select Dosage and Load Initial/Renewal eForm&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 7
 }</propertySetConfig>
             <sequenceNumber>5.0</sequenceNumber>
             <type>DataRaptor Extract Action</type>
@@ -1177,6 +1177,31 @@
   }
 }</propertySetConfig>
         <sequenceNumber>16.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>EmpavaliRenewalSubmission|EmpavaliRenewalSubmission|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>EMPAVELIRENEWALSUBMISSION</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;EmpavaliRenewalSubmission&quot;,
+  &quot;Sub Type&quot; : &quot;EmpavaliRenewalSubmission&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;pegcetacoplan&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MedicationNameRenewal&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>32.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1516,6 +1541,31 @@
   }
 }</propertySetConfig>
         <sequenceNumber>22.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>OxlumoRenewalSubmission|OxlumoRenewalSubmission|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>OXLUMORENEWALSUBMISSION</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;OxlumoRenewalSubmission&quot;,
+  &quot;Sub Type&quot; : &quot;OxlumoRenewalSubmission&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;lumasiran&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MedicationNameRenewal&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>31.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2173,7 +2223,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>38.0</sequenceNumber>
+        <sequenceNumber>40.0</sequenceNumber>
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2240,7 +2290,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>40.0</sequenceNumber>
+        <sequenceNumber>42.0</sequenceNumber>
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2439,7 +2489,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>39.0</sequenceNumber>
+        <sequenceNumber>41.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2664,7 +2714,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;h3&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;/span&gt;&lt;/strong&gt;&lt;/h3&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;h3&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;br /&gt;Upload Genetic Reports/Consult notes/Lab reports in eligibility forms&lt;br /&gt;Upload Other relevant documents in supporting docs&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/h3&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -2782,7 +2832,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>31.0</sequenceNumber>
+        <sequenceNumber>33.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2820,5 +2870,5 @@
     <type>EDRD</type>
     <uniqueName>EDRD_RenewForm_English_5</uniqueName>
     <versionNumber>5.0</versionNumber>
-    <webComponentKey>44f38a50-8b5d-5501-659c-8e0468952d74</webComponentKey>
+    <webComponentKey>6155d741-e7dd-dda1-feea-36fb130356db</webComponentKey>
 </OmniScript>
