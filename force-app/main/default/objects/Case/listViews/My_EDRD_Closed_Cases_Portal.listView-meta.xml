@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>My_EDRD_Close_Cases</fullName>
+    <fullName>My_EDRD_Closed_Cases_Portal</fullName>
     <booleanFilter>1 AND 2</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>EDRD_Ref_No__c</columns>
@@ -11,7 +11,7 @@
     <columns>Medication_Name__c</columns>
     <columns>CASES.CREATED_DATE</columns>
     <columns>CASES.CLOSED_DATE</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
@@ -22,8 +22,8 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <label>My EDRD Closed Cases</label>
+    <label>My EDRD Closed Cases-Portal</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        <group>EDRD_Physicians</group>
     </sharedTo>
 </ListView>

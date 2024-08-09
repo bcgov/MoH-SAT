@@ -8,7 +8,7 @@
     <columns>NAME</columns>
     <columns>Patient_Identifier__c</columns>
     <columns>Medication_Name__c</columns>
-    <filterScope>Everything</filterScope>
+    <filterScope>Mine</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
@@ -21,7 +21,6 @@
     </filters>
     <label>My EDRD Open Cases</label>
     <sharedTo>
-        <group>EDRD_Physicians</group>
         <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
