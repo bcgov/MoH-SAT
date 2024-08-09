@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_NewCPE</fullName>
+    <active>true</active>
+    <description>This validation rule fires when someone tries to insert new CPE with inactive status &amp; Care program of EDRD.</description>
+    <errorConditionFormula>AND(
+    ISNEW(),
+    NOT(ISPICKVAL(Status, &quot;Active&quot;)),
+    CareProgram.Name = &quot;EDRD&quot;
+)</errorConditionFormula>
+    <errorMessage>You cannot create the inactive Care Program Enrollee for EDRD.</errorMessage>
+</ValidationRule>
