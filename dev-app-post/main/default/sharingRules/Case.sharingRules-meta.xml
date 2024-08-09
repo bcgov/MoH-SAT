@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>Case_Reviewer</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Case Reviewer</label>
+        <sharedTo>
+            <group>EDRD_Reviewer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>EDRD_Admin</fullName>
         <accessLevel>Edit</accessLevel>
         <label>EDRD Admin</label>
@@ -11,6 +25,177 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Advisory_Committee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Advisory Committee</label>
+        <sharedTo>
+            <group>EDRD_Advisory_Committee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>EDRD_Advisory_Committee__c</field>
+            <operation>equals</operation>
+            <value>EDRD Advisory Committee</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Cardiac_Clinical_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Cardiac Clinical Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Cardiac_Clinical_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Cardiac Clinical Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Cystic_Fibrosis_Mutation_CFM_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Cystic Fibrosis Mutation (CFM) Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Cystic_Fibrosis_Mutation_CFM_Subc</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Cystic Fibrosis Mutation (CFM) Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Hematology_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Hematology Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Hematology_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Hematology Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Immunology_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Immunology Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Immunology_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Immunology Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Metabolic_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Metabolic Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Metabolic_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Metabolic Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Nephrology_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Nephrology Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Nephrology_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Nephrology Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Neurological_Disorders_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Neurological Disorders Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Neurological_Disorders_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Neurological Disorders Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Ophthalmology_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Share Ophthalmology Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Ophthalmology_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Ophthalmology Subcommittee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -43,4 +228,4 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-</SharingRules>
+    </SharingRules>
