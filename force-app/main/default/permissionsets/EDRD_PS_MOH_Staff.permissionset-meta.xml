@@ -26,11 +26,6 @@
     </customPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Committee_Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.Description</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -432,6 +427,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.Birthdate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Committee_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.Committee__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1048,10 +1053,6 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>Account.EDRD_Committee</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Account.Manufacturer</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -1077,6 +1078,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>MedicinalIngredient.EDRD_Medicinal_Ingredient</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>PersonAccount.Committee_Reviewer</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
