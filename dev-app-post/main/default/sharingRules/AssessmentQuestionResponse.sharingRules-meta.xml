@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-        <sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Assessment_Question_Response_Sharing_To_Providers</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Assessment Question Response Sharing To Providers</label>
+        <sharedTo>
+            <group>EDRD_Physicians</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>Developer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>EDRD_AQResponse_ShareDeveloperWithDeveloper</fullName>
         <accessLevel>Edit</accessLevel>
         <description>ShareDeveloper owned With other Developers</description>
