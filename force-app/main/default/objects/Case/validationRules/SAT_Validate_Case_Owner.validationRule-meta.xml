@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SAT_Validate_Case_Owner</fullName>
+    <active>true</active>
+    <description>The purpose of this rule for SAT is that only SAT cases can be assigned to SAT queues.</description>
+    <errorConditionFormula>RecordType.DeveloperName =&quot;Special_Authority_Request&quot; &amp;&amp; ISCHANGED( OwnerId ) &amp;&amp; (CONTAINS(Owner:User.UserRole.Name,&quot;EDRD&quot;) || CONTAINS(Owner:Queue.DeveloperName,&quot;EDRD&quot;))</errorConditionFormula>
+    <errorMessage>SAT cases can only be assigned to SAT queues.</errorMessage>
+</ValidationRule>
