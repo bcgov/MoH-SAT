@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>My_EDRD_Closed_Cases_Portal</fullName>
-    <booleanFilter>1 AND 2</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.TYPE</columns>
     <columns>EDRD_Ref_No__c</columns>
     <columns>CASES.STATUS</columns>
     <columns>NAME</columns>
@@ -19,6 +19,11 @@
     </filters>
     <filters>
         <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>EDRD_Is_Provider_Login__c</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
