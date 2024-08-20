@@ -1189,7 +1189,7 @@
             <name>SearchDrug</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Select Dosage and Load Initial/Renewal eForm&quot;,
   &quot;bundle&quot; : &quot;EDRDDRExtractDosagesInfoNewType&quot;,
   &quot;ignoreCache&quot; : true,
@@ -1303,7 +1303,7 @@
             <name>TextBlock1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 7,
+  &quot;controlWidth&quot; : 8,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&quot;,
   &quot;show&quot; : null,
@@ -1928,7 +1928,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -1963,7 +1963,7 @@
   &quot;minDate&quot; : &quot;&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Date</type>
         </childElements>
         <childElements>
@@ -2039,7 +2039,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2105,7 +2105,7 @@
   }, {
     &quot;value&quot; : false,
     &quot;type&quot; : &quot;Requirement&quot;,
-    &quot;text&quot; : &quot;The PHN entered is not associated with the current EDRD management system. Please contact PHSA PSP at psp@phsa.ca to set up or link the patient account.&quot;,
+    &quot;text&quot; : &quot;The PHN entered is not associated with the current EDRD management system. Please contact PHSA PSP to set up or link the patient account at psp@phsa.ca.&quot;,
     &quot;active&quot; : true
   } ],
   &quot;hideLabel&quot; : true,
@@ -2223,6 +2223,34 @@
 }</propertySetConfig>
             <sequenceNumber>4.0</sequenceNumber>
             <type>Integration Procedure Action</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock2</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong data-renderer-mark=\&quot;true\&quot;&gt;Email: &lt;/strong&gt;&lt;a data-testid=\&quot;link-with-safety\&quot; href=\&quot;mailto:psp@phsa.ca\&quot; title=\&quot;mailto:psp@phsa.ca\&quot; data-renderer-mark=\&quot;true\&quot; class=\&quot;css-1rn59kg\&quot;&gt;&lt;strong data-renderer-mark=\&quot;true\&quot;&gt;psp@phsa.ca&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;0&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;PhnCount&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2805,7 +2833,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;ul&gt;\n&lt;li&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Upload Genetic Reports/Consult notes/Lab reports in eligibility forms.&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Upload other relevant documents in supporting documents.&lt;br /&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/li&gt;\n&lt;/ul&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;ul&gt;\n&lt;li&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;/span&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;Also, please upload genetic reports/Consult notes/Lab reports and other relevant documents.&lt;/span&gt;&lt;/li&gt;\n&lt;/ul&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
