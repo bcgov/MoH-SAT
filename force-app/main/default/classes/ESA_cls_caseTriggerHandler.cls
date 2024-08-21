@@ -88,11 +88,11 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     
-    public static void assignStatus(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+    public static void assignStatus(Map<Id,Case> oldCaseMap, Map<Id,Case> newCaseMap){
         for(Case caseObj: newCaseMap.values()){
-            Boolean isRPHReviewChanged = oldCaseMap.get(caseObj.id).EDRD_RPH_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_RPH_Review_Pathway__c;
-            Boolean isSCReviewChanged = oldCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c;
-            Boolean isACReviewChanged = oldCaseMap.get(caseObj.id).EDRD_AC_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_AC_Review_Pathway__c;
+            Boolean isRPHReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c;
+            Boolean isSCReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c;
+            Boolean isACReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c;
             if((isRPHReviewChanged && isSCReviewChanged) || (isSCReviewChanged && isACReviewChanged) || (isRPHReviewChanged && isACReviewChanged)){
                 caseobj.addError(Label.EDRD_label_pathwayValidationErrorMsg);
             }
@@ -101,6 +101,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
                 caseObj.Status = returnStatus(caseObj.EDRD_RPH_Review_Pathway__c);
             }else if(isSCReviewChanged && !String.isEmpty(caseObj.EDRD_SC_Review_Pathway__c)){
                 caseObj.Status = returnStatus(caseObj.EDRD_SC_Review_Pathway__c);
+                caseObj.EDRD_AC_Review_Requested__c = caseObj.EDRD_SC_Review_Pathway__c == 'Sent to AC' ? true : false;
             }else if(isACReviewChanged && !String.isEmpty(caseObj.EDRD_AC_Review_Pathway__c)){
                 caseObj.Status = returnStatus(caseObj.EDRD_AC_Review_Pathway__c);
             }
