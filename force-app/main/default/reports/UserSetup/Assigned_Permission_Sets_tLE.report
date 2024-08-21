@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>PermissionSetAssignment$PermissionSet</field>
+    </columns>
+    <columns>
+        <field>PermissionSetAssignment$Assignee</field>
+    </columns>
+    <columns>
+        <field>PermissionSetAssignment$ExpirationDate</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Assigned Permission Sets</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Permission_Set_Assignment_Report__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>PermissionSetAssignment$ExpirationDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
