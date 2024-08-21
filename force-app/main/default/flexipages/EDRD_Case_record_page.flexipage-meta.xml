@@ -503,6 +503,23 @@
                 <identifier>RecordEDRD_Pharmacist_Review_Pathway_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SC_Review_Requested_Date__c</fieldItem>
+                <identifier>RecordSC_Review_Requested_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-a7140cba-392e-4b5b-8d75-a429b0099dd5</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -550,6 +567,23 @@
                         <leftValue>{!Record.EDRD_Patient_Meets_Criteria_for_Rph__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>No</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_SubCommittee_Name__c</fieldItem>
+                <identifier>RecordSubCommittee_Name_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -612,6 +646,40 @@
                 <identifier>RecordEDRD_SC_Review_Pathway_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Requested__c</fieldItem>
+                <identifier>RecordAC_Review_Requested_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_AC_Review_Requested_Date__c</fieldItem>
+                <identifier>RecordAC_Review_Requested_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-b48d692d-9ef6-4759-9fdf-228dfed48aff</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -659,6 +727,23 @@
                         <leftValue>{!Record.EDRD_Patient_Meets_Criteria_for_SC__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>No</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Advisory_Committee__c</fieldItem>
+                <identifier>RecordEDRD_Advisory_Committee_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to AC</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1458,52 +1543,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>context</name>
-                    <value>RECORD</value>
-                </componentInstanceProperties>
-                <componentName>forceChatter:publisher</componentName>
-                <identifier>forceChatter_publisher</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>showLegacyActivityComposer</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>runtime_sales_activities:activityPanel</componentName>
-                <identifier>runtime_sales_activities_activityPanel2</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-82c9e264-29ae-4db4-9a9e-d39a2259c512</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>active</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-82c9e264-29ae-4db4-9a9e-d39a2259c512</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                    <value>Standard.Tab.activity</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tab</componentName>
-                <identifier>flexipage_tab4</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-d50aa28f-fc2e-4ba7-a602-264c8d4147ec</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Case.Id</value>
                 </componentInstanceProperties>
@@ -1531,16 +1570,6 @@
             <componentInstance>
                 <componentName>eDRD_LC_ShowToastMessageOnCase</componentName>
                 <identifier>c_eDRD_LC_ShowToastMessageOnCase</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>tabs</name>
-                    <value>Facet-d50aa28f-fc2e-4ba7-a602-264c8d4147ec</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:tabset</componentName>
-                <identifier>flexipage_tabset2</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>EDRD Renewal Submission Form Final</description>
+    <description>EDRD Renewal Submission Form with eforms</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
@@ -32,8 +32,41 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>14.0</sequenceNumber>
+        <sequenceNumber>15.0</sequenceNumber>
         <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>CaseNotfoundError</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CaseNotfoundError&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;elementErrorMap&quot; : {
+    &quot;PleaseEnterCaseNumber&quot; : &quot;Please enter a valid case number&quot;
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;null&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CaseValues:CaseNumber&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
         <embeddedOmniScriptKey>CrysvitaRenewalSubmission|CrysvitaRenewalSubmission|English</embeddedOmniScriptKey>
@@ -57,7 +90,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>22.0</sequenceNumber>
+        <sequenceNumber>23.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -73,7 +106,7 @@
   &quot;Language&quot; : &quot;English&quot;,
   &quot;show&quot; : null
 }</propertySetConfig>
-        <sequenceNumber>31.0</sequenceNumber>
+        <sequenceNumber>34.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -98,7 +131,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>27.0</sequenceNumber>
+        <sequenceNumber>28.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -157,7 +190,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>32.0</sequenceNumber>
+        <sequenceNumber>35.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -216,7 +249,7 @@
   &quot;label&quot; : &quot;DRcreateRequestNoDocEDRD&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>33.0</sequenceNumber>
+        <sequenceNumber>36.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -275,7 +308,7 @@
   &quot;label&quot; : &quot;DRcreateRequestWithNoEligiblityEDRD&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-        <sequenceNumber>34.0</sequenceNumber>
+        <sequenceNumber>37.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -334,7 +367,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>35.0</sequenceNumber>
+        <sequenceNumber>38.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -393,7 +426,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>36.0</sequenceNumber>
+        <sequenceNumber>39.0</sequenceNumber>
         <type>DataRaptor Post Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -467,7 +500,7 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
   &quot;defaultValue&quot; : &quot;%IndicationDetails:IndicationNameRenewal%&quot;,
-  &quot;readOnly&quot; : false,
+  &quot;readOnly&quot; : true,
   &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
@@ -668,7 +701,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Number</type>
             </childElements>
             <childElements>
@@ -708,7 +741,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -735,7 +768,16 @@
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;mask&quot; : null,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;false&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;RenewalIndefiniteFunding&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;debounceValue&quot; : 0,
@@ -744,7 +786,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Number</type>
             </childElements>
             <childElements>
@@ -759,7 +801,16 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;false&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;RenewalIndefiniteFunding&quot;
+      } ]
+    }
+  },
   &quot;controllingField&quot; : {
     &quot;source&quot; : &quot;&quot;,
     &quot;type&quot; : &quot;&quot;,
@@ -784,8 +835,36 @@
   &quot;label&quot; : &quot;Requested Funding Duration Units&quot;,
   &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Select</type>
+            </childElements>
+            <childElements>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>RenewalIndefiniteFunding</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;Checkbox1&quot;,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : false,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;checkLabel&quot; : &quot;Indefinite Funding&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>4.0</sequenceNumber>
+                <type>Checkbox</type>
             </childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -839,7 +918,7 @@
             <name>RenewalMedicationDrugId</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;RenewalMedicationDrugId&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -949,7 +1028,7 @@
   &quot;ignoreCache&quot; : true,
   &quot;bundle&quot; : &quot;EDRDDRExtractDosagesInfoRenewalType&quot;,
   &quot;label&quot; : &quot;Select Dosage and Load Initial/Renewal eForm&quot;,
-  &quot;controlWidth&quot; : 12
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
             <sequenceNumber>5.0</sequenceNumber>
             <type>DataRaptor Extract Action</type>
@@ -1010,7 +1089,7 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
   &quot;defaultValue&quot; : &quot;%IndicationDetails:DrugName%&quot;,
-  &quot;readOnly&quot; : false,
+  &quot;readOnly&quot; : true,
   &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
@@ -1072,7 +1151,7 @@
   &quot;validationRequired&quot; : true,
   &quot;label&quot; : &quot;DRUG AND DOSAGE&quot;
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1097,7 +1176,32 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>15.0</sequenceNumber>
+        <sequenceNumber>16.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>EmpavaliRenewalSubmission|EmpavaliRenewalSubmission|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>EMPAVELIRENEWALSUBMISSION</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;EmpavaliRenewalSubmission&quot;,
+  &quot;Sub Type&quot; : &quot;EmpavaliRenewalSubmission&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;pegcetacoplan&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MedicationNameRenewal&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>32.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1122,7 +1226,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>25.0</sequenceNumber>
+        <sequenceNumber>26.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1197,7 +1301,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>17.0</sequenceNumber>
+        <sequenceNumber>18.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1222,7 +1326,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>28.0</sequenceNumber>
+        <sequenceNumber>29.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1247,7 +1351,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>18.0</sequenceNumber>
+        <sequenceNumber>19.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1272,7 +1376,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>29.0</sequenceNumber>
+        <sequenceNumber>30.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1301,7 +1405,8 @@
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;extraPayload&quot; : {
     &quot;CASENumber&quot; : &quot;%PleaseEnterCaseNumber%&quot;,
-    &quot;IndicationId&quot; : &quot;%IndicationId%&quot;
+    &quot;IndicationId&quot; : &quot;%IndicationId%&quot;,
+    &quot;AccountId&quot; : &quot;%PatAccId%&quot;
   },
   &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
   &quot;postMessage&quot; : &quot;Done&quot;,
@@ -1360,7 +1465,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>12.0</sequenceNumber>
+        <sequenceNumber>13.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1385,7 +1490,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>26.0</sequenceNumber>
+        <sequenceNumber>27.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1410,7 +1515,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>16.0</sequenceNumber>
+        <sequenceNumber>17.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1435,7 +1540,32 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>21.0</sequenceNumber>
+        <sequenceNumber>22.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>OxlumoRenewalSubmission|OxlumoRenewalSubmission|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>OXLUMORENEWALSUBMISSION</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;OxlumoRenewalSubmission&quot;,
+  &quot;Sub Type&quot; : &quot;OxlumoRenewalSubmission&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;lumasiran&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MedicationNameRenewal&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>31.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1522,7 +1652,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
+            <sequenceNumber>4.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -1537,8 +1667,46 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>PatAccId</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 5,
+  &quot;label&quot; : &quot;PatAccId&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : true,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : true,
+  &quot;disOnTplt&quot; : false,
+  &quot;autocomplete&quot; : null
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -1572,7 +1740,7 @@
   &quot;minDate&quot; : &quot;&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
+            <sequenceNumber>11.0</sequenceNumber>
             <type>Date</type>
         </childElements>
         <childElements>
@@ -1648,7 +1816,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -1684,7 +1852,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>5.0</sequenceNumber>
+            <sequenceNumber>6.0</sequenceNumber>
             <type>Number</type>
         </childElements>
         <childElements>
@@ -1714,7 +1882,7 @@
   }, {
     &quot;value&quot; : false,
     &quot;type&quot; : &quot;Requirement&quot;,
-    &quot;text&quot; : &quot;The selected patient does not exist in the case management system. Please contact PHSA PSP to set up the patient account (psp@phsa.ca).&quot;,
+    &quot;text&quot; : &quot;The PHN entered is not associated with the current EDRD management system. Please contact PHSA PSP to set up or link the patient account at psp@phsa.ca.&quot;,
     &quot;active&quot; : true
   } ],
   &quot;hideLabel&quot; : true,
@@ -1730,7 +1898,7 @@
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
+            <sequenceNumber>7.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -1740,7 +1908,7 @@
             <name>PrescriberId</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 7,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;PrescriberId&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -1830,8 +1998,36 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
+            <sequenceNumber>5.0</sequenceNumber>
             <type>Integration Procedure Action</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock2</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong data-renderer-mark=\&quot;true\&quot;&gt;Email: &lt;/strong&gt;&lt;a data-testid=\&quot;link-with-safety\&quot; href=\&quot;mailto:psp@phsa.ca\&quot; title=\&quot;mailto:psp@phsa.ca\&quot; data-renderer-mark=\&quot;true\&quot; class=\&quot;css-1rn59kg\&quot;&gt;&lt;strong data-renderer-mark=\&quot;true\&quot;&gt;psp@phsa.ca&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;0&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;PhnCount&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2055,7 +2251,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>37.0</sequenceNumber>
+        <sequenceNumber>40.0</sequenceNumber>
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2088,7 +2284,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2122,7 +2318,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>39.0</sequenceNumber>
+        <sequenceNumber>42.0</sequenceNumber>
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2145,7 +2341,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>11.0</sequenceNumber>
+        <sequenceNumber>12.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2170,7 +2366,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2195,7 +2391,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2224,7 +2420,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>10.0</sequenceNumber>
+        <sequenceNumber>11.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2249,7 +2445,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>13.0</sequenceNumber>
+        <sequenceNumber>14.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2262,7 +2458,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Request submitted successfully&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Please click on My Medication Requests Tab to view the submitted case details.&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Request submitted successfully&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Please click on My Cases Tab to view the submitted case details.&lt;/strong&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -2321,7 +2517,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>38.0</sequenceNumber>
+        <sequenceNumber>41.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2346,7 +2542,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>20.0</sequenceNumber>
+        <sequenceNumber>21.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2371,7 +2567,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>19.0</sequenceNumber>
+        <sequenceNumber>20.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2508,7 +2704,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2533,7 +2729,7 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>24.0</sequenceNumber>
+        <sequenceNumber>25.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2546,7 +2742,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;h3&gt;&lt;strong&gt;&lt;span class=\&quot;ui-provider ee bjd ayn bje bjf bjg bjh bji bjj bjk bjl bjm bjn bjo bjp bjq bjr bjs bjt bju bjv bjw bjx bjy bjz bka bkb bkc bkd bke bkf bkg bkh bki bkj\&quot; dir=\&quot;ltr\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;/span&gt;&lt;/strong&gt;&lt;/h3&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;ul&gt;\n&lt;li&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;Please ensure to upload the eligibility form.&amp;nbsp; This document is required but is not mandatory during the initial submission process.&lt;/span&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span style=\&quot;color: #3598db;\&quot;&gt;Also, please upload genetic reports/Consult notes/Lab reports and other relevant documents.&lt;/span&gt;&lt;/li&gt;\n&lt;/ul&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -2664,7 +2860,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>30.0</sequenceNumber>
+        <sequenceNumber>33.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2693,14 +2889,14 @@
     }
   }
 }</propertySetConfig>
-        <sequenceNumber>23.0</sequenceNumber>
+        <sequenceNumber>24.0</sequenceNumber>
         <type>OmniScript</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
     <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:&quot;%CaseType% - %PatientName% - %PatientIdentifier%&quot;,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%PatAccId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:true,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;left&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;,&quot;isSeoEnabled&quot;:false,&quot;scrollToTopWhenNavigatingBetweenStepsOnExperienceCloudSites&quot;:false}</propertySetConfig>
     <subType>RenewForm</subType>
     <type>EDRD</type>
-    <uniqueName>EDRD_RenewForm_English_5</uniqueName>
-    <versionNumber>5.0</versionNumber>
-    <webComponentKey>b1259b45-f0ca-1a12-23e5-81b9f3bf7a4c</webComponentKey>
+    <uniqueName>EDRD_RenewForm_English_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <webComponentKey>32ab2f7a-a2be-abcf-413c-6ca9f6ba1445</webComponentKey>
 </OmniScript>
