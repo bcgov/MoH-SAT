@@ -13,7 +13,7 @@ public with sharing class EDRD_cls_FundingForecastController {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
     public static void generateForecastRecords(List<Case> appcaseList){
-        List<Fiscal_Year_Forecasting__c> forecastRecords = new List<Fiscal_Year_Forecasting__c>();
+        List<MedicationDispense> forecastRecords = new List<MedicationDispense>();
         List<CaseDateWrapper> wrapperList = new List<CaseDateWrapper>();
         Integer daysInFunding;
         
