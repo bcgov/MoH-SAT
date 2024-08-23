@@ -14,8 +14,7 @@ public with sharing class EDRD_cls_DrugCostCalculator {
 */ 
     public static Decimal populateMRExpenditureEstimate(Decimal Dosage, String DosageUnits, Decimal RecFrequency, 
                                                      String RecFrequencyUnits, Decimal RecFundingDuration, 
-                                                     String RecFundingDurationUnit, Decimal ListPrice, Decimal Strength)
-    {
+                                                     String RecFundingDurationUnit, Decimal ListPrice, Decimal Strength){
         Decimal noOfUnit = 0;
         Integer RecFrequencyUnitsDays = returnDaysFrmUnits(RecFrequencyUnits);
         Integer RecFundingDurationUnitDays = returnDaysFrmUnits(RecFundingDurationUnit);
@@ -29,6 +28,7 @@ public with sharing class EDRD_cls_DrugCostCalculator {
             Strength = Strength * reqStandrdDosePerDose;
         } while (Strength/Dosage < 1);
         
+        ESA_cls_caseTriggerHandler.costPerDose = reqStandrdDosePerDose * ListPrice;
         return (noOfUnit * reqStandrdDosePerDose * ListPrice);
     }      
 
