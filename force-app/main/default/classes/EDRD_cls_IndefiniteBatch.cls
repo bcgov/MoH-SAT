@@ -14,7 +14,7 @@ public with sharing class EDRD_cls_IndefiniteBatch implements Database.Batchable
 */    
     public Database.QueryLocator start(Database.BatchableContext bc) {    
         return Database.getQueryLocator([ SELECT Id, Contact.AccountId, EDRD_MOHApproved_Frequency__c, EDRD_MOHApproved_Frequency_Unit__c, EDRD_Cost_Per_Dose__c,
-                                         (SELECT Id, EDRD_End_Date__c, EDRD_Last_Dose_At__c FROM Fiscal_Year_Forecastings__r ORDER BY EDRD_End_Date__c DESC LIMIT 1) 
+                                         (SELECT Id, EDRD_End_Date__c, EDRD_Last_Dose_At__c FROM Medication_Dispenses__r ORDER BY EDRD_End_Date__c DESC LIMIT 1) 
                                          FROM Case WHERE Contact.Account.Patient_is_Deceased__pc = false
                                          AND EDRD_MOHIndefinite_Funding__c = true
                                          AND RecordType.Name = 'EDRD'
