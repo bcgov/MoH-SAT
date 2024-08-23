@@ -314,24 +314,24 @@ public class ESA_cls_caseTriggerHandlerTest {
 */    
     @isTest
     public static void forecastDrugCost_Test(){
-        Account providerAccount = TestFactory.newProvider('Provider Test');
-        insert providerAccount;
+        Account physicianAccount = TestFactory.newProvider('Provider Test');
+        insert physicianAccount;
         Account patntAccount = TestFactory.newPatient('Patient Test');
         insert patntAccount;
         UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
         insert UOMRec;        
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        List<Case> caseList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, providerAccount.Id);
-        caseList.get(0).Type = 'New';
-        caseList.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
-        caseList.get(0).EDRD_MOHApproved_Dosage__c = 300;
-        caseList.get(0).EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
-        caseList.get(0).EDRD_MOHApproved_Frequency__c = 1;
-        caseList.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
-        caseList.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
-        caseList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
-        caseList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
-        insert caseList;
+        List<Case> casesList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, physicianAccount.Id);
+        casesList.get(0).Type = 'New';
+        casesList.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
+        casesList.get(0).EDRD_MOHApproved_Dosage__c = 300;
+        casesList.get(0).EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
+        casesList.get(0).EDRD_MOHApproved_Frequency__c = 1;
+        casesList.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
+        casesList.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
+        casesList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
+        casesList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        insert casesList;
         List<Medication> drugList = TestFactory.createMedication(1, 'Test Medication');
         insert drugList;
         List<MedicinalIngredient> MIList = TestFactory.createMedicinalIngredient(1, drugList.get(0).Id, UOMRec.Id);
@@ -339,7 +339,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         MIList.get(0).RecordtypeId = recordTypeEDRDMI;
         insert MIList;
         Id recordTypeMREDRD = Schema.SObjectType.MedicationRequest.getRecordTypeInfosByDeveloperName().get('EDRD_Medication_Request').getRecordTypeId();
-        List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, drugList.get(0).Id, caseList.get(0).Id, providerAccount.Id, patntAccount.Id); 
+        List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, drugList.get(0).Id, casesList.get(0).Id, physicianAccount.Id, patntAccount.Id); 
         MRList.get(0).Dosage__c = 300;
         MRList.get(0).Dosage_Units__c = UOMRec.Id;
         MRList.get(0).Requested_Frequency__c = 1;
@@ -351,11 +351,11 @@ public class ESA_cls_caseTriggerHandlerTest {
         insert MRList;
                 
         Test.startTest();
-        caseList.get(0).Status = 'Funding Approved';
-        update caseList.get(0);
+        casesList.get(0).Status = 'Funding Approved';
+        update casesList.get(0);
         Test.stopTest();
         
-        List<MedicationDispense> forecastRecords = [SELECT Id FROM MedicationDispense WHERE Case__c =: caseList.get(0).Id];
+        List<MedicationDispense> forecastRecords = [SELECT Id FROM MedicationDispense WHERE Case__c =: casesList.get(0).Id];
         Assert.areEqual(2, forecastRecords.size(), 'FY-MedicationDispense records should be created');
         Assert.areNotEqual(0, forecastRecords.size(), 'Forecast records should not be created');
     }
@@ -363,13 +363,13 @@ public class ESA_cls_caseTriggerHandlerTest {
 /**
 * @author: Deepak
 * @date: 22 Aug 2024
-* @description: The purpose of this method is to cover Testcoverage of forecastDrugCost
+* @description: The purpose of this method is to cover Testcoverage of delete forecastDrugCost
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
     @isTest
     public static void forecastDrugCost_deleteTest(){
-        Account patntAccount = TestFactory.newPatient('Patient Test');
-        insert patntAccount;
+        Account pntAccount = TestFactory.newPatient('Patient Test');
+        insert pntAccount;
         Account providerAccount = TestFactory.newProvider('Provider Test');
         insert providerAccount;
         UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
@@ -386,23 +386,23 @@ public class ESA_cls_caseTriggerHandlerTest {
         caseRec.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
         caseRec.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
         insert caseRec;
-        List<Medication> drugList = TestFactory.createMedication(1, 'Test Medication');
-        insert drugList;
-        List<MedicinalIngredient> MIList = TestFactory.createMedicinalIngredient(1, drugList.get(0).Id, UOMRec.Id);
+        List<Medication> medList = TestFactory.createMedication(1, 'Test Medication');
+        insert medList;
+        List<MedicinalIngredient> MIList = TestFactory.createMedicinalIngredient(1, medList.get(0).Id, UOMRec.Id);
         Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
         MIList.get(0).RecordtypeId = recordTypeEDRDMI;
         insert MIList;
         Id recordTypeMREDRD = Schema.SObjectType.MedicationRequest.getRecordTypeInfosByDeveloperName().get('EDRD_Medication_Request').getRecordTypeId();
-        List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, drugList.get(0).Id, caseRec.get(0).Id, providerAccount.Id, patntAccount.Id); 
-        MRList.get(0).Dosage__c = 300;
-        MRList.get(0).Dosage_Units__c = UOMRec.Id;
-        MRList.get(0).Requested_Frequency__c = 1;
-        MRList.get(0).Requested_Frequency_Unit__c = 'Weekly';
-        MRList.get(0).Requested_Funding_Duration__c = 6;
-        MRList.get(0).Requested_Funding_Duration_Unit__c = 'Months';
-        MRList.get(0).Medication_Information__c = MIList.get(0).Id;
-        MRList.get(0).recordTypeId = recordTypeMREDRD;
-        insert MRList;
+        List<MedicationRequest> MedRList = TestFactory.createMedicationRequest(1, medList.get(0).Id, caseRec.get(0).Id, providerAccount.Id, pntAccount.Id); 
+        MedRList.get(0).Dosage__c = 300;
+        MedRList.get(0).Dosage_Units__c = UOMRec.Id;
+        MedRList.get(0).Requested_Frequency__c = 1;
+        MedRList.get(0).Requested_Frequency_Unit__c = 'Weekly';
+        MedRList.get(0).Requested_Funding_Duration__c = 6;
+        MedRList.get(0).Requested_Funding_Duration_Unit__c = 'Months';
+        MedRList.get(0).Medication_Information__c = MIList.get(0).Id;
+        MedRList.get(0).recordTypeId = recordTypeMREDRD;
+        insert MedRList;
         caseRec.get(0).Status = 'Funding Approved';
         update caseRec.get(0);
                 
