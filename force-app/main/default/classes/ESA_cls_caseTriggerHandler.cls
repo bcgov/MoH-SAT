@@ -102,6 +102,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
             }else if(isSCReviewChanged && !String.isEmpty(caseObj.EDRD_SC_Review_Pathway__c)){
                 caseObj.Status = returnStatus(caseObj.EDRD_SC_Review_Pathway__c);
                 caseObj.EDRD_AC_Review_Requested__c = caseObj.EDRD_SC_Review_Pathway__c == 'Sent to AC' ? true : false;
+                caseObj.EDRD_Advisory_Committee__c = caseObj.EDRD_SC_Review_Pathway__c == 'Sent to AC' ? 'EDRD Advisory Committee' : NULL;
             }else if(isACReviewChanged && !String.isEmpty(caseObj.EDRD_AC_Review_Pathway__c)){
                 caseObj.Status = returnStatus(caseObj.EDRD_AC_Review_Pathway__c);
             }

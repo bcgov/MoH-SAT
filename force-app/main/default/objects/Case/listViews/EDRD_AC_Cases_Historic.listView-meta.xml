@@ -8,13 +8,14 @@
     <columns>Medication_Name__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
-        <field>EDRD_AC_Review_Requested_Date__c</field>
-        <operation>notEqual</operation>
-    </filters>
-    <filters>
         <field>CASES.STATUS</field>
         <operation>equals</operation>
-        <value>AC Review</value>
+        <value>MOH Review,Cancelled,Funding Approved,Funding Denied</value>
+    </filters>
+    <filters>
+        <field>EDRD_Advisory_Committee__c</field>
+        <operation>equals</operation>
+        <value>EDRD Advisory Committee</value>
     </filters>
     <label>EDRD AC Cases - Historic Cases</label>
     <sharedTo>
