@@ -10,4 +10,8 @@ public class ESA_cls_constants {
     public static final String CASE_APPROVAL_TIME_UNIT_WEEK = 'Weeks';
     public static final String CASE_APPROVAL_TIME_UNIT_MONTH = 'Months';
     public static final String CASE_APPROVAL_TIME_UNIT_DAYS = 'Days';
+    public static final String EDRD_NAME = 'EDRD';
+    public static final String EDRD_CASE_STATUS_CANCELLED = 'Cancelled';
+    public static final String EDRD_CASE_CLOSER_REASON_PATIENT_DECEASED = 'Patient Deceased';
+    public static final String EDRD_CASE_MOHFUNDING_DENIED = 'Denied';
 }
