@@ -50,9 +50,15 @@ public with sharing class EDRD_cls_IndefiniteBatch implements Database.Batchable
         
         List<EDRD_cls_FundingForecastController.CaseDateWrapper> wrapperList  = new List<EDRD_cls_FundingForecastController.CaseDateWrapper>();
         for(Case caseObj: scope){
-            if(activePatientEnrollee.Contains(caseObj.Contact.AccountId) && caseObj.Fiscal_Year_Forecastings__r != NULL && 
-               (caseObj.Fiscal_Year_Forecastings__r[0].EDRD_End_Date__c.year() - FYEnddate.year() == 9)){
-                   EDRD_cls_FundingForecastController.CaseDateWrapper cDWObj = new EDRD_cls_FundingForecastController.CaseDateWrapper(caseObj.Id, caseObj.Fiscal_Year_Forecastings__r[0].EDRD_End_Date__c.addDays(1), caseObj.Fiscal_Year_Forecastings__r[0].EDRD_End_Date__c.addMonths(12), caseObj.EDRD_MOHApproved_Frequency__c, caseObj.EDRD_MOHApproved_Frequency_Unit__c, caseObj.Fiscal_Year_Forecastings__r[0].EDRD_Last_Dose_At__c, caseObj.EDRD_Cost_Per_Dose__c); 
+            if(activePatientEnrollee.Contains(caseObj.Contact.AccountId) && caseObj.Medication_Dispenses__r != NULL && 
+               (caseObj.Medication_Dispenses__r[0].EDRD_End_Date__c.year() - FYEnddate.year() == 9)){
+                   EDRD_cls_FundingForecastController.CaseDateWrapper cDWObj = new EDRD_cls_FundingForecastController.CaseDateWrapper(caseObj.Id, 
+                                                                                                                                      caseObj.Medication_Dispenses__r[0].EDRD_End_Date__c.addDays(1), 
+                                                                                                                                      caseObj.Medication_Dispenses__r[0].EDRD_End_Date__c.addMonths(12),
+                                                                                                                                      caseObj.EDRD_MOHApproved_Frequency__c, 
+                                                                                                                                      caseObj.EDRD_MOHApproved_Frequency_Unit__c,
+                                                                                                                                      caseObj.Medication_Dispenses__r[0].EDRD_Last_Dose_At__c, 
+                                                                                                                                      caseObj.EDRD_Cost_Per_Dose__c); 
                    cDWObj = EDRD_cls_FundingForecastController.calculateTotalCost(cDWObj);
                    wrapperList.add(cDWObj);
                }
