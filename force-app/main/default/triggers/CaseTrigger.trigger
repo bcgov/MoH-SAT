@@ -31,8 +31,8 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
     
     if(trigger.isBefore){
         if(trigger.isInsert){
-             ESA_cls_caseTriggerHandler.populateTerminationDate(trigger.new, NULL, NULL);
-             ESA_cls_caseTriggerHandler.populateEDRDRefNumber(trigger.new, NULL, NULL);
+            ESA_cls_caseTriggerHandler.populateTerminationDate(trigger.new, NULL, NULL);
+            ESA_cls_caseTriggerHandler.populateEDRDRefNumber(trigger.new, NULL, NULL);
         }
         
         if(trigger.isUpdate){
@@ -51,6 +51,9 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
             ESA_cls_caseTriggerHandler.firstrun = false;
             ESA_cls_caseTriggerHandler.manageAssignmentRule(trigger.new, trigger.oldMap);
             ESA_cls_caseTriggerHandler.syncCaseToMR(trigger.oldMap, trigger.newMap);
+            if(ESA_cls_caseTriggerHandler.FYOnce){
+                ESA_cls_caseTriggerHandler.forecastDrugCost(trigger.newMap, trigger.oldMap);  
+            }
         }
     } 
   
