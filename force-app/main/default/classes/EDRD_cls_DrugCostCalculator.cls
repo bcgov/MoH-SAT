@@ -41,7 +41,7 @@ public with sharing class EDRD_cls_DrugCostCalculator {
         }else if(Unit == 'Monthly' || Unit == 'Months'){
             days = 30;
         }else if(Unit == 'Yearly' || Unit == 'Years'){
-            days = 364;
+            days = 365;
         }else if(Unit == 'Once'){
             days = 1;
         }
