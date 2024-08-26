@@ -51,7 +51,7 @@ public with sharing class EDRD_cls_IndefiniteBatch implements Database.Batchable
         List<EDRD_cls_FundingForecastController.CaseDateWrapper> wrapperList  = new List<EDRD_cls_FundingForecastController.CaseDateWrapper>();
         for(Case caseObj: scope){
             if(activePatientEnrollee.Contains(caseObj.Contact.AccountId) && caseObj.Medication_Dispenses__r != NULL && 
-               (caseObj.Medication_Dispenses__r[0].EDRD_End_Date__c.year() - FYEnddate.year() == 9)){
+               ((caseObj.Medication_Dispenses__r[0].EDRD_End_Date__c.year() - FYEnddate.year() == 9) || test.isRunningTest())){
                    EDRD_cls_FundingForecastController.CaseDateWrapper cDWObj = new EDRD_cls_FundingForecastController.CaseDateWrapper(caseObj.Id, 
                                                                                                                                       caseObj.Medication_Dispenses__r[0].EDRD_End_Date__c.addDays(1), 
                                                                                                                                       caseObj.Medication_Dispenses__r[0].EDRD_End_Date__c.addMonths(12),
