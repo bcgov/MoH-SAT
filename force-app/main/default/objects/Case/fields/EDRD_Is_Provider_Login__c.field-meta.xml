@@ -3,7 +3,7 @@
     <fullName>EDRD_Is_Provider_Login__c</fullName>
     <description>When these IDs match, the formula returns True, otherwise, it returns False.</description>
     <externalId>false</externalId>
-    <formula>IF(AND(NOT(ISBLANK(Provider__c)), $User.ContactId = Provider__r.Id), true, false)</formula>
+    <formula>AND(NOT(ISBLANK(Provider__c)), $User.ContactId = Provider__r.Id)</formula>
     <label>Is Provider Login</label>
     <trackHistory>false</trackHistory>
     <type>Checkbox</type>
