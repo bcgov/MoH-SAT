@@ -213,6 +213,22 @@
                 <identifier>RecordEDRD_Eligibility_Form_Signed_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Legacy_EDRD_Reference_Number__c</fieldItem>
+                <identifier>RecordLegacy_EDRD_Reference_Number_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Legacy_External_ID__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-068d369b-6502-4416-bcfd-d73a7a0cdfd9</name>
         <type>Facet</type>
     </flexiPageRegions>
