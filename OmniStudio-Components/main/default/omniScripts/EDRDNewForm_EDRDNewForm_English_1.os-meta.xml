@@ -1971,7 +1971,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -1983,6 +1983,21 @@
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak4&quot;,
   &quot;padding&quot; : 3,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>10.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak5</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak5&quot;,
+  &quot;padding&quot; : 0,
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
@@ -2021,7 +2036,7 @@
   &quot;minDate&quot; : &quot;&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>16.0</sequenceNumber>
+            <sequenceNumber>18.0</sequenceNumber>
             <type>Date</type>
         </childElements>
         <childElements>
@@ -2071,7 +2086,7 @@
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>13.0</sequenceNumber>
+            <sequenceNumber>11.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -2147,7 +2162,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>15.0</sequenceNumber>
+            <sequenceNumber>17.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2267,7 +2282,7 @@
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -2316,12 +2331,16 @@
         &quot;field&quot; : &quot;phn&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;data&quot; : &quot;null&quot;
+      }, {
+        &quot;field&quot; : &quot;cnt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>15.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -2445,6 +2464,10 @@
         &quot;field&quot; : &quot;phn&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;data&quot; : &quot;null&quot;
+      }, {
+        &quot;field&quot; : &quot;cnt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -2453,7 +2476,39 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
+            <sequenceNumber>16.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock3</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : null,
+  &quot;label&quot; : &quot;TextBlock3&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;Please contact PHSA PSP for additional information at &lt;a href=\&quot;mailto:psp@phsa.ca\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;psp@phsa.ca.&lt;/a&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;null&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;phn&quot;
+      }, {
+        &quot;field&quot; : &quot;cnt&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>13.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
