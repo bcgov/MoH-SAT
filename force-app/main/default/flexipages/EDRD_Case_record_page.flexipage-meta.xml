@@ -613,10 +613,16 @@
                 <fieldItem>Record.EDRD_Other_Subcommittee_Name__c</fieldItem>
                 <identifier>RecordEDRD_Other_Subcommittee_Name_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.EDRD_SubCommittee_Name__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Other</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Sent to SC</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
