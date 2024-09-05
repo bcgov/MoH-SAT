@@ -232,7 +232,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
                     isEndDateChanged = caseObj.EDRD_MOHFunding_Expiry_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c != null;
                     isStartDateChanged = caseObj.EDRD_MOHFunding_Start_Date__c != null;
                 }
-                if(!isEndDateChanged && !caseObj.EDRD_MOHIndefinite_Funding__c && caseObj.EDRD_MOHFunding_Start_Date__c != null){
+                if(!isEndDateChanged && !caseObj.EDRD_MOHIndefinite_Funding__c && caseObj.EDRD_MOHFunding_Start_Date__c != null && caseObj.EDRD_MOHApproved_Funding_Duration__c != null){
                     if(caseObj.EDRD_MOHFunding_Decision__c == 'Approved'){
                         caseObj.EDRD_MOHFunding_Expiry_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,caseObj.EDRD_MOHApproved_Funding_Duration__c,caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
                     }else if(caseObj.EDRD_MOHFunding_Decision__c == 'Extended'){
