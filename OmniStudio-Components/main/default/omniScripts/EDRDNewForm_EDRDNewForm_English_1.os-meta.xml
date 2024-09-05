@@ -533,7 +533,16 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;checkLabel&quot; : &quot;Indefinite Funding&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Indefinite&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MaxInitialFundDuration&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -742,11 +751,20 @@
   &quot;mask&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;false&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;NewIndefiniteFunding&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;MaxInitialFundDuration&quot;,
+            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+            &quot;data&quot; : &quot;Indefinite&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -793,11 +811,20 @@
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;false&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;NewIndefiniteFunding&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;MaxInitialFundDuration&quot;,
+            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+            &quot;data&quot; : &quot;Indefinite&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -837,8 +864,46 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>MaxInitialFundDuration</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 4,
+  &quot;label&quot; : &quot;MaxInitialFundDuration&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : true,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : true,
+  &quot;disOnTplt&quot; : false,
+  &quot;autocomplete&quot; : null
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Text</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -1179,7 +1244,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -1277,7 +1342,7 @@
       } ],
       &quot;inputParameters&quot; : [ ]
     },
-    &quot;source&quot; : &quot;EDRD_cls_omniSObjectQuery.MedicationNames&quot;
+    &quot;source&quot; : &quot;EDRD_cls_omniSObjectQueryCallable.MedicationNames&quot;
   },
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
@@ -1956,7 +2021,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>14.0</sequenceNumber>
+            <sequenceNumber>12.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -1993,21 +2058,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak5</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak5&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-            <sequenceNumber>12.0</sequenceNumber>
-            <type>Line Break</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
             <name>PatientBirthDate</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -2036,7 +2086,7 @@
   &quot;minDate&quot; : &quot;&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>18.0</sequenceNumber>
+            <sequenceNumber>16.0</sequenceNumber>
             <type>Date</type>
         </childElements>
         <childElements>
@@ -2066,7 +2116,7 @@
   }, {
     &quot;value&quot; : false,
     &quot;type&quot; : &quot;Requirement&quot;,
-    &quot;text&quot; : &quot;An EDRD case cannot be created for a deceased patient.&quot;,
+    &quot;text&quot; : &quot;An EDRD case cannot be created for a deceased patient. Please contact PHSA PSP for additional information at psp@phsa.ca.&quot;,
     &quot;active&quot; : true
   } ],
   &quot;hideLabel&quot; : true,
@@ -2162,7 +2212,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>17.0</sequenceNumber>
+            <sequenceNumber>15.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2266,7 +2316,7 @@
   }, {
     &quot;value&quot; : false,
     &quot;type&quot; : &quot;Requirement&quot;,
-    &quot;text&quot; : &quot;Please enroll the patient into the EDRD Care Program before creating a case.&quot;,
+    &quot;text&quot; : &quot;Please enroll the patient into the EDRD Care Program before creating a case. Contact PHSA PSP for additional information at psp@phsa.ca.&quot;,
     &quot;active&quot; : true
   } ],
   &quot;hideLabel&quot; : true,
@@ -2340,7 +2390,7 @@
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>15.0</sequenceNumber>
+            <sequenceNumber>13.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -2455,49 +2505,17 @@
   &quot;text&quot; : &quot;&lt;p&gt;&lt;strong data-renderer-mark=\&quot;true\&quot;&gt;Email: &lt;/strong&gt;&lt;a data-testid=\&quot;link-with-safety\&quot; href=\&quot;mailto:psp@phsa.ca\&quot; title=\&quot;mailto:psp@phsa.ca\&quot; data-renderer-mark=\&quot;true\&quot; class=\&quot;css-1rn59kg\&quot;&gt;&lt;strong data-renderer-mark=\&quot;true\&quot;&gt;psp@phsa.ca&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;0&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;PhnCount&quot;
       }, {
         &quot;field&quot; : &quot;phn&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;null&quot;
       }, {
         &quot;field&quot; : &quot;cnt&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      } ]
-    }
-  },
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>16.0</sequenceNumber>
-            <type>Text Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock3</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;TextBlock3&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;Please contact PHSA PSP for additional information at &lt;a href=\&quot;mailto:psp@phsa.ca\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;psp@phsa.ca.&lt;/a&gt;&lt;/p&gt;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;null&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;phn&quot;
-      }, {
-        &quot;field&quot; : &quot;cnt&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;true&quot;
       } ]
@@ -2508,7 +2526,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>13.0</sequenceNumber>
+            <sequenceNumber>14.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
