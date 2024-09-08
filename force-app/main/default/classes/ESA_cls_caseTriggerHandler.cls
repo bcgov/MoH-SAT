@@ -316,7 +316,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
             
             Boolean isStatusChanged = newCaseMap.get(CaseObj.Id).Status != oldCaseMap.get(CaseObj.Id).Status && caseObj.Status == 'Funding Approved';
             Boolean isStatusChangedFrmFundingApp = newCaseMap.get(CaseObj.Id).Status != oldCaseMap.get(CaseObj.Id).Status && oldCaseMap.get(CaseObj.Id).Status == 'Funding Approved';
-            if(((isFundingRevoked && caseObj.Isclosed) || isStatusChangedFrmFundingApp) && caseObj.RecordTypeId == recordTypeCaseEDRD){
+            if(((isFundingRevoked && caseObj.Status == 'Funding Approved') || isStatusChangedFrmFundingApp) && caseObj.RecordTypeId == recordTypeCaseEDRD){
                 caseIdSet.add(caseObj.Id);
             }
             
