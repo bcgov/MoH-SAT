@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Prevent_Case_Edit_After_Closed</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+ $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+$Permission.EDRD_MOH_STAFF  = TRUE,
+RecordType.DeveloperName = &apos;EDRD&apos;,
+OR(
+ ISPICKVAL(Status, &apos;Funding Approved&apos;),
+  ISPICKVAL(Status, &apos;Funding Denied&apos;),
+ ISPICKVAL(Status, &apos;Cancelled&apos;)
+),
+
+    NOT(
+        OR(
+            ISCHANGED(Status),
+			ISCHANGED(EDRD_Case_closure_reasons__c),
+			ISCHANGED(EDRD_Notes__c),
+			ISCHANGED(EDRD_MOHFunding_Decision__c),
+			ISCHANGED(EDRD_MOHComments__c),
+			ISCHANGED(EDRD_MOHFunding_Start_Date__c),
+			ISCHANGED(EDRD_MOHFunding_Expiry_Date__c),
+			ISCHANGED(EDRD_MOHIndefinite_Funding__c),
+			ISCHANGED(EDRD_MOHDrug_Cost_Forecast__c),
+			ISCHANGED(EDRD_MOHApproved_Dosage__c),
+			ISCHANGED(EDRD_MOHApproved_Dosage_Unit__c),
+			ISCHANGED(EDRD_MOHApproved_Frequency__c),
+			ISCHANGED(EDRD_MOHApproved_Frequency_Unit__c),
+			ISCHANGED(EDRD_MOHApproved_Funding_Duration__c),
+			ISCHANGED(EDRD_MOHApproved_Funding_Duration_Unit__c)
+        )
+)
+
+)</errorConditionFormula>
+    <errorMessage>You do not have access to make these changes, please contact Ministry of Health staff</errorMessage>
+</ValidationRule>
