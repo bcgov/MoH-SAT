@@ -38,7 +38,7 @@ public with sharing class AccountContactRelationTriggerHandler {
         for(Id providerId: providerIdVsPatientId.keySet()){
             for(Id userId: providerIdVsUserIdSet.get(providerId)){
                 accShareListToInsert.add(new AccountShare(AccountId = providerIdVsPatientId.get(providerId),
-                                                          AccountAccessLevel = 'Read', UserOrGroupId = UserId,
+                                                          AccountAccessLevel = 'Edit', UserOrGroupId = UserId,
                                                           OpportunityAccessLevel = 'None'));
             }
         }

@@ -1,7 +1,7 @@
 /**********************************************************************************************
 * @Author:      Accenture 
 * @Date:        21/08/2024
-* @Description: The purpose of this class is to cover Code coverage of AccountContactRelationTriggerHandlerTest
+* @Description: The purpose of this class is to cover Code coverage of AccountContactRelationTriggerHandler
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
 ***********************************************************************************************/
 @isTest
@@ -39,7 +39,7 @@ public class AccountContactRelationTriggerHandlerTest {
                                        FROM AccountShare WHERE AccountId =: patientAcc.Id 
                                        AND UserOrGroupId =: communityUser.Id LIMIT 1];
         
-        Assert.areEqual(accShare[0].AccountAccessLevel, 'Read', 'AccountShare access level should be Read');
+        Assert.areEqual(accShare[0].AccountAccessLevel, 'Edit', 'AccountShare access level should be Edit');
         Assert.areEqual(accShare.size(), 1, 'AccountShare should have been created for the Patient');
         Assert.areNotEqual(accShare.isEmpty(), true, 'AccountShare list should not be empty');
         Assert.areNotEqual(accShare[0].UserOrGroupId, null, 'UserOrGroupId should not be null');     
@@ -119,7 +119,7 @@ public class AccountContactRelationTriggerHandlerTest {
         List<AccountContactRelation> insertACRList = [SELECT Id FROM AccountContactRelation WHERE Id = :ACRObj.Id LIMIT 1];        
         
         Assert.areEqual(accShareList2.isEmpty(), false, 'AccountShare records should exist after the ACR is updated');
-        Assert.areEqual(accShareList2[0].AccountAccessLevel, 'Read', 'AccountShare access level should be Read');
+        Assert.areEqual(accShareList2[0].AccountAccessLevel, 'Edit', 'AccountShare access level should be Edit');
         Assert.areEqual(accShareList2.size(), 1, 'AccountShare record should be created');
         Assert.areNotEqual(accShareList2.size(), NULL, 'AccountShare record should is not created');
         Assert.areNotEqual(accShareList2.isEmpty(), true, 'AccountShare record list cannot be empty, after the ACR is updated');
