@@ -57,8 +57,8 @@
     <decisions>
         <name>Choose_case_option</name>
         <label>Choose case option</label>
-        <locationX>248</locationX>
-        <locationY>2030</locationY>
+        <locationX>446</locationX>
+        <locationY>2894</locationY>
         <defaultConnector>
             <targetReference>Get_Case_Record_Type_for_renewal</targetReference>
         </defaultConnector>
@@ -80,10 +80,60 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Copy_1_of_Renewal_Indefinite_Funding_check2</name>
+        <label>Renewal Indefinite Funding check</label>
+        <locationX>710</locationX>
+        <locationY>3626</locationY>
+        <defaultConnector>
+            <targetReference>Create_Medication_Request_with_New_Renewal_Case_without_indef</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Renewal_Indefinite_Available2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indefinite</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Medication_Request_with_New_Renewal_Case</targetReference>
+            </connector>
+            <label>Renewal Indefinite Available</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Decision_10</name>
+        <label>Renewal Indefinite Funding check</label>
+        <locationX>710</locationX>
+        <locationY>3110</locationY>
+        <defaultConnector>
+            <targetReference>New_renewal_case_creation_for_RecType_Renew_without_indef</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Renewal_Indefinite_Available</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indefinite</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_renewal_case_creation_for_RecType_Renew</targetReference>
+            </connector>
+            <label>Renewal Indefinite Available</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Medication_details_New_Renewal_decision</name>
         <label>Medication details New/Renewal decision</label>
-        <locationX>446</locationX>
-        <locationY>1430</locationY>
+        <locationX>644</locationX>
+        <locationY>2186</locationY>
         <defaultConnector>
             <targetReference>Renwal_Medication_details</targetReference>
         </defaultConnector>
@@ -105,10 +155,60 @@
         </rules>
     </decisions>
     <decisions>
+        <name>New_Indefinite_Funding_check</name>
+        <label>New Indefinite Funding check</label>
+        <locationX>182</locationX>
+        <locationY>3110</locationY>
+        <defaultConnector>
+            <targetReference>New_case_Creation_for_Rec_type_New_without_indef</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Indefinite_Eligible</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indefinite</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>New_case_Creation_for_Rec_type_New</targetReference>
+            </connector>
+            <label>Indefinite_Eligible</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>New_Indefinite_Funding_check2</name>
+        <label>New Indefinite Funding check</label>
+        <locationX>182</locationX>
+        <locationY>3626</locationY>
+        <defaultConnector>
+            <targetReference>Create_Medication_request_with_New_Case_without_indef</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Indefinite_Available2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Indefinite</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Medication_request_with_New_Case</targetReference>
+            </connector>
+            <label>Indefinite Available</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Other_Medication_Decision</name>
         <label>Other Medication Decision</label>
-        <locationX>248</locationX>
-        <locationY>1214</locationY>
+        <locationX>446</locationX>
+        <locationY>1970</locationY>
         <defaultConnector>
             <targetReference>Indication_Screen</targetReference>
         </defaultConnector>
@@ -136,7 +236,165 @@
             <label>Other Medication Details</label>
         </rules>
     </decisions>
-    <description>Changes related to EDRD-695, Indication Screen with required fields</description>
+    <decisions>
+        <name>validate_ACR_Relationship</name>
+        <label>validate_ACR_Relationship</label>
+        <locationX>908</locationX>
+        <locationY>1538</locationY>
+        <defaultConnector>
+            <targetReference>No_ACR_ErrorScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>ACR_Active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_ACRRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_ACRRecord.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Medication_Request</targetReference>
+            </connector>
+            <label>ACR &amp; Active</label>
+        </rules>
+        <rules>
+            <name>ACR_Inactive</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_ACRRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_ACRRecord.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>ACR_InactiveErrorScreen</targetReference>
+            </connector>
+            <label>ACR &amp; Inactive</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>validate_CPERecord</name>
+        <label>validate_CPERecord</label>
+        <locationX>1535</locationX>
+        <locationY>1106</locationY>
+        <defaultConnector>
+            <targetReference>CPE_NoCPE_ErrorScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CPE_Active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_RelatedCPERecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_RelatedCPERecord.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Active</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Search_Provider_for_New_Case</targetReference>
+            </connector>
+            <label>CPE &amp; Active</label>
+        </rules>
+        <rules>
+            <name>CPE_Inactive</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_RelatedCPERecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_RelatedCPERecord.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Active</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>CPE_InactiveErrorScreen</targetReference>
+            </connector>
+            <label>CPE &amp; Inactive</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>validate_EDRDCPRecord</name>
+        <label>validate_EDRDCPRecord</label>
+        <locationX>2112</locationX>
+        <locationY>890</locationY>
+        <defaultConnector>
+            <targetReference>CP_ErrorScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>EDRD_CP_Record_Exits</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>EDRD_careProgramRecordId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>get_RelatedCPERecord</targetReference>
+            </connector>
+            <label>EDRD CP Record Exits</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>validate_Is_patient_deceased</name>
+        <label>validate_Is_patient_deceased</label>
+        <locationX>2665</locationX>
+        <locationY>674</locationY>
+        <defaultConnector>
+            <targetReference>PatientDeceased_ErrorScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Patient_Not_Deceased</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>searchedPatientRecId.Patient_is_Deceased__pc</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_EDRDCPRecord</targetReference>
+            </connector>
+            <label>Patient Not Deceased</label>
+        </rules>
+    </decisions>
+    <description>Changes related to Indefinitefunidng</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -212,8 +470,8 @@
     <recordCreates>
         <name>Create_Medication_request_with_New_Case</name>
         <label>Create Medication request with New Case</label>
-        <locationX>116</locationX>
-        <locationY>2570</locationY>
+        <locationX>50</locationX>
+        <locationY>3734</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Sucees</targetReference>
@@ -227,7 +485,7 @@
         <inputAssignments>
             <field>Dosage_Units__c</field>
             <value>
-                <elementReference>Dosage_Units.recordId</elementReference>
+                <elementReference>VarMedicationInformationRec.HC_Initial_Dosage_Units__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -317,10 +575,111 @@
         <object>MedicationRequest</object>
     </recordCreates>
     <recordCreates>
+        <name>Create_Medication_request_with_New_Case_without_indef</name>
+        <label>Create Medication request with New Case without indef</label>
+        <locationX>314</locationX>
+        <locationY>3734</locationY>
+        <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
+        <connector>
+            <targetReference>Sucees</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case__c</field>
+            <value>
+                <elementReference>StoreNewCase.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Dosage_Units__c</field>
+            <value>
+                <elementReference>VarMedicationInformationRec.HC_Initial_Dosage_Units__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Dosage__c</field>
+            <value>
+                <elementReference>Dosage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Medical_Diagnosis__c</field>
+            <value>
+                <elementReference>Select_Indication.selectedChoiceValues</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MedicationId</field>
+            <value>
+                <elementReference>Medication.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Other_Medication_Detail__c</field>
+            <value>
+                <stringValue>{!Medication_Name}, {!Other_Brand}, {!Other_Indication}, {!Supplier}, {!Dosing}, {!Dosage_Form}</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PatientId</field>
+            <value>
+                <elementReference>searchedPatientRecId.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_EDRD_MR_Record_Type.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Frequency_Unit__c</field>
+            <value>
+                <elementReference>Requested_Frequency_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Frequency__c</field>
+            <value>
+                <elementReference>Requested_Frequency</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Funding_Duration_Unit__c</field>
+            <value>
+                <elementReference>Requested_Funding_Duration_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Funding_Duration__c</field>
+            <value>
+                <elementReference>Requested_Funding_Duration</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RequesterId</field>
+            <value>
+                <elementReference>ProviderRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <elementReference>StoreNewCase.Type</elementReference>
+            </value>
+        </inputAssignments>
+        <object>MedicationRequest</object>
+    </recordCreates>
+    <recordCreates>
         <name>Create_Medication_Request_with_New_Renewal_Case</name>
         <label>Create Medication Request with New Renewal Case</label>
-        <locationX>380</locationX>
-        <locationY>2570</locationY>
+        <locationX>578</locationX>
+        <locationY>3734</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Success</targetReference>
@@ -334,7 +693,7 @@
         <inputAssignments>
             <field>Dosage_Units__c</field>
             <value>
-                <elementReference>Renewal_Dosage_Units.recordId</elementReference>
+                <elementReference>VarMedicationInformationRec.HC_Renewal_Dosage_Units__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -424,10 +783,111 @@
         <object>MedicationRequest</object>
     </recordCreates>
     <recordCreates>
+        <name>Create_Medication_Request_with_New_Renewal_Case_without_indef</name>
+        <label>Create Medication Request with New Renewal Case without indef</label>
+        <locationX>842</locationX>
+        <locationY>3734</locationY>
+        <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
+        <connector>
+            <targetReference>Success</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Case__c</field>
+            <value>
+                <elementReference>StoreRenewalCase.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Dosage_Units__c</field>
+            <value>
+                <elementReference>VarMedicationInformationRec.HC_Renewal_Dosage_Units__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Dosage__c</field>
+            <value>
+                <elementReference>Renewal_Dosage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Medical_Diagnosis__c</field>
+            <value>
+                <elementReference>Select_Indication.selectedChoiceValues</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>MedicationId</field>
+            <value>
+                <elementReference>Medication.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Other_Medication_Detail__c</field>
+            <value>
+                <stringValue>{!Medication_Name}, {!Other_Brand}, {!Other_Indication}, {!Supplier}, {!Dosing}, {!Dosage_Form}</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PatientId</field>
+            <value>
+                <elementReference>searchedPatientRecId.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_EDRD_MR_Record_Type.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Frequency_Unit__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Frequency_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Frequency__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Frequency</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Funding_Duration_Unit__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Funding_Duration_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Requested_Funding_Duration__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Funding_Duration</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RequesterId</field>
+            <value>
+                <elementReference>ProviderRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <elementReference>StoreRenewalCase.Type</elementReference>
+            </value>
+        </inputAssignments>
+        <object>MedicationRequest</object>
+    </recordCreates>
+    <recordCreates>
         <name>New_case_Creation_for_Rec_type_New</name>
         <label>New case Creation for Rec type New</label>
-        <locationX>116</locationX>
-        <locationY>2246</locationY>
+        <locationX>50</locationX>
+        <locationY>3218</locationY>
         <connector>
             <targetReference>Get_Newly_created_Case</targetReference>
         </connector>
@@ -435,6 +895,42 @@
             <field>ContactId</field>
             <value>
                 <elementReference>patientContactRec.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage_Unit__c</field>
+            <value>
+                <elementReference>VarMedicationInformationRec.HC_Initial_Dosage_Units__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage__c</field>
+            <value>
+                <elementReference>Dosage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency_Unit__c</field>
+            <value>
+                <elementReference>Requested_Frequency_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency__c</field>
+            <value>
+                <elementReference>Requested_Frequency</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration_Unit__c</field>
+            <value>
+                <elementReference>Requested_Funding_Duration_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration__c</field>
+            <value>
+                <elementReference>Requested_Funding_Duration</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -447,6 +943,101 @@
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider__c</field>
+            <value>
+                <elementReference>ProviderContactRec.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>CaseRecordTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Received - Awaiting Verification</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <elementReference>New</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>New_case_Creation_for_Rec_type_New_without_indef</name>
+        <label>New case Creation for Rec type New without indef</label>
+        <locationX>314</locationX>
+        <locationY>3218</locationY>
+        <connector>
+            <targetReference>Get_Newly_created_Case_without_indef</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>patientContactRec.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage_Unit__c</field>
+            <value>
+                <elementReference>VarMedicationInformationRec.HC_Initial_Dosage_Units__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage__c</field>
+            <value>
+                <elementReference>Dosage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency_Unit__c</field>
+            <value>
+                <elementReference>Requested_Frequency_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency__c</field>
+            <value>
+                <elementReference>Requested_Frequency</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration_Unit__c</field>
+            <value>
+                <elementReference>Requested_Funding_Duration_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration__c</field>
+            <value>
+                <elementReference>Requested_Funding_Duration</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Origin</field>
+            <value>
+                <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -479,8 +1070,8 @@
     <recordCreates>
         <name>New_renewal_case_creation_for_RecType_Renew</name>
         <label>New renewal case creation for RecType Renew</label>
-        <locationX>380</locationX>
-        <locationY>2246</locationY>
+        <locationX>578</locationX>
+        <locationY>3218</locationY>
         <connector>
             <targetReference>Get_newly_created_Renewal_Rec</targetReference>
         </connector>
@@ -488,6 +1079,42 @@
             <field>ContactId</field>
             <value>
                 <elementReference>patientContactRec.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage_Unit__c</field>
+            <value>
+                <elementReference>VarMedicationInformationRec.HC_Renewal_Dosage_Units__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage__c</field>
+            <value>
+                <elementReference>Renewal_Dosage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency_Unit__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Frequency_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Frequency</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration_Unit__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Funding_Duration_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Funding_Duration</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -500,6 +1127,101 @@
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider__c</field>
+            <value>
+                <elementReference>ProviderContactRec.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>CaseRecordTypeID</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Received - Awaiting Verification</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Type</field>
+            <value>
+                <stringValue>Renewal</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>New_renewal_case_creation_for_RecType_Renew_without_indef</name>
+        <label>New renewal case creation for RecType Renew without indef</label>
+        <locationX>842</locationX>
+        <locationY>3218</locationY>
+        <connector>
+            <targetReference>Get_newly_created_Renewal_Rec_without_indef</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>patientContactRec.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage_Unit__c</field>
+            <value>
+                <elementReference>VarMedicationInformationRec.HC_Renewal_Dosage_Units__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Dosage__c</field>
+            <value>
+                <elementReference>Renewal_Dosage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency_Unit__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Frequency_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Frequency__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Frequency</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration_Unit__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Funding_Duration_Units</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>EDRD_MOHApproved_Funding_Duration__c</field>
+            <value>
+                <elementReference>Renewal_Requested_Funding_Duration</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Origin</field>
+            <value>
+                <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -530,13 +1252,45 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
-        <name>Get_Case_Record_Type</name>
-        <label>Get Case Record Type</label>
-        <locationX>116</locationX>
-        <locationY>2138</locationY>
+        <name>get_ACRRecord</name>
+        <label>get_ACRRecord</label>
+        <locationX>908</locationX>
+        <locationY>1430</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>New_case_Creation_for_Rec_type_New</targetReference>
+            <targetReference>validate_ACR_Relationship</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>No_ACR_ErrorScreen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ProviderRecord.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>searchedPatientRecId.PersonContact.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AccountContactRelation</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Case_Record_Type</name>
+        <label>Get Case Record Type</label>
+        <locationX>182</locationX>
+        <locationY>3002</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>New_Indefinite_Funding_check</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -562,11 +1316,11 @@
     <recordLookups>
         <name>Get_Case_Record_Type_for_renewal</name>
         <label>Get Case Record Type for renewal</label>
-        <locationX>380</locationX>
-        <locationY>2138</locationY>
+        <locationX>710</locationX>
+        <locationY>3002</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>New_renewal_case_creation_for_RecType_Renew</targetReference>
+            <targetReference>Decision_10</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -592,8 +1346,8 @@
     <recordLookups>
         <name>Get_EDRD_MR_Record_Type</name>
         <label>Get EDRD MR Record Type</label>
-        <locationX>248</locationX>
-        <locationY>1106</locationY>
+        <locationX>446</locationX>
+        <locationY>1862</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Other_Medication_Decision</targetReference>
@@ -618,10 +1372,37 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_EDRDCPRecord</name>
+        <label>Get_EDRDCPRecord</label>
+        <locationX>2112</locationX>
+        <locationY>782</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>validate_EDRDCPRecord</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>CP_ErrorScreen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>EDRD</stringValue>
+            </value>
+        </filters>
+        <object>CareProgram</object>
+        <outputAssignments>
+            <assignToReference>EDRD_careProgramRecordId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Medication</name>
         <label>Get Medication</label>
-        <locationX>248</locationX>
-        <locationY>998</locationY>
+        <locationX>446</locationX>
+        <locationY>1754</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_EDRD_MR_Record_Type</targetReference>
@@ -659,8 +1440,8 @@
     <recordLookups>
         <name>Get_Newly_created_Case</name>
         <label>Get Newly created Case</label>
-        <locationX>116</locationX>
-        <locationY>2354</locationY>
+        <locationX>50</locationX>
+        <locationY>3326</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Upload_Document</targetReference>
@@ -684,10 +1465,37 @@
         <queriedFields>Origin</queriedFields>
     </recordLookups>
     <recordLookups>
+        <name>Get_Newly_created_Case_without_indef</name>
+        <label>Get Newly created Case without indef</label>
+        <locationX>314</locationX>
+        <locationY>3326</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Upload_Document</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_case_Creation_for_Rec_type_New_without_indef</elementReference>
+            </value>
+        </filters>
+        <object>Case</object>
+        <outputReference>StoreNewCase</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ContactId</queriedFields>
+        <queriedFields>Provider__c</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Origin</queriedFields>
+    </recordLookups>
+    <recordLookups>
         <name>Get_newly_created_Renewal_Rec</name>
         <label>Get newly created Renewal Rec</label>
-        <locationX>380</locationX>
-        <locationY>2354</locationY>
+        <locationX>578</locationX>
+        <locationY>3326</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>UploadDocument</targetReference>
@@ -711,10 +1519,37 @@
         <queriedFields>Origin</queriedFields>
     </recordLookups>
     <recordLookups>
+        <name>Get_newly_created_Renewal_Rec_without_indef</name>
+        <label>Get newly created Renewal Rec without indef</label>
+        <locationX>842</locationX>
+        <locationY>3326</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>UploadDocument</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_renewal_case_creation_for_RecType_Renew_without_indef</elementReference>
+            </value>
+        </filters>
+        <object>Case</object>
+        <outputReference>StoreRenewalCase</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ContactId</queriedFields>
+        <queriedFields>Provider__c</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Origin</queriedFields>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Patient_Contact_rec</name>
         <label>Get Patient Contact</label>
-        <locationX>248</locationX>
-        <locationY>1814</locationY>
+        <locationX>446</locationX>
+        <locationY>2678</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Provider_Contact_Rec</targetReference>
@@ -743,11 +1578,11 @@
     <recordLookups>
         <name>Get_Patient_Records</name>
         <label>Get Patient Records</label>
-        <locationX>248</locationX>
+        <locationX>2665</locationX>
         <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Search_Provider_for_New_Case</targetReference>
+            <targetReference>validate_Is_patient_deceased</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -763,11 +1598,13 @@
         <queriedFields>Name</queriedFields>
         <queriedFields>Patient_Identifier__pc</queriedFields>
         <queriedFields>PersonBirthdate</queriedFields>
+        <queriedFields>Patient_is_Deceased__pc</queriedFields>
+        <queriedFields>PersonContactId</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_Patient_RecordTypeAccount</name>
         <label>Get Patient RecordType</label>
-        <locationX>248</locationX>
+        <locationX>2665</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -797,8 +1634,8 @@
     <recordLookups>
         <name>Get_Provider_Contact_Rec</name>
         <label>Get Provider Contact</label>
-        <locationX>248</locationX>
-        <locationY>1922</locationY>
+        <locationX>446</locationX>
+        <locationY>2786</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Choose_case_option</targetReference>
@@ -822,11 +1659,11 @@
     <recordLookups>
         <name>Get_Provider_Record_for_New_case</name>
         <label>Get Provider Record for New case</label>
-        <locationX>248</locationX>
-        <locationY>782</locationY>
+        <locationX>908</locationX>
+        <locationY>1322</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Medication_Request</targetReference>
+            <targetReference>get_ACRRecord</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -844,9 +1681,69 @@
         <queriedFields>Provider_Identifier__pc</queriedFields>
     </recordLookups>
     <recordLookups>
+        <name>Get_PSP_Queue</name>
+        <label>Get PSP Queue</label>
+        <locationX>446</locationX>
+        <locationY>2570</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Patient_Contact_rec</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Queue</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>EDRD_PSP_Queue</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>get_RelatedCPERecord</name>
+        <label>get_RelatedCPERecord</label>
+        <locationX>1535</locationX>
+        <locationY>998</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>validate_CPERecord</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>CPE_NoCPE_ErrorScreen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>newCasePatientsearch.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CareProgramId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>EDRD_careProgramRecordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>CareProgramEnrollee</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>getProviderRecordType</name>
         <label>Get Provider Record Type</label>
-        <locationX>248</locationX>
+        <locationX>2665</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -874,10 +1771,74 @@
         </outputAssignments>
     </recordLookups>
     <screens>
+        <name>ACR_InactiveErrorScreen</name>
+        <label>ACR_InactiveErrorScreen</label>
+        <locationX>1106</locationX>
+        <locationY>1646</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>ACR_Errordisplay</name>
+            <fieldText>&lt;p&gt;{!$Label.EDRD_label_ACR_InactiveErrorScreen}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>CP_ErrorScreen</name>
+        <label>CP_ErrorScreen</label>
+        <locationX>2690</locationX>
+        <locationY>998</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>CP_Errordisplay</name>
+            <fieldText>&lt;p&gt;{!$Label.EDRD_label_CP_Errordisplay}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>CPE_InactiveErrorScreen</name>
+        <label>CPE_InactiveErrorScreen</label>
+        <locationX>1898</locationX>
+        <locationY>1214</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>CPE_InactiveErrordisplay</name>
+            <fieldText>&lt;p&gt;{!$Label.EDRD_label_CPE_InactiveErrorScreen}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>CPE_NoCPE_ErrorScreen</name>
+        <label>CPE_NoCPE_ErrorScreen</label>
+        <locationX>2162</locationX>
+        <locationY>1214</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>CPE_No_CPE_Errordisplay</name>
+            <fieldText>&lt;p&gt;{!$Label.EDRD_label_CPE_NoCPE_ErrorScreen}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Indication_Screen</name>
         <label>Indication Screen</label>
-        <locationX>446</locationX>
-        <locationY>1322</locationY>
+        <locationX>644</locationX>
+        <locationY>2078</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -905,8 +1866,8 @@
     <screens>
         <name>Medication_Request</name>
         <label>Medication Request</label>
-        <locationX>248</locationX>
-        <locationY>890</locationY>
+        <locationX>446</locationX>
+        <locationY>1646</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -981,13 +1942,13 @@
     <screens>
         <name>MedicationRequestDetails</name>
         <label>Medication details</label>
-        <locationX>314</locationX>
-        <locationY>1538</locationY>
+        <locationX>512</locationX>
+        <locationY>2294</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_Patient_Contact_rec</targetReference>
+            <targetReference>Get_PSP_Queue</targetReference>
         </connector>
         <fields>
             <name>MedicationInformation</name>
@@ -1036,6 +1997,16 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Indefinite</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
                 </fields>
                 <fields>
                     <name>Requested_Funding_Duration</name>
@@ -1049,12 +2020,19 @@
                     <isRequired>true</isRequired>
                     <scale>0</scale>
                     <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
+                        <conditionLogic>or</conditionLogic>
                         <conditions>
                             <leftValueReference>Indefinite_Funding_initial</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <booleanValue>false</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <stringValue>Indefinite</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -1147,12 +2125,19 @@
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
+                        <conditionLogic>or</conditionLogic>
                         <conditions>
                             <leftValueReference>Indefinite_Funding_initial</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <booleanValue>false</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <stringValue>Indefinite</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -1175,7 +2160,7 @@
         <description>New Case</description>
         <name>New_Cases</name>
         <label>New Case</label>
-        <locationX>248</locationX>
+        <locationX>2665</locationX>
         <locationY>350</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1208,10 +2193,26 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>No_ACR_ErrorScreen</name>
+        <label>No_ACR_ErrorScreen</label>
+        <locationX>1370</locationX>
+        <locationY>1646</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>No_ACR_Errordisplay</name>
+            <fieldText>&lt;p&gt;{!$Label.EDRD_label_No_ACR_ErrorScreen}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Other_Medication</name>
         <label>Other Medication</label>
-        <locationX>50</locationX>
-        <locationY>1322</locationY>
+        <locationX>248</locationX>
+        <locationY>2078</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1297,13 +2298,13 @@
     <screens>
         <name>Other_Medication_details</name>
         <label>Other Medication details</label>
-        <locationX>50</locationX>
-        <locationY>1430</locationY>
+        <locationX>248</locationX>
+        <locationY>2186</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_Patient_Contact_rec</targetReference>
+            <targetReference>Get_PSP_Queue</targetReference>
         </connector>
         <fields>
             <name>Other_MedicationInformation</name>
@@ -1319,15 +2320,31 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>PatientDeceased_ErrorScreen</name>
+        <label>PatientDeceased_ErrorScreen</label>
+        <locationX>3218</locationX>
+        <locationY>782</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>PatientDeceased_Errordisplay</name>
+            <fieldText>&lt;p&gt;{!$Label.EDRD_label_PatientDeceased_Errordisplay}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Renwal_Medication_details</name>
         <label>Medication details</label>
-        <locationX>578</locationX>
-        <locationY>1538</locationY>
+        <locationX>776</locationX>
+        <locationY>2294</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_Patient_Contact_rec</targetReference>
+            <targetReference>Get_PSP_Queue</targetReference>
         </connector>
         <fields>
             <name>Copy_1_of_MedicationInformation</name>
@@ -1376,6 +2393,16 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <stringValue>Indefinite</stringValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
                 </fields>
                 <fields>
                     <name>Renewal_Requested_Funding_Duration</name>
@@ -1389,12 +2416,19 @@
                     <isRequired>true</isRequired>
                     <scale>0</scale>
                     <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
+                        <conditionLogic>or</conditionLogic>
                         <conditions>
                             <leftValueReference>Indefinite_Funding_Renewal</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <booleanValue>false</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <stringValue>Indefinite</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -1487,12 +2521,19 @@
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
+                        <conditionLogic>or</conditionLogic>
                         <conditions>
                             <leftValueReference>Indefinite_Funding_Renewal</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <booleanValue>false</booleanValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <stringValue>Indefinite</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -1514,7 +2555,7 @@
     <screens>
         <name>Search_Patient</name>
         <label>Search Patient</label>
-        <locationX>248</locationX>
+        <locationX>2665</locationX>
         <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -1542,8 +2583,8 @@
     <screens>
         <name>Search_Provider_for_New_Case</name>
         <label>Search Provider for New Case</label>
-        <locationX>248</locationX>
-        <locationY>674</locationY>
+        <locationX>908</locationX>
+        <locationY>1214</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1569,8 +2610,8 @@
     <screens>
         <name>Success</name>
         <label>Success</label>
-        <locationX>380</locationX>
-        <locationY>2678</locationY>
+        <locationX>710</locationX>
+        <locationY>3926</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1653,8 +2694,8 @@
     <screens>
         <name>Sucees</name>
         <label>Sucees</label>
-        <locationX>116</locationX>
-        <locationY>2678</locationY>
+        <locationX>182</locationX>
+        <locationY>3926</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1737,13 +2778,13 @@
     <screens>
         <name>Upload_Document</name>
         <label>Upload Document</label>
-        <locationX>116</locationX>
-        <locationY>2462</locationY>
+        <locationX>182</locationX>
+        <locationY>3518</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Create_Medication_request_with_New_Case</targetReference>
+            <targetReference>New_Indefinite_Funding_check2</targetReference>
         </connector>
         <fields>
             <name>Upload2</name>
@@ -1782,13 +2823,13 @@
     <screens>
         <name>UploadDocument</name>
         <label>Upload Document</label>
-        <locationX>380</locationX>
-        <locationY>2462</locationY>
+        <locationX>710</locationX>
+        <locationY>3518</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Create_Medication_Request_with_New_Renewal_Case</targetReference>
+            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
         </connector>
         <fields>
             <name>Upload</name>
@@ -1825,7 +2866,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>122</locationX>
+        <locationX>2539</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>getProviderRecordType</targetReference>
@@ -1838,6 +2879,13 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>EDRD_careProgramRecordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>getAllRecordTypeItem</name>

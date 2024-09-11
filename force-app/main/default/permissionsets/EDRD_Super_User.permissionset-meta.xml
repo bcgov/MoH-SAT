@@ -127,6 +127,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>AccountContactRelation.ContactAccountId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>AccountContactRelation.EndDate</field>
         <readable>true</readable>
@@ -134,6 +139,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>AccountContactRelation.IsActive</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AccountContactRelation.Is_Person_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -146,7 +156,7 @@
         <field>AccountContactRelation.StartDate</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>AssessmentQuestionResponse.Question_Text__c</field>
         <readable>true</readable>
@@ -273,6 +283,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.EDRD_Cost_Per_Dose__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.EDRD_Coverage_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -284,6 +299,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_Insurance_Provider__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.EDRD_Is_Provider_Login__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -364,6 +384,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.EDRD_Other_Subcommittee_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -469,6 +494,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Indication__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Legacy_EDRD_Reference_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -636,7 +666,7 @@
         <field>Event.WhoId</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Medical_Diagnosis__c.Healthcare_Diagnosis__c</field>
         <readable>true</readable>
@@ -769,6 +799,36 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Medication.Subcommittee__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.Case__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_End_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>MedicationDispense.EDRD_Fiscal_Year__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_Forecasted_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_Start_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.MedicationCodeId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1092,7 +1152,7 @@
         <object>Contact</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-        <objectPermissions>
+    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
@@ -1109,6 +1169,15 @@
         <modifyAllRecords>true</modifyAllRecords>
         <object>Medication</object>
         <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>MedicationDispense</object>
+        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -1189,6 +1258,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>MedicationDispense.EDRD_FY_Medication_Dispense</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>MedicationRequest.EDRD_Medication_Request</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -1208,7 +1281,7 @@
         <recordType>PersonAccount.Provider</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-        <tabSettings>
+    <tabSettings>
         <tab>Medical_Diagnosis__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
@@ -1339,5 +1412,13 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ViewPublicReports</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewRoles</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewSetup</name>
     </userPermissions>
 </PermissionSet>

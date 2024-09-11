@@ -128,6 +128,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>AccountContactRelation.ContactAccountId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>AccountContactRelation.EndDate</field>
         <readable>true</readable>
@@ -135,6 +140,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>AccountContactRelation.IsActive</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>AccountContactRelation.Is_Person_Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -274,6 +284,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.EDRD_Cost_Per_Dose__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.EDRD_Coverage_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -285,6 +300,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_Insurance_Provider__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.EDRD_Is_Provider_Login__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -365,6 +385,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.EDRD_Other_Subcommittee_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -470,6 +495,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Indication__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Legacy_EDRD_Reference_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -770,6 +800,51 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Medication.Subcommittee__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.Case__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_End_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_First_Dose_At__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>MedicationDispense.EDRD_Fiscal_Year__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_Forecasted_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_Last_Dose_At__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.EDRD_Start_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.MedicationCodeId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>MedicationDispense.Quantity</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1117,6 +1192,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>MedicationDispense</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>MedicationRequest</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -1187,6 +1271,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Medication.EDRD</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>MedicationDispense.EDRD_FY_Medication_Dispense</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
