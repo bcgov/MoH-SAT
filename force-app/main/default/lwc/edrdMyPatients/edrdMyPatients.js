@@ -2,6 +2,11 @@ import { LightningElement, wire, track } from 'lwc';
 import getAccounts from '@salesforce/apex/EDRD_myPatientsController.getPatientList';
 import { NavigationMixin } from 'lightning/navigation';
 const columns = [
+    {
+        label: 'EDRD Reference Number',
+        fieldName: 'EDRD_Ref_No__c',
+        type: 'Text'
+    },
     {        
             label: 'Patient Name',
             fieldName: 'Name',

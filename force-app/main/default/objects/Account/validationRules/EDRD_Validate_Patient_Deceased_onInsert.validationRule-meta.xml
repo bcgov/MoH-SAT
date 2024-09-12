@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Patient_Deceased_onInsert</fullName>
+    <active>true</active>
+    <description>This formula will throw an error if a new Patient record is being created with the Patient_is_Deceased__pc field set to True and the user&apos;s role contains &quot;EDRD&quot;.</description>
+    <errorConditionFormula>AND(
+    ISNEW(),
+    Patient_is_Deceased__pc = TRUE,
+    CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+    Record_Type_Name__c = &apos;Patient&apos;
+)</errorConditionFormula>
+    <errorMessage>Patient cannot be created with &apos;Deceased&apos; checkbox as true.</errorMessage>
+</ValidationRule>
