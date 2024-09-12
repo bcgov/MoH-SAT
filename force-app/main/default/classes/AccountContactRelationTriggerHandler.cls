@@ -1,9 +1,9 @@
 /**********************************************************************************************
-* @Author:      Deepak 
+* @Author:      Accenture 
 * @Date:        21 Aug 2024
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
-                21 Aug -  EDRD-             -  Accenture   -  Added Patient Share/delete With Provider User
+                21 Aug -  EDRD-911          -  Accenture   -  Added Patient Share/delete With Provider User
 ***********************************************************************************************/
 public with sharing class AccountContactRelationTriggerHandler {
 /**
@@ -44,7 +44,7 @@ public with sharing class AccountContactRelationTriggerHandler {
         }
         
         if(!accShareListToInsert.isEmpty()){
-            database.insert(accShareListToInsert, true);
+            AccountContactShareHelper.insertAccountShares(accShareListToInsert);
         }
     }
     
@@ -69,7 +69,7 @@ public with sharing class AccountContactRelationTriggerHandler {
                                                (SELECT Id FROM User WHERE Contact.AccountId IN :providerIdVsPatientId.keySet())];
             
             if(!accShareList.isEmpty()){
-                Database.delete(accShareList, true);
+                AccountContactShareHelper.deleteAccountShares(accShareList);
             }
         }
     }  
