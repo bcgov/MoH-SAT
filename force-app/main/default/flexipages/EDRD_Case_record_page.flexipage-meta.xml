@@ -604,29 +604,6 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.EDRD_Other_Subcommittee_Name__c</fieldItem>
-                <identifier>RecordEDRD_Other_Subcommittee_Name_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.EDRD_SubCommittee_Name__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Other</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-c8f6d94d-6040-40eb-a9c8-ca92bc2e5df2</name>
         <type>Facet</type>
     </flexiPageRegions>
