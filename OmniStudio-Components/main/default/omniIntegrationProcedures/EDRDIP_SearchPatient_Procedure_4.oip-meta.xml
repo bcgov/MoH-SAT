@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
     <customJavaScript>{
-    &quot;AccId&quot;: &quot;001Aq00000JV1bBIAT&quot;,
-    &quot;phn&quot;: &quot;1234567890&quot;
+    &quot;PrescriberId&quot;: &quot;001Aq00000IneI6IAJ&quot;,
+    &quot;PatientIdentifier&quot;: &quot;1234567890&quot;
 }</customJavaScript>
     <description>Patient Name and BirthDate Clear and Update with Values according to the Patient Identifier.</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <isIntegrationProcedure>true</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -18,7 +18,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DataMapperExtractActioncheckfordeceased</name>
+        <name>DataMapperExtractActionforCareProgram</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -31,14 +31,14 @@
   &quot;sendOnlyAdditionalInput&quot; : false,
   &quot;returnOnlyAdditionalOutput&quot; : false,
   &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;cnt:isdeceased&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;bundle&quot; : &quot;EDRDDRExtractphndeceasedcheck&quot;,
+  &quot;bundle&quot; : &quot;EDRDDRExtractCareProgram&quot;,
   &quot;dataRaptor Input Parameters&quot; : [ {
-    &quot;inputParam&quot; : &quot;phn&quot;,
-    &quot;element&quot; : &quot;PatientIdentifier&quot;
+    &quot;inputParam&quot; : &quot;ConAccId&quot;,
+    &quot;element&quot; : &quot;DataMapperExtractActionforphn:Contac:AccId&quot;
   } ],
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
@@ -67,7 +67,7 @@
   &quot;sendOnlyAdditionalInput&quot; : false,
   &quot;returnOnlyAdditionalOutput&quot; : false,
   &quot;returnOnlyFailureResponse&quot; : false,
-  &quot;responseJSONPath&quot; : &quot;Contac:phnnumber&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
@@ -111,6 +111,9 @@
   &quot;dataRaptor Input Parameters&quot; : [ {
     &quot;inputParam&quot; : &quot;AccId&quot;,
     &quot;element&quot; : &quot;PrescriberId&quot;
+  }, {
+    &quot;inputParam&quot; : &quot;ConAccId&quot;,
+    &quot;element&quot; : &quot;DataMapperExtractActionforphn:Contac:AccId&quot;
   } ],
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
@@ -186,9 +189,6 @@
   &quot;dataRaptor Input Parameters&quot; : [ {
     &quot;inputParam&quot; : &quot;ContactId&quot;,
     &quot;element&quot; : &quot;DRPatientDetailsExtractStep&quot;
-  }, {
-    &quot;inputParam&quot; : &quot;Phn&quot;,
-    &quot;element&quot; : &quot;PatientIdentifier&quot;
   } ],
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
@@ -211,9 +211,11 @@
   &quot;useFormulas&quot; : true,
   &quot;additionalOutput&quot; : {
     &quot;PatientInformation&quot; : &quot;=IF(DRPatientDetailsExtractStep1:PhnCount != 0, %DRPatientDetailsExtractStep1%,%SetValuesToBlank%)&quot;,
-    &quot;Contt&quot; : &quot;%DRPatientDetailsExtractStep%&quot;,
-    &quot;phn&quot; : &quot;%DataMapperExtractActionforphn%&quot;,
-    &quot;cnt&quot; : &quot;%DataMapperExtractActioncheckfordeceased%&quot;
+    &quot;Contact&quot; : &quot;%DRPatientDetailsExtractStep%&quot;,
+    &quot;PatientAvailabilityCheck&quot; : &quot;%DataMapperExtractActionforphn:Contac:phnnumber%&quot;,
+    &quot;CareProgramCheck&quot; : &quot;%DataMapperExtractActionforCareProgram:CPE:Name%&quot;,
+    &quot;PatientDeceasedCheck&quot; : &quot;%DataMapperExtractActionforphn:Contac:Patient_Deceased%&quot;,
+    &quot;CareprogramStatusCheck&quot; : &quot;%DataMapperExtractActionforCareProgram:CPE:Status%&quot;
   },
   &quot;returnOnlyAdditionalOutput&quot; : true,
   &quot;returnFullDataJSON&quot; : false,
@@ -287,7 +289,7 @@
 }</propertySetConfig>
     <subType>SearchPatient</subType>
     <type>EDRDIP</type>
-    <uniqueName>EDRDIP_SearchPatient_Procedure_3</uniqueName>
-    <versionNumber>3.0</versionNumber>
-    <webComponentKey>7b79842e-aa2f-64ef-016e-c1511c16877e</webComponentKey>
+    <uniqueName>EDRDIP_SearchPatient_Procedure_4</uniqueName>
+    <versionNumber>4.0</versionNumber>
+    <webComponentKey>56b78cab-b674-a57f-78c9-baa0459e2892</webComponentKey>
 </OmniIntegrationProcedure>
