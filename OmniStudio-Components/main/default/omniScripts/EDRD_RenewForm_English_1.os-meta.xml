@@ -1690,6 +1690,56 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>CareProgramisInactive</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CareProgramisInactive&quot;,
+  &quot;validateExpression&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Active&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CareprogramStatusCheck&quot;
+      } ]
+    }
+  },
+  &quot;messages&quot; : [ {
+    &quot;value&quot; : true,
+    &quot;type&quot; : &quot;Success&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;active&quot; : false
+  }, {
+    &quot;value&quot; : false,
+    &quot;type&quot; : &quot;Requirement&quot;,
+    &quot;text&quot; : &quot;Please activate the patient’s EDRD Care Program enrollee status before creating a case.Contact PHSA PSP for additional information at psp@phsa.ca.&quot;,
+    &quot;active&quot; : true
+  } ],
+  &quot;hideLabel&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Inactive&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CareprogramStatusCheck&quot;
+      }, {
+        &quot;field&quot; : &quot;CareprogramStatusCheck&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Unenroll&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>16.0</sequenceNumber>
+            <type>Validation</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
             <name>CaseType</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -1728,34 +1778,6 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>cnt</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;Checkbox1&quot;,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : true,
-  &quot;defaultValue&quot; : false,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;checkLabel&quot; : &quot;isDeceased&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : true,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
-            <type>Checkbox</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
             <name>LineBreak1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -1779,7 +1801,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>13.0</sequenceNumber>
+            <sequenceNumber>11.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -1794,7 +1816,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
+            <sequenceNumber>7.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -1809,7 +1831,37 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak5</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak5&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>13.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak6</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak6&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>15.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -1882,7 +1934,7 @@
   &quot;minDate&quot; : &quot;&quot;,
   &quot;maxDate&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>17.0</sequenceNumber>
+            <sequenceNumber>19.0</sequenceNumber>
             <type>Date</type>
         </childElements>
         <childElements>
@@ -1900,7 +1952,7 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;cnt&quot;
+        &quot;field&quot; : &quot;PatientDeceasedCheck&quot;
       } ]
     }
   },
@@ -1922,17 +1974,13 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;cnt&quot;
-      }, {
-        &quot;field&quot; : &quot;phn&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;null&quot;
+        &quot;field&quot; : &quot;PatientDeceasedCheck&quot;
       } ]
     }
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>12.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -2008,46 +2056,58 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>16.0</sequenceNumber>
+            <sequenceNumber>18.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>phn</name>
+            <name>PatientNotenrolledinCareprogram</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;ContacPatientIdentifier&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : true,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : true,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;PatientNotenrolledinCareprogram&quot;,
+  &quot;validateExpression&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;null&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;CareProgramCheck&quot;
+      } ]
+    }
+  },
+  &quot;messages&quot; : [ {
+    &quot;value&quot; : true,
+    &quot;type&quot; : &quot;Success&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;active&quot; : false
+  }, {
+    &quot;value&quot; : false,
+    &quot;type&quot; : &quot;Requirement&quot;,
+    &quot;text&quot; : &quot;Please enroll the patient into the EDRD Care Program before creating a case. Contact PHSA PSP for additional information at psp@phsa.ca.&quot;,
+    &quot;active&quot; : true
+  } ],
+  &quot;hideLabel&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;null&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;PatientAvailabilityCheck&quot;
+      }, {
+        &quot;field&quot; : &quot;CareProgramCheck&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;null&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
-            <type>Text</type>
+            <sequenceNumber>14.0</sequenceNumber>
+            <type>Validation</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -2100,7 +2160,7 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;null&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;phn&quot;
+        &quot;field&quot; : &quot;PatientAvailabilityCheck&quot;
       } ]
     }
   },
@@ -2122,13 +2182,13 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;null&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;phn&quot;
+        &quot;field&quot; : &quot;PatientAvailabilityCheck&quot;
       } ]
     }
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -2147,10 +2207,6 @@
         &quot;data&quot; : &quot;0&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;field&quot; : &quot;PhnCount&quot;
-      }, {
-        &quot;field&quot; : &quot;phn&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;null&quot;
       } ]
     }
   },
@@ -2174,19 +2230,15 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;PhnCount&quot;
       }, {
-        &quot;field&quot; : &quot;phn&quot;,
+        &quot;field&quot; : &quot;PatientAvailabilityCheck&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;data&quot; : &quot;null&quot;
-      }, {
-        &quot;field&quot; : &quot;cnt&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>14.0</sequenceNumber>
+            <sequenceNumber>12.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -2307,13 +2359,25 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;PhnCount&quot;
       }, {
-        &quot;field&quot; : &quot;phn&quot;,
+        &quot;field&quot; : &quot;PatientAvailabilityCheck&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;null&quot;
       }, {
-        &quot;field&quot; : &quot;cnt&quot;,
+        &quot;field&quot; : &quot;PatientDeceasedCheck&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;true&quot;
+      }, {
+        &quot;field&quot; : &quot;CareprogramStatusCheck&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Inactive&quot;
+      }, {
+        &quot;field&quot; : &quot;CareprogramStatusCheck&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Unenroll&quot;
+      }, {
+        &quot;field&quot; : &quot;CareProgramCheck&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;null&quot;
       } ]
     }
   },
@@ -2322,7 +2386,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>15.0</sequenceNumber>
+            <sequenceNumber>17.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
