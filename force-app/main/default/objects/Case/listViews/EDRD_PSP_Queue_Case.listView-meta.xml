@@ -14,7 +14,12 @@
         <operation>equals</operation>
         <value>Case.EDRD</value>
     </filters>
-    <label>EDRD PSP Queue</label>
+    <filters>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>SC Review,AC Review,MOH Review,Received - Awaiting Verification</value>
+    </filters>
+    <label>EDRD PSP Open Queue</label>
     <queue>EDRD_PSP_Queue</queue>
     <sharedTo>
         <role>Developer</role>

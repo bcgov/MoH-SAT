@@ -28,10 +28,23 @@ trigger MedicationRequestTrigger on MedicationRequest (before insert, before Upd
                 Boolean iscalculateInputNotBlank = (MRObj.Dosage__c != NULL && MRObj.Dosage_Units__c != NULL && MRObj.Requested_Frequency__c != NULL && 
                                                     MRObj.Requested_Frequency_Unit__c != NULL && MRObj.Requested_Funding_Duration__c != NULL &&
                                                     MRObj.Requested_Funding_Duration_Unit__c != NULL && MRObj.List_Price_per_Unit__c != NULL && MRObj.Strength__c != NULL);
-                if((trigger.isInsert || isCalculateInputChanged) && iscalculateInputNotBlank){
+                Boolean iscalculateInputNotBlankForIndefinite = (MRObj.Dosage__c != NULL && MRObj.Dosage_Units__c != NULL && MRObj.Requested_Frequency__c != NULL && 
+                                                    MRObj.Requested_Frequency_Unit__c != NULL && MRObj.EDRD_Indefinite_Funding__c && MRObj.List_Price_per_Unit__c != NULL && MRObj.Strength__c != NULL);
+                Boolean isCalculateInputChangedForIndefinite = trigger.isUpdate && (trigger.newMap.get(MRObj.Id).Dosage__c != trigger.oldMap.get(MRObj.Id).Dosage__c ||
+                                                                       trigger.newMap.get(MRObj.Id).Dosage_Units__c != trigger.oldMap.get(MRObj.Id).Dosage_Units__c ||
+                                                                       trigger.newMap.get(MRObj.Id).Requested_Frequency__c != trigger.oldMap.get(MRObj.Id).Requested_Frequency__c ||
+                                                                       trigger.newMap.get(MRObj.Id).Requested_Frequency_Unit__c != trigger.oldMap.get(MRObj.Id).Requested_Frequency_Unit__c ||
+                                                                       trigger.newMap.get(MRObj.Id).EDRD_Indefinite_Funding__c != trigger.oldMap.get(MRObj.Id).EDRD_Indefinite_Funding__c ||
+                                                                       trigger.newMap.get(MRObj.Id).List_Price_per_Unit__c != trigger.oldMap.get(MRObj.Id).List_Price_per_Unit__c ||
+                                                                       trigger.newMap.get(MRObj.Id).Strength__c != trigger.oldMap.get(MRObj.Id).Strength__c );
+                if((trigger.isInsert || isCalculateInputChangedForIndefinite) && MRObj.EDRD_Indefinite_Funding__c && iscalculateInputNotBlankForIndefinite){
                     MRObj.Expenditure_Estimate__c = EDRD_cls_DrugCostCalculator.populateMRExpenditureEstimate(MRObj.Dosage__c, MRObj.Dosage_Units__c, MRObj.Requested_Frequency__c, 
-                                                                                                                    MRObj.Requested_Frequency_Unit__c, MRObj.Requested_Funding_Duration__c,
-                                                                                                                    MRObj.Requested_Funding_Duration_Unit__c, MRObj.List_Price_per_Unit__c, MRObj.Strength__c);
+                                                                                                              MRObj.Requested_Frequency_Unit__c, 1,
+                                                                                                              'Years', MRObj.List_Price_per_Unit__c, MRObj.Strength__c);
+                }else if((trigger.isInsert || isCalculateInputChanged) && iscalculateInputNotBlank){
+                    MRObj.Expenditure_Estimate__c = EDRD_cls_DrugCostCalculator.populateMRExpenditureEstimate(MRObj.Dosage__c, MRObj.Dosage_Units__c, MRObj.Requested_Frequency__c, 
+                                                                                                              MRObj.Requested_Frequency_Unit__c, MRObj.Requested_Funding_Duration__c,
+                                                                                                              MRObj.Requested_Funding_Duration_Unit__c, MRObj.List_Price_per_Unit__c, MRObj.Strength__c);
                 }else if(!iscalculateInputNotBlank){
                     MRObj.Expenditure_Estimate__c = NULL;
                 }

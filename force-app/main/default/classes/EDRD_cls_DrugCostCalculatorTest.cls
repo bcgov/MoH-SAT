@@ -40,8 +40,16 @@ public class EDRD_cls_DrugCostCalculatorTest {
         MReqObjList.get(0).Medication_Information__c = MInRecList.get(0).Id;
         Test.startTest();
         insert MReqObjList;
+        MReqObjList.get(0).Requested_Frequency_Unit__c = 'Once';
+        MReqObjList.get(0).Requested_Funding_Duration_Unit__c = 'Once';
+        Update MReqObjList;
+        MReqObjList.get(0).Requested_Frequency_Unit__c = 'Daily';
+        MReqObjList.get(0).Requested_Funding_Duration_Unit__c = 'Days';
+        Update MReqObjList;
+        MReqObjList.get(0).Requested_Frequency_Unit__c = 'Monthly';
         MReqObjList.get(0).Requested_Funding_Duration_Unit__c = 'Months';
         Update MReqObjList;
+        MReqObjList.get(0).Requested_Frequency_Unit__c = 'Weekly';
         MReqObjList.get(0).Requested_Funding_Duration_Unit__c = 'Years';
         Update MReqObjList;
         Test.stopTest();
