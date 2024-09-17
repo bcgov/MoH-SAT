@@ -309,14 +309,14 @@ public with sharing class ESA_cls_caseTriggerHandler {
         Boolean isRunOnce = true;
         
         for(Case caseObj: newCaseMap.values()){
-            Boolean isFundingRevoked = newCaseMap.get(CaseObj.Id).Status == 'Funding Approved' && 
+            Boolean isFundingRevoked = (newCaseMap.get(CaseObj.Id).Status == 'Funding Approved' && 
                 (newCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Expiry_Date__c != oldCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Expiry_Date__c ||
                  newCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Extension_Date__c != oldCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Extension_Date__c ||
-                 newCaseMap.get(CaseObj.Id).EDRD_MOHIndefinite_Funding__c != oldCaseMap.get(CaseObj.Id).EDRD_MOHIndefinite_Funding__c);
+                 newCaseMap.get(CaseObj.Id).EDRD_MOHIndefinite_Funding__c != oldCaseMap.get(CaseObj.Id).EDRD_MOHIndefinite_Funding__c));
             
             Boolean isStatusChanged = newCaseMap.get(CaseObj.Id).Status != oldCaseMap.get(CaseObj.Id).Status && caseObj.Status == 'Funding Approved';
             Boolean isStatusChangedFrmFundingApp = newCaseMap.get(CaseObj.Id).Status != oldCaseMap.get(CaseObj.Id).Status && oldCaseMap.get(CaseObj.Id).Status == 'Funding Approved';
-            if(((isFundingRevoked && caseObj.Status == 'Funding Approved') || isStatusChangedFrmFundingApp) && caseObj.RecordTypeId == recordTypeCaseEDRD){
+            if((isFundingRevoked || isStatusChangedFrmFundingApp) && caseObj.RecordTypeId == recordTypeCaseEDRD){
                 caseIdSet.add(caseObj.Id);
             }
             
