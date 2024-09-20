@@ -58,7 +58,7 @@ dx force:data:record:update -u $alias -s Organization -w "Name='Special Authorit
 dx force:data:record:update -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
 
 echo "Installing OmniStudio managed package"
-sf package install --package "04t4W000003ChfPQAS" -u $alias -w 15 --noprompt 
+sf package install --package "04t4W000002Z6oC" -u $alias -w 15 --noprompt 
 
 echo "Installing Health Cloud managed package"
 sf package install --package "04t4W000002V2Ub" -u $alias -w 15 --noprompt 
@@ -84,6 +84,7 @@ sfdx force:source:tracking:reset -u $alias --noprompt
 
 echo "Assigning permissions..."
 sfdx force:user:permset:assign -u $alias -n SA_Administrator
+sfdx force:user:permset:assign -u $alias -n EDRD_PS_Operational_Support
 sfdx force:apex:execute -u $alias -f scripts/apex/scratchorg-set-current-user.apex
 
 echo "Uploading data..."
