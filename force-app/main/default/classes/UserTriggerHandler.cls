@@ -18,16 +18,17 @@ public with sharing class UserTriggerHandler {
     public static void activateACROnEDRDPortalEnable(List<User> newUserList){
         try{
             Set<Id> providerIdSet = new Set<Id>();
-            List<AccountContactRelation> aCRListToUpdate = new List<AccountContactRelation>();
-            Map<Id, Contact> contactIdVsContactRec;
             Set<Id> accProviderIdSet = new Set<Id>();
-            
+            Set<Id> acrIdsToUpdate = new Set<Id>();
+            Map<Id, Contact> contactIdVsContactRec;
+
             for(User userObj: newUserList){
                 if((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled)){
                     providerIdSet.add(userObj.ContactId);
                 }
             }
-            if(!providerIdSet.isEmpty()){            
+
+            if(!providerIdSet.isEmpty()){ 
                 contactIdVsContactRec = new Map<Id, Contact>([SELECT Id, AccountId FROM Contact 
                                                               WHERE ID IN: providerIdSet AND 
                                                               Account.RecordTypeId =: recordTypeProvider]);
@@ -35,23 +36,22 @@ public with sharing class UserTriggerHandler {
                     accProviderIdSet.add(conObj.accountId);
                 }
             }
-            
-            if(!providerIdSet.isEmpty()){
+
+            if(!accProviderIdSet.isEmpty()){
                 List<AccountContactRelation> aCRList = [SELECT Id, AccountId, ContactId, Roles, Is_EDRD_Data_Migration__c, IsActive 
                                                         FROM AccountContactRelation 
                                                         WHERE AccountID IN: accProviderIdSet AND IsActive = false
                                                         AND Is_EDRD_Data_Migration__c = true];
-                
+
                 for(AccountContactRelation aCRObj : aCRList){
                     if(!String.isEmpty(aCRObj.Roles) && aCRObj.Roles.containsIgnoreCase(ESA_cls_constants.EDRD_PHYSICIAN)){
-                        aCRObj.IsActive = true;
-                        aCRObj.Is_EDRD_Data_Migration__c = false;
-                        aCRListToUpdate.add(aCRObj);
+                        acrIdsToUpdate.add(aCRObj.Id);
                     }
                 }
-                
-                if (!aCRListToUpdate.isEmpty()) {
-                    Database.update(aCRListToUpdate, true);
+
+                if (!acrIdsToUpdate.isEmpty()) {
+                    // Calling the future method to update ACR records in a separate transaction
+                    UserTriggerHelper.updateACRRecords(acrIdsToUpdate);
                 }
             } 
         }
