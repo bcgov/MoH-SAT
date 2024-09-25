@@ -11,23 +11,26 @@ public with sharing class AccountContactRelationTriggerHandler {
 * @date: 21 Aug 2024
 * @description: The purpose of this method is to share patient records with provider on ACR insert.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-                     20Sept -  EDRD-911          -  Deepak      -  Adding NULL Check
+                     20Sept -  EDRD-911          -  Deepak      -  Adding NULL Check & updated asper user trigger
 */     
     public static void createPatientShare(List<AccountContactRelation> aCRList){
-        Map<Id, Id> providerIdVsPatientId = new Map<Id, Id>();
+        Map<Id, Set<Id>> providerIdVsPatientIdSet = new Map<Id, Set<Id>>();
         Map<Id, User> providerIdVsRec = new Map<Id, User>();
         Map<Id, Set<Id>> providerIdVsUserIdSet = new Map<Id, Set<Id>>();
         List<AccountShare> accShareListToInsert = new List<AccountShare>();
         
         for(AccountContactRelation aCRObj : aCRList){
+            if(!providerIdVsPatientIdSet.containsKey(aCRObj.AccountId)){
+                providerIdVsPatientIdSet.put(aCRObj.AccountId, new Set<Id>());
+            }
             if(aCRObj.Is_Person_Account__c && !String.IsEmpty(aCRObj.Roles) && aCRObj.Roles.containsIgnoreCase(ESA_cls_constants.EDRD_PHYSICIAN) && !aCRObj.Is_EDRD_Data_Migration__c){
-                providerIdVsPatientId.put(aCrObj.AccountId , acrObj.ContactAccountId__c);
+                providerIdVsPatientIdSet.get(aCrObj.AccountId).add(acrObj.ContactAccountId__c);               
             }
         }
         
-        if(!providerIdVsPatientId.isEmpty()){
+        if(!providerIdVsPatientIdSet.isEmpty()){
             providerIdVsRec = new Map<Id, User>([SELECT Id, Contact.AccountId FROM User 
-                                                 WHERE Contact.AccountId IN :providerIdVsPatientId.keySet()]);
+                                                 WHERE Contact.AccountId IN :providerIdVsPatientIdSet.keySet()]);
         }
         
         if(!providerIdVsRec.isEmpty()){
@@ -35,15 +38,16 @@ public with sharing class AccountContactRelationTriggerHandler {
                 if(!providerIdVsUserIdSet.containsKey(userObj.Contact.AccountId)){
                     providerIdVsUserIdSet.put(userObj.Contact.AccountId, new Set<Id>()); 
                 }
-                
                 providerIdVsUserIdSet.get(userObj.Contact.AccountId).add(userObj.Id);
             }
             
-            for(Id providerId: providerIdVsPatientId.keySet()){
+            for(Id providerId: providerIdVsPatientIdSet.keySet()){
                 for(Id userId: providerIdVsUserIdSet.get(providerId)){
-                    accShareListToInsert.add(new AccountShare(AccountId = providerIdVsPatientId.get(providerId),
-                                                              AccountAccessLevel = 'Edit', UserOrGroupId = UserId,
-                                                              OpportunityAccessLevel = 'None'));
+                    for(Id patientId: providerIdVsPatientIdSet.get(providerId)){
+                        accShareListToInsert.add(new AccountShare(AccountId = patientId,
+                                                                  AccountAccessLevel = 'Edit', UserOrGroupId = UserId,
+                                                                  OpportunityAccessLevel = 'None'));
+                    }
                 }
             }
             
