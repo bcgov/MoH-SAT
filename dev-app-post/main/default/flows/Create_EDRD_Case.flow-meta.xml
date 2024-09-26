@@ -92,10 +92,10 @@
             <name>Renewal_Indefinite_Available2</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Indefinite</stringValue>
+                    <stringValue>cysteamine</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -117,10 +117,10 @@
             <name>Renewal_Indefinite_Available</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Indefinite</stringValue>
+                    <stringValue>cysteamine</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -167,10 +167,10 @@
             <name>Indefinite_Eligible</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Indefinite</stringValue>
+                    <stringValue>cysteamine</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -192,10 +192,10 @@
             <name>Indefinite_Available2</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Indefinite</stringValue>
+                    <stringValue>cysteamine</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -394,7 +394,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes related to Indefinitefunidng</description>
+    <description>updated Changes related to Indefinitefunidng</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -2000,10 +2000,10 @@
                     <visibilityRule>
                         <conditionLogic>and</conditionLogic>
                         <conditions>
-                            <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                            <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <stringValue>Indefinite</stringValue>
+                                <stringValue>cysteamine</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2029,10 +2029,10 @@
                             </rightValue>
                         </conditions>
                         <conditions>
-                            <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                            <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>Indefinite</stringValue>
+                                <stringValue>cysteamine</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2097,6 +2097,11 @@
                     </visibilityRule>
                 </fields>
                 <fields>
+                    <name>displayDosageUnits</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;Requested Dosage Units&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!VarMedicationInformationRec.HC_Initial_Dosage_Units__r.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;     &lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
                     <name>Requested_Frequency_Units</name>
                     <choiceReferences>RequestedFrequencyUnits</choiceReferences>
                     <dataType>String</dataType>
@@ -2107,11 +2112,6 @@
                     <fieldType>DropdownBox</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>displayDosageUnits</name>
-                    <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 11px;&quot;&gt;Requested Dosage Units&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;{!VarMedicationInformationRec.HC_Initial_Dosage_Units__r.Name}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;     &lt;/span&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>Requested_Funding_Duration_Units</name>
@@ -2134,10 +2134,10 @@
                             </rightValue>
                         </conditions>
                         <conditions>
-                            <leftValueReference>VarMedicationInformationRec.Max_Initiation_Funding_Duration__c</leftValueReference>
+                            <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>Indefinite</stringValue>
+                                <stringValue>cysteamine</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2396,10 +2396,10 @@
                     <visibilityRule>
                         <conditionLogic>and</conditionLogic>
                         <conditions>
-                            <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                            <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <stringValue>Indefinite</stringValue>
+                                <stringValue>cysteamine</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2425,10 +2425,10 @@
                             </rightValue>
                         </conditions>
                         <conditions>
-                            <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                            <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>Indefinite</stringValue>
+                                <stringValue>cysteamine</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2530,10 +2530,10 @@
                             </rightValue>
                         </conditions>
                         <conditions>
-                            <leftValueReference>VarMedicationInformationRec.Max_Renewal_Funding_Duration__c</leftValueReference>
+                            <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>Indefinite</stringValue>
+                                <stringValue>cysteamine</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>

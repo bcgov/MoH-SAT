@@ -132,8 +132,8 @@ public with sharing class EDRD_cls_FundingForecastController {
             caseDateWrapperObj.noOfDosages = wrapperObj.dosePerFrequency * 1;
         }
         else if(wrapperObj.frequency == 'Daily'){
-            caseDateWrapperObj.totalCost = wrapperObj.dosePerFrequency * wrapperObj.costPerDose * (wrapperObj.firstDoseAt.daysBetween(wrapperObj.endDate) + 1); 
-            caseDateWrapperObj.noOfDosages = wrapperObj.dosePerFrequency * (wrapperObj.firstDoseAt.daysBetween(wrapperObj.endDate) + 1);
+            caseDateWrapperObj.totalCost = wrapperObj.dosePerFrequency * wrapperObj.costPerDose * (wrapperObj.firstDoseAt.daysBetween(wrapperObj.endDate));
+            caseDateWrapperObj.noOfDosages = wrapperObj.dosePerFrequency * (wrapperObj.firstDoseAt.daysBetween(wrapperObj.endDate));
             caseDateWrapperObj.firstDoseAt = wrapperObj.startDate;
             caseDateWrapperObj.lastDoseAt = wrapperObj.endDate;
         }

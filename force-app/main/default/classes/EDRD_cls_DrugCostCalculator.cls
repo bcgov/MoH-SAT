@@ -24,11 +24,13 @@ public with sharing class EDRD_cls_DrugCostCalculator {
         noOfUnit = Math.ceil((RecFundingDurationUnitDays)/(RecFrequencyUnitsDays));
         noOfUnit = noOfUnit * RecFrequency ;
         Integer reqStandrdDosePerDose = 0;
+        Decimal originalStrength = Strength;
+        Decimal accumulatedStrength = 0;
         
         do {
             reqStandrdDosePerDose = reqStandrdDosePerDose + 1;
-            Strength = Strength * reqStandrdDosePerDose;
-        } while (Strength/Dosage < 1);
+            accumulatedStrength = originalStrength * reqStandrdDosePerDose;
+        } while (accumulatedStrength/Dosage < 1);
         
         ESA_cls_caseTriggerHandler.costPerDose = reqStandrdDosePerDose * ListPrice;
         return (noOfUnit * reqStandrdDosePerDose * ListPrice);
