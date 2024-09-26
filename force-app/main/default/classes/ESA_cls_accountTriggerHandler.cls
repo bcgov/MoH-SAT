@@ -73,7 +73,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
         Set<Id> patientIdSet = new Set<Id>();
         for(account patientRec: newAccountList){
             Boolean isPatientDeceasedChange = (oldAccountMap.get(patientRec.Id).Patient_is_Deceased__pc != newAccountMap.get(patientRec.Id).Patient_is_Deceased__pc
-                                               && !newAccountMap.get(patientRec.Id).Patient_is_Deceased__pc);
+                                               && newAccountMap.get(patientRec.Id).Patient_is_Deceased__pc);
             
             if(isPatientDeceasedChange){
                 patientIdSet.add(patientRec.Id);
