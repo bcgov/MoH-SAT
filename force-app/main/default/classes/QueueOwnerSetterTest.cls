@@ -3,8 +3,12 @@ public class QueueOwnerSetterTest {
 
     @TestSetup
     static void makeData() {
-        Group testGroup = new Group(Name='TestGroup', DeveloperName='TestGroup', Type='Queue');
-        insert testGroup;
+        
+        Group testGroup = [SELECT Id, Name, DeveloperName, Type FROM GROUP WHERE DeveloperName = 'General_Queue' LIMIT 1];
+        if(testGroup == NULL){
+            testGroup = new Group(Name='General_Queue', DeveloperName='General_Queue', Type='Queue');
+            insert testGroup;
+        }
         
         system.runAs(new User(Id=UserInfo.getUserId())) {    
             insert new QueueSobject[] { 
@@ -20,14 +24,14 @@ public class QueueOwnerSetterTest {
         insert saCase;
 
         List<QueueOwnerSetter.CaseQueue> caseQueues = new List<QueueOwnerSetter.CaseQueue>();
-        caseQueues.add(newCaseQueue(saCase.Id, 'TestGroup'));
+        caseQueues.add(newCaseQueue(saCase.Id, 'General_Queue'));
 
         Test.startTest();
         QueueOwnerSetter.setOwner(caseQueues);
         Test.stopTest();
 
         system.assertEquals(
-            [select Id from Group where DeveloperName = 'TestGroup'].Id,
+            [select Id from Group where DeveloperName = 'General_Queue'].Id,
             [select OwnerId from Case where Id = :saCase.Id].OwnerId
         );
     }
