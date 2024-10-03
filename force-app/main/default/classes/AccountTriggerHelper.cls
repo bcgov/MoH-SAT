@@ -14,24 +14,10 @@ public without sharing class AccountTriggerHelper {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     public static void processDeceasedPatientEDRDCases(Set<Id> patientIdSet) {        
-        if(!patientIdSet.isEmpty()){
-            List<Case> caseList = [SELECT Id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c, 
-                                   EDRD_MOHFunding_Expiry_Date__c, EDRD_MOHFunding_Extension_Date__c, EDRD_MOHIndefinite_Funding__c,
-                                   EDRD_MOHFunding_Decision__c, IsClosed 
-                                   FROM Case 
-                                   WHERE AccountID IN :patientIdSet 
-                                   AND RecordType.DeveloperName = 'EDRD'
-                                   AND (IsClosed = FALSE OR (IsClosed = TRUE 
-                                                             AND Status = 'Funding Approved' 
-                                                             AND (EDRD_MOHFunding_Expiry_Date__c > :System.Today() 
-                                                                  OR EDRD_MOHFunding_Extension_Date__c > :System.Today() 
-                                                                  OR EDRD_MOHIndefinite_Funding__c = TRUE)))
-                                  ];
+        try{
+            List<Case> caseList = AccountSelector.getDeceasedPatientEDRDCases(patientIdSet);
             
-            List<CareProgramEnrollee> enrolleToUpdate = [SELECT Id, CareProgramId, Status, Inactive_Reason__c 
-                                                         FROM CareProgramEnrollee 
-                                                         WHERE CareProgram.Name = 'EDRD' 
-                                                         AND AccountId IN :patientIdSet];
+            List<CareProgramEnrollee> enrolleToUpdate = AccountSelector.getDeceasedPatientEDRDCPE(patientIdSet);
             
             List<Case> casesToUpdate = new List<Case>();
             List<Case> appCaseToChangeEndDate = new List<Case>();
@@ -80,6 +66,8 @@ public without sharing class AccountTriggerHelper {
             if (!enrolleToUpdate.isEmpty()) {
                 Database.update(enrolleToUpdate, true);
             }
+        } catch(Exception ex){
+            System.debug('Error updating Case Or CPE records: ' + ex.getMessage());
         }
     }
 }
