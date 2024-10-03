@@ -9,6 +9,30 @@ public without sharing class AccountTriggerHelper {
 /**
 * @author: Deepak
 * @date: 02 Oct 2024
+* @description: Update EDRD CPE records in system context on patient deceased.
+* @param Set<Id> patientIdSet: Set of ID's records to process respective EDRD Cases.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/ 
+    public static void processDeceasedPatientEDRDCPE(Set<Id> patientIdSet) {        
+        try{
+            List<CareProgramEnrollee> enrolleToUpdate = AccountSelector.getDeceasedPatientEDRDCPE(patientIdSet);
+            
+            for (CareProgramEnrollee careEnrolleeObj : enrolleToUpdate) {
+                careEnrolleeObj.Status = 'Inactive';
+                careEnrolleeObj.Inactive_Reason__c = 'Patient Deceased';
+            }
+            
+            if (!enrolleToUpdate.isEmpty()) {
+                Database.update(enrolleToUpdate, true);
+            }
+        } catch(Exception ex){
+            System.debug('Error updating EDRD CPE records: ' + ex.getMessage());
+        }
+    }
+    
+/**
+* @author: Deepak
+* @date: 02 Oct 2024
 * @description: Update EDRD case records in system context on patient deceased.
 * @param Set<Id> patientIdSet: Set of ID's records to process respective EDRD Cases.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
@@ -16,8 +40,6 @@ public without sharing class AccountTriggerHelper {
     public static void processDeceasedPatientEDRDCases(Set<Id> patientIdSet) {        
         try{
             List<Case> caseList = AccountSelector.getDeceasedPatientEDRDCases(patientIdSet);
-            
-            List<CareProgramEnrollee> enrolleToUpdate = AccountSelector.getDeceasedPatientEDRDCPE(patientIdSet);
             
             List<Case> casesToUpdate = new List<Case>();
             List<Case> appCaseToChangeEndDate = new List<Case>();
@@ -50,11 +72,6 @@ public without sharing class AccountTriggerHelper {
                 }
             }
             
-            for (CareProgramEnrollee careEnrolleeObj : enrolleToUpdate) {
-                careEnrolleeObj.Status = 'Inactive';
-                careEnrolleeObj.Inactive_Reason__c = 'Patient Deceased';
-            }
-            
             if (!casesToUpdate.isEmpty()) {
                 Database.update(casesToUpdate, true);
             }
@@ -63,11 +80,8 @@ public without sharing class AccountTriggerHelper {
                 Database.update(appCaseToChangeEndDate, true);
             }
             
-            if (!enrolleToUpdate.isEmpty()) {
-                Database.update(enrolleToUpdate, true);
-            }
         } catch(Exception ex){
-            System.debug('Error updating Case Or CPE records: ' + ex.getMessage());
+            System.debug('Error updating EDRD Case records: ' + ex.getMessage());
         }
     }
 }

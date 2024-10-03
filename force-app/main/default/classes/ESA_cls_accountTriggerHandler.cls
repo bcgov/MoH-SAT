@@ -82,6 +82,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
         }
         
         if(!patientIdSet.isEmpty()){
+            AccountTriggerHelper.processDeceasedPatientEDRDCPE(patientIdSet);
             AccountTriggerHelper.processDeceasedPatientEDRDCases(patientIdSet);
         }
     }
