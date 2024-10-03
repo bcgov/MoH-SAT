@@ -4,7 +4,7 @@
 * @Description: The purpose of this helper class is to modify the account related child records.
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
 ***********************************************************************************************/
-public without sharing class AccountSelector {
+public inherited sharing class AccountSelector {
     
 /**
 * @author: Deepak
