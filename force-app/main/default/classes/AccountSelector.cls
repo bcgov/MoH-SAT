@@ -13,20 +13,24 @@ public inherited sharing class AccountSelector {
 * @param Set<Id> patientIdSet: Set of ID's records to process respective EDRD Cases.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
-    public static List<Case> getDeceasedPatientEDRDCases(Set<Id> patientIdSet) {       
+    public static List<Case> getDeceasedPatientEDRDCases(Set<Id> patientIdSet) {        
+        List<Case> eDRDCaseList = new List<Case>();
         
-        return [SELECT Id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c, 
-                EDRD_MOHFunding_Expiry_Date__c, EDRD_MOHFunding_Extension_Date__c, EDRD_MOHIndefinite_Funding__c,
-                EDRD_MOHFunding_Decision__c, IsClosed 
-                FROM Case 
-                WHERE AccountID IN :patientIdSet 
-                AND RecordType.DeveloperName = 'EDRD'
-                AND (IsClosed = FALSE OR (IsClosed = TRUE 
-                                          AND Status = 'Funding Approved' 
-                                          AND (EDRD_MOHFunding_Expiry_Date__c > :System.Today() 
-                                               OR EDRD_MOHFunding_Extension_Date__c > :System.Today() 
-                                               OR EDRD_MOHIndefinite_Funding__c = TRUE)))
-               ];
+        for(Case caseObj: [SELECT Id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c, 
+                           EDRD_MOHFunding_Expiry_Date__c, EDRD_MOHFunding_Extension_Date__c, EDRD_MOHIndefinite_Funding__c,
+                           EDRD_MOHFunding_Decision__c, IsClosed 
+                           FROM Case 
+                           WHERE AccountID IN :patientIdSet 
+                           AND RecordType.DeveloperName = 'EDRD'
+                           AND (IsClosed = FALSE OR (IsClosed = TRUE 
+                                                     AND Status = 'Funding Approved' 
+                                                     AND (EDRD_MOHFunding_Expiry_Date__c > :System.Today() 
+                                                          OR EDRD_MOHFunding_Extension_Date__c > :System.Today() 
+                                                          OR EDRD_MOHIndefinite_Funding__c = TRUE)))]) {
+                                                              eDRDCaseList.add(caseObj);
+                                                          }
+        
+        return eDRDCaseList;
     }
     
 /**
@@ -36,11 +40,15 @@ public inherited sharing class AccountSelector {
 * @param Set<Id> patientIdSet: Set of ID's records to process respective EDRD Cases.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
-    public static List<CareProgramEnrollee> getDeceasedPatientEDRDCPE(Set<Id> patientIdSet) {       
+    public static List<CareProgramEnrollee> getDeceasedPatientEDRDCPE(Set<Id> patientIdSet) {    
+        List<CareProgramEnrollee> eDRDCPEList = new List<CareProgramEnrollee>();
         
-        return [SELECT Id, CareProgramId, Status, Inactive_Reason__c 
-                FROM CareProgramEnrollee 
-                WHERE CareProgram.Name = 'EDRD' 
-                AND AccountId IN :patientIdSet];
+        for(CareProgramEnrollee cPEObj: [SELECT Id, CareProgramId, Status, Inactive_Reason__c 
+                                         FROM CareProgramEnrollee 
+                                         WHERE CareProgram.Name = 'EDRD' 
+                                         AND AccountId IN :patientIdSet]) {
+                                             eDRDCPEList.add(cPEObj) ; 
+                                         }
+        return eDRDCPEList;
     }
 }
