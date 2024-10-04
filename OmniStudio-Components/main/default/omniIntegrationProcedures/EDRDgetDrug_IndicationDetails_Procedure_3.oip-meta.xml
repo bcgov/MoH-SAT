@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
     <customJavaScript>{
-    &quot;CASENumber&quot;: &quot;00803802&quot;,
+    &quot;CASENumber&quot;: &quot;00803821&quot;,
     &quot;IndicationId&quot;: &quot;a1nAq00000CRFLpIAP&quot;
 }</customJavaScript>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
@@ -77,7 +77,7 @@
   } ],
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;ignoreCache&quot; : false,
+  &quot;ignoreCache&quot; : true,
   &quot;show&quot; : null,
   &quot;label&quot; : &quot;DataRaptorExtractAction2&quot;,
   &quot;disOnTplt&quot; : false
@@ -110,10 +110,13 @@
   &quot;dataRaptor Input Parameters&quot; : [ {
     &quot;inputParam&quot; : &quot;CASENumber&quot;,
     &quot;element&quot; : &quot;CASENumber&quot;
+  }, {
+    &quot;inputParam&quot; : &quot;AccountId&quot;,
+    &quot;element&quot; : &quot;AccountId&quot;
   } ],
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
-  &quot;ignoreCache&quot; : false,
+  &quot;ignoreCache&quot; : true,
   &quot;show&quot; : null,
   &quot;label&quot; : &quot;DataRaptorExtractAction1&quot;,
   &quot;disOnTplt&quot; : false
@@ -132,7 +135,8 @@
   &quot;useFormulas&quot; : true,
   &quot;additionalOutput&quot; : {
     &quot;IndicationDetails&quot; : &quot;=%EDRDDRgetDrugAndIndicationDetails%&quot;,
-    &quot;IndicationValue&quot; : &quot;=%EDRDDRExtractIndicationName%&quot;
+    &quot;IndicationValue&quot; : &quot;=%EDRDDRExtractIndicationName%&quot;,
+    &quot;CaseValues&quot; : &quot;%EDRDgetCaseId%&quot;
   },
   &quot;returnOnlyAdditionalOutput&quot; : true,
   &quot;returnFullDataJSON&quot; : false,
@@ -182,5 +186,5 @@
     <type>EDRDgetDrug</type>
     <uniqueName>EDRDgetDrug_IndicationDetails_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>75239141-3182-7fe9-a465-e52cc4eaa55e</webComponentKey>
+    <webComponentKey>10f9bdb6-86c2-a18a-82cf-fe54d7b97d69</webComponentKey>
 </OmniIntegrationProcedure>

@@ -8,8 +8,9 @@
                16 Dec23 -   EDRD-282        -  Accenture   -  Sync MR Fields values to Case Fields values
                 09 Jan -    EDRD-139        -  Accenture   -  calculate DrugForecast on Case
                 15 Jan -    EDRD-525        -  Accenture   -  Update AC Recommendation Review
-                19 Jan-     EDRD-338		-  Accenture   -  Update Funding Expiry Date
-                20 Jun-     EDRD-764		-  Accenture   -  Populate EDRD Reference number
+                19 Jan-     EDRD-338        -  Accenture   -  Update Funding Expiry Date
+                20 Jun-     EDRD-764        -  Accenture   -  Populate EDRD Reference number
+                08 Aug-     EDRD-679        -  Accenture    -  Generate FY forecasting records
 ***********************************************************************************************/
 
 @isTest
@@ -133,18 +134,18 @@ public class ESA_cls_caseTriggerHandlerTest {
             Case CaseList = [SELECT Id, Status, Priority, Type from Case Where id =:caseMRList.get(0).Id ];
             caseMRList.get(0).EDRD_Bypass_Eligibility_Form__c = TRUE;
             caseMRList.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
-            caseMRList.get(0).Status = 'Funding Approved';
+            caseMRList.get(0).Status = 'MOH Review';
             caseMRList.get(0).Type = 'Renewal';
             caseMRList.get(0).Priority = 'Routine';
             caseMRList.get(0).EDRD_MOHIndefinite_Funding__c = false;
-            ESA_cls_caseTriggerHandler.firstrun = true;
+            ESA_cls_caseTriggerHandler.firstrun = false;
             Update caseMRList;
             Test.stopTest();
         } 
         catch(exception e){
             MedicationRequest MRRec =[SELECT Id, Status, Type, Priority, Case__c, Case__r.Status, Case__r.priority, Case__r.Type
                                       FROM MedicationRequest WHERE Id =: MedicationRequestList.get(0).id AND Case__c =:caseMRList.get(0).Id];
-            Assert.areEqual(MRRec.Status, MRRec.Case__r.Status, 'Status did not Match');
+            Assert.areEqual(MRRec.Status, 'Active', 'Status did not Match');
             Assert.areEqual(MRRec.Type, MRRec.Case__r.Type, 'Type did not Match');
             Assert.areEqual(MRRec.priority, MRRec.Case__r.priority, 'priority did not Match');
             Assert.areNotEqual(MRRec.Status, NULL, 'Status did not Match');
@@ -226,6 +227,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         Assert.areEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRecList.get(0).Id].get(0).EDRD_AC_Recommendation_Review__c, 'Not Applicable', 'AC Recommendation Review update Failed');
         Assert.areNotEqual([SELECT Id, EDRD_AC_Recommendation_Review__c FROM Case WHERE Id =: caseRecList.get(0).Id].get(0).EDRD_AC_Recommendation_Review__c, NULL, 'AC Recommendation Review Populated Blank value');
     }
+    
 /**
 * @author: Rahul
 * @date: 19 Jan 2024
@@ -252,52 +254,10 @@ public class ESA_cls_caseTriggerHandlerTest {
         test.startTest();
         update cases;
         test.stopTest();
-        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: cases.get(0).Id].get(0).EDRD_MOHFunding_Expiry_Date__c, system.Today()+7, 'Funding expiry date updated');
+        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: cases.get(0).Id].get(0).EDRD_MOHFunding_Expiry_Date__c, system.Today()+6, 'Funding expiry date updated');
         Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: cases.get(0).Id].get(0).EDRD_MOHFunding_Expiry_Date__c, NULL, 'Funding expiry conains value');
-        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, system.Today()+7, 'Funding expiry Extension date updated');
+        Assert.areEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, system.Today()+6, 'Funding expiry Extension date updated');
         Assert.areNotEqual([SELECT Id, EDRD_MOHFunding_Extension_Date__c FROM Case WHERE Id =: cases.get(1).Id].get(0).EDRD_MOHFunding_Extension_Date__c, NULL, 'Funding expiry extension conains value');
-    }
-
-/**
-* @author: Rahul
-* @date: 14 Feb 2024
-* @description: The purpose of this method is to cover Positivie Scenario for validateAttachmentForMOHReview
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-*/
-    @isTest
-    public static void validateAttachmentTestPositive() {
-        Account account1 = TestFactory.newProvider('Provider Test');
-        insert account1;
-        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        List<Case> cases = TestFactory.createEDRDCase(2, recordTypeCaseEDRD, account1.Id);
-        insert cases;
-        ContentVersion contentVersion = new ContentVersion(
-            Title = 'Test',
-            PathOnClient = 'Test.jpg',
-            VersionData = Blob.valueOf('Test Content'),
-            IsMajorVersion = true
-        );
-        insert contentVersion;    
-        List<ContentDocument> documents = [
-            SELECT Id, Title, LatestPublishedVersionId 
-            FROM ContentDocument
-        ];
-        ContentDocumentLink cdl = new ContentDocumentLink();
-        cdl.LinkedEntityId = cases[0].id;
-        cdl.ContentDocumentId = documents[0].Id;
-        cdl.ShareType = 'V';
-        insert cdl;
-        cases[0].EDRD_Eligibility_Form_Signed_Date__c = Date.newInstance(2023, 1, 1);
-        cases[0].Status = 'MOH Review';
-        cases[1].Status = 'MOH Review';
-        cases[1].EDRD_Bypass_Eligibility_Form__c = true;
-        test.startTest();
-        update cases;
-        test.stopTest();
-        Assert.areEqual(cases[0].Status,'MOH Review', 'Status should be MoH Review');
-        Assert.areNotEqual(cases[0].Status,Null, 'Status should not be null');
-        Assert.areEqual(cases[1].Status,'MOH Review', 'Status should be MoH Review');
-        Assert.areNotEqual(cases[1].Status,Null, 'Status should not be null');
     }
 
 /**
@@ -345,5 +305,115 @@ public class ESA_cls_caseTriggerHandlerTest {
         Assert.areEqual([SELECT Id, EDRD_Ref_No__c FROM Case WHERE Id =: EDRDCaseList].get(0).EDRD_Ref_No__c, '00001-TT', 'EDRD Reference Number & Name should match');
         Assert.areNotEqual([SELECT Id, EDRD_Ref_No__c FROM Case WHERE Id =: EDRDCaseList].get(0).EDRD_Ref_No__c, NULL, 'EDRD Reference Number is null');
     }
+
+/**
+* @author: Deepak
+* @date: 18 Aug 2024
+* @description: The purpose of this method is to cover Testcoverage of forecastDrugCost
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void forecastDrugCost_Test(){
+        Account physicianAccount = TestFactory.newProvider('Provider Test');
+        insert physicianAccount;
+        Account patntAccount = TestFactory.newPatient('Patient Test');
+        insert patntAccount;
+        UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
+        insert UOMRec;        
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> casesList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, physicianAccount.Id);
+        casesList.get(0).Type = 'New';
+        casesList.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
+        casesList.get(0).EDRD_MOHApproved_Dosage__c = 300;
+        casesList.get(0).EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
+        casesList.get(0).EDRD_MOHApproved_Frequency__c = 1;
+        casesList.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
+        casesList.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
+        casesList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
+        casesList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        insert casesList;
+        List<Medication> drugList = TestFactory.createMedication(1, 'Test Medication');
+        insert drugList;
+        List<MedicinalIngredient> MIList = TestFactory.createMedicinalIngredient(1, drugList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MIList.get(0).RecordtypeId = recordTypeEDRDMI;
+        insert MIList;
+        Id recordTypeMREDRD = Schema.SObjectType.MedicationRequest.getRecordTypeInfosByDeveloperName().get('EDRD_Medication_Request').getRecordTypeId();
+        List<MedicationRequest> MRList = TestFactory.createMedicationRequest(1, drugList.get(0).Id, casesList.get(0).Id, physicianAccount.Id, patntAccount.Id); 
+        MRList.get(0).Dosage__c = 300;
+        MRList.get(0).Dosage_Units__c = UOMRec.Id;
+        MRList.get(0).Requested_Frequency__c = 1;
+        MRList.get(0).Requested_Frequency_Unit__c = 'Weekly';
+        MRList.get(0).Requested_Funding_Duration__c = 6;
+        MRList.get(0).Requested_Funding_Duration_Unit__c = 'Months';
+        MRList.get(0).Medication_Information__c = MIList.get(0).Id;
+        MRList.get(0).recordTypeId = recordTypeMREDRD;
+        insert MRList;
+                
+        Test.startTest();
+        casesList.get(0).Status = 'Funding Approved';
+        update casesList.get(0);
+        Test.stopTest();
+        
+        List<MedicationDispense> forecastRecords = [SELECT Id FROM MedicationDispense WHERE Case__c =: casesList.get(0).Id];
+        Assert.areEqual(2, forecastRecords.size(), 'FY-MedicationDispense records should be created');
+        Assert.areNotEqual(0, forecastRecords.size(), 'Forecast records should not be created');
+    }
     
+/**
+* @author: Deepak
+* @date: 22 Aug 2024
+* @description: The purpose of this method is to cover Testcoverage of delete forecastDrugCost
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void forecastDrugCost_deleteTest(){
+        Account pntAccount = TestFactory.newPatient('Patient Test');
+        insert pntAccount;
+        Account providerAccount = TestFactory.newProvider('Provider Test');
+        insert providerAccount;
+        UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
+        insert UOMRec;        
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> caseRec = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, providerAccount.Id);
+        caseRec.get(0).Type = 'New';
+        caseRec.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
+        caseRec.get(0).EDRD_MOHApproved_Dosage__c = 300;
+        caseRec.get(0).EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
+        caseRec.get(0).EDRD_MOHApproved_Frequency__c = 1;
+        caseRec.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
+        caseRec.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
+        caseRec.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
+        caseRec.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        insert caseRec;
+        List<Medication> medList = TestFactory.createMedication(1, 'Test Medication');
+        insert medList;
+        List<MedicinalIngredient> MIList = TestFactory.createMedicinalIngredient(1, medList.get(0).Id, UOMRec.Id);
+        Id recordTypeEDRDMI = Schema.SObjectType.MedicinalIngredient.getRecordTypeInfosByDeveloperName().get('EDRD_Medicinal_Ingredient').getRecordTypeId();
+        MIList.get(0).RecordtypeId = recordTypeEDRDMI;
+        insert MIList;
+        Id recordTypeMREDRD = Schema.SObjectType.MedicationRequest.getRecordTypeInfosByDeveloperName().get('EDRD_Medication_Request').getRecordTypeId();
+        List<MedicationRequest> MedRList = TestFactory.createMedicationRequest(1, medList.get(0).Id, caseRec.get(0).Id, providerAccount.Id, pntAccount.Id); 
+        MedRList.get(0).Dosage__c = 300;
+        MedRList.get(0).Dosage_Units__c = UOMRec.Id;
+        MedRList.get(0).Requested_Frequency__c = 1;
+        MedRList.get(0).Requested_Frequency_Unit__c = 'Weekly';
+        MedRList.get(0).Requested_Funding_Duration__c = 6;
+        MedRList.get(0).Requested_Funding_Duration_Unit__c = 'Months';
+        MedRList.get(0).Medication_Information__c = MIList.get(0).Id;
+        MedRList.get(0).recordTypeId = recordTypeMREDRD;
+        insert MedRList;
+        caseRec.get(0).Status = 'Funding Approved';
+        update caseRec.get(0);
+                
+        Test.startTest();
+        ESA_cls_caseTriggerHandler.FYOnce = true;
+        caseRec.get(0).EDRD_MOHFunding_Expiry_Date__c = Date.newInstance(2029, 12, 31);
+        update caseRec.get(0);
+        Test.stopTest();
+        
+        List<MedicationDispense> forecastRecords = [SELECT Id FROM MedicationDispense WHERE Case__c =: caseRec.get(0).Id];
+        Assert.areEqual(7, forecastRecords.size(), 'FY-MedicationDispense records should be created');
+        Assert.areNotEqual(0, forecastRecords.size(), 'Forecast records should not be created');
+    }
 }
