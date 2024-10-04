@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_User_Create_CPE</fullName>
+    <active>true</active>
+    <description>This validation rule will throw an error if an EDRD user creates a new CPE record with a Care Program other than &quot;EDRD.</description>
+    <errorConditionFormula>AND(
+CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+NOT(CareProgram.Name = &quot;EDRD&quot;)
+)</errorConditionFormula>
+    <errorMessage>EDRD User cannot create or edit a care program enrollee record with a Care Program other than &apos;EDRD&apos;.</errorMessage>
+</ValidationRule>

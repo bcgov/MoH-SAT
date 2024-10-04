@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Prevent_Case_Status_Change</fullName>
+    <active>true</active>
+    <description>Case Status cannot be changed to the</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName = &apos;EDRD&apos;,
+
+OR(
+ISPICKVAL( PRIORVALUE( Status ), &quot;Cancelled&quot;),
+ISPICKVAL( PRIORVALUE( Status ), &quot;Funding Approved&quot;),
+ISPICKVAL( PRIORVALUE( Status ), &quot;Funding Denied&quot;)
+),
+
+OR(
+ISPICKVAL( Status, &quot;Received - Awaiting Verification&quot;),
+ISPICKVAL( Status, &quot;SC Review&quot;),
+ISPICKVAL( Status, &quot;AC Review&quot;)
+)
+)</errorConditionFormula>
+    <errorMessage>You do not have access to make these changes, please contact Ministry of Health staff</errorMessage>
+</ValidationRule>

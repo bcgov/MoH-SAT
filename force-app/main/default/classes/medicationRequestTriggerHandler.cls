@@ -48,7 +48,7 @@ public with sharing class medicationRequestTriggerHandler {
         Boolean isInputNotBlank = false;
         List<MedicationRequest> MRCaseList = [SELECT Id, Case__c, Case__r.EDRD_MOHApproved_Dosage__c, Case__r.EDRD_MOHApproved_Dosage_Unit__c,
                                               Case__r.EDRD_MOHApproved_Frequency__c, Case__r.EDRD_MOHApproved_Frequency_Unit__c, 
-                                              Case__r.EDRD_MOHApproved_Funding_Duration__c, Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c,
+                                              Case__r.EDRD_MOHApproved_Funding_Duration__c, Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c, Case__r.EDRD_MOHIndefinite_Funding__c,
                                               Medication_Information__c, Strength__c, Strength_Units__c, List_Price_per_Unit__c FROM MedicationRequest
                                               WHERE Case__c IN: caseIdSet AND recordType.developerName = 'EDRD_Medication_Request'];
         
@@ -61,8 +61,9 @@ public with sharing class medicationRequestTriggerHandler {
             DosageUnits = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Dosage_Unit__c : MRObj.Case__r.EDRD_MOHApproved_Dosage_Unit__c;
             RecFrequency = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Frequency__c : MRObj.Case__r.EDRD_MOHApproved_Frequency__c;
             RecFrequencyUnits = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Frequency_Unit__c : MRObj.Case__r.EDRD_MOHApproved_Frequency_Unit__c;
-            RecFundingDuration = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Funding_Duration__c : MRObj.Case__r.EDRD_MOHApproved_Funding_Duration__c;
-            RecFundingDurationUnit = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Funding_Duration_Unit__c : MRObj.Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c;
+            Boolean isIndefiniteFunding = isFromCaseTrigger ? caseIdVsRec.get(MRObj.Case__c).EDRD_MOHIndefinite_Funding__c : MRObj.Case__r.EDRD_MOHIndefinite_Funding__c;
+            RecFundingDuration = isFromCaseTrigger ? (isIndefiniteFunding ? 1 : caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Funding_Duration__c) : (isIndefiniteFunding ? 1: MRObj.Case__r.EDRD_MOHApproved_Funding_Duration__c);
+            RecFundingDurationUnit = isFromCaseTrigger ? ( isIndefiniteFunding ? 'Years' : caseIdVsRec.get(MRObj.Case__c).EDRD_MOHApproved_Funding_Duration_Unit__c) : (isIndefiniteFunding ? 'Years' : MRObj.Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c);
             
             isInputNotBlank = (Dosage != NULL && DosageUnits != NULL && RecFrequency != NULL && 
                                RecFrequencyUnits != NULL && RecFundingDuration != NULL &&
@@ -78,6 +79,7 @@ public with sharing class medicationRequestTriggerHandler {
                                                                                                    MRObj.List_Price_per_Unit__c, 
                                                                                                    MRObj.Strength__c);
                 caseIdVsForcastAmnt.put(MRObj.Case__c, forecastDrugOncase);
+                ESA_cls_caseTriggerHandler.caseIdVsCostPerDose.put(MRObj.Case__c, ESA_cls_caseTriggerHandler.costPerDose);
             }
         }
         return caseIdVsForcastAmnt;

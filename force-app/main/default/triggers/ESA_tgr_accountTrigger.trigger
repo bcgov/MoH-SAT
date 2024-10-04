@@ -14,7 +14,7 @@ trigger ESA_tgr_accountTrigger on account (after insert, after update) {
         }
         if(trigger.isUpdate){
             ESA_cls_accountTriggerHandler.populateSpecialty(trigger.new, trigger.newMap, trigger.oldMap);
-            ESA_cls_accountTriggerHandler.closeCaseOnAccDeceased(trigger.new, trigger.newMap, trigger.oldMap);
+            ESA_cls_accountTriggerHandler.closeCaseOnAccDeceased(trigger.new, trigger.oldMap, trigger.newMap);
         }
     }
 }

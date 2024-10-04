@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_SubCommitteeName</fullName>
+    <active>true</active>
+    <description>This validation rule ensures that when the Account record type is &quot;Committee_Reviewer,&quot; and the Committee picklist is set to &quot;EDRD Sub Committee&quot; then Committee Name field is not left blank.</description>
+    <errorConditionFormula>AND(
+    CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+    OR(
+        ISPICKVAL(Committee__pc, &quot;EDRD Sub Committee&quot;),
+        ISPICKVAL(Committee__pc, &quot;EDRD Advisory/ Sub Committee&quot;)
+    ),
+    ISBLANK(Committee_Name__pc),
+    OR(
+        Record_Type_Name__c = &apos;Committee_Reviewer&apos;,
+        Record_Type_Name__c = &apos;Provider&apos;
+    )
+)</errorConditionFormula>
+    <errorMessage>When Committee is EDRD Sub Committee OR EDRD Advisory/ Sub Committee then Committee Name cannot be blank.</errorMessage>
+</ValidationRule>
