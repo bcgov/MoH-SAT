@@ -14,12 +14,12 @@ public without sharing class AccountContactShareHelper {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     public static void insertAccountShares(List<AccountShare> accShareListToInsert) {
-        if (!accShareListToInsert.isEmpty()) {
-            try {
+        try {
+            if (!accShareListToInsert.isEmpty()) {
                 Database.insert(accShareListToInsert, true);
-            } catch (DmlException e) {
-                System.debug('Error inserting AccountShare records: ' + e.getMessage());
             }
+        } catch (DmlException e) {
+            System.debug('Error inserting AccountShare records: ' + e.getMessage());
         }
     }
     
@@ -31,12 +31,12 @@ public without sharing class AccountContactShareHelper {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     public static void deleteAccountShares(List<AccountShare> accShareList) {
-        if (!accShareList.isEmpty()) {
-            try {
+        try {
+            if (!accShareList.isEmpty()) {
                 Database.delete(accShareList, true);
-            } catch (DmlException e) {
-                System.debug('Error deleting AccountShare records: ' + e.getMessage());
             }
+        } catch (DmlException e) {
+            System.debug('Error deleting AccountShare records: ' + e.getMessage());
         }
     }
 }

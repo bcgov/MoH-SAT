@@ -14,4 +14,8 @@ public class ESA_cls_constants {
     public static final String EDRD_CASE_STATUS_CANCELLED = 'Cancelled';
     public static final String EDRD_CASE_CLOSER_REASON_PATIENT_DECEASED = 'Patient Deceased';
     public static final String EDRD_CASE_MOHFUNDING_DENIED = 'Denied';
+    public static final String EDRD_CASE_STATUS_FUNDING_APPROVED = 'Funding Approved';
+    public static final String EDRD_PROVIDER = 'Provider';
+    public static final String EDRD_PRESCRIBER_COMMUNITY_USER = 'EDRD Prescriber Community User';
+    public static final String EDRD_PHYSICIAN = 'Physician';
 }

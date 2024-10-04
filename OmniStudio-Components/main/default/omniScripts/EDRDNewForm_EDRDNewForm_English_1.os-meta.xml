@@ -537,9 +537,9 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Indefinite&quot;,
+        &quot;field&quot; : &quot;MedicationName&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;MaxInitialFundDuration&quot;
+        &quot;data&quot; : &quot;cysteamine&quot;
       } ]
     }
   },
@@ -760,9 +760,9 @@
         &quot;group&quot; : {
           &quot;operator&quot; : &quot;AND&quot;,
           &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;MaxInitialFundDuration&quot;,
+            &quot;field&quot; : &quot;MedicationName&quot;,
             &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;Indefinite&quot;
+            &quot;data&quot; : &quot;cysteamine&quot;
           } ]
         }
       } ]
@@ -820,9 +820,9 @@
         &quot;group&quot; : {
           &quot;operator&quot; : &quot;AND&quot;,
           &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;MaxInitialFundDuration&quot;,
+            &quot;field&quot; : &quot;MedicationName&quot;,
             &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-            &quot;data&quot; : &quot;Indefinite&quot;
+            &quot;data&quot; : &quot;cysteamine&quot;
           } ]
         }
       } ]
@@ -1961,15 +1961,15 @@
   &quot;hideLabel&quot; : true,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;Inactive&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;CareprogramStatusCheck&quot;
       }, {
-        &quot;field&quot; : &quot;CareprogramStatusCheck&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Unenroll&quot;
+        &quot;field&quot; : &quot;PatientDeceasedCheck&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -2305,6 +2305,10 @@
         &quot;field&quot; : &quot;CareProgramCheck&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;null&quot;
+      }, {
+        &quot;field&quot; : &quot;PatientDeceasedCheck&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -2387,6 +2391,10 @@
         &quot;data&quot; : &quot;null&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;PatientAvailabilityCheck&quot;
+      }, {
+        &quot;field&quot; : &quot;PatientDeceasedCheck&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -2578,10 +2586,6 @@
         &quot;field&quot; : &quot;CareprogramStatusCheck&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Inactive&quot;
-      }, {
-        &quot;field&quot; : &quot;CareprogramStatusCheck&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Unenroll&quot;
       } ]
     }
   },
