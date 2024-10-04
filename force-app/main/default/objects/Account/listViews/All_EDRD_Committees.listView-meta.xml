@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_EDRD_Committees</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>Committee__pc</columns>
+    <columns>Committee_Name__pc</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>PersonAccount.Committee_Reviewer</value>
+    </filters>
+    <label>All EDRD Committees</label>
+    <sharedTo>
+        <role>Developer</role>
+        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+    </sharedTo>
+</ListView>

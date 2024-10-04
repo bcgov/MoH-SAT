@@ -30,4 +30,18 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Medication_Request_Sharing_With_Reviewer</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD Medication Request Sharing With Reviewer</label>
+        <sharedTo>
+            <group>EDRD_Reviewer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Medication Request</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

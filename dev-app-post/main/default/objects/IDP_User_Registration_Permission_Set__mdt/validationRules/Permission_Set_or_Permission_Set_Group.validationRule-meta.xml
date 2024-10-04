@@ -3,6 +3,6 @@
     <fullName>Permission_Set_or_Permission_Set_Group</fullName>
     <active>true</active>
     <description>Permission Set, Permission Set Group, or Public Group required</description>
-    <errorConditionFormula>AND(ISBLANK(Salesforce_Permission_Set__c),ISBLANK( Salesforce_Permission_Set_Group__c),ISBLANK( Salesforce_Public_Group__c))</errorConditionFormula>
-    <errorMessage>Permission Set or Permission Set Group required</errorMessage>
+    <errorConditionFormula>AND(ISBLANK(Salesforce_Permission_Set__c),ISBLANK( Salesforce_Permission_Set_Group__c),ISBLANK( Salesforce_Public_Group__c),ISBLANK( Salesforce_Queue__c))</errorConditionFormula>
+    <errorMessage>Permission Set or Permission Set Group or Queue required</errorMessage>
 </ValidationRule>
