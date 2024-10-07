@@ -41,8 +41,35 @@ public class ESA_cls_accountTriggerHandlerTest {
     public static void closeCaseOnAccDeceased_positive(){
         Account patientAccount = TestFactory.newPatient('Test');
         insert patientAccount;
+        Account providerAccount = TestFactory.newProvider('Provider Test');
+        insert providerAccount;
+        UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
+        insert UOMRec;
         String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, patientAccount.Id);
+        List<Case> EDRDCaseList = TestFactory.createEDRDCase(3, caseRecordTypeID, patientAccount.Id);
+        EDRDCaseList.get(0).Type = 'New';
+        EDRDCaseList.get(1).Type = 'New';
+        EDRDCaseList.get(1).EDRD_MOHFunding_Decision__c = 'Approved';
+        EDRDCaseList.get(1).EDRD_MOHApproved_Dosage__c = 300;
+        EDRDCaseList.get(1).EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
+        EDRDCaseList.get(1).EDRD_MOHApproved_Frequency__c = 1;
+        EDRDCaseList.get(1).EDRD_MOHApproved_Frequency_Unit__c = 'Monthly';
+        EDRDCaseList.get(1).EDRD_MOHApproved_Funding_Duration__c = 6;
+        EDRDCaseList.get(1).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
+        EDRDCaseList.get(1).EDRD_MOHFunding_Start_Date__c = System.Today();
+        EDRDCaseList.get(1).EDRD_MOHFunding_Expiry_Date__c = System.Today().addMonths(6);
+		EDRDCaseList.get(1).Status = 'Funding Approved';
+        EDRDCaseList.get(2).Type = 'New';
+        EDRDCaseList.get(2).EDRD_MOHFunding_Decision__c = 'Extended';
+        EDRDCaseList.get(2).EDRD_MOHApproved_Dosage__c = 300;
+        EDRDCaseList.get(2).EDRD_MOHApproved_Dosage_Unit__c = UOMRec.Id;
+        EDRDCaseList.get(2).EDRD_MOHApproved_Frequency__c = 1;
+        EDRDCaseList.get(2).EDRD_MOHApproved_Frequency_Unit__c = 'Monthly';
+        EDRDCaseList.get(2).EDRD_MOHApproved_Funding_Duration__c = 6;
+        EDRDCaseList.get(2).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
+        EDRDCaseList.get(2).EDRD_MOHFunding_Start_Date__c = System.Today();
+        EDRDCaseList.get(2).EDRD_MOHFunding_Expiry_Date__c = System.Today().addMonths(6);
+		EDRDCaseList.get(2).Status = 'Funding Approved';
         insert EDRDCaseList;
         careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
         insert careProgramRec;
@@ -53,7 +80,10 @@ public class ESA_cls_accountTriggerHandlerTest {
         Update patientAccount;
         Test.stopTest(); 
         
+        List<Case> caseList = [SELECT Id, EDRD_MOHFunding_Expiry_Date__c FROM Case WHERE Id =: EDRDCaseList.get(1).Id];
         Assert.areEqual([SELECT Id FROM Case WHERE isClosed = false].isEmpty(), True, 'Cases are not closed');
         Assert.areNotEqual([SELECT Id FROM Case WHERE isClosed = true].isEmpty(), True, 'Cases are not closed');
+        Assert.areEqual(caseList.get(0).EDRD_MOHFunding_Expiry_Date__c, System.Today(), 'Date should be Today');
+        Assert.areNotEqual(caseList.get(0).EDRD_MOHFunding_Expiry_Date__c, NULL, 'Date cannot be Null');
     }
 }
