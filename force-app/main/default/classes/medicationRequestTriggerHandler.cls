@@ -42,6 +42,7 @@ public with sharing class medicationRequestTriggerHandler {
 * @date: 09 Jan 2024
 * @description: The purpose of this method is to return DrugForecast with Respect to Case.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     04-Oct     EDRD-679            Deepak         Adding Changes Related to Formulation Type-Bottle
 */    
     public static Map<Id, Decimal> calDrugForecastOnCase(Set<Id> caseIdSet, Map<Id, case> caseIdVsRec){
         Map<Id, Decimal> caseIdVsForcastAmnt = new Map<Id, Decimal>();
@@ -49,7 +50,7 @@ public with sharing class medicationRequestTriggerHandler {
         List<MedicationRequest> MRCaseList = [SELECT Id, Case__c, Case__r.EDRD_MOHApproved_Dosage__c, Case__r.EDRD_MOHApproved_Dosage_Unit__c,
                                               Case__r.EDRD_MOHApproved_Frequency__c, Case__r.EDRD_MOHApproved_Frequency_Unit__c, 
                                               Case__r.EDRD_MOHApproved_Funding_Duration__c, Case__r.EDRD_MOHApproved_Funding_Duration_Unit__c, Case__r.EDRD_MOHIndefinite_Funding__c,
-                                              Medication_Information__c, Strength__c, Strength_Units__c, List_Price_per_Unit__c FROM MedicationRequest
+                                              Medication_Information__c, Strength__c, Strength_Units__c, List_Price_per_Unit__c, Medication_Formulation__c FROM MedicationRequest
                                               WHERE Case__c IN: caseIdSet AND recordType.developerName = 'EDRD_Medication_Request'];
         
         for(MedicationRequest MRObj: MRCaseList){
@@ -77,7 +78,8 @@ public with sharing class medicationRequestTriggerHandler {
                                                                                                    RecFundingDuration,
                                                                                                    RecFundingDurationUnit,
                                                                                                    MRObj.List_Price_per_Unit__c, 
-                                                                                                   MRObj.Strength__c);
+                                                                                                   MRObj.Strength__c,
+                                                                                                   MRObj.Medication_Formulation__c);
                 caseIdVsForcastAmnt.put(MRObj.Case__c, forecastDrugOncase);
                 ESA_cls_caseTriggerHandler.caseIdVsCostPerDose.put(MRObj.Case__c, ESA_cls_caseTriggerHandler.costPerDose);
             }

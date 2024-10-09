@@ -68,6 +68,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
 * @date: 10 Nov 2023
 * @description: The purpose of this method is to close related cases on patient inactive.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     02 Oct -  EDRD-819           -  Accenture   -  Added account helper class to run in system context                      
 */ 
     public static void closeCaseOnAccDeceased(List<Account> newAccountList, Map<Id,Account> oldAccountMap, Map<Id,Account> newAccountMap) {
         Set<Id> patientIdSet = new Set<Id>();
@@ -81,71 +82,8 @@ public with sharing class ESA_cls_accountTriggerHandler {
         }
         
         if(!patientIdSet.isEmpty()){
-            List<Case> caseList = [SELECT Id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c, 
-                                   EDRD_MOHFunding_Expiry_Date__c, EDRD_MOHFunding_Extension_Date__c, EDRD_MOHIndefinite_Funding__c,
-                                   EDRD_MOHFunding_Decision__c, IsClosed 
-                                   FROM Case 
-                                   WHERE AccountID IN :patientIdSet 
-                                   AND RecordType.DeveloperName = 'EDRD'
-                                   AND (IsClosed = FALSE OR (IsClosed = TRUE 
-                                                             AND Status = 'Funding Approved' 
-                                                             AND (EDRD_MOHFunding_Expiry_Date__c > :System.Today() 
-                                                                  OR EDRD_MOHFunding_Extension_Date__c > :System.Today() 
-                                                                  OR EDRD_MOHIndefinite_Funding__c = TRUE)))
-                                  ];
-            
-            List<CareProgramEnrollee> enrolleToUpdate = [SELECT Id, CareProgramId, Status, Inactive_Reason__c 
-                                                         FROM CareProgramEnrollee 
-                                                         WHERE CareProgram.Name = 'EDRD' 
-                                                         AND AccountId IN: patientIdSet];
-            
-            List<Case> casesToUpdate = new List<Case>();
-            List<Case> appCaseToChangeEndDate = new List<Case>();
-            
-            for (Case caseObj : caseList) {
-                if(caseObj.Account.Patient_is_Deceased__pc) {
-                    if(!caseObj.IsClosed) {
-                        caseObj.Status = ESA_cls_constants.EDRD_CASE_STATUS_CANCELLED;
-                        caseObj.EDRD_Case_Closure_Reasons__c = ESA_cls_constants.EDRD_CASE_CLOSER_REASON_PATIENT_DECEASED;
-                        caseObj.EDRD_MOHFunding_Decision__c = ESA_cls_constants.EDRD_CASE_MOHFUNDING_DENIED;
-                        String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
-                        caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_deceased;
-                        casesToUpdate.add(caseObj);
-                    } else if (caseObj.IsClosed) {
-                        String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
-                        
-                        if(caseObj.Status == 'Funding Approved') {
-                            if(caseObj.EDRD_MOHFunding_Decision__c == 'Approved' || caseObj.EDRD_MOHIndefinite_Funding__c) {
-                                caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_Dscd_UpdateEndDate;
-                                caseObj.EDRD_MOHIndefinite_Funding__c = FALSE;
-                                caseObj.EDRD_MOHFunding_Expiry_Date__c = Date.today();
-                            } else if(caseObj.EDRD_MOHFunding_Decision__c == 'Extended' || caseObj.EDRD_MOHIndefinite_Funding__c) {
-                                caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_Dscd_UpdateEndExtDate;
-                                caseObj.EDRD_MOHIndefinite_Funding__c = FALSE;
-                                caseObj.EDRD_MOHFunding_Extension_Date__c = Date.today();
-                            }
-                            appCaseToChangeEndDate.add(caseObj);
-                        }
-                    }
-                }
-            }
-            
-            for(CareProgramEnrollee careEnrolleeObj: enrolleToUpdate) {
-                careEnrolleeObj.Status = 'Inactive';
-                careEnrolleeObj.Inactive_Reason__c = 'Patient Deceased';
-            }
-            
-            if(!casesToUpdate.isEmpty()){
-                Database.update(casesToUpdate, true);
-            }
-            
-            if(!appCaseToChangeEndDate.isEmpty()){
-                Database.update(appCaseToChangeEndDate, true);
-            }
-            
-            if(!enrolleToUpdate.isEmpty()){
-                Database.update(enrolleToUpdate, true);
-            }
+            AccountTriggerHelper.processDeceasedPatientEDRDCPE(patientIdSet);
+            AccountTriggerHelper.processDeceasedPatientEDRDCases(patientIdSet);
         }
     }
 }

@@ -18,4 +18,6 @@ public class ESA_cls_constants {
     public static final String EDRD_PROVIDER = 'Provider';
     public static final String EDRD_PRESCRIBER_COMMUNITY_USER = 'EDRD Prescriber Community User';
     public static final String EDRD_PHYSICIAN = 'Physician';
+    public static final String EDRD_FUNDING_DECISION_DENIED = 'Denied';
+    public static final String EDRD_FORMULATION_BOTTLE = 'Bottle';
 }
