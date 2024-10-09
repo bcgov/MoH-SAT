@@ -39,4 +39,18 @@ public without sharing class AccountContactShareHelper {
             System.debug('Error deleting AccountShare records: ' + e.getMessage());
         }
     }
+
+    
+    public static void assignUserToGroup(Id userId) {
+            // Query the public group 'Omni_Channel_Users'
+        Group publicGroup = [SELECT Id FROM Group WHERE DeveloperName = 'Omni_Channel_Users' LIMIT 1];
+
+        // Create the GroupMember record to add the user to the group
+        GroupMember groupMember = new GroupMember(
+            GroupId = publicGroup.Id,
+            UserOrGroupId = userId
+        );
+        // Insert the group member record
+        insert groupMember;
+    }
 }

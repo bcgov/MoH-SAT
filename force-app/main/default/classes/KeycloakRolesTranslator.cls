@@ -26,6 +26,10 @@ public with sharing class KeycloakRolesTranslator {
             if(!psas.isEmpty()){
                 insert psas;
             }
+               // Verify the user profile and query the public group 'Omni_Channel_Users'
+              if (user.Profile.Name == 'MoH Standard User') {
+                 AccountContactShareHelper.assignUserToGroup(user.Id);
+                }
         } catch (Exception e) {
             System.debug('Exception has occured'+e.getMessage());
         }
@@ -84,7 +88,7 @@ public with sharing class KeycloakRolesTranslator {
     }
 
     private static final Map<String, List<String>> PROFILE_PERMSETS = new Map<String, List<String>>{
-        'System Administrator' => new String[] {
+        'MoH Standard User' => new String[] {
             'MoH_Standard_User'
         },
         'External Committee Community Users' => new String[] {
