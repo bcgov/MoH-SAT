@@ -83,7 +83,7 @@ public with sharing class EDRD_cls_FundingForecastController {
                                                        FROM Case WHERE Id =: caseIdSet]);
         
         for(CaseDateWrapper wrapObj: wrapperList){
-            if(wrapObj.startDate < wrapObj.endDate){
+            if(wrapObj.startDate <= wrapObj.endDate){
                 fYForecastingList.add(new MedicationDispense(
                     PatientId = caseIdVsRec?.get(wrapObj.CaseId)?.Contact?.AccountId,
                     MedicationId = caseIdVsRec?.get(wrapObj.CaseId)?.Medication_Requests__r[0]?.MedicationId,
