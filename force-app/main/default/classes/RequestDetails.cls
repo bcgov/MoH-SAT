@@ -40,5 +40,8 @@ public without sharing class RequestDetails {
         else if (record.Date_Value__c != null) return String.valueOf(record.Date_Value__c); 
         else return String.valueOf(record.Boolean_Value__c); 
     
+
+        // Test for sonar issue
+        
     }
 }
