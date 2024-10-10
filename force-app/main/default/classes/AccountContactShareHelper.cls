@@ -41,8 +41,10 @@ public without sharing class AccountContactShareHelper {
     }
 
     
-    public static void assignUserToGroup(Id userId) {
-            // Query the public group 'Omni_Channel_Users'
+    // Automating the omnichannel access for SAT New users. 
+    //Below method is added here only because the WITHOUT SHARING is being used for inserting the group member records.
+    public static void assignUserToOmniChannelGroup(Id userId) {
+        // Query the public group 'Omni_Channel_Users'
         Group publicGroup = [SELECT Id FROM Group WHERE DeveloperName = 'Omni_Channel_Users' LIMIT 1];
 
         // Create the GroupMember record to add the user to the group

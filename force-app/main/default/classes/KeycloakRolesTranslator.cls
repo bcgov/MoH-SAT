@@ -5,7 +5,7 @@ public with sharing class KeycloakRolesTranslator {
 
         try {
 
-            User user = [select Id, Keycloak_Roles__c, ProfileId, Profile.Name from User where Id = :UserInfo.getUserId()];
+            User user = [select Id, Keycloak_Roles__c, UserRole.Name, ProfileId, Profile.Name from User where Id = :UserInfo.getUserId()];
 
             List<PermissionSet> permissionSets = new List<PermissionSet>();
             permissionSets.addAll(getDefaultPermissionSets(user.Profile.Name));
@@ -26,11 +26,17 @@ public with sharing class KeycloakRolesTranslator {
             if(!psas.isEmpty()){
                 insert psas;
             }
-               // Verify the user profile and query the public group 'Omni_Channel_Users'
-              if (user.Profile.Name == 'MoH Standard User') {
-                 AccountContactShareHelper.assignUserToGroup(user.Id);
-                }
-        } catch (Exception e) {
+
+            // Verify the user profile and query the public group 'Omni_Channel_Users'
+            if (user.Profile.Name == 'MoH Standard User' 
+                && 
+                ((user.Keycloak_Roles__c != null && !user.Keycloak_Roles__c.contains('EDRD') && user.Keycloak_Roles__c.contains('SA'))
+                || (user.UserRole.Name != null && !user.UserRole.Name.contains('EDRD') && user.UserRole.Name.contains('SA'))
+                )) {
+                AccountContactShareHelper.assignUserToOmniChannelGroup(user.Id);
+            }
+        } 
+        catch (Exception e) {
             System.debug('Exception has occured'+e.getMessage());
         }
     }
