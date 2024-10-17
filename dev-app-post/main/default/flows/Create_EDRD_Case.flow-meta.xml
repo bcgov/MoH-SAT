@@ -247,7 +247,7 @@
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>ACR_Active</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
             <conditions>
                 <leftValueReference>get_ACRRecord</leftValueReference>
                 <operator>IsNull</operator>
@@ -257,6 +257,13 @@
             </conditions>
             <conditions>
                 <leftValueReference>get_ACRRecord.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_ACRRecord.Is_EDRD_Data_Migration__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -279,6 +286,13 @@
             </conditions>
             <conditions>
                 <leftValueReference>get_ACRRecord.IsActive</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_ACRRecord.Is_EDRD_Data_Migration__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -394,7 +408,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>updated Changes related to Indefinitefunidng</description>
+    <description>updated Changes related to ACR with EDRD Data Migration field.</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
