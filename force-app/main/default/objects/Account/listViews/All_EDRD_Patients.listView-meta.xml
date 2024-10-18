@@ -2,6 +2,7 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_EDRD_Patients</fullName>
     <columns>ACCOUNT.NAME</columns>
+    <columns>EDRD_Ref_No__pc</columns>
     <columns>Patient_Identifier__pc</columns>
     <columns>ACCOUNT.PHONE1</columns>
     <columns>ACCOUNT.PHONE2</columns>
@@ -13,7 +14,7 @@
         <operation>equals</operation>
         <value>PersonAccount.Patient</value>
     </filters>
-    <label>All EDRD Patients</label>
+    <label>EDRD - All Patients</label>
     <sharedTo>
         <role>Developer</role>
         <roleAndSubordinates>EDRD_Admin</roleAndSubordinates>
