@@ -10,7 +10,8 @@
                 15 Jan -    EDRD-525        -  Accenture   -  Update AC Recommendation Review
                 19 Jan-     EDRD-338        -  Accenture   -  Update Funding Expiry Date
                 20 Jun-     EDRD-764        -  Accenture   -  Populate EDRD Reference number
-                08 Aug-     EDRD-679        -  Accenture    -  Generate FY forecasting records
+                08 Aug-     EDRD-679        -  Accenture   -  Generate FY forecasting records
+                17 Oct-     EDRD-1010		-  Accenture   -  Update Provider's - EDRD Checkbox On EDRD Case Insert
 ***********************************************************************************************/
 
 @isTest
@@ -415,5 +416,30 @@ public class ESA_cls_caseTriggerHandlerTest {
         List<MedicationDispense> forecastRecords = [SELECT Id FROM MedicationDispense WHERE Case__c =: caseRec.get(0).Id];
         Assert.areEqual(7, forecastRecords.size(), 'FY-MedicationDispense records should be created');
         Assert.areNotEqual(0, forecastRecords.size(), 'Forecast records should not be created');
+    }
+    
+/**
+* @author: Deepak
+* @date: 17 Oct 2024
+* @description: The purpose of this method is to cover Testcoverage of delete UpdateProviderOnEDRDCase
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void UpdateProviderOnEDRDCaseTest(){
+        Account providerAccount = TestFactory.newProvider('Provider Test');
+        providerAccount.Is_EDRD_Provider__pc = FALSE;
+        insert providerAccount;
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Contact> conList = [SELECT Id FROM Contact WHERE accountID =: providerAccount.Id LIMIT 1];
+        List<Case> caseRec = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, providerAccount.Id);
+        caseRec.get(0).provider__c = conList.get(0).Id;
+                
+        Test.startTest();
+        insert caseRec;
+        Test.stopTest();
+        
+        List<Account> providerRecords = [SELECT Id, Is_EDRD_Provider__pc FROM Account WHERE Id =: providerAccount.Id];
+        Assert.areEqual(TRUE, providerRecords.get(0).Is_EDRD_Provider__pc, 'Is EDRD Provider Field should be True');
+        Assert.areNotEqual(FALSE, providerRecords.get(0).Is_EDRD_Provider__pc, 'Is EDRD Provider Field cannot be False');    
     }
 }
