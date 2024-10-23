@@ -190,6 +190,8 @@ public with sharing class ODRIntegration {
                 practIdCode = '91';
             } when 'Nurse Practitioner' {
                 practIdCode = '96';
+            } when 'Physician Assistant' {
+                practIdCode = 'M9';    
             } when 'Nurse' {
                 practIdCode = 'R9';
             } when 'Dentist' {
