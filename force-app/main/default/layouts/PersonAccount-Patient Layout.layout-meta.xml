@@ -151,15 +151,6 @@
         <relatedList>RelatedContactAccountRelationList</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>CONTACT.FULL_NAME</fields>
-        <fields>CONTACT.ACCOUNT_NAME</fields>
-        <fields>CONTACT.TITLE</fields>
-        <fields>CONTACT.EMAIL</fields>
-        <fields>CONTACT.PHONE1</fields>
-        <fields>ACCCONRELATION.ROLES</fields>
-        <relatedList>RelatedAccountContactRelationList</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>Name</fields>
         <fields>ObservationStatus</fields>
         <fields>ObservedSubject</fields>
@@ -167,6 +158,8 @@
         <fields>ObservedValueUnit</fields>
         <fields>ObservedValueNumerator</fields>
         <relatedList>CareObservation</relatedList>
+        <sortField>EffectiveDateTime</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
@@ -187,8 +180,10 @@
         <fields>CareProgram</fields>
         <fields>Name</fields>
         <fields>Status</fields>
-        <fields>LastModifiedDate</fields>
+        <fields>CreatedDate</fields>
         <relatedList>CareProgramEnrollees</relatedList>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedFileList</relatedList>

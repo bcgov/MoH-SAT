@@ -8,7 +8,7 @@
     <columns>NAME</columns>
     <columns>Patient_Identifier__c</columns>
     <columns>Provider__c</columns>
-    <columns>Drug_Name__c</columns>
+    <columns>Medication_Name__c</columns>
     <columns>CASES.CREATED_DATE</columns>
     <columns>CASES.CLOSED_DATE</columns>
     <filterScope>Mine</filterScope>
@@ -22,9 +22,8 @@
         <operation>equals</operation>
         <value>1</value>
     </filters>
-    <label>My EDRD Closed Cases</label>
+    <label>EDRD - My Closed Cases</label>
     <sharedTo>
-        <group>EDRD_Physicians</group>
         <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

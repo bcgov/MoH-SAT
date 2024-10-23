@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
+        <fullName>Assessment_Sharing_Records_With_Providers</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>Assessment Sharing Records With Providers</label>
+        <sharedTo>
+            <group>EDRD_Physicians</group>
+        </sharedTo>
+        <sharedFrom>
+            <role>Developer</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>EDRD_Assessment_ShareAdmin</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Share with EDRD Admins</description>
@@ -103,6 +114,17 @@
         <label>EDRD_Assessment_ShareEDRDPhysiciansWithEDRDStaff</label>
         <sharedTo>
             <role>EDRD_Staff</role>
+        </sharedTo>
+        <sharedFrom>
+            <group>EDRD_Physicians</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>EDRD_Share_Assessment_with_Reviewers</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD_Share_Assessment_with_Reviewers</label>
+        <sharedTo>
+            <group>EDRD_Reviewer</group>
         </sharedTo>
         <sharedFrom>
             <group>EDRD_Physicians</group>

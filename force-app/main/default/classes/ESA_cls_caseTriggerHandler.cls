@@ -11,11 +11,17 @@
                 19 Jan-     EDRD-338		  -  Accenture	  -  Update Funding Expiry Date
                 19 Jan-     EDRD-382		  -  Accenture	  -  Validate Eligibility Form Sign date and Eligibility form Attachment
                 20 Jun-     EDRD-764		  -  Accenture    -  Populate EDRD Reference number
+                07 Jun-     EDRD-679		  -  Accenture    -  Generate FY forecasting records
+                17 Oct-     EDRD-1010		  -  Accenture    -  Collect set of caseId's and pass it to future method
+                17 Oct-     EDRD-1010		  -  Accenture    -  Future method(Private) is to update EDRD Provider field on Person Account.
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
     public static boolean firstrun= true;  
+    public static boolean FYOnce= true;
     public static Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+    public static Decimal costPerDose = 0;
+    public static Map<Id, Decimal> caseIdVsCostPerDose = new Map<Id, Decimal>();
 /**
 * @author: Deepak
 * @date: 23 Feb 2023
@@ -88,11 +94,11 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     
-    public static void assignStatus(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+    public static void assignStatus(Map<Id,Case> oldCaseMap, Map<Id,Case> newCaseMap){
         for(Case caseObj: newCaseMap.values()){
-            Boolean isRPHReviewChanged = oldCaseMap.get(caseObj.id).EDRD_RPH_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_RPH_Review_Pathway__c;
-            Boolean isSCReviewChanged = oldCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_SC_Review_Pathway__c;
-            Boolean isACReviewChanged = oldCaseMap.get(caseObj.id).EDRD_AC_Review_Pathway__c != newCaseMap.get(caseObj.id).EDRD_AC_Review_Pathway__c;
+            Boolean isRPHReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c;
+            Boolean isSCReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c;
+            Boolean isACReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c;
             if((isRPHReviewChanged && isSCReviewChanged) || (isSCReviewChanged && isACReviewChanged) || (isRPHReviewChanged && isACReviewChanged)){
                 caseobj.addError(Label.EDRD_label_pathwayValidationErrorMsg);
             }
@@ -101,6 +107,8 @@ public with sharing class ESA_cls_caseTriggerHandler {
                 caseObj.Status = returnStatus(caseObj.EDRD_RPH_Review_Pathway__c);
             }else if(isSCReviewChanged && !String.isEmpty(caseObj.EDRD_SC_Review_Pathway__c)){
                 caseObj.Status = returnStatus(caseObj.EDRD_SC_Review_Pathway__c);
+                caseObj.EDRD_AC_Review_Requested__c = caseObj.EDRD_SC_Review_Pathway__c == 'Sent to AC' ? true : false;
+                caseObj.EDRD_Advisory_Committee__c = caseObj.EDRD_SC_Review_Pathway__c == 'Sent to AC' ? 'EDRD Advisory Committee' : NULL;
             }else if(isACReviewChanged && !String.isEmpty(caseObj.EDRD_AC_Review_Pathway__c)){
                 caseObj.Status = returnStatus(caseObj.EDRD_AC_Review_Pathway__c);
             }
@@ -158,21 +166,26 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @description: The purpose of this method is to calculate DrugForecast on Case.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-    public static void calDrugForecast(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
+    public static void calDrugForecast(Map<Id,Case> oldCaseMap, Map<Id,Case> newCaseMap){
         Map<Id, case> caseIdVsRec = new Map<Id, case>();
         for(Case caseObj: newCaseMap.values()){
             Boolean isInputFieldsChanged = (newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage__c ||
                                             newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Dosage_Unit__c ||
                                             newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency__c ||
                                             newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Frequency_Unit__c ||
+                                            newCaseMap.get(caseObj.Id).EDRD_MOHIndefinite_Funding__c != oldCaseMap.get(caseObj.Id).EDRD_MOHIndefinite_Funding__c || 
+                                            newCaseMap.get(CaseObj.Id).Status != oldCaseMap.get(CaseObj.Id).Status && caseObj.Status == 'Funding Approved' ||
                                             newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration__c ||
                                             newCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c != oldCaseMap.get(caseObj.Id).EDRD_MOHApproved_Funding_Duration_Unit__c);
-            caseIdVsRec.put(CaseObj.id, caseObj);
+            if(isInputFieldsChanged){
+                caseIdVsRec.put(CaseObj.id, caseObj);
+            }
         }
         Map<Id, Decimal> caseIdVsForcastAmnt = medicationRequestTriggerHandler.calDrugForecastOnCase(caseIdVsRec.KeySet(), caseIdVsRec);
         if(!caseIdVsForcastAmnt.isEmpty()){
             for(Case caseObj: newCaseMap.values()){
                 caseObj.EDRD_MOHDrug_Cost_Forecast__c = caseIdVsForcastAmnt.ContainsKey(caseObj.Id) ? caseIdVsForcastAmnt.get(caseObj.Id) : NULL;
+                caseObj.EDRD_Cost_Per_Dose__c = caseIdVsCostPerDose.ContainsKey(caseObj.Id) ? caseIdVsCostPerDose.get(caseObj.Id) : NULL;
             }  
         }
     } 
@@ -221,7 +234,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
                     isEndDateChanged = caseObj.EDRD_MOHFunding_Expiry_Date__c != null || caseObj.EDRD_MOHFunding_Extension_Date__c != null;
                     isStartDateChanged = caseObj.EDRD_MOHFunding_Start_Date__c != null;
                 }
-                if(isStartDateChanged && !isEndDateChanged && caseObj.EDRD_MOHIndefinite_Funding__c != null && !caseObj.EDRD_MOHIndefinite_Funding__c){
+                if(!isEndDateChanged && !caseObj.EDRD_MOHIndefinite_Funding__c && caseObj.EDRD_MOHFunding_Start_Date__c != null && caseObj.EDRD_MOHApproved_Funding_Duration__c != null){
                     if(caseObj.EDRD_MOHFunding_Decision__c == 'Approved'){
                         caseObj.EDRD_MOHFunding_Expiry_Date__c = populateExpiryDate(caseObj.EDRD_MOHFunding_Start_Date__c,caseObj.EDRD_MOHApproved_Funding_Duration__c,caseObj.EDRD_MOHApproved_Funding_Duration_Unit__c);
                     }else if(caseObj.EDRD_MOHFunding_Decision__c == 'Extended'){
@@ -239,59 +252,17 @@ public with sharing class ESA_cls_caseTriggerHandler {
         Date expDate;
         Integer durationRound = Integer.valueOf(duration.round(System.RoundingMode.CEILING));
         if(unit == 'Days'){
-            expDate = startDate.addDays(durationRound);
+            expDate = startDate.addDays(durationRound).addDays(-1);
         }else if(unit == 'Weeks'){
-            expDate = startDate.addDays(durationRound*7);
+            expDate = startDate.addDays(durationRound*7).addDays(-1);
         }else if(unit == 'Months'){
-            expDate = startDate.addMonths(durationRound);
+            expDate = startDate.addMonths(durationRound).addDays(-1);
         }else if(unit == 'Years'){
-            expDate = startDate.addYears(durationRound);
+            expDate = startDate.addYears(durationRound).addDays(-1);
+        }else if(unit == 'Once'){
+            expDate = startDate;
         }
         return expDate;
-    }
-    
-/**
-* @author: Suman
-* @date: 18 Jan 2024
-* @description: The purpose of this method is to check Eligibility form signed date and to throw Validation.
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-*/
-    public static void validateAttachmentForMOHReview(List<Case> newCases, Map<Id, Case> oldCaseMap) {
-        try{
-            Set<Id> caseIds = new Set<Id>();
-            for (Case caseObj : newCases){
-                caseIds.add(caseObj.id);
-            }
-            Map<Id, Integer> caseIdToAttachmentCount = new Map<Id, Integer>();
-            for (AggregateResult result : [
-                SELECT LinkedEntityId, COUNT(Id) attachmentCount
-                FROM ContentDocumentLink
-                WHERE LinkedEntityId IN :caseIds
-                GROUP BY LinkedEntityId
-            ]) {
-                caseIdToAttachmentCount.put((Id) result.get('LinkedEntityId'), (Integer) result.get('attachmentCount'));
-            }
-            for (Case caseObj : newCases) {
-                if(!caseObj.EDRD_Bypass_Eligibility_Form__c){
-                    Integer attachmentCount = caseIdToAttachmentCount.get(caseObj.Id) != null ? caseIdToAttachmentCount.get(caseObj.Id) : 0;
-                    if (oldCaseMap.containsKey(caseObj.Id)){
-                        Boolean isStatusChanging = (oldCaseMap.get(caseObj.Id).Status == 'Received - Awaiting Verification' || oldCaseMap.get(caseObj.Id).Status == 'SC Review'
-                                                    || oldCaseMap.get(caseObj.Id).Status == 'AC Review' || oldCaseMap.get(caseObj.Id).Status == 'Received') &&
-                            caseObj.Status == 'MOH Review';
-                        Boolean isSignedDateInvalid = caseObj.EDRD_Eligibility_Form_Signed_Date__c == null ||
-                            caseObj.EDRD_Eligibility_Form_Signed_Date__c < Date.newInstance(2022, 1, 1);
-                        Boolean isNoAttachment = attachmentCount == 0;
-                        if (isStatusChanging && isNoAttachment) {
-                            caseObj.addError(Label.Validation_Error_AttachDocumentMOHReview);
-                        }else if (isStatusChanging && isSignedDateInvalid) {
-                            caseObj.addError(Label.Validation_Error_EDRDEligibilityFormSignedDate);
-                        }
-                    }
-                }
-            }
-        }catch (Exception err) {
-            System.debug('Exception caught: ' + err.getMessage());
-        }
     }
     
 /**
@@ -327,5 +298,92 @@ public with sharing class ESA_cls_caseTriggerHandler {
             }
         }
     }
+
+/**
+* @author: Deepak
+* @date: 07 Jul 2024
+* @description: The purpose of this method is to generate FY forecastings.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    public static void forecastDrugCost(Map<Id, Case> newCaseMap, Map<Id, Case> oldCaseMap){
+        Set<Id> caseIdSet = new Set<Id>();
+        Map<Id, Case> caseIdVsRec = new Map<Id, Case>();
+        Boolean isRunOnce = true;
+        
+        for(Case caseObj: newCaseMap.values()){
+            Boolean isFundingRevoked = (newCaseMap.get(CaseObj.Id).Status == 'Funding Approved' && 
+                (newCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Expiry_Date__c != oldCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Expiry_Date__c ||
+                 newCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Extension_Date__c != oldCaseMap.get(CaseObj.Id).EDRD_MOHFunding_Extension_Date__c ||
+                 newCaseMap.get(CaseObj.Id).EDRD_MOHIndefinite_Funding__c != oldCaseMap.get(CaseObj.Id).EDRD_MOHIndefinite_Funding__c));
+            
+            Boolean isStatusChanged = newCaseMap.get(CaseObj.Id).Status != oldCaseMap.get(CaseObj.Id).Status && caseObj.Status == 'Funding Approved';
+            Boolean isStatusChangedFrmFundingApp = newCaseMap.get(CaseObj.Id).Status != oldCaseMap.get(CaseObj.Id).Status && oldCaseMap.get(CaseObj.Id).Status == 'Funding Approved';
+            if((isFundingRevoked || isStatusChangedFrmFundingApp) && caseObj.RecordTypeId == recordTypeCaseEDRD){
+                caseIdSet.add(caseObj.Id);
+            }
+            
+            if((isStatusChanged || isFundingRevoked) && caseObj.EDRD_MOHFunding_Start_Date__c != NULL && caseObj.EDRD_MOHDrug_Cost_Forecast__c != NULL &&
+               (caseObj.EDRD_MOHFunding_Expiry_Date__c != NULL || caseObj.EDRD_MOHIndefinite_Funding__c || caseObj.EDRD_MOHFunding_Extension_Date__c != NULL)
+               && caseObj.EDRD_MOHFunding_Decision__c != NULL && caseObj.RecordTypeId == recordTypeCaseEDRD && !caseIdVsRec.containskey(caseObj.Id)){
+                   caseIdVsRec.put(caseObj.Id, caseObj);
+               }
+        }
+        if(!caseIdSet.isEmpty()){
+            deleteRelatedFYF(caseIdSet);
+        }
+        
+        if(!caseIdVsRec.isEmpty()){
+            EDRD_cls_FundingForecastController.generateForecastRecords(caseIdVsRec.values());
+        }
+    }
     
+    private static void deleteRelatedFYF(Set<Id> caseIdSet){
+        List<MedicationDispense> caseRelatedFYF = [SELECT Id FROM MedicationDispense 
+                                                   Where Case__c IN: caseIdSet];
+        if(!caseRelatedFYF.isEmpty()){
+            Database.delete(caseRelatedFYF, true);
+        }
+    }
+    
+/**
+* @author: Deepak
+* @date: 17 Oct 2024
+* @description: The purpose of this method collect set of caseId's and pass it to future method.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    public static void UpdateProviderOnEDRDCase(List<Case> newCaseList) {
+        Set<Id> caseIdSet = new Set<Id>();
+        
+        for (Case caseObj : newCaseList) {
+            if (caseObj.RecordTypeId == recordTypeCaseEDRD) {
+                caseIdSet.add(caseObj.Id);
+            }
+        }
+        
+        if (!caseIdSet.isEmpty()) {
+            UpdateProviderAccountsAsync(caseIdSet);
+        }
+    }
+
+/**
+* @author: Deepak
+* @date: 17 Oct 2024
+* @description: The purpose of this future method is to update EDRD Provider field on Person Account.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @future
+    private static void UpdateProviderAccountsAsync(Set<Id> caseIdSet) {
+        Map<Id, Account> accIdVsRecToUpdate = new Map<Id, Account>();
+        
+        List<Case> caseList = [SELECT Id, Provider__r.AccountId FROM Case WHERE Id IN :caseIdSet AND Provider__c != NULL 
+                               AND Provider__r.Account.Is_EDRD_Provider__pc = FALSE];
+        
+        for (Case caseObj : caseList) {
+            accIdVsRecToUpdate.put(caseObj.Provider__r.AccountId, new Account(Id = caseObj.Provider__r.AccountId, Is_EDRD_Provider__pc = TRUE));
+        }
+        
+        if (!accIdVsRecToUpdate.isEmpty()) {
+            Database.Update(accIdVsRecToUpdate.values(), true);
+        }
+    }
 }
