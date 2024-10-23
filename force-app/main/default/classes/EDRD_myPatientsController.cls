@@ -27,14 +27,14 @@ public with sharing class EDRD_myPatientsController {
            AccountContactRelation.SObjectType.getDescribe().isAccessible() &&
            AccountContactRelation.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).isAccessible() 
           ){
-              contactList = [SELECT Id,Name, Birthdate, Patient_Identifier__c 
-                             FROM Contact
-                             WHERE Id IN
-                             (SELECT ContactId 
-                              FROM AccountContactRelation 
-                              WHERE AccountId = :users[0].AccountId and IsActive = true)
-                             LIMIT 50000];
-          }
+               contactList = [SELECT Id,Name, Birthdate, Patient_Identifier__c, EDRD_Ref_No__c 
+                              FROM Contact
+                              WHERE Id IN
+                              (SELECT ContactId 
+                               FROM AccountContactRelation 
+                               WHERE AccountId = :users[0].AccountId and IsActive = true)
+                              LIMIT 50000];
+           }
         return contactList;
     }
 }

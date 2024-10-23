@@ -77,10 +77,6 @@
                 <behavior>Edit</behavior>
                 <field>EDRD_Eligibility_Form_Signed_Date__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EDRD_Bypass_Eligibility_Form__c</field>
-            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -459,6 +455,16 @@
         <fields>EffectiveDateTime</fields>
         <fields>ExpirationDateTime</fields>
         <relatedList>Assessments</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>Patient</fields>
+        <fields>Medication</fields>
+        <fields>EDRD_Fiscal_Year__c</fields>
+        <fields>EDRD_Start_Date__c</fields>
+        <fields>EDRD_End_Date__c</fields>
+        <fields>EDRD_Forecasted_Amount__c</fields>
+        <relatedList>MedicationDispense.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>TASK.SUBJECT</fields>

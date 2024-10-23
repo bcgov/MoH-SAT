@@ -35,7 +35,7 @@ jobs:
       run: sf package install --package "${{ github.event.inputs.package }}" -o SAT-BUILD -b 15 --noprompt --wait 10
 
     - name: Re-deploy default objects
-      run: sf project deploy start -d force-app/main/default/objects -o SAT-BUILD -w 15 -l RunLocalTests
+      run: sf project deploy start -d force-app/main/default/objects -o SAT-BUILD -w 15 -l RunLocalTests --ignore-conflicts
 
     - name: Re-deploy default queues 
       run: sf project deploy start -d force-app/main/default/queues -o SAT-BUILD -w 15 -l RunLocalTests

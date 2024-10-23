@@ -68,47 +68,22 @@ public with sharing class ESA_cls_accountTriggerHandler {
 * @date: 10 Nov 2023
 * @description: The purpose of this method is to close related cases on patient inactive.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     02 Oct -  EDRD-819           -  Accenture   -  Added account helper class to run in system context                      
 */ 
-    public static void closeCaseOnAccDeceased(List<Account> newAccountList, Map<id,Account> oldAccountMap, Map<id,Account> newAccountMap) {
+    public static void closeCaseOnAccDeceased(List<Account> newAccountList, Map<Id,Account> oldAccountMap, Map<Id,Account> newAccountMap) {
         Set<Id> patientIdSet = new Set<Id>();
         for(account patientRec: newAccountList){
-            Boolean isPatientDeceasedChange = (oldAccountMap.get(patientRec.id).Patient_is_Deceased__pc != newAccountMap.get(patientRec.id).Patient_is_Deceased__pc
-                                               && !newAccountMap.get(patientRec.id).Patient_is_Deceased__pc);
+            Boolean isPatientDeceasedChange = (oldAccountMap.get(patientRec.Id).Patient_is_Deceased__pc != newAccountMap.get(patientRec.Id).Patient_is_Deceased__pc
+                                               && newAccountMap.get(patientRec.Id).Patient_is_Deceased__pc);
             
             if(isPatientDeceasedChange){
-                patientIdSet.add(patientRec.id);
+                patientIdSet.add(patientRec.Id);
             }
         }
+        
         if(!patientIdSet.isEmpty()){
-            List<Case> casesToUpdate = [SELECT Id, Status, Account.Patient_is_Deceased__pc, EDRD_Notes__c, EDRD_Case_closure_reasons__c 
-                                        FROM Case WHERE AccountID IN: patientIdSet AND RecordType.developername = 'EDRD'
-                                        AND IsClosed = FALSE];
-            List<CareProgramEnrollee> enrolleToUpdate = [SELECT Id, CareProgramId, Status, Inactive_Reason__c 
-                                                         FROM CareProgramEnrollee WHERE CareProgram.Name = 'EDRD' 
-                                                         AND AccountId IN: patientIdSet];
-            
-            for(Case caseObj: casesToUpdate){
-                if(caseObj.Account.Patient_is_Deceased__pc){
-                    caseObj.status = ESA_cls_constants.EDRD_CASE_STATUS_CANCELLED;
-                    caseObj.EDRD_Case_Closure_Reasons__c = ESA_cls_constants.EDRD_CASE_CLOSER_REASON_PATIENT_DECEASED;
-                    caseObj.EDRD_MOHFunding_Decision__c = ESA_cls_constants.EDRD_CASE_MOHFUNDING_DENIED;
-                    String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
-                    caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_deceased;
-                }
-            }
-            
-            for(CareProgramEnrollee careEnrolleeObj: enrolleToUpdate){
-                careEnrolleeObj.Status = 'Inactive';
-                careEnrolleeObj.Inactive_Reason__c = 'Patient Deceased';
-            }
-            
-            if(!casesToUpdate.isEmpty()){
-                Update casesToUpdate;
-            }
-            
-            if(!enrolleToUpdate.isEmpty()){
-                Update enrolleToUpdate;
-            }
+            AccountTriggerHelper.processDeceasedPatientEDRDCPE(patientIdSet);
+            AccountTriggerHelper.processDeceasedPatientEDRDCases(patientIdSet);
         }
     }
 }
