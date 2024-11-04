@@ -7,7 +7,7 @@
     <excludeButtons>Edit</excludeButtons>
     <excludeButtons>IsotopeSubscription</excludeButtons>
     <excludeButtons>MergeCase</excludeButtons>
-    <excludeButtons>Share</excludeButtons>
+        <excludeButtons>Share</excludeButtons>
     <excludeButtons>StartOutboundConversation</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
@@ -39,6 +39,18 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Subject</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_Adherence_Issues__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_Type_of_adherence_issues__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_Reason_for_adherence_issues__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -132,7 +144,7 @@
                 <behavior>Required</behavior>
                 <field>ContactId</field>
             </layoutItems>
-            <layoutItems>
+                        <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Patient_Identifier__c</field>
             </layoutItems>
