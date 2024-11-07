@@ -2,9 +2,19 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_PhoneNumber_Validation</fullName>
     <active>true</active>
-    <errorConditionFormula>OR(
-    NOT(ISBLANK(PersonOtherPhone)) &amp;&amp; NOT(ISNUMBER(PersonOtherPhone)),
-    NOT(ISBLANK(PersonHomePhone)) &amp;&amp; NOT(ISNUMBER(PersonHomePhone))
+    <errorConditionFormula>AND(
+    RecordType.Name = &apos;Provider&apos;,
+    CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+    OR(
+        AND(
+            NOT(ISBLANK(PersonOtherPhone)),
+            NOT(ISNUMBER(PersonOtherPhone))
+        ),
+        AND(
+            NOT(ISBLANK(PersonHomePhone)),
+            NOT(ISNUMBER(PersonHomePhone))
+        )
+    )
 )</errorConditionFormula>
     <errorMessage>Please enter the digit only for Other Phone and Home Phone.</errorMessage>
 </ValidationRule>
