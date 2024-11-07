@@ -30,7 +30,7 @@ jobs:
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Installing SF managed packages
-      run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --noprompt 
+      run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --noprompt  
 
     - name: Set deployment user standard security
       run: |
@@ -49,7 +49,7 @@ jobs:
       run: sf project deploy start -d force-app -o ciorg --ignore-conflicts
  
     - name: Deploy source default objects
-      run: sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
+      run: sf project deploy start -d force-app/main/default/objects -o ciorg --ignore-conflicts -w 15
  
     - name: Deploy source default queues
       run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15

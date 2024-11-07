@@ -4,7 +4,6 @@
     <active>true</active>
     <description>This validation rule ensures that when the Account record type is &quot;Committee_Reviewer,&quot; and the Committee picklist is set to &quot;EDRD Sub Committee&quot; then Committee Name field is not left blank.</description>
     <errorConditionFormula>AND(
-    CONTAINS($UserRole.Name, &quot;EDRD&quot;),
     OR(
         ISPICKVAL(Committee__pc, &quot;EDRD Sub Committee&quot;),
         ISPICKVAL(Committee__pc, &quot;EDRD Advisory/ Sub Committee&quot;)

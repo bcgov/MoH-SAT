@@ -439,6 +439,7 @@ public with sharing class TestFactory {
         CareProgramEnrolleeObj.Name = Name;
         CareProgramEnrolleeObj.AccountId = accountId;
         CareProgramEnrolleeObj.CareProgramId = CareProgramId;
+        CareProgramEnrolleeObj.Status = 'Active';
         return CareProgramEnrolleeObj;
     }
     
@@ -513,6 +514,7 @@ public with sharing class TestFactory {
             MIObj.StrengthNumerator = 300;
             MIObj.StrengthNumeratorUnitId = UnitOfMeasureId;
             MIObj.Unit_Price__c = 100;
+            MIObj.Formulation__c = 'Vial';
             MIObj.ParentRecordId = MedicationId;
             MIObj.IngredientId = MedicationId;
             MIList.add(MIObj);

@@ -50,7 +50,7 @@ jobs:
       run: sf project deploy start -d force-app -o ciorg --ignore-conflicts
  
     - name: Deploy source default objects
-      run: sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
+      run: sf project deploy start -d force-app/main/default/objects -o ciorg  --ignore-conflicts -w 15
  
     - name: Deploy source default queues
       run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
