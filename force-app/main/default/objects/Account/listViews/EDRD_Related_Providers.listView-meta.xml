@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_EDRD_Providers</fullName>
+    <fullName>EDRD_Related_Providers</fullName>
     <columns>ACCOUNT.NAME</columns>
     <columns>Provider_Type__pc</columns>
     <columns>Provider_Identifier__pc</columns>
@@ -14,7 +14,12 @@
         <operation>equals</operation>
         <value>PersonAccount.Provider</value>
     </filters>
-    <label>EDRD - All Providers</label>
+    <filters>
+        <field>Is_EDRD_Provider__pc</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>EDRD - Related Providers</label>
     <sharedTo>
         <role>Developer</role>
         <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>

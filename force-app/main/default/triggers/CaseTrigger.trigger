@@ -12,6 +12,7 @@
                 19 Jan -  EDRD-338          -  Accenture   -  Update Funding Expiry and Extension Date
                 19 Jan-   EDRD-382			-  Accenture   -  Validate Eligibility Form Sign date and Eligibility form Attachment
                 20 Jun-   EDRD-764			-  Accenture   -  Populate EDRD Reference number
+                17 Oct-   EDRD-1010		    -  Accenture    -  Update Provider's - EDRD Checkbox On EDRD Case Insert
 ***********************************************************************************************/
 trigger CaseTrigger on Case (before insert, before update, after insert, after update) {    
     
@@ -27,6 +28,7 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
                 }
             }
         }  
+        ESA_cls_caseTriggerHandler.UpdateProviderOnEDRDCase(trigger.new);
     }
     
     if(trigger.isBefore){

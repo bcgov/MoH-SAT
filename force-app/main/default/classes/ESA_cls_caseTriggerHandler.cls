@@ -12,6 +12,8 @@
                 19 Jan-     EDRD-382		  -  Accenture	  -  Validate Eligibility Form Sign date and Eligibility form Attachment
                 20 Jun-     EDRD-764		  -  Accenture    -  Populate EDRD Reference number
                 07 Jun-     EDRD-679		  -  Accenture    -  Generate FY forecasting records
+                17 Oct-     EDRD-1010		  -  Accenture    -  Collect set of caseId's and pass it to future method
+                17 Oct-     EDRD-1010		  -  Accenture    -  Future method(Private) is to update EDRD Provider field on Person Account.
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -340,6 +342,48 @@ public with sharing class ESA_cls_caseTriggerHandler {
                                                    Where Case__c IN: caseIdSet];
         if(!caseRelatedFYF.isEmpty()){
             Database.delete(caseRelatedFYF, true);
+        }
+    }
+    
+/**
+* @author: Deepak
+* @date: 17 Oct 2024
+* @description: The purpose of this method collect set of caseId's and pass it to future method.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    public static void UpdateProviderOnEDRDCase(List<Case> newCaseList) {
+        Set<Id> caseIdSet = new Set<Id>();
+        
+        for (Case caseObj : newCaseList) {
+            if (caseObj.RecordTypeId == recordTypeCaseEDRD) {
+                caseIdSet.add(caseObj.Id);
+            }
+        }
+        
+        if (!caseIdSet.isEmpty()) {
+            UpdateProviderAccountsAsync(caseIdSet);
+        }
+    }
+
+/**
+* @author: Deepak
+* @date: 17 Oct 2024
+* @description: The purpose of this future method is to update EDRD Provider field on Person Account.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @future
+    private static void UpdateProviderAccountsAsync(Set<Id> caseIdSet) {
+        Map<Id, Account> accIdVsRecToUpdate = new Map<Id, Account>();
+        
+        List<Case> caseList = [SELECT Id, Provider__r.AccountId FROM Case WHERE Id IN :caseIdSet AND Provider__c != NULL 
+                               AND Provider__r.Account.Is_EDRD_Provider__pc = FALSE];
+        
+        for (Case caseObj : caseList) {
+            accIdVsRecToUpdate.put(caseObj.Provider__r.AccountId, new Account(Id = caseObj.Provider__r.AccountId, Is_EDRD_Provider__pc = TRUE));
+        }
+        
+        if (!accIdVsRecToUpdate.isEmpty()) {
+            Database.Update(accIdVsRecToUpdate.values(), true);
         }
     }
 }
