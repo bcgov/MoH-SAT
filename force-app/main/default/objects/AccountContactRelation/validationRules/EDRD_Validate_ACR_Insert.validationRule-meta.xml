@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_Validate_ACR_Insert</fullName>
-    <active>true</active>
+    <active>false</active>
     <description>This validation rule prevents an inactive Account Contact Relation from being created when an EDRD user associates a Physician role with a Provider Account, and the related Contact&apos;s Account record type is &apos;Patient&apos;</description>
     <errorConditionFormula>AND(
     ISNEW(),
