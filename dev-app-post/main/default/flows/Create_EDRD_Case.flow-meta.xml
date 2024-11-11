@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <apiVersion>59.0</apiVersion>
+    <apiVersion>60.0</apiVersion>
+    <assignments>
+        <name>Update_CD_with_Entity_Id</name>
+        <label>Update CD with Entity Id</label>
+        <locationX>798</locationX>
+        <locationY>4034</locationY>
+        <assignmentItems>
+            <assignToReference>CDL_Record.ContentDocumentId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Iterate_CD_Records</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.LinkedEntityId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>StoreRenewalCase.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Insert_CDL_Records</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CDL_Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_CD_Records</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_CD_with_Entity_Id_NewCaseType</name>
+        <label>Update CD with Entity Id__NewCaseType</label>
+        <locationX>270</locationX>
+        <locationY>4034</locationY>
+        <assignmentItems>
+            <assignToReference>CDL_Record.ContentDocumentId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Iterate_CD_Records</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.LinkedEntityId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>StoreNewCase.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Insert_CDL_Records</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CDL_Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
+        </connector>
+    </assignments>
     <choices>
         <name>AC_Review</name>
         <choiceText>AC Review</choiceText>
@@ -55,10 +115,60 @@
         <dataType>String</dataType>
     </choices>
     <decisions>
+        <name>check_Insert_CDL_list_is_not_empty</name>
+        <label>check Insert CDL list is not empty</label>
+        <locationX>710</locationX>
+        <locationY>4226</locationY>
+        <defaultConnector>
+            <targetReference>Success</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CDL_List_is_not_Empty</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Insert_CDL_Records</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_RelatedCDLfor_RenewalCase</targetReference>
+            </connector>
+            <label>CDL List is not Empty</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Insert_CDL_list_is_not_empty_NewCaseType</name>
+        <label>check Insert CDL list is not empty_NewCaseType</label>
+        <locationX>182</locationX>
+        <locationY>4226</locationY>
+        <defaultConnector>
+            <targetReference>Sucees</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CDL_List_is_not_Empty_NewCaseType</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Insert_CDL_Records</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_RelatedCDLfor_RenewalCase_NewCaseType</targetReference>
+            </connector>
+            <label>CDL List is not Empty_NewCaseType</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Choose_case_option</name>
         <label>Choose case option</label>
         <locationX>446</locationX>
-        <locationY>2894</locationY>
+        <locationY>3002</locationY>
         <defaultConnector>
             <targetReference>Get_Case_Record_Type_for_renewal</targetReference>
         </defaultConnector>
@@ -108,7 +218,7 @@
         <name>Decision_10</name>
         <label>Renewal Indefinite Funding check</label>
         <locationX>710</locationX>
-        <locationY>3110</locationY>
+        <locationY>3218</locationY>
         <defaultConnector>
             <targetReference>New_renewal_case_creation_for_RecType_Renew_without_indef</targetReference>
         </defaultConnector>
@@ -158,7 +268,7 @@
         <name>New_Indefinite_Funding_check</name>
         <label>New Indefinite Funding check</label>
         <locationX>182</locationX>
-        <locationY>3110</locationY>
+        <locationY>3218</locationY>
         <defaultConnector>
             <targetReference>New_case_Creation_for_Rec_type_New_without_indef</targetReference>
         </defaultConnector>
@@ -408,7 +518,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>updated Changes related to ACR with EDRD Data Migration field.</description>
+    <description>Changes Related EDRD-1055</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -462,6 +572,34 @@
     <environments>Default</environments>
     <interviewLabel>Create EDRD Case {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Create EDRD Case</label>
+    <loops>
+        <name>Iterate_CD_Records</name>
+        <label>Iterate_CD_Records</label>
+        <locationX>710</locationX>
+        <locationY>3926</locationY>
+        <collectionReference>UploadScreenDocument.contentDocIds</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_CD_with_Entity_Id</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>check_Insert_CDL_list_is_not_empty</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Iterate_CD_Records_NewCaseType</name>
+        <label>Iterate_CD_Records_NewCaseType</label>
+        <locationX>182</locationX>
+        <locationY>3926</locationY>
+        <collectionReference>UploadScreenDocument.contentDocIds</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_CD_with_Entity_Id_NewCaseType</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>check_Insert_CDL_list_is_not_empty_NewCaseType</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -488,7 +626,7 @@
         <locationY>3734</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Sucees</targetReference>
+            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
@@ -595,7 +733,7 @@
         <locationY>3734</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Sucees</targetReference>
+            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
@@ -696,7 +834,7 @@
         <locationY>3734</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Success</targetReference>
+            <targetReference>Iterate_CD_Records</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
@@ -803,7 +941,7 @@
         <locationY>3734</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Success</targetReference>
+            <targetReference>Iterate_CD_Records</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
@@ -898,10 +1036,30 @@
         <object>MedicationRequest</object>
     </recordCreates>
     <recordCreates>
+        <name>Create_RelatedCDLfor_RenewalCase</name>
+        <label>Create_RelatedCDLfor_RenewalCase</label>
+        <locationX>578</locationX>
+        <locationY>4334</locationY>
+        <connector>
+            <targetReference>Success</targetReference>
+        </connector>
+        <inputReference>Insert_CDL_Records</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_RelatedCDLfor_RenewalCase_NewCaseType</name>
+        <label>Create_RelatedCDLfor_RenewalCase_NewCaseType</label>
+        <locationX>50</locationX>
+        <locationY>4334</locationY>
+        <connector>
+            <targetReference>Sucees</targetReference>
+        </connector>
+        <inputReference>Insert_CDL_Records</inputReference>
+    </recordCreates>
+    <recordCreates>
         <name>New_case_Creation_for_Rec_type_New</name>
         <label>New case Creation for Rec type New</label>
         <locationX>50</locationX>
-        <locationY>3218</locationY>
+        <locationY>3326</locationY>
         <connector>
             <targetReference>Get_Newly_created_Case</targetReference>
         </connector>
@@ -996,7 +1154,7 @@
         <name>New_case_Creation_for_Rec_type_New_without_indef</name>
         <label>New case Creation for Rec type New without indef</label>
         <locationX>314</locationX>
-        <locationY>3218</locationY>
+        <locationY>3326</locationY>
         <connector>
             <targetReference>Get_Newly_created_Case_without_indef</targetReference>
         </connector>
@@ -1085,7 +1243,7 @@
         <name>New_renewal_case_creation_for_RecType_Renew</name>
         <label>New renewal case creation for RecType Renew</label>
         <locationX>578</locationX>
-        <locationY>3218</locationY>
+        <locationY>3326</locationY>
         <connector>
             <targetReference>Get_newly_created_Renewal_Rec</targetReference>
         </connector>
@@ -1180,7 +1338,7 @@
         <name>New_renewal_case_creation_for_RecType_Renew_without_indef</name>
         <label>New renewal case creation for RecType Renew without indef</label>
         <locationX>842</locationX>
-        <locationY>3218</locationY>
+        <locationY>3326</locationY>
         <connector>
             <targetReference>Get_newly_created_Renewal_Rec_without_indef</targetReference>
         </connector>
@@ -1301,7 +1459,7 @@
         <name>Get_Case_Record_Type</name>
         <label>Get Case Record Type</label>
         <locationX>182</locationX>
-        <locationY>3002</locationY>
+        <locationY>3110</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Indefinite_Funding_check</targetReference>
@@ -1331,7 +1489,7 @@
         <name>Get_Case_Record_Type_for_renewal</name>
         <label>Get Case Record Type for renewal</label>
         <locationX>710</locationX>
-        <locationY>3002</locationY>
+        <locationY>3110</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Decision_10</targetReference>
@@ -1455,10 +1613,10 @@
         <name>Get_Newly_created_Case</name>
         <label>Get Newly created Case</label>
         <locationX>50</locationX>
-        <locationY>3326</locationY>
+        <locationY>3434</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Upload_Document</targetReference>
+            <targetReference>New_Indefinite_Funding_check2</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1482,10 +1640,10 @@
         <name>Get_Newly_created_Case_without_indef</name>
         <label>Get Newly created Case without indef</label>
         <locationX>314</locationX>
-        <locationY>3326</locationY>
+        <locationY>3434</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Upload_Document</targetReference>
+            <targetReference>New_Indefinite_Funding_check2</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1509,10 +1667,10 @@
         <name>Get_newly_created_Renewal_Rec</name>
         <label>Get newly created Renewal Rec</label>
         <locationX>578</locationX>
-        <locationY>3326</locationY>
+        <locationY>3434</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>UploadDocument</targetReference>
+            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1536,10 +1694,10 @@
         <name>Get_newly_created_Renewal_Rec_without_indef</name>
         <label>Get newly created Renewal Rec without indef</label>
         <locationX>842</locationX>
-        <locationY>3326</locationY>
+        <locationY>3434</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>UploadDocument</targetReference>
+            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1563,7 +1721,7 @@
         <name>Get_Patient_Contact_rec</name>
         <label>Get Patient Contact</label>
         <locationX>446</locationX>
-        <locationY>2678</locationY>
+        <locationY>2786</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Provider_Contact_Rec</targetReference>
@@ -1649,7 +1807,7 @@
         <name>Get_Provider_Contact_Rec</name>
         <label>Get Provider Contact</label>
         <locationX>446</locationX>
-        <locationY>2786</locationY>
+        <locationY>2894</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Choose_case_option</targetReference>
@@ -1698,7 +1856,7 @@
         <name>Get_PSP_Queue</name>
         <label>Get PSP Queue</label>
         <locationX>446</locationX>
-        <locationY>2570</locationY>
+        <locationY>2678</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Patient_Contact_rec</targetReference>
@@ -1962,7 +2120,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_PSP_Queue</targetReference>
+            <targetReference>Upload_Supporting_Documents</targetReference>
         </connector>
         <fields>
             <name>MedicationInformation</name>
@@ -2318,7 +2476,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_PSP_Queue</targetReference>
+            <targetReference>Upload_Supporting_Documents</targetReference>
         </connector>
         <fields>
             <name>Other_MedicationInformation</name>
@@ -2358,7 +2516,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_PSP_Queue</targetReference>
+            <targetReference>Upload_Supporting_Documents</targetReference>
         </connector>
         <fields>
             <name>Copy_1_of_MedicationInformation</name>
@@ -2625,7 +2783,7 @@
         <name>Success</name>
         <label>Success</label>
         <locationX>710</locationX>
-        <locationY>3926</locationY>
+        <locationY>4526</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2709,7 +2867,7 @@
         <name>Sucees</name>
         <label>Sucees</label>
         <locationX>182</locationX>
-        <locationY>3926</locationY>
+        <locationY>4526</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2790,80 +2948,29 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Upload_Document</name>
-        <label>Upload Document</label>
-        <locationX>182</locationX>
-        <locationY>3518</locationY>
+        <name>Upload_Supporting_Documents</name>
+        <label>Upload Supporting Documents</label>
+        <locationX>446</locationX>
+        <locationY>2570</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>New_Indefinite_Funding_check2</targetReference>
+            <targetReference>Get_PSP_Queue</targetReference>
         </connector>
         <fields>
-            <name>Upload2</name>
+            <name>Upload_SupportingDocuments</name>
             <fieldText>&lt;p&gt;&lt;strong&gt;Upload Supporting Documents&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>FileUpload</name>
+            <name>UploadScreenDocument</name>
             <extensionName>forceContent:fileUpload</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>label</name>
                 <value>
                     <stringValue>Upload File</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>recordId</name>
-                <value>
-                    <elementReference>New_case_Creation_for_Rec_type_New</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>multiple</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>UploadDocument</name>
-        <label>Upload Document</label>
-        <locationX>710</locationX>
-        <locationY>3518</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
-        </connector>
-        <fields>
-            <name>Upload</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Upload Supporting Documents&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>File_Upload</name>
-            <extensionName>forceContent:fileUpload</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Upload File</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>recordId</name>
-                <value>
-                    <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -2895,6 +3002,14 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>CDL_Record</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ContentDocumentLink</objectType>
+    </variables>
+    <variables>
         <name>EDRD_careProgramRecordId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -2923,6 +3038,14 @@
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>Insert_CDL_Records</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ContentDocumentLink</objectType>
     </variables>
     <variables>
         <name>MedicationRequestRec</name>

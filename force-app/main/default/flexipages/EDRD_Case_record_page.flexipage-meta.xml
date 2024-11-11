@@ -139,6 +139,33 @@
                 <identifier>RecordEDRD_Case_Reason_does_not_meet_criteria_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Adherence_Issues__c</fieldItem>
+                <identifier>RecordEDRD_Adherence_Issues_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Type_of_adherence_issues__c</fieldItem>
+                <identifier>RecordEDRD_Type_of_adherence_issues_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_Adherence_Issues__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-1dc87897-7d8b-4050-becc-f3b40cbbdc7d</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -225,6 +252,23 @@
                     <criteria>
                         <leftValue>{!Record.Legacy_External_ID__c}</leftValue>
                         <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Reason_for_adherence_issues__c</fieldItem>
+                <identifier>RecordEDRD_Reason_for_adherence_issues_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.EDRD_Adherence_Issues__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
