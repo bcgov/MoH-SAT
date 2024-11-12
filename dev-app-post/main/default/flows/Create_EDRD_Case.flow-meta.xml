@@ -120,7 +120,7 @@
         <locationX>710</locationX>
         <locationY>4226</locationY>
         <defaultConnector>
-            <targetReference>Success</targetReference>
+            <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -145,7 +145,7 @@
         <locationX>182</locationX>
         <locationY>4226</locationY>
         <defaultConnector>
-            <targetReference>Sucees</targetReference>
+            <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -518,7 +518,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes Related EDRD-1055</description>
+    <description>Changes Related EDRD-1055 &amp; added update PSP owner assignment at end.</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -1041,7 +1041,7 @@
         <locationX>578</locationX>
         <locationY>4334</locationY>
         <connector>
-            <targetReference>Success</targetReference>
+            <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
         </connector>
         <inputReference>Insert_CDL_Records</inputReference>
     </recordCreates>
@@ -1051,7 +1051,7 @@
         <locationX>50</locationX>
         <locationY>4334</locationY>
         <connector>
-            <targetReference>Sucees</targetReference>
+            <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
         </connector>
         <inputReference>Insert_CDL_Records</inputReference>
     </recordCreates>
@@ -1115,12 +1115,6 @@
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1204,12 +1198,6 @@
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1302,12 +1290,6 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Provider__c</field>
             <value>
                 <elementReference>ProviderContactRec.Id</elementReference>
@@ -1388,12 +1370,6 @@
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1942,6 +1918,54 @@
             <field>Id</field>
         </outputAssignments>
     </recordLookups>
+    <recordUpdates>
+        <name>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</name>
+        <label>Update_EDRDRenewCase_withPSPOwner</label>
+        <locationX>710</locationX>
+        <locationY>4526</locationY>
+        <connector>
+            <targetReference>Success</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>StoreRenewalCase.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_EDRDNewCase_withPSPOwner</name>
+        <label>Update_EDRDNewCase_withPSPOwner</label>
+        <locationX>182</locationX>
+        <locationY>4526</locationY>
+        <connector>
+            <targetReference>Sucees</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>StoreNewCase.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
     <screens>
         <name>ACR_InactiveErrorScreen</name>
         <label>ACR_InactiveErrorScreen</label>
@@ -2783,7 +2807,7 @@
         <name>Success</name>
         <label>Success</label>
         <locationX>710</locationX>
-        <locationY>4526</locationY>
+        <locationY>4634</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2867,7 +2891,7 @@
         <name>Sucees</name>
         <label>Sucees</label>
         <locationX>182</locationX>
-        <locationY>4526</locationY>
+        <locationY>4634</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
