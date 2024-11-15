@@ -2,6 +2,38 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <apiVersion>60.0</apiVersion>
     <assignments>
+        <name>Assignment_CDL_Record</name>
+        <label>Assignment_CDL_Record</label>
+        <locationX>270</locationX>
+        <locationY>4142</locationY>
+        <assignmentItems>
+            <assignToReference>Insert_CDL_Records</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CDL_Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assignment_Renewal_CDL_Record</name>
+        <label>Assignment_Renewal_CDL_Record</label>
+        <locationX>798</locationX>
+        <locationY>4142</locationY>
+        <assignmentItems>
+            <assignToReference>Insert_CDL_Records</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CDL_Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_CD_Records</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Update_CD_with_Entity_Id</name>
         <label>Update CD with Entity Id</label>
         <locationX>798</locationX>
@@ -21,14 +53,21 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Insert_CDL_Records</assignToReference>
-            <operator>Add</operator>
+            <assignToReference>CDL_Record.ShareType</assignToReference>
+            <operator>Assign</operator>
             <value>
-                <elementReference>CDL_Record</elementReference>
+                <stringValue>I</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.Visibility</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>AllUsers</stringValue>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Iterate_CD_Records</targetReference>
+            <targetReference>Assignment_Renewal_CDL_Record</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -40,7 +79,7 @@
             <assignToReference>CDL_Record.ContentDocumentId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Iterate_CD_Records</elementReference>
+                <elementReference>Iterate_CD_Records_NewCaseType</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -51,14 +90,21 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>Insert_CDL_Records</assignToReference>
-            <operator>Add</operator>
+            <assignToReference>CDL_Record.ShareType</assignToReference>
+            <operator>Assign</operator>
             <value>
-                <elementReference>CDL_Record</elementReference>
+                <stringValue>I</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.Visibility</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>AllUsers</stringValue>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
+            <targetReference>Assignment_CDL_Record</targetReference>
         </connector>
     </assignments>
     <choices>
@@ -118,7 +164,7 @@
         <name>check_Insert_CDL_list_is_not_empty</name>
         <label>check Insert CDL list is not empty</label>
         <locationX>710</locationX>
-        <locationY>4226</locationY>
+        <locationY>4334</locationY>
         <defaultConnector>
             <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
         </defaultConnector>
@@ -143,7 +189,7 @@
         <name>check_Insert_CDL_list_is_not_empty_NewCaseType</name>
         <label>check Insert CDL list is not empty_NewCaseType</label>
         <locationX>182</locationX>
-        <locationY>4226</locationY>
+        <locationY>4334</locationY>
         <defaultConnector>
             <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
         </defaultConnector>
@@ -518,7 +564,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes Related EDRD-1055 &amp; added update PSP owner assignment at end.</description>
+    <description>Changes Related EDRD-1055 &amp; added update PSP owner assignment &amp; update Document upload at end.</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -1039,7 +1085,7 @@
         <name>Create_RelatedCDLfor_RenewalCase</name>
         <label>Create_RelatedCDLfor_RenewalCase</label>
         <locationX>578</locationX>
-        <locationY>4334</locationY>
+        <locationY>4442</locationY>
         <connector>
             <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
         </connector>
@@ -1049,7 +1095,7 @@
         <name>Create_RelatedCDLfor_RenewalCase_NewCaseType</name>
         <label>Create_RelatedCDLfor_RenewalCase_NewCaseType</label>
         <locationX>50</locationX>
-        <locationY>4334</locationY>
+        <locationY>4442</locationY>
         <connector>
             <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
         </connector>
@@ -1922,7 +1968,7 @@
         <name>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</name>
         <label>Update_EDRDRenewCase_withPSPOwner</label>
         <locationX>710</locationX>
-        <locationY>4526</locationY>
+        <locationY>4634</locationY>
         <connector>
             <targetReference>Success</targetReference>
         </connector>
@@ -1946,7 +1992,7 @@
         <name>Update_EDRDNewCase_withPSPOwner</name>
         <label>Update_EDRDNewCase_withPSPOwner</label>
         <locationX>182</locationX>
-        <locationY>4526</locationY>
+        <locationY>4634</locationY>
         <connector>
             <targetReference>Sucees</targetReference>
         </connector>
@@ -2807,7 +2853,7 @@
         <name>Success</name>
         <label>Success</label>
         <locationX>710</locationX>
-        <locationY>4634</locationY>
+        <locationY>4742</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2891,7 +2937,7 @@
         <name>Sucees</name>
         <label>Sucees</label>
         <locationX>182</locationX>
-        <locationY>4634</locationY>
+        <locationY>4742</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
