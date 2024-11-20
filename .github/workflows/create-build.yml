@@ -34,7 +34,7 @@ jobs:
         
 
     - name: Package Upgrade
-      run: sfdx package version create --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=15 --dev-debug --code-coverage
+      run: sfdx package version create --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=30 --dev-debug --code-coverage
       # sfdx package version create  --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=15 --code-coverage
       # sf package version create  --target-dev-hub=devhub --definition-file=config/project-scratch-def.json --installation-key-bypass --package="Special Authority App" --wait=15 -c
       # sfdx force:package:version:create -v devhub -d force-app -f config/project-scratch-def.json -x -p "Special Authority App" -w 15 -c
