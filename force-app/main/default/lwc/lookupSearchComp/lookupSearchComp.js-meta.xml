@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--* 
-* @Author: Suman 
-* @Date: 10 Dec 2023
-* @Description: The purpose of this LWC is to Fetch EDRD Patient Account information in Create EDRD Case Lightning flow.
--->
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>60.0</apiVersion>
     <isExposed>true</isExposed>
@@ -13,6 +8,8 @@
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
             <property name="Name" type="String" label=""/>
+            <property name="FirstName" type="String" label=""/>
+            <property name="LastName" type="String" label=""/>
             <property name="Birthdate" type="String" />
             <property name="AccountId" type="String"/>
             <property name="Zipcode" type="String" />
@@ -22,7 +19,12 @@
             <property name="street" type="String" />
             <property name="patientPHN" type="String" />
             <property name="accountPHN" type="String" />
+            <property name="PHNDOB" type="String" /> 
+            <property name="PatientDOB" type="Date" /> 
             <property name="PostalCode" type="String" />
+            <property name="overRideReason" type="String" />
+            <property name="Gender" type="String" />
+            <property name="Deceased" type="String" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

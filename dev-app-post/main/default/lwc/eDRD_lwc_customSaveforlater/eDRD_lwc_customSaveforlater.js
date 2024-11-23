@@ -1,4 +1,5 @@
 import { LightningElement } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 import EDRD_label_SaveForLaterAcknowledge from '@salesforce/label/c.EDRD_label_SaveForLaterAcknowledge';
 import EDRD_label_SaveForLaterAcknowledge_HelpText from '@salesforce/label/c.EDRD_label_SaveForLaterAcknowledge_HelpText';
 import  omniscriptSaveForLaterAcknowledge from 'omnistudio/omniscriptSaveForLaterAcknowledge';
@@ -10,9 +11,16 @@ export default class eDRD_lwc_customSaveforlater extends OmniscriptBaseMixin(omn
     render() {
         return tmpl;
     }
+
     handleRefresh(event) {
-      window.location.reload()
+     this[NavigationMixin.Navigate]({
+      type: 'comm__namedPage',
+      attributes: {
+          name: 'Home'
+        }
+      });
     }
+
     label = {
         EDRD_label_SaveForLaterAcknowledge,
         EDRD_label_SaveForLaterAcknowledge_HelpText
