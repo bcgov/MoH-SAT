@@ -75,7 +75,6 @@ public without sharing class AccountTriggerHelper {
             String existingValue = String.isEmpty(caseObj.EDRD_Notes__c) ? '' : caseObj.EDRD_Notes__c;
             
             if (!caseObj.IsClosed) {
-                caseObj.EDRD_MOHFunding_Decision__c = (caseObj.Status == 'MOH Review') ? ESA_cls_constants.EDRD_FUNDING_DECISION_DENIED : NULL;
                 caseObj.Status = ESA_cls_constants.EDRD_CASE_STATUS_CANCELLED;
                 caseObj.EDRD_Case_Closure_Reasons__c = ESA_cls_constants.EDRD_CASE_CLOSER_REASON_PATIENT_DECEASED;
                 caseObj.EDRD_Notes__c = existingValue + '\n' + Label.EDRD_label_Patient_deceased;
