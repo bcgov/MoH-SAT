@@ -16,26 +16,21 @@ public class EDRDAccountLookupController_Test {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
                      16-Nov -  EDRD-104          -  Deepak      -  Changes related to EDRD EMPI Integration
 */
-    /*@isTest
+    @isTest
     public static void testGetAccount() {        
-        Id accountRecType = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Patient').getRecordTypeId();
-        Account testPatientAccount = new Account(
-            LastName = 'Test Patient Account',
-            Patient_Identifier__pc = '8910947511',
-            PersonBirthdate = Date.newInstance(2000, 1, 1),
-            RecordTypeId = accountRecType
-        );
-        insert testPatientAccount;
+        Patient mockPatient = new Patient();
+        mockPatient.phn = '1234567890';
+        EDRDAccountLookupController.mockPatient = mockPatient;
+        
         Test.startTest();
-        List<Account> result = EDRDAccountLookupController.getAccount('8910947511');
+        String sTR = EDRDAccountLookupController.getAccount('1234567890');
+        Map<String, Object> jsonMap = (Map<String, Object>) JSON.deserializeUntyped(sTR);        
         Test.stopTest();
-        Assert.areEqual(1, result.size(), 'Expected one account in the result list');
-        Account retrievedAccount = result[0];
-        Assert.areEqual('Test Patient Account', retrievedAccount.LastName, 'Unexpected Account Name');
-        Assert.areEqual('8910947511', retrievedAccount.Patient_Identifier__pc, 'Unexpected Contact Patient Identifier');
-        Assert.areEqual(Date.newInstance(2000, 1, 1), retrievedAccount.PersonBirthdate, 'Unexpected Contact Birthdate');
-        Assert.areNotEqual(testPatientAccount.Patient_Identifier__pc, 'DifferentValue', 'Expected different Contact Patient Identifier');
-    } */
+        
+        Assert.areEqual(jsonMap.isEmpty(), false, 'Method has been failed');        
+        Assert.areEqual(jsonMap.get('ISPHNFOUND'), 'NO', 'PHN is not match');
+        Assert.areNotEqual(jsonMap.isEmpty(), true, 'Method has null response');
+    } 
     
 /**
 * @author: Suman
@@ -71,17 +66,20 @@ public class EDRDAccountLookupController_Test {
 */    
     @isTest
     public static void searchPatientsTest(){
-        Account pntAccount = TestFactory.newPatient('Patient Test');
+        Account pntAccount = TestFactory.newPatient('Patient');
         insert pntAccount;
         Map<String, String> searchCriteria = new Map<String, String>{'patientIdentifier' => '222333444'};
+        Map<String, String> detailSearchCriteria = new Map<String, String>{'firstName' => 'Patient', 'lastName' => 'TestPatient', 'dOB' => '1990-01-01'};
             
         Test.startTest();
-        List<Account> result = EDRDAccountLookupController.searchPatients(searchCriteria);
+        List<Account> pHNResult = EDRDAccountLookupController.searchPatients(searchCriteria);
+        List<Account> detailResult = EDRDAccountLookupController.searchPatients(detailSearchCriteria);
         Test.stopTest();
         
-        Assert.areEqual(1, result.size(), 'Expected one patient record');
-        Account retrievedPatient = result[0];
-        Assert.areEqual('Patient Test', retrievedPatient.FirstName, 'Unexpected First Name');
+        Assert.areEqual(1, pHNResult.size(), 'Expected one patient record');
+        Assert.areEqual(1, detailResult.size(), 'Expected one patient record');
+        Account retrievedPatient = pHNResult[0];
+        Assert.areEqual('Patient', retrievedPatient.FirstName, 'Unexpected First Name');
         Assert.areEqual('TestPatient', retrievedPatient.LastName, 'Unexpected Last Name');
         Assert.areEqual('222333444', retrievedPatient.Patient_Identifier__pc, 'Unexpected Patient Identifier');
         Assert.areNotEqual('WrongFirstName', retrievedPatient.FirstName, 'First Name should not match an incorrect value');
@@ -103,6 +101,7 @@ public class EDRDAccountLookupController_Test {
         Test.startTest();
         Boolean isValid = EDRDAccountLookupController.validatePatientIdentifier('222333444');
         Boolean isInvalid = EDRDAccountLookupController.validatePatientIdentifier('INVALID_PID');
+        Boolean isBlank = EDRDAccountLookupController.validatePatientIdentifier('');
         Test.stopTest();
         
         Assert.areEqual(isValid, true, 'Expected the patient identifier to be valid');

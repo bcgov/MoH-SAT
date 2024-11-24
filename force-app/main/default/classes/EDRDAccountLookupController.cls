@@ -30,24 +30,19 @@ public with sharing class EDRDAccountLookupController{
     @AuraEnabled(cacheable=false)
     public static String getAccount(string actPHN){
         Map<String, String> keyVsValueMap = new Map<String, string>{'ISPHNFOUND' => '', 'PHNDETAILS' => '', 'SFPHNDETAILS' => ''};
-            List<Account> accList = new List<Account>();
-        try{ 
-            Patient patientObj = Test.isRunningTest() ? mockPatient : EmpiIntegration.getPatient(actPHN);
-            If(patientObj.names != NULL){
-                keyVsValueMap.put('ISPHNFOUND', 'YES');
-                keyVsValueMap.put('PHNDETAILS', JSON.Serialize(patientObj));
-            }else If (!String.isBlank(actPHN) && patientObj.names == NULL){
-                string accountIdentificationNumber = actPHN ;
-                accList = [SELECT Id, Name,LastName,PersonContact.Birthdate,PersonBirthdate, PersonContact.Patient_Identifier__c, Patient_Identifier__pc 
-                           FROM Account WHERE PersonContact.Patient_Identifier__c LIKE :accountIdentificationNumber ORDER BY createdDate DESC LIMIT 5];
-                keyVsValueMap.put('ISPHNFOUND', 'NO');
-                if(!accList.IsEmpty()){
-                    keyVsValueMap.put('SFPHNDETAILS', JSON.Serialize(accList.get(0)));
+            
+            try{ 
+                Patient patientObj = Test.isRunningTest() ? mockPatient : EmpiIntegration.getPatient(actPHN);
+                If(patientObj.names != NULL){
+                    keyVsValueMap.put('ISPHNFOUND', 'YES');
+                    keyVsValueMap.put('PHNDETAILS', JSON.Serialize(patientObj));
+                }else If (!String.isBlank(actPHN) && patientObj.names == NULL){
+                    string accountIdentificationNumber = actPHN ;
+                    keyVsValueMap.put('ISPHNFOUND', 'NO');                
                 }
-            }
-        } catch(exception ex){
-            system.debug('An error occurred: ' + ex.getMessage());
-        }        
+            } catch(exception ex){
+                system.debug('An error occurred: ' + ex.getMessage());
+            }        
         return JSON.Serialize(keyVsValueMap);
     }
 /**
@@ -90,7 +85,6 @@ public with sharing class EDRDAccountLookupController{
         }
         
         soql += ' ORDER BY CreatedDate Desc LIMIT 10';
-        System.debug('soql'+ soql);
         
         patients = Database.query(soql);
         return patients;
