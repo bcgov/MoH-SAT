@@ -24,6 +24,7 @@ export default class EDRD_lwc_SFPatientSearchComponent extends LightningElement 
     @api patientIdentifier;
     @api patientSFId;
     @api patientBirthdate;
+    @api patientDeceased;
     @api isCreatePatientManuallyChecked;
     @api availableActions = [];
 
@@ -54,8 +55,9 @@ export default class EDRD_lwc_SFPatientSearchComponent extends LightningElement 
     columns = [
         { label: 'First Name', fieldName: 'FirstName' },
         { label: 'Last Name', fieldName: 'LastName' },
-        { label: 'Birthdate', fieldName: 'PersonBirthdate', type: 'date' },
+        { label: 'Birthdate', fieldName: 'PersonBirthdate', type: 'date-local' },
         { label: 'Gender', fieldName: 'PersonGender' },
+        { label: 'Deceased', fieldName: 'Patient_is_Deceased__pc', type: 'boolean' },
         { label: 'Patient Identifier', fieldName: 'Patient_Identifier__pc' }
     ];
 
@@ -194,6 +196,7 @@ export default class EDRD_lwc_SFPatientSearchComponent extends LightningElement 
             this.patientFirstName = selectedRecord[0].FirstName;
             this.patientLastName = selectedRecord[0].LastName;
             this.patientGender = selectedRecord[0].PersonGender;
+            this.patientDeceased = selectedRecord[0].Patient_is_Deceased__pc;
             this.patientIdentifier = selectedRecord[0].Patient_Identifier__pc;
             this.isCreatePatientManuallyChecked = false;
             this.isNextDisable = false;
@@ -203,6 +206,15 @@ export default class EDRD_lwc_SFPatientSearchComponent extends LightningElement 
             this.patientLastName = null;
             this.patientGender = null;
             this.patientIdentifier = null;
+            this.patientDeceased = false;
+        }
+        if(this.patientDeceased){
+            this.isNextDisable = true;
+            this.showNotification(
+                    'Error',
+                    'An EDRD case cannot be created for a deceased patient.',
+                    'error'
+                );
         }
     }
 

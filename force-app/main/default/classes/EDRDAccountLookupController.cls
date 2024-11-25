@@ -38,7 +38,7 @@ public with sharing class EDRDAccountLookupController{
                     keyVsValueMap.put('PHNDETAILS', JSON.Serialize(patientObj));
                 }else If (!String.isBlank(actPHN) && patientObj.names == NULL){
                     string accountIdentificationNumber = actPHN ;
-                    keyVsValueMap.put('ISPHNFOUND', 'NO');                
+                    keyVsValueMap.put('ISPHNFOUND', 'NO');
                 }
             } catch(exception ex){
                 system.debug('An error occurred: ' + ex.getMessage());
@@ -75,7 +75,7 @@ public with sharing class EDRDAccountLookupController{
         String birthDate = searchCriteria.get('birthDate');
         
         List<Account> patients = new List<Account>();
-        String soql = 'SELECT Id, Name, FirstName, LastName, PersonBirthdate, PersonGender, Patient_Identifier__pc FROM Account WHERE Patient_is_Deceased__pc = FALSE AND RecordType.DeveloperName = \'Patient\'';
+        String soql = 'SELECT Id, Name, FirstName, LastName, PersonBirthdate, PersonGender, Patient_Identifier__pc FROM Account WHERE RecordType.DeveloperName = \'Patient\'';
         
         if (String.isNotBlank(patientIdentifier)) {
             soql += ' AND Patient_Identifier__pc =:patientIdentifier';

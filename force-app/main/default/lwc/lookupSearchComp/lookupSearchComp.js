@@ -34,6 +34,7 @@ export default class CustomObjectForm extends LightningElement {
     @api availableActions = [];
 
     @track isPHNFound;
+    @track isShowNoPHNFound = false;
     @track pHNDetails = {};
     @track sFPHNDetails;
     @track isNextDisable = true;
@@ -75,10 +76,10 @@ export default class CustomObjectForm extends LightningElement {
             this.form[field] = event.target.value?.trim();
             this.overRideReason = event.target.value;
             this.isNextDisable = false;
-            this.messageResult = false;
+            this.isShowNoPHNFound = false;
             this.isReasonValidated = true;
         } else if (!this.accountPHN) {
-            this.messageResult = false;
+            this.isShowNoPHNFound = false;
         } else if (value == 'None') {
             this.overRideReason = event.target.value;
         }
@@ -92,7 +93,7 @@ export default class CustomObjectForm extends LightningElement {
         this.isNextDisable = true;
 
         if (!this.accountPHN) {
-            this.messageResult = true;
+            this.isShowNoPHNFound = true;
             this.accountList = undefined;
             return;
         }
@@ -103,9 +104,10 @@ export default class CustomObjectForm extends LightningElement {
                     const keyVsValue = JSON.parse(result);
                     this.isPHNFound = keyVsValue["ISPHNFOUND"] === 'YES';
                     this.pHNDetails = JSON.parse(keyVsValue["PHNDETAILS"]);
+                    this.isShowNoPHNFound = false;
 
                     if (!this.isPHNFound) {
-                        let accountList = keyVsValue["SFPHNDETAILS"];
+                        this.isShowNoPHNFound = true;
                     } else {
                         let FirstName = "";
                         let LastName = "";
@@ -131,17 +133,17 @@ export default class CustomObjectForm extends LightningElement {
                         this.patientPHN = this.pHNDetails.phn;
                         this.verified = true;
                         this.isNextDisable = false;
-                        this.messageResult = !this.Name;
+                        this.isShowNoPHNFound = !this.Name;
                     }
                 } catch (error) {
                     console.error('Error parsing result:', error);
-                    this.accountList = undefined;
+                     this.isShowNoPHNFound = true;
                 }
             })
             .catch((error) => {
                 console.error('Error fetching account:', error);
                 this.accountList = undefined;
-                this.messageResult = true;
+                this.isShowNoPHNFound = true;
                 this.errorMsg =
                     Array.isArray(error.body)
                         ? error.body.map((err) => err.message).join(', ')
@@ -156,7 +158,7 @@ export default class CustomObjectForm extends LightningElement {
         this.AccountId = '';
         this.accountPHN = '';
         this.patientPHN = '';
-        this.messageResult = false;
+        this.isShowNoPHNFound = false;
         this.showRemoveButton = false;
     }
 
@@ -179,7 +181,7 @@ export default class CustomObjectForm extends LightningElement {
     }
 
     handleNoSearchResult() {
-        this.messageResult = true;
+        this.isShowNoPHNFound = true;
     }
 
     shouldDispatchAction(action) {
