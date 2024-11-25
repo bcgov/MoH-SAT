@@ -8,7 +8,7 @@ import ACCOUNT_OBJECT from '@salesforce/schema/Account';
 import GENDER_FIELD from '@salesforce/schema/Account.PersonGender';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class EDRD_lwc_SFPatientSearchComponent extends LightningElement {
+export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement {
     // Input fields
     patientIdentifier = '';
     firstName = '';

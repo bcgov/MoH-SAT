@@ -75,7 +75,7 @@ public with sharing class EDRDAccountLookupController{
         String birthDate = searchCriteria.get('birthDate');
         
         List<Account> patients = new List<Account>();
-        String soql = 'SELECT Id, Name, FirstName, LastName, PersonBirthdate, PersonGender, Patient_Identifier__pc FROM Account WHERE RecordType.DeveloperName = \'Patient\'';
+        String soql = 'SELECT Id, Name, FirstName, LastName, PersonBirthdate, PersonGender, Patient_Identifier__pc, Patient_is_Deceased__pc FROM Account WHERE RecordType.DeveloperName = \'Patient\'';
         
         if (String.isNotBlank(patientIdentifier)) {
             soql += ' AND Patient_Identifier__pc =:patientIdentifier';

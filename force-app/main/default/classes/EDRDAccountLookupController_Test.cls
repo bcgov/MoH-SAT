@@ -106,6 +106,7 @@ public class EDRDAccountLookupController_Test {
         
         Assert.areEqual(isValid, true, 'Expected the patient identifier to be valid');
         Assert.areEqual(isInvalid, false, 'Expected the patient identifier to be invalid');
+        Assert.areEqual(isBlank, false, 'Expected the patient identifier to be invalid');
         Assert.areNotEqual(isValid, false, 'Patient identifier should not be invalid for valid input');
         Assert.areNotEqual(isInvalid, true, 'Patient identifier should not be valid for invalid input');        
     }
