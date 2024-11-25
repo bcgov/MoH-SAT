@@ -3,6 +3,11 @@
     <fullName>EDRD_PHSA_PSP_STAFF_Birthdate</fullName>
     <active>true</active>
     <description>EDRD_PHSA_PSP_STAFF shouldn&apos;t be able to edit the Birthdate</description>
-    <errorConditionFormula>AND(NOT(ISNEW()),$Permission.EDRD_PHSA_PSP_Staff, ISCHANGED( PersonBirthdate ) )</errorConditionFormula>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    $Permission.EDRD_PHSA_PSP_Staff,
+    ISCHANGED(PersonBirthdate),
+    EDRD_Bypass_Validation__pc = FALSE
+)</errorConditionFormula>
     <errorMessage>You don&apos;t have permission to edit the Birthdate.</errorMessage>
 </ValidationRule>
