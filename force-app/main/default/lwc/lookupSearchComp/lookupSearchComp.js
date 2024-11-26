@@ -1,11 +1,10 @@
-import { 
-    LightningElement, api 
-} from 'lwc';
-import {
-    FlowNavigationBackEvent,
-    FlowNavigationNextEvent
-} from "lightning/flowSupport";
+import { LightningElement, api, track, wire } from 'lwc';
+import { FlowNavigationBackEvent, FlowNavigationNextEvent } from "lightning/flowSupport";
 import getAccount from '@salesforce/apex/EDRDAccountLookupController.getAccount';
+import FLD_PATIENT_OVERRIDE_REASON from '@salesforce/schema/Case.EDRD_Patient_Override_Reason__c';
+import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
+import OBJ_CASE from '@salesforce/schema/Case';
+
 export default class CustomObjectForm extends LightningElement {
     @api accountPHN = '';
     @api patientPHN;
@@ -15,7 +14,12 @@ export default class CustomObjectForm extends LightningElement {
     @api showRemoveButton = false;
     @api accountList = [];
     @api Birthdate;
+    @api PHNDOB;
+    @api PatientDOB;
     @api Name;
+    @api FirstName;
+    @api LastName;
+    @api PatientFullNameDisplay;
     @api AccountId;
     @api street;
     @api city;
@@ -23,45 +27,130 @@ export default class CustomObjectForm extends LightningElement {
     @api state;
     @api Zipcode;
     @api PostalCode;
+    @api verified;
+    @api overRideReason;
+    @api Gender;
+    @api Deceased;
     @api availableActions = [];
-    handlekeychange(event) {
-        if (event.currentTarget) {
-            this.accountPHN = event.currentTarget.value;
+
+    @track isPHNFound;
+    @track isShowNoPHNFound = false;
+    @track pHNDetails = {};
+    @track sFPHNDetails;
+    @track isNextDisable = true;
+    @track isReasonValidated = false;
+
+    form = {
+        overrideReason: 'None'
+    };
+
+    @wire(getObjectInfo, { objectApiName: OBJ_CASE })
+    caseObjInfo;
+
+    @wire(getPicklistValues, { fieldApiName: FLD_PATIENT_OVERRIDE_REASON, recordTypeId: '012000000000000AAA' })
+    patientOverrideReasonFldInfo;
+
+    get ready() {
+        return (
+            this.caseObjInfo &&
+            this.caseObjInfo.data &&
+            this.patientOverrideReasonFldInfo &&
+            this.patientOverrideReasonFldInfo.data
+        );
+    }
+
+    get patientOverrideReasonOptions() {
+        return this.patientOverrideReasonFldInfo?.data?.values || [];
+    }
+
+    get patientOverrideReasonLabel() {
+        return this.caseObjInfo?.data?.fields?.EDRD_Patient_Override_Reason__c?.label || 'Unknown';
+    }
+
+    handleFormChange(event) {
+        const field = event.currentTarget.dataset.field;
+        let value = event.target.value;
+        this.isNextDisable = true;
+
+        if (field && value != 'None') {
+            this.form[field] = event.target.value?.trim();
+            this.overRideReason = event.target.value;
+            this.isNextDisable = false;
+            this.isShowNoPHNFound = false;
+            this.isReasonValidated = true;
+        } else if (!this.accountPHN) {
+            this.isShowNoPHNFound = false;
+        } else if (value == 'None') {
+            this.overRideReason = event.target.value;
         }
     }
+
+    handlekeychange(event) {
+        this.accountPHN = event.currentTarget.value || '';
+    }
+
     handleSearch() {
+        this.isNextDisable = true;
+
         if (!this.accountPHN) {
-            this.messageResult = true;
+            this.isShowNoPHNFound = true;
             this.accountList = undefined;
             return;
         }
+
         getAccount({ actPHN: this.accountPHN })
-            .then(result => {
-                if (result && Array.isArray(result) && result.length > 0) {
-                this.accountList = result;
-                this.Birthdate = result[0].PersonContact.Birthdate;
-                this.Name = result[0].Name;
-                this.AccountId = result[0].Id;
-                this.showRemoveButton = true;
-                this.messageResult = false;
-                this.resultLength = result.length;
-                }else {
-                this.accountList = undefined;
-                this.messageResult = true;
+            .then((result) => {
+                try {
+                    const keyVsValue = JSON.parse(result);
+                    this.isPHNFound = keyVsValue["ISPHNFOUND"] === 'YES';
+                    this.pHNDetails = JSON.parse(keyVsValue["PHNDETAILS"]);
+                    this.isShowNoPHNFound = false;
+
+                    if (!this.isPHNFound) {
+                        this.isShowNoPHNFound = true;
+                    } else {
+                        let FirstName = "";
+                        let LastName = "";
+                        this.pHNDetails.names.forEach(element => {
+                            if (element.type === 'L') {
+                                LastName = element.familyName;
+
+                                // Extract given names
+                                element.givenNames.forEach(given => {
+                                    FirstName += given + ", ";
+                                });
+                            }
+                        });
+
+                        this.PatientFullNameDisplay = (FirstName + LastName).replace(/,/g, '');
+                        this.FirstName = FirstName.replace(/,/g, '');
+                        this.LastName = LastName;
+                        this.Name = this.PatientFullNameDisplay;
+                        this.Gender = this.pHNDetails.gender == 'M' ? 'Male' : this.pHNDetails.gender == 'F' ? 'Female' : 'Other' ;
+                        this.Deceased = this.pHNDetails.deceased == true ? 'Yes' : 'No';
+                        this.Birthdate = this.pHNDetails.dob;
+                        this.PatientDOB = this.pHNDetails.dob;
+                        this.patientPHN = this.pHNDetails.phn;
+                        this.verified = true;
+                        this.isNextDisable = false;
+                        this.isShowNoPHNFound = !this.Name;
+                    }
+                } catch (error) {
+                    console.error('Error parsing result:', error);
+                     this.isShowNoPHNFound = true;
                 }
             })
-            .catch(error => {
+            .catch((error) => {
+                console.error('Error fetching account:', error);
                 this.accountList = undefined;
-                this.messageResult = true;
-                if (error) {
-                    if (Array.isArray(error.body)) {
-                        this.errorMsg = error.body.map(err => err.message).join(', ');
-                    } else if (typeof error.body.message === 'string') {
-                        this.errorMsg = error.body.message;
-                    }
-                }
+                this.isShowNoPHNFound = true;
+                this.errorMsg =
+                    Array.isArray(error.body)
+                        ? error.body.map((err) => err.message).join(', ')
+                        : error.body?.message || 'Unknown error';
             });
     }
+
     handleRemoveResults() {
         this.accountList = [];
         this.Birthdate = '';
@@ -69,10 +158,10 @@ export default class CustomObjectForm extends LightningElement {
         this.AccountId = '';
         this.accountPHN = '';
         this.patientPHN = '';
-        this.messageResult = false;
-        this.resultLength = 0;
+        this.isShowNoPHNFound = false;
         this.showRemoveButton = false;
     }
+
     handleNext() {
         if (this.shouldShowErrorMessage()) {
             this.handleNoSearchResult();
@@ -80,20 +169,25 @@ export default class CustomObjectForm extends LightningElement {
             this.dispatchFlowEvent(FlowNavigationNextEvent);
         }
     }
+
     handleBack() {
         if (this.shouldDispatchAction('BACK')) {
             this.dispatchFlowEvent(FlowNavigationBackEvent);
         }
     }
+
     shouldShowErrorMessage() {
-        return this.resultLength === 0 || this.resultLength === undefined || !this.accountPHN;
+        return (!this.accountPHN || !this.isPHNFound) && !this.isReasonValidated;
     }
+
     handleNoSearchResult() {
-        this.messageResult = true;
+        this.isShowNoPHNFound = true;
     }
+
     shouldDispatchAction(action) {
         return this.availableActions.includes(action);
     }
+
     dispatchFlowEvent(eventType) {
         const flowEvent = new eventType();
         this.dispatchEvent(flowEvent);
