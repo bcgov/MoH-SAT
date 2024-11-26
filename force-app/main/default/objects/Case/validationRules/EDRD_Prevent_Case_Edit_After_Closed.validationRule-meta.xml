@@ -4,7 +4,7 @@
     <active>true</active>
     <errorConditionFormula>AND(
  $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
-$Permission.EDRD_MOH_STAFF  = TRUE,
+ $Permission.EDRD_PHSA_PSP_Staff  = TRUE,
 RecordType.DeveloperName = &apos;EDRD&apos;,
             
 OR(
@@ -14,47 +14,18 @@ OR(
 ),
 
     
-        OR(	
-ISCHANGED(Type),
-ISCHANGED(Origin),
-ISCHANGED(Priority),
-ISCHANGED(Subject),
-ISCHANGED(Description),
-ISCHANGED(EDRD_Case_Fits_Criteria__c),
-ISCHANGED(EDRD_Case_Reason_Does_Not_Meet_Criteria__c),
-ISCHANGED(EDRD_Ref_No__c),
-ISCHANGED(EDRD_Eligibility_Form_Signed_Date__c),
-ISCHANGED(EDRD_Coverage_Status__c),
-ISCHANGED(EDRD_Insurance_Provider__c),
-ISCHANGED(EDRD_Additional_information__c),
-ISCHANGED(EDRD_of_Coverage__c),
-ISCHANGED(EDRD_Annual_Max_Coverage__c),
-ISCHANGED(EDRD_Lifetime_Max_Coverage__c),
-ISCHANGED(Provider__c),
-ISCHANGED(EDRD_RPH_Simplified_Review__c),
-ISCHANGED(EDRD_Case_Eligible_For_Rph_Review__c),
-ISCHANGED(EDRD_RPH_Review_Notes__c),
-ISCHANGED(EDRD_RPH_Review_Pathway__c),
-ISCHANGED(EDRD_RPH_Review_Funding_Duration_Unit__c),
-ISCHANGED(EDRD_RPH_Review_Funding_Duration__c),
-ISCHANGED(EDRD_Patient_Meets_Criteria_for_Rph__c),
-ISCHANGED(EDRD_SubCommittee_Name__c),
-ISCHANGED(EDRD_SC_Review_Requested_Date__c),
-ISCHANGED(EDRD_SC_Recommendation_Review__c),
-ISCHANGED(EDRD_SC_Reason_Patient_Not_Meet_Criteria__c),
-ISCHANGED(EDRD_SC_Review_Funding_Duration__c),
-ISCHANGED(EDRD_SC_Review_Funding_Duration_Unit__c),
-ISCHANGED(EDRD_SC_Review_Notes__c),
-ISCHANGED(EDRD_SC_Review_Pathway__c),
-ISCHANGED(EDRD_AC_Review_Requested_Date__c),
-ISCHANGED(EDRD_AC_Reason_Patient_Not_Meet_Criteria__c),
-ISCHANGED(EDRD_AC_Recommendation_Review__c),
-ISCHANGED(EDRD_AC_Review_Funding_Duration__c),
-ISCHANGED(EDRD_AC_Review_Funding_Duration_Unit__c),
-ISCHANGED(EDRD_AC_Review_Notes__c),
-ISCHANGED(EDRD_AC_Review_Pathway__c),
-ISCHANGED(EDRD_AC_Review_Requested__c),
-ISCHANGED(EDRD_Patient_Meets_Criteria_for_AC__c)
+OR(	
+ISCHANGED(EDRD_MOHFunding_Decision__c),
+ISCHANGED(EDRD_MOHIndefinite_Funding__c),
+ISCHANGED(EDRD_MOHFunding_Start_Date__c),
+ISCHANGED(EDRD_MOHComments__c),
+ISCHANGED(EDRD_MOHDrug_Cost_Forecast__c),
+ISCHANGED(EDRD_MOHApproved_Dosage__c),
+ISCHANGED(EDRD_MOHApproved_Dosage_Unit__c),
+ISCHANGED(EDRD_MOHApproved_Frequency__c),
+ISCHANGED(EDRD_MOHApproved_Frequency_Unit__c),
+ISCHANGED(EDRD_MOHApproved_Funding_Duration__c),
+ISCHANGED(EDRD_MOHApproved_Funding_Duration_Unit__c)
 )
 )</errorConditionFormula>
     <errorMessage>You do not have access to make these changes, please contact Ministry of Health staff</errorMessage>
