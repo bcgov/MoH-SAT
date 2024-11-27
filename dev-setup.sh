@@ -110,10 +110,10 @@ sf project deploy start --source-dir force-app/main/default/queues --target-org 
 sf project deploy start --source-dir OmniStudio-Components --target-org $alias
 #sfdx force:source:deploy -p dev-app-post -u $alias
 
-sf project deploy start --source-dir dev-app-post --target-org $alias
+sf project deploy start --source-dir dev-app-post --target-org $alias --ignore-conflicts
 
 sfdx force:source:tracking:reset -u $alias --noprompt 
-# dx force:source:push -u $alias 
+dx force:source:push -u $alias 
 
 echo "Assigning permissions..."
 #sfdx force:user:permset:assign -u $alias -n SA_Administrator
