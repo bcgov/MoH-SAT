@@ -39,6 +39,7 @@ export default class CustomObjectForm extends LightningElement {
     @track sFPHNDetails;
     @track isNextDisable = true;
     @track isReasonValidated = false;
+    @track pHNForSearch;
 
     form = {
         overrideReason: 'None'
@@ -86,19 +87,19 @@ export default class CustomObjectForm extends LightningElement {
     }
 
     handlekeychange(event) {
-        this.accountPHN = event.currentTarget.value || '';
+        this.pHNForSearch = event.currentTarget.value || '';
     }
 
     handleSearch() {
         this.isNextDisable = true;
 
-        if (!this.accountPHN) {
+        if (!this.pHNForSearch) {
             this.isShowNoPHNFound = true;
             this.accountList = undefined;
             return;
         }
 
-        getAccount({ actPHN: this.accountPHN })
+        getAccount({ actPHN: this.pHNForSearch })
             .then((result) => {
                 try {
                     const keyVsValue = JSON.parse(result);
@@ -112,6 +113,7 @@ export default class CustomObjectForm extends LightningElement {
                         let FirstName = "";
                         let LastName = "";
                         this.pHNDetails.names.forEach(element => {
+                            this.accountPHN = this.pHNForSearch;
                             if (element.type === 'L') {
                                 LastName = element.familyName;
 
@@ -191,5 +193,26 @@ export default class CustomObjectForm extends LightningElement {
     dispatchFlowEvent(eventType) {
         const flowEvent = new eventType();
         this.dispatchEvent(flowEvent);
+    }
+
+    connectedCallback() {
+        this.pHNForSearch = this.accountPHN;  
+        this.overRideReason = 'None';  
+    }
+
+    disconnectedCallback() {
+        this.PatientFullNameDisplay = NULL;
+        this.FirstName = NULL;
+        this.LastName = NULL;
+        this.Name = NULL;
+        this.Gender = NULL ;
+        this.Deceased = NULL;
+        this.Birthdate = NULL;
+        this.PatientDOB = NULL;
+        this.patientPHN = NULL;
+        this.verified = NULL;
+        this.isNextDisable = NULL;
+        this.isShowNoPHNFound = NULL;  
+        this.overRideReason = 'None';  
     }
 }
