@@ -275,4 +275,18 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
         });
         this.dispatchEvent(evt);
     }
+
+    connectedCallback() {
+        this.isCreatePatientManuallyChecked = false; 
+    }
+
+    disconnectedCallback() {
+        this.patientFirstName = NULL;
+        this.patientLastName = NULL;
+        this.patientGender = NULL;
+        this.patientBirthdate = NULL;
+        this.patientIdentifier = NULL ;
+        this.patient_IdentifierManual = NULL;
+        this.isCreatePatientManuallyChecked = false;
+    }
 }
