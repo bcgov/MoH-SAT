@@ -100,7 +100,7 @@ global without sharing class EDRD_EmpiIntegration implements Callable
             patientOutputWrapper.lastName = patient.names[0].familyName;
             patientOutputWrapper.dateOfBirth = Date.valueOf(patient.dob);
             patientOutputWrapper.deceased = patient.deceased;
-            patientOutputWrapper.gender = patient.gender.equals('F') ? 'Female' ? patient.gender.equals('M') ? 'Male' : 'Other';
+            patientOutputWrapper.gender = patient.gender.equals('F') ? 'Female' : patient.gender.equals('M') ? 'Male' : 'Other';
             patientOutputWrapper.isPatientFound = true;
         }
         return patientOutputWrapper;
