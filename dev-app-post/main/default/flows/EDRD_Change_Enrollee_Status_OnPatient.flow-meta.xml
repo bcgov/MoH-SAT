@@ -50,13 +50,6 @@
                 <booleanValue>false</booleanValue>
             </value>
         </assignmentItems>
-        <assignmentItems>
-            <assignToReference>iterate_EDRD_open_cases.EDRD_MOHFunding_Decision__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>Denied</stringValue>
-            </value>
-        </assignmentItems>
         <connector>
             <targetReference>Store_Updated_EDRD_Cases</targetReference>
         </connector>
@@ -338,7 +331,7 @@
             <label>user_HasCPEAccess</label>
         </rules>
     </decisions>
-    <description>Updated the according to EDRD-MOH Layout Changes, EDRD-399</description>
+    <description>Updated the according to EDRD-MOH Layout Changes, Removing Funding Decision.</description>
     <dynamicChoiceSets>
         <name>careProgramEnrolInactive_picklistSet</name>
         <dataType>Picklist</dataType>
@@ -597,6 +590,7 @@
             <defaultSelectedChoiceReference>activatePatient_Yes</defaultSelectedChoiceReference>
             <fieldText>Would you like to activate the patient?</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <showFooter>true</showFooter>
@@ -668,6 +662,7 @@
             <defaultSelectedChoiceReference>closeCases_Yes</defaultSelectedChoiceReference>
             <fieldText>Would you like to close all EDRD open cases associated with the patient?</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
@@ -697,6 +692,7 @@
             <defaultSelectedChoiceReference>closeCases_Yes</defaultSelectedChoiceReference>
             <fieldText>Would you like to deactivate the patient?</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
@@ -708,6 +704,7 @@
             </defaultValue>
             <fieldText>Patient Inactive Reason</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>

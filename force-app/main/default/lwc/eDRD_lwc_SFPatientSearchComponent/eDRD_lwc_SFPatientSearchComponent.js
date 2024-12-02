@@ -2,6 +2,9 @@ import { LightningElement, track, api, wire } from 'lwc';
 import { FlowNavigationBackEvent, FlowNavigationNextEvent } from 'lightning/flowSupport';
 import searchPatients from '@salesforce/apex/EDRDAccountLookupController.searchPatients';
 import validatePatients from '@salesforce/apex/EDRDAccountLookupController.validatePatientIdentifier';
+import EDRD_label_lwc_SFPSC_sN_Error from '@salesforce/label/c.EDRD_label_lwc_SFPSC_sN_Error';
+import EDRD_label_lwc_SFPSC_sN_Success from '@salesforce/label/c.EDRD_label_lwc_SFPSC_sN_Success';
+import EDRD_label_lwc_SFPSC_sN_deceased from '@salesforce/label/c.EDRD_label_lwc_SFPSC_sN_deceased';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import ACCOUNT_OBJECT from '@salesforce/schema/Account';
@@ -157,18 +160,18 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
         try {
             const isPHNAvaiable = await validatePatients({ patientIdentifier: this.patient_IdentifierManual });
             this.isPHNAvaiable = isPHNAvaiable;
-            this.isNextDisable = !isPHNAvaiable;
+            this.isNextDisable = isPHNAvaiable;
 
             if (isPHNAvaiable) {
                 this.showNotification(
                     'Error',
-                    'This PHN is already present in the Pharma Org. Please search using the patient identifier and then select the appropriate patient.',
+                    EDRD_label_lwc_SFPSC_sN_Error,
                     'error'
                 );
             } else {
                 this.showNotification(
                     'Success',
-                    'This PHN can be used to create a new patient.',
+                    EDRD_label_lwc_SFPSC_sN_Success,
                     'success'
                 );
             }
@@ -212,7 +215,7 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
             this.isNextDisable = true;
             this.showNotification(
                     'Error',
-                    'An EDRD case cannot be created for a deceased patient.',
+                    EDRD_label_lwc_SFPSC_sN_deceased,
                     'error'
                 );
         }
@@ -232,8 +235,10 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
         } else if (field === 'manualPatientIdentifier') {
             this.patientIdentifier = event.target.value;
             this.patient_IdentifierManual = event.target.value;
+            this.isNextDisable = true;
 
             this.isDisableValidatePHN = !this.patient_IdentifierManual;
+            return;
         }
 
         this.isNextDisable = !(
@@ -275,6 +280,12 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
         });
         this.dispatchEvent(evt);
     }
+
+    label = {
+        EDRD_label_lwc_SFPSC_sN_deceased,
+        EDRD_label_lwc_SFPSC_sN_Error,
+        EDRD_label_lwc_SFPSC_sN_Success
+    };
 
     connectedCallback() {
         this.isCreatePatientManuallyChecked = false; 

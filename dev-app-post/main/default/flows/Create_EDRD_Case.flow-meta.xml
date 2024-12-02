@@ -964,7 +964,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes related EMPI Integrations-v1.3 - adding EDRD_Bypass_Validation__pc checks</description>
+    <description>Changes related EMPI Integrations-v1.3 - adding Spaces to summary Screen</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -3416,7 +3416,7 @@
         </connector>
         <fields>
             <name>PatientSummary_ManualCreate</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Patient_FirstName}{!Patient_LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Patient Identifier: {!Patient_PHN}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: {!Patient_DOB}&lt;/p&gt;&lt;p&gt;Patient Gender: {!Patient_Gender}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Patient_FirstName} {!Patient_LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Patient Identifier: {!Patient_PHN}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: {!Patient_DOB}&lt;/p&gt;&lt;p&gt;Patient Gender: {!Patient_Gender}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
