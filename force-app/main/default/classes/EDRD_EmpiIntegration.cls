@@ -113,7 +113,6 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         patientAccount.FirstName = inputWrapper.firstName;
         patientAccount.LastName = inputWrapper.lastName;
         patientAccount.PersonBirthdate = inputWrapper.dateOfBirth;
-        //patientAccount.Reason__c = inputWrapper.reason;
         patientAccount.RecordTypeId = ESA_cls_constants.PatientRecordTypeId;   
         insert patientAccount;
         
