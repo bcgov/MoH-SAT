@@ -11,10 +11,10 @@
             NOT(ISNUMBER(PersonOtherPhone))
         ),
         AND(
-            NOT(ISBLANK(PersonHomePhone)),
-            NOT(ISNUMBER(PersonHomePhone))
+            NOT(ISBLANK(Phone)),
+            NOT(ISNUMBER(Phone))
         )
     )
 )</errorConditionFormula>
-    <errorMessage>Please enter the digit only for Other Phone and Home Phone.</errorMessage>
+    <errorMessage>Please enter numeric values only for Mobile Phone and Office Phone.</errorMessage>
 </ValidationRule>
