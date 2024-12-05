@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <assignmentRulesUsed>true</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
     <description>DR for Post  Details  For New/Renewal Case Form with out  Doc</description>
@@ -86,13 +86,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem3</globalKey>
-        <inputFieldName>PatientInformation:IdPatient</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom3905</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequencyUnits</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ContactId</outputFieldName>
+        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -100,28 +100,42 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem23</globalKey>
-        <inputFieldName>PatientInformation:PatAccId</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom1548</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalIndefiniteFunding</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom5352</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalDosage</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>PatientId</outputFieldName>
+        <outputFieldName>Dosage__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <defaultValue>Received - Awaiting Verification</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem1</globalKey>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom5791</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDuration</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Status</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Funding_Duration__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -155,6 +169,132 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem23</globalKey>
+        <inputFieldName>PatientId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>PatientId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom1887</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:NewIndefiniteFunding</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Received - Awaiting Verification</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem1</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Status</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom3953</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDurationUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Funding_Duration_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom5244</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalDosage</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Dosage__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem3</globalKey>
+        <inputFieldName>ACR:ContactId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ContactId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom8121</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalIndefiniteFunding</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom6738</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDuration</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom2665</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:NewIndefiniteFunding</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <defaultValue>Active</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -165,6 +305,20 @@
         <outputCreationSequence>2.0</outputCreationSequence>
         <outputFieldName>Status</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom3845</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -185,18 +339,15 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <defaultValue>EDRD_Medication_Request</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom2828</globalKey>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom2165</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedDosage</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <lookupByFieldName>DeveloperName</lookupByFieldName>
-        <lookupObjectName>RecordType</lookupObjectName>
-        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputFieldName>Dosage__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -204,69 +355,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom1015</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDurationUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Funding_Duration_Unit__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom4143</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequency</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Frequency__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem21</globalKey>
-        <inputFieldName>PatientInformation:PrescriberId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>RequesterId</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom881</globalKey>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom3172</globalKey>
         <inputFieldName>RequestedNewDosageUnitId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Dosage_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem22</globalKey>
-        <inputFieldName>DrugandDosage:SelectADrug</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>MedicationId</outputFieldName>
+        <outputFieldName>Dosage_Units__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -310,8 +405,22 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom5372</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequencyUnits</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom881</globalKey>
+        <inputFieldName>RequestedNewDosageUnitId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Dosage_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom6763</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequencyUnits</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
@@ -324,30 +433,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| TODAY</formulaConverted>
-        <formulaExpression>TODAY()</formulaExpression>
-        <formulaResultPath>CareEffectiveDateTime</formulaResultPath>
-        <formulaSequence>2.0</formulaSequence>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom2176</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom709</globalKey>
-        <inputFieldName>DrugandDosage:IndicationId</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem22</globalKey>
+        <inputFieldName>DrugandDosage:SelectADrug</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
+        <outputFieldName>MedicationId</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -355,13 +447,142 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom1888</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalIndicationId</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom4143</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequency</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
+        <outputFieldName>Requested_Frequency__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom6760</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Frequency__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem21</globalKey>
+        <inputFieldName>PatientInformation:PrescriberId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>RequesterId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom1721</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequencyUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>EDRD_Medication_Request</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom2828</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <lookupByFieldName>DeveloperName</lookupByFieldName>
+        <lookupObjectName>RecordType</lookupObjectName>
+        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom718</globalKey>
+        <inputFieldName>RequestedDosageUnitId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Dosage_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom1015</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDurationUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Funding_Duration_Unit__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom7978</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Funding_Duration__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom8706</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDurationUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Funding_Duration_Unit__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom1984</globalKey>
+        <inputFieldName>RequestedDosageUnitId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Dosage_Units__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -397,84 +618,86 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom8706</globalKey>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom709</globalKey>
+        <inputFieldName>DrugandDosage:IndicationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom1888</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalIndicationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom5372</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequencyUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Frequency_Unit__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| TODAY</formulaConverted>
+        <formulaExpression>TODAY()</formulaExpression>
+        <formulaResultPath>CareEffectiveDateTime</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom2176</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom2549</globalKey>
         <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDurationUnits</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Funding_Duration_Unit__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Funding_Duration_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom1984</globalKey>
-        <inputFieldName>RequestedDosageUnitId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Dosage_Units__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom8163</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequency</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom3201</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>EDRD_MOHApproved_Frequency__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem18</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem0</globalKey>
-        <inputFieldName>PatientInformation:CaseType</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Type</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <defaultValue>Portal</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem5</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Origin</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -510,13 +733,27 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom2549</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDurationUnits</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem0</globalKey>
+        <inputFieldName>PatientInformation:CaseType</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Funding_Duration_Unit__c</outputFieldName>
+        <outputFieldName>Type</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Portal</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem5</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRcreateRequestWithNoDoc</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Origin</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -524,8 +761,8 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom3201</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom8163</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequency</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRcreateRequestWithNoDoc</name>
@@ -536,253 +773,16 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom5352</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalDosage</inputFieldName>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDDRcreateRequestWithNoDocCustom0jIAq0000001aizMAAItem18</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
         <name>EDRDDRcreateRequestWithNoDoc</name>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Dosage__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom5791</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDuration</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Funding_Duration__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom3905</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequencyUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom1548</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalIndefiniteFunding</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom6738</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDuration</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom2665</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:NewIndefiniteFunding</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom5244</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalDosage</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Dosage__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom8121</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalIndefiniteFunding</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom1887</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:NewIndefiniteFunding</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom3953</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFundingDurationUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Funding_Duration_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom3172</globalKey>
-        <inputFieldName>RequestedNewDosageUnitId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Dosage_Units__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom3845</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom2165</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedDosage</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Dosage__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom718</globalKey>
-        <inputFieldName>RequestedDosageUnitId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Dosage_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom7978</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Funding_Duration__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom6760</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Frequency__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom1721</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalDosageDetail:RenewalFrequencyUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRcreateRequestWithNoDocCustom6763</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequencyUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRcreateRequestWithNoDoc</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Frequency_Unit__c</outputFieldName>
+        <outputFieldName>Id</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

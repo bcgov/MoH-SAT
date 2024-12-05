@@ -13,7 +13,7 @@
     <isTestProcedure>false</isTestProcedure>
     <isWebCompEnabled>false</isWebCompEnabled>
     <language>Procedure</language>
-    <name>EDRDIPSearchPatient</name>
+    <name>EDRDIPCreateNewPatient</name>
     <omniProcessElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -71,10 +71,13 @@
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;sendJSONPath&quot; : &quot;&quot;,
   &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;bundle&quot; : &quot;EDRDDRExtractPhn&quot;,
+  &quot;bundle&quot; : &quot;EDRDDRExtractphnEMPI&quot;,
   &quot;dataRaptor Input Parameters&quot; : [ {
     &quot;inputParam&quot; : &quot;phn&quot;,
     &quot;element&quot; : &quot;PatientIdentifier&quot;
+  }, {
+    &quot;inputParam&quot; : &quot;ConAccId&quot;,
+    &quot;element&quot; : &quot;PatientId&quot;
   } ],
   &quot;chainOnStep&quot; : false,
   &quot;actionMessage&quot; : &quot;&quot;,
@@ -259,7 +262,7 @@
         <sequenceNumber>6.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
-    <omniProcessKey>EDRDIP_SearchPatient</omniProcessKey>
+    <omniProcessKey>EDRDIP_Patient</omniProcessKey>
     <omniProcessType>Integration Procedure</omniProcessType>
     <propertySetConfig>{
   &quot;linkToExternalObject&quot; : &quot;&quot;,
@@ -287,9 +290,9 @@
   &quot;ttlMinutes&quot; : 5,
   &quot;mockResponseMap&quot; : { }
 }</propertySetConfig>
-    <subType>SearchPatient</subType>
+    <subType>Patient</subType>
     <type>EDRDIP</type>
-    <uniqueName>EDRDIP_SearchPatient_Procedure_4</uniqueName>
-    <versionNumber>4.0</versionNumber>
-    <webComponentKey>f5ac766b-6957-1b72-387f-b0f29db4160f</webComponentKey>
+    <uniqueName>EDRDIP_Patient_Procedure_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <webComponentKey>ef355616-7494-d7ad-ec18-ac3e924329db</webComponentKey>
 </OmniIntegrationProcedure>
