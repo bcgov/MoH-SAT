@@ -83,12 +83,13 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         Boolean isCareProgramEnrolled = new Elevated().checkCareProgram(patientOutputWrapper.patientId);
 
         if(isCareProgramEnrolled == true && (!patientOutputWrapper.isPatientFound == false || !patientRecord.isEmpty())){
-            CareProgramEnrollee careProgram = new CareProgramEnrollee();
+          /*  CareProgramEnrollee careProgram = new CareProgramEnrollee();
             careProgram.AccountId = patientOutputWrapper.patientId;
             careProgram.Name = 'test';
             careProgram.Status = 'Active';
             careProgram.CareProgramId = '0ZeAq0000000XOzKAM';
-            insert careProgram;
+            insert careProgram;*/
+            createCareProgramEnrollee(patientOutputWrapper.patientId);
         }
 
         result = Json.serialize(patientOutputWrapper);
@@ -125,15 +126,26 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         patientAccount.FirstName = inputWrapper.firstName;
         patientAccount.LastName = inputWrapper.lastName;
         patientAccount.PersonBirthdate = inputWrapper.dateOfBirth;
-        patientAccount.Reason__c = inputWrapper.reason;
         patientAccount.RecordTypeId = ESA_cls_constants.PatientRecordTypeId;   
         insert patientAccount;
+        
+        createCareProgramEnrollee(patientAccount.Id);
         
         patientOutputWrapper.patientId = patientAccount.Id;
         String result = Json.serialize(patientOutputWrapper);
         system.debug('result=40='+result);
         outputMap.put('searchOutput',JSON.deserializeuntyped(result));
         System.debug('patientAccount +++'+patientAccount.Id);
+        
+    }
+
+    public void createCareProgramEnrollee(Id patientId){
+            CareProgramEnrollee careProgram = new CareProgramEnrollee();
+            careProgram.AccountId = patientId;
+            careProgram.Name = 'test';
+            careProgram.Status = 'Active';
+            careProgram.CareProgramId = '0ZeAq0000000XOzKAM';
+            insert careProgram;
     }
     
     public String createPatientFromEMPI(EDRD_EmpiWrapper.OutputWrapper patientWrapper, String phn) {
