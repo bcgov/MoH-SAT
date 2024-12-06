@@ -101,7 +101,7 @@ public with sharing class EmpiIntegration {
         Patient p = new Patient();
         p.phn = phn;
         p.deceased = false;
-        if (!Test.isRunningTest()) {
+        //if (!Test.isRunningTest()) {
             Empi.HCIM_IN_GetDemographicsResponse res = stub.HCIM_IN_GetDemographics(id, creationTime, versionCode, interactionId, processingCode, processingModeCode, acceptAckCode, receiver, sender, controlActProcess);
 
             p.notes = res.controlActProcess.queryAck.queryResponseCode.code;
@@ -145,8 +145,7 @@ public with sharing class EmpiIntegration {
                     }
                 }
             }
-        }
+        //}
         return p;
     }
-    
 }
