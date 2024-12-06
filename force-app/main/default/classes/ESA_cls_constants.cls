@@ -20,4 +20,5 @@ public class ESA_cls_constants {
     public static final String EDRD_PHYSICIAN = 'Physician';
     public static final String EDRD_FUNDING_DECISION_DENIED = 'Denied';
     public static final String EDRD_FORMULATION_BOTTLE = 'Bottle';
+    public static final Id PatientRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Patient').getRecordTypeId();
 }
