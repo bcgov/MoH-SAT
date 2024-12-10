@@ -564,7 +564,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes Related EDRD-1055 &amp; added update PSP owner assignment &amp; update Document upload at end.</description>
+    <description>EDRD Staff error message</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -669,15 +669,15 @@
         <name>Create_Medication_request_with_New_Case</name>
         <label>Create Medication request with New Case</label>
         <locationX>50</locationX>
-        <locationY>3734</locationY>
+        <locationY>3626</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
+            <targetReference>Get_New_Case</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>StoreNewCase.Id</elementReference>
+                <elementReference>New_case_Creation_for_Rec_type_New</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -767,7 +767,7 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <elementReference>StoreNewCase.Type</elementReference>
+                <stringValue>New</stringValue>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
@@ -776,15 +776,18 @@
         <name>Create_Medication_request_with_New_Case_without_indef</name>
         <label>Create Medication request with New Case without indef</label>
         <locationX>314</locationX>
-        <locationY>3734</locationY>
+        <locationY>3626</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
+            <targetReference>Get_New_Case</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>EDRD_Staff</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>StoreNewCase.Id</elementReference>
+                <elementReference>New_case_Creation_for_Rec_type_New_without_indef</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -868,7 +871,7 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <elementReference>StoreNewCase.Type</elementReference>
+                <stringValue>New</stringValue>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
@@ -876,16 +879,16 @@
     <recordCreates>
         <name>Create_Medication_Request_with_New_Renewal_Case</name>
         <label>Create Medication Request with New Renewal Case</label>
-        <locationX>578</locationX>
-        <locationY>3734</locationY>
+        <locationX>842</locationX>
+        <locationY>3626</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Iterate_CD_Records</targetReference>
+            <targetReference>Get_Renewal_Case</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>StoreRenewalCase.Id</elementReference>
+                <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -975,7 +978,7 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <elementReference>StoreRenewalCase.Type</elementReference>
+                <stringValue>Renewal</stringValue>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
@@ -983,16 +986,19 @@
     <recordCreates>
         <name>Create_Medication_Request_with_New_Renewal_Case_without_indef</name>
         <label>Create Medication Request with New Renewal Case without indef</label>
-        <locationX>842</locationX>
-        <locationY>3734</locationY>
+        <locationX>1106</locationX>
+        <locationY>3626</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Iterate_CD_Records</targetReference>
+            <targetReference>Get_Renewal_Case</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Copy_1_of_EDRD_Staff</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>StoreRenewalCase.Id</elementReference>
+                <elementReference>New_renewal_case_creation_for_RecType_Renew_without_indef</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1076,7 +1082,7 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <elementReference>StoreRenewalCase.Type</elementReference>
+                <stringValue>Renewal</stringValue>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
@@ -1107,7 +1113,7 @@
         <locationX>50</locationX>
         <locationY>3326</locationY>
         <connector>
-            <targetReference>Get_Newly_created_Case</targetReference>
+            <targetReference>Upload_Document</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -1196,7 +1202,7 @@
         <locationX>314</locationX>
         <locationY>3326</locationY>
         <connector>
-            <targetReference>Get_Newly_created_Case_without_indef</targetReference>
+            <targetReference>Upload_Document</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -1276,10 +1282,10 @@
     <recordCreates>
         <name>New_renewal_case_creation_for_RecType_Renew</name>
         <label>New renewal case creation for RecType Renew</label>
-        <locationX>578</locationX>
-        <locationY>3326</locationY>
+        <locationX>842</locationX>
+        <locationY>3218</locationY>
         <connector>
-            <targetReference>Get_newly_created_Renewal_Rec</targetReference>
+            <targetReference>UploadDocument</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -1365,10 +1371,10 @@
     <recordCreates>
         <name>New_renewal_case_creation_for_RecType_Renew_without_indef</name>
         <label>New renewal case creation for RecType Renew without indef</label>
-        <locationX>842</locationX>
-        <locationY>3326</locationY>
+        <locationX>1106</locationX>
+        <locationY>3218</locationY>
         <connector>
-            <targetReference>Get_newly_created_Renewal_Rec_without_indef</targetReference>
+            <targetReference>UploadDocument</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -1448,7 +1454,7 @@
     <recordLookups>
         <name>get_ACRRecord</name>
         <label>get_ACRRecord</label>
-        <locationX>908</locationX>
+        <locationX>1238</locationX>
         <locationY>1430</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1510,8 +1516,8 @@
     <recordLookups>
         <name>Get_Case_Record_Type_for_renewal</name>
         <label>Get Case Record Type for renewal</label>
-        <locationX>710</locationX>
-        <locationY>3110</locationY>
+        <locationX>974</locationX>
+        <locationY>3002</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Decision_10</targetReference>
@@ -1540,7 +1546,7 @@
     <recordLookups>
         <name>Get_EDRD_MR_Record_Type</name>
         <label>Get EDRD MR Record Type</label>
-        <locationX>446</locationX>
+        <locationX>578</locationX>
         <locationY>1862</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1568,7 +1574,7 @@
     <recordLookups>
         <name>Get_EDRDCPRecord</name>
         <label>Get_EDRDCPRecord</label>
-        <locationX>2112</locationX>
+        <locationX>2591</locationX>
         <locationY>782</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1595,7 +1601,7 @@
     <recordLookups>
         <name>Get_Medication</name>
         <label>Get Medication</label>
-        <locationX>446</locationX>
+        <locationX>578</locationX>
         <locationY>1754</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1632,15 +1638,22 @@
         <queriedFields>Renewal_Recommended_Dosage__c</queriedFields>
     </recordLookups>
     <recordLookups>
-        <name>Get_Newly_created_Case</name>
-        <label>Get Newly created Case</label>
-        <locationX>50</locationX>
-        <locationY>3434</locationY>
+        <name>Get_New_Case</name>
+        <label>Get New Case</label>
+        <locationX>182</locationX>
+        <locationY>4058</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>New_Indefinite_Funding_check2</targetReference>
+            <targetReference>Sucees</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_case_Creation_for_Rec_type_New_without_indef</elementReference>
+            </value>
+        </filters>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -1651,93 +1664,7 @@
         <object>Case</object>
         <outputReference>StoreNewCase</outputReference>
         <queriedFields>Id</queriedFields>
-        <queriedFields>ContactId</queriedFields>
-        <queriedFields>Provider__c</queriedFields>
-        <queriedFields>Type</queriedFields>
-        <queriedFields>Status</queriedFields>
         <queriedFields>CaseNumber</queriedFields>
-        <queriedFields>Origin</queriedFields>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Newly_created_Case_without_indef</name>
-        <label>Get Newly created Case without indef</label>
-        <locationX>314</locationX>
-        <locationY>3434</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>New_Indefinite_Funding_check2</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>New_case_Creation_for_Rec_type_New_without_indef</elementReference>
-            </value>
-        </filters>
-        <object>Case</object>
-        <outputReference>StoreNewCase</outputReference>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>ContactId</queriedFields>
-        <queriedFields>Provider__c</queriedFields>
-        <queriedFields>Type</queriedFields>
-        <queriedFields>Status</queriedFields>
-        <queriedFields>CaseNumber</queriedFields>
-        <queriedFields>Origin</queriedFields>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_newly_created_Renewal_Rec</name>
-        <label>Get newly created Renewal Rec</label>
-        <locationX>578</locationX>
-        <locationY>3434</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
-            </value>
-        </filters>
-        <object>Case</object>
-        <outputReference>StoreRenewalCase</outputReference>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>ContactId</queriedFields>
-        <queriedFields>Provider__c</queriedFields>
-        <queriedFields>Type</queriedFields>
-        <queriedFields>Status</queriedFields>
-        <queriedFields>CaseNumber</queriedFields>
-        <queriedFields>Origin</queriedFields>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_newly_created_Renewal_Rec_without_indef</name>
-        <label>Get newly created Renewal Rec without indef</label>
-        <locationX>842</locationX>
-        <locationY>3434</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>New_renewal_case_creation_for_RecType_Renew_without_indef</elementReference>
-            </value>
-        </filters>
-        <object>Case</object>
-        <outputReference>StoreRenewalCase</outputReference>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>ContactId</queriedFields>
-        <queriedFields>Provider__c</queriedFields>
-        <queriedFields>Type</queriedFields>
-        <queriedFields>Status</queriedFields>
-        <queriedFields>CaseNumber</queriedFields>
-        <queriedFields>Origin</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_Patient_Contact_rec</name>
@@ -1935,6 +1862,35 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Renewal_Case</name>
+        <label>Get Renewal Case</label>
+        <locationX>974</locationX>
+        <locationY>4058</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Success</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_renewal_case_creation_for_RecType_Renew_without_indef</elementReference>
+            </value>
+        </filters>
+        <object>Case</object>
+        <outputReference>StoreRenewalCase</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+    </recordLookups>
+    <recordLookups>
         <name>getProviderRecordType</name>
         <label>Get Provider Record Type</label>
         <locationX>2665</locationX>
@@ -2029,6 +1985,22 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Copy_1_of_EDRD_Staff</name>
+        <label>EDRD Staff Error Screen</label>
+        <locationX>1370</locationX>
+        <locationY>3734</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Copy_1_of_EDRD_Staff_Error</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(28, 27, 27);&quot;&gt;You do not have the privilege of renewing a case.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(28, 27, 27);&quot;&gt;Please contact your Administrator.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>CP_ErrorScreen</name>
         <label>CP_ErrorScreen</label>
         <locationX>2690</locationX>
@@ -2071,6 +2043,22 @@
         <fields>
             <name>CPE_No_CPE_Errordisplay</name>
             <fieldText>&lt;p&gt;{!$Label.EDRD_label_CPE_NoCPE_ErrorScreen}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>EDRD_Staff</name>
+        <label>EDRD Staff Error Screen</label>
+        <locationX>578</locationX>
+        <locationY>3734</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>EDRD_Staff_Error</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(27, 26, 26);&quot;&gt;You do not have the privilege of creating a new case.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(27, 26, 26);&quot;&gt;Please contact your Administrator.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -2402,7 +2390,7 @@
         <description>New Case</description>
         <name>New_Cases</name>
         <label>New Case</label>
-        <locationX>2665</locationX>
+        <locationX>3168</locationX>
         <locationY>350</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2797,7 +2785,7 @@
     <screens>
         <name>Search_Patient</name>
         <label>Search Patient</label>
-        <locationX>2665</locationX>
+        <locationX>3168</locationX>
         <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2825,7 +2813,7 @@
     <screens>
         <name>Search_Provider_for_New_Case</name>
         <label>Search Provider for New Case</label>
-        <locationX>908</locationX>
+        <locationX>1238</locationX>
         <locationY>1214</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2852,8 +2840,8 @@
     <screens>
         <name>Success</name>
         <label>Success</label>
-        <locationX>710</locationX>
-        <locationY>4742</locationY>
+        <locationX>974</locationX>
+        <locationY>4166</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2937,7 +2925,7 @@
         <name>Sucees</name>
         <label>Sucees</label>
         <locationX>182</locationX>
-        <locationY>4742</locationY>
+        <locationY>4166</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3018,10 +3006,10 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Upload_Supporting_Documents</name>
-        <label>Upload Supporting Documents</label>
-        <locationX>446</locationX>
-        <locationY>2570</locationY>
+        <name>Upload_Document</name>
+        <label>Upload Document</label>
+        <locationX>182</locationX>
+        <locationY>3410</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3044,6 +3032,57 @@
                 </value>
             </inputParameters>
             <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>New_case_Creation_for_Rec_type_New</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>multiple</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>UploadDocument</name>
+        <label>Upload Document</label>
+        <locationX>974</locationX>
+        <locationY>3410</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
+        </connector>
+        <fields>
+            <name>Upload</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Upload Supporting Documents&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>File_Upload</name>
+            <extensionName>forceContent:fileUpload</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Upload File</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
                 <name>multiple</name>
                 <value>
                     <booleanValue>true</booleanValue>
@@ -3057,7 +3096,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>2539</locationX>
+        <locationX>3042</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>getProviderRecordType</targetReference>
