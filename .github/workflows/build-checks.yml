@@ -32,6 +32,12 @@ jobs:
     - name: Installing SF managed packages
       run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --noprompt  
 
+    - name: Installing Health Cloud managed package
+      run: sf package install --package "04t4W000002V2Ub" -o ciorg -w 15 --noprompt 
+
+    - name: Installing the IAM package 
+      run: sf package install --package "04tJQ0000014BvZYAU" -o ciorg -w 15 --noprompt 
+
     - name: Set deployment user standard security
       run: |
           sf force:user:permsetlicense:assign -u ciorg -n "OmniStudio"
