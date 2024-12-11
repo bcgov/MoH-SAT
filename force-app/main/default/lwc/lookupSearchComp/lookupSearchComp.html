@@ -1,33 +1,111 @@
 <template>
-  <lightning-card title="Patient Information" icon-name="standard:Account">
-      <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small">
-          <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2">
-              <lightning-input label="Patient Identifier" name="patientSearch" type="search" onchange={handlekeychange} value={patientPHN} placeholder="Enter Identifier Number"></lightning-input>
-          </div>
-          <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2" style="margin-top: 22px;">
-              <lightning-button variant="brand" label="Search" class="btnSearch" onclick={handleSearch}></lightning-button>
-              <template if:true={showRemoveButton}>
-                  <lightning-button variant="brand" label="Clear" class="btnClear" onclick={handleRemoveResults} style="padding-left: 5px"></lightning-button>
-              </template>
-          </div>
-      </div>
-      <div if:true={messageResult} class="slds-var-p-horizontal_small">
-          <p class="slds-text-color_error"> No result found. Please type correct Patient Identifier Number </p>
-      </div>
-      <div style="width: 400px;">
-          <lightning-input label="Patient Name" value={Name} disabled></lightning-input>
-      </div>
-      <div style="width: 400px;">
-          <lightning-input label="Birthdate" value={Birthdate} disabled></lightning-input>
-      </div>
-      <br />
-      <footer class="slds-modal__footer slds-scope footerContainer slds-grid slds-grid_align-spread" style="background-color: white;">
-          <div class="navigation-bar__spacer">
-          </div>
-          <div class="slds-col slds-size_1-of-1 slds-text-align_right">
-              <lightning-button class="slds-button_neutral" label="Previous" onclick={handleBack} style="margin-right: 5px;"></lightning-button>
-              <lightning-button class="slds-button_brand" label="Next" onclick={handleNext} variant="brand"></lightning-button>
-          </div>
-      </footer>
-  </lightning-card>
+    <lightning-card title="EMPI Patient Search Information" icon-name="standard:contact">
+        <!-- Search Section -->
+        <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small">
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                <lightning-input 
+                    label="Patient Identifier" 
+                    name="patientSearch" 
+                    type="search" 
+                    onchange={handlekeychange} 
+                    value={patientPHN} 
+                    placeholder="Enter Identifier Number">
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2" style="margin-top: 22px;">
+                <lightning-button 
+                    variant="brand" 
+                    label="Search EMPI" 
+                    class="btnSearch" 
+                    onclick={handleSearch}>
+                </lightning-button>
+                <template if:true={showRemoveButton}>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Clear" 
+                        class="btnClear" 
+                        onclick={handleRemoveResults} 
+                        style="padding-left: 5px">
+                    </lightning-button>
+                </template>
+            </div>
+        </div>
+
+        <!-- No Result Message -->
+        <div if:true={isShowNoPHNFound} class="slds-var-p-horizontal_small">
+            <p class="slds-text-color_error"> No result found. Please type correct Patient Identifier Number </p>
+        </div>
+
+        <!-- Patient Details Section -->
+        <div if:true={isPHNFound} class="slds-var-p-horizontal_small">
+            <div style="width: 400px;">
+                <lightning-input 
+                    label="Patient Name" 
+                    value={Name} 
+                    disabled>
+                </lightning-input>
+            </div>
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input 
+                        label="Birthdate" 
+                        value={PatientDOB} 
+                        disabled>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input 
+                        label="Gender" 
+                        value={Gender} 
+                        disabled>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input 
+                        label="Deceased" 
+                        value={Deceased} 
+                        disabled>
+                    </lightning-input>
+                </div>
+            </div>
+        </div>
+
+        <!-- Override Reason Section -->
+        <br />
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size-1_of_3">
+                <lightning-combobox 
+                    label={patientOverrideReasonLabel}
+                    options={patientOverrideReasonOptions}
+                    value={form.overrideReason}
+                    data-field="overrideReason"
+                    onchange={handleFormChange}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-col slds-size-2_of_3">
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <br />
+        <footer class="slds-modal__footer slds-scope footerContainer slds-grid slds-grid_align-spread" style="background-color: white;">
+            <div class="navigation-bar__spacer">
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                <lightning-button 
+                    class="slds-button_neutral" 
+                    label="Previous" 
+                    onclick={handleBack} 
+                    style="margin-right: 5px;">
+                </lightning-button>
+                <lightning-button 
+                    class="slds-button_brand" 
+                    label="Next" 
+                    onclick={handleNext} 
+                    variant="brand" 
+                    disabled={isNextDisable}>
+                </lightning-button>
+            </div>
+        </footer>
+    </lightning-card>
 </template>
