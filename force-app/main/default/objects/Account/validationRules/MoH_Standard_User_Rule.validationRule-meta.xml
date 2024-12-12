@@ -2,6 +2,11 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MoH_Standard_User_Rule</fullName>
     <active>true</active>
-    <errorConditionFormula>AND(ISCHANGED(Name), $Profile.Name == &apos;MoH Standard User&apos;,NOT(ISNEW()),NOT($Permission.SA_Team_Lead),NOT( $Permission.EDRD_MOH_STAFF), ESA_Bypass_Validation__pc  = FALSE)</errorConditionFormula>
+    <errorConditionFormula>AND(ISCHANGED(Name), $Profile.Name == &apos;MoH Standard User&apos;,
+NOT(ISNEW()),
+NOT($Permission.SA_Team_Lead),
+NOT($Permission.EDRD_MOH_STAFF),
+NOT($Permission.EDRD_PHSA_PSP_Staff),
+ESA_Bypass_Validation__pc  = FALSE)</errorConditionFormula>
     <errorMessage>You don&apos;t have permission to edit the Account Name.</errorMessage>
 </ValidationRule>
