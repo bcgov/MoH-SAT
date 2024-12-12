@@ -964,7 +964,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes related EMPI Integrations-v1.3 - adding Spaces to summary Screen</description>
+    <description>Changes related EMPI Integrations-v1.5 - adding Physician Roles</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -1102,6 +1102,12 @@
                 <booleanValue>false</booleanValue>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
+            </value>
+        </inputAssignments>
         <object>AccountContactRelation</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
@@ -1135,6 +1141,12 @@
             <field>Is_EDRD_Data_Migration__c</field>
             <value>
                 <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
             </value>
         </inputAssignments>
         <object>AccountContactRelation</object>
@@ -2718,6 +2730,12 @@
                 <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
+            </value>
+        </inputAssignments>
         <object>AccountContactRelation</object>
     </recordUpdates>
     <recordUpdates>
@@ -2740,6 +2758,12 @@
             <field>Is_EDRD_Data_Migration__c</field>
             <value>
                 <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
             </value>
         </inputAssignments>
         <object>AccountContactRelation</object>
@@ -2883,6 +2907,7 @@
         </inputAssignments>
         <object>Account</object>
     </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>CP_ErrorScreen</name>
         <label>CP_ErrorScreen</label>
