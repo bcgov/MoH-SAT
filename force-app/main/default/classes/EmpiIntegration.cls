@@ -289,7 +289,7 @@ public with sharing class EmpiIntegration {
                         // Process only the first matching 'use' value
                         if (use != null && use.equalsIgnoreCase(selectedUse)) {
                             Patient.PersonName personName = new Patient.PersonName();
-                            if (selectedUse == LRA_RESPONSE_USE_USUAL) {
+                            if (selectedUse == LRA_RESPONSE_USE_OFFICIAL) {
                                 personName.declared = true;
                             }
                             personName.familyName = (String) nameMap.get(LRA_RESPONSE_FAMILY_NAME);
