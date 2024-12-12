@@ -23,7 +23,11 @@ export default class PatientLookup extends LightningElement {
     };
 
     message = '';
+    responseStatusValue = '';
     messageExists = false;
+    lraResponseName_Official  = 'official';
+    lraResponseName_Usual = 'usual';
+    lraResponse_Invalid = 'invalid';
 
     @wire(getObjectInfo, { objectApiName: OBJ_ACCOUNT })
     accountObjInfo;
@@ -75,69 +79,80 @@ export default class PatientLookup extends LightningElement {
         this.completeAndNoResults = false;
         this.template.querySelector('.btn-lookup').disabled = true;
 
-        this.patientProvider = await findPatient({
-            phn: this.patientId
-        });
-
-        this.resetForm();
-
-        this.message = this.patientProvider.notes;
-
-        if (this.message.startsWith('BCHCIM.GD.2.0018') == true)
-        {
-            // No Data!
-            this.hasData = false;
-            this.completeAndNoResults = true;
-        } else {
-            this.completeAndNoResults = false;
-            this.hasData = true;
-
-            if (this.message.startsWith('BCHCIM.GD.0.0013')) {
-              this.message = '';
-            } else if (this.message.startsWith('BCHCIM.GD.2.0006')) {
-              // Invalid message
-              this.message = 'Invalid PHN';
-              this.messageExists = true;
-            } else {
-              this.messageExists = true;
-              // Cleanup UI
-              try {
-                this.message = this.message.split('Warning: ')[1];
-              } catch (e) {
-                console.log('Error splitting', e);
-              }
-            }
-
-            // Pack in the names.
-            let FirstName = "";
-            let LastName = "";
-            this.patientProvider.names.forEach(element => {
-              if (element.type == 'L') {
-                LastName = element.familyName;
-
-                // Now pluck the given names
-                element.givenNames.forEach(given => {
-                  FirstName += given + ", ";
-                });
-              }
+        try {
+            this.patientProvider = await findPatient({
+                phn: this.patientId
             });
-            // Detect masked
-            this.form = {
-                PatientFullNameDisplay: (FirstName + LastName).replace(/,/g, ''),
-                FirstName: FirstName.replace(/,/g, ''), // Always pick their L name
-                LastName: LastName, // Always pick their L name
-                Names: this.patientProvider.names,
-                Gender: this.patientProvider.gender,
-                Deceased: this.patientProvider.deceased == true ? 'Yes' : 'No',
-                PersonBirthdate: this.patientProvider.dob,
-                verified: true,
-                ...this.form
+
+            this.resetForm();
+
+            this.message = this.patientProvider.notes;
+            this.responseStatusValue = this.patientProvider.responseStatusValue;
+
+            if (this.message.startsWith('BCHCIM.GD.2.0018') == true)
+            {
+                // No Data!
+                this.hasData = false;
+                this.completeAndNoResults = true;
+            } else {
+                this.completeAndNoResults = false;
+                this.hasData = true;
+
+                if (this.message.startsWith('BCHCIM.GD.0.0013')) {
+                this.message = '';
+                } else if (this.message.startsWith('BCHCIM.GD.2.0006') || this.responseStatusValue.startsWith(this.lraResponse_Invalid)) {
+                // Invalid message
+                this.message = 'Invalid PHN';
+                this.messageExists = true;
+                this.hasData = false;
+                } else {
+                    this.messageExists = true;
+                    // Cleanup UI
+                    try {
+                        this.message = this.message.split('Warning: ')[1];
+                    } catch (e) {
+                        console.log('Error splitting', e);
+                    }
+                }
+
+                    let FirstName = "";
+                    let LastName = "";                    
+                    this.patientProvider.names.forEach(element => {
+                        if (element.type == 'L'||  element.type == this.lraResponseName_Official ||
+                            element.type == this.lraResponseName_Usual) {
+                             LastName = element.familyName;
+                            element.givenNames.forEach(given => {
+                                FirstName += given + ", ";
+                                console.log("Adding given name:", given);
+                            });
+                        }
+                    });
+                    
+                    // Remove trailing comma and space from the FirstName
+                    FirstName = FirstName.trim().replace(/,$/, '');
+                // Detect masked
+                this.form = {
+                    PatientFullNameDisplay: (FirstName + ' ' + LastName).replace(/,/g, ''),
+                    FirstName: FirstName.replace(/,/g, ''), // Always pick their L name
+                    LastName: LastName, // Always pick their L name
+                    Names: this.patientProvider.names,
+                    Gender: this.patientProvider.gender,
+                    Deceased: this.patientProvider.deceased == true ? 'Yes' : 'No',
+                    PersonBirthdate: this.patientProvider.dob,
+                    verified: true,
+                    ...this.form
+                }
             }
+
+            this.publishChange(this.form);
+
+            this.template.querySelector('.btn-lookup').disabled = false;
         }
-
-        this.publishChange(this.form);
-
-        this.template.querySelector('.btn-lookup').disabled = false;
+        catch (exception) {
+            // Throw an exception if defined
+            this.message = exception.body.message;
+            this.messageExists = true;
+        }
     }
 
     resetForm() {

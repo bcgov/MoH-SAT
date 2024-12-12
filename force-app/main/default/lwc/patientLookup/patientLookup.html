@@ -24,17 +24,28 @@
             </div>
         </div> 
         <div if:true={hasData} class="slds-grid slds-gutters">
-          <template for:each={form.Names} for:item="item">
-            <div key={item.type} class="slds-m-vertical_small">
-              <div class="slds-col slds-form-element">
-                  <span if:true={item.declared} class="slds-form-element__label">Declared Name</span>
-                  <span if:false={item.declared} class="slds-form-element__label">Documented Name</span>
-                  <div class="slds-form-element__control">
-                    <div class="slds-form-element__static">{form.PatientFullNameDisplay}</div>
-                  </div>
-              </div>
-            </div>
-          </template>
+            <template for:each={form.Names} for:item="item">
+                <div key={item.type} class="slds-m-vertical_small">
+                    <div class="slds-col slds-form-element">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <span class="slds-form-element__label">Declared Name</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{form.PatientFullNameDisplay}</div>
+                                </div>
+                            </div>
+                            <template if:true={item.declared}>
+                                <div class="slds-col">
+                                    <span class="slds-form-element__label">Documented Name</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{form.PatientFullNameDisplay}</div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </div>
         <div if:true={hasData} class="slds-grid slds-gutters">
           <div class="slds-col slds-form-element">
