@@ -8,7 +8,9 @@ RecordType.DeveloperName = &apos;EDRD&apos;,
 ISCHANGED(Status),
 ISBLANK(TEXT(EDRD_MOHFunding_Decision__c)),
 OR(ISPICKVAL(Status,&apos;Funding Approved&apos;),
-ISPICKVAL(Status,&apos;Funding Denied&apos;))
+AND(ISPICKVAL(Status,&apos;Funding Denied&apos;),
+NOT(ISPICKVAL(EDRD_Case_closure_reasons__c, &quot;SC Not Recommended&quot;)),
+NOT(ISPICKVAL(EDRD_Case_closure_reasons__c, &quot;AC Not Recommended&quot;))) )
 )</errorConditionFormula>
     <errorMessage>The case cannot be closed without a funding decision.</errorMessage>
 </ValidationRule>
