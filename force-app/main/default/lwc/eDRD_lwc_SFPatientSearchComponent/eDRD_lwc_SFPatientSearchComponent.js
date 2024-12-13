@@ -244,7 +244,6 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
         this.isNextDisable = !(
             this.patientFirstName &&
             this.patientLastName &&
-            this.patientGender &&
             this.patientBirthdate &&
             (!this.patient_IdentifierManual || !this.isPHNAvaiable)
         );

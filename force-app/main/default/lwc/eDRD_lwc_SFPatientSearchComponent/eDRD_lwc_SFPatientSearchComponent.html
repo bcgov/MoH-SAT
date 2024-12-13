@@ -8,6 +8,7 @@
                     label="Patient Identifier" 
                     value={patientIdentifierSearch} 
                     type="text" 
+                    field-level-help="Personal Health Number"
                     onchange={handlePatientIdentifierChange}>
                 </lightning-input>
             </div>
@@ -105,8 +106,7 @@
                         value={manualGender} 
                         options={genderOptions.data.values} 
                         onchange={handleManualInputChange} 
-                        data-id="manualGender"
-                        required>
+                        data-id="manualGender">
                     </lightning-combobox>
                 </div>
                 <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-3">
@@ -126,6 +126,7 @@
                         value={manualPatientIdentifier} 
                         onchange={handleManualInputChange} 
                         data-id="manualPatientIdentifier"
+                        field-level-help="Personal Health Number"
                         minlength="10"
                         maxlength="10">
                     </lightning-input>
