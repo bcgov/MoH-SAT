@@ -20,7 +20,7 @@
     <assignments>
         <name>Assigning_Manual_Patient_SF_Details</name>
         <label>Assigning_Manual_Patient_SF_Details</label>
-        <locationX>1612</locationX>
+        <locationX>1667</locationX>
         <locationY>998</locationY>
         <assignmentItems>
             <assignToReference>SFPatientId</assignToReference>
@@ -36,7 +36,7 @@
     <assignments>
         <name>Assigning_Manual_PatientDetails</name>
         <label>Assigning_Manual_PatientDetails</label>
-        <locationX>1216</locationX>
+        <locationX>1271</locationX>
         <locationY>998</locationY>
         <assignmentItems>
             <assignToReference>Patient_FirstName</assignToReference>
@@ -87,7 +87,7 @@
     <assignments>
         <name>Assigning_PatientDetails</name>
         <label>Assigning_PatientDetails</label>
-        <locationX>622</locationX>
+        <locationX>567</locationX>
         <locationY>782</locationY>
         <assignmentItems>
             <assignToReference>Patient_FirstName</assignToReference>
@@ -138,7 +138,7 @@
     <assignments>
         <name>Assigning_SFPatientId_create</name>
         <label>Assigning_SFPatientId_create</label>
-        <locationX>556</locationX>
+        <locationX>435</locationX>
         <locationY>1430</locationY>
         <assignmentItems>
             <assignToReference>SFPatientId</assignToReference>
@@ -154,7 +154,7 @@
     <assignments>
         <name>Assigning_SFPatientId_createManuallyPHN</name>
         <label>Assigning_SFPatientId_createManuallyPHN</label>
-        <locationX>1084</locationX>
+        <locationX>1139</locationX>
         <locationY>1430</locationY>
         <assignmentItems>
             <assignToReference>SFPatientId</assignToReference>
@@ -170,7 +170,7 @@
     <assignments>
         <name>Assigning_SFPatientId_createNoPHN</name>
         <label>Assigning_SFPatientId_createNoPHN</label>
-        <locationX>1348</locationX>
+        <locationX>1403</locationX>
         <locationY>1430</locationY>
         <assignmentItems>
             <assignToReference>SFPatientId</assignToReference>
@@ -186,7 +186,7 @@
     <assignments>
         <name>Assigning_SFPatientId_update</name>
         <label>Assigning_SFPatientId_update</label>
-        <locationX>292</locationX>
+        <locationX>171</locationX>
         <locationY>1538</locationY>
         <assignmentItems>
             <assignToReference>SFPatientId</assignToReference>
@@ -203,7 +203,7 @@
         <name>Assignment_CDL_Record</name>
         <label>Assignment_CDL_Record</label>
         <locationX>402</locationX>
-        <locationY>5750</locationY>
+        <locationY>5858</locationY>
         <assignmentItems>
             <assignToReference>Insert_CDL_Records</assignToReference>
             <operator>Add</operator>
@@ -219,7 +219,7 @@
         <name>Assignment_Renewal_CDL_Record</name>
         <label>Assignment_Renewal_CDL_Record</label>
         <locationX>930</locationX>
-        <locationY>5750</locationY>
+        <locationY>5858</locationY>
         <assignmentItems>
             <assignToReference>Insert_CDL_Records</assignToReference>
             <operator>Add</operator>
@@ -235,7 +235,7 @@
         <name>Update_CD_with_Entity_Id</name>
         <label>Update CD with Entity Id</label>
         <locationX>930</locationX>
-        <locationY>5642</locationY>
+        <locationY>5750</locationY>
         <assignmentItems>
             <assignToReference>CDL_Record.ContentDocumentId</assignToReference>
             <operator>Assign</operator>
@@ -272,7 +272,7 @@
         <name>Update_CD_with_Entity_Id_NewCaseType</name>
         <label>Update CD with Entity Id__NewCaseType</label>
         <locationX>402</locationX>
-        <locationY>5642</locationY>
+        <locationY>5750</locationY>
         <assignmentItems>
             <assignToReference>CDL_Record.ContentDocumentId</assignToReference>
             <operator>Assign</operator>
@@ -361,7 +361,7 @@
     <decisions>
         <name>Check_createpatientvalue</name>
         <label>Check_createpatientvalue</label>
-        <locationX>1414</locationX>
+        <locationX>1469</locationX>
         <locationY>890</locationY>
         <defaultConnector>
             <targetReference>Assigning_Manual_Patient_SF_Details</targetReference>
@@ -387,7 +387,7 @@
         <name>check_Insert_CDL_list_is_not_empty</name>
         <label>check Insert CDL list is not empty</label>
         <locationX>842</locationX>
-        <locationY>5942</locationY>
+        <locationY>6050</locationY>
         <defaultConnector>
             <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
         </defaultConnector>
@@ -412,7 +412,7 @@
         <name>check_Insert_CDL_list_is_not_empty_NewCaseType</name>
         <label>check Insert CDL list is not empty_NewCaseType</label>
         <locationX>314</locationX>
-        <locationY>5942</locationY>
+        <locationY>6050</locationY>
         <defaultConnector>
             <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
         </defaultConnector>
@@ -436,7 +436,7 @@
     <decisions>
         <name>Check_isManaulPHNPresent</name>
         <label>Check_isManaulPHNPresent</label>
-        <locationX>1216</locationX>
+        <locationX>1271</locationX>
         <locationY>1214</locationY>
         <defaultConnector>
             <targetReference>Manual_Create_patientRecord_NoPHN</targetReference>
@@ -461,7 +461,7 @@
     <decisions>
         <name>Check_patientFoundInSF</name>
         <label>Check_patientFoundInSF</label>
-        <locationX>424</locationX>
+        <locationX>303</locationX>
         <locationY>1214</locationY>
         <defaultConnector>
             <targetReference>Create_patientRecordWithEMPI</targetReference>
@@ -512,7 +512,7 @@
         <name>Choose_case_option</name>
         <label>Choose case option</label>
         <locationX>578</locationX>
-        <locationY>4610</locationY>
+        <locationY>4718</locationY>
         <defaultConnector>
             <targetReference>Get_Case_Record_Type_for_renewal</targetReference>
         </defaultConnector>
@@ -537,7 +537,7 @@
         <name>Copy_1_of_Renewal_Indefinite_Funding_check2</name>
         <label>Renewal Indefinite Funding check</label>
         <locationX>842</locationX>
-        <locationY>5234</locationY>
+        <locationY>5342</locationY>
         <defaultConnector>
             <targetReference>Create_Medication_Request_with_New_Renewal_Case_without_indef</targetReference>
         </defaultConnector>
@@ -559,10 +559,35 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Deceased_Check_patientFoundInSF</name>
+        <label>Deceased_Check_patientFoundInSF</label>
+        <locationX>831</locationX>
+        <locationY>1214</locationY>
+        <defaultConnector>
+            <targetReference>PatientDeceased_ErrorScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Deceased_If_PHN_found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>searchedPatientRecId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>UpdateDeceased_patientRecordWithEMPI</targetReference>
+            </connector>
+            <label>Deceased If PHN found</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Decision_10</name>
         <label>Renewal Indefinite Funding check</label>
         <locationX>842</locationX>
-        <locationY>4826</locationY>
+        <locationY>4934</locationY>
         <defaultConnector>
             <targetReference>New_renewal_case_creation_for_RecType_Renew_without_indef</targetReference>
         </defaultConnector>
@@ -587,7 +612,7 @@
         <name>Medication_details_New_Renewal_decision</name>
         <label>Medication details New/Renewal decision</label>
         <locationX>776</locationX>
-        <locationY>3386</locationY>
+        <locationY>3494</locationY>
         <defaultConnector>
             <targetReference>Renwal_Medication_details</targetReference>
         </defaultConnector>
@@ -612,7 +637,7 @@
         <name>New_Indefinite_Funding_check</name>
         <label>New Indefinite Funding check</label>
         <locationX>314</locationX>
-        <locationY>4826</locationY>
+        <locationY>4934</locationY>
         <defaultConnector>
             <targetReference>New_case_Creation_for_Rec_type_New_without_indef</targetReference>
         </defaultConnector>
@@ -637,7 +662,7 @@
         <name>New_Indefinite_Funding_check2</name>
         <label>New Indefinite Funding check</label>
         <locationX>314</locationX>
-        <locationY>5234</locationY>
+        <locationY>5342</locationY>
         <defaultConnector>
             <targetReference>Create_Medication_request_with_New_Case_without_indef</targetReference>
         </defaultConnector>
@@ -662,7 +687,7 @@
         <name>Other_Medication_Decision</name>
         <label>Other Medication Decision</label>
         <locationX>578</locationX>
-        <locationY>3170</locationY>
+        <locationY>3278</locationY>
         <defaultConnector>
             <targetReference>Indication_Screen</targetReference>
         </defaultConnector>
@@ -694,7 +719,7 @@
         <name>validate_ACR_Relationship</name>
         <label>validate_ACR_Relationship</label>
         <locationX>578</locationX>
-        <locationY>3986</locationY>
+        <locationY>4094</locationY>
         <defaultConnector>
             <targetReference>Get_PSP_Queue</targetReference>
         </defaultConnector>
@@ -864,7 +889,7 @@
         <name>validate_CPERecord</name>
         <label>validate_CPERecord</label>
         <locationX>578</locationX>
-        <locationY>2330</locationY>
+        <locationY>2438</locationY>
         <defaultConnector>
             <targetReference>Create_CPEStatus_Active</targetReference>
         </defaultConnector>
@@ -918,7 +943,7 @@
         <name>validate_EDRDCPRecord</name>
         <label>validate_EDRDCPRecord</label>
         <locationX>1018</locationX>
-        <locationY>2114</locationY>
+        <locationY>2222</locationY>
         <defaultConnector>
             <targetReference>CP_ErrorScreen</targetReference>
         </defaultConnector>
@@ -942,18 +967,18 @@
     <decisions>
         <name>validate_Is_patient_deceased</name>
         <label>validate_Is_patient_deceased</label>
-        <locationX>622</locationX>
+        <locationX>567</locationX>
         <locationY>890</locationY>
         <defaultConnector>
-            <targetReference>PatientDeceased_ErrorScreen</targetReference>
+            <targetReference>Deceased_PatientSummary_Screen</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Patient_Not_Deceased</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Patient_PHN</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <leftValueReference>Patient_Deceased</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No</stringValue>
                 </rightValue>
@@ -964,7 +989,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes related EMPI Integrations-v1.5 - adding Physician Roles</description>
+    <description>Changes related EMPI Integrations-v1.6 - Changes to Deceased condition &amp; Update</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -1027,7 +1052,7 @@
         <name>Iterate_CD_Records</name>
         <label>Iterate_CD_Records</label>
         <locationX>842</locationX>
-        <locationY>5534</locationY>
+        <locationY>5642</locationY>
         <collectionReference>UploadScreenDocument.contentDocIds</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1041,7 +1066,7 @@
         <name>Iterate_CD_Records_NewCaseType</name>
         <label>Iterate_CD_Records_NewCaseType</label>
         <locationX>314</locationX>
-        <locationY>5534</locationY>
+        <locationY>5642</locationY>
         <collectionReference>UploadScreenDocument.contentDocIds</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1074,7 +1099,7 @@
         <name>Create_ACR_CusP_Active_Status</name>
         <label>Create_ACR_CusP_Active_Status</label>
         <locationX>314</locationX>
-        <locationY>4094</locationY>
+        <locationY>4202</locationY>
         <connector>
             <targetReference>Get_PSP_Queue</targetReference>
         </connector>
@@ -1115,7 +1140,7 @@
         <name>Create_ACR_NotCusP_EDRD_DM</name>
         <label>Create_ACR_NotCusP_EDRD_DM</label>
         <locationX>1018</locationX>
-        <locationY>4094</locationY>
+        <locationY>4202</locationY>
         <connector>
             <targetReference>Get_PSP_Queue</targetReference>
         </connector>
@@ -1156,7 +1181,7 @@
         <name>Create_CPEStatus_Active</name>
         <label>Create_CPEStatus_Active</label>
         <locationX>798</locationX>
-        <locationY>2438</locationY>
+        <locationY>2546</locationY>
         <connector>
             <targetReference>Search_Provider_for_New_Case</targetReference>
         </connector>
@@ -1191,7 +1216,7 @@
         <name>Create_Medication_request_with_New_Case</name>
         <label>Create Medication request with New Case</label>
         <locationX>182</locationX>
-        <locationY>5342</locationY>
+        <locationY>5450</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
@@ -1298,7 +1323,7 @@
         <name>Create_Medication_request_with_New_Case_without_indef</name>
         <label>Create Medication request with New Case without indef</label>
         <locationX>446</locationX>
-        <locationY>5342</locationY>
+        <locationY>5450</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
@@ -1399,7 +1424,7 @@
         <name>Create_Medication_Request_with_New_Renewal_Case</name>
         <label>Create Medication Request with New Renewal Case</label>
         <locationX>710</locationX>
-        <locationY>5342</locationY>
+        <locationY>5450</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Iterate_CD_Records</targetReference>
@@ -1506,7 +1531,7 @@
         <name>Create_Medication_Request_with_New_Renewal_Case_without_indef</name>
         <label>Create Medication Request with New Renewal Case without indef</label>
         <locationX>974</locationX>
-        <locationY>5342</locationY>
+        <locationY>5450</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Iterate_CD_Records</targetReference>
@@ -1606,7 +1631,7 @@
     <recordCreates>
         <name>Create_patientRecordWithEMPI</name>
         <label>Create_patientRecordWithEMPI</label>
-        <locationX>556</locationX>
+        <locationX>435</locationX>
         <locationY>1322</locationY>
         <connector>
             <targetReference>Assigning_SFPatientId_create</targetReference>
@@ -1660,7 +1685,7 @@
         <name>Create_RelatedCDLfor_RenewalCase</name>
         <label>Create_RelatedCDLfor_RenewalCase</label>
         <locationX>710</locationX>
-        <locationY>6050</locationY>
+        <locationY>6158</locationY>
         <connector>
             <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
         </connector>
@@ -1670,7 +1695,7 @@
         <name>Create_RelatedCDLfor_RenewalCase_NewCaseType</name>
         <label>Create_RelatedCDLfor_RenewalCase_NewCaseType</label>
         <locationX>182</locationX>
-        <locationY>6050</locationY>
+        <locationY>6158</locationY>
         <connector>
             <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
         </connector>
@@ -1679,7 +1704,7 @@
     <recordCreates>
         <name>Manual_Create_patientRecord</name>
         <label>Manual_Create_patientRecord</label>
-        <locationX>1084</locationX>
+        <locationX>1139</locationX>
         <locationY>1322</locationY>
         <connector>
             <targetReference>Assigning_SFPatientId_createManuallyPHN</targetReference>
@@ -1732,7 +1757,7 @@
     <recordCreates>
         <name>Manual_Create_patientRecord_NoPHN</name>
         <label>Manual_Create_patientRecord_NoPHN</label>
-        <locationX>1348</locationX>
+        <locationX>1403</locationX>
         <locationY>1322</locationY>
         <connector>
             <targetReference>Assigning_SFPatientId_createNoPHN</targetReference>
@@ -1780,7 +1805,7 @@
         <name>New_case_Creation_for_Rec_type_New</name>
         <label>New case Creation for Rec type New</label>
         <locationX>182</locationX>
-        <locationY>4934</locationY>
+        <locationY>5042</locationY>
         <connector>
             <targetReference>Get_Newly_created_Case</targetReference>
         </connector>
@@ -1875,7 +1900,7 @@
         <name>New_case_Creation_for_Rec_type_New_without_indef</name>
         <label>New case Creation for Rec type New without indef</label>
         <locationX>446</locationX>
-        <locationY>4934</locationY>
+        <locationY>5042</locationY>
         <connector>
             <targetReference>Get_Newly_created_Case_without_indef</targetReference>
         </connector>
@@ -1964,7 +1989,7 @@
         <name>New_renewal_case_creation_for_RecType_Renew</name>
         <label>New renewal case creation for RecType Renew</label>
         <locationX>710</locationX>
-        <locationY>4934</locationY>
+        <locationY>5042</locationY>
         <connector>
             <targetReference>Get_newly_created_Renewal_Rec</targetReference>
         </connector>
@@ -2059,7 +2084,7 @@
         <name>New_renewal_case_creation_for_RecType_Renew_without_indef</name>
         <label>New renewal case creation for RecType Renew without indef</label>
         <locationX>974</locationX>
-        <locationY>4934</locationY>
+        <locationY>5042</locationY>
         <connector>
             <targetReference>Get_newly_created_Renewal_Rec_without_indef</targetReference>
         </connector>
@@ -2145,10 +2170,37 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
+        <name>Deceased_Get_Patient_Record</name>
+        <label>Deceased_Get Patient Record</label>
+        <locationX>831</locationX>
+        <locationY>1106</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Deceased_Check_patientFoundInSF</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Patient_Identifier__pc</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Patient_PHN</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputReference>searchedPatientRecId</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Patient_Identifier__pc</queriedFields>
+        <queriedFields>PersonBirthdate</queriedFields>
+        <queriedFields>Patient_is_Deceased__pc</queriedFields>
+        <queriedFields>PersonContactId</queriedFields>
+        <queriedFields>PersonGender</queriedFields>
+    </recordLookups>
+    <recordLookups>
         <name>get_ACRRecord</name>
         <label>get_ACRRecord</label>
         <locationX>578</locationX>
-        <locationY>3878</locationY>
+        <locationY>3986</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_ACR_Relationship</targetReference>
@@ -2176,7 +2228,7 @@
         <name>Get_Case_Record_Type</name>
         <label>Get Case Record Type</label>
         <locationX>314</locationX>
-        <locationY>4718</locationY>
+        <locationY>4826</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Indefinite_Funding_check</targetReference>
@@ -2206,7 +2258,7 @@
         <name>Get_Case_Record_Type_for_renewal</name>
         <label>Get Case Record Type for renewal</label>
         <locationX>842</locationX>
-        <locationY>4718</locationY>
+        <locationY>4826</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Decision_10</targetReference>
@@ -2236,7 +2288,7 @@
         <name>Get_EDRD_MR_Record_Type</name>
         <label>Get EDRD MR Record Type</label>
         <locationX>578</locationX>
-        <locationY>3062</locationY>
+        <locationY>3170</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Other_Medication_Decision</targetReference>
@@ -2264,7 +2316,7 @@
         <name>Get_EDRDCPRecord</name>
         <label>Get_EDRDCPRecord</label>
         <locationX>1018</locationX>
-        <locationY>2006</locationY>
+        <locationY>2114</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_EDRDCPRecord</targetReference>
@@ -2291,7 +2343,7 @@
         <name>Get_Medication</name>
         <label>Get Medication</label>
         <locationX>578</locationX>
-        <locationY>2954</locationY>
+        <locationY>3062</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_EDRD_MR_Record_Type</targetReference>
@@ -2330,7 +2382,7 @@
         <name>Get_Newly_created_Case</name>
         <label>Get Newly created Case</label>
         <locationX>182</locationX>
-        <locationY>5042</locationY>
+        <locationY>5150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Indefinite_Funding_check2</targetReference>
@@ -2357,7 +2409,7 @@
         <name>Get_Newly_created_Case_without_indef</name>
         <label>Get Newly created Case without indef</label>
         <locationX>446</locationX>
-        <locationY>5042</locationY>
+        <locationY>5150</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Indefinite_Funding_check2</targetReference>
@@ -2384,7 +2436,7 @@
         <name>Get_newly_created_Renewal_Rec</name>
         <label>Get newly created Renewal Rec</label>
         <locationX>710</locationX>
-        <locationY>5042</locationY>
+        <locationY>5150</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
@@ -2411,7 +2463,7 @@
         <name>Get_newly_created_Renewal_Rec_without_indef</name>
         <label>Get newly created Renewal Rec without indef</label>
         <locationX>974</locationX>
-        <locationY>5042</locationY>
+        <locationY>5150</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
@@ -2438,7 +2490,7 @@
         <name>Get_Patient_Contact_rec</name>
         <label>Get Patient Contact</label>
         <locationX>578</locationX>
-        <locationY>4394</locationY>
+        <locationY>4502</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Provider_Contact_Rec</targetReference>
@@ -2467,7 +2519,7 @@
     <recordLookups>
         <name>Get_Patient_Records</name>
         <label>Get Patient Records</label>
-        <locationX>424</locationX>
+        <locationX>303</locationX>
         <locationY>1106</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2495,7 +2547,7 @@
         <name>Get_Patient_Records_After_Create_Update</name>
         <label>Get Patient Records After Create/Update</label>
         <locationX>1018</locationX>
-        <locationY>1898</locationY>
+        <locationY>2006</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_EDRDCPRecord</targetReference>
@@ -2552,7 +2604,7 @@
         <name>Get_Provider_Contact_Rec</name>
         <label>Get Provider Contact</label>
         <locationX>578</locationX>
-        <locationY>4502</locationY>
+        <locationY>4610</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Choose_case_option</targetReference>
@@ -2577,7 +2629,7 @@
         <name>Get_Provider_Record_for_New_case</name>
         <label>Get Provider Record for New case</label>
         <locationX>578</locationX>
-        <locationY>2738</locationY>
+        <locationY>2846</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Medication_Request</targetReference>
@@ -2602,7 +2654,7 @@
         <name>Get_PSP_Queue</name>
         <label>Get PSP Queue</label>
         <locationX>578</locationX>
-        <locationY>4286</locationY>
+        <locationY>4394</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Patient_Contact_rec</targetReference>
@@ -2630,7 +2682,7 @@
         <name>get_RelatedCPERecord</name>
         <label>get_RelatedCPERecord</label>
         <locationX>578</locationX>
-        <locationY>2222</locationY>
+        <locationY>2330</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_CPERecord</targetReference>
@@ -2688,7 +2740,7 @@
         <name>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</name>
         <label>Update_EDRDRenewCase_withPSPOwner</label>
         <locationX>842</locationX>
-        <locationY>6242</locationY>
+        <locationY>6350</locationY>
         <connector>
             <targetReference>Success</targetReference>
         </connector>
@@ -2712,7 +2764,7 @@
         <name>Update_ACR_CusP_Status</name>
         <label>Update_ACR_CusP_Status</label>
         <locationX>50</locationX>
-        <locationY>4094</locationY>
+        <locationY>4202</locationY>
         <connector>
             <targetReference>Get_PSP_Queue</targetReference>
         </connector>
@@ -2742,7 +2794,7 @@
         <name>Update_ACR_NotCusP_EDRD_DM</name>
         <label>Update_ACR_NotCusP_EDRD_DM</label>
         <locationX>754</locationX>
-        <locationY>4094</locationY>
+        <locationY>4202</locationY>
         <connector>
             <targetReference>Get_PSP_Queue</targetReference>
         </connector>
@@ -2772,7 +2824,7 @@
         <name>Update_CPEStatus_Active</name>
         <label>Update_CPEStatus_Active</label>
         <locationX>534</locationX>
-        <locationY>2438</locationY>
+        <locationY>2546</locationY>
         <connector>
             <targetReference>Search_Provider_for_New_Case</targetReference>
         </connector>
@@ -2809,7 +2861,7 @@
         <name>Update_EDRDNewCase_withPSPOwner</name>
         <label>Update_EDRDNewCase_withPSPOwner</label>
         <locationX>314</locationX>
-        <locationY>6242</locationY>
+        <locationY>6350</locationY>
         <connector>
             <targetReference>Sucees</targetReference>
         </connector>
@@ -2832,7 +2884,7 @@
     <recordUpdates>
         <name>Update_patientRecordWithEMPI</name>
         <label>Update_patientRecordWithEMPI</label>
-        <locationX>292</locationX>
+        <locationX>171</locationX>
         <locationY>1322</locationY>
         <connector>
             <targetReference>Update_patientRecordWithEMPI_BypassVR</targetReference>
@@ -2886,10 +2938,88 @@
     <recordUpdates>
         <name>Update_patientRecordWithEMPI_BypassVR</name>
         <label>Update_patientRecordWithEMPI_BypassVR</label>
-        <locationX>292</locationX>
+        <locationX>171</locationX>
         <locationY>1430</locationY>
         <connector>
             <targetReference>Assigning_SFPatientId_update</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Patient_Identifier__pc</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Patient_PHN</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>EDRD_Bypass_Validation__pc</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>UpdateDeceased_patientRecordWithEMPI</name>
+        <label>UpdateDeceased_patientRecordWithEMPI</label>
+        <locationX>699</locationX>
+        <locationY>1322</locationY>
+        <connector>
+            <targetReference>UpdateDeceased_patientRecordWithEMPI_BypassVR</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Patient_Identifier__pc</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Patient_PHN</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>EDRD_Bypass_Validation__pc</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>Patient_FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>Patient_LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_is_Deceased__pc</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonBirthdate</field>
+            <value>
+                <elementReference>Patient_DOB</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonGender</field>
+            <value>
+                <elementReference>Patient_Gender</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>UpdateDeceased_patientRecordWithEMPI_BypassVR</name>
+        <label>UpdateDeceased_patientRecordWithEMPI_BypassVR</label>
+        <locationX>699</locationX>
+        <locationY>1430</locationY>
+        <connector>
+            <targetReference>PatientDeceased_ErrorScreen</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2912,7 +3042,7 @@
         <name>CP_ErrorScreen</name>
         <label>CP_ErrorScreen</label>
         <locationX>1458</locationX>
-        <locationY>2222</locationY>
+        <locationY>2330</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2925,10 +3055,29 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>Deceased_PatientSummary_Screen</name>
+        <label>Deceased_PatientSummary_Screen</label>
+        <locationX>831</locationX>
+        <locationY>998</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Deceased_Get_Patient_Record</targetReference>
+        </connector>
+        <fields>
+            <name>Deceased_PatientSummary</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Patient_FirstName}{!Patient_LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Patient Identifier: {!Patient_PHN}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: {!Patient_DOB}&lt;/p&gt;&lt;p&gt;Patient Gender: {!Patient_Gender}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 12px; color: rgb(68, 68, 68);&quot;&gt;Patient is Deceased: {!Patient_Deceased}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Indication_Screen</name>
         <label>Indication Screen</label>
         <locationX>776</locationX>
-        <locationY>3278</locationY>
+        <locationY>3386</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2957,7 +3106,7 @@
         <name>Medication_Request</name>
         <label>Medication Request</label>
         <locationX>578</locationX>
-        <locationY>2846</locationY>
+        <locationY>2954</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3033,7 +3182,7 @@
         <name>MedicationRequestDetails</name>
         <label>Medication details</label>
         <locationX>644</locationX>
-        <locationY>3494</locationY>
+        <locationY>3602</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3286,7 +3435,7 @@
         <name>Other_Medication</name>
         <label>Other Medication</label>
         <locationX>380</locationX>
-        <locationY>3278</locationY>
+        <locationY>3386</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3373,7 +3522,7 @@
         <name>Other_Medication_details</name>
         <label>Other Medication details</label>
         <locationX>380</locationX>
-        <locationY>3386</locationY>
+        <locationY>3494</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3396,8 +3545,8 @@
     <screens>
         <name>PatientDeceased_ErrorScreen</name>
         <label>PatientDeceased_ErrorScreen</label>
-        <locationX>820</locationX>
-        <locationY>998</locationY>
+        <locationX>831</locationX>
+        <locationY>1622</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3412,7 +3561,7 @@
     <screens>
         <name>PatientSummary_Screen</name>
         <label>PatientSummary_Screen</label>
-        <locationX>424</locationX>
+        <locationX>303</locationX>
         <locationY>998</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -3431,7 +3580,7 @@
     <screens>
         <name>PatientSummary_ScreenManual</name>
         <label>PatientSummary_ScreenManual</label>
-        <locationX>1216</locationX>
+        <locationX>1271</locationX>
         <locationY>1106</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -3451,7 +3600,7 @@
         <name>Renwal_Medication_details</name>
         <label>Medication details</label>
         <locationX>908</locationX>
-        <locationY>3494</locationY>
+        <locationY>3602</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3696,7 +3845,7 @@
     <screens>
         <name>Search_Patient_in_SF</name>
         <label>Search Patient in SF</label>
-        <locationX>1414</locationX>
+        <locationX>1469</locationX>
         <locationY>782</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -3720,7 +3869,7 @@
         <name>Search_Provider_for_New_Case</name>
         <label>Search Provider for New Case</label>
         <locationX>578</locationX>
-        <locationY>2630</locationY>
+        <locationY>2738</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3742,7 +3891,7 @@
         <name>Success</name>
         <label>Success</label>
         <locationX>842</locationX>
-        <locationY>6350</locationY>
+        <locationY>6458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3826,7 +3975,7 @@
         <name>Sucees</name>
         <label>Sucees</label>
         <locationX>314</locationX>
-        <locationY>6350</locationY>
+        <locationY>6458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3910,7 +4059,7 @@
         <name>Upload_Supporting_Documents</name>
         <label>Upload Supporting Documents</label>
         <locationX>578</locationX>
-        <locationY>3770</locationY>
+        <locationY>3878</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
