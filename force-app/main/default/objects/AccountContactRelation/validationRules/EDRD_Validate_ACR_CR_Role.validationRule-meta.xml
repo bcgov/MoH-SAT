@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_ACR_CR_Role</fullName>
+    <active>true</active>
+    <description>Prevents EDRD users from creating a Committee-Reviewer relationship with the role &quot;Physician&quot; when specific Account and Contact record types are used.</description>
+    <errorConditionFormula>AND(
+    CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+    Account.RecordType.DeveloperName = &apos;EDRD_Committee&apos;,
+    OR(
+        Contact.Account.RecordType.DeveloperName = &apos;Provider&apos;,
+        Contact.Account.RecordType.DeveloperName = &apos;Committee_Reviewer&apos;
+    ),
+    INCLUDES(Roles, &apos;Physician&apos;)
+)</errorConditionFormula>
+    <errorMessage>An EDRD user cannot create a Committee-Reviewer relationship with the role as Physician.</errorMessage>
+</ValidationRule>

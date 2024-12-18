@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_ACR_Insert_ForCommitteeRec</fullName>
+    <active>true</active>
+    <description>Prevents EDRD users from creating an inactive Committee-Reviewer relationship when the Account and Contact record types are specific and roles include Reviewer, Chair, or Vice Chair.</description>
+    <errorConditionFormula>AND(
+    ISNEW(),
+    CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+    Account.RecordType.DeveloperName = &apos;EDRD_Committee&apos;,
+    OR(
+        Contact.Account.RecordType.DeveloperName = &apos;Provider&apos;,
+        Contact.Account.RecordType.DeveloperName = &apos;Committee_Reviewer&apos;
+    ),
+    OR(
+        INCLUDES(Roles, &apos;Reviewer&apos;),
+        INCLUDES(Roles, &apos;Chair&apos;),
+        INCLUDES(Roles, &apos;Vice Chair&apos;)
+    ),
+    NOT(IsActive)
+)</errorConditionFormula>
+    <errorMessage>An EDRD user cannot create an inactive Committee - Reviewer relationship.</errorMessage>
+</ValidationRule>
