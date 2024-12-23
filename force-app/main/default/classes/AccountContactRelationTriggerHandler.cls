@@ -4,6 +4,8 @@
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
                 21 Aug -  EDRD-911          -  Accenture   -  Added Patient Share/delete With Provider User
+                13 Dec -  EDRD-1150         -  Accenture   -  The purpose of this method is to update Committee based on ACR insert of EDRD_Committee & Provider OR Committee_Reviewer.
+                20 Dec -  EDRD-1150         -  Accenture   -  The purpose of this method is to Remove Committee based on ACR delete of EDRD_Committee & Provider OR Committee_Reviewer.
 ***********************************************************************************************/
 public with sharing class AccountContactRelationTriggerHandler {
 /**
@@ -109,5 +111,139 @@ public with sharing class AccountContactRelationTriggerHandler {
                createPatientShare(accShareListToInsert);
             }
         }
-    }  
+    }
+    
+/**
+* @author: Deepak
+* @date: 13 Dec 2024
+* @description: The purpose of this method is to update Committee based on ACR insert of EDRD_Committee & Provider OR Committee_Reviewer.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    public static void updateCommitteeFieldOnACRInsert(List<AccountContactRelation> aCRList) {        
+        Set<Id> contactIdSet = new Set<Id>();
+        Set<Id> accountIdSet = new Set<Id>();
+        Map<Id, Account> providerIdVsRecToUpdate = new map<Id, Account>();
+        List<AccountContactRelation> aCRListToProcess = New List<AccountContactRelation>();
+        Set<String> accRecTypeSet = new Set<String>{'EDRD_Committee', 'Provider', 'Committee_Reviewer'};
+            try{   
+                for (AccountContactRelation aCRObj : aCRList) {
+                    if (!String.isEmpty(aCRObj.Roles) && aCRObj.IsActive &&
+                        (aCRObj.Roles.containsIgnoreCase('Reviewer') || aCRObj.Roles.containsIgnoreCase('Chair') || aCRObj.Roles.containsIgnoreCase('Vice Chair'))){
+                            contactIdSet.add(aCRObj.ContactId);
+                            accountIdSet.add(aCRObj.AccountId);
+                            aCRListToProcess.add(aCrObj);
+                        }
+                }
+                
+                Map<Id, Account> accIdVsRec = new Map<Id, Account>([SELECT Id, Recordtype.DeveloperName, EDRD_Committee_Type__c, Name FROM Account Where Id IN: accountIdSet]);
+                Map<Id, Contact> contactIdVsRec = new Map<Id, Contact>([SELECT Id, Contact.AccountId, Contact.Account.Recordtype.DeveloperName, Contact.Account.Committee__pc, Contact.Account.Committee_Name__pc FROM Contact Where Id IN: contactIdSet]);
+                Account providerAccount = new Account();
+                for(AccountContactRelation acRObj: aCRListToProcess){
+                    providerAccount = contactIdVsRec.get(aCrObj.ContactId).Account;
+                    Account businessAccount = accIdVsRec.get(aCrObj.AccountId);
+                    if(accRecTypeSet.Contains(businessAccount.RecordType.DeveloperName) || (accRecTypeSet.Contains(providerAccount.RecordType.DeveloperName))){
+                        String businessCommitteeTypes = businessAccount.EDRD_Committee_Type__c;
+                        String oldProviderCommittee = providerAccount.Committee__pc;
+                                                
+                        if (ESA_cls_constants.EDRD_BUSINESS_SC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == NULL) {
+                            providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
+                            providerAccount.Committee_Name__pc = providerAccount.Committee_Name__pc != NULL ? providerAccount.Committee_Name__pc +';'+ businessAccount.Name : businessAccount.Name;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        } else if (ESA_cls_constants.EDRD_BUSINESS_AC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == NULL) {
+                            providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_AC;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        } else if(ESA_cls_constants.EDRD_BUSINESS_SC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == ESA_cls_constants.EDRD_PERSONACCOUNT_SC){
+                            providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
+                            providerAccount.Committee_Name__pc = providerAccount.Committee_Name__pc != NULL ? providerAccount.Committee_Name__pc +';'+ businessAccount.Name : businessAccount.Name;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        } else if(ESA_cls_constants.EDRD_BUSINESS_SC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == ESA_cls_constants.EDRD_PERSONACCOUNT_AC){
+                            providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC;
+                            providerAccount.Committee_Name__pc = providerAccount.Committee_Name__pc != NULL ? providerAccount.Committee_Name__pc +';'+ businessAccount.Name : businessAccount.Name;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        } else if (ESA_cls_constants.EDRD_BUSINESS_SC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC){
+                            providerAccount.Committee_Name__pc = providerAccount.Committee_Name__pc != NULL ? providerAccount.Committee_Name__pc +';'+ businessAccount.Name : businessAccount.Name;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        } else if(ESA_cls_constants.EDRD_BUSINESS_AC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == ESA_cls_constants.EDRD_PERSONACCOUNT_SC){
+                            providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        } else if(ESA_cls_constants.EDRD_BUSINESS_AC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == ESA_cls_constants.EDRD_PERSONACCOUNT_AC){
+                            providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_AC;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        } else if(ESA_cls_constants.EDRD_BUSINESS_AC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC){
+                            providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC;
+                            providerIdVsRecToUpdate.put(providerAccount.Id, providerAccount);
+                        }
+                    }                
+                }
+                
+                if (!providerIdVsRecToUpdate.isEmpty()) {           
+                    Database.update(providerIdVsRecToUpdate.values(), true);
+                }
+            }catch (DmlException e) {
+                System.debug('Error Updating Provider/Reviewer record: ' + e.getMessage());
+            }
+    }
+    
+/**
+* @author: Deepak
+* @date: 20 Dec 2024
+* @description: The purpose of this method is to Remove Committee based on ACR delete of EDRD_Committee & Provider OR Committee_Reviewer.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    public static void removeCommitteeFieldOnACRDelete(List<AccountContactRelation> aCRList) {
+        Set<Id> contactIdSet = new Set<Id>();
+        Set<Id> accountIdSet = new Set<Id>();
+        List<AccountContactRelation> aCRListToIterate = new List<AccountContactRelation>();
+        Map<Id, Account> providerIdVsRecToUpdate = new Map<Id, Account>();
+        Set<String> accRecTypeSet = new Set<String>{'EDRD_Committee', 'Provider', 'Committee_Reviewer'};
+            
+            try {
+                for (AccountContactRelation aCRObj : aCRList) {
+                    if (!String.isEmpty(aCRObj.Roles) && 
+                        (aCRObj.Roles.containsIgnoreCase('Reviewer') || aCRObj.Roles.containsIgnoreCase('Chair') || aCRObj.Roles.containsIgnoreCase('Vice Chair'))) {
+                            contactIdSet.add(aCRObj.ContactId);
+                            accountIdSet.add(aCRObj.AccountId);
+                            aCRListToIterate.add(aCRObj);
+                        }
+                }
+                
+                Map<Id, Account> accIdVsRec = new Map<Id, Account>([SELECT Id, RecordType.DeveloperName, EDRD_Committee_Type__c, Committee__pc, Committee_Name__pc, Name 
+                                                                    FROM Account WHERE Id IN :accountIdSet]);
+                Map<Id, Contact> contactIdVsRec = new Map<Id, Contact>([SELECT Id, AccountId, Account.RecordType.DeveloperName, Account.Committee__pc, Account.Committee_Name__pc, Account.FirstName, Account.LastName
+                                                                        FROM Contact WHERE Id IN :contactIdSet]);
+                
+                for (AccountContactRelation aCRObj : aCRListToIterate) {
+                    Account providerAccount = contactIdVsRec.get(aCrObj.ContactId)?.Account;
+                    Account businessAccount = accIdVsRec.get(aCrObj.AccountId);
+                    String sCToRemove = accIdVsRec.get(aCRObj.AccountId)?.Name;
+                    String businessCommitteeTypes = businessAccount.EDRD_Committee_Type__c;                    
+                    
+                    if(ESA_cls_constants.EDRD_BUSINESS_SC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes)  && (providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_SC || providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC)){
+                        if(providerAccount.Committee_Name__pc.Contains(sCToRemove)){
+                            Set<String> committeeSet = new Set<String>(providerAccount.Committee_Name__pc.Split(';'));
+                            committeeSet.remove(sCToRemove);
+                            
+                            if(!committeeSet.isEmpty()){
+                                providerAccount.Committee__pc = (providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_SC) ? ESA_cls_constants.EDRD_PERSONACCOUNT_SC : ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC;
+                                providerAccount.Committee_Name__pc = String.join(committeeSet, ';');
+                                providerIdVsRecToUpdate.put(providerAccount.Id, new Account(Id = providerAccount.Id, Committee__pc = providerAccount.Committee__pc, Committee_Name__pc = providerAccount.Committee_Name__pc));
+                            } else {
+                                providerAccount.Committee__pc = (providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC) ? ESA_cls_constants.EDRD_PERSONACCOUNT_AC : NULL ;
+                                providerAccount.Committee_Name__pc = NULL;
+                                providerIdVsRecToUpdate.put(providerAccount.Id, new Account(Id = providerAccount.Id, Committee__pc = providerAccount.Committee__pc, Committee_Name__pc = NULL));
+                            }
+                        }
+                    }else if(ESA_cls_constants.EDRD_BUSINESS_AC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes)  && (providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_AC || providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC)){
+                        providerAccount.Committee__pc = (providerAccount.Committee__pc == ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC) ? ESA_cls_constants.EDRD_PERSONACCOUNT_SC : NULL;
+                        providerIdVsRecToUpdate.put(providerAccount.Id, new Account(Id = providerAccount.Id, Committee__pc = providerAccount.Committee__pc, Committee_Name__pc = providerAccount.Committee_Name__pc));
+                    }                    
+                }
+                
+                if (!providerIdVsRecToUpdate.isEmpty()) {
+                    Database.update(providerIdVsRecToUpdate.values(), true);
+                }
+            } catch (DmlException e) {
+                System.debug('Error Removing Committee from Provider/Reviewer record: ' + e.getMessage());
+            }
+    }
 }

@@ -4,6 +4,7 @@
 * @Description: The purpose of this class is to cover Code coverage of ESA_cls_accountTriggerHandler
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
                 11 Nov -  EDRD-82           -  Accenture   -  Added Close Case method on Account Inactive
+                20 Dec -  EDRD-1150         -  Accenture   -  Adding/Removing - Provider/Reviewer to public groups based on Committees. 
 ***********************************************************************************************/
 
 @isTest
@@ -86,4 +87,12 @@ public class ESA_cls_accountTriggerHandlerTest {
         Assert.areEqual(caseList.get(0).EDRD_MOHFunding_Expiry_Date__c, System.Today(), 'Date should be Today');
         Assert.areNotEqual(caseList.get(0).EDRD_MOHFunding_Expiry_Date__c, NULL, 'Date cannot be Null');
     }
+    
+/**
+* @author: 
+* @date: 20 Dec 2024
+* @description: The purpose of this method is to cover Testcoverage of handlePublicGroupMemberships
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    
 }
