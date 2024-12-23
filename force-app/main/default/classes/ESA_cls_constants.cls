@@ -10,6 +10,9 @@ public class ESA_cls_constants {
     public static final String CASE_APPROVAL_TIME_UNIT_WEEK = 'Weeks';
     public static final String CASE_APPROVAL_TIME_UNIT_MONTH = 'Months';
     public static final String CASE_APPROVAL_TIME_UNIT_DAYS = 'Days';
+    public static final String EDRD_ACR_ROLES_CHAIR = 'Chair';
+    public static final String EDRD_ACR_ROLES_REVIEWER = 'Reviewer';
+    public static final String EDRD_ACR_ROLES_VICE_CHAIR = 'Vice Chair';  //ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE
     public static final String EDRD_BUSINESS_SC_ACCOUNT = 'Subcommittee';
     public static final String EDRD_BUSINESS_AC_ACCOUNT = 'Advisory Committee';
     public static final String EDRD_CASE_CLOSER_REASON_PATIENT_DECEASED = 'Patient Deceased';
@@ -19,7 +22,8 @@ public class ESA_cls_constants {
     public static final String EDRD_FORMULATION_BOTTLE = 'Bottle';
     public static final String EDRD_FUNDING_DECISION_DENIED = 'Denied';
     public static final String EDRD_NAME = 'EDRD';
-    public static final String EDRD_PERSONACCOUNT_SC = 'EDRD Sub Committee'; 
+    public static final String EDRD_PERSONACCOUNT_SC = 'EDRD Sub Committee';
+    public static final String EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE = 'Metabolic Subcommittee';
     public static final String EDRD_PERSONACCOUNT_AC = 'EDRD Advisory Committee';
     public static final String EDRD_PERSONACCOUNT_ACSC = 'EDRD Advisory/ Sub Committee';
     public static final String EDRD_PHYSICIAN = 'Physician';
@@ -27,5 +31,5 @@ public class ESA_cls_constants {
     public static final String EDRD_PROVIDER = 'Provider';
     public static final Id PatientRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Patient').getRecordTypeId();
     public static final String ManullyCreated = 'manullyCreated';
-    public static final String EMPICreated = 'EMPICreated';   
+    public static final String EMPICreated = 'EMPICreated';
 }
