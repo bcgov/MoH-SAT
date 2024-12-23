@@ -5,7 +5,7 @@
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
                 20 Dec -  EDRD-1150         -  Accenture   -  Adding/Removing - Provider/Reviewer to public groups based on Committees. 
 ***********************************************************************************************/
-public without Sharing class EDRD_cls_HandleGroups {
+public with Sharing class EDRD_cls_HandleGroups {
 
 /**
 * @author: Deepak
