@@ -1,3 +1,12 @@
+/*-------------------------------------------------------------------
+Class Name : EDRD_EmpiIntegration
+Test Class Name : EDRD_EmpiIntegrationTest
+Referance Class : EDRD_EmpiIntegrationTest/EmpiIntegration/Patient/EDRD_EmpiWrapper/ESA_cls_constants
+Purpose : Get the Patient Information and Validate/Update/Create in Salesforce.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
 global without sharing class EDRD_EmpiIntegration implements Callable
 {
     public Object call(String action, Map<String,Object> args){
@@ -8,11 +17,12 @@ global without sharing class EDRD_EmpiIntegration implements Callable
     }
     
     global Boolean invokeMethod(String methodName, Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
+
         Boolean result = true; 
         String jsonInput = Json.serialize(inputMap.get('input'));
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
         EDRD_EmpiWrapper.InputWrapper inputWrapper = (EDRD_EmpiWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_EmpiWrapper.InputWrapper.class);
-          
+
         switch on methodName {
             when 'getEmpidata'{
                 this.getEmpidata(inputWrapper,outputMap);
@@ -37,12 +47,23 @@ global without sharing class EDRD_EmpiIntegration implements Callable
             }
         }
         return result;
-    }      
+    }   
+/*---------------------------------------------------------------------
+Method Name : validatePHN
+Purpose :  Check PHN is Exsit in salesforce Database or Not.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
     public void validatePHN(EDRD_EmpiWrapper.InputWrapper inputWrapper,Map<String,Object> outputMap){
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper= new EDRD_EmpiWrapper.OutputWrapper();
         List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
         if(!patientRecord.isEmpty()){
                for(Account acc:patientRecord){
+                patientOutputWrapper.firstName = acc.FirstName;
+                patientOutputWrapper.lastName = acc.LastName;
+                patientOutputWrapper.dateOfBirth = acc.PersonBirthdate;
+                patientOutputWrapper.gender = acc.PersonGender;                   
                 patientOutputWrapper.phn = acc.Patient_Identifier__pc;
                 patientOutputWrapper.isPatientFound = true; 
                 patientOutputWrapper.patientaccountId = acc.Id;
@@ -59,7 +80,13 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
         return;
     }
-    
+/*---------------------------------------------------------------------
+Method Name : getSFdata
+Purpose : Get the Data from salesforce based on user input(it cloud be PHN or Patient details).
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/    
     public void getSFdata(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) {
         List<EDRD_EmpiWrapper.OutputWrapper> lstpatientOutputWrapper=new List<EDRD_EmpiWrapper.OutputWrapper>(); 
  
@@ -88,7 +115,13 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         return;
                 
     }
-    
+/*---------------------------------------------------------------------
+Method Name : validatePHN
+Purpose : This common class, which we can call from any class to assine the patientOutputWrapper data
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/    
     public EDRD_EmpiWrapper.OutputWrapper loopsPatientDeatils(Account acc){
         
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();               
@@ -102,6 +135,14 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         return patientOutputWrapper;
         
     } 
+/*---------------------------------------------------------------------
+Method Name : createUpdatePatient
+Purpose : If we found the Patient information in EMPI we update or create same dataCheck 
+          PHN is Exsit in salesforce Database or Not.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
     public void createUpdatePatient(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) {
 
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();        
@@ -128,7 +169,14 @@ global without sharing class EDRD_EmpiIntegration implements Callable
             createPatientInSF(inputWrapper,outputMap);
             return;
         }
-    }    
+    }   
+/*---------------------------------------------------------------------
+Method Name : validatePHN
+Purpose : Pass the PHN and get the Patient Infomation form EMPI database.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
     public void getEmpidata(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) {
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
         String phn = inputWrapper.phn;
@@ -141,7 +189,13 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
         return;
     }
-
+/*---------------------------------------------------------------------
+Method Name : getOutput
+Purpose : Innter method.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
     public EDRD_EmpiWrapper.OutputWrapper getOutput(String patientJSON){   
         
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
@@ -164,7 +218,13 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         }
         return patientOutputWrapper;
     }
-
+/*---------------------------------------------------------------------
+Method Name : createPatientInSF
+Purpose : Create Date in salesforce database.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
     public void createPatientInSF(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) 
     {
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
@@ -195,10 +255,16 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
         return;
     }
-
+/*---------------------------------------------------------------------
+Method Name : createCareProgramEnrollee
+Purpose : Create CareProgramEnrollee to associcated Account.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
     public void createCareProgramEnrollee(Id patientId){
             List<CareProgramEnrollee> cpeRecords = new Elevated().creByAccountId(patientId);
-            if(!cpeRecords.isEmpty()){
+            if(cpeRecords.isEmpty()){
                 List<CareProgram> CareProgramName = new Elevated().CareProgramByName(ESA_cls_constants.EDRD_NAME);
                 CareProgramEnrollee careProgram = new CareProgramEnrollee();
                 careProgram.AccountId = patientId;
@@ -208,7 +274,13 @@ global without sharing class EDRD_EmpiIntegration implements Callable
                 insert careProgram;
            }
     }
-    
+/*---------------------------------------------------------------------
+Method Name : createACR
+Purpose : Craete ACR
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/  
     public void createACR(EDRD_EmpiWrapper.InputWrapper inputWrapper,Map<String,Object> outputMap){
       
         List<AccountContactRelation> acrListRecords = new Elevated().selectACR(Id.ValueOf(inputWrapper.LoginUserAccountId),Id.ValueOf(inputWrapper.PatientContactId));
@@ -220,8 +292,15 @@ global without sharing class EDRD_EmpiIntegration implements Callable
             insert acrRecords;       
         }
     }
-    
-    public without sharing class Elevated{
+/*---------------------------------------------------------------------
+Class Name : Elevated
+Purpose : This is Elevated class to get the salesforce data on System mode.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
+    public without sharing class Elevated
+    {
         
         public List<CareProgramEnrollee> creByAccountId(Id accountId){
             return [SELECT Id FROM CareProgramEnrollee WHERE AccountId = :accountId Limit 1];
@@ -246,6 +325,8 @@ global without sharing class EDRD_EmpiIntegration implements Callable
               return [Select Id,Patient_Identifier__pc, FirstName, LastName, Patient_is_Deceased__pc, PersonBirthdate,PersonGender,PersonContactId from Account where Patient_Identifier__pc =: inputWrapper.phn];      
             }
             
-        }
-    } 
+        }  
+        
+     }    
+    
 }

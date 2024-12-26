@@ -29,10 +29,10 @@ public class EDRD_EmpiWrapper {
         public Id patientContactId {get; set;}
         public Boolean isValidatePHNClick {get;set;}
         public Boolean isClickEmpiSearch {get;set;}
-        public Boolean isClickPHNSerachInSF {get;set;}
+       // public Boolean isClickPHNSerachInSF {get;set;}
         public Boolean isClickSFsearch {get;set;}
         public Boolean isClickManulRecord {get;set;}
-        public Boolean isClickValidateByPhn {get;set;}
+       // public Boolean isClickValidateByPhn {get;set;}
        
         
       }
