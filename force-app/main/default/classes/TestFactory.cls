@@ -538,4 +538,22 @@ public with sharing class TestFactory {
         );
         return cDL;
     }
+    
+    public static Account createEDRDSCAccount(String Name){
+        Id committeeRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('EDRD_Committee').getRecordTypeId();
+        Account accountObj = new Account();
+        accountObj.Name = Name;
+        accountObj.RecordTypeId = committeeRecordTypeId;
+        accountObj.EDRD_Committee_Type__c = 'Subcommittee';
+        return accountObj;
+    }
+    
+    public static Account createEDRDACAccount(String Name){
+        Id committeeRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('EDRD_Committee').getRecordTypeId();
+        Account accountObj = new Account();
+        accountObj.Name = Name;
+        accountObj.RecordTypeId = committeeRecordTypeId;
+        accountObj.EDRD_Committee_Type__c = 'Advisory Committee';
+        return accountObj;
+    }
 }
