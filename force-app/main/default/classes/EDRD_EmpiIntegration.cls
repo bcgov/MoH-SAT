@@ -4,7 +4,7 @@ Test Class Name : EDRD_EmpiIntegrationTest
 Referance Class : EDRD_EmpiIntegrationTest/EmpiIntegration/Patient/EDRD_EmpiWrapper/ESA_cls_constants
 Purpose : Get the Patient Information and Validate/Update/Create in Salesforce.
 Version : 1.0
-Devloper Name : Accenture.
+Devloper Name : Accenture Dev Team.
 Date : 19/Dec/2024
 --------------------------------------------------------------------------*/
 global without sharing class EDRD_EmpiIntegration implements Callable
