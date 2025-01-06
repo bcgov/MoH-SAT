@@ -6,7 +6,7 @@ help() {
    echo "  $0 [-a <string>] [-d <integer>]"
    echo ""
    echo "OPTIONS:"
-   echo -e " -a Alias. Set a custom alias for scratch org. Default: 'sat-dev'."
+   echo -e " -a Alias. Set a custom alias for scratch org. Default: 'dev-scratch'."
    echo -e " -d Duration. Set a custom duration for a scratch org. Default: 7, min: 1, max: 30."
    echo ""
    echo "EXAMPLES:"
@@ -16,7 +16,7 @@ help() {
 
 verbose=true;
 duration=15;
-alias='sat-dev';
+alias='dev-scratch';
 
 while getopts a:d: opt 
 do
