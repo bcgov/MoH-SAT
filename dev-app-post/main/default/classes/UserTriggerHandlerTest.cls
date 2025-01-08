@@ -4,6 +4,7 @@
 * @Description: The purpose of this class is to cover Code coverage of UserTriggerHandler
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]
                 24Sept -  EDRD-911          -  Deepak   -  Added activateACROnEDRDPortalEnable_Test method
+                07Jan -   EDRD-1150         -  Accenture   -  Added handleEDRDPublicGroupMemberTest method
 ***********************************************************************************************/
 @isTest
 public class UserTriggerHandlerTest {
@@ -56,5 +57,35 @@ public class UserTriggerHandlerTest {
         Assert.areEqual(accShareList1.size(), 1, 'AccountShare should have been created for the Patient');
         Assert.areNotEqual(accShareList1.isEmpty(), true, 'AccountShare list should not be empty');
         Assert.areNotEqual(accShareList1[0].UserOrGroupId, null, 'UserOrGroupId should not be null');  
+    }
+    
+/**
+* @author: Deepak
+* @date: 07 Jan 2025
+* @description: The purpose of this method is to cover Testcoverage of handleEDRDPublicGroupMember & handleGroupsForUsersAsync
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @isTest
+    public static void handleEDRDPublicGroupMemberTest(){
+        Account providerAcc = TestFactory.newProvider('Provider Test');
+        providerAcc.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
+        providerAcc.Committee_Name__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE;
+        providerAcc.Provider_Identifier__pc = '1112223';
+        providerAcc.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        insert providerAcc;
+        
+        Id ContactId = [SELECT Id FROM Contact WHERE AccountID =: providerAcc.Id].get(0).Id;
+        Profile profileRec = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
+        User communityUser = TestFactory.createCommunityUser(ContactId, profileRec.Id, 'Test1', 'Test');  
+        
+        Test.startTest();
+        insert communityUser;
+        Test.stopTest();
+        
+        List<GroupMember> groupMembers = [SELECT Id, GroupId, UserOrGroupId FROM GroupMember WHERE UserOrGroupId = :communityUser.Id];
+        
+        Assert.areEqual(TRUE, groupMembers.size() > 0, 'At least one GroupMember should be created for the community user.');
+        Assert.areEqual(1, groupMembers.size(), 'Exactly one GroupMember should be created for the community user.'); 
+        Assert.areNotEqual(null, groupMembers[0].GroupId, 'GroupMember should have a valid GroupId.');
     }
 }
