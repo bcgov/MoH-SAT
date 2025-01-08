@@ -144,7 +144,7 @@ public with sharing class AccountContactRelationTriggerHandler {
                     if(accRecTypeSet.Contains(businessAccount.RecordType.DeveloperName) || (accRecTypeSet.Contains(providerAccount.RecordType.DeveloperName))){
                         String businessCommitteeTypes = businessAccount.EDRD_Committee_Type__c;
                         String oldProviderCommittee = providerAccount.Committee__pc;
-                                                
+                        
                         if (ESA_cls_constants.EDRD_BUSINESS_SC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == NULL) {
                             providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
                             providerAccount.Committee_Name__pc = providerAccount.Committee_Name__pc != NULL ? providerAccount.Committee_Name__pc +';'+ businessAccount.Name : businessAccount.Name;
@@ -238,7 +238,7 @@ public with sharing class AccountContactRelationTriggerHandler {
                         providerIdVsRecToUpdate.put(providerAccount.Id, new Account(Id = providerAccount.Id, Committee__pc = providerAccount.Committee__pc, Committee_Name__pc = providerAccount.Committee_Name__pc));
                     }                    
                 }
-                
+
                 if (!providerIdVsRecToUpdate.isEmpty()) {
                     Database.update(providerIdVsRecToUpdate.values(), true);
                 }

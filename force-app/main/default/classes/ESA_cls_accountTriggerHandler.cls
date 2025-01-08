@@ -97,46 +97,75 @@ public with sharing class ESA_cls_accountTriggerHandler {
     public static void handlePublicGroupMemberships(Map<Id, Account> oldAccountMap, Map<Id, Account> newAccountMap) {
         Map<Id, Set<String>> perConIdVsOldCommittesName = new Map<Id, Set<String>>();
         Map<Id, Set<String>> perConIdVsnewCommitteeName = new Map<Id, Set<String>>();
+        List<String> perConIdVsOldCommittesNameSTRList = new List<String>();
+        List<String> perConIdVsnewCommitteeNameSTRList = new List<String>();
         Map<String, Id> accNameVsPerConId = new Map<String, Id>();                
         
         for (Id accountId : newAccountMap.keySet()) {
             Account oldAccount = oldAccountMap.get(accountId);
             Account newAccount = newAccountMap.get(accountId);
+            if(oldAccount.Committee__pc == newAccount.Committee__pc && oldAccount.Committee_Name__pc == newAccount.Committee_Name__pc){
+                continue;
+            }
             accNameVsPerConId.put(newAccount.Name, newAccount.PersonContactId);
             
-            if (oldAccount.Committee__pc != null && oldAccount.Committee_Name__pc != null) {
-                perConIdVsOldCommittesName.put(oldAccount.perSonContactId, new Set<String>(oldAccount.Committee_Name__pc.split(';')));
+            if(oldAccount.Committee_Name__pc != newAccount.Committee_Name__pc){
+                if (oldAccount.Committee_Name__pc != null) {
+                    perConIdVsOldCommittesName.put(oldAccount.perSonContactId, new Set<String>(oldAccount.Committee_Name__pc.split(';')));
+                }
+                if (newAccount.Committee_Name__pc != null) {
+                    perConIdVsnewCommitteeName.put(newAccount.perSonContactId, new Set<String>(newAccount.Committee_Name__pc.split(';')));
+                }
             }
-            if (newAccount.Committee__pc != null && newAccount.Committee_Name__pc != null) {
-                perConIdVsnewCommitteeName.put(newAccount.perSonContactId, new Set<String>(newAccount.Committee_Name__pc.split(';')));
+            if(oldAccount.Committee__pc != newAccount.Committee__pc){
+                if(!perConIdVsOldCommittesName.containsKey(oldAccount.perSonContactId)){
+                    perConIdVsOldCommittesName.put(oldAccount.perSonContactId, new Set<String>());
+                }
+                if(!perConIdVsnewCommitteeName.containsKey(newAccount.perSonContactId)){
+                    perConIdVsnewCommitteeName.put(newAccount.perSonContactId, new Set<String>());
+                }
+                if (oldAccount.Committee__pc != null) {
+                    String committeeName = (oldAccount.Committee__pc == 'EDRD Advisory/ Sub Committee') ? 'EDRD Advisory Committee' : oldAccount.Committee__pc;
+                    perConIdVsOldCommittesName.get(oldAccount.perSonContactId).add(committeeName);
+                }
+                if (newAccount.Committee__pc != null) {
+                    perConIdVsnewCommitteeName.get(newAccount.perSonContactId).addAll(newAccount.Committee__pc.split(';'));                    
+                }  
             }
-        }        
-        List<String> perConIdVsOldCommittesNameSTRList = new List<String>();
-        
-        for(Id perContactId: perConIdVsOldCommittesName.keySet()){
-            groupMemberWrapper gMWObj = new groupMemberWrapper();
-            gMWObj.personContactId = perContactId;
-            List<cls_committiees> committeList = new List<cls_committiees>();
-            for(String committeeName : perConIdVsOldCommittesName.get(perContactId)){
-                committeList.add(new cls_committiees(committeeName));
+            if(oldAccount.Committee__pc != newAccount.Committee__pc){
+                if(newAccount.Committee__pc == 'EDRD Advisory Committee' || newAccount.Committee__pc == 'EDRD Advisory/ Sub Committee'){
+                    if(!perConIdVsnewCommitteeName.containsKey(newAccount.perSonContactId)){
+                        perConIdVsnewCommitteeName.put(newAccount.perSonContactId, new Set<String>{'EDRD Advisory Committee'});
+                    }else {
+                        perConIdVsnewCommitteeName.get(newAccount.perSonContactId).add('EDRD Advisory Committee');
+                    }
+                }                
             }
-            gMWObj.committiees = committeList;
-            perConIdVsOldCommittesNameSTRList.add(JSON.serialize(gMWObj));
+            for(Id perContactId: perConIdVsOldCommittesName.keySet()){
+                groupMemberWrapper gMWObj = new groupMemberWrapper();
+                gMWObj.personContactId = perContactId;
+                List<cls_committiees> committeList = new List<cls_committiees>();
+                for(String committeeName : perConIdVsOldCommittesName.get(perContactId)){
+                    committeList.add(new cls_committiees(committeeName));
+                }
+                gMWObj.committiees = committeList;
+                perConIdVsOldCommittesNameSTRList.add(JSON.serialize(gMWObj));
+            }
+            
+            for(Id perContactId: perConIdVsnewCommitteeName.keySet()){
+                groupMemberWrapper gMWObj = new groupMemberWrapper();
+                gMWObj.personContactId = perContactId;
+                List<cls_committiees> committeList = new List<cls_committiees>();
+                for(String committeeName : perConIdVsnewCommitteeName.get(perContactId)){
+                    committeList.add(new cls_committiees(committeeName));
+                }
+                gMWObj.committiees = committeList;
+                perConIdVsnewCommitteeNameSTRList.add(JSON.serialize(gMWObj));
+            }
+            if(!perConIdVsOldCommittesNameSTRList.isEmpty() || !perConIdVsnewCommitteeNameSTRList.isEmpty()){
+                EDRD_cls_HandleGroups.handleGroupMembership(perConIdVsOldCommittesNameSTRList, perConIdVsnewCommitteeNameSTRList);
+            }
         }
-        
-        List<String> perConIdVsnewCommitteeNameSTRList = new List<String>();
-        
-        for(Id perContactId: perConIdVsnewCommitteeName.keySet()){
-            groupMemberWrapper gMWObj = new groupMemberWrapper();
-            gMWObj.personContactId = perContactId;
-            List<cls_committiees> committeList = new List<cls_committiees>();
-            for(String committeeName : perConIdVsnewCommitteeName.get(perContactId)){
-                committeList.add(new cls_committiees(committeeName));
-            }
-            gMWObj.committiees = committeList;
-            perConIdVsnewCommitteeNameSTRList.add(JSON.serialize(gMWObj));
-        }
-        EDRD_cls_HandleGroups.handleGroupMembership(perConIdVsOldCommittesNameSTRList, perConIdVsnewCommitteeNameSTRList);
     }
     
 /**

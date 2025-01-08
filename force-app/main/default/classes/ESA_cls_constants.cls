@@ -19,6 +19,7 @@ public class ESA_cls_constants {
     public static final String EDRD_CASE_MOHFUNDING_DENIED = 'Denied';
     public static final String EDRD_CASE_STATUS_CANCELLED = 'Cancelled';
     public static final String EDRD_CASE_STATUS_FUNDING_APPROVED = 'Funding Approved';
+    public static final String EDRD_COMMITTEE_REVIEWER = 'Committee_Reviewer';
     public static final String EDRD_FORMULATION_BOTTLE = 'Bottle';
     public static final String EDRD_FUNDING_DECISION_DENIED = 'Denied';
     public static final String EDRD_NAME = 'EDRD';

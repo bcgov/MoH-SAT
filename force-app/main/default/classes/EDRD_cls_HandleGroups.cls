@@ -3,9 +3,9 @@
 * @Date:        09 Mar 2023
 * @Description: The purpose of this class is to  Adding/Removing - Provider/Reviewer to public groups in without sharing context.
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
-                20 Dec -  EDRD-1150         -  Accenture   -  Adding/Removing - Provider/Reviewer to public groups based on Committees. 
+                20 Dec -  EDRD-1150         -  Accenture   -  Adding/Removing - Provider/Reviewer to public groups based on Committees 
 ***********************************************************************************************/
-public with Sharing class EDRD_cls_HandleGroups {
+public without Sharing class EDRD_cls_HandleGroups {
 
 /**
 * @author: Deepak
@@ -63,7 +63,7 @@ public with Sharing class EDRD_cls_HandleGroups {
         List<User> userListToDelete = [SELECT Id, ContactId FROM User WHERE ContactId IN: perConIdVsOldGroupName.keySet()];
         
         for(Group  grpObj: groupList){
-            groupNameVsGroupId.put(grpObj.Name, grpObj.Id);
+            groupNameVsGroupId.put(grpObj.DeveloperName, grpObj.Id);
         }
         Map<Id, Id> groupIdVsUserGroupId = new Map<Id, Id>();
         for(User userObj: userListToDelete){
@@ -78,14 +78,14 @@ public with Sharing class EDRD_cls_HandleGroups {
                 delete groupMemberToDelete;            
             }
         }
-        
+
         
         for(Id perContactId :perConIdVsnewCommitteeName.KeySet()){            
             for(String committeeName: perConIdVsnewCommitteeName.get(perContactId)){
                 if(!perConIdVsNewGroupName.containsKey(perContactId)){
                     perConIdVsNewGroupName.put(perContactId, new Set<String>());
                 }
-                perConIdVsNewGroupName.get(perContactId).add(committeeToGroupMap.get(committeeName));  
+                perConIdVsNewGroupName.get(perContactId).add(committeeToGroupMap.get(committeeName));
             }
         }
         
@@ -97,7 +97,9 @@ public with Sharing class EDRD_cls_HandleGroups {
         
         for(User userObj: userList){
             for(String groupName: perConIdVsNewGroupName.get(userObj.ContactId)){
+                if(groupNameVsGroupId.get(groupName) != NULL){
                 groupMemberToInsert.add(new GroupMember(groupId = groupNameVsGroupId.get(groupName), UserOrGroupId = userObj.Id));
+                }
             }
         }
         
