@@ -3,8 +3,9 @@
     <excludeButtons>CaseHierarchy</excludeButtons>
     <excludeButtons>ChangeRecordType</excludeButtons>
     <excludeButtons>Clone</excludeButtons>
-        <excludeButtons>IsotopeSubscription</excludeButtons>
-        <excludeButtons>MergeCase</excludeButtons>
+    <excludeButtons>IsotopeSubscription</excludeButtons>
+    <excludeButtons>MergeCase</excludeButtons>
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <excludeButtons>PrintableView</excludeButtons>
     <excludeButtons>Share</excludeButtons>
     <excludeButtons>StartOutboundConversation</excludeButtons>
@@ -39,7 +40,7 @@
                 <behavior>Edit</behavior>
                 <field>Subject</field>
             </layoutItems>
-                        <layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EDRD_Case_Fits_Criteria__c</field>
             </layoutItems>
@@ -47,8 +48,16 @@
                 <behavior>Edit</behavior>
                 <field>EDRD_Case_Reason_Does_Not_Meet_Criteria__c</field>
             </layoutItems>
-                    </layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Reason__c</field>
+            </layoutItems>
+        </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>EDRD_Patient_Override_Reason__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>OwnerId</field>
@@ -143,7 +152,7 @@
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
-                        <layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>ContactId</field>
             </layoutItems>
@@ -215,7 +224,7 @@
                 <behavior>Edit</behavior>
                 <field>EDRD_SC_Review_Pathway__c</field>
             </layoutItems>
-                    </layoutColumns>
+        </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -418,7 +427,7 @@
             <actionType>QuickAction</actionType>
             <sortOrder>3</sortOrder>
         </platformActionListItems>
-            </platformActionList>
+    </platformActionList>
     <quickActionList>
         <quickActionListItems>
             <quickActionName>Case.Provider_Validated</quickActionName>
@@ -444,7 +453,7 @@
             </layoutItem>
         </relatedContentItems>
     </relatedContent>
-        <relatedLists>
+    <relatedLists>
         <relatedList>RelatedFileList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -454,7 +463,7 @@
         <fields>Name</fields>
         <fields>Medication</fields>
         <fields>Indication__c</fields>
-                <fields>Type</fields>
+        <fields>Type</fields>
         <relatedList>MedicationRequest.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -483,6 +492,17 @@
         <fields>TASK.LAST_UPDATE</fields>
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <relatedList>Committee_Review_Case__c.Related_Case__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Type__c</fields>
+        <fields>Message__c</fields>
+        <fields>Timestamp__c</fields>
+        <fields>Code__c</fields>
+        <relatedList>Integration_Log__c.SA_Request__c</relatedList>
+    </relatedLists>
     <relatedObjects>ContactId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -491,7 +511,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>true</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00hAq000002x4zJ</masterLabel>
+        <masterLabel>00hOG000000voRY</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
