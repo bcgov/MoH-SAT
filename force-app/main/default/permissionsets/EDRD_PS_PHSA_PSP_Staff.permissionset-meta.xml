@@ -225,6 +225,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.EDRD_Funding_Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_Insurance_Provider__c</field>
         <readable>true</readable>
@@ -277,11 +282,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.EDRD_MOHFunding_Decision__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Case.EDRD_MOHFunding_Expiry_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1208,7 +1208,7 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Committee_Review_Case__c</object>
-        <viewAllRecords>true</viewAllRecords>
+        <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -1361,6 +1361,10 @@
         <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Committee_Review_Case__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>Medical_Diagnosis__c</tab>
         <visibility>Visible</visibility>
