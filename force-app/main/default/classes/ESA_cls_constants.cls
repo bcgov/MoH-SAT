@@ -33,4 +33,8 @@ public class ESA_cls_constants {
     public static final Id PatientRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Patient').getRecordTypeId();
     public static final String ManullyCreated = 'manullyCreated';
     public static final String EMPICreated = 'EMPICreated';
+    public static final String EMPICreatedRenewal = 'EMPICreatedRenewal';
+    public static final String EMPISearchRenewal = 'EMPISearchRenewal';
+    
+    
 }
