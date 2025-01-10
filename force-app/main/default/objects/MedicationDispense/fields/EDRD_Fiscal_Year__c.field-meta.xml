@@ -21,8 +21,8 @@
                 DAY(EDRD_Start_Date__c) = 1,
                 YEAR(EDRD_End_Date__c) = YEAR(EDRD_Start_Date__c) + 1,
                 OR(
-                    DAY(EDRD_End_Date__c) &lt;= 31,
-                    MONTH(EDRD_End_Date__c) = 3
+                    MONTH(EDRD_End_Date__c) = 3,
+                    AND(MONTH(EDRD_End_Date__c) = 4, DAY(EDRD_End_Date__c) &lt; 30)
                 )
             ),
             &apos;FY-&apos; &amp; TEXT(YEAR(EDRD_End_Date__c)),
@@ -34,7 +34,13 @@
                     MONTH(EDRD_End_Date__c) &gt; 4
                 ),
                 &apos;FY-&apos; &amp; TEXT(YEAR(EDRD_End_Date__c) + 1),
-                &apos;FY-&apos; &amp; TEXT(YEAR(EDRD_End_Date__c))
+                &apos;FY-&apos; &amp; TEXT(
+                    IF(
+                        MONTH(EDRD_End_Date__c) &gt; 3,
+                        YEAR(EDRD_End_Date__c) + 1,
+                        YEAR(EDRD_End_Date__c)
+                    )
+                )
             )
         )
     ),
