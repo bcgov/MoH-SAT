@@ -92,6 +92,7 @@ export default class CustomObjectForm extends LightningElement {
 
     handleSearch() {
         this.isNextDisable = true;
+        this.showRemoveButton = true;
 
         if (!this.pHNForSearch) {
             this.isShowNoPHNFound = true;
@@ -158,8 +159,12 @@ export default class CustomObjectForm extends LightningElement {
         this.Birthdate = '';
         this.Name = '';
         this.AccountId = '';
+        this.Deceased = '';
+        this.PatientDOB = '';
+        this.Gender = '';
         this.accountPHN = '';
         this.patientPHN = '';
+        this.isNextDisable = true;
         this.isShowNoPHNFound = false;
         this.showRemoveButton = false;
     }
