@@ -71,6 +71,12 @@ echo "Set deployment user standard security"
 sf org assign permsetlicense --name OmniStudio --target-org $alias
 sf org assign permsetlicense --name HealthCloudGA_HealthCloudPsl --target-org $alias
 sf org assign permset --name HealthCloudFoundation --target-org $alias
+sf org assign permset --name DocGenDesigner --target-org $alias
+sf org assign permset --name DocGenUser --target-org $alias
+sf org assign permset --name BREDesigner --target-org $alias
+sf org assign permset --name BRERuntime --target-org $alias
+sf org assign permsetlicense --name BREDesigner --target-org $alias
+sf org assign permsetlicense --name BRERuntime --target-org $alias
 
 echo "Uploading source code..."
 
