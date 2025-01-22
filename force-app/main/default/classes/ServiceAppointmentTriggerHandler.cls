@@ -19,8 +19,8 @@ public with sharing class ServiceAppointmentTriggerHandler {
         if(!saList.isEmpty()){
             Set<Id>saAccIds = new Set<Id>();
             for(ServiceAppointment sapp : saList){
-                sapp.EDRD_Agenda__c = meetingAgenda + ' ' + sapp.EDRD_Agenda__c;
-                if(sapp.ParentRecordId != null ){
+               sapp.EDRD_Agenda__c = sapp.EDRD_Agenda__c !=null ? meetingAgenda + ' ' + sapp.EDRD_Agenda__c : meetingAgenda;  
+               if(sapp.ParentRecordId != null ){
                     saAccIds.add(sapp.ParentRecordId);
                 }
             }
