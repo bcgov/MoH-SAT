@@ -42,6 +42,12 @@ jobs:
           sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud"
           sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud Platform"
           sf force:user:permset:assign -o ciorg -n HealthCloudFoundation
+          sf force:user:permset:assign -o ciorg -n DocGenDesigner
+          sf force:user:permset:assign -o ciorg -n DocGenUser
+          sf force:user:permset:assign -o ciorg -n BREDesigner
+          sf force:user:permset:assign -o ciorg -n BRERuntime
+          sf force:user:permsetlicense:assign -u ciorg -n BREDesigner
+          sf force:user:permsetlicense:assign -u ciorg -n BRERuntime
 
     - name: Deploy source dev-app-pre
       run: sf project deploy start -d dev-app-pre -o ciorg 
