@@ -952,8 +952,8 @@
             <name>Patient_Not_Deceased</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Patient_PHN</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <leftValueReference>Patient_Deceased</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No</stringValue>
                 </rightValue>
@@ -964,7 +964,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes related EMPI Integrations-v1.5 - adding Physician Roles updated indef</description>
+    <description>Changes related EMPI Integrations-v1.6- Changes to Patient Deceased.</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
