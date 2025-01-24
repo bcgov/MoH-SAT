@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_Completed_AC_Meetings</fullName>
-    <booleanFilter>1 AND 2</booleanFilter>
     <columns>EDRD_Name__c</columns>
     <columns>Name</columns>
     <columns>Status</columns>
@@ -9,7 +8,7 @@
     <columns>LatestEndTime</columns>
     <columns>No_of_Cases_to_be_Presented__c</columns>
     <columns>No_of_Simplified_Cases__c</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>Status</field>
         <operation>equals</operation>
@@ -20,8 +19,13 @@
         <operation>equals</operation>
         <value>Completed</value>
     </filters>
+    <filters>
+        <field>EDRD_Name__c</field>
+        <operation>contains</operation>
+        <value>EDRD Advisory</value>
+    </filters>
     <label>EDRD Completed AC Meetings</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        <group>EDRD_Advisory_Committee</group>
     </sharedTo>
 </ListView>

@@ -8,7 +8,7 @@
     <columns>LatestEndTime</columns>
     <columns>No_of_Cases_to_be_Presented__c</columns>
     <columns>No_of_Simplified_Cases__c</columns>
-    <filterScope>Mine</filterScope>
+    <filterScope>Everything</filterScope>
     <filters>
         <field>EDRD_Publish__c</field>
         <operation>equals</operation>
@@ -19,8 +19,13 @@
         <operation>equals</operation>
         <value>Planned</value>
     </filters>
-    <label>Ophthalmology Published Meetings</label>
+    <filters>
+        <field>EDRD_Name__c</field>
+        <operation>contains</operation>
+        <value>Ophthalmology</value>
+    </filters>
+    <label>Ophthalmology Published SC Meetings</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        <group>EDRD_Ophthalmology_Subcommittee</group>
     </sharedTo>
 </ListView>
