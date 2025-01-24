@@ -166,6 +166,16 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason__c</fieldItem>
+                <identifier>RecordReason__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-1dc87897-7d8b-4050-becc-f3b40cbbdc7d</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -563,23 +573,6 @@
                 <identifier>RecordEDRD_Pharmacist_Review_Pathway_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.EDRD_SC_Review_Requested_Date__c</fieldItem>
-                <identifier>RecordSC_Review_Requested_Date_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-a7140cba-392e-4b5b-8d75-a429b0099dd5</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -627,23 +620,6 @@
                         <leftValue>{!Record.EDRD_Patient_Meets_Criteria_for_Rph__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.EDRD_SubCommittee_Name__c</fieldItem>
-                <identifier>RecordSubCommittee_Name_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.EDRD_RPH_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to SC</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -706,23 +682,6 @@
                 <identifier>RecordEDRD_SC_Review_Pathway_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.EDRD_AC_Review_Requested_Date__c</fieldItem>
-                <identifier>RecordAC_Review_Requested_Date_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-b48d692d-9ef6-4759-9fdf-228dfed48aff</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -770,23 +729,6 @@
                         <leftValue>{!Record.EDRD_Patient_Meets_Criteria_for_SC__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>No</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.EDRD_Advisory_Committee__c</fieldItem>
-                <identifier>RecordEDRD_Advisory_Committee_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.EDRD_SC_Review_Pathway__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Sent to AC</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -1678,6 +1620,148 @@
                         <rightValue>Funding Approved</rightValue>
                     </criteria>
                 </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>adminFilters</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>CommitteeType__c|EQUALS|Subcommittee</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Case.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Committee_Review_Cases__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListFieldAliases</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>ServiceAppoinmentName__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Service_Appointment_Number__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>SA_Earliest_Start_Permitted__c</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Subcommittee Meeting</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>__DEFAULT__</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Default</value>
+                </componentInstanceProperties>
+                <componentName>lst:dynamicRelatedList</componentName>
+                <identifier>lst_dynamicRelatedList</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>adminFilters</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>CommitteeType__c|EQUALS|Advisory Committee</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Case.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Committee_Review_Cases__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListFieldAliases</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>ServiceAppoinmentName__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Service_Appointment_Number__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>SA_Earliest_Start_Permitted__c</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Advisory Meeting</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>__DEFAULT__</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Default</value>
+                </componentInstanceProperties>
+                <componentName>lst:dynamicRelatedList</componentName>
+                <identifier>lst_dynamicRelatedList2</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

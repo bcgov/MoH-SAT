@@ -5,8 +5,9 @@
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
                 16-Nov -  EDRD-104          -  Deepak      -  Changes related to EDRD EMPI Integration for getAccount
                 16-Nov -  EDRD-104          -  Deepak      -  method to setup mockpatient
-                16-Nov -  EDRD-104          -  Deepak      -  method to return patient Accounts information based on Patient Identifiers
+                16-Nov -  EDRD-104          -  Deepak      -  method to return patient Accounts information based on Patient Identifiers by SOQL
                 16-Nov -  EDRD-104          -  Deepak      -  Validates if a patient record exists for the given Patient Identifier
+                20-Jan -  EDRD-104          -  Deepak      -  method to return patient Accounts information based on Patient Identifiers by SOSL
 ***********************************************************************************************/
 public with sharing class EDRDAccountLookupController{
     public static Id patientRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Patient').getRecordTypeId();
@@ -64,7 +65,7 @@ public with sharing class EDRDAccountLookupController{
 /** 
 * @author: Deepak
 * @date: 16 Nov 2024
-* @description: The purpose of this method is to return patient Accounts information based on Patient Identifiers
+* @description: The purpose of this method is to return patient Accounts information based on Patient Identifiers by SOQL.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
     @AuraEnabled
@@ -87,6 +88,43 @@ public with sharing class EDRDAccountLookupController{
         soql += ' ORDER BY CreatedDate Desc LIMIT 10';
         
         patients = Database.query(soql);
+        return patients;
+    }
+    
+/** 
+* @author: Deepak
+* @date: 20 Jan 2025
+* @description: The purpose of this method is to return patient Accounts information based on Patient Identifiers by SOSL.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+    @AuraEnabled
+    public static List<Account> searchPatients_SOSL(Map<String, String> searchCriteria) {
+        String patientIdentifier = searchCriteria.get('patientIdentifier');
+        String firstName = searchCriteria.get('firstName');
+        String lastName = searchCriteria.get('lastName');
+        String birthDate = searchCriteria.get('birthDate');
+        
+        List<Account> patients = new List<Account>();
+        
+        if (String.isNotBlank(patientIdentifier)) {
+            List<List<SObject>> searchResults = [
+                FIND :patientIdentifier IN ALL FIELDS
+                RETURNING Account(Id, Name, FirstName, LastName, PersonBirthdate, PersonGender, Patient_Identifier__pc, Patient_is_Deceased__pc 
+                                  WHERE RecordType.DeveloperName = 'Patient' AND Patient_Identifier__pc = :patientIdentifier
+                                  ORDER BY CreatedDate DESC LIMIT 10)];
+            if (!searchResults.isEmpty()) {
+                patients = (List<Account>)searchResults[0];
+            }
+        } else if (String.isNotBlank(firstName) && String.isNotBlank(lastName) && String.isNotBlank(birthDate)) {
+            String searchQuery = firstName + ' ' + lastName;
+            List<List<SObject>> searchResults = [FIND :searchQuery IN ALL FIELDS
+                                                 RETURNING Account(Id, Name, FirstName, LastName, PersonBirthdate, PersonGender, Patient_Identifier__pc, Patient_is_Deceased__pc 
+                                                                   WHERE RecordType.DeveloperName = 'Patient'
+                                                                   AND PersonBirthdate = :Date.valueOf(birthDate) ORDER BY CreatedDate DESC LIMIT 10)];
+            if (!searchResults.isEmpty()) {
+                patients = (List<Account>)searchResults[0];
+            }
+        }        
         return patients;
     }
     

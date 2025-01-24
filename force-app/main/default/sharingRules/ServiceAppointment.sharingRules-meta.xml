@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>EDRD_Service_Appointment_Record_Access</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>EDRD Service Appointment Record Access</description>
+        <label>EDRD Service Appointment Record Access</label>
+        <sharedTo>
+            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Committee Meeting</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

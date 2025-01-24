@@ -1,6 +1,7 @@
 import { LightningElement, track, api, wire } from 'lwc';
 import { FlowNavigationBackEvent, FlowNavigationNextEvent } from 'lightning/flowSupport';
 import searchPatients from '@salesforce/apex/EDRDAccountLookupController.searchPatients';
+import searchPatients_SOSL from '@salesforce/apex/EDRDAccountLookupController.searchPatients_SOSL';
 import validatePatients from '@salesforce/apex/EDRDAccountLookupController.validatePatientIdentifier';
 import EDRD_label_lwc_SFPSC_sN_Error from '@salesforce/label/c.EDRD_label_lwc_SFPSC_sN_Error';
 import EDRD_label_lwc_SFPSC_sN_Success from '@salesforce/label/c.EDRD_label_lwc_SFPSC_sN_Success';
@@ -146,7 +147,8 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
                 birthDate: this.birthDate
             };
 
-            const results = await searchPatients({ searchCriteria });
+            //const results = await searchPatients({ searchCriteria });
+            const results = await searchPatients_SOSL({ searchCriteria });
             this.processSearchResults(results);
         } catch (error) {
             console.error('Error fetching patients:', error);

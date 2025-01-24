@@ -73,7 +73,9 @@ public class EDRDAccountLookupController_Test {
             
         Test.startTest();
         List<Account> pHNResult = EDRDAccountLookupController.searchPatients(searchCriteria);
+        List<Account> pHNResult2 = EDRDAccountLookupController.searchPatients_SOSL(searchCriteria);
         List<Account> detailResult = EDRDAccountLookupController.searchPatients(detailSearchCriteria);
+        List<Account> detailResult2 = EDRDAccountLookupController.searchPatients_SOSL(detailSearchCriteria);
         Test.stopTest();
         
         Assert.areEqual(1, pHNResult.size(), 'Expected one patient record');
