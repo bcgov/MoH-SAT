@@ -556,4 +556,12 @@ public with sharing class TestFactory {
         accountObj.EDRD_Committee_Type__c = 'Advisory Committee';
         return accountObj;
     }
+    
+    public static Assessment createEDRDAssessment(Id CaseId){
+        Assessment assessmentObj = new Assessment();
+        assessmentObj.Name = 'Assessment Test';
+        assessmentObj.AssessmentStatus = 'Completed';
+        assessmentObj.caseId = CaseId;
+        return assessmentObj;
+    }
 }
