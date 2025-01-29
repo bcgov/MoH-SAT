@@ -26,5 +26,11 @@ public class EDRD_cls_AssessmentResponseServiceTest{
         Test.startTest();        
         EDRD_cls_AssessmentResponseService.getAssessmentResponseSummary(assessmentRec.Id);
         Test.stopTest();
+        
+        List<Assessment> existingAssessments = [SELECT Id FROM Assessment WHERE Id = :assessmentRec.Id];
+        Assert.areEqual(1, existingAssessments.size(), 'The Assessment record should still exist.');
+        
+        List<Case> existingCases = [SELECT Id FROM Case WHERE Id = :caseRec[0].Id];
+        Assert.areEqual(1, existingCases.size(), 'The Case record should still exist.');
     }
 }

@@ -29,16 +29,12 @@ public class EDRD_cls_generatePDFDocTest {
                                                                     CustomClassName = 'EDRD_cls_generatePDFDoc');
         insert testDocumentTemplate;
         
-        System.debug('testDocumentTemplate' + testDocumentTemplate.id);
-        
         ContentVersion testContentVersion = new ContentVersion( Title = 'EDRD BC DocGen-Template',
                                                                PathOnClient = 'TestDoc.pdf',
                                                                VersionData = Blob.valueOf('Test content'),
                                                                IsMajorVersion = true); 
         insert testContentVersion;
         EDRD_cls_generatePDFDoc.requestText = label.EDRD_label_DocGen_requestText.replace('CVID', testContentVersion.Id);
-        
-        System.debug('testContentVersion' + [Select id, title from ContentVersion where Title = 'EDRD BC DocGen-Template']);
         
         Map<String, String> keyVsValue = new Map<String, String>{ 'TOKENDATA' => 'TestTokenData', 'RECORDID' => assessmentRec.Id};
             
@@ -53,7 +49,6 @@ public class EDRD_cls_generatePDFDocTest {
         Assert.areEqual('GenerateAndConvert', generatedProcesses[0].Type, 'Type should be GenerateAndConvert.');
         Assert.areEqual(caseRecord[0].Id, generatedProcesses[0].ReferenceObject, 'ReferenceObject should match the Case Id.');
         Assert.areEqual('TestTokenData', generatedProcesses[0].TokenData, 'TokenData should match the input value.');
-       // Assert.areEqual(testDocumentTemplate.Id, generatedProcesses[0].DocumentTemplateId, 'DocumentTemplateId should match the test template.');
     }
 
 }
