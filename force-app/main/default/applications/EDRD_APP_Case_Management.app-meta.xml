@@ -17,7 +17,7 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
         <pageOrSobjectType>Assessment</pageOrSobjectType>
-    </actionOverrides>   
+    </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
@@ -201,6 +201,15 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>EDRD_Committee_Meeting</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>ServiceAppointment</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>EDRD_Unit_of_Measure_record_page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -225,8 +234,45 @@
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
     <label>EDRD Case Management</label>
     <navType>Console</navType>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>EDRD_Committee_Meeting</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ServiceAppointment</pageOrSobjectType>
+        <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
+        <type>Flexipage</type>
+        <profile>MoH Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>EDRD_Committee_Meeting</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ServiceAppointment</pageOrSobjectType>
+        <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
+        <type>Flexipage</type>
+        <profile>MoH Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>EDRD_Committee_Meeting</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ServiceAppointment</pageOrSobjectType>
+        <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>EDRD_Committee_Meeting</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ServiceAppointment</pageOrSobjectType>
+        <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Case</tabs>
     <tabs>standard-Account</tabs>
@@ -234,6 +280,7 @@
     <tabs>standard-CodeSetBundle</tabs>
     <tabs>standard-report</tabs>
     <tabs>standard-MedicinalIngredient</tabs>
+    <tabs>standard-ServiceAppointment</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>EDRD_Case_Management_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -251,6 +298,9 @@
         </mappings>
         <mappings>
             <tab>standard-MedicinalIngredient</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-ServiceAppointment</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>
