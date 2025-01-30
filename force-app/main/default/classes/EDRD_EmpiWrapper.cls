@@ -33,6 +33,7 @@ public class EDRD_EmpiWrapper {
         public Boolean isClickManulRecord {get;set;}
         public Boolean isPatientInSF {get;set;}
         public Boolean isPatientInEMPI {get;set;}
+        public Boolean isPatientSFRenewal {get;set;}
   
         
       }

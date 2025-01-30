@@ -35,6 +35,10 @@ public class ESA_cls_constants {
     public static final String EMPICreated = 'EMPICreated';
     public static final String EMPICreatedRenewal = 'EMPICreatedRenewal';
     public static final String EMPISearchRenewal = 'EMPISearchRenewal';
+    public static final String RenewalSFSearch = 'RenewalSFSearch';
+    public static final String EMPICreatedNew = 'EMPICreatedNew';
+    public static final String NewSFSearch = 'NewSFSearch';
+    
     
     
 }
