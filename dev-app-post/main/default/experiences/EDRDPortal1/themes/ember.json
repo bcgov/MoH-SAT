@@ -1,6 +1,6 @@
 {
   "activeBrandingSetId" : "4f61059e-5b9d-4e9e-b381-872f16d66590",
-  "customCSS" : ".forceVirtualActionMarker {\n    display:none;\n}\n\ndiv[data-target-selection-name*='.Follow'] {display: none;}",
+  "customCSS" : ".forceVirtualActionMarker {\n    display:none;\n}\n\n.forceCommunityThemeSearchSection .search-region {\n    display: none !important;\n}\n\ndiv[data-target-selection-name*='.Follow'] {display: none;}",
   "developerName" : "ember",
   "id" : "8ce129b3-6d16-48ea-971b-5cde9271bfa7",
   "label" : "Ember",
@@ -50,7 +50,7 @@
           "borderBottomColor" : "rgba(0, 15, 89, 0.8)",
           "borderTopColor" : "rgba(0, 15, 89, 0.8)",
           "bottomRowHeight" : 5,
-          "bottomRowOverlayColor" : "rgb(227, 168, 43)",
+          "bottomRowOverlayColor" : "rgb(56, 89, 138)",
           "containHeader" : true,
           "containHeaderWidth" : 1440,
           "dropdownBackgroundColor" : "rgb(255, 255, 255)",
@@ -120,7 +120,10 @@
               "borderStyle" : "outline",
               "buttonColor" : "",
               "buttonHoverColor" : "",
-              "crossObjectTypeaheadApiNames" : "",
+              "crossObjectTypeaheadApiNames" : [ {
+                "isPublic" : false,
+                "name" : "FeedItem"
+              } ],
               "iconColor" : "rgba(0, 0, 0, 0.8)",
               "placeholderText" : "Search...",
               "placeholderTextColor" : "rgba(0, 0, 0, 0.6)",

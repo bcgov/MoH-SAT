@@ -7,7 +7,7 @@
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-family: arial; font-size: 28px;\">﻿</strong><strong style=\"font-family: arial; font-size: 28px; color: rgb(0, 71, 178);\">Welcome!</strong></p><p style=\"text-align: center;\"><strong style=\"font-size: 20px; background-color: rgb(255, 255, 255); color: rgb(0, 102, 204); font-family: arial;\">EDRD eForms Submissions and Reviewers Community Portal</strong></p>"
+        "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-family: arial; color: rgb(0, 102, 204); background-color: rgb(255, 255, 255); font-size: 22px;\">EDRD eForms and Reviewers Portal</strong></p>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "7c3e34de-da58-48eb-8429-7014bc7cb805",
@@ -26,27 +26,6 @@
             "seedComponents" : [ ],
             "tabKey" : "1",
             "tabName" : "My Patients"
-          }, {
-            "UUID" : "8e2657ff-b582-4158-8778-f137ea68ded3",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "2",
-            "tabName" : "My Cases"
-          }, {
-            "UUID" : "f6006df2-2173-4b0f-ac5c-14949d9daac4",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "3",
-            "tabName" : "New Submission Form"
-          }, {
-            "UUID" : "2b7872d3-50bb-4339-92eb-e886538cd114",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "c9a05",
-            "tabName" : "New Renewal Form"
           } ],
           "useOverflowMenu" : true
         }
@@ -67,13 +46,56 @@
         "regionName" : "1",
         "renditionMap" : { },
         "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "3d44f60d-eda7-4d26-9811-1eb70721ff77",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "96c58b46-4ba4-477d-b7ed-76eaa350bf57",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "My Patients"
+          }, {
+            "UUID" : "dbb4eab5-2556-4cc9-bee2-ff44fcda4e1c",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "c648e",
+            "tabName" : "Committee Cases"
+          } ],
+          "useOverflowMenu" : true
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "3d44f60d-eda7-4d26-9811-1eb70721ff77",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:edrdMyPatients",
+          "id" : "825a5c89-d801-4f49-affb-a0104bdcbcaf",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "96c58b46-4ba4-477d-b7ed-76eaa350bf57",
+        "regionLabel" : "My Patients",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
       }, {
         "components" : [ {
           "componentAttributes" : {
             "enableInlineEdit" : false,
-            "filterName" : "My_EDRD_Open_Cases_Portal",
+            "filterName" : "EDRD_SC_Cases_Upcoming",
             "layout" : "FULL",
-            "pageSize" : 15,
+            "pageSize" : 25,
             "scope" : "Case",
             "showActionBar" : false,
             "showChartsPanel" : false,
@@ -81,63 +103,19 @@
             "showFilterPanel" : false,
             "showImageIcon" : true,
             "showManualRefreshButton" : true,
-            "showObjectName" : true,
+            "showObjectName" : false,
             "showPinnedList" : true,
             "showSearchBar" : true
           },
           "componentName" : "forceCommunity:objectHome",
-          "id" : "535e87cf-9581-44ce-bb52-fc7abdd172c2",
+          "id" : "419a651d-b95f-46de-9a8c-249d57afb34c",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
         } ],
-        "id" : "8e2657ff-b582-4158-8778-f137ea68ded3",
-        "regionLabel" : "My Cases",
-        "regionName" : "2",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "dir" : "ltr",
-            "flexipageRegionWidth" : "LARGE",
-            "inline" : false,
-            "inlineLabel" : "Launch undefined/undefined",
-            "inlineVariant" : "brand",
-            "layout" : "lightning",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "c:eDRDNewFormEDRDNewFormEnglish",
-          "id" : "898cb349-8bf5-49fb-9581-32f33cebc148",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "f6006df2-2173-4b0f-ac5c-14949d9daac4",
-        "regionLabel" : "New Submission Form",
-        "regionName" : "3",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "dir" : "ltr",
-            "flexipageRegionWidth" : "LARGE",
-            "inline" : false,
-            "inlineLabel" : "Launch undefined/undefined",
-            "inlineVariant" : "brand",
-            "layout" : "lightning",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "c:eDRDRenewFormEnglish",
-          "id" : "0a8a0359-ef8d-41b2-bddd-dd154b80bf53",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "2b7872d3-50bb-4339-92eb-e886538cd114",
-        "regionLabel" : "New Renewal Form",
-        "regionName" : "c9a05",
+        "id" : "dbb4eab5-2556-4cc9-bee2-ff44fcda4e1c",
+        "regionLabel" : "Committee Cases",
+        "regionName" : "c648e",
         "renditionMap" : { },
         "type" : "region"
       } ],
@@ -147,59 +125,38 @@
     }, {
       "componentAttributes" : {
         "tabsetConfig" : {
-          "UUID" : "710d440b-638d-49a1-b85a-82cce3fab44b",
+          "UUID" : "d14c6e0a-0602-4ceb-b573-449b4894ad8c",
           "activeTab" : "",
           "tabs" : [ {
-            "UUID" : "d8641bed-0b19-435e-bc50-f4a028008194",
+            "UUID" : "77eda4bf-8478-40c6-8217-f10d5f65b2c8",
             "allowGuestUser" : true,
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "1",
             "tabName" : "My Patients"
           }, {
-            "UUID" : "a6964b7d-c978-41b0-98a3-cb9a58ba2294",
-            "allowGuestUser" : true,
+            "UUID" : "58d7e5d3-37db-4dcc-8cc3-9d1182a9b136",
+            "allowGuestUser" : false,
             "locked" : false,
             "seedComponents" : [ ],
-            "tabKey" : "2",
-            "tabName" : "My Cases"
-          }, {
-            "UUID" : "aec7641e-a999-4434-8a3b-8bbf4c518001",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "3",
-            "tabName" : "New Submission Form"
-          }, {
-            "UUID" : "09cff8ce-c487-427c-bb66-7a26469e1a71",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "c9a05",
-            "tabName" : "New Renewal Form"
-          }, {
-            "UUID" : "816cb5e7-12dd-4450-9818-75f0eb82ddb4",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "5b7b9",
-            "tabName" : "Committee Agenda"
+            "tabKey" : "c648e",
+            "tabName" : "Committee Cases"
           } ],
           "useOverflowMenu" : true
         }
       },
       "componentName" : "forceCommunity:tabLayout",
-      "id" : "710d440b-638d-49a1-b85a-82cce3fab44b",
+      "id" : "d14c6e0a-0602-4ceb-b573-449b4894ad8c",
       "regions" : [ {
         "components" : [ {
           "componentAttributes" : { },
           "componentName" : "c:edrdMyPatients",
-          "id" : "76b9fcc3-559e-427a-98b9-f19cc83cdd7f",
+          "id" : "bddd333e-7551-4139-9517-d60b3599fe1e",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
         } ],
-        "id" : "d8641bed-0b19-435e-bc50-f4a028008194",
+        "id" : "77eda4bf-8478-40c6-8217-f10d5f65b2c8",
         "regionLabel" : "My Patients",
         "regionName" : "1",
         "renditionMap" : { },
@@ -208,82 +165,9 @@
         "components" : [ {
           "componentAttributes" : {
             "enableInlineEdit" : false,
-            "filterName" : "My_EDRD_Open_Cases_Portal",
-            "layout" : "FULL",
-            "pageSize" : 15,
-            "scope" : "Case",
-            "showActionBar" : false,
-            "showChartsPanel" : false,
-            "showDisplay" : "grid",
-            "showFilterPanel" : false,
-            "showImageIcon" : true,
-            "showManualRefreshButton" : true,
-            "showObjectName" : true,
-            "showPinnedList" : true,
-            "showSearchBar" : true
-          },
-          "componentName" : "forceCommunity:objectHome",
-          "id" : "ed0c7ce2-ece1-49ce-9764-fc53fa32f610",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "a6964b7d-c978-41b0-98a3-cb9a58ba2294",
-        "regionLabel" : "My Cases",
-        "regionName" : "2",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "dir" : "ltr",
-            "flexipageRegionWidth" : "LARGE",
-            "inline" : false,
-            "inlineLabel" : "Launch undefined/undefined",
-            "inlineVariant" : "brand",
-            "layout" : "lightning",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "c:eDRDNewFormEDRDNewFormEnglish",
-          "id" : "5f5de486-a895-4975-a464-4f2676c945af",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "aec7641e-a999-4434-8a3b-8bbf4c518001",
-        "regionLabel" : "New Submission Form",
-        "regionName" : "3",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "dir" : "ltr",
-            "flexipageRegionWidth" : "LARGE",
-            "inline" : false,
-            "inlineLabel" : "Launch undefined/undefined",
-            "inlineVariant" : "brand",
-            "layout" : "lightning",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "c:eDRDRenewFormEnglish",
-          "id" : "8db6b8fb-46a6-4dc8-bfa3-2cd86d345126",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "09cff8ce-c487-427c-bb66-7a26469e1a71",
-        "regionLabel" : "New Renewal Form",
-        "regionName" : "c9a05",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "enableInlineEdit" : false,
             "filterName" : "EDRD_SC_Cases_Upcoming",
             "layout" : "FULL",
-            "pageSize" : 15,
+            "pageSize" : 25,
             "scope" : "Case",
             "showActionBar" : false,
             "showChartsPanel" : false,
@@ -291,21 +175,78 @@
             "showFilterPanel" : false,
             "showImageIcon" : true,
             "showManualRefreshButton" : true,
-            "showObjectName" : true,
+            "showObjectName" : false,
             "showPinnedList" : true,
             "showSearchBar" : true
           },
           "componentName" : "forceCommunity:objectHome",
-          "id" : "fa766a3e-b6ed-4c04-ad5d-89e4d4a4f11b",
+          "id" : "68531ded-1717-4997-885b-51d4952367e9",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
-        }, {
+        } ],
+        "id" : "58d7e5d3-37db-4dcc-8cc3-9d1182a9b136",
+        "regionLabel" : "Committee Cases",
+        "regionName" : "c648e",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "9d46c15c-b9b9-473b-8aba-72961072e397",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "42879c43-51db-4f08-9d24-a57d7d608df7",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "My Patients"
+          }, {
+            "UUID" : "a858c883-250c-43c0-87e8-ad899f6a4026",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "c648e",
+            "tabName" : "Committee Cases"
+          }, {
+            "UUID" : "a5debfe4-122d-4631-8a35-081d1b570066",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "dad86",
+            "tabName" : "Commiteee Meetings"
+          } ],
+          "useOverflowMenu" : true
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "9d46c15c-b9b9-473b-8aba-72961072e397",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:edrdMyPatients",
+          "id" : "1cd161d7-3037-45e9-855e-e008aeeca9d5",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "42879c43-51db-4f08-9d24-a57d7d608df7",
+        "regionLabel" : "My Patients",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
           "componentAttributes" : {
             "enableInlineEdit" : false,
             "filterName" : "EDRD_AC_Cases_Upcoming",
             "layout" : "FULL",
-            "pageSize" : 15,
+            "pageSize" : 25,
             "scope" : "Case",
             "showActionBar" : false,
             "showChartsPanel" : false,
@@ -313,19 +254,48 @@
             "showFilterPanel" : false,
             "showImageIcon" : true,
             "showManualRefreshButton" : true,
-            "showObjectName" : true,
+            "showObjectName" : false,
             "showPinnedList" : true,
             "showSearchBar" : true
           },
           "componentName" : "forceCommunity:objectHome",
-          "id" : "f9c6d147-7cc9-40ac-8f20-ffdce2a5ef32",
+          "id" : "43d6addd-3813-493a-864e-42d92a51d7db",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
         } ],
-        "id" : "816cb5e7-12dd-4450-9818-75f0eb82ddb4",
-        "regionLabel" : "Committee Agenda",
-        "regionName" : "5b7b9",
+        "id" : "a858c883-250c-43c0-87e8-ad899f6a4026",
+        "regionLabel" : "Committee Cases",
+        "regionName" : "c648e",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "enableInlineEdit" : false,
+            "filterName" : "All_ServiceAppointments",
+            "layout" : "FULL",
+            "pageSize" : 25,
+            "scope" : "ServiceAppointment",
+            "showActionBar" : false,
+            "showChartsPanel" : false,
+            "showDisplay" : "grid",
+            "showFilterPanel" : false,
+            "showImageIcon" : true,
+            "showManualRefreshButton" : true,
+            "showObjectName" : false,
+            "showPinnedList" : true,
+            "showSearchBar" : true
+          },
+          "componentName" : "forceCommunity:objectHome",
+          "id" : "1f3dfd16-8a3d-41ec-9e41-eb16720c82cb",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "a5debfe4-122d-4631-8a35-081d1b570066",
+        "regionLabel" : "Commiteee Meetings",
+        "regionName" : "dad86",
         "renditionMap" : { },
         "type" : "region"
       } ],
@@ -343,7 +313,7 @@
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "5b7b9",
-            "tabName" : "Committee Agenda"
+            "tabName" : "Committee Cases"
           } ],
           "useOverflowMenu" : true
         }
@@ -391,13 +361,13 @@
             "showSearchBar" : true
           },
           "componentName" : "forceCommunity:objectHome",
-          "id" : "fb2028e0-6476-434a-997b-300da6b8d968",
+          "id" : "512b35d8-eecc-4b75-8254-07a442a43966",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
         } ],
         "id" : "e4dca969-6314-45c1-80db-5baf41d1135f",
-        "regionLabel" : "Committee Agenda",
+        "regionLabel" : "Committee Cases",
         "regionName" : "5b7b9",
         "renditionMap" : { },
         "type" : "region"
@@ -428,7 +398,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "customHeadTags" : "",
+        "customHeadTags" : "<meta name=\"robots\" content=\"noindex\">",
         "description" : "",
         "title" : "Home"
       },
