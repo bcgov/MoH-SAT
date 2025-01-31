@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>Case_Management</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>
+        <applicationVisibilities>
+        <application>EDRD_APP_Case_Management</application>
+        <default>false</default>
+        <visible>false</visible>
+    </applicationVisibilities>    
+    <classAccesses>
+        <apexClass>OmniScriptSavedSessionTriggerHandler</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <custom>true</custom>
+    <layoutAssignments>
+        <layout>Account-Manufacturer</layout>
+        <recordType>Account.Manufacturer</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CareObservation-Care Observation Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CareProgram-Care Program Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>CareProgramEnrollee-Care Program Enrollee Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-EDRD Layout</layout>
+        <recordType>Case.EDRD</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Medication-EDRD Portal Medication Layout</layout>
+        <recordType>Medication.EDRD</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>MedicinalIngredient-Medicinal Ingredient Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>MedicationRequest-EDRD_Medication_Request_Layout_Portal</layout>
+        <recordType>MedicationRequest.EDRD_Medication_Request</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>PersonAccount-Patient Layout for Poral Users</layout>
+        <recordType>PersonAccount.Patient</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>PersonAccount-Provider Layout for Portal User</layout>
+        <recordType>PersonAccount.Provider</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>UnitOfMeasure-Unit of Measure Layout</layout>
+    </layoutAssignments>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Account.Manufacturer</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
+        <recordType>Case.EDRD</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Medication.EDRD</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>PersonAccount.Patient</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <personAccountDefault>true</personAccountDefault>
+        <recordType>PersonAccount.Provider</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabVisibilities>
+        <tab>standard-Account</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Case</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-Contact</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <userLicense>Customer Community Plus</userLicense>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EnableNotifications</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ManageHealthCloud</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>PortalSuperUser</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>SelectFilesFromSalesforce</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ShareFilesWithNetworks</name>
+    </userPermissions>
+</Profile>
