@@ -20,8 +20,6 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
                 nameToUserIdMap.put(session.Name, session.createdById);  
             }                      
         }
-        System.debug('nameToUserIdMap'+nameToUserIdMap);
-        System.debug('name'+nameToUserIdMap.keySet());
         
         if (nameToUserIdMap.isEmpty()) {
             return; 
@@ -30,7 +28,6 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
         List<OmniScriptSavedSession> existingSessions = [SELECT Id, CreatedDate, StatusCategory FROM OmniScriptSavedSession WHERE Name IN :nameToUserIdMap.keySet()
                                                          AND CreatedById IN :nameToUserIdMap.values() AND StatusCategory = 'In Progress' 
                                                          AND Id NOT IN :sessionIdVsNewRec.keyset() AND CreatedDate = LAST_N_DAYS:90];
-        System.debug('existingSessions'+existingSessions);
         
         List<OmniScriptSavedSession> sessionsToUpdate = new List<OmniScriptSavedSession>();
         for (OmniScriptSavedSession existingSession : existingSessions) {
@@ -63,9 +60,6 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
             }
         }
         
-        System.debug('omniScriptToUserIdMap: ' + omniScriptToUserIdMap);
-        System.debug('OmniScriptIds: ' + omniScriptToUserIdMap.keySet());
-        
        if (omniScriptToUserIdMap.isEmpty()) {
             return;
         }
@@ -74,7 +68,6 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
                                                          WHERE OmniScriptId IN :omniScriptToUserIdMap.keySet() AND CreatedById IN :omniScriptToUserIdMap.values()
                                                          AND StatusCategory = 'In Progress' AND Id NOT IN :sessionIdVsNewRec.keySet() AND CreatedDate = LAST_N_DAYS:90];
         
-        System.debug('existingSessions: ' + existingSessions);
         
         List<OmniScriptSavedSession> sessionsToUpdate = new List<OmniScriptSavedSession>();
         for (OmniScriptSavedSession existingSession : existingSessions) {
