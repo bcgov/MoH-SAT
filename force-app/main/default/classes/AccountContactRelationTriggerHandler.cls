@@ -14,6 +14,7 @@ public with sharing class AccountContactRelationTriggerHandler {
                      20Sept -  EDRD-911          -  Deepak      -  Adding NULL Check & updated asper user trigger
 */     
     public static void createPatientShare(List<AccountContactRelation> aCRList){
+        Map<Id, Set<Id>> providerIdVsPatientIdSet1 = new Map<Id, Set<Id>>();
         Map<Id, Set<Id>> providerIdVsPatientIdSet = new Map<Id, Set<Id>>();
         Map<Id, User> providerIdVsRec = new Map<Id, User>();
         Map<Id, Set<Id>> providerIdVsUserIdSet = new Map<Id, Set<Id>>();
