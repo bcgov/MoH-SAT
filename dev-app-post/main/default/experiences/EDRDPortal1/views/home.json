@@ -64,11 +64,11 @@
             "tabName" : "My Patients"
           }, {
             "UUID" : "dbb4eab5-2556-4cc9-bee2-ff44fcda4e1c",
-            "allowGuestUser" : false,
+            "allowGuestUser" : true,
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "c648e",
-            "tabName" : "Committee Cases"
+            "tabName" : "Committee Meetings"
           } ],
           "useOverflowMenu" : true
         }
@@ -93,10 +93,10 @@
         "components" : [ {
           "componentAttributes" : {
             "enableInlineEdit" : false,
-            "filterName" : "EDRD_SC_Cases_Upcoming",
+            "filterName" : "All_ServiceAppointments",
             "layout" : "FULL",
             "pageSize" : 25,
-            "scope" : "Case",
+            "scope" : "ServiceAppointment",
             "showActionBar" : false,
             "showChartsPanel" : false,
             "showDisplay" : "grid",
@@ -114,7 +114,7 @@
           "type" : "component"
         } ],
         "id" : "dbb4eab5-2556-4cc9-bee2-ff44fcda4e1c",
-        "regionLabel" : "Committee Cases",
+        "regionLabel" : "Committee Meetings",
         "regionName" : "c648e",
         "renditionMap" : { },
         "type" : "region"
@@ -125,151 +125,22 @@
     }, {
       "componentAttributes" : {
         "tabsetConfig" : {
-          "UUID" : "d14c6e0a-0602-4ceb-b573-449b4894ad8c",
+          "UUID" : "e09f9d91-6e01-4aec-ab59-e8c054e0934f",
           "activeTab" : "",
           "tabs" : [ {
-            "UUID" : "77eda4bf-8478-40c6-8217-f10d5f65b2c8",
+            "UUID" : "e4dca969-6314-45c1-80db-5baf41d1135f",
             "allowGuestUser" : true,
             "locked" : false,
             "seedComponents" : [ ],
-            "tabKey" : "1",
-            "tabName" : "My Patients"
-          }, {
-            "UUID" : "58d7e5d3-37db-4dcc-8cc3-9d1182a9b136",
-            "allowGuestUser" : false,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "c648e",
-            "tabName" : "Committee Cases"
+            "tabKey" : "5b7b9",
+            "tabName" : "Committee Meetings"
           } ],
           "useOverflowMenu" : true
         }
       },
       "componentName" : "forceCommunity:tabLayout",
-      "id" : "d14c6e0a-0602-4ceb-b573-449b4894ad8c",
+      "id" : "e09f9d91-6e01-4aec-ab59-e8c054e0934f",
       "regions" : [ {
-        "components" : [ {
-          "componentAttributes" : { },
-          "componentName" : "c:edrdMyPatients",
-          "id" : "bddd333e-7551-4139-9517-d60b3599fe1e",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "77eda4bf-8478-40c6-8217-f10d5f65b2c8",
-        "regionLabel" : "My Patients",
-        "regionName" : "1",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "enableInlineEdit" : false,
-            "filterName" : "EDRD_SC_Cases_Upcoming",
-            "layout" : "FULL",
-            "pageSize" : 25,
-            "scope" : "Case",
-            "showActionBar" : false,
-            "showChartsPanel" : false,
-            "showDisplay" : "grid",
-            "showFilterPanel" : false,
-            "showImageIcon" : true,
-            "showManualRefreshButton" : true,
-            "showObjectName" : false,
-            "showPinnedList" : true,
-            "showSearchBar" : true
-          },
-          "componentName" : "forceCommunity:objectHome",
-          "id" : "68531ded-1717-4997-885b-51d4952367e9",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "58d7e5d3-37db-4dcc-8cc3-9d1182a9b136",
-        "regionLabel" : "Committee Cases",
-        "regionName" : "c648e",
-        "renditionMap" : { },
-        "type" : "region"
-      } ],
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "tabsetConfig" : {
-          "UUID" : "9d46c15c-b9b9-473b-8aba-72961072e397",
-          "activeTab" : "",
-          "tabs" : [ {
-            "UUID" : "42879c43-51db-4f08-9d24-a57d7d608df7",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "1",
-            "tabName" : "My Patients"
-          }, {
-            "UUID" : "a858c883-250c-43c0-87e8-ad899f6a4026",
-            "allowGuestUser" : false,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "c648e",
-            "tabName" : "Committee Cases"
-          }, {
-            "UUID" : "a5debfe4-122d-4631-8a35-081d1b570066",
-            "allowGuestUser" : false,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "dad86",
-            "tabName" : "Commiteee Meetings"
-          } ],
-          "useOverflowMenu" : true
-        }
-      },
-      "componentName" : "forceCommunity:tabLayout",
-      "id" : "9d46c15c-b9b9-473b-8aba-72961072e397",
-      "regions" : [ {
-        "components" : [ {
-          "componentAttributes" : { },
-          "componentName" : "c:edrdMyPatients",
-          "id" : "1cd161d7-3037-45e9-855e-e008aeeca9d5",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "42879c43-51db-4f08-9d24-a57d7d608df7",
-        "regionLabel" : "My Patients",
-        "regionName" : "1",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "enableInlineEdit" : false,
-            "filterName" : "EDRD_AC_Cases_Upcoming",
-            "layout" : "FULL",
-            "pageSize" : 25,
-            "scope" : "Case",
-            "showActionBar" : false,
-            "showChartsPanel" : false,
-            "showDisplay" : "grid",
-            "showFilterPanel" : false,
-            "showImageIcon" : true,
-            "showManualRefreshButton" : true,
-            "showObjectName" : false,
-            "showPinnedList" : true,
-            "showSearchBar" : true
-          },
-          "componentName" : "forceCommunity:objectHome",
-          "id" : "43d6addd-3813-493a-864e-42d92a51d7db",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "a858c883-250c-43c0-87e8-ad899f6a4026",
-        "regionLabel" : "Committee Cases",
-        "regionName" : "c648e",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
         "components" : [ {
           "componentAttributes" : {
             "enableInlineEdit" : false,
@@ -288,86 +159,13 @@
             "showSearchBar" : true
           },
           "componentName" : "forceCommunity:objectHome",
-          "id" : "1f3dfd16-8a3d-41ec-9e41-eb16720c82cb",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "a5debfe4-122d-4631-8a35-081d1b570066",
-        "regionLabel" : "Commiteee Meetings",
-        "regionName" : "dad86",
-        "renditionMap" : { },
-        "type" : "region"
-      } ],
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "tabsetConfig" : {
-          "UUID" : "e09f9d91-6e01-4aec-ab59-e8c054e0934f",
-          "activeTab" : "",
-          "tabs" : [ {
-            "UUID" : "e4dca969-6314-45c1-80db-5baf41d1135f",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "5b7b9",
-            "tabName" : "Committee Cases"
-          } ],
-          "useOverflowMenu" : true
-        }
-      },
-      "componentName" : "forceCommunity:tabLayout",
-      "id" : "e09f9d91-6e01-4aec-ab59-e8c054e0934f",
-      "regions" : [ {
-        "components" : [ {
-          "componentAttributes" : {
-            "enableInlineEdit" : false,
-            "filterName" : "EDRD_SC_Cases_Upcoming",
-            "layout" : "FULL",
-            "pageSize" : 15,
-            "scope" : "Case",
-            "showActionBar" : false,
-            "showChartsPanel" : false,
-            "showDisplay" : "grid",
-            "showFilterPanel" : false,
-            "showImageIcon" : true,
-            "showManualRefreshButton" : true,
-            "showObjectName" : true,
-            "showPinnedList" : true,
-            "showSearchBar" : true
-          },
-          "componentName" : "forceCommunity:objectHome",
           "id" : "ebec6ea0-8bd6-43e9-b74e-e231f5abbfa6",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        }, {
-          "componentAttributes" : {
-            "enableInlineEdit" : false,
-            "filterName" : "EDRD_AC_Cases_Upcoming",
-            "layout" : "FULL",
-            "pageSize" : 15,
-            "scope" : "Case",
-            "showActionBar" : false,
-            "showChartsPanel" : false,
-            "showDisplay" : "grid",
-            "showFilterPanel" : false,
-            "showImageIcon" : true,
-            "showManualRefreshButton" : true,
-            "showObjectName" : true,
-            "showPinnedList" : true,
-            "showSearchBar" : true
-          },
-          "componentName" : "forceCommunity:objectHome",
-          "id" : "512b35d8-eecc-4b75-8254-07a442a43966",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
         } ],
         "id" : "e4dca969-6314-45c1-80db-5baf41d1135f",
-        "regionLabel" : "Committee Cases",
+        "regionLabel" : "Committee Meetings",
         "regionName" : "5b7b9",
         "renditionMap" : { },
         "type" : "region"
