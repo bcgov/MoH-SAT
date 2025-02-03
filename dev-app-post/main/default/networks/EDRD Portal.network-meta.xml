@@ -5,8 +5,8 @@
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
     <communityRoles/>
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
-    <emailSenderAddress>jackson.yu@phsa.ca</emailSenderAddress>
-    <emailSenderName>EDRD Portal</emailSenderName>
+    <emailSenderAddress>sasalesforceadmin@gov.bc.ca</emailSenderAddress>
+    <emailSenderName>EDRDPortal</emailSenderName>
     <enableApexCDNCaching>true</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
     <enableDirectMessages>true</enableDirectMessages>
@@ -49,24 +49,24 @@
         <recaptchaScoreThreshold>0.0</recaptchaScoreThreshold>
     </networkAuthApiSettings>
     <networkMemberGroups>
-        <permissionSet>HealthCloudGA__HealthCloudAdmin</permissionSet>
-        <permissionSet>HealthCloudGA__HealthCloudStandard</permissionSet>
         <permissionSet>EDRD_PS_Physicians</permissionSet>
-        <profile>admin</profile>
+        <permissionSet>EDRD_PS_Reviewer</permissionSet>
         <profile>service account profile</profile>
+        <profile>admin</profile>
         <profile>edrd prescriber community user</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
-        <forgotPasswordPageOverrideSetting>Designer</forgotPasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Standard</forgotPasswordPageOverrideSetting>
         <homePageOverrideSetting>Designer</homePageOverrideSetting>
         <loginPageOverrideSetting>Designer</loginPageOverrideSetting>
         <selfRegProfilePageOverrideSetting>Designer</selfRegProfilePageOverrideSetting>
     </networkPageOverrides>
-    <picassoSite>EDRD_Portal1</picassoSite>
+    <newSenderAddress>psp@phsa.ca</newSenderAddress>
+    <picassoSite>EDRDPortal1</picassoSite>
     <selfRegistration>false</selfRegistration>
     <sendWelcomeEmail>true</sendWelcomeEmail>
-    <site>EDRD_Portal</site>
+    <site>EDRDPortal</site>
     <siteArchiveStatus>NotArchived</siteArchiveStatus>
     <status>Live</status>
     <tabs>
@@ -74,5 +74,5 @@
         <standardTab>Chatter</standardTab>
     </tabs>
     <urlPathPrefix>edrdportal</urlPathPrefix>
-    <welcomeTemplate>unfiled$public/EDRDPortalCommunityWelcomeEmailTemplate</welcomeTemplate>
+    <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
 </Network>
