@@ -82,7 +82,7 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;sendOnlyExtraPayload&quot; : true
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1224,7 +1224,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>13.0</sequenceNumber>
+        <sequenceNumber>14.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1274,7 +1274,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>12.0</sequenceNumber>
+        <sequenceNumber>13.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1324,7 +1324,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>16.0</sequenceNumber>
+        <sequenceNumber>17.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1441,7 +1441,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>20.0</sequenceNumber>
+        <sequenceNumber>21.0</sequenceNumber>
         <type>Matrix Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1474,7 +1474,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>15.0</sequenceNumber>
+        <sequenceNumber>16.0</sequenceNumber>
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1510,7 +1510,7 @@
   &quot;targetParams&quot; : &quot;%Summary%&quot;,
   &quot;targetName&quot; : &quot;%SitePageAPIName%&quot;
 }</propertySetConfig>
-        <sequenceNumber>21.0</sequenceNumber>
+        <sequenceNumber>22.0</sequenceNumber>
         <type>Navigate Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1626,7 +1626,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1878,8 +1878,8 @@
     &quot;active&quot; : false
   }, {
     &quot;value&quot; : false,
-    &quot;type&quot; : &quot;Requirement&quot;,
-    &quot;text&quot; : &quot;We can&apos;t create case for Deceased patient, Please Contact PHSA PSP for additional information at psp@phsa.ca.&quot;,
+    &quot;type&quot; : &quot;Warning&quot;,
+    &quot;text&quot; : &quot;An EDRD case cannot be created for a deceased patient. Please Contact PHSA PSP for additional information at psp@phsa.ca.&quot;,
     &quot;active&quot; : true
   } ],
   &quot;validateExpression&quot; : {
@@ -1994,7 +1994,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 20,
+  &quot;maxLength&quot; : 10,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -2280,7 +2280,8 @@
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;extraPayload&quot; : {
-    &quot;phn&quot; : &quot;%PatientIdentifier%&quot;
+    &quot;phn&quot; : &quot;%PatientIdentifier%&quot;,
+    &quot;clickBy&quot; : &quot;EMPICreatedNew&quot;
   },
   &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
   &quot;postMessage&quot; : &quot;Done&quot;,
@@ -2288,7 +2289,7 @@
   &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
   &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
   &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;validationRequired&quot; : &quot;None&quot;,
   &quot;redirectPageName&quot; : &quot;&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
@@ -2336,6 +2337,30 @@
 }</propertySetConfig>
             <sequenceNumber>11.0</sequenceNumber>
             <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>validationFormula</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;disOnTplt&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dataType&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;show&quot; : null,
+  &quot;hide&quot; : true,
+  &quot;expression&quot; : &quot;IF(%searchOutput:deceased% == true || %searchOutput:isPatientInEMPI%== false ||  %searchOutput:isPatientInSF%== false, true, false)&quot;,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;validation Formula&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>16.0</sequenceNumber>
+            <type>Formula</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2498,7 +2523,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                     <sequenceNumber>3.0</sequenceNumber>
                     <type>Date</type>
@@ -2528,7 +2553,8 @@
   &quot;extraPayload&quot; : {
     &quot;firstname&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByName:firstname%&quot;,
     &quot;lastname&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByName:lastname%&quot;,
-    &quot;dateOfBirth&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByName:patientDOB%&quot;
+    &quot;dateOfBirth&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByName:patientDOB%&quot;,
+    &quot;clickBy&quot; : &quot;NewSearch&quot;
   },
   &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
   &quot;postMessage&quot; : &quot;Done&quot;,
@@ -2536,7 +2562,7 @@
   &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
   &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
   &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;validationRequired&quot; : &quot;None&quot;,
   &quot;redirectPageName&quot; : &quot;&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
@@ -2544,7 +2570,24 @@
   &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
   &quot;redirectPreviousWidth&quot; : 3,
   &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;firstname&quot;
+      }, {
+        &quot;field&quot; : &quot;lastname&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : null
+      }, {
+        &quot;field&quot; : &quot;patientDOB&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : null
+      } ]
+    }
+  },
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
@@ -2631,7 +2674,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;maxLength&quot; : 10,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
@@ -2669,7 +2712,16 @@
   &quot;ssm&quot; : false,
   &quot;wpm&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;PatientIdentifierSalesforce&quot;
+      } ]
+    }
+  },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;redirectPreviousWidth&quot; : 3,
   &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
@@ -2677,7 +2729,7 @@
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;validationRequired&quot; : &quot;None&quot;,
   &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
   &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
   &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
@@ -2685,7 +2737,8 @@
   &quot;postMessage&quot; : &quot;Done&quot;,
   &quot;inProgressMessage&quot; : &quot;Please click Next for case creation.&quot;,
   &quot;extraPayload&quot; : {
-    &quot;phn&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByPHN:PatientIdentifierSalesforce%&quot;
+    &quot;phn&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByPHN:PatientIdentifierSalesforce%&quot;,
+    &quot;clickBy&quot; : &quot;NewSearch&quot;
   },
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;responseJSONPath&quot; : &quot;&quot;,
@@ -2995,7 +3048,16 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CreateRecordManually&quot;
+      } ]
+    }
+  },
   &quot;repeatLimit&quot; : null,
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
@@ -3052,6 +3114,30 @@
 }</propertySetConfig>
             <sequenceNumber>6.0</sequenceNumber>
             <type>Multi-select</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>isvalidation</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IsValidation&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF((((%searchOutput:clickByNew%==&apos;SFPHN&apos;|| %searchOutput:clickByNew%==&apos;SFPatientDeatils&apos; || %searchOutput|1:clickByNew%==&apos;SFPHN&apos;|| %searchOutput|1:clickByNew%==&apos;SFPatientDeatils&apos;)&amp;&amp; %CreateRecordManually% == null &amp;&amp; (%searchOutput:isPatientFound% ==true||%searchOutput|1:isPatientFound% ==true))||(%CreateRecordManually% != null &amp;&amp;((%searchOutput:clickByNew%==&apos;SFPHN&apos; &amp;&amp; %PHNValidationMessage% != true) || (%searchOutput:clickByNew%==&apos;SFManulCreate&apos;)))),true,false)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Formula</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -3304,7 +3390,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                     <sequenceNumber>2.0</sequenceNumber>
                     <type>Date</type>
@@ -3506,7 +3592,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;maxLength&quot; : 10,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
@@ -3640,7 +3726,7 @@
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;validationRequired&quot; : &quot;None&quot;,
   &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
   &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
   &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
@@ -3697,7 +3783,8 @@
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;&quot;,
   &quot;extraPayload&quot; : {
-    &quot;phn&quot; : &quot;%patientIdentifier%&quot;
+    &quot;phn&quot; : &quot;%patientIdentifier%&quot;,
+    &quot;clickBy&quot; : &quot;NewSearch&quot;
   },
   &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
   &quot;postMessage&quot; : &quot;Done&quot;,
@@ -3705,7 +3792,7 @@
   &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
   &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
   &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;validationRequired&quot; : &quot;None&quot;,
   &quot;redirectPageName&quot; : &quot;&quot;,
   &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
   &quot;redirectNextLabel&quot; : &quot;Next&quot;,
@@ -3961,7 +4048,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
+        <sequenceNumber>5.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3980,11 +4067,15 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;false&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;searchDetailsError&quot;
+      }, {
+        &quot;field&quot; : &quot;isvalidation&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
       } ]
     }
   },
@@ -3995,7 +4086,53 @@
   &quot;pubsub&quot; : false,
   &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Set Errors</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>SetErrorsForPatientValidation</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;SetErrorsForPatientValidation&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;elementErrorMap&quot; : {
+    &quot;phnNotFoundErrorMessage&quot; : &quot;=&quot;
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;reasonFormula&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;validationFormula&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;true&quot;
+          }, {
+            &quot;field&quot; : &quot;searchOutput&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;&quot;
+          } ]
+        }
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4018,7 +4155,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4053,7 +4190,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4090,7 +4227,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>11.0</sequenceNumber>
+        <sequenceNumber>12.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4127,7 +4264,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>10.0</sequenceNumber>
+        <sequenceNumber>11.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4150,7 +4287,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>14.0</sequenceNumber>
+        <sequenceNumber>15.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4174,7 +4311,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
+        <sequenceNumber>3.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4197,7 +4334,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4242,7 +4379,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>18.0</sequenceNumber>
+        <sequenceNumber>19.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4265,7 +4402,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>19.0</sequenceNumber>
+        <sequenceNumber>20.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -4408,14 +4545,14 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>17.0</sequenceNumber>
+        <sequenceNumber>18.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
-    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:&quot;%CaseType% - %PatientName% - %PatientIdentifier%&quot;,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%PatAccId%&quot;,&quot;saveURLPatterns&quot;:{&quot;&quot;:&quot;&quot;},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:false,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;EDRD_UI_enhancement_V6&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;top&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;,&quot;isSeoEnabled&quot;:false,&quot;scrollToTopWhenNavigatingBetweenStepsOnExperienceCloudSites&quot;:false,&quot;allowLongLabels&quot;:true,&quot;designTokenOverride&quot;:&quot;&quot;}</propertySetConfig>
+    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:&quot;%CaseType% - %PatientName% - %PatientIdentifier%&quot;,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%PatAccId%&quot;,&quot;saveURLPatterns&quot;:{&quot;&quot;:&quot;&quot;},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:false,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;EDRD_New_PatientSearch_v1&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;top&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;,&quot;isSeoEnabled&quot;:false,&quot;scrollToTopWhenNavigatingBetweenStepsOnExperienceCloudSites&quot;:false,&quot;allowLongLabels&quot;:true,&quot;designTokenOverride&quot;:&quot;&quot;}</propertySetConfig>
     <subType>EDRDNewForm</subType>
     <type>EDRDNewForm</type>
     <uniqueName>EDRDNewForm_EDRDNewForm_English_25</uniqueName>
     <versionNumber>25.0</versionNumber>
-    <webComponentKey>9b979965-4142-3b80-92bf-d5a71b8e5ed2</webComponentKey>
+    <webComponentKey>069e7809-78c1-d09e-7336-b37991188848</webComponentKey>
 </OmniScript>
