@@ -5,6 +5,6 @@ trigger ContentDocumentLinkTrigger on ContentDocumentLink (before insert, after 
         }
     }
     if(trigger.isafter && trigger.isInsert){
-        ContentDocumentLinkTriggerHandler.getDocumentGenerated(trigger.new);
+        //ContentDocumentLinkTriggerHandler.getDocumentGenerated(trigger.new);
     }    
 }
