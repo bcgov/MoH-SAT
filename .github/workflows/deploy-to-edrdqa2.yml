@@ -19,7 +19,7 @@ jobs:
 
     - name: Authenticate with Sandbox
       run: |
-         echo ${{ secrets.SALESFORCE_EDRDUAT_AUTH }} > sfdxurl.txt
+         echo ${{ secrets.SALESFORCE_EDRDQA2_AUTH }} > sfdxurl.txt
          sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias SAT-EDRDQA2
 
     - name: Remove auth file
