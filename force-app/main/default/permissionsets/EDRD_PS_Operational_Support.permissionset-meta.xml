@@ -641,7 +641,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Committee_Review_Case__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -658,11 +658,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Committee_Review_Case__c.ServiceAppoinmentName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Committee_Review_Case__c.Service_Appointment_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1210,7 +1205,7 @@
         <field>Task.WhoId</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Pharmanet_Payload__c.Case_Type__c</field>
         <readable>true</readable>
@@ -1511,22 +1506,40 @@
         <object>OmniProcessElement</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-        <objectPermissions>
+    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>UnitOfMeasure</object>
+        <object>OmniScriptSavedSession</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-     <objectPermissions>
+    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Pharmanet_Payload__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ServiceAppointment</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>UnitOfMeasure</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <pageAccesses>
@@ -1582,6 +1595,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Pharmanet_Payload__c.EDRD</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -1590,15 +1607,23 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
-        <recordType>Pharmanet_Payload__c.EDRD</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-        <tabSettings>
         <tab>Medical_Diagnosis__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
+        <tab>Pharmanet_Payload__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>standard-Case</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-OmniScriptSavedSession</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-ServiceAppointment</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
