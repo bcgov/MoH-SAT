@@ -13,7 +13,7 @@ public with sharing class AccountContactRelationTriggerHandler {
 * @date: 21 Aug 2024
 * @description: The purpose of this method is to share patient records with provider on ACR insert.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
-                     20Sept -  EDRD-911          -  Deepak      -  Adding NULL Check & updated asper user trigger
+                     20Sept -  EDRD-911      -  Deepak      -  Adding NULL Check & updated asper user trigger
 */     
     public static void createPatientShare(List<AccountContactRelation> aCRList){
         Map<Id, Set<Id>> providerIdVsPatientIdSet = new Map<Id, Set<Id>>();
@@ -144,6 +144,7 @@ public with sharing class AccountContactRelationTriggerHandler {
                     if(accRecTypeSet.Contains(businessAccount.RecordType.DeveloperName) || (accRecTypeSet.Contains(providerAccount.RecordType.DeveloperName))){
                         String businessCommitteeTypes = businessAccount.EDRD_Committee_Type__c;
                         String oldProviderCommittee = providerAccount.Committee__pc;
+                        System.debug('oldProviderCommittee' + oldProviderCommittee);
                         
                         if (ESA_cls_constants.EDRD_BUSINESS_SC_ACCOUNT.equalsIgnoreCase(businessCommitteeTypes) && oldProviderCommittee == NULL) {
                             providerAccount.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
@@ -175,7 +176,7 @@ public with sharing class AccountContactRelationTriggerHandler {
                         }
                     }                
                 }
-                
+                //System.AssertEquals(providerIdVsRecToUpdate, NULL);
                 if (!providerIdVsRecToUpdate.isEmpty()) {           
                     Database.update(providerIdVsRecToUpdate.values(), true);
                 }
@@ -238,7 +239,7 @@ public with sharing class AccountContactRelationTriggerHandler {
                         providerIdVsRecToUpdate.put(providerAccount.Id, new Account(Id = providerAccount.Id, Committee__pc = providerAccount.Committee__pc, Committee_Name__pc = providerAccount.Committee_Name__pc));
                     }                    
                 }
-
+                //System.debug('::providerIdVsRecToUpdate'+  providerIdVsRecToUpdate);
                 if (!providerIdVsRecToUpdate.isEmpty()) {
                     Database.update(providerIdVsRecToUpdate.values(), true);
                 }
