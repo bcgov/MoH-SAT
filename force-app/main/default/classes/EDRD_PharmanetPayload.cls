@@ -26,6 +26,8 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
             }
             when 'getPharmanetDecisionTable'{
                 this.getPharmanetDecisionTable(inputWrapper,outputMap);
+            }
+            when else {                
             }           
         }
         return result;
@@ -34,6 +36,7 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
    
   public void getPharmanetDecisionTable(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
   {
+       DecisionTable dt = [SELECT Id   FROM DecisionTable where  DeveloperName = 'EDRD_PharmaNet_Payload' LIMIT 1];
        List<EDRD_PharmanetWrapper.OutputWrapper> lstpharmanetOW = new List<EDRD_PharmanetWrapper.OutputWrapper>();
        ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
 		input.conditions = new List<ConnectApi.DecisionTableCondition>();
@@ -59,7 +62,7 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
         input.conditions.add(condition4);
 
    
-      	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute('0lDAq000000057lMAA', input);/* Your API call or object */
+      	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(dt.Id, input);/* Your API call or object */
        if (decisionOutcome != null && decisionOutcome.successStatus) 
        {
           
@@ -78,7 +81,6 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
                 wrapper.effectiveDate = (DateTime) item.values.get('EDRD_Effective_Date__c');
                 wrapper.terminationDate = inputWrapper.terminationDate !=null ? (Date)inputWrapper.terminationDate : null;
                 wrapper.practId = inputWrapper.practId;
-                //wrapper.practitiner = inputWrapper.practitiner; 
                 wrapper.phn = inputWrapper.phn;
             	outputWrappers.add(wrapper);
         }
