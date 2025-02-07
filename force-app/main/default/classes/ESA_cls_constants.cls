@@ -31,13 +31,14 @@ public class ESA_cls_constants {
     public static final String EDRD_PRESCRIBER_COMMUNITY_USER = 'EDRD Prescriber Community User';
     public static final String EDRD_PROVIDER = 'Provider';
     public static final Id PatientRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Patient').getRecordTypeId();
+    public static final Id PharmanetPayloadRecordTypeId = Schema.SObjectType.Pharmanet_Payload__c.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
     public static final String ManullyCreated = 'manullyCreated';
     public static final String EMPICreated = 'EMPICreated';
     public static final String EMPICreatedRenewal = 'EMPICreatedRenewal';
     public static final String EMPISearchRenewal = 'EMPISearchRenewal';
     public static final String RenewalSFSearch = 'RenewalSFSearch';
     public static final String EMPICreatedNew = 'EMPICreatedNew';
-    public static final String NewSFSearch = 'NewSFSearch';
+    public static final String NewSearch = 'NewSearch';
     
     
     
