@@ -25,7 +25,10 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
             }
             when 'getPharmanetDecisionTable'{
                 this.getPharmanetDecisionTable(inputWrapper,outputMap);
-            }           
+            } 
+            when else{
+
+            }          
         }
         return result;
     } 
@@ -34,7 +37,7 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
   public void getPharmanetDecisionTable(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
   {
        DecisionTable dt = new Elevated().getDTId('EDRD_PharmaNet_Payload');
-     
+
        List<EDRD_PharmanetWrapper.OutputWrapper> lstpharmanetOW = new List<EDRD_PharmanetWrapper.OutputWrapper>();
        ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
 		input.conditions = new List<ConnectApi.DecisionTableCondition>();
@@ -57,9 +60,9 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
         ConnectApi.DecisionTableCondition condition4 = new ConnectApi.DecisionTableCondition();
         condition4.fieldName = 'RecordTypeId';
         condition4.value = ESA_cls_constants.PharmanetPayloadRecordTypeId;
-        input.conditions.add(condition4);
-		
+        input.conditions.add(condition4);	
    
+
       	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(dt.Id, input);
        if (decisionOutcome != null && decisionOutcome.successStatus) 
        {
@@ -80,7 +83,6 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
                     wrapper.terminationDate = inputWrapper.terminationDate !=null ? (Date)inputWrapper.terminationDate : null;
                     wrapper.practId = inputWrapper.practId;
                     wrapper.phn = inputWrapper.phn;
-                    system.debug('outputwarapper'+wrapper);
                     outputWrappers.add(wrapper);
              }
                String result = Json.serialize(outputWrappers);
@@ -93,6 +95,7 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
     {       
         
     }
+
 /*---------------------------------------------------------------------
 Class Name : Elevated
 Purpose : This is Elevated class to get the salesforce data on System mode.
@@ -106,6 +109,6 @@ Date : 19/Dec/2024
             return [SELECT Id   FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
         }
     }
- 
+
 
 }
