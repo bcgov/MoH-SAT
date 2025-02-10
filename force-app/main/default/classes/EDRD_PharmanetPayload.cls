@@ -33,9 +33,8 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
    
    
   public void getPharmanetDecisionTable(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
-  {
-       DecisionTable dt = new Elevated().getDTId('EDRD_PharmaNet_Payload');
-     
+  {       
+       Id DtId = System.Label.EDRD_Pharmanet_DesctionTable_ID;
        List<EDRD_PharmanetWrapper.OutputWrapper> lstpharmanetOW = new List<EDRD_PharmanetWrapper.OutputWrapper>();
        ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
 		input.conditions = new List<ConnectApi.DecisionTableCondition>();
@@ -61,7 +60,7 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
         input.conditions.add(condition4);
 		
    
-      	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(dt.Id, input);/* Your API call or object */
+      	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(DtId, input);/* Your API call or object */
        if (decisionOutcome != null && decisionOutcome.successStatus) 
        {
           
@@ -93,19 +92,5 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
     {       
         
     }
-/*---------------------------------------------------------------------
-Class Name : Elevated
-Purpose : This is Elevated class to get the salesforce data on System mode.
-Version : 1.0
-Devloper Name : Accenture.
-Date : 19/Dec/2024
---------------------------------------------------------------------------*/
-    public without sharing class Elevated{
-        
-        public DecisionTable getDTId(String DecisionTableName){
-            return [SELECT Id   FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
-        }
-    }
- 
 
 }
