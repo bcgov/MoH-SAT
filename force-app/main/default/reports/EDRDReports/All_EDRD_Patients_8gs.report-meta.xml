@@ -1,89 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>Contact.EDRD_Ref_No__c</field>
+        <field>Account.Contacts$EDRD_Ref_No__c</field>
     </columns>
     <columns>
-        <field>PC_FIRST_NAME</field>
+        <field>Account$FirstName</field>
     </columns>
     <columns>
-        <field>PC_LAST_NAME</field>
+        <field>Account$LastName</field>
     </columns>
     <columns>
-        <field>Contact.Patient_Identifier__c</field>
+        <field>Account.Contacts$Patient_Identifier__c</field>
     </columns>
     <columns>
-        <field>PHONE2</field>
+        <field>Account$Fax</field>
     </columns>
     <columns>
-        <field>PC_BIRTHDATE</field>
+        <field>Account.Contacts$Birthdate</field>
     </columns>
     <columns>
-        <field>PHONE1</field>
+        <field>Account$Phone</field>
+    </columns>
+    <columns>
+        <field>Account.Contacts$EDRD_Age__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>Contact.Patient_is_Deceased__c</field>
+        <field>Account.Contacts$Patient_is_Deceased__c</field>
     </columns>
     <columns>
-        <field>Contact.Legacy_EDRD_Ref_No__c</field>
+        <field>Account.Contacts$Gender</field>
     </columns>
     <columns>
-        <field>PC_ADDRESS2_STREET</field>
+        <field>Account.Contacts$Legacy_EDRD_Ref_No__c</field>
     </columns>
     <columns>
-        <field>PC_ADDRESS2_CITY</field>
+        <field>Account.Contacts$MailingAddress</field>
     </columns>
     <columns>
-        <field>PC_ADDRESS2_STATE</field>
-    </columns>
-    <columns>
-        <field>PC_ADDRESS2_ZIP</field>
-    </columns>
-    <columns>
-        <field>PC_ADDRESS2_COUNTRY</field>
-    </columns>
-    <columns>
-        <field>PC_ADDRESS1_STREET</field>
-    </columns>
-    <columns>
-        <field>PC_ADDRESS1_CITY</field>
-    </columns>
-    <columns>
-        <field>PC_ADDRESS1_STATE</field>
-    </columns>
-    <columns>
-        <field>PC_ADDRESS1_ZIP</field>
-    </columns>
-    <columns>
-        <field>PC_ADDRESS1_COUNTRY</field>
+        <field>Account.Contacts$OtherAddress</field>
     </columns>
     <description>All EDRD Patients (including deceased)</description>
     <filter>
         <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
         <criteriaItems>
-            <column>RECORDTYPE</column>
+            <column>Account$RecordType</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
             <value>PersonAccount.Patient</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Contact.EDRD_Ref_No__c</column>
+            <column>Account.Contacts$EDRD_Ref_No__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>false</isUnlocked>
             <operator>notEqual</operator>
             <value></value>
         </criteriaItems>
         <criteriaItems>
-            <column>Contact.Patient_is_Deceased__c</column>
+            <column>Account.Contacts$Patient_is_Deceased__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Contact.Patient_is_Deceased__c</column>
+            <column>Account.Contacts$Patient_is_Deceased__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
@@ -96,13 +78,13 @@
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>AccountList</reportType>
+    <reportType>Accounts_with_Contacts__c</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
-        <dateColumn>CREATED_DATE</dateColumn>
+        <dateColumn>Account$CreatedDate</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
