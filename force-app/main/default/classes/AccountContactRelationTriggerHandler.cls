@@ -176,7 +176,6 @@ public with sharing class AccountContactRelationTriggerHandler {
                         }
                     }                
                 }
-                //System.AssertEquals(providerIdVsRecToUpdate, NULL);
                 if (!providerIdVsRecToUpdate.isEmpty()) {           
                     Database.update(providerIdVsRecToUpdate.values(), true);
                 }
@@ -239,7 +238,6 @@ public with sharing class AccountContactRelationTriggerHandler {
                         providerIdVsRecToUpdate.put(providerAccount.Id, new Account(Id = providerAccount.Id, Committee__pc = providerAccount.Committee__pc, Committee_Name__pc = providerAccount.Committee_Name__pc));
                     }                    
                 }
-                //System.debug('::providerIdVsRecToUpdate'+  providerIdVsRecToUpdate);
                 if (!providerIdVsRecToUpdate.isEmpty()) {
                     Database.update(providerIdVsRecToUpdate.values(), true);
                 }
