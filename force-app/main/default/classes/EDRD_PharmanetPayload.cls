@@ -37,8 +37,7 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
   public void getPharmanetDecisionTable(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
   {
        DecisionTable dt = new Elevated().getDTId('EDRD_PharmaNet_Payload');
-
-       List<EDRD_PharmanetWrapper.OutputWrapper> lstpharmanetOW = new List<EDRD_PharmanetWrapper.OutputWrapper>();
+              
        ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
 		input.conditions = new List<ConnectApi.DecisionTableCondition>();
  
