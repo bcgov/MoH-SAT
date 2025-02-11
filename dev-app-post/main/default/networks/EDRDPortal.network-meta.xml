@@ -7,6 +7,7 @@
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
     <emailSenderAddress>sasalesforceadmin@gov.bc.ca</emailSenderAddress>
     <emailSenderName>EDRDPortal</emailSenderName>
+    <embeddedLoginEnabled>true</embeddedLoginEnabled>
     <enableApexCDNCaching>true</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
     <enableDirectMessages>true</enableDirectMessages>
@@ -35,8 +36,10 @@
     <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
     <networkAuthApiSettings>
         <doesForgotPasswordRequireAuth>false</doesForgotPasswordRequireAuth>
+        <doesPasswordLoginRequireAuth>false</doesPasswordLoginRequireAuth>
         <doesPwdlessLoginRequireAuth>false</doesPwdlessLoginRequireAuth>
         <doesRegistrationRequireAuth>false</doesRegistrationRequireAuth>
+        <isFirstPartyAppsAllowed>false</isFirstPartyAppsAllowed>
         <isForgotPwdAllowed>false</isForgotPwdAllowed>
         <isForgotPwdEmailTemplateAllowlistingEnabled>false</isForgotPwdEmailTemplateAllowlistingEnabled>
         <isHeadlessUserRegistrationAllowed>false</isHeadlessUserRegistrationAllowed>
@@ -45,17 +48,21 @@
         <isRecaptchaRequiredPwdlessLogin>false</isRecaptchaRequiredPwdlessLogin>
         <isRecaptchaRequiredRgstr>false</isRecaptchaRequiredRgstr>
         <isUniversalClientRgstrAllowed>false</isUniversalClientRgstrAllowed>
+        <isUserDisambiguationAllowedForgotPwd>false</isUserDisambiguationAllowedForgotPwd>
+        <isUserDisambiguationAllowedUsernamePwd>false</isUserDisambiguationAllowedUsernamePwd>
         <maxPasswordResetAttempts>5</maxPasswordResetAttempts>
         <recaptchaScoreThreshold>0.0</recaptchaScoreThreshold>
     </networkAuthApiSettings>
     <networkMemberGroups>
+        <permissionSet>EDRD_PS_Physicians</permissionSet>
+        <permissionSet>EDRD_PS_Reviewer</permissionSet>
         <profile>service account profile</profile>
         <profile>admin</profile>
         <profile>edrd prescriber community user</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
-        <forgotPasswordPageOverrideSetting>Designer</forgotPasswordPageOverrideSetting>
+        <forgotPasswordPageOverrideSetting>Standard</forgotPasswordPageOverrideSetting>
         <homePageOverrideSetting>Designer</homePageOverrideSetting>
         <loginPageOverrideSetting>Designer</loginPageOverrideSetting>
         <selfRegProfilePageOverrideSetting>Designer</selfRegProfilePageOverrideSetting>
@@ -72,5 +79,5 @@
         <standardTab>Chatter</standardTab>
     </tabs>
     <urlPathPrefix>edrdportal</urlPathPrefix>
-    <welcomeTemplate>unfiled$public/EDRDPortalCommunityWelcomeEmailTemplate</welcomeTemplate>
+    <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
 </Network>
