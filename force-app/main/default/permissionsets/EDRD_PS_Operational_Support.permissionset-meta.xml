@@ -21,6 +21,18 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>EDRD_cls_AssessmentResponseService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_cls_AssessmentResponseServiceTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_cls_Payload</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>EDRD_cls_ShowToastMsgController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -28,7 +40,15 @@
         <apexClass>EDRD_cls_ShowToastMsgControllerTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-        <classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_cls_generatePDFDoc</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_cls_generatePDFDocTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ESA_cls_CaseSuperStampHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -57,6 +77,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>ODRIntegrationTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>OdrLookup</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -74,6 +98,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>ProductHealthCategory</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ProductHealthCategoryTest</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -613,7 +641,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Committee_Review_Case__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -630,11 +658,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Committee_Review_Case__c.ServiceAppoinmentName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Committee_Review_Case__c.Service_Appointment_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -785,6 +808,41 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Event.WhoId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Integration_Log__c.Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Integration_Log__c.Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Integration_Log__c.Message__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Integration_Log__c.Patient__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Integration_Log__c.SA_Request__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Integration_Log__c.Timestamp__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Integration_Log__c.Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1122,6 +1180,7 @@
         <field>MedicinalIngredient.Unit_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
+<<<<<<< HEAD
     <fieldPermissions>
         <editable>true</editable>
         <field>OmniScriptSavedSession.FileBasedOmniScriptName</field>
@@ -1188,6 +1247,9 @@
         <readable>true</readable>
     </fieldPermissions>    
     <fieldPermissions>
+=======
+        <fieldPermissions>
+>>>>>>> 136b03596c87ff9ff73561dd310db2be028a61f8
         <editable>false</editable>
         <field>ServiceAppointment.AccountId</field>
         <readable>true</readable>
@@ -1214,7 +1276,67 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Case_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_DIN__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Effective_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Excluded_Plans__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Indication_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Justification_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Max_Days_Supply__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Max_Price_Percent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_Medication_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_RDP_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.EDRD_SA_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>UnitOfMeasure.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Office_Phone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
@@ -1378,6 +1500,15 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
+        <object>Integration_Log__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
         <object>Medical_Diagnosis__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -1455,6 +1586,27 @@
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
+<<<<<<< HEAD
+=======
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Pharmanet_Payload__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ServiceAppointment</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+>>>>>>> 136b03596c87ff9ff73561dd310db2be028a61f8
         <allowDelete>true</allowDelete>
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
@@ -1514,7 +1666,23 @@
         <recordType>PersonAccount.Provider</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+<<<<<<< HEAD
         <tabSettings>
+=======
+    <recordTypeVisibilities>
+        <recordType>Pharmanet_Payload__c.EDRD</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Integration_Log__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+>>>>>>> 136b03596c87ff9ff73561dd310db2be028a61f8
         <tab>Medical_Diagnosis__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
@@ -1525,7 +1693,15 @@
     <tabSettings>
         <tab>standard-OmniScriptSavedSession</tab>
         <visibility>Visible</visibility>
+<<<<<<< HEAD
     </tabSettings>    
+=======
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-ServiceAppointment</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+>>>>>>> 136b03596c87ff9ff73561dd310db2be028a61f8
     <tabSettings>
         <tab>standard-report</tab>
         <visibility>Visible</visibility>

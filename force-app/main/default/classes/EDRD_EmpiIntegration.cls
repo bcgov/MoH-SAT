@@ -67,10 +67,16 @@ Date : 19/Dec/2024
                 patientOutputWrapper.isPatientFound = true; 
                 patientOutputWrapper.patientaccountId = acc.Id;
                 patientOutputWrapper.patientId = acc.PersonContactId; 
+                if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
+                        patientOutputWrapper.isPatientSFRenewal = true;
+                 }
               
             }           
         }
         else{
+             if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
+                        patientOutputWrapper.isPatientSFRenewal = false;
+                 }
             patientOutputWrapper.isPatientFound = false; 
         }
         patientOutputWrapper.isClickSFsearch = true;
@@ -97,6 +103,9 @@ Date : 19/Dec/2024
                     patientOutputWrapper.isClickSFsearch = true;
                     patientOutputWrapper.patientaccountId = acc.Id;
                     patientOutputWrapper.patientId = acc.PersonContactId; 
+                    if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
+                        patientOutputWrapper.isPatientSFRenewal = true;
+                    }
                     lstpatientOutputWrapper.add(patientOutputWrapper);
                 }
             }
@@ -104,6 +113,9 @@ Date : 19/Dec/2024
                 EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper= new EDRD_EmpiWrapper.OutputWrapper();
                 patientOutputWrapper.isPatientFound = false;
                 patientOutputWrapper.isClickSFsearch = true;
+                if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
+                	patientOutputWrapper.isPatientSFRenewal = false;
+                }
                 lstpatientOutputWrapper.add(patientOutputWrapper);
             }
             
@@ -192,14 +204,14 @@ Date : 19/Dec/2024
                     patientOutputWrapper.patientId = acc.PersonContactId;
                     patientOutputWrapper.patientaccountId = acc.Id;
                     patientOutputWrapper.isPatientFound = true;
-                    patientOutputWrapper.isPatientInSF = true;
+                    patientOutputWrapper.isPatientInSF = true;                   
                 }
         	}
             else{
                patientOutputWrapper.isPatientFound = false; 
                patientOutputWrapper.isPatientInSF = false;
             }
-        }
+        }        
         
         String result = Json.serialize(patientOutputWrapper);
         outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
