@@ -19,23 +19,25 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
         Boolean result = true; 
         String jsonInput = Json.serialize(inputMap.get('input'));
         EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
-        
         switch on methodName {
             when 'updateSubmitAllPharmanet'{
                 this.updateSubmitAllPharmanet(inputWrapper,outputMap);
             }
             when 'getPharmanetDecisionTable'{
                 this.getPharmanetDecisionTable(inputWrapper,outputMap);
-            }           
+            } 
+            when else{
+
+            }          
         }
         return result;
     } 
    
    
   public void getPharmanetDecisionTable(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
-  {       
-       Id DtId = System.Label.EDRD_Pharmanet_DesctionTable_ID;
-       List<EDRD_PharmanetWrapper.OutputWrapper> lstpharmanetOW = new List<EDRD_PharmanetWrapper.OutputWrapper>();
+  {
+       DecisionTable dt = new Elevated().getDTId('EDRD_PharmaNet_Payload');
+              
        ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
 		input.conditions = new List<ConnectApi.DecisionTableCondition>();
  
@@ -57,10 +59,10 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
         ConnectApi.DecisionTableCondition condition4 = new ConnectApi.DecisionTableCondition();
         condition4.fieldName = 'RecordTypeId';
         condition4.value = ESA_cls_constants.PharmanetPayloadRecordTypeId;
-        input.conditions.add(condition4);
-		
+        input.conditions.add(condition4);	
    
-      	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(DtId, input);
+
+      	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(dt.Id, input);
        if (decisionOutcome != null && decisionOutcome.successStatus) 
        {
           
@@ -91,6 +93,20 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
     public void updateSubmitAllPharmanet(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
     {       
         
+    }
+
+/*---------------------------------------------------------------------
+Class Name : Elevated
+Purpose : This is Elevated class to get the salesforce data on System mode.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
+    public without sharing class Elevated{
+        
+        public DecisionTable getDTId(String DecisionTableName){
+            return [SELECT Id   FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
+        }
     }
 
 
