@@ -1,5 +1,6 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { CurrentPageReference } from 'lightning/navigation';
 
 import submitSinglePnetSar from '@salesforce/apex/PharmanetPayloadController.submitSinglePnetSar';
 import submitSaApprovalUpdate from '@salesforce/apex/PharmanetPayloadController.submitSaApprovalUpdate';
@@ -12,6 +13,8 @@ import { getRecord } from "lightning/uiRecordApi";
 export default class PnetSaForm extends LightningElement {
     @api
     caseId;
+
+    @track recordId;
     
     _record;
     original_record;
@@ -31,6 +34,13 @@ export default class PnetSaForm extends LightningElement {
     description;
     maxDaysSupply;
     payloadMaxDaysSupply;
+
+    @wire(CurrentPageReference)
+    getPageReferenceParameters(currentPageReference) {
+        if (currentPageReference) {
+            this.recordId = currentPageReference.attributes.recordId;
+        }
+    }
 
     @wire(getRecord, { recordId: "$caseId", fields: [FLD_MAX_DAYS_SUPPLY]})
     cases({data, error}){
@@ -255,7 +265,11 @@ export default class PnetSaForm extends LightningElement {
         }
         
         try {
-            await submitSaApprovalUpdate({caseId: this.caseId, saaUpdateRequest: record });
+            if(this.caseId){
+                await submitSaApprovalUpdate({caseId: this.caseId, saaUpdateRequest: record });
+            }else if(this.recordId){
+                await submitSaApprovalUpdate({caseId: this.recordId, saaUpdateRequest: record });
+            }
             this.showSuccess(`[${subject}] Submitted to Pharmanet.`);
         } catch (error) {
             this.showError(error.body.message);
