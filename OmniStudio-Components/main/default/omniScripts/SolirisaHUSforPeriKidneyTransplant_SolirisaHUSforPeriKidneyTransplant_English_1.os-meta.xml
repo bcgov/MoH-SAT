@@ -23,10 +23,10 @@
                 <name>AHUS_Initial_First_Disease_Information_Q1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;Confirmed Diagnosis Date:&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : false,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -45,7 +45,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>0.0</sequenceNumber>
                 <type>Date</type>
@@ -69,7 +69,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>0.0</sequenceNumber>
+            <sequenceNumber>1.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -315,8 +315,30 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
+            <sequenceNumber>2.0</sequenceNumber>
             <type>Block</type>
+        </childElements>
+        <childElements>
+            <designerCustomizationType>Discovery Framework</designerCustomizationType>
+            <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>Patient_Generic_Information_Q</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12.0,
+  &quot;label&quot; : &quot;New Submission for: %ContactName%        PHN: %ContactPatient_Identifier__c%        Drug: %MediName%&quot;,
+  &quot;text&quot; : &quot;New Submission for: %ContactName%        PHN: %ContactPatient_Identifier__c%        Drug: %MediName%&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Text Block</type>
+            <uniqueIndex>Patient_Generic_Information_Q</uniqueIndex>
         </childElements>
         <childElements>
             <childElements>
@@ -473,7 +495,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
+            <sequenceNumber>4.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -585,7 +607,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>24.0</sequenceNumber>
                 <type>Date</type>
@@ -715,7 +737,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>27.0</sequenceNumber>
                 <type>Date</type>
@@ -845,7 +867,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>30.0</sequenceNumber>
                 <type>Date</type>
@@ -975,7 +997,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>33.0</sequenceNumber>
                 <type>Date</type>
@@ -1127,7 +1149,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>37.0</sequenceNumber>
                 <type>Date</type>
@@ -1257,7 +1279,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>40.0</sequenceNumber>
                 <type>Date</type>
@@ -1431,7 +1453,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>3.0</sequenceNumber>
                 <type>Date</type>
@@ -1561,7 +1583,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>6.0</sequenceNumber>
                 <type>Date</type>
@@ -1691,7 +1713,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>9.0</sequenceNumber>
                 <type>Date</type>
@@ -1821,7 +1843,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>12.0</sequenceNumber>
                 <type>Date</type>
@@ -1951,7 +1973,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>15.0</sequenceNumber>
                 <type>Date</type>
@@ -2081,7 +2103,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>18.0</sequenceNumber>
                 <type>Date</type>
@@ -2211,7 +2233,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>21.0</sequenceNumber>
                 <type>Date</type>
@@ -2341,7 +2363,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>44.0</sequenceNumber>
                 <type>Date</type>
@@ -2471,7 +2493,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false,
   &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;&quot;
+  &quot;maxDate&quot; : &quot;TODAY&quot;
 }</propertySetConfig>
                 <sequenceNumber>47.0</sequenceNumber>
                 <type>Date</type>
@@ -2555,7 +2577,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>2.0</sequenceNumber>
+            <sequenceNumber>3.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <designerCustomizationType>Discovery Framework</designerCustomizationType>
@@ -2618,5 +2640,5 @@
     <type>SolirisaHUSforPeriKidneyTransplant</type>
     <uniqueName>SolirisaHUSforPeriKidneyTransplant_SolirisaHUSforPeriKidneyTransplant_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>348f7f81-c134-7814-7431-346abc1298cf</webComponentKey>
+    <webComponentKey>6f53d946-fb06-8a97-3c73-81a44ad6f79d</webComponentKey>
 </OmniScript>
