@@ -77,6 +77,7 @@ jobs:
     - name: Set deployment user custom security
       run: |
           sf force:user:permset:assign -o ciorg -n SA_Administrator
+          sf force:user:permset:assign -o ciorg -n EDRD_PS_Operational_Support
           sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
         # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
         # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
