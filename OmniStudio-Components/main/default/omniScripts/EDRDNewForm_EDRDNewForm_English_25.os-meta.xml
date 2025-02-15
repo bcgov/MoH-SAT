@@ -328,7 +328,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;###.##&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -425,7 +425,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;###.##&quot;,
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -504,7 +504,7 @@
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;####.##&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;OR&quot;,
@@ -619,6 +619,10 @@
         &quot;field&quot; : &quot;InitialRecDose&quot;,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;data&quot; : null
+      }, {
+        &quot;field&quot; : &quot;DrugandDosage:LoadInitialDosage&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -1455,7 +1459,7 @@
   &quot;label&quot; : &quot;MedicationNamenullcheck&quot;,
   &quot;validationRequired&quot; : &quot;Step&quot;,
   &quot;elementErrorMap&quot; : {
-    &quot;IndicationId&quot; : &quot;Please click on the Select Dosage button below&quot;
+    &quot;IndicationId&quot; : &quot;Please click on the Load Initial/Renewal eForm&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
@@ -3083,14 +3087,14 @@
   &quot;repeatLimit&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : false,
-  &quot;defaultValue&quot; : null,
+  &quot;defaultValue&quot; : &quot;&quot;,
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;Create Record Manually&quot;,
+    &quot;name&quot; : &quot;Create Patient Manually&quot;,
     &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Create Record Manually&quot;
+    &quot;value&quot; : &quot;Create Patient Manually&quot;
   } ],
   &quot;optionSource&quot; : {
     &quot;type&quot; : &quot;&quot;,
@@ -3110,7 +3114,8 @@
   &quot;optionHeight&quot; : 100,
   &quot;imageCountInRow&quot; : 3,
   &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
+  &quot;disOnTplt&quot; : false,
+  &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
             <sequenceNumber>6.0</sequenceNumber>
             <type>Multi-select</type>
@@ -3210,7 +3215,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>5.0</sequenceNumber>
+                <sequenceNumber>3.0</sequenceNumber>
                 <type>Formula</type>
             </childElements>
             <childElements>
@@ -3225,22 +3230,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>2.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>LineBreak3</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak3&quot;,
-  &quot;padding&quot; : 3,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
+                <sequenceNumber>0.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -3255,22 +3245,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>7.0</sequenceNumber>
-                <type>Line Break</type>
-            </childElements>
-            <childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>LineBreak5</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 3,
-  &quot;label&quot; : &quot;LineBreak3&quot;
-}</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
+                <sequenceNumber>5.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -3285,7 +3260,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>8.0</sequenceNumber>
+                <sequenceNumber>6.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -3837,22 +3812,13 @@
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
   &quot;repeatLimit&quot; : null,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Create Record Manually&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;CreateRecordManually&quot;
-      } ]
-    }
-  },
+  &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>3.0</sequenceNumber>
+                <sequenceNumber>1.0</sequenceNumber>
                 <type>Block</type>
             </childElements>
             <childElements>
@@ -3876,7 +3842,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>4.0</sequenceNumber>
+                <sequenceNumber>2.0</sequenceNumber>
                 <type>Formula</type>
             </childElements>
             <childElements>
@@ -3919,7 +3885,7 @@
   &quot;showMessageAs&quot; : &quot;toast&quot;,
   &quot;toastMode&quot; : &quot;sticky&quot;
 }</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
+                <sequenceNumber>4.0</sequenceNumber>
                 <type>Validation</type>
             </childElements>
             <isActive>true</isActive>
@@ -3938,7 +3904,7 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Create Record Manually&quot;,
+        &quot;data&quot; : &quot;Create Patient Manually&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;CreateRecordManually&quot;
       } ]
@@ -4366,7 +4332,7 @@
     &quot;ReqDoseId&quot; : &quot;=\&quot;&amp;c__RequestedNewDosageUnitId=\&quot;+%RequestedNewDosageUnitId%&quot;,
     &quot;MediId&quot; : &quot;=\&quot;&amp;c__MedicationId=\&quot;+%DrugandDosage:SelectADrug%&quot;,
     &quot;IndiId&quot; : &quot;=\&quot;&amp;c__IndicationName=\&quot;+%IndicationName%&quot;,
-    &quot;Over&quot; : &quot;=\&quot;&amp;c__Overridereason=\&quot;+%PatientInformation:reason%&quot;,
+    &quot;Over&quot; : &quot;=\&quot;&amp;c__Overridereason=\&quot;+%CaseReason%&quot;,
     &quot;TransplantStatus&quot; : &quot;=IF(%TRANSPLANTSTATUS:TransplantStatusQuestion%, %TRANSPLANTSTATUS:TransplantStatusQuestion%, &apos;no input&apos;)&quot;,
     &quot;MedicationName&quot; : &quot;%DrugandDosage:MedicationName%&quot;,
     &quot;FormType&quot; : &quot;Initial&quot;
@@ -4554,5 +4520,5 @@
     <type>EDRDNewForm</type>
     <uniqueName>EDRDNewForm_EDRDNewForm_English_25</uniqueName>
     <versionNumber>25.0</versionNumber>
-    <webComponentKey>069e7809-78c1-d09e-7336-b37991188848</webComponentKey>
+    <webComponentKey>46c69517-32b0-590f-47c2-d6b13aafe722</webComponentKey>
 </OmniScript>
