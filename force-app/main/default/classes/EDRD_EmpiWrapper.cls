@@ -12,7 +12,6 @@ public class EDRD_EmpiWrapper {
         public Id providerConId {get;set;}
         public Id LoginUserAccountId {get;set;}
         public Id PatientContactId {get;set;}
-        
     }
     public class OutputWrapper
     {   
@@ -32,12 +31,12 @@ public class EDRD_EmpiWrapper {
         public Boolean isClickSFsearch {get;set;}
         public Boolean isClickManulRecord {get;set;}
         public Boolean isPatientInSF {get;set;}
-        public Boolean isPatientInEMPI {get;set;}
+        public Boolean isPatientInEMPI {get;set;} 
+        public Boolean isClickEMPISearchNew {get;set;}
         public Boolean isPatientSFRenewal {get;set;}
-  
-        
+        public Boolean isClickSFSearchNew {get;set;}
+        public String clickByNew {get;set;}
       }
-
     public class Patient {
     public boolean deceased {get;set;}
     public String dob {get;set;}
@@ -54,5 +53,4 @@ public class EDRD_EmpiWrapper {
         public List<String> givenNames;
         public String type;
     }
-
 }
