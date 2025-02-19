@@ -386,4 +386,32 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Database.Update(accIdVsRecToUpdate.values(), true);
         }
     }
+/**
+* @author: Accenture
+* @date: 19 Oct 2025
+* @description: The purpose of this method is to update Status of Care Program Enrolee From Inactive to Active while creating the case from Provider Portal.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+public static void updateCareProgramEnrolee(List<case> newCases){
+    Set<Id> personAccounts = new Set<Id>();
+    List<CareProgramEnrollee> cpeRecordsToUpdate = new List <CareProgramEnrollee>();
+    for(Case caseRec : newCases){
+        if(caseRec.AccountId != null){
+            personAccounts.add(caseRec.AccountId);
+        }
+    }
+    List<CareProgramEnrollee> cpeRecords = [SELECT Id, Status FROM CareProgramEnrollee WHERE AccountId IN : personAccounts];
+    if(!cpeRecords.isEmpty()){
+        for(CareProgramEnrollee cpeRec : cpeRecords){
+            if(ESA_cls_constants.EDRD_Inactive.equals(String.ValueOf(cpeRec.Status))){
+                cpeRec.Status = ESA_cls_constants.EDRD_Active;
+                cpeRecordsToUpdate.add(cpeRec);
+            }
+        }
+        if(!cpeRecordsToUpdate.isEmpty()){
+            update cpeRecordsToUpdate;
+        }
+    }
+}
+
 }
