@@ -1,7 +1,11 @@
 /*-------------------------------------------------------------------
 Class Name : EDRD_PharmanetPayload
 Test Class Name : EDRD_PharmanetPayload
+<<<<<<< HEAD
 Reference Class : EDRD_EmpiIntegrationTest/EmpiIntegration/Patient/EDRD_EmpiWrapper/ESA_cls_constants
+=======
+Referance Class : EDRD_EmpiIntegrationTest/EmpiIntegration/Patient/EDRD_EmpiWrapper/ESA_cls_constants
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
 Purpose : Get the Patient Information and Validate/Update/Create in Salesforce.
 Version : 1.0
 Devloper Name : Accenture.
@@ -9,8 +13,13 @@ Date : 19/Dec/2024
 --------------------------------------------------------------------------*/
 global without sharing class EDRD_PharmanetPayload implements Callable{
     
+<<<<<<< HEAD
     
     public Object call(String action, Map<String,Object> args){        
+=======
+       public Object call(String action, Map<String,Object> args){
+        
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
         Map<String,Object> output = (Map<String,Object>)args.get('output');
         Map<String,Object> options = (Map<String,Object>)args.get('options');
         return invokeMethod(action, args, output, options);
@@ -18,6 +27,7 @@ global without sharing class EDRD_PharmanetPayload implements Callable{
     global Boolean invokeMethod(String methodName, Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
         Boolean result = true; 
         String jsonInput = Json.serialize(inputMap.get('input'));
+<<<<<<< HEAD
         System.debug('jsonInput'+jsonInput);
         switch on methodName {
             when 'updateSubmitAllPharmanet'{
@@ -53,16 +63,49 @@ Date : 19/Feb/2025
         ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
         input.conditions = new List<ConnectApi.DecisionTableCondition>();
         
+=======
+        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
+        switch on methodName {
+            when 'updateSubmitAllPharmanet'{
+                this.updateSubmitAllPharmanet(inputWrapper,outputMap);
+            }
+            when 'getPharmanetDecisionTable'{
+                this.getPharmanetDecisionTable(inputWrapper,outputMap);
+            } 
+            when else{
+
+            }          
+        }
+        return result;
+    } 
+   
+   
+  public void getPharmanetDecisionTable(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
+  {
+       DecisionTable dt = new Elevated().getDTId('EDRD_PharmaNet_Payload');
+              
+       ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
+		input.conditions = new List<ConnectApi.DecisionTableCondition>();
+ 
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
         ConnectApi.DecisionTableCondition condition1 = new ConnectApi.DecisionTableCondition();
         condition1.fieldName = 'EDRD_Medication_Name__c';
         condition1.value = inputWrapper.medicationName;
         input.conditions.add(condition1);
+<<<<<<< HEAD
         
+=======
+         
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
         ConnectApi.DecisionTableCondition condition2 = new ConnectApi.DecisionTableCondition();
         condition2.fieldName = 'EDRD_Indication_Name__c';
         condition2.value = inputWrapper.indication;
         input.conditions.add(condition2);
+<<<<<<< HEAD
         
+=======
+         
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
         ConnectApi.DecisionTableCondition condition3 = new ConnectApi.DecisionTableCondition();
         condition3.fieldName = 'EDRD_Case_Status__c';
         condition3.value = inputWrapper.caseStatus;
@@ -71,6 +114,7 @@ Date : 19/Feb/2025
         ConnectApi.DecisionTableCondition condition4 = new ConnectApi.DecisionTableCondition();
         condition4.fieldName = 'RecordTypeId';
         condition4.value = ESA_cls_constants.PharmanetPayloadRecordTypeId;
+<<<<<<< HEAD
         input.conditions.add(condition4);
         
         ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(dt.Id, input);
@@ -210,6 +254,44 @@ Date : 19/Feb/2025
         update record;
         
     }
+=======
+        input.conditions.add(condition4);	
+   
+
+      	ConnectApi.DecisionTableOutcome decisionOutcome =  ConnectApi.DecisionTable.execute(dt.Id, input);
+       if (decisionOutcome != null && decisionOutcome.successStatus) 
+       {
+          
+                List<ConnectApi.DecisionTableOutcomeItem> decisionTableItems = decisionOutcome.outcomeList;
+                List<EDRD_PharmanetWrapper.OutputWrapper > outputWrappers = new List<EDRD_PharmanetWrapper.OutputWrapper >();
+                for (ConnectApi.DecisionTableOutcomeItem item : decisionTableItems) 
+                {
+                    EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper(); 
+                    wrapper.justificationCodes = (String) item.values.get('EDRD_Justification_Code__c');
+                    wrapper.maxDaysSupply = (Double) item.values.get('EDRD_Max_Days_Supply__c');
+                    wrapper.rdp = (String) item.values.get('EDRD_RDP_Code__c');
+                    wrapper.specAuthType = (String) item.values.get('EDRD_SA_Type__c');
+                    wrapper.excludedPlans = (String) item.values.get('EDRD_Excluded_Plans__c');
+                    wrapper.din = (Double) item.values.get('EDRD_DIN__c');
+                    wrapper.maxPricePct = (Double) item.values.get('EDRD_Max_Price_Percent__c');
+                    wrapper.effectiveDate = (DateTime) item.values.get('EDRD_Effective_Date__c');
+                    wrapper.terminationDate = inputWrapper.terminationDate !=null ? (Date)inputWrapper.terminationDate : null;
+                    wrapper.practId = inputWrapper.practId;
+                    wrapper.phn = inputWrapper.phn;
+                    outputWrappers.add(wrapper);
+             }
+               String result = Json.serialize(outputWrappers);
+               outputMap.put('pharmanetOutput',JSON.deserializeuntyped(result));  
+       }
+        return;      
+  	
+  }
+    public void updateSubmitAllPharmanet(EDRD_PharmanetWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap)
+    {       
+        
+    }
+
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
 /*---------------------------------------------------------------------
 Class Name : Elevated
 Purpose : This is Elevated class to get the salesforce data on System mode.
@@ -217,9 +299,20 @@ Version : 1.0
 Devloper Name : Accenture.
 Date : 19/Dec/2024
 --------------------------------------------------------------------------*/
+<<<<<<< HEAD
     public without sharing class Elevated{        
         public DecisionTable getDTId(String DecisionTableName){
             return [SELECT Id  FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
         }
     }    
+=======
+    public without sharing class Elevated{
+        
+        public DecisionTable getDTId(String DecisionTableName){
+            return [SELECT Id   FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
+        }
+    }
+
+
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
 }

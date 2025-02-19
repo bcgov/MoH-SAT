@@ -10,14 +10,21 @@ public class EDRD_PharmanetWrapper {
     
     public class InputWrapper 
     {
+<<<<<<< HEAD
         public String caseId {get;set;}
+=======
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
         public String caseType {get;set;}
         public String medicationName {get; set;}
         public String indication {get; set;}
         public String caseStatus {get;set;}
         public String practId {get; set;}
         public String phn {get; set;}
+<<<<<<< HEAD
 		public String terminationDate {get; set;}
+=======
+		public Date terminationDate {get; set;}
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
         public String practitiner {get;set;}
         public String practIdRef {get; set;}
         
@@ -31,8 +38,13 @@ public class EDRD_PharmanetWrapper {
 		public DateTime effectiveDate {get; set;}
         public Double maxDaysSupply {get;set;}
 	    public Double maxPricePct {get;set;}
+<<<<<<< HEAD
         public Id pharmaNetRecordId {get;set;}
      
+=======
+       
+        
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
     }
     public class OutputWrapper 
     {
@@ -40,7 +52,11 @@ public class EDRD_PharmanetWrapper {
         public String practId {get; set;}
         public String practIdRef {get; set;}
         public String rdp {get; set;}
+<<<<<<< HEAD
         public String terminationDate {get; set;}
+=======
+        public Date terminationDate {get; set;}
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
         public String practitiner {get;set;}
         public String excludePlan {get;set;}        
 		public String decCode {get; set;}
@@ -51,10 +67,14 @@ public class EDRD_PharmanetWrapper {
 		public DateTime effectiveDate {get; set;}
         public Double maxDaysSupply {get;set;}
         public Double maxPricePct {get;set;}
+<<<<<<< HEAD
         public Id pharmaNetRecordId {get;set;}
         public Boolean isPharmaNetSubmitSuccessfull {get;set;}
         public Boolean isSubmitSuccessful{get;set;}
        
+=======
+        
+>>>>>>> ecae257f2abd498923f3d00ed1c6a90a49facbda
     }
    
 

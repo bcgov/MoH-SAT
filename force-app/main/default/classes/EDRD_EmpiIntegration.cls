@@ -6,7 +6,7 @@ Purpose : Get the Patient Information and Validate/Update/Create in Salesforce.
 Version : 1.0
 Devloper Name : Accenture.
 Date : 19/Dec/2024
---------------------------------------------------------------------------*/
+-------------------------------------------------------------------------*/
 global without sharing class EDRD_EmpiIntegration implements Callable
 {
     public Object call(String action, Map<String,Object> args){
@@ -67,17 +67,15 @@ Date : 19/Dec/2024
                 patientOutputWrapper.isPatientFound = true; 
                 patientOutputWrapper.patientaccountId = acc.Id;
                 patientOutputWrapper.patientId = acc.PersonContactId; 
-                if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
-                        patientOutputWrapper.isPatientSFRenewal = true;
-                 }
+                patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPHN' : null;
+                patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? true : false; 
               
             }           
         }
         else{
-             if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
-                        patientOutputWrapper.isPatientSFRenewal = false;
-                 }
-            patientOutputWrapper.isPatientFound = false; 
+             patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPHN' : null;
+             patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? true : false; 
+             patientOutputWrapper.isPatientFound = false; 
         }
         patientOutputWrapper.isClickSFsearch = true;
         patientOutputWrapper.isValidatePHNClick = true;
@@ -103,19 +101,17 @@ Date : 19/Dec/2024
                     patientOutputWrapper.isClickSFsearch = true;
                     patientOutputWrapper.patientaccountId = acc.Id;
                     patientOutputWrapper.patientId = acc.PersonContactId; 
-                    if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
-                        patientOutputWrapper.isPatientSFRenewal = true;
-                    }
+                    patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPatientDeatils' : null;                    
+                    patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? true : false;
                     lstpatientOutputWrapper.add(patientOutputWrapper);
                 }
             }
             else{
                 EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper= new EDRD_EmpiWrapper.OutputWrapper();
-                patientOutputWrapper.isPatientFound = false;
                 patientOutputWrapper.isClickSFsearch = true;
-                if(ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy))){
-                	patientOutputWrapper.isPatientSFRenewal = false;
-                }
+                patientOutputWrapper.isPatientFound = false;
+                patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPatientDeatils' : null;                    
+                patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? true : false;
                 lstpatientOutputWrapper.add(patientOutputWrapper);
             }
             
@@ -195,6 +191,8 @@ Date : 19/Dec/2024
         String patientJSON = Json.serialize(patientOutput);
         patientOutputWrapper = getOutput(patientJSON);
         patientOutputWrapper.isClickEmpiSearch = true;
+        patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'EMPI' : null;                   
+
         if(ESA_cls_constants.EMPICreatedRenewal.equals(String.ValueOf(inputWrapper.clickBy)))
         {
             List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
@@ -211,8 +209,7 @@ Date : 19/Dec/2024
                patientOutputWrapper.isPatientFound = false; 
                patientOutputWrapper.isPatientInSF = false;
             }
-        }        
-        
+        }          
         String result = Json.serialize(patientOutputWrapper);
         outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
         return;
@@ -273,10 +270,11 @@ Date : 19/Dec/2024
             for(Account acc : patientRecord){
                 patientOutputWrapper.patientId = acc.PersonContactId;
                 patientOutputWrapper.patientaccountId = acc.Id;
+                patientOutputWrapper.phn = acc.Patient_Identifier__pc;              
             }
         }
         createCareProgramEnrollee(patientAccount.Id);        
-      
+        patientOutputWrapper.clickByNew = ESA_cls_constants.ManullyCreated.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFManulCreate' : null;       
         if(ESA_cls_constants.ManullyCreated.equals(String.ValueOf(inputWrapper.clickBy))){
           patientOutputWrapper.isClickManulRecord = true;  
         }
