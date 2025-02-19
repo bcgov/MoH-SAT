@@ -60,6 +60,9 @@ jobs:
  
     - name: Deploy source default queues
       run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
+
+    - name: Set deployment user with EDRD operations support PS.
+      run:  sf force:user:permset:assign -o ciorg -n EDRD_PS_Operational_Support
  
     - name: Deploy source default OmniStudio-Components 
       run: sf project deploy start -d OmniStudio-Components -o ciorg -c
