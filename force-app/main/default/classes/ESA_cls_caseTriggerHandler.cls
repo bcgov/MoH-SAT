@@ -286,7 +286,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
             List<Account> accList = [SELECT Id, Name, Account.PersonContactId, (SELECT Id, Name, CareProgramId FROM AccountCareProgramEnrollees 
                                                        WHERE CareProgram.Name = 'EDRD') FROM Account 
                                      WHERE PersonContactId IN: patientIdVsCase.keySet()];
-            
+           
             for(Account accObj : accList){
                 if(!accObj.AccountCareProgramEnrollees.isEmpty()){
                     patientIdVsCarePrgEnrolle.put(accObj.PersonContactId, accOBj.AccountCareProgramEnrollees[0]);
@@ -295,7 +295,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
             
             for(Case caseObj: newCaseList){
                 caseObj.EDRD_Ref_No__c = patientIdVsCarePrgEnrolle?.get(CaseObj?.ContactId)?.Name;
-            }
+            }            
         }
     }
 
@@ -384,6 +384,33 @@ public with sharing class ESA_cls_caseTriggerHandler {
         
         if (!accIdVsRecToUpdate.isEmpty()) {
             Database.Update(accIdVsRecToUpdate.values(), true);
+        }
+    }
+	
+    /*
+* @author: Accenture
+* @date: 19 Oct 2025
+* @description: The purpose of this method is to update Status of Care Program Enrolee From Inactive to Active while creating the case from Provider Portal.
+* */
+    public static void updateCareProgramEnrolee(List<case> newCases){
+        Set<Id> personAccounts = new Set<Id>();
+        List<CareProgramEnrollee> cpeRecordsToUpdate = new List <CareProgramEnrollee>();
+        for(Case caseRec : newCases){
+            if(caseRec.AccountId != null){
+                personAccounts.add(caseRec.AccountId);
+            }
+        }
+        List<CareProgramEnrollee> cpeRecords = [SELECT Id, Status FROM CareProgramEnrollee WHERE AccountId IN : personAccounts];
+        if(!cpeRecords.isEmpty()){
+            for(CareProgramEnrollee cpeRec : cpeRecords){
+                if(ESA_cls_constants.EDRD_Inactive.equals(String.ValueOf(cpeRec.Status))){
+                    cpeRec.Status = ESA_cls_constants.EDRD_Active;
+                    cpeRecordsToUpdate.add(cpeRec);
+                }
+            }
+            if(!cpeRecordsToUpdate.isEmpty()){
+                update cpeRecordsToUpdate;
+            }
         }
     }
 }
