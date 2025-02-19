@@ -53,4 +53,5 @@ public class EDRD_EmpiWrapper {
         public List<String> givenNames;
         public String type;
     }
+    
 }
