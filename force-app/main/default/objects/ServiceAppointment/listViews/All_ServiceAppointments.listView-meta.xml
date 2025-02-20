@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_ServiceAppointments</fullName>
-    <columns>Name</columns>
-    <columns>SchedStartTime</columns>
     <columns>EDRD_Name__c</columns>
-    <columns>SchedEndTime</columns>
-    <columns>ServiceTerritory</columns>
+    <columns>Name</columns>
     <columns>Status</columns>
-    <columns>WorkType</columns>
-    <columns>AdditionalInformation</columns>
-    <columns>Account</columns>
+    <columns>EarliestStartTime</columns>
+    <columns>LatestEndTime</columns>
+    <columns>No_of_Cases_to_be_Presented__c</columns>
+    <columns>No_of_Simplified_Cases__c</columns>
     <filterScope>Everything</filterScope>
-    <label>All Service Appointments</label>
-    <sharedTo>
-        <role>Developer</role>
-        <role>EDRD_Admin</role>
-    </sharedTo>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ServiceAppointment.EDRD_Committee_Meeting</value>
+    </filters>
+    <label>All Committee Meetings</label>
 </ListView>
