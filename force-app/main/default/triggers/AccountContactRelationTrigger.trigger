@@ -20,7 +20,7 @@ trigger AccountContactRelationTrigger on AccountContactRelation (after insert, a
     
     if(trigger.isDelete && trigger.isAfter){
         AccountContactRelationTriggerHandler.removeCommitteeFieldOnACRDelete(trigger.old);
-        AccountContactRelationTriggerHandler.removePatientShare(trigger.old);
+        AccountContactRelationTriggerHandler.removePatientShare(trigger.old);        
     }
     
 }
