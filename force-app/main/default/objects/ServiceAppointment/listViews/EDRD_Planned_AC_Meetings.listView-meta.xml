@@ -24,7 +24,12 @@
         <operation>contains</operation>
         <value>EDRD Advisory</value>
     </filters>
-    <label>Advisory Planned AC Meetings</label>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ServiceAppointment.EDRD_Committee_Meeting</value>
+    </filters>
+    <label>EDRD Planned AC Meetings</label>
     <sharedTo>
         <role>Developer</role>
         <role>EDRD_Admin</role>
