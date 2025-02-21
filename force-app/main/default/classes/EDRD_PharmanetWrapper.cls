@@ -10,28 +10,30 @@ public class EDRD_PharmanetWrapper {
     
     public class InputWrapper 
     {
+        public String caseId {get;set;}
         public String caseType {get;set;}
         public String medicationName {get; set;}
         public String indication {get; set;}
         public String caseStatus {get;set;}
         public String practId {get; set;}
         public String phn {get; set;}
-		public Date terminationDate {get; set;}
+		public String terminationDate {get; set;}
         public String practitiner {get;set;}
         public String practIdRef {get; set;}
         
         public String rdp {get; set;}     
         public String excludePlan {get;set;}       
 		public String decCode {get; set;}
-		public Double din {get; set;}
+		//public Double din {get; set;}
+		public String din {get; set;}
 		public String specAuthType {get; set;}
 		public String justificationCodes {get; set;}
 		public String excludedPlans {get; set;}
 		public DateTime effectiveDate {get; set;}
         public Double maxDaysSupply {get;set;}
 	    public Double maxPricePct {get;set;}
-       
-        
+        public Id pharmaNetRecordId {get;set;}
+      
     }
     public class OutputWrapper 
     {
@@ -39,7 +41,7 @@ public class EDRD_PharmanetWrapper {
         public String practId {get; set;}
         public String practIdRef {get; set;}
         public String rdp {get; set;}
-        public Date terminationDate {get; set;}
+        public String terminationDate {get; set;}
         public String practitiner {get;set;}
         public String excludePlan {get;set;}        
 		public String decCode {get; set;}
@@ -50,6 +52,10 @@ public class EDRD_PharmanetWrapper {
 		public DateTime effectiveDate {get; set;}
         public Double maxDaysSupply {get;set;}
         public Double maxPricePct {get;set;}
+        public Id pharmaNetRecordId {get;set;}
+        public Boolean isPharmaNetSubmitSuccessfull {get;set;}
+        public Boolean isSubmitSuccessful{get;set;}
+        public String medName{get;set;}
         
     }
    
