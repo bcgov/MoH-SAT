@@ -1,3 +1,3 @@
 trigger contentVersionExternalLink on ContentVersion (after insert) {
-  ContentTriggerHandler.createPublicLinkForFile(trigger.new);
+  //ContentTriggerHandler.createPublicLinkForFile(trigger.new);
 }
