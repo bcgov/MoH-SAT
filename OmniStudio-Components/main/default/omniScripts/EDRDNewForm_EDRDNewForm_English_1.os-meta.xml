@@ -3995,7 +3995,7 @@
   &quot;label&quot; : &quot;IsValidation&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF((((%searchOutput:clickByNew%==&apos;SFPHN&apos;|| %searchOutput:clickByNew%==&apos;SFPatientDeatils&apos; || %searchOutput|1:clickByNew%==&apos;SFPHN&apos;|| %searchOutput|1:clickByNew%==&apos;SFPatientDeatils&apos;)&amp;&amp; %CreateRecordManually% == null &amp;&amp; (%searchOutput:isPatientFound% ==true||%searchOutput|1:isPatientFound% ==true))||(%CreateRecordManually% != null &amp;&amp;((%searchOutput:clickByNew%==&apos;SFPHN&apos; &amp;&amp; %PHNValidationMessage% != true) || (%searchOutput:clickByNew%==&apos;SFManulCreate&apos;)))),true,false)&quot;,
+  &quot;expression&quot; : &quot;IF((((%searchOutput:clickByNew%==&apos;SFPHN&apos;|| %searchOutput:clickByNew%==&apos;SFPatientDeatils&apos; || %searchOutput|1:clickByNew%==&apos;SFPHN&apos;|| %searchOutput|1:clickByNew%==&apos;SFPatientDeatils&apos;)&amp;&amp; %CreateRecordManually% == null &amp;&amp; (%searchOutput:isPatientFound% ==true||%searchOutput|1:isPatientFound% ==true))||(%CreateRecordManually% != null &amp;&amp;((%searchOutput:clickByNew%==&apos;SFPHN&apos; &amp;&amp; %PHNValidationMessage% != true &amp;&amp; %PHNValidationMessageSuccess% != true ) || (%searchOutput:clickByNew%==&apos;SFManulCreate&apos;)))),true,false)&quot;,
   &quot;hide&quot; : true,
   &quot;show&quot; : null,
   &quot;mask&quot; : null,
@@ -4537,6 +4537,60 @@
                     <isActive>true</isActive>
                     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                     <level>3.0</level>
+                    <name>PHNValidationMessageSuccess</name>
+                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                    <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;searchOutput&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : null
+      } ],
+      &quot;operator&quot; : &quot;AND&quot;
+    }
+  },
+  &quot;hideLabel&quot; : true,
+  &quot;messages&quot; : [ {
+    &quot;value&quot; : true,
+    &quot;type&quot; : &quot;Success&quot;,
+    &quot;text&quot; : &quot;This PHN can be used to create a new patient.&quot;,
+    &quot;active&quot; : true
+  }, {
+    &quot;value&quot; : false,
+    &quot;type&quot; : &quot;Success&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;active&quot; : false
+  } ],
+  &quot;validateExpression&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      }, {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;searchOutput:isValidatePHNClick&quot;
+      }, {
+        &quot;field&quot; : &quot;searchOutput:clickByNew&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;SFPHN&quot;
+      } ]
+    }
+  },
+  &quot;label&quot; : &quot;msgValidationPHN&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+                    <sequenceNumber>11.0</sequenceNumber>
+                    <type>Validation</type>
+                </childElements>
+                <childElements>
+                    <isActive>true</isActive>
+                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                    <level>3.0</level>
                     <name>remoteActionCreateRecord</name>
                     <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                     <propertySetConfig>{
@@ -4658,6 +4712,10 @@
         &quot;data&quot; : null,
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;field&quot; : &quot;patientIdentifier&quot;
+      }, {
+        &quot;field&quot; : &quot;CreateRecordSuccessMessage&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;true&quot;
       } ]
     }
   },
@@ -4793,7 +4851,7 @@
   &quot;label&quot; : &quot;showCreateRecord&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF((%firstName% != null &amp;&amp; %lastName% != null &amp;&amp; %dateOfBirth% != null &amp;&amp; %searchOutput% !=null &amp;&amp; (%searchOutput:isClickManulRecord% != true||%searchOutput|1:isClickManulRecord% != true ) &amp;&amp;(%patientIdentifier% == null || (%patientIdentifier% != null &amp;&amp; ((%searchOutput:isValidatePHNClick% == true &amp;&amp; %searchOutput:isPatientFound% == false)||(%searchOutput|1:isValidatePHNClick% == true &amp;&amp; %searchOutput|1:isPatientFound% == false))))), true, false)&quot;,
+  &quot;expression&quot; : &quot;IF((%firstName% != null &amp;&amp; %lastName% != null &amp;&amp; %dateOfBirth% != null&amp;&amp;%patientIdentifier% == null) ||(%firstName% != null &amp;&amp; %lastName% != null &amp;&amp; %dateOfBirth% != null &amp;&amp; %searchOutput% !=null &amp;&amp; (%searchOutput:isClickManulRecord% != true||%searchOutput|1:isClickManulRecord% != true ) &amp;&amp;(%patientIdentifier% == null || (%patientIdentifier% != null &amp;&amp; ((%searchOutput:isValidatePHNClick% == true &amp;&amp; %searchOutput:isPatientFound% == false)||(%searchOutput|1:isValidatePHNClick% == true &amp;&amp; %searchOutput|1:isPatientFound% == false))))), true, false)&quot;,
   &quot;hide&quot; : true,
   &quot;show&quot; : null,
   &quot;mask&quot; : null,
@@ -6418,5 +6476,5 @@
     <type>EDRDNewForm</type>
     <uniqueName>EDRDNewForm_EDRDNewForm_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>bbd5851e-fbbe-26be-7a93-f18d6789bfb5</webComponentKey>
+    <webComponentKey>35523b7a-cecc-2481-dcb3-868775a62522</webComponentKey>
 </OmniScript>
