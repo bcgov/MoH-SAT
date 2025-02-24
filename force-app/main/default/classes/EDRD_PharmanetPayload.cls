@@ -7,7 +7,7 @@ Version : 1.0
 Devloper Name : Accenture.
 Date : 19/Dec/2024
 --------------------------------------------------------------------------*/
-global without sharing class EDRD_PharmanetPayload implements Callable{
+global with sharing class EDRD_PharmanetPayload implements Callable{
     
     
     public Object call(String action, Map<String,Object> args){        
@@ -216,7 +216,7 @@ Version : 1.0
 Devloper Name : Accenture.
 Date : 19/Dec/2024
 --------------------------------------------------------------------------*/
-    public without sharing class Elevated{        
+    public with sharing class Elevated{        
         public DecisionTable getDTId(String DecisionTableName){
             return [SELECT Id  FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
         }
