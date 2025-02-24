@@ -57,7 +57,7 @@ dx() {
 
 echo "Creating scratch org, \"$alias\"..."
 
-sf org create scratch --definition-file config/project-scratch-def.json --alias $alias --set-default --target-dev-hub devhub
+sf org create scratch --definition-file config/project-scratch-def.json --alias $alias --set-default --target-dev-hub devhub --duration-days 30
 sf data update record -u $alias -s Organization -w "Name='Special Authority Scratch Org'" -v "TimeZoneSidKey='America/Los_Angeles'"
 sf data update record -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
 
