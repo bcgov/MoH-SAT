@@ -70,7 +70,7 @@ private class EDRD_PharmanetPayloadTest {
         inputWrapper.excludedPlans = 'D'; 
         inputWrapper.justificationCodes = '0';
         inputWrapper.specAuthType = 'B';
-        inputWrapper.din  = 00614491;
+        inputWrapper.din  = '00614491';
         inputWrapper.maxDaysSupply = 23.0;
         inputWrapper.maxPricePct = 12.0;
         EDRD_PharmanetPayload payload = new EDRD_PharmanetPayload();

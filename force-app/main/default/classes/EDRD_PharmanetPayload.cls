@@ -134,10 +134,10 @@ Date : 19/Feb/2025
         EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
         try
         {
-            isSuccess = saaRequestAPICallout(inputWrapper);
+           	isSuccess = saaRequestAPICallout(inputWrapper);
             wrapper.isPharmaNetSubmitSuccessfull = isSuccess;
             wrapper.isSubmitSuccessful = true;
-            outputMap.put('isSubmitSuccessful',wrapper.isPharmaNetSubmitSuccessfull);
+        	outputMap.put('isSubmitSuccessful',wrapper.isPharmaNetSubmitSuccessfull);
             outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful);
             updatePharmanet(inputWrapper.pharmaNetRecordId);
             updateCaseRec(inputWrapper.caseId);
@@ -186,23 +186,21 @@ Date : 19/Feb/2025
         saaRequest.saRecord.justificationCodes = justificationCodesList;
         saaRequest.saRecord.excludedPlans = excludedPlansList;       
         saaRequest.saRecord.specialItem.din =  String.valueof(inputWrapper.din);
-        //saaRequest.saRecord.specialItem.rdp =  String.valueof(inputWrapper.rdp);
-        system.debug('saaRequest=='+saaRequest);
         if(!Test.isRunningTest()){
             PharmanetPayloadController.submitSinglePnetSar(inputWrapper.caseId, saaRequest);
-            Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId];
+            Integration_Log__c intRecord = new Elevated().getIntegrationLogRecord(inputWrapper.caseId);
             isSuccess = ESA_cls_constants.EDRD_Success.equals(String.ValueOf(intRecord.Message__c));
         }
         return isSuccess;
     }
     
-    public Static Void updatePharmanet(String pharmanetId){
+    private Static Void updatePharmanet(String pharmanetId){
         Pharmanet_Payload__c record = new Pharmanet_Payload__c();
         record.Id = pharmanetId;
         record.EDRD_isPharmaNetSubmitSuccessful__c = true;
         update record;
     }
-    public static void updateCaseRec(String caseId){
+    private static void updateCaseRec(String caseId){
         Case record = new Case();
         record.Id = caseId;
         record.Pushed_to_Pnet__c = true;
@@ -221,6 +219,9 @@ Date : 19/Dec/2024
     public without sharing class Elevated{        
         public DecisionTable getDTId(String DecisionTableName){
             return [SELECT Id  FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
+        }
+        public Integration_Log__c getIntegrationLogRecord(String caseId){
+            return [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: caseId ORDER BY LastModifiedDate DESC LIMIT 1];
         }
     }    
 }
