@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_RDP_OR_DIN</fullName>
+    <active>true</active>
+    <description>Only allow user to fill RDP or DIN not both at same time</description>
+    <errorConditionFormula>AND(RecordType.Name == &apos;EDRD&apos;,AND(NOT(ISBLANK(EDRD_RDP_Code__c)),NOT(ISBLANK(EDRD_DIN__c))))</errorConditionFormula>
+    <errorMessage>RDP and DIN cannot be entered at the same time.</errorMessage>
+</ValidationRule>
