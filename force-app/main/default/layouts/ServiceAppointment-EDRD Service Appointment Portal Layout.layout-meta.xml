@@ -27,12 +27,16 @@
                 <field>Status</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Required</behavior>
+                <field>ParentRecordId</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>EDRD_Meeting_URL__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>ParentRecordId</field>
+                <behavior>Edit</behavior>
+                <field>No_of_Cases_to_be_Presented__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -46,11 +50,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>No_of_Cases_to_be_Presented__c</field>
+                <field>CancellationReason</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>CancellationReason</field>
+                <behavior>Readonly</behavior>
+                <field>Address</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -66,12 +70,7 @@
                 <field>EDRD_Agenda__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Address</field>
-            </layoutItems>
-        </layoutColumns>
+        <layoutColumns/>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
@@ -122,29 +121,6 @@
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>true</editHeading>
-        <label>System Information</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>CreatedById</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>OwnerId</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LastModifiedById</field>
-            </layoutItems>
-        </layoutColumns>
-        <style>TwoColumnsLeftToRight</style>
-    </layoutSections>
-    <layoutSections>
-        <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
         <label>Custom Links</label>
@@ -157,6 +133,7 @@
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
         <excludeButtons>New</excludeButtons>
+        <fields>Order__c</fields>
         <fields>Case_EDRD_Ref_No__c</fields>
         <fields>Related_Case__c</fields>
         <fields>CaseType__c</fields>
@@ -164,6 +141,8 @@
         <fields>Case_Funding_Expiry_Date__c</fields>
         <fields>Account_Provider__c</fields>
         <relatedList>Committee_Review_Case__c.Service_Appointment__c</relatedList>
+        <sortField>Order__c</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
