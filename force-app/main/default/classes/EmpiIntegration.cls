@@ -392,11 +392,13 @@ public with sharing class EmpiIntegration {
      */
     public static LRA_API_Configuration__c getLRAApiConfiguration(String settingName) {
         // Query the custom setting with the specified name and return the record
-        return [
+        List<LRA_API_Configuration__c> lraConfigurationRecords = [
             SELECT Name, Identifier_Namespace__c, Use_LRA_API__c, UserID__c 
             FROM LRA_API_Configuration__c 
             WHERE Name = :settingName
             LIMIT 1
         ];
+        return lraConfigurationRecords.isEmpty() ? null : lraConfigurationRecords[0];
+
     }
 }
