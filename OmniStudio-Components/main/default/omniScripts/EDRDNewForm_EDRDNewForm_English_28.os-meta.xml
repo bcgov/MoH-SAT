@@ -4851,7 +4851,7 @@
   &quot;label&quot; : &quot;showCreateRecord&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF((%firstName% != null &amp;&amp; %lastName% != null &amp;&amp; %dateOfBirth% != null&amp;&amp;%patientIdentifier% == null) ||(%firstName% != null &amp;&amp; %lastName% != null &amp;&amp; %dateOfBirth% != null &amp;&amp; %searchOutput% !=null &amp;&amp; (%searchOutput:isClickManulRecord% != true||%searchOutput|1:isClickManulRecord% != true ) &amp;&amp;(%patientIdentifier% == null || (%patientIdentifier% != null &amp;&amp; ((%searchOutput:isValidatePHNClick% == true &amp;&amp; %searchOutput:isPatientFound% == false)||(%searchOutput|1:isValidatePHNClick% == true &amp;&amp; %searchOutput|1:isPatientFound% == false))))), true, false)&quot;,
+  &quot;expression&quot; : &quot;IF((%firstName% != null &amp;&amp; %lastName% != null &amp;&amp; %dateOfBirth% != null&amp;&amp;%patientIdentifier% == null &amp;&amp; %searchOutput% ==null) ||(%firstName% != null &amp;&amp; %lastName% != null &amp;&amp; %dateOfBirth% != null &amp;&amp; %searchOutput% !=null &amp;&amp; (%searchOutput:isClickManulRecord% != true||%searchOutput|1:isClickManulRecord% != true ) &amp;&amp;(%patientIdentifier% == null || (%patientIdentifier% != null &amp;&amp; ((%searchOutput:isValidatePHNClick% == true &amp;&amp; %searchOutput:isPatientFound% == false)||(%searchOutput|1:isValidatePHNClick% == true &amp;&amp; %searchOutput|1:isPatientFound% == false))))), true, false)&quot;,
   &quot;hide&quot; : true,
   &quot;show&quot; : null,
   &quot;mask&quot; : null,
@@ -6476,5 +6476,5 @@
     <type>EDRDNewForm</type>
     <uniqueName>EDRDNewForm_EDRDNewForm_English_28</uniqueName>
     <versionNumber>28.0</versionNumber>
-    <webComponentKey>ad31263a-071f-7e4f-f65e-f143ba58b7e8</webComponentKey>
+    <webComponentKey>c7ce9ffb-4faf-984f-2e10-f68a76da79f4</webComponentKey>
 </OmniScript>
