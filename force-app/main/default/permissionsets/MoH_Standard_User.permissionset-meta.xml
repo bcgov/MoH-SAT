@@ -512,7 +512,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Pushed_to_Pnet__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1058,6 +1058,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Case.Special_Authority_Request</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>PersonAccount.Patient</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
@@ -1101,4 +1105,8 @@
         <enabled>true</enabled>
         <name>TransferAnyCase</name>
     </userPermissions>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
+        <externalCredentialPrincipal>LRA_OAuth_TokenRequest-Client Credentials</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
 </PermissionSet>

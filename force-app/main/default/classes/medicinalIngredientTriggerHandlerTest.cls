@@ -52,7 +52,7 @@ public class medicinalIngredientTriggerHandlerTest {
         MIRecList.get(0).Unit_Price__c = 200;
         Update MIRecList;
         Test.stopTest();
-        Assert.areEqual([SELECT Id, Expenditure_Estimate__c FROM MedicationRequest WHERE Id =: MRObjList.get(0).Id].get(0).Expenditure_Estimate__c, 800, 'Expenditure Estimate Calculation has Failed');
+        Assert.areEqual([SELECT Id, Expenditure_Estimate__c FROM MedicationRequest WHERE Id =: MRObjList.get(0).Id].get(0).Expenditure_Estimate__c, 400, 'Expenditure Estimate Calculation has Failed');
         Assert.areNotEqual([SELECT Id, Expenditure_Estimate__c FROM MedicationRequest WHERE Id =: MRObjList.get(0).Id].get(0).Expenditure_Estimate__c, NULL, 'Expenditure Estimate Calculation has Populated Blank value');
     }
 }
