@@ -24,7 +24,6 @@ public class EDRD_PharmanetWrapper {
         public String rdp {get; set;}     
         public String excludePlan {get;set;}       
 		public String decCode {get; set;}
-		//public Double din {get; set;}
 		public String din {get; set;}
 		public String specAuthType {get; set;}
 		public String justificationCodes {get; set;}
