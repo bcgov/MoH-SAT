@@ -659,7 +659,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>6.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -697,7 +697,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -716,7 +716,7 @@
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <childElements>
@@ -1048,7 +1048,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -1072,7 +1072,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
+            <sequenceNumber>5.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -1096,7 +1096,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>5.0</sequenceNumber>
+            <sequenceNumber>4.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -1141,7 +1141,7 @@
   &quot;label&quot; : &quot;Please enter Patient Weight (kg)&quot;,
   &quot;controlWidth&quot; : 6
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>7.0</sequenceNumber>
             <type>Number</type>
         </childElements>
         <childElements>
@@ -1194,7 +1194,7 @@
   &quot;label&quot; : &quot;Select Dosage and Load Initial/Renewal eForm&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
+            <sequenceNumber>3.0</sequenceNumber>
             <type>DataRaptor Extract Action</type>
         </childElements>
         <childElements>
@@ -1265,25 +1265,6 @@
 }</propertySetConfig>
             <sequenceNumber>0.0</sequenceNumber>
             <type>Lookup</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock3</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 8,
-  &quot;label&quot; : &quot;TextBlock3&quot;,
-  &quot;text&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
-            <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2058,19 +2039,24 @@
   &quot;repeatLimit&quot; : null,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;
+        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;
       }, {
-        &quot;field&quot; : &quot;searchOutput:deceased&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;searchOutput:deceased&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;true&quot;
+          }, {
+            &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;true&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -2233,19 +2219,11 @@
   &quot;label&quot; : &quot;phnNotFoundErrorMessage&quot;,
   &quot;validateExpression&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;reasonFormula&quot;,
+        &quot;field&quot; : &quot;1&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInSF&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
+        &quot;data&quot; : &quot;2&quot;
       } ]
     }
   },
@@ -2265,21 +2243,22 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;reasonFormula&quot;,
+        &quot;data&quot; : &quot;false&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
+        &quot;field&quot; : &quot;reasonFormula&quot;
       }, {
-        &quot;field&quot; : &quot;searchOutput:deceased&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInSF&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;false&quot;
+          }, {
+            &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;true&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -4385,5 +4364,5 @@
     <type>EDRD</type>
     <uniqueName>EDRD_RenewForm_English_7</uniqueName>
     <versionNumber>7.0</versionNumber>
-    <webComponentKey>4b346f02-1f5a-4be9-ee64-d96ec9bf9583</webComponentKey>
+    <webComponentKey>e86b9b11-6efe-b80a-fec6-d635daf00a69</webComponentKey>
 </OmniScript>
