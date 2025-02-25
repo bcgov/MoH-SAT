@@ -198,13 +198,24 @@ Date : 19/Dec/2024
         if(ESA_cls_constants.EMPICreatedRenewal.equals(String.ValueOf(inputWrapper.clickBy)))
         {
             List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
-            if(!patientRecord.isEmpty()){
+            if(!patientRecord.isEmpty() && patientOutputWrapper.isPatientFound == true){
                 for(Account acc : patientRecord)
                 {
                     patientOutputWrapper.patientId = acc.PersonContactId;
                     patientOutputWrapper.patientaccountId = acc.Id;
                     patientOutputWrapper.isPatientFound = true;
                     patientOutputWrapper.isPatientInSF = true;
+                    patientOutputWrapper.isPatientInEMPI = true;
+                }
+        	}
+            else if(!patientRecord.isEmpty()){
+                for(Account acc : patientRecord)
+                {
+                    patientOutputWrapper.patientId = acc.PersonContactId;
+                    patientOutputWrapper.patientaccountId = acc.Id;
+                    patientOutputWrapper.isPatientFound = true;
+                    patientOutputWrapper.isPatientInSF = true;
+                    patientOutputWrapper.isPatientInEMPI = false;
                    
                 }
         	}
