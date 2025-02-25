@@ -12,23 +12,6 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>&apos;Funding Approved&apos;</filterValue>
-        <globalKey>EDRDgetCaseOutputCustom2076</globalKey>
-        <inputFieldName>Status</inputFieldName>
-        <inputObjectName>Case</inputObjectName>
-        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDgetCaseOutput</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>case</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
         <filterValue>case:Id</filterValue>
         <globalKey>EDRDgetCaseOutputCustom2289</globalKey>
         <inputFieldName>Case__c</inputFieldName>
@@ -38,20 +21,6 @@
         <name>EDRDgetCaseOutput</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>medicationReq</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDgetCaseOutputCustom4378</globalKey>
-        <inputFieldName>case:Termination_Date__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDgetCaseOutput</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>terminationDate</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -76,13 +45,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDgetCaseOutputCustom1727</globalKey>
-        <inputFieldName>case:Patient_Identifier__c</inputFieldName>
+        <globalKey>EDRDgetCaseOutputCustom4483</globalKey>
+        <inputFieldName>case:Prescriber_Identifier_Template__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDgetCaseOutput</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>phn</outputFieldName>
+        <outputFieldName>practId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -90,13 +59,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDgetCaseOutputCustom4483</globalKey>
-        <inputFieldName>case:Provider__c</inputFieldName>
+        <globalKey>EDRDgetCaseOutputCustom5253</globalKey>
+        <inputFieldName>case:Id</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDgetCaseOutput</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>practId</outputFieldName>
+        <outputFieldName>caseId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -118,6 +87,9 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:case:EDRD_MOHFunding_Decision__c &quot;Extended&quot; == var:case:EDRD_MOHFunding_Extension_Date__c | var:case:EDRD_MOHFunding_Decision__c &quot;Approved&quot; == var:case:EDRD_MOHFunding_Expiry_Date__c &quot;null&quot; IF IF</formulaConverted>
+        <formulaExpression>IF(case:EDRD_MOHFunding_Decision__c  ==&quot;Extended&quot;, case:EDRD_MOHFunding_Extension_Date__c, IF(case:EDRD_MOHFunding_Decision__c  ==&quot;Approved&quot;, case:EDRD_MOHFunding_Expiry_Date__c, &quot;null&quot;))</formulaExpression>
+        <formulaResultPath>terminationDate</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
         <globalKey>EDRDgetCaseOutputCustom3436</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -126,23 +98,6 @@
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <filterValue>CaseId</filterValue>
-        <globalKey>EDRDgetCaseOutputCustom6076</globalKey>
-        <inputFieldName>Id</inputFieldName>
-        <inputObjectName>Case</inputObjectName>
-        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDgetCaseOutput</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>case</outputFieldName>
-        <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -170,6 +125,82 @@
         <name>EDRDgetCaseOutput</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>indication</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <filterValue>&apos;Funding Approved&apos;</filterValue>
+        <globalKey>EDRDgetCaseOutputCustom2076</globalKey>
+        <inputFieldName>Status</inputFieldName>
+        <inputObjectName>Case</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDgetCaseOutput</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>case</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDgetCaseOutputCustom4378</globalKey>
+        <inputFieldName>terminationDate</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDgetCaseOutput</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>terminationDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDgetCaseOutputCustom1727</globalKey>
+        <inputFieldName>case:Patient_Identifier__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDgetCaseOutput</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>phn</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDgetCaseOutputCustom4773</globalKey>
+        <inputFieldName>case:Pushed_to_Pnet__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDgetCaseOutput</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>casePushedtoPnet</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <filterValue>CaseId</filterValue>
+        <globalKey>EDRDgetCaseOutputCustom6076</globalKey>
+        <inputFieldName>Id</inputFieldName>
+        <inputObjectName>Case</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDgetCaseOutput</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>case</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
