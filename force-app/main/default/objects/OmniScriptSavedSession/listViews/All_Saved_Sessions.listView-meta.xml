@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>My_Drafts</fullName>
+    <fullName>All_Saved_Sessions</fullName>
     <columns>Draft_Name__c</columns>
     <columns>ResumeUrl</columns>
     <columns>StatusCategory</columns>
     <columns>CreatedDate</columns>
     <columns>Expiry_Date__c</columns>
     <columns>LastSavedDateTime</columns>
-    <filterScope>Mine</filterScope>
-    <filters>
-        <field>StatusCategory</field>
-        <operation>notEqual</operation>
-        <value>1</value>
-    </filters>
-    <label>My Drafts</label>
+    <filterScope>Everything</filterScope>
+    <label>All Saved Sessions</label>
+    <sharedTo>
+        <role>Developer</role>
+        <role>EDRD_Admin</role>
+    </sharedTo>
 </ListView>
