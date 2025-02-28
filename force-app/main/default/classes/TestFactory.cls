@@ -543,6 +543,7 @@ public with sharing class TestFactory {
         Id committeeRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('EDRD_Committee').getRecordTypeId();
         Account accountObj = new Account();
         accountObj.Name = Name;
+        accountObj.IsActive = true;
         accountObj.RecordTypeId = committeeRecordTypeId;
         accountObj.EDRD_Committee_Type__c = 'Subcommittee';
         return accountObj;
@@ -554,7 +555,7 @@ public with sharing class TestFactory {
         accountObj.Name = Name;
         accountObj.IsActive = true;
         accountObj.RecordTypeId = committeeRecordTypeId;
-        accountObj.EDRD_Committee_Type__c = 'Subcommittee';
+        accountObj.EDRD_Committee_Type__c = 'Advisory Committee';
         return accountObj;
     }
     
