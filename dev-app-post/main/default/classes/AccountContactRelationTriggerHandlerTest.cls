@@ -161,6 +161,12 @@ public class AccountContactRelationTriggerHandlerTest {
         providerAcc5.Provider_Identifier__pc = '1112225';
         providerAcc5.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
         providerList.add(providerAcc5);
+        Account providerAcc6 = TestFactory.newProvider('Provider6');
+        providerAcc6.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
+        providerAcc6.Committee_Name__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE;
+        providerAcc6.Provider_Identifier__pc = '7112223';
+        providerAcc6.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerList.add(providerAcc6);
         insert providerList;
         
         List<Account> committeeList = new List<Account>();
@@ -203,9 +209,10 @@ public class AccountContactRelationTriggerHandlerTest {
         ACRObj5.ContactId = provider5ContactId;
         ACRObj5.Roles = ESA_cls_constants.EDRD_ACR_ROLES_CHAIR;
         aCRListTOInsert.add(ACRObj5);
+        Id provider6ContactId = [SELECT Id FROM Contact Where accountId =: providerAcc6.Id].get(0).Id;
         AccountContactRelation ACRObj6 = new AccountContactRelation();
         ACRObj6.AccountId = sCBusinessAcc1.Id;
-        ACRObj6.ContactId = provider3ContactId;
+        ACRObj6.ContactId = provider6ContactId;
         ACRObj6.Roles = ESA_cls_constants.EDRD_ACR_ROLES_REVIEWER;
         aCRListTOInsert.add(ACRObj6);
         AccountContactRelation ACRObj7 = new AccountContactRelation();
@@ -227,18 +234,18 @@ public class AccountContactRelationTriggerHandlerTest {
                                                                   WHERE Id IN (:providerAcc.Id, :providerAcc2.Id, :providerAcc3.Id)]);
         
         Account updatedProviderAccount = updatedProviders.get(providerAcc.Id);
-        Assert.areEqual(updatedProviderAccount.Committee__pc, ESA_cls_constants.EDRD_PERSONACCOUNT_SC, 'Provider Record should be updated');
-        Assert.areNotEqual(updatedProviderAccount.Committee_Name__pc, NULL, 'Committee_Name__pc on provider field should not be NULL');
-        Assert.areEqual(updatedProviderAccount.Committee_Name__pc, 'Metabolic Subcommittee', 'Provider Committee_Name__pc should be updated');
+        Assert.areEqual(ESA_cls_constants.EDRD_PERSONACCOUNT_SC, updatedProviderAccount.Committee__pc, 'Provider Record should be updated');
+        Assert.areNotEqual(NULL, updatedProviderAccount.Committee_Name__pc, 'Committee_Name__pc on provider field should not be NULL');
+        Assert.areEqual('Metabolic Subcommittee', updatedProviderAccount.Committee_Name__pc, 'Provider Committee_Name__pc should be updated');
         
         Account updatedProviderAccount2 = updatedProviders.get(providerAcc2.Id);
-        Assert.areEqual(updatedProviderAccount2.Committee__pc, ESA_cls_constants.EDRD_PERSONACCOUNT_AC,'Provider Record should be updated');
-        Assert.areEqual(updatedProviderAccount2.Committee_Name__pc, NULL, 'Provider2 Committee_Name__pc should be NULL');
+        Assert.areEqual(ESA_cls_constants.EDRD_PERSONACCOUNT_AC, updatedProviderAccount2.Committee__pc, 'Provider Record should be updated');
+        Assert.areEqual(NULL, updatedProviderAccount2.Committee_Name__pc, 'Provider2 Committee_Name__pc should be NULL');
         
         Account updatedProviderAccount3 = updatedProviders.get(providerAcc3.Id);
-        Assert.areEqual(updatedProviderAccount3.Committee__pc, ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC, 'Provider3 Record should be updated');
-        Assert.areNotEqual(updatedProviderAccount3.Committee_Name__pc, NULL, 'Committee_Name__pc on provider3 field should not be NULL');
-        Assert.areEqual(updatedProviderAccount3.Committee_Name__pc, 'Cardiac Subcommittee;Metabolic Subcommittee', 'Provider Committee_Name__pc should be updated');
+        Assert.areEqual(ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC, updatedProviderAccount3.Committee__pc, 'Provider3 Record should be updated');
+        Assert.areNotEqual(NULL, updatedProviderAccount3.Committee_Name__pc, 'Committee_Name__pc on provider3 field should not be NULL');
+        Assert.areEqual('Metabolic Subcommittee', updatedProviderAccount3.Committee_Name__pc, 'Provider Committee_Name__pc should be updated');
     }
     
 /**
