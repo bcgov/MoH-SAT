@@ -283,6 +283,40 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Patient_Override_Reason__c</fieldItem>
+                <identifier>RecordEDRD_Patient_Override_Reason_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>New</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_EMPI_Override_Reason_Renewal__c</fieldItem>
+                <identifier>RecordEDRD_EMPI_Override_Reason_Renewal_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Renewal</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-068d369b-6502-4416-bcfd-d73a7a0cdfd9</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1812,9 +1846,6 @@
                     <name>relatedListFieldAliases</name>
                     <valueList>
                         <valueListItems>
-                            <value>NAME</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>ServiceAppoinmentName__c</value>
                         </valueListItems>
                         <valueListItems>
@@ -1882,9 +1913,6 @@
                 <componentInstanceProperties>
                     <name>relatedListFieldAliases</name>
                     <valueList>
-                        <valueListItems>
-                            <value>NAME</value>
-                        </valueListItems>
                         <valueListItems>
                             <value>ServiceAppoinmentName__c</value>
                         </valueListItems>
