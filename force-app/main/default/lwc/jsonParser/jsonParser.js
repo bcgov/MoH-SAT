@@ -32,6 +32,7 @@ export default class JsonParser extends LightningElement {
 
     handleInputChange() {
         try {
+            this.jsonInput = this.jsonInput.replace(/'/g, '');
             let modifiedString = this.jsonInput.replace(/\\"/g, "'");
             let parsedData = JSON.parse(modifiedString);
             let assessmentResponseSummary = parsedData.outputValues.assessmentResponseSummary;

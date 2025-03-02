@@ -35,7 +35,7 @@ public with sharing class EDRD_cls_generatePDFDoc {
         List<ContentDocumentLink> caseCDLCheckList = [SELECT Id, LinkedEntityId, ContentDocument.title, ContentDocument.FileType FROM ContentDocumentLink 
                                                       WHERE LinkedEntityId =: caseRecordId AND ContentDocument.title = 'Eform Responses' AND ContentDocument.FileType = 'PDF'];
         
-       // if(caseCDLCheckList.isEmpty()){
+        if(caseCDLCheckList.isEmpty()){
             DocumentGenerationProcess request = new DocumentGenerationProcess(); 
             request.Type = type;
             request.RequestText = requestText; 
@@ -44,6 +44,6 @@ public with sharing class EDRD_cls_generatePDFDoc {
             request.DocGenApiVersionType = 'Advanced'; 
             request.DocumentTemplateId = docTemplateList[0].Id;               
             insert request; 
-        //}
+        }
     }        
 }
