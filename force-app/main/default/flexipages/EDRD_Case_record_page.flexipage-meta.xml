@@ -974,6 +974,16 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Termination_Date__c</fieldItem>
+                <identifier>RecordTermination_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.EDRD_MOHFunding_Extension_Date__c</fieldItem>
@@ -1024,16 +1034,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.EDRD_MOHComments__c</fieldItem>
                 <identifier>RecordEDRD_MOHComments_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Termination_Date__c</fieldItem>
-                <identifier>RecordTermination_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-be4aeb41-9d35-46a7-9525-7009f497e028</name>
@@ -1944,25 +1944,6 @@
                 <identifier>lst_dynamicRelatedList2</identifier>
             </componentInstance>
         </itemInstances>
-        <!-- <itemInstances>
-            <componentInstance>
-                <componentName>cfPharmanetPayload</componentName>
-                <identifier>c_cfPharmanetPayload</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Status}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Funding Approved</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Medication_Name__c}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Trikafta</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances> -->
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
