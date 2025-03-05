@@ -7,9 +7,13 @@
 
 public class ESA_cls_constants {
     
+    public static final String ApplicationName = 'Application_Name__c';
+    public static final String ApplicationNameValue = 'EDRD';
     public static final String CASE_APPROVAL_TIME_UNIT_WEEK = 'Weeks';
     public static final String CASE_APPROVAL_TIME_UNIT_MONTH = 'Months';
     public static final String CASE_APPROVAL_TIME_UNIT_DAYS = 'Days';
+    public static final String CaseType = 'Case_Type__c';
+    public static final String DIN = 'DIN__c';    
     public static final String EDRD_ACR_ROLES_CHAIR = 'Chair';
     public static final String EDRD_ACR_ROLES_REVIEWER = 'Reviewer';
     public static final String EDRD_ACR_ROLES_VICE_CHAIR = 'Vice Chair';  
@@ -30,20 +34,26 @@ public class ESA_cls_constants {
     public static final String EDRD_PHYSICIAN = 'Physician';
     public static final String EDRD_PRESCRIBER_COMMUNITY_USER = 'EDRD Prescriber Community User';
     public static final String EDRD_PROVIDER = 'Provider';
-    public static final Id PatientRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Patient').getRecordTypeId();
-    public static final Id PharmanetPayloadRecordTypeId = Schema.SObjectType.Pharmanet_Payload__c.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-    public static final String ManullyCreated = 'manullyCreated';
-    public static final String EMPICreated = 'EMPICreated';
-    public static final String EMPICreatedRenewal = 'EMPICreatedRenewal';
-    public static final String EMPISearchRenewal = 'EMPISearchRenewal';
-    public static final String RenewalSFSearch = 'RenewalSFSearch';
-    public static final String EMPICreatedNew = 'EMPICreatedNew';
-    public static final String NewSearch = 'NewSearch';
     public static final String EDRD_Inactive = 'Inactive';
     public static final String EDRD_Active = 'Active';
     public static final String EDRD_Success = 'Success';
-    
-    
-    
-    
+    public static final String EMPICreated = 'EMPICreated';
+    public static final String EMPICreatedRenewal = 'EMPICreatedRenewal';
+    public static final String EMPISearchRenewal = 'EMPISearchRenewal';
+    public static final String EMPICreatedNew = 'EMPICreatedNew';
+    public static final String ExcludedPlans = 'Excluded_Plans__c';    
+    public static final String IndicationName = 'Indication_Name__c';
+    public static final String JustificationCode = 'Justification_Code__c';    
+    public static final String ManullyCreated = 'manullyCreated'; 
+    public static final String MaxDaysSupply = 'Max_Days_Supply__c';   
+    public static final String MaxPricePercent = 'Max_Price_Percent__c'; 
+    public static final String MedicationName = 'Medication_Name__c';
+    public static final String MedName = 'Med_Name__c';
+    public static final String NewSearch = 'NewSearch';   
+    public static final Id PatientRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Patient').getRecordTypeId();
+    public static final String PharmaNetPayloads = 'PharmaNet_Payloads' ;
+    public static final String RenewalSFSearch = 'RenewalSFSearch';
+    public static final String RDPCode = 'RDP_Code__c';
+    public static final String SAType = 'SA_Type__c';
+   
 }
