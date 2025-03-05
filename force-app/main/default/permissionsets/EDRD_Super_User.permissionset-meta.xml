@@ -21,6 +21,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>EDRD_PharmanetPayload</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_PharmanetWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>EDRD_cls_AssessmentResponseService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -855,7 +863,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Integration_Log__c.Message__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -865,7 +873,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Integration_Log__c.SA_Request__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1201,57 +1209,72 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_Case_Status__c</field>
+        <field>Pharmanet_Payload__c.Application_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_DIN__c</field>
+        <field>Pharmanet_Payload__c.Case_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_Effective_Date__c</field>
+        <field>Pharmanet_Payload__c.Case_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_Excluded_Plans__c</field>
+        <field>Pharmanet_Payload__c.DIN__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_Indication_Name__c</field>
+        <field>Pharmanet_Payload__c.Effective_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_Justification_Code__c</field>
+        <field>Pharmanet_Payload__c.Excluded_Plans__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_Max_Days_Supply__c</field>
+        <field>Pharmanet_Payload__c.Indication_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_Max_Price_Percent__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Pharmanet_Payload__c.EDRD_Medication_Name__c</field>
+        <field>Pharmanet_Payload__c.Justification_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_RDP_Code__c</field>
+        <field>Pharmanet_Payload__c.Max_Days_Supply__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Pharmanet_Payload__c.EDRD_SA_Type__c</field>
+        <field>Pharmanet_Payload__c.Max_Price_Percent__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.Med_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.Medication_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.RDP_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Pharmanet_Payload__c.SA_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1567,7 +1590,7 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Pharmanet_Payload__c</object>
-        <viewAllRecords>false</viewAllRecords>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -1637,10 +1660,6 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>PersonAccount.Provider</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>Pharmanet_Payload__c.EDRD</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
