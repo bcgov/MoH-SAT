@@ -9,6 +9,6 @@
 trigger OmniScriptSavedSessionTrigger on OmniScriptSavedSession (after insert, after update) {
     if (Trigger.isAfter && Trigger.isUpdate) {
         OmniScriptSavedSessionTriggerHandler.processAfterInsert(Trigger.newMap, Trigger.oldMap);
-        OmniScriptSavedSessionTriggerHandler.processAfterInsertByOmniScriptId(Trigger.newMap, Trigger.oldMap);
+        //OmniScriptSavedSessionTriggerHandler.processAfterInsertByOmniScriptId(Trigger.newMap, Trigger.oldMap);
     }
 }
