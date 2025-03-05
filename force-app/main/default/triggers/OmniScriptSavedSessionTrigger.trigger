@@ -7,7 +7,8 @@
                 08 Nov -  EDRD-             -  Accenture   -  Processes the Status category logic for after-insert triggers on OmniScriptSavedSession based on omniProcessId.
 ***********************************************************************************************/
 trigger OmniScriptSavedSessionTrigger on OmniScriptSavedSession (after insert, after update) {
-if (Trigger.isAfter && Trigger.isUpdate) {
+    if (Trigger.isAfter && Trigger.isUpdate) {
+        OmniScriptSavedSessionTriggerHandler.processAfterInsert(Trigger.newMap, Trigger.oldMap);
         OmniScriptSavedSessionTriggerHandler.processAfterInsertByOmniScriptId(Trigger.newMap, Trigger.oldMap);
     }
 }
