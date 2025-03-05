@@ -2,14 +2,21 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>SA_Request__c</fullName>
     <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
     <externalId>false</externalId>
     <label>SA Request</label>
     <lookupFilter>
         <active>true</active>
+        <booleanFilter>1 OR 2</booleanFilter>
         <filterItems>
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
             <value>Special Authority Request</value>
+        </filterItems>
+        <filterItems>
+            <field>Case.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>
