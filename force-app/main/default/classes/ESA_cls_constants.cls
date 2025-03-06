@@ -41,7 +41,8 @@ public class ESA_cls_constants {
     public static final String EMPICreatedRenewal = 'EMPICreatedRenewal';
     public static final String EMPISearchRenewal = 'EMPISearchRenewal';
     public static final String EMPICreatedNew = 'EMPICreatedNew';
-    public static final String ExcludedPlans = 'Excluded_Plans__c';    
+    public static final String ExcludedPlans = 'Excluded_Plans__c'; 
+    public static final String FundingApproved = 'Funding Approved';    
     public static final String IndicationName = 'Indication_Name__c';
     public static final String JustificationCode = 'Justification_Code__c';    
     public static final String ManullyCreated = 'manullyCreated'; 
