@@ -978,6 +978,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Termination_Date__c</fieldItem>
                 <identifier>RecordTermination_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Pushed_to_Pnet__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1331,6 +1338,16 @@
                 <identifier>RecordRecordTypeIdField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pushed_to_Pnet__c</fieldItem>
+                <identifier>RecordPushed_to_Pnet_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-be2f52e7-704e-45af-899c-00134008c21f</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1353,6 +1370,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.SuppliedEmail</fieldItem>
                 <identifier>RecordSuppliedEmailField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pushed_to_Pnet_Date__c</fieldItem>
+                <identifier>RecordPushed_to_Pnet_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-85c7dae3-b800-4a23-a3c5-08ce124dd93d</name>
