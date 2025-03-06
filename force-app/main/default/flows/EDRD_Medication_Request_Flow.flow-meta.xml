@@ -4,7 +4,7 @@
     <decisions>
         <name>check_MR_RecordType</name>
         <label>check_MR_RecordType</label>
-        <locationX>831</locationX>
+        <locationX>611</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -17,39 +17,10 @@
                     <stringValue>EDRD_Medication_Request</stringValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>Check_IsInsert</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Is_Patient_Populated</targetReference>
             </connector>
             <label>EDRD Medication Request RecordType</label>
-        </rules>
-        <rules>
-            <name>EDRD_MR_RecordType_Check_IsUpdate</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>EDRD_Medication_Request</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Check_Medication_IsUpdated</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Medication_Populated_on_Rec</targetReference>
-            </connector>
-            <label>EDRD MR RecordType Check &amp; IsUpdate</label>
         </rules>
     </decisions>
     <decisions>
@@ -146,40 +117,8 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <decisions>
-        <name>Medication_Populated_on_Rec</name>
-        <label>Medication Populated on Rec</label>
-        <locationX>974</locationX>
-        <locationY>431</locationY>
-        <defaultConnectorLabel>No</defaultConnectorLabel>
-        <rules>
-            <name>Is_Medication_Present</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.MedicationId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Update_MR_Related_Case</targetReference>
-            </connector>
-            <label>Is Medication Present</label>
-        </rules>
-    </decisions>
-    <description>Enhancing flow to update operation as well.</description>
+    <description>Added EDRD Medication Request Type</description>
     <environments>Default</environments>
-    <formulas>
-        <name>Check_IsInsert</name>
-        <dataType>Boolean</dataType>
-        <expression>ISNEW()</expression>
-    </formulas>
-    <formulas>
-        <name>Check_Medication_IsUpdated</name>
-        <dataType>Boolean</dataType>
-        <expression>ISCHANGED({!$Record.Medication.Id})</expression>
-    </formulas>
     <interviewLabel>EDRD Medication Request Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>EDRD Medication Request Flow</label>
     <processMetadataValues>
@@ -275,33 +214,6 @@
         <object>Case</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_MR_Related_Case</name>
-        <label>Update MR - Related Case</label>
-        <locationX>842</locationX>
-        <locationY>539</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Case__c</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Indication__c</field>
-            <value>
-                <elementReference>$Record.Indication__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Medication_Name__c</field>
-            <value>
-                <elementReference>$Record.Medication.Name</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Case</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>Update_Owner_on_MR</name>
         <label>Update Owner on MR</label>
         <locationX>50</locationX>
@@ -345,13 +257,13 @@
         <object>Case</object>
     </recordUpdates>
     <start>
-        <locationX>705</locationX>
+        <locationX>485</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>check_MR_RecordType</targetReference>
         </connector>
         <object>MedicationRequest</object>
-        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
