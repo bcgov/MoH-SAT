@@ -32,7 +32,7 @@ public class EDRD_PharmanetWrapper {
         public Id pharmaNetRecordId {get;set;}
         public String rdp {get; set;}  
         public String specAuthType {get; set;}
-        public Boolean casePushToPent {get; set;}
+        public Boolean casePushToPnet {get; set;}
         public Date caseFundingStartdate {get; set;}
         public String orginalTerminationDate {get; set;}
 		

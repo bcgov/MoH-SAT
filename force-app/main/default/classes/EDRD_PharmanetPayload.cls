@@ -18,7 +18,6 @@ global with sharing class EDRD_PharmanetPayload implements Callable{
     global Boolean invokeMethod(String methodName, Map<String,Object> inputMap, Map<String,Object> outputMap, Map<String,Object> options) {
         Boolean result = true; 
         String jsonInput = Json.serialize(inputMap.get('input'));
-        System.debug('jsonInput'+jsonInput);
         switch on methodName {
             when 'updateSubmitPharmanet'{
                 this.updateSubmitPharmanet(jsonInput,outputMap);
@@ -47,7 +46,6 @@ Date : 19/Feb/2025
         
         EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
         DecisionTable dt = new Elevated().getDTId(ESA_cls_constants.PharmaNetPayloads); 
-        
         ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
         input.conditions = new List<ConnectApi.DecisionTableCondition>();
 		
@@ -76,16 +74,17 @@ Date : 19/Feb/2025
         {           
             List<ConnectApi.DecisionTableOutcomeItem> decisionTableItems = decisionOutcome.outcomeList;
             List<EDRD_PharmanetWrapper.OutputWrapper > outputWrappers = new List<EDRD_PharmanetWrapper.OutputWrapper >();
-            
+    
             for (ConnectApi.DecisionTableOutcomeItem item : decisionTableItems) 
             {
+
                 EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper(); 
                 
                 wrapper.din = (String) item.values.get(ESA_cls_constants.DIN);
                 DateTime effectiveDate = inputWrapper.caseFundingStartdate;
                 wrapper.effectiveDate = effectiveDate.Date();
                 wrapper.excludedPlans = (String) item.values.get(ESA_cls_constants.ExcludedPlans);
-                wrapper.isPharmaNetSubmitSuccessfull = inputWrapper.casePushToPent;
+                wrapper.isPharmaNetSubmitSuccessfull = Boolean.ValueOf(inputWrapper.casePushToPnet);
                 wrapper.justificationCodes = (String) item.values.get(ESA_cls_constants.JustificationCode);
                 wrapper.maxDaysSupply = (Double) item.values.get(ESA_cls_constants.MaxDaysSupply);
                 wrapper.maxPricePct = (Double) item.values.get(ESA_cls_constants.MaxPricePercent);                

@@ -978,6 +978,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Termination_Date__c</fieldItem>
                 <identifier>RecordTermination_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Pushed_to_Pnet__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1896,6 +1903,25 @@
                         <leftValue>{!Record.Status}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Funding Approved</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>cfPharmanetPayload</componentName>
+                <identifier>c_cfPharmanetPayload</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Funding Approved</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Medication_Name__c}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Trikafta</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
