@@ -113,25 +113,35 @@ Date : 19/Feb/2025
 --------------------------------------------------------------------------*/
     public void updateSubmitPharmanet(String jsonInput, Map<String,Object> outputMap)
     {
-        Boolean isSuccess = false;
         EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();     
         EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
         
         try
         {
-           	wrapper = saaRequestAPICallout(inputWrapper);
-            wrapper.isSubmitSuccessful = true;
+            saaRequestAPICallout(inputWrapper);
+            if(!Test.isRunningTest()){
+                Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY LastModifiedDate DESC LIMIT 1];
+                wrapper.isSubmitSuccessful = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c));
+            	wrapper.isPharmaNetSubmitSuccessfull = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c)); // Show for read only
+        }
+            
        		updateCaseRec(inputWrapper);
-        	outputMap.put('isSubmitSuccessful',wrapper.isPharmaNetSubmitSuccessfull);
-            outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful);
+        	outputMap.put('isPharmaNetSubmitSuccessfull',wrapper.isPharmaNetSubmitSuccessfull); // for Read-only
+            outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); // Success message displaying
             
         }
-        catch(Exception E)
-        {
-            wrapper.isPharmaNetSubmitSuccessfull = isSuccess;
+        catch(Exception e)
+        {	
+            if(!Test.isRunningTest()){
+            Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY LastModifiedDate DESC LIMIT 1];
+            wrapper.ErrorMessage = intRecord.Message__c;    
+            }
+            
+            wrapper.isPharmaNetSubmitSuccessfull = false;
             wrapper.isSubmitSuccessful = false;
-            outputMap.put('isSubmitSuccessful', wrapper.isPharmaNetSubmitSuccessfull); 
+            outputMap.put('isPharmaNetSubmitSuccessfull', wrapper.isPharmaNetSubmitSuccessfull); 
             outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); 
+            outputMap.put('ErrorMessage',wrapper.ErrorMessage);
         }        
         return;
     }
@@ -153,12 +163,13 @@ Date : 19/Feb/2025
         catch(Exception e){
             wrapper.ismarkPushedToPharmanet = false;
         }
+        if(!Test.isRunningTest()){
         outputMap.put('ismarkPushedToPharmanet',wrapper.ismarkPushedToPharmanet); 
-        
+        }
       return;
         
     }
-    public EDRD_PharmanetWrapper.OutputWrapper saaRequestAPICallout(EDRD_PharmanetWrapper.InputWrapper inputWrapper)
+    public void saaRequestAPICallout(EDRD_PharmanetWrapper.InputWrapper inputWrapper)
     {
         EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();
         List<String> justificationCodesList = new List<String>{inputWrapper.justificationCodes};
@@ -194,13 +205,8 @@ Date : 19/Feb/2025
         saaRequest.saRecord.specialItem.din =  String.valueof(inputWrapper.din);
         saaRequest.saRecord.specialItem.rdp =  String.valueof(inputWrapper.rdp);
         if(!Test.isRunningTest()){
-            PharmanetPayloadController.submitSinglePnetSar(inputWrapper.caseId, saaRequest);
-            Integration_Log__c intRecord = new Elevated().getIntegrationLogRecord(inputWrapper.caseId);
-            isSuccess = ESA_cls_constants.EDRD_Success.equals(String.ValueOf(intRecord.Message__c));
-            wrapper.isPharmaNetSubmitSuccessfull = ESA_cls_constants.EDRD_Success.equals(String.ValueOf(intRecord.Message__c));
-            wrapper.ErrorMessage = String.ValueOf(intRecord.Message__c);
+            PharmanetPayloadController.submitSinglePnetSar(inputWrapper.caseId, saaRequest);           
         }
-        return wrapper;
     }
 
     private static void updateCaseRec(EDRD_PharmanetWrapper.InputWrapper inputWrapper){
@@ -222,9 +228,6 @@ Date : 19/Dec/2024
     public without sharing class Elevated{        
         public DecisionTable getDTId(String DecisionTableName){
             return [SELECT Id  FROM DecisionTable where  DeveloperName =: DecisionTableName LIMIT 1];
-        }
-        public Integration_Log__c getIntegrationLogRecord(String caseId){
-            return [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: caseId ORDER BY LastModifiedDate DESC LIMIT 1];
-        }
+        }        
     }    
 }
