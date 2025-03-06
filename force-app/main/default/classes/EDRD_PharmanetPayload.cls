@@ -171,7 +171,6 @@ Date : 19/Feb/2025
     }
     public void saaRequestAPICallout(EDRD_PharmanetWrapper.InputWrapper inputWrapper)
     {
-        EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();
         List<String> justificationCodesList = new List<String>{inputWrapper.justificationCodes};
         List<String> excludedPlansList = new List<String>();
         if(inputWrapper.excludedPlans.contains(',')){

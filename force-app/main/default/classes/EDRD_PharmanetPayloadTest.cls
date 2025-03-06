@@ -29,7 +29,7 @@ private class EDRD_PharmanetPayloadTest {
         
       Case testCase = new Case(
             Status = 'New',
-            Subject = 'Funding Approved',
+            Subject = ESA_cls_constants.FundingApproved,
             Priority = 'High',
             Origin = 'Email'
            );
@@ -54,7 +54,7 @@ private class EDRD_PharmanetPayloadTest {
     static void testSaaRequestAPICallout(){        
         Case testCase = new Case(
             Status = 'New',
-            Subject = 'Funding Approved',
+            Subject = ESA_cls_constants.FundingApproved,
             Priority = 'High',
             Origin = 'Email'
         );
