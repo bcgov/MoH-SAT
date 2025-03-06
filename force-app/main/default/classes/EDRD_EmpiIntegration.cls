@@ -76,6 +76,7 @@ Date : 19/Dec/2024
              patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy));
              patientOutputWrapper.isPatientFound = false; 
         }
+        
         patientOutputWrapper.isClickSFsearch = true;
         patientOutputWrapper.isValidatePHNClick = true;
         String result = Json.serialize(patientOutputWrapper);
@@ -92,6 +93,7 @@ Date : 19/Dec/2024
     public void getSFdata(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) {
         List<EDRD_EmpiWrapper.OutputWrapper> lstpatientOutputWrapper=new List<EDRD_EmpiWrapper.OutputWrapper>(); 
             List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
+           system.debug('patientRecord=103='+patientRecord);
             if(!patientRecord.isEmpty()){
                 for(Account acc:patientRecord){
                     EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper= new EDRD_EmpiWrapper.OutputWrapper();
@@ -276,11 +278,13 @@ Date : 19/Dec/2024
         insert patientAccount;    
         
         List<Account> patientRecord = new Elevated().selectAccountById(patientAccount.Id);
+        system.debug('patientRecord=='+patientRecord);
         if(!patientRecord.isEmpty()){
             for(Account acc : patientRecord){
                 patientOutputWrapper.patientId = acc.PersonContactId;
                 patientOutputWrapper.patientaccountId = acc.Id;
                 patientOutputWrapper.phn = acc.Patient_Identifier__pc;
+
             }
         }
         createCareProgramEnrollee(patientAccount.Id);        

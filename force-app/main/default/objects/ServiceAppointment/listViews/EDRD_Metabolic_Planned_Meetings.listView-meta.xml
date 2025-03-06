@@ -24,8 +24,14 @@
         <operation>contains</operation>
         <value>Metabolic</value>
     </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ServiceAppointment.EDRD_Committee_Meeting</value>
+    </filters>
     <label>Metabolic Planned SC Meetings</label>
     <sharedTo>
-        <group>EDRD_Metabolic_Subcommittee</group>
+        <role>Developer</role>
+        <role>EDRD_Admin</role>
     </sharedTo>
 </ListView>

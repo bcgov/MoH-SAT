@@ -56,5 +56,5 @@ public class ESA_cls_constants {
     public static final String RenewalSFSearch = 'RenewalSFSearch';
     public static final String RDPCode = 'RDP_Code__c';
     public static final String SAType = 'SA_Type__c';
-   
+
 }
