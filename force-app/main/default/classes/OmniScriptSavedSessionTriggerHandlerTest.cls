@@ -29,7 +29,6 @@ public class OmniScriptSavedSessionTriggerHandlerTest {
 		// Create a new session with a different name
         OmniScriptSavedSession newSession = new OmniScriptSavedSession(
             Name = 'New Session',
-            CreatedById = UserInfo.getUserId(),
             StatusCategory = 'In Progress'
         );
         
