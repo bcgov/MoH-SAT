@@ -1338,6 +1338,16 @@
                 <identifier>RecordRecordTypeIdField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pushed_to_Pnet__c</fieldItem>
+                <identifier>RecordPushed_to_Pnet_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-be2f52e7-704e-45af-899c-00134008c21f</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1360,6 +1370,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.SuppliedEmail</fieldItem>
                 <identifier>RecordSuppliedEmailField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pushed_to_Pnet_Date__c</fieldItem>
+                <identifier>RecordPushed_to_Pnet_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-85c7dae3-b800-4a23-a3c5-08ce124dd93d</name>
@@ -1903,25 +1923,6 @@
                         <leftValue>{!Record.Status}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Funding Approved</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>cfPharmanetPayload</componentName>
-                <identifier>c_cfPharmanetPayload</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Status}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Funding Approved</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Medication_Name__c}</leftValue>
-                        <operator>CONTAINS</operator>
-                        <rightValue>Trikafta</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
