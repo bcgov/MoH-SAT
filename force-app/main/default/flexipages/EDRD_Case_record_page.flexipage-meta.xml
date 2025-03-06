@@ -283,6 +283,40 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Patient_Override_Reason__c</fieldItem>
+                <identifier>RecordEDRD_Patient_Override_Reason_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>New</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_EMPI_Override_Reason_Renewal__c</fieldItem>
+                <identifier>RecordEDRD_EMPI_Override_Reason_Renewal_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Renewal</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-068d369b-6502-4416-bcfd-d73a7a0cdfd9</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -940,6 +974,23 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Termination_Date__c</fieldItem>
+                <identifier>RecordTermination_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Pushed_to_Pnet__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.EDRD_MOHFunding_Extension_Date__c</fieldItem>
@@ -990,16 +1041,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.EDRD_MOHComments__c</fieldItem>
                 <identifier>RecordEDRD_MOHComments_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Termination_Date__c</fieldItem>
-                <identifier>RecordTermination_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-be4aeb41-9d35-46a7-9525-7009f497e028</name>
@@ -1209,6 +1250,78 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Next_SC_Presentation_Date__c</fieldItem>
+                <identifier>RecordEDRD_Next_SC_Presentation_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Future_Review_Notes__c</fieldItem>
+                <identifier>RecordEDRD_Future_Review_Notes_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-c29968eb-4d9e-4af0-b362-334f7abaeee1</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Days_from_Next_SC_to_DBN_Expiry__c</fieldItem>
+                <identifier>RecordEDRD_Days_from_Next_SC_to_DBN_Expiry_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.EDRD_Future_Case_Eligible_For_RPh_Review__c</fieldItem>
+                <identifier>RecordEDRD_Future_Case_Eligible_For_RPh_Review_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-8219623c-ffa7-4f85-a865-03649874ca64</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-c29968eb-4d9e-4af0-b362-334f7abaeee1</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column7</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-8219623c-ffa7-4f85-a865-03649874ca64</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column8</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-9140c920-0fce-4c68-a786-aa639fe8307d</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CreatedById</fieldItem>
@@ -1223,6 +1336,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.RecordTypeId</fieldItem>
                 <identifier>RecordRecordTypeIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pushed_to_Pnet__c</fieldItem>
+                <identifier>RecordPushed_to_Pnet_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-be2f52e7-704e-45af-899c-00134008c21f</name>
@@ -1247,6 +1370,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.SuppliedEmail</fieldItem>
                 <identifier>RecordSuppliedEmailField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Pushed_to_Pnet_Date__c</fieldItem>
+                <identifier>RecordPushed_to_Pnet_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-85c7dae3-b800-4a23-a3c5-08ce124dd93d</name>
@@ -1407,6 +1540,31 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-9140c920-0fce-4c68-a786-aa639fe8307d</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>Future Case Review Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection4</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Funding Approved</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-7f280347-7e20-4a37-b8c7-30158cbcbd0f</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1501,11 +1659,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>New</value>
-                        </valueListItems>
-                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>adminFilters</name>
@@ -1625,7 +1778,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Approval History</value>
+                    <value>SA Approval History</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab4</identifier>

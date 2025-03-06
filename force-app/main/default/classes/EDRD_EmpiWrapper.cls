@@ -12,7 +12,6 @@ public class EDRD_EmpiWrapper {
         public Id providerConId {get;set;}
         public Id LoginUserAccountId {get;set;}
         public Id PatientContactId {get;set;}
-        
     }
     public class OutputWrapper
     {   
@@ -37,10 +36,8 @@ public class EDRD_EmpiWrapper {
         public Boolean isPatientSFRenewal {get;set;}  
         public Boolean isClickSFSearchNew {get;set;} // In New-Summbation on 2-Screen,when click on Patient Search by Deatils and PHN.
         public String clickByNew {get;set;} 
-    
-        
-      }
 
+      }
     public class Patient {
     public boolean deceased {get;set;}
     public String dob {get;set;}
@@ -57,5 +54,4 @@ public class EDRD_EmpiWrapper {
         public List<String> givenNames;
         public String type;
     }
-
 }
