@@ -13,4 +13,5 @@ public class Patient {
     @AuraEnabled public Boolean verified {get;set;}
     @AuraEnabled public Datetime verifiedDate {get;set;}
     @AuraEnabled public String notes {get;set;}
+    @AuraEnabled public String responseStatusValue {get; set;}
 }
