@@ -11,9 +11,9 @@ Date : 20/Feb/2025
 private class EDRD_PharmanetPayloadTest {
     
     @IsTest(SeeAllData=true)
-    static void testGetPharmanetDecisionTable() {
+    static void testGetPharmanetDecisionTable() {        
         
-        String jsonInput = '{"input":{"medicationName":"elexacaftor/tezacaftor/ivacaftor - Trikafta","indication":"cystic fibrosis - CF","caseStatus":"Funding Approved","terminationDate":"2025-02-11","phn":"1234567890"},"output":{},"option":{}}'; 
+        String jsonInput = '{"input":{"caseType":"New","orginalTerminationDate":"2025-02-27","indication":"cystic fibrosis - CF","phn":"9879449988","caseFundingStartdate":"2025-02-01","caseId":"500Aq00000Q5UXyIAN","caseStatus":"Funding Approved","casePushToPnet":true,"practId":"0A0P1","terminationDate":"2027-01-31","medicationName":"elexacaftor/tezacaftor/ivacaftor - Trikafta"},"output":{},"option":{}}'; 
         String methodName = 'getPharmanetDecisionTable';
         Map<String, Object> inputMap = (Map<String, Object>) JSON.deserializeUntyped(jsonInput);
 
@@ -29,7 +29,7 @@ private class EDRD_PharmanetPayloadTest {
         
       Case testCase = new Case(
             Status = 'New',
-            Subject = 'Funding Approved',
+            Subject = ESA_cls_constants.FundingApproved,
             Priority = 'High',
             Origin = 'Email'
            );
@@ -54,7 +54,7 @@ private class EDRD_PharmanetPayloadTest {
     static void testSaaRequestAPICallout(){        
         Case testCase = new Case(
             Status = 'New',
-            Subject = 'Funding Approved',
+            Subject = ESA_cls_constants.FundingApproved,
             Priority = 'High',
             Origin = 'Email'
         );
@@ -67,10 +67,10 @@ private class EDRD_PharmanetPayloadTest {
         inputWrapper.caseId = testCase.Id;
         inputWrapper.practIdRef = '91-';
         inputWrapper.effectiveDate = (DateTime)Date.Today();
-        inputWrapper.excludedPlans = 'D'; 
+        inputWrapper.excludedPlans = 'D,G'; 
         inputWrapper.justificationCodes = '0';
         inputWrapper.specAuthType = 'B';
-        inputWrapper.din  = '00614491';
+        inputWrapper.rdp  = '0061-4491';
         inputWrapper.maxDaysSupply = 23.0;
         inputWrapper.maxPricePct = 12.0;
         EDRD_PharmanetPayload payload = new EDRD_PharmanetPayload();
@@ -84,7 +84,7 @@ private class EDRD_PharmanetPayloadTest {
     static void testMarkPushedToPharmanet() {
         // Create a mock Case
         Case testCase = new Case(
-            Status = 'New',
+            Status = 'Funding Approved',
             Subject = 'Test Case',
             Priority = 'High',
             Origin = 'Email'
