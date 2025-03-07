@@ -1,5 +1,5 @@
 @isTest
-private without sharing class ContentVersionBatchTest {
+public with sharing class ContentVersionBatchTest {
     
     @testSetup
     static void setupTestData() {

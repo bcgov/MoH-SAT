@@ -1,5 +1,5 @@
 @isTest
-private class ContentVersionBatchSchedulerTest {
+public with sharing class ContentVersionBatchSchedulerTest {
 
     @isTest
     static void testExecute() {
