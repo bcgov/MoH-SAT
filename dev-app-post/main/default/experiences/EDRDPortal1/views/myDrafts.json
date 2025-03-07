@@ -1,0 +1,70 @@
+{
+  "appPageId" : "375cf908-65a8-43d3-b1d4-c4b90c58b0e1",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "7e36a2a0-228f-4c5a-9a1e-6ff6ff5ba940",
+  "label" : "My Drafts",
+  "regions" : [ {
+    "id" : "6d15f03c-55c2-4e8f-9fd8-6e52fa8294bf",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p><strong style=\"font-size: 14px;\">Note:</strong><span style=\"font-size: 14px;\"> </span><em style=\"font-size: 14px;\">All drafts must be submitted within 90 days of creation. After 90 days, all drafts will be permanently deleted from this list view.</em></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "529a097f-33e0-4116-93a4-c293710208ef",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "enableInlineEdit" : false,
+        "filterName" : "My_Drafts",
+        "layout" : "FULL",
+        "pageSize" : 25,
+        "scope" : "OmniScriptSavedSession",
+        "showActionBar" : false,
+        "showChartsPanel" : false,
+        "showDisplay" : "showall",
+        "showFilterPanel" : false,
+        "showImageIcon" : false,
+        "showManualRefreshButton" : true,
+        "showObjectName" : false,
+        "showPinnedList" : false,
+        "showSearchBar" : true
+      },
+      "componentName" : "forceCommunity:objectHome",
+      "id" : "b45c00b3-a104-4320-bac5-84d78853ef28",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "bab7f47e-a214-41e5-9d03-0aeaa2c4ccd0",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "9521ee45-595f-4dee-aaa4-d36102c77fe7",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "My Drafts"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "bc46dffe-3f87-4378-b9db-60b78285f4b1",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e8bc3309-5c97-4f10-903c-1074f4343836",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-my-drafts"
+}

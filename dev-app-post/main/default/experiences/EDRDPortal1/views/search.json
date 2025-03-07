@@ -1,0 +1,42 @@
+{
+  "appPageId" : "375cf908-65a8-43d3-b1d4-c4b90c58b0e1",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "c8118031-7d41-46fc-bafa-b8346d3aa58c",
+  "label" : "Search",
+  "regions" : [ {
+    "id" : "ef2570f0-71ee-4d65-9a51-8bfcde7a571e",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "scopes" : [ {
+          "isPublic" : true,
+          "name" : "Account"
+        }, {
+          "isPublic" : true,
+          "name" : "Medication"
+        } ],
+        "searchResultFiltering" : false,
+        "searchTerm" : "{!term}",
+        "showTopResults" : true
+      },
+      "componentName" : "forceCommunity:search",
+      "id" : "1240e3a5-8803-447c-800a-24998d9749fa",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "81ab3c61-e35c-4631-b5c1-6b8a6ca5c894",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "86857cf8-c81e-4d32-8e2a-f2aad2033483",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "global-search"
+}

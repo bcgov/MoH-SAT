@@ -292,10 +292,14 @@ public class ESA_cls_caseTriggerHandlerTest {
 */
     @isTest
     public static void populateEDRDRefNumber_Test(){
+        Account physicianAccount = TestFactory.newProvider('Provider Test');
+        insert physicianAccount;
         Account patientAcc = TestFactory.newPatient('Test');
         insert patientAcc;
+        Id patientContactId = [SELECT Id FROM Contact WHERE AccountId =: patientAcc.Id].Id;
         String caseRecordTypeID = Schema.getGlobalDescribe().get('Case').getDescribe().getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
-        List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, patientAcc.Id);
+        List<Case> EDRDCaseList = TestFactory.createEDRDCase(1, caseRecordTypeID, physicianAccount.Id);
+        EDRDCaseList[0].contactId = patientContactId;
         careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
         insert careProgramRec;
         CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', patientAcc.Id, careProgramRec.Id);

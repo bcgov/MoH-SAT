@@ -1,0 +1,124 @@
+{
+  "appPageId" : "375cf908-65a8-43d3-b1d4-c4b90c58b0e1",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "19de654e-a240-49ed-b641-5e5108d79d6d",
+  "label" : "Action Plan Template Detail",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "runtime_industries_actionplan:highlightsPanel",
+      "id" : "e7e41c27-bd3a-4eef-8660-65829d0df2c7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8db2663d-721f-4df5-a05c-d95e24efce5f",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "6925ce07-eef3-4534-aded-fe5ce86c0ca8",
+          "activeTab" : "tab1",
+          "tabs" : [ {
+            "UUID" : "6f972dc1-21cb-4267-b1a7-424f103adcd0",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : { },
+              "fqn" : "runtime_industries_actionplan:taskManager"
+            }, {
+              "attributes" : { },
+              "fqn" : "runtime_industries_actionplan:checklistItemManager"
+            } ],
+            "tabKey" : "tab1",
+            "tabName" : "Items"
+          }, {
+            "UUID" : "6064c90a-e451-43cf-976f-76c759433e36",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : { },
+              "fqn" : "forceCommunity:recordDetail"
+            } ],
+            "tabKey" : "tab2",
+            "tabName" : "Details"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "6925ce07-eef3-4534-aded-fe5ce86c0ca8",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "fieldSelection" : [ ]
+          },
+          "componentName" : "runtime_industries_actionplan:taskManager",
+          "id" : "b3443d9d-9ab1-4ce4-b3b1-7d180f05aa40",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : { },
+          "componentName" : "runtime_industries_actionplan:checklistItemManager",
+          "id" : "0615eb2c-74d1-47ce-b743-b9cadf034afe",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "6f972dc1-21cb-4267-b1a7-424f103adcd0",
+        "regionLabel" : "Items",
+        "regionName" : "tab1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:recordDetail",
+          "id" : "52153b3e-26f0-4fb1-8b66-5f496ee5928b",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "6064c90a-e451-43cf-976f-76c759433e36",
+        "regionLabel" : "Details",
+        "regionName" : "tab2",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "98394425-c6d1-490c-a035-dd1baac1ec82",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "eda37282-c065-429d-882f-aab862a7be30",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "2917ce7e-b8a4-4d90-a71d-1d430077f6e6",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b13fb564-832d-441d-b1e2-86d1c7d75396",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "detail-0PR"
+}

@@ -120,4 +120,35 @@ public class ESA_cls_accountTriggerHandlerTest {
         Assert.areEqual(2, groupMembersList.size(), 'Exactly two GroupMember should exist for the user');
         Assert.areNotEqual(null, groupMembersList[0].GroupId, 'GroupMember should have a valid GroupId');
     }
+
+    @isTest
+    public static void updateCareProgramEnroleeTest(){
+        Account patientAccount = new Account();        
+        patientAccount.Patient_Identifier__pc  = '123456789';
+        patientAccount.FirstName = 'Test';
+        patientAccount.LastName = 'Provider';
+        patientAccount.RecordTypeId = ESA_cls_constants.PatientRecordTypeId;  
+        insert patientAccount;
+        
+        CareProgram cpg = new CareProgram(Name = 'EDRD');
+        insert cpg;
+       	
+        CareProgramEnrollee careProgram = new CareProgramEnrollee();
+        careProgram.AccountId = patientAccount.Id;
+        careProgram.Name = 'test';
+        careProgram.Status = 'Active';
+        careProgram.CareProgramId = cpg.Id;
+        insert careProgram;
+		
+		CareProgramEnrollee cpeToUpdate = [SELECT Id, Status FROM CareProgramEnrollee WHERE Id =: careProgram.Id LIMIT 1];
+        cpeToUpdate.Status = 'Inactive';
+        update cpeToUpdate;
+        
+        Case newCaseRec = new Case(AccountId = patientAccount.Id);
+        insert newCaseRec;
+
+        CareProgramEnrollee carePERecAfterCaseInsert = [SELECT Id, Status FROM CareProgramEnrollee LIMIT 1];
+        Assert.areEqual('Active', carePERecAfterCaseInsert.Status, 'Status should be Active');
+        
+    }
 }

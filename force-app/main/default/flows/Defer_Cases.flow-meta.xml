@@ -4,7 +4,7 @@
     <assignments>
         <name>Add_Case_to_Related_Cases_Collection</name>
         <label>Add Case to Related Cases Collection</label>
-        <locationX>958</locationX>
+        <locationX>1029</locationX>
         <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>RelatedCaseRecords</assignToReference>
@@ -59,7 +59,7 @@
     <assignments>
         <name>Get_Case_Related_to_Current_CRC_Record</name>
         <label>Get Case Related to Current CRC Record</label>
-        <locationX>958</locationX>
+        <locationX>1029</locationX>
         <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>RelatedCase.Id</assignToReference>
@@ -223,7 +223,7 @@
     <decisions>
         <name>Does_SA_Have_Related_Cases</name>
         <label>Does SA Have Related Cases</label>
-        <locationX>870</locationX>
+        <locationX>941</locationX>
         <locationY>866</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -260,7 +260,7 @@
     <decisions>
         <name>SA_With_Same_Committee_Exists</name>
         <label>SAs With Same Committee Exists?</label>
-        <locationX>458</locationX>
+        <locationX>512</locationX>
         <locationY>1190</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -345,7 +345,7 @@
     <loops>
         <name>Iterate_Over_Related_CRC_Records</name>
         <label>Iterate Over Related CRC Records</label>
-        <locationX>870</locationX>
+        <locationX>941</locationX>
         <locationY>458</locationY>
         <collectionReference>Get_Related_Committee_Review_Case_Records</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -406,7 +406,7 @@
     <recordLookups>
         <name>Get_Current_Service_Appointment</name>
         <label>Get Current Service Appointment</label>
-        <locationX>870</locationX>
+        <locationX>941</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -431,7 +431,7 @@
     <recordLookups>
         <name>Get_Parent_Account_of_Current_Service_Appointment</name>
         <label>Get Parent Account of Current Service Appointment</label>
-        <locationX>870</locationX>
+        <locationX>941</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -452,7 +452,7 @@
     <recordLookups>
         <name>Get_Planned_Service_Appointments_With_Same_Committee</name>
         <label>Get Planned Service Appointments With Same Committee</label>
-        <locationX>458</locationX>
+        <locationX>512</locationX>
         <locationY>1082</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -468,9 +468,9 @@
         </filters>
         <filters>
             <field>Status</field>
-            <operator>NotEqualTo</operator>
+            <operator>EqualTo</operator>
             <value>
-                <stringValue>Closed</stringValue>
+                <stringValue>Planned</stringValue>
             </value>
         </filters>
         <filters>
@@ -487,7 +487,7 @@
     <recordLookups>
         <name>Get_Related_Committee_Review_Case_Records</name>
         <label>Get Related Committee Review Case Records</label>
-        <locationX>870</locationX>
+        <locationX>941</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -534,7 +534,7 @@
     <screens>
         <name>Display_Related_Cases</name>
         <label>Display Related Cases</label>
-        <locationX>458</locationX>
+        <locationX>512</locationX>
         <locationY>974</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -667,7 +667,7 @@
     <screens>
         <name>No_Meetings_Found</name>
         <label>No Meetings Found</label>
-        <locationX>490</locationX>
+        <locationX>578</locationX>
         <locationY>1298</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -684,7 +684,7 @@
     <screens>
         <name>No_Related_Cases</name>
         <label>No Related Cases</label>
-        <locationX>1018</locationX>
+        <locationX>1106</locationX>
         <locationY>974</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -698,7 +698,7 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>744</locationX>
+        <locationX>815</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Current_Service_Appointment</targetReference>

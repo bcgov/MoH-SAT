@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_SC_Cases_Historic</fullName>
+    <columns>EDRD_SubCommittee_Name__c</columns>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>CASES.TYPE</columns>
     <columns>Patient_Identifier__c</columns>
@@ -19,7 +20,12 @@
     <filters>
         <field>CASES.STATUS</field>
         <operation>equals</operation>
-        <value>SC Review,AC Review,MOH Review,Approved,Cancelled,Funding Denied</value>
+        <value>AC Review,MOH Review,Approved,Cancelled,Funding Denied</value>
+    </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.EDRD</value>
     </filters>
     <label>EDRD SC Cases - Historic Cases</label>
     <sharedTo>

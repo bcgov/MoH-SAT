@@ -24,8 +24,14 @@
         <operation>contains</operation>
         <value>Ophthalmology</value>
     </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ServiceAppointment.EDRD_Committee_Meeting</value>
+    </filters>
     <label>Ophthalmology Planned SC Meetings</label>
     <sharedTo>
-        <group>EDRD_Ophthalmology_Subcommittee</group>
+        <role>Developer</role>
+        <role>EDRD_Admin</role>
     </sharedTo>
 </ListView>

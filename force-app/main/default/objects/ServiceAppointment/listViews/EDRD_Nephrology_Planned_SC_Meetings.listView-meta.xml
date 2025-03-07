@@ -24,8 +24,14 @@
         <operation>contains</operation>
         <value>Nephrology</value>
     </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ServiceAppointment.EDRD_Committee_Meeting</value>
+    </filters>
     <label>Nephrology Planned SC Meetings</label>
     <sharedTo>
-        <group>EDRD_Nephrology_Subcommittee</group>
+        <role>Developer</role>
+        <role>EDRD_Admin</role>
     </sharedTo>
 </ListView>

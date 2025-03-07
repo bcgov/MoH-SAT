@@ -1,0 +1,1302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Contact</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Contacts with Cases and Related Medication Dispense (FY)</description>
+    <join>
+        <join>
+            <outerJoin>false</outerJoin>
+            <relationship>Medication_Dispenses__r</relationship>
+        </join>
+        <outerJoin>false</outerJoin>
+        <relationship>Cases</relationship>
+    </join>
+    <label>Contacts with Cases and Related Medication Dispense (FY)</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Contact ID</displayNameOverride>
+            <field>Id</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account Name</displayNameOverride>
+            <field>Account</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Is Person Account</displayNameOverride>
+            <field>IsPersonAccount</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Full Name</displayNameOverride>
+            <field>Name</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Salutation</displayNameOverride>
+            <field>Salutation</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>First Name</displayNameOverride>
+            <field>FirstName</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Name</displayNameOverride>
+            <field>LastName</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Other Address</displayNameOverride>
+            <field>OtherAddress</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Other Street</displayNameOverride>
+            <field>OtherStreet</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Other City</displayNameOverride>
+            <field>OtherCity</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Other State/Province</displayNameOverride>
+            <field>OtherState</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Other Zip/Postal Code</displayNameOverride>
+            <field>OtherPostalCode</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Other Country</displayNameOverride>
+            <field>OtherCountry</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mailing Address</displayNameOverride>
+            <field>MailingAddress</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mailing Street</displayNameOverride>
+            <field>MailingStreet</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mailing City</displayNameOverride>
+            <field>MailingCity</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mailing State/Province</displayNameOverride>
+            <field>MailingState</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mailing Zip/Postal Code</displayNameOverride>
+            <field>MailingPostalCode</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mailing Country</displayNameOverride>
+            <field>MailingCountry</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Phone</displayNameOverride>
+            <field>Phone</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Fax</displayNameOverride>
+            <field>Fax</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mobile</displayNameOverride>
+            <field>MobilePhone</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Home Phone</displayNameOverride>
+            <field>HomePhone</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Mobile Phone</displayNameOverride>
+            <field>OtherPhone</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Birthdate</displayNameOverride>
+            <field>Birthdate</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Description</displayNameOverride>
+            <field>Description</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Contact Owner</displayNameOverride>
+            <field>Owner</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Activity</displayNameOverride>
+            <field>LastActivityDate</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Gender</displayNameOverride>
+            <field>Gender</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Deceased Date</displayNameOverride>
+            <field>DeceasedDate</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Identifier</displayNameOverride>
+            <field>Patient_Identifier__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Identifier</displayNameOverride>
+            <field>Provider_Identifier__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Type</displayNameOverride>
+            <field>Provider_Type__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Identifier Key</displayNameOverride>
+            <field>Provider_Identifier_Key__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Specialty</displayNameOverride>
+            <field>Provider_Specialty__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Specialty</displayNameOverride>
+            <field>ESA_Provider_Specialty__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient is Deceased</displayNameOverride>
+            <field>Patient_is_Deceased__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Bypass Validation</displayNameOverride>
+            <field>ESA_Bypass_Validation__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Age</displayNameOverride>
+            <field>EDRD_Age__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EDRD Ref No</displayNameOverride>
+            <field>EDRD_Ref_No__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Legacy EDRD Ref No</displayNameOverride>
+            <field>Legacy_EDRD_Ref_No__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Committee</displayNameOverride>
+            <field>Committee__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Committee Name</displayNameOverride>
+            <field>Committee_Name__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Is EDRD Provider</displayNameOverride>
+            <field>Is_EDRD_Provider__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Other Email</displayNameOverride>
+            <field>OtherEmail__c</field>
+            <table>Contact</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EDRD Bypass Validation</displayNameOverride>
+            <field>EDRD_Bypass_Validation__c</field>
+            <table>Contact</table>
+        </columns>
+        <masterLabel>Contacts</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case ID</displayNameOverride>
+            <field>Id</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Case Number</displayNameOverride>
+            <field>CaseNumber</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account Name</displayNameOverride>
+            <field>Account</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Asset</displayNameOverride>
+            <field>Asset</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Product</displayNameOverride>
+            <field>Product</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Entitlement Name</displayNameOverride>
+            <field>Entitlement</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Business Hours</displayNameOverride>
+            <field>BusinessHours</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Parent Case</displayNameOverride>
+            <field>Parent</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Type</displayNameOverride>
+            <field>Type</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Record Type</displayNameOverride>
+            <field>RecordType</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Status</displayNameOverride>
+            <field>Status</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Reason</displayNameOverride>
+            <field>Reason</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Origin</displayNameOverride>
+            <field>Origin</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Subject</displayNameOverride>
+            <field>Subject</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Priority</displayNameOverride>
+            <field>Priority</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Description</displayNameOverride>
+            <field>Description</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Closed</displayNameOverride>
+            <field>IsClosed</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Date/Time Closed</displayNameOverride>
+            <field>ClosedDate</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Owner</displayNameOverride>
+            <field>Owner</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Closed When Created</displayNameOverride>
+            <field>IsClosedOnCreate</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Stopped</displayNameOverride>
+            <field>IsStopped</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Stopped Since</displayNameOverride>
+            <field>StopStartDate</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Date/Time Opened</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Service Contract</displayNameOverride>
+            <field>ServiceContract</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>External Committee</displayNameOverride>
+            <field>External_Committee__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Address (Template)</displayNameOverride>
+            <field>Patient_Address_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient DOB (Template)</displayNameOverride>
+            <field>Patient_DOB_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Date of Birth</displayNameOverride>
+            <field>Patient_Date_of_Birth__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Identifier (Template)</displayNameOverride>
+            <field>Patient_Identifier_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Identifier</displayNameOverride>
+            <field>Patient_Identifier__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Name (Template)</displayNameOverride>
+            <field>Patient_Name_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Validated Date</displayNameOverride>
+            <field>Patient_Validated_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Validated</displayNameOverride>
+            <field>Patient_Validated__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Prescriber Address (Template)</displayNameOverride>
+            <field>Prescriber_Address_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Prescriber Fax (Template)</displayNameOverride>
+            <field>Prescriber_Fax_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Prescriber Identifier (Template)</displayNameOverride>
+            <field>Prescriber_Identifier_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Prescriber Name (Template)</displayNameOverride>
+            <field>Prescriber_Name_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Prescriber Phone (Template)</displayNameOverride>
+            <field>Prescriber_Phone_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Fax</displayNameOverride>
+            <field>Provider_Fax__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Validated Date</displayNameOverride>
+            <field>Provider_Validated_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Validated</displayNameOverride>
+            <field>Provider_Validated__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider</displayNameOverride>
+            <field>Provider__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Override Reason</displayNameOverride>
+            <field>Patient_Override_Reason__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Provider Override Reason</displayNameOverride>
+            <field>Prescriber_Override_Reason__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved by</displayNameOverride>
+            <field>Approved_by__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved date/time</displayNameOverride>
+            <field>Approved_date_time__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Auto Adjudicated Date</displayNameOverride>
+            <field>Auto_Adjudicated_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Closed by</displayNameOverride>
+            <field>Closed_by__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Adherence Issues</displayNameOverride>
+            <field>EDRD_Adherence_Issues__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Reason for adherence issues</displayNameOverride>
+            <field>EDRD_Reason_for_adherence_issues__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Type of adherence issues</displayNameOverride>
+            <field>EDRD_Type_of_adherence_issues__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient EMPI - Override Reason</displayNameOverride>
+            <field>EDRD_Patient_Override_Reason__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EDRD EMPI Override Reason Renewal</displayNameOverride>
+            <field>EDRD_EMPI_Override_Reason_Renewal__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EDRD ProviderName</displayNameOverride>
+            <field>EDRD_ProviderName__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Max Days Supply</displayNameOverride>
+            <field>Max_Days_Supply__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Has Provider</displayNameOverride>
+            <field>Has_Provider__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By HIBC Agents?</displayNameOverride>
+            <field>Created_By_HIBC_Agents__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Prescriber Type (Template)</displayNameOverride>
+            <field>Prescriber_Type_Template__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Verification</displayNameOverride>
+            <field>Patient_Verification__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approval Time Unit</displayNameOverride>
+            <field>ESA_Approval_Time_Unit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approval Time</displayNameOverride>
+            <field>ESA_Approval_Time__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Reason Patient Does Not Meet Criteria</displayNameOverride>
+            <field>EDRD_AC_Reason_Patient_Not_Meet_Criteria__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Recommendation Review</displayNameOverride>
+            <field>EDRD_AC_Recommendation_Review__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Review Funding Duration Unit</displayNameOverride>
+            <field>EDRD_AC_Review_Funding_Duration_Unit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Review Funding Duration</displayNameOverride>
+            <field>EDRD_AC_Review_Funding_Duration__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Review Notes</displayNameOverride>
+            <field>EDRD_AC_Review_Notes__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Review Pathway</displayNameOverride>
+            <field>EDRD_AC_Review_Pathway__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Additional Information</displayNameOverride>
+            <field>EDRD_Additional_information__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Annual Max Coverage</displayNameOverride>
+            <field>EDRD_Annual_Max_Coverage__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EDRD Bypass Eligibility Form</displayNameOverride>
+            <field>EDRD_Bypass_Eligibility_Form__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Eligible For RPh Review</displayNameOverride>
+            <field>EDRD_Case_Eligible_For_Rph_Review__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case meets clinical criteria</displayNameOverride>
+            <field>EDRD_Case_Fits_Criteria__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Reason Does Not Meet Criteria</displayNameOverride>
+            <field>EDRD_Case_Reason_Does_Not_Meet_Criteria__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Coverage Status</displayNameOverride>
+            <field>EDRD_Coverage_Status__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Drug Cost Forecast</displayNameOverride>
+            <field>EDRD_Drug_cost_forecast__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EDRD Eligibility Form Signed Date</displayNameOverride>
+            <field>EDRD_Eligibility_Form_Signed_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Funding Expiry Date</displayNameOverride>
+            <field>EDRD_Funding_Expiry_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Insurance Provider</displayNameOverride>
+            <field>EDRD_Insurance_Provider__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Lifetime Max Coverage</displayNameOverride>
+            <field>EDRD_Lifetime_Max_Coverage__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved Dosage Unit</displayNameOverride>
+            <field>EDRD_MOHApproved_Dosage_Unit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved Dosage</displayNameOverride>
+            <field>EDRD_MOHApproved_Dosage__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved Frequency Unit</displayNameOverride>
+            <field>EDRD_MOHApproved_Frequency_Unit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved Frequency</displayNameOverride>
+            <field>EDRD_MOHApproved_Frequency__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved Funding Duration Unit</displayNameOverride>
+            <field>EDRD_MOHApproved_Funding_Duration_Unit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Approved Funding Duration</displayNameOverride>
+            <field>EDRD_MOHApproved_Funding_Duration__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Comments</displayNameOverride>
+            <field>EDRD_MOHComments__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Total Drug Cost for All Approved Fiscal Years</displayNameOverride>
+            <field>EDRD_MOHDrug_Cost_Forecast__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Funding Decision</displayNameOverride>
+            <field>EDRD_MOHFunding_Decision__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Funding Expiry Date</displayNameOverride>
+            <field>EDRD_MOHFunding_Expiry_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Extension End Date</displayNameOverride>
+            <field>EDRD_MOHFunding_Extension_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Funding Start Date</displayNameOverride>
+            <field>EDRD_MOHFunding_Start_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Indefinite Funding</displayNameOverride>
+            <field>EDRD_MOHIndefinite_Funding__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>PharmaNet Approval</displayNameOverride>
+            <field>EDRD_MOHPharmaNet_Approval__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Notes</displayNameOverride>
+            <field>EDRD_Notes__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Meets Criteria for AC?</displayNameOverride>
+            <field>EDRD_Patient_Meets_Criteria_for_AC__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Meets Criteria for RPh?</displayNameOverride>
+            <field>EDRD_Patient_Meets_Criteria_for_Rph__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient Meets Criteria for SC?</displayNameOverride>
+            <field>EDRD_Patient_Meets_Criteria_for_SC__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Please Specify Other</displayNameOverride>
+            <field>EDRD_Please_specify_other__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>RPh Reason Patient Doesn&apos;t Meet Criteria</displayNameOverride>
+            <field>EDRD_RPH_Patient_Not_Meet_Criteria__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>RPh Review Funding Duration Unit</displayNameOverride>
+            <field>EDRD_RPH_Review_Funding_Duration_Unit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>RPh Review Funding Duration</displayNameOverride>
+            <field>EDRD_RPH_Review_Funding_Duration__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>RPh Review Notes</displayNameOverride>
+            <field>EDRD_RPH_Review_Notes__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>RPh Review Pathway</displayNameOverride>
+            <field>EDRD_RPH_Review_Pathway__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>RPh Simplified Review</displayNameOverride>
+            <field>EDRD_RPH_Simplified_Review__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>EDRD Ref No</displayNameOverride>
+            <field>EDRD_Ref_No__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>SC Reason Patient Does Not Meet Criteria</displayNameOverride>
+            <field>EDRD_SC_Reason_Patient_Not_Meet_Criteria__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>SC Recommendation Review</displayNameOverride>
+            <field>EDRD_SC_Recommendation_Review__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>SC Review Funding Duration Unit</displayNameOverride>
+            <field>EDRD_SC_Review_Funding_Duration_Unit__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>SC Review Funding Duration</displayNameOverride>
+            <field>EDRD_SC_Review_Funding_Duration__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>SC Review Notes</displayNameOverride>
+            <field>EDRD_SC_Review_Notes__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>SC Review Pathway</displayNameOverride>
+            <field>EDRD_SC_Review_Pathway__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>% of Coverage</displayNameOverride>
+            <field>EDRD_of_Coverage__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Indication</displayNameOverride>
+            <field>Indication__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Legacy External ID</displayNameOverride>
+            <field>Legacy_External_ID__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Medication Name</displayNameOverride>
+            <field>Medication_Name__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Record Type Name</displayNameOverride>
+            <field>Record_Type_Name__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Case Closure Reasons</displayNameOverride>
+            <field>EDRD_Case_closure_reasons__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Advisory Committee</displayNameOverride>
+            <field>EDRD_Advisory_Committee__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Is Provider Login</displayNameOverride>
+            <field>EDRD_Is_Provider_Login__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Committee Name</displayNameOverride>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Review Date</displayNameOverride>
+            <field>EDRD_AC_Review_Requested_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>AC Review Requested</displayNameOverride>
+            <field>EDRD_AC_Review_Requested__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Cost Per Dose</displayNameOverride>
+            <field>EDRD_Cost_Per_Dose__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>SC Review Date</displayNameOverride>
+            <field>EDRD_SC_Review_Requested_Date__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Legacy EDRD Reference Number</displayNameOverride>
+            <field>Legacy_EDRD_Reference_Number__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>EDRD_National_Committee__c</field>
+            <table>Contact.Cases</table>
+        </columns>
+        <masterLabel>Cases</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Medication Dispense ID</displayNameOverride>
+            <field>Id</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Name</displayNameOverride>
+            <field>Name</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Record Type</displayNameOverride>
+            <field>RecordType</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Patient</displayNameOverride>
+            <field>Patient</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Status</displayNameOverride>
+            <field>Status</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Medication Administration Setting Category</displayNameOverride>
+            <field>MedAdministrationSettingCategory</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Medication</displayNameOverride>
+            <field>Medication</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Context</displayNameOverride>
+            <field>Context</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Healthcare Facility</displayNameOverride>
+            <field>HealthcareFacility</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Primary Medication Request</displayNameOverride>
+            <field>PrimaryMedicationRequest</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Quantity</displayNameOverride>
+            <field>Quantity</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Quantity Unit</displayNameOverride>
+            <field>QuantityUnit</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Supply Days Count</displayNameOverride>
+            <field>SupplyDaysCount</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Prepared Date</displayNameOverride>
+            <field>PreparedDateTime</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Dispensed Date</displayNameOverride>
+            <field>DispensedDateTime</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Source System</displayNameOverride>
+            <field>SourceSystem</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Source System Id</displayNameOverride>
+            <field>SourceSystemIdentifier</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Source System Modified Date</displayNameOverride>
+            <field>SourceSystemModifiedDateTime</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Primary Procedure</displayNameOverride>
+            <field>PrimaryProcedure</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Is Substituted</displayNameOverride>
+            <field>IsSubstituted</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Substitution Type</displayNameOverride>
+            <field>SubstitutionType</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Substitution Reason</displayNameOverride>
+            <field>SubstitutionReason</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Primary Detected Issue</displayNameOverride>
+            <field>PrimaryDetectedIssue</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Status Reason Related Issue</displayNameOverride>
+            <field>StatusReasonRelatedIssue</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>End Date</displayNameOverride>
+            <field>EDRD_End_Date__c</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>First Dose At</displayNameOverride>
+            <field>EDRD_First_Dose_At__c</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Fiscal Year Drug Cost</displayNameOverride>
+            <field>EDRD_Forecasted_Amount__c</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Dose At</displayNameOverride>
+            <field>EDRD_Last_Dose_At__c</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Start Date</displayNameOverride>
+            <field>EDRD_Start_Date__c</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Fiscal Year</displayNameOverride>
+            <field>EDRD_Fiscal_Year__c</field>
+            <table>Contact.Cases.Medication_Dispenses__r</table>
+        </columns>
+        <masterLabel>Medication Dispenses</masterLabel>
+    </sections>
+</ReportType>

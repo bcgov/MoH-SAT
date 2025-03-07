@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>Case$EDRD_Ref_No__c</field>
-    </columns>
-    <columns>
-        <field>Case$Type</field>
-    </columns>
-    <columns>
-        <field>Case.Medication_Dispenses__r$Medication</field>
-    </columns>
-    <columns>
-        <field>Case$EDRD_MOHFunding_Decision__c</field>
-    </columns>
-    <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>Case$EDRD_MOHDrug_Cost_Forecast__c</field>
-    </columns>
-    <columns>
-        <field>Case.Medication_Dispenses__r$EDRD_Start_Date__c</field>
-    </columns>
-    <columns>
-        <field>Case.Medication_Dispenses__r$EDRD_End_Date__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
@@ -41,21 +23,18 @@
             <operator>equals</operator>
             <value>MedicationDispense.EDRD_FY_Medication_Dispense</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>Case.Medication_Dispenses__r$EDRD_Fiscal_Year__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>FY-2025</value>
+        </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case.Medication_Dispenses__r$EDRD_Fiscal_Year__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>Case.Medication_Dispenses__r$Case__c</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsDown>
-    <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>Case.Medication_Dispenses__r$Patient</field>
+        <field>Case.Medication_Dispenses__r$Medication</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <name>Annual drug cost forecast</name>
@@ -65,7 +44,7 @@
     </params>
     <reportType>Cases_with_Medication_Dispenses_FY__c</reportType>
     <scope>organization</scope>
-    <showDetails>true</showDetails>
+    <showDetails>false</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>false</showSubTotals>
     <timeFrameFilter>

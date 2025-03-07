@@ -293,12 +293,12 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
     }
 
     disconnectedCallback() {
-        this.patientFirstName = NULL;
-        this.patientLastName = NULL;
-        this.patientGender = NULL;
-        this.patientBirthdate = NULL;
-        this.patientIdentifier = NULL ;
-        this.patient_IdentifierManual = NULL;
+        this.patientFirstName = '';
+        this.patientLastName = '';
+        this.patientGender = '';
+        this.patientBirthdate = '';
+        this.patientIdentifier = '';
+        this.patient_IdentifierManual = '';
         this.isCreatePatientManuallyChecked = false;
     }
 }

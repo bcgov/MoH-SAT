@@ -1,0 +1,42 @@
+<template>
+    <lightning-card>
+        <template if:true={showDataTable}>
+            <div class="slds-box slds-p-around_medium" style="border: 4px solid #000;">
+                <div class="slds-grid slds-align_absolute-center slds-m-bottom_large">
+                    <div class="slds-col slds-size_1-of-12 slds-text-align_center">
+                        <img src="/resource/EDRDBCLogo/BC-MoHLogo.jpg" alt="BC-MoHLogo" width="100" height="100">
+                    </div>
+                    <div class="slds-col slds-text-align_center">
+                        <span style="font-size: 1.5rem; font-weight: bold; font-family: 'Times New Roman', Times, serif; font-style: italic;">
+                            Expensive Drugs For Rare Diseases - BC-Ministry Of Health
+                        </span>
+                    </div>
+                </div>
+                <div class="slds-col slds-text-align_left slds-m-top_small">
+                    <p style="font-size: 1rem; font-weight: bold; font-family: 'Times New Roman', Times, serif; font-style: italic;">
+                        Here are the Assessment Responses:
+                    </p>
+                    <p style="margin: 1rem 0;"></p>
+                </div>
+
+                <template for:each={data} for:item="group">
+                    <div key={group.heading} class="slds-m-bottom_medium" style="border-bottom: 1px solid #d8dde6; padding-bottom: 1rem;">
+                        <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">
+                            {group.heading}
+                        </h3>
+                        <template for:each={group.questionsAndAnswers} for:item="qa">
+                            <div key={qa.question} style="margin-left: 1rem; padding-bottom: 0.5rem;">
+                                <p style="margin: 0;">
+                                    <strong>{qa.question}</strong>
+                                </p>
+                                <p style="margin-left: 1rem;">
+                                    {qa.answer}
+                                </p>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

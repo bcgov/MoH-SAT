@@ -24,8 +24,15 @@
         <operation>contains</operation>
         <value>Cardiac</value>
     </filters>
+    <filters>
+        <field>RecordType</field>
+        <operation>equals</operation>
+        <value>ServiceAppointment.EDRD_Committee_Meeting</value>
+    </filters>
     <label>Cardiac Completed SC Meetings</label>
     <sharedTo>
         <group>EDRD_Cardiac_Clinical_Subcommittee</group>
+        <role>Developer</role>
+        <role>EDRD_Admin</role>
     </sharedTo>
 </ListView>
