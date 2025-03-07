@@ -10,7 +10,8 @@
     Contact.Account.RecordType.DeveloperName != &apos;Committee_Reviewer&apos;),
     OR(INCLUDES(Roles, &apos;Reviewer&apos;),
     INCLUDES(Roles, &apos;Chair&apos;),
-    INCLUDES(Roles, &apos;Vice Chair&apos;))
+    INCLUDES(Roles, &apos;Vice Chair&apos;),
+				INCLUDES(Roles, &apos;Physician&apos;))
 )</errorConditionFormula>
-    <errorMessage>An EDRD user can only associate a Provider or Committee Reviewer with an EDRD Committee Account.</errorMessage>
+    <errorMessage>An EDRD user can only associate a contact of Provider or Committee Reviewer with an EDRD Committee Account with Roles includes Reviewer, Chair or Vice Chair.</errorMessage>
 </ValidationRule>
