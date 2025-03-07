@@ -10,11 +10,9 @@ global with sharing class ContentVersionBatch implements Database.Batchable<SObj
         // Query ContentVersion records from the last 2 weeks
         // Exclude records that already have a ContentDistribution
         return Database.getQueryLocator([
-            SELECT Id, Title 
-            FROM ContentVersion 
-            WHERE CreatedDate = LAST_N_DAYS:14 
-            AND Id NOT IN (
-                SELECT ContentVersionId FROM ContentDistribution
+            SELECT Id, Title FROM ContentVersion WHERE CreatedDate = LAST_N_DAYS:14 
+                AND Id NOT IN (SELECT ContentVersionId FROM ContentDistribution
+                    WHERE CreatedDate = LAST_N_DAYS:15
             )
         ]);
     }
