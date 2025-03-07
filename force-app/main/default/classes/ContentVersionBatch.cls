@@ -4,7 +4,7 @@
 * @Description: The class is used to create ContentDistribution for every Contentversion inserted.
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
 ***********************************************************************************************/
-global without sharing class ContentVersionBatch implements Database.Batchable<SObject> {
+global with sharing class ContentVersionBatch implements Database.Batchable<SObject> {
     
     global Database.QueryLocator start(Database.BatchableContext BC) {
         // Query ContentVersion records from the last 2 weeks
