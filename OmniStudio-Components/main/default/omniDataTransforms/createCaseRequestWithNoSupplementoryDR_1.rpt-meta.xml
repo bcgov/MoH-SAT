@@ -88,6 +88,23 @@
     <name>createCaseRequestWithNoSupplementoryDR</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;New&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
+        <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;New&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
+        <formulaResultPath>CaseOverride</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom3827</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <defaultValue>EDRD_Medication_Request</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -260,6 +277,23 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;Renewal&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
+        <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;Renewal&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
+        <formulaResultPath>RenewalCaseOverride</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom1243</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <defaultValue>Received - Awaiting Verification</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -319,7 +353,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem3</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:Overridereason</inputFieldName>
+        <inputFieldName>CaseOverride</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
@@ -843,6 +877,20 @@
         <name>createCaseRequestWithNoSupplementoryDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom9449</globalKey>
+        <inputFieldName>RenewalCaseOverride</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_EMPI_Override_Reason_Renewal__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
