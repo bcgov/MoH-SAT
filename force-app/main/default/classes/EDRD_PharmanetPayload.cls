@@ -42,9 +42,9 @@ Date : 19/Feb/2025
 --------------------------------------------------------------------------*/
     
     public void getPharmanetDecisionTable(String jsonInput, Map<String,Object> outputMap)
-    {
-        
+    {     
         EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
+        
         DecisionTable dt = new Elevated().getDTId(ESA_cls_constants.PharmaNetPayloads); 
         ConnectApi.DecisionTableInput input = new ConnectApi.DecisionTableInput();
         input.conditions = new List<ConnectApi.DecisionTableCondition>();
@@ -73,16 +73,12 @@ Date : 19/Feb/2025
         if (decisionOutcome != null && decisionOutcome.successStatus) 
         {           
             List<ConnectApi.DecisionTableOutcomeItem> decisionTableItems = decisionOutcome.outcomeList;
-            List<EDRD_PharmanetWrapper.OutputWrapper > outputWrappers = new List<EDRD_PharmanetWrapper.OutputWrapper >();
-    
+            List<EDRD_PharmanetWrapper.OutputWrapper > outputWrappers = new List<EDRD_PharmanetWrapper.OutputWrapper >();    
             for (ConnectApi.DecisionTableOutcomeItem item : decisionTableItems) 
             {
-
-                EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper(); 
-                
+                EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();                 
                 wrapper.din = (String) item.values.get(ESA_cls_constants.DIN);
-                DateTime effectiveDate = inputWrapper.caseFundingStartdate;
-                wrapper.effectiveDate = effectiveDate.Date();
+                wrapper.effectiveDate = inputWrapper.caseFundingStartdate;
                 wrapper.excludedPlans = (String) item.values.get(ESA_cls_constants.ExcludedPlans);
                 wrapper.isPharmaNetSubmitSuccessfull = Boolean.ValueOf(inputWrapper.casePushToPnet);
                 wrapper.justificationCodes = (String) item.values.get(ESA_cls_constants.JustificationCode);
@@ -97,10 +93,8 @@ Date : 19/Feb/2025
                 outputWrappers.add(wrapper);
             }
             String result = Json.serialize(outputWrappers);
-            outputMap.put('pharmanetOutput',JSON.deserializeuntyped(result)); 
-            
+            outputMap.put('pharmanetOutput',JSON.deserializeuntyped(result));             
         }
-
         return;              
     }
 /*-------------------------------------------------------------------
@@ -113,29 +107,25 @@ Date : 19/Feb/2025
     public void updateSubmitPharmanet(String jsonInput, Map<String,Object> outputMap)
     {
         EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();     
-        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
-        
+        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);       
         try
         {
             saaRequestAPICallout(inputWrapper);
             if(!Test.isRunningTest()){
-                Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY LastModifiedDate DESC LIMIT 1];
+                Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY CreatedDate DESC LIMIT 1];
                 wrapper.isSubmitSuccessful = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c));
             	wrapper.isPharmaNetSubmitSuccessfull = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c)); // Show for read only
-        }
-            
+        }            
        		updateCaseRec(inputWrapper);
         	outputMap.put('isPharmaNetSubmitSuccessfull',wrapper.isPharmaNetSubmitSuccessfull); // for Read-only
-            outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); // Success message displaying
-            
+            outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); // Success message displaying            
         }
         catch(Exception e)
         {	
             if(!Test.isRunningTest()){
-            Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY LastModifiedDate DESC LIMIT 1];
-            wrapper.ErrorMessage = intRecord.Message__c;    
-            }
-            
+            Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY CreatedDate DESC LIMIT 1];
+                wrapper.ErrorMessage = intRecord.Message__c; 
+            }            
             wrapper.isPharmaNetSubmitSuccessfull = false;
             wrapper.isSubmitSuccessful = false;
             outputMap.put('isPharmaNetSubmitSuccessfull', wrapper.isPharmaNetSubmitSuccessfull); 
@@ -165,8 +155,7 @@ Date : 19/Feb/2025
         if(!Test.isRunningTest()){
         outputMap.put('ismarkPushedToPharmanet',wrapper.ismarkPushedToPharmanet); 
         }
-      return;
-        
+      return;        
     }
     public void saaRequestAPICallout(EDRD_PharmanetWrapper.InputWrapper inputWrapper)
     {
@@ -175,19 +164,15 @@ Date : 19/Feb/2025
         if(inputWrapper.excludedPlans.contains(',')){
              excludedPlansList = inputWrapper.excludedPlans.split(',');
         }
-        else{ excludedPlansList = new List<String>{inputWrapper.excludedPlans}; }
-        
+        else{ excludedPlansList = new List<String>{inputWrapper.excludedPlans}; }        
         if(inputWrapper.rdp.contains('-')){
             inputWrapper.rdp = inputWrapper.rdp.replace('-', '');
-        }
-        
-        Boolean isSuccess = false;
-        
+        }        
+        Boolean isSuccess = false;        
         SAApprovalRequest saaRequest = new SAApprovalRequest();
         saaRequest.saRecord = new SAApprovalRequest.SARecord();
         saaRequest.saRecord.saRequester = new SAApprovalRequest.SARequester();
-        saaRequest.saRecord.specialItem = new SAApprovalRequest.SpecialItem();
-        
+        saaRequest.saRecord.specialItem = new SAApprovalRequest.SpecialItem();        
         saaRequest.saRecord.terminationDate = inputWrapper.terminationDate != 'null' ? String.ValueOf(inputWrapper.terminationDate) : 'null' ;
         saaRequest.saRecord.specAuthType = inputWrapper.specAuthType;
         saaRequest.saRecord.phn = inputWrapper.phn;
@@ -199,9 +184,9 @@ Date : 19/Feb/2025
         saaRequest.saRecord.maxDaysSupply = Integer.valueof(inputWrapper.maxDaysSupply);
         saaRequest.saRecord.maxPricePct = inputWrapper.maxPricePct;
         saaRequest.saRecord.justificationCodes = justificationCodesList;
-        saaRequest.saRecord.excludedPlans = excludedPlansList;       
-        saaRequest.saRecord.specialItem.din =  String.valueof(inputWrapper.din);
-        saaRequest.saRecord.specialItem.rdp =  String.valueof(inputWrapper.rdp);
+        saaRequest.saRecord.excludedPlans = excludedPlansList;      
+        if(!String.isBlank(inputWrapper.din)){saaRequest.saRecord.specialItem.din =  String.valueof(inputWrapper.din);}
+        if(!String.isBlank(inputWrapper.rdp)){saaRequest.saRecord.specialItem.rdp =  String.valueof(inputWrapper.rdp);}
         if(!Test.isRunningTest()){
             PharmanetPayloadController.submitSinglePnetSar(inputWrapper.caseId, saaRequest);           
         }
