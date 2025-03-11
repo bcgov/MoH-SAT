@@ -6,8 +6,7 @@ Version : 1.0
 Devloper Name : Accenture.
 Date : 02/Feb/2024
 -------------------------------------------------------------------------*/
-public class EDRD_PharmanetWrapper {
-    
+public class EDRD_PharmanetWrapper {    
     public class InputWrapper 
     {
         public String applicationName {get;set;}
@@ -18,8 +17,8 @@ public class EDRD_PharmanetWrapper {
         public String decCode {get; set;}
         public String justificationCodes {get; set;}
 		public String excludedPlans {get; set;}
-        public String excludePlan {get;set;}       
-		public DateTime effectiveDate {get; set;}        
+        public String excludePlan {get;set;}        
+		public Date effectiveDate {get; set;}         
         public String indication {get; set;}
         public String medicationName {get; set;}
         public Double maxDaysSupply {get;set;}
@@ -34,8 +33,7 @@ public class EDRD_PharmanetWrapper {
         public String specAuthType {get; set;}
         public Boolean casePushToPnet {get; set;}
         public Date caseFundingStartdate {get; set;}
-        public String orginalTerminationDate {get; set;}
-		
+        public String orginalTerminationDate {get; set;}		
     }
     public class OutputWrapper 
     {
@@ -61,6 +59,4 @@ public class EDRD_PharmanetWrapper {
         public String rdp {get; set;}
         public String specAuthType {get; set;}
     }
-   
-
 }

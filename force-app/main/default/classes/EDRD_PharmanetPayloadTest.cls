@@ -66,7 +66,7 @@ private class EDRD_PharmanetPayloadTest {
         inputWrapper.phn = '1234567890';
         inputWrapper.caseId = testCase.Id;
         inputWrapper.practIdRef = '91-';
-        inputWrapper.effectiveDate = (DateTime)Date.Today();
+        inputWrapper.effectiveDate = Date.Today();
         inputWrapper.excludedPlans = 'D,G'; 
         inputWrapper.justificationCodes = '0';
         inputWrapper.specAuthType = 'B';
@@ -84,7 +84,7 @@ private class EDRD_PharmanetPayloadTest {
     static void testMarkPushedToPharmanet() {
         // Create a mock Case
         Case testCase = new Case(
-            Status = 'Funding Approved',
+            Status = ESA_cls_constants.FundingApproved,
             Subject = 'Test Case',
             Priority = 'High',
             Origin = 'Email'
