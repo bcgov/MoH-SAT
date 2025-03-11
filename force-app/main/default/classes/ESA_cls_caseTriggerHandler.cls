@@ -276,25 +276,25 @@ public with sharing class ESA_cls_caseTriggerHandler {
         Map<Id, CareProgramEnrollee> patientIdVsCarePrgEnrolle = new Map<Id, CareProgramEnrollee>();
         
         for(Case caseObj: newCaseList){
-            Boolean isAccountIdChanged = trigger.isUpdate && newCaseMap.get(caseObj.Id).accountId != oldCaseMap.get(caseObj.Id).accountId;
-            if(!String.isEmpty(caseObj.AccountId) && caseObj.RecordTypeId == recordTypeCaseEDRD && 
+            Boolean isAccountIdChanged = trigger.isUpdate && newCaseMap.get(caseObj.Id).ContactId != oldCaseMap.get(caseObj.Id).ContactId;
+            if(!String.isEmpty(caseObj.ContactId) && caseObj.RecordTypeId == recordTypeCaseEDRD && 
                (trigger.isInsert || isAccountIdChanged)){
-                   patientIdVsCase.put(caseObj.AccountId, caseObj);
+                   patientIdVsCase.put(caseObj.ContactId, caseObj);
                }
         }
         if(!patientIdVsCase.isEmpty()){
-            List<Account> accList = [SELECT Id, Name, (SELECT Id, Name, CareProgramId FROM AccountCareProgramEnrollees 
+            List<Account> accList = [SELECT Id, Name, Account.PersonContactId, (SELECT Id, Name, CareProgramId FROM AccountCareProgramEnrollees 
                                                        WHERE CareProgram.Name = 'EDRD') FROM Account 
-                                     WHERE Id IN: patientIdVsCase.keySet()];
+                                     WHERE PersonContactId IN: patientIdVsCase.keySet()];
             
             for(Account accObj : accList){
                 if(!accObj.AccountCareProgramEnrollees.isEmpty()){
-                    patientIdVsCarePrgEnrolle.put(accObj.Id, accOBj.AccountCareProgramEnrollees[0]);
+                    patientIdVsCarePrgEnrolle.put(accObj.PersonContactId, accOBj.AccountCareProgramEnrollees[0]);
                 }            
             }
             
             for(Case caseObj: newCaseList){
-                caseObj.EDRD_Ref_No__c = patientIdVsCarePrgEnrolle?.get(CaseObj?.AccountId)?.Name;
+                caseObj.EDRD_Ref_No__c = patientIdVsCarePrgEnrolle?.get(CaseObj?.ContactId)?.Name;
             }
         }
     }
@@ -386,4 +386,32 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Database.Update(accIdVsRecToUpdate.values(), true);
         }
     }
+/**
+* @author: Accenture
+* @date: 19 Oct 2025
+* @description: The purpose of this method is to update Status of Care Program Enrolee From Inactive to Active while creating the case from Provider Portal.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+public static void updateCareProgramEnrolee(List<case> newCases){
+    Set<Id> personAccounts = new Set<Id>();
+    List<CareProgramEnrollee> cpeRecordsToUpdate = new List <CareProgramEnrollee>();
+    for(Case caseRec : newCases){
+        if(caseRec.AccountId != null){
+            personAccounts.add(caseRec.AccountId);
+        }
+    }
+    List<CareProgramEnrollee> cpeRecords = [SELECT Id, Status FROM CareProgramEnrollee WHERE AccountId IN : personAccounts];
+    if(!cpeRecords.isEmpty()){
+        for(CareProgramEnrollee cpeRec : cpeRecords){
+            if(ESA_cls_constants.EDRD_Inactive.equals(String.ValueOf(cpeRec.Status))){
+                cpeRec.Status = ESA_cls_constants.EDRD_Active;
+                cpeRecordsToUpdate.add(cpeRec);
+            }
+        }
+        if(!cpeRecordsToUpdate.isEmpty()){
+            update cpeRecordsToUpdate;
+        }
+    }
+}
+
 }

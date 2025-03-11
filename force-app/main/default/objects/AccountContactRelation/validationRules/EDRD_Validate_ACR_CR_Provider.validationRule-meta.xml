@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_ACR_CR_Provider</fullName>
+    <active>true</active>
+    <description>This validation rule ensures that when an Account Contact Relation is associated with an Account of type &apos;Committee&apos;, and the user&apos;s role contains &apos;EDRD&apos;, the Contact&apos;s related Account must be of type &apos;Provider/Reviewer&apos;.</description>
+    <errorConditionFormula>AND(
+    CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+    Account.RecordType.DeveloperName = &apos;EDRD_Committee&apos;,
+    OR(Contact.Account.RecordType.DeveloperName != &apos;Provider&apos;,
+    Contact.Account.RecordType.DeveloperName != &apos;Committee_Reviewer&apos;),
+    OR(INCLUDES(Roles, &apos;Reviewer&apos;),
+    INCLUDES(Roles, &apos;Chair&apos;),
+    INCLUDES(Roles, &apos;Vice Chair&apos;),
+				INCLUDES(Roles, &apos;Physician&apos;))
+)</errorConditionFormula>
+    <errorMessage>An EDRD user can only associate a contact of Provider or Committee Reviewer with an EDRD Committee Account with Roles includes Reviewer, Chair or Vice Chair.</errorMessage>
+</ValidationRule>
