@@ -111,12 +111,12 @@ Date : 19/Feb/2025
         try
         {
             saaRequestAPICallout(inputWrapper);
+	    updateCaseRec(inputWrapper);
             if(!Test.isRunningTest()){
                 Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY CreatedDate DESC LIMIT 1];
                 wrapper.isSubmitSuccessful = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c));
             	wrapper.isPharmaNetSubmitSuccessfull = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c)); // Show for read only
         }            
-       		updateCaseRec(inputWrapper);
         	outputMap.put('isPharmaNetSubmitSuccessfull',wrapper.isPharmaNetSubmitSuccessfull); // for Read-only
             outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); // Success message displaying            
         }
