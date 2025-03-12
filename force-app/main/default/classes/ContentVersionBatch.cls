@@ -45,7 +45,7 @@ global with sharing class ContentVersionBatch implements Database.Batchable<SObj
             distributionsToInsert.add(newDist);
         }
         
-        if (!distributionsToInsert.isEmpty()) {
+        if (!distributionsToInsert.isEmpty()  ) {
             insert distributionsToInsert;
         }
     }
