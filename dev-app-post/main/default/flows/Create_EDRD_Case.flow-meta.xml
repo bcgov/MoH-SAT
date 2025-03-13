@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <apiVersion>59.0</apiVersion>
+    <apiVersion>61.0</apiVersion>
     <choices>
         <name>AC_Review</name>
         <choiceText>AC Review</choiceText>
@@ -408,7 +408,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>EDRD Staff error message</description>
+    <description>Updates to HC Approved Dosage, Frequency &amp; Funding Duration fields to decimals.</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -1978,7 +1978,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
+                    <scale>2</scale>
                 </fields>
                 <fields>
                     <name>Requested_Frequency</name>
@@ -1990,7 +1990,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
+                    <scale>2</scale>
                 </fields>
                 <fields>
                     <name>Indefinite_Funding_initial</name>
@@ -2020,7 +2020,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
+                    <scale>2</scale>
                     <visibilityRule>
                         <conditionLogic>or</conditionLogic>
                         <conditions>
@@ -2374,7 +2374,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
+                    <scale>2</scale>
                 </fields>
                 <fields>
                     <name>Renewal_Requested_Frequency</name>
@@ -2386,7 +2386,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
+                    <scale>2</scale>
                 </fields>
                 <fields>
                     <name>Indefinite_Funding_Renewal</name>
@@ -2416,7 +2416,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>0</scale>
+                    <scale>2</scale>
                     <visibilityRule>
                         <conditionLogic>or</conditionLogic>
                         <conditions>
