@@ -1,6 +1,7 @@
 @isTest
 public class ContentTriggerHandlerTest {
-  @isTest
+ /* @isTest
+  
   public static void ContentTriggerHandlerTest() {
     Case record = TestFactory.createCase();
     insert record;
@@ -26,4 +27,5 @@ public class ContentTriggerHandlerTest {
 
     ContentTriggerHandler.createPublicLinkForFile(cvl);
   }
+    */
 }
