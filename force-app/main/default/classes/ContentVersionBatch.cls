@@ -9,21 +9,35 @@ global with sharing class ContentVersionBatch implements Database.Batchable<SObj
     global Database.QueryLocator start(Database.BatchableContext BC) {
         // Query ContentVersion records from the last 2 weeks
         // Exclude records that already have a ContentDistribution
-        return Database.getQueryLocator([
+        return Database.getQueryLocator([ 
             SELECT Id, Title FROM ContentVersion WHERE CreatedDate = LAST_N_DAYS:15 
-                AND Id NOT IN (SELECT ContentVersionId FROM ContentDistribution
-                    WHERE CreatedDate = LAST_N_DAYS:16
-            )
-        ]);
+            AND Id NOT IN (SELECT ContentVersionId FROM ContentDistribution
+                           WHERE CreatedDate = LAST_N_DAYS:16
+                          )]);
     }
     
     global void execute(Database.BatchableContext BC, List<ContentVersion> scope) {
-       List<ContentDistribution> distributionsToInsert = new List<ContentDistribution>();
+        List<ContentDistribution> distributionsToInsert = new List<ContentDistribution>();
+        
+        // The max length for the Name
+        Integer maxLength = 100;
         
         for (ContentVersion objContentVersion : scope) {
             ContentDistribution newDist = new ContentDistribution();
             newDist.ContentVersionId = objContentVersion.Id;
-            newDist.Name = objContentVersion.Title;
+            
+            // Trim any leading or trailing whitespace
+            String title = objContentVersion.Title;
+            if (title != null) {
+                title = title.trim();  
+                
+                if (title.length() > maxLength) {
+                    // Truncate title to 100 characters if necessary
+                    title = title.substring(0, maxLength);
+                }
+            }
+            
+            newDist.Name = title;
             newDist.PreferencesNotifyOnVisit = false;
             newDist.PreferencesAllowViewInBrowser = true;
             newDist.PreferencesAllowOriginalDownload = true;
