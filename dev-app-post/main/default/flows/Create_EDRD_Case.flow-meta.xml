@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <name>Send_Email_Notification</name>
+        <label>Send Email Notification</label>
+        <locationX>182</locationX>
+        <locationY>4214</locationY>
+        <actionName>EDRD_SendNewCaseCreationNotification</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Sucees</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>caselist</name>
+            <value>
+                <elementReference>StoreNewCase</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>EDRD_SendNewCaseCreationNotification</nameSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>Send_Email_Notification_Renewal</name>
+        <label>Send Email Notification Renewal</label>
+        <locationX>970</locationX>
+        <locationY>4226</locationY>
+        <actionName>EDRD_SendNewCaseCreationNotification</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Success</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>caselist</name>
+            <value>
+                <elementReference>StoreRenewalCase</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>EDRD_SendNewCaseCreationNotification</nameSegment>
+    </actionCalls>
     <apiVersion>59.0</apiVersion>
     <choices>
         <name>AC_Review</name>
@@ -57,8 +95,8 @@
     <decisions>
         <name>Choose_case_option</name>
         <label>Choose case option</label>
-        <locationX>446</locationX>
-        <locationY>2894</locationY>
+        <locationX>578</locationX>
+        <locationY>2942</locationY>
         <defaultConnector>
             <targetReference>Get_Case_Record_Type_for_renewal</targetReference>
         </defaultConnector>
@@ -82,8 +120,8 @@
     <decisions>
         <name>Copy_1_of_Renewal_Indefinite_Funding_check2</name>
         <label>Renewal Indefinite Funding check</label>
-        <locationX>710</locationX>
-        <locationY>3626</locationY>
+        <locationX>974</locationX>
+        <locationY>3566</locationY>
         <defaultConnector>
             <targetReference>Create_Medication_Request_with_New_Renewal_Case_without_indef</targetReference>
         </defaultConnector>
@@ -107,8 +145,8 @@
     <decisions>
         <name>Decision_10</name>
         <label>Renewal Indefinite Funding check</label>
-        <locationX>710</locationX>
-        <locationY>3110</locationY>
+        <locationX>974</locationX>
+        <locationY>3158</locationY>
         <defaultConnector>
             <targetReference>New_renewal_case_creation_for_RecType_Renew_without_indef</targetReference>
         </defaultConnector>
@@ -132,8 +170,8 @@
     <decisions>
         <name>Medication_details_New_Renewal_decision</name>
         <label>Medication details New/Renewal decision</label>
-        <locationX>644</locationX>
-        <locationY>2186</locationY>
+        <locationX>776</locationX>
+        <locationY>2234</locationY>
         <defaultConnector>
             <targetReference>Renwal_Medication_details</targetReference>
         </defaultConnector>
@@ -158,7 +196,7 @@
         <name>New_Indefinite_Funding_check</name>
         <label>New Indefinite Funding check</label>
         <locationX>182</locationX>
-        <locationY>3110</locationY>
+        <locationY>3158</locationY>
         <defaultConnector>
             <targetReference>New_case_Creation_for_Rec_type_New_without_indef</targetReference>
         </defaultConnector>
@@ -183,7 +221,7 @@
         <name>New_Indefinite_Funding_check2</name>
         <label>New Indefinite Funding check</label>
         <locationX>182</locationX>
-        <locationY>3626</locationY>
+        <locationY>3566</locationY>
         <defaultConnector>
             <targetReference>Create_Medication_request_with_New_Case_without_indef</targetReference>
         </defaultConnector>
@@ -207,8 +245,8 @@
     <decisions>
         <name>Other_Medication_Decision</name>
         <label>Other Medication Decision</label>
-        <locationX>446</locationX>
-        <locationY>1970</locationY>
+        <locationX>578</locationX>
+        <locationY>2018</locationY>
         <defaultConnector>
             <targetReference>Indication_Screen</targetReference>
         </defaultConnector>
@@ -239,8 +277,8 @@
     <decisions>
         <name>validate_ACR_Relationship</name>
         <label>validate_ACR_Relationship</label>
-        <locationX>908</locationX>
-        <locationY>1538</locationY>
+        <locationX>1238</locationX>
+        <locationY>1586</locationY>
         <defaultConnector>
             <targetReference>No_ACR_ErrorScreen</targetReference>
         </defaultConnector>
@@ -307,8 +345,8 @@
     <decisions>
         <name>validate_CPERecord</name>
         <label>validate_CPERecord</label>
-        <locationX>1535</locationX>
-        <locationY>1106</locationY>
+        <locationX>1964</locationX>
+        <locationY>1154</locationY>
         <defaultConnector>
             <targetReference>CPE_NoCPE_ErrorScreen</targetReference>
         </defaultConnector>
@@ -361,8 +399,8 @@
     <decisions>
         <name>validate_EDRDCPRecord</name>
         <label>validate_EDRDCPRecord</label>
-        <locationX>2112</locationX>
-        <locationY>890</locationY>
+        <locationX>2591</locationX>
+        <locationY>938</locationY>
         <defaultConnector>
             <targetReference>CP_ErrorScreen</targetReference>
         </defaultConnector>
@@ -386,8 +424,8 @@
     <decisions>
         <name>validate_Is_patient_deceased</name>
         <label>validate_Is_patient_deceased</label>
-        <locationX>2665</locationX>
-        <locationY>674</locationY>
+        <locationX>3168</locationX>
+        <locationY>722</locationY>
         <defaultConnector>
             <targetReference>PatientDeceased_ErrorScreen</targetReference>
         </defaultConnector>
@@ -408,7 +446,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Updates to HC Approved Dosage, Frequency &amp; Funding Duration fields to decimals.</description>
+    <description>EDRD Staff error message</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -471,7 +509,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -485,7 +523,7 @@
         <name>Create_Medication_request_with_New_Case</name>
         <label>Create Medication request with New Case</label>
         <locationX>50</locationX>
-        <locationY>3626</locationY>
+        <locationY>3674</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Get_New_Case</targetReference>
@@ -592,7 +630,7 @@
         <name>Create_Medication_request_with_New_Case_without_indef</name>
         <label>Create Medication request with New Case without indef</label>
         <locationX>314</locationX>
-        <locationY>3626</locationY>
+        <locationY>3674</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Get_New_Case</targetReference>
@@ -696,7 +734,7 @@
         <name>Create_Medication_Request_with_New_Renewal_Case</name>
         <label>Create Medication Request with New Renewal Case</label>
         <locationX>842</locationX>
-        <locationY>3626</locationY>
+        <locationY>3674</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Get_Renewal_Case</targetReference>
@@ -803,7 +841,7 @@
         <name>Create_Medication_Request_with_New_Renewal_Case_without_indef</name>
         <label>Create Medication Request with New Renewal Case without indef</label>
         <locationX>1106</locationX>
-        <locationY>3626</locationY>
+        <locationY>3674</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
             <targetReference>Get_Renewal_Case</targetReference>
@@ -907,7 +945,7 @@
         <name>New_case_Creation_for_Rec_type_New</name>
         <label>New case Creation for Rec type New</label>
         <locationX>50</locationX>
-        <locationY>3218</locationY>
+        <locationY>3266</locationY>
         <connector>
             <targetReference>Upload_Document</targetReference>
         </connector>
@@ -1002,7 +1040,7 @@
         <name>New_case_Creation_for_Rec_type_New_without_indef</name>
         <label>New case Creation for Rec type New without indef</label>
         <locationX>314</locationX>
-        <locationY>3218</locationY>
+        <locationY>3266</locationY>
         <connector>
             <targetReference>Upload_Document</targetReference>
         </connector>
@@ -1091,7 +1129,7 @@
         <name>New_renewal_case_creation_for_RecType_Renew</name>
         <label>New renewal case creation for RecType Renew</label>
         <locationX>842</locationX>
-        <locationY>3218</locationY>
+        <locationY>3266</locationY>
         <connector>
             <targetReference>UploadDocument</targetReference>
         </connector>
@@ -1186,7 +1224,7 @@
         <name>New_renewal_case_creation_for_RecType_Renew_without_indef</name>
         <label>New renewal case creation for RecType Renew without indef</label>
         <locationX>1106</locationX>
-        <locationY>3218</locationY>
+        <locationY>3266</locationY>
         <connector>
             <targetReference>UploadDocument</targetReference>
         </connector>
@@ -1275,13 +1313,12 @@
         <name>get_ACRRecord</name>
         <label>get_ACRRecord</label>
         <locationX>1238</locationX>
-        <locationY>1430</locationY>
+        <locationY>1478</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_ACR_Relationship</targetReference>
         </connector>
         <faultConnector>
-            <isGoTo>true</isGoTo>
             <targetReference>No_ACR_ErrorScreen</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
@@ -1307,7 +1344,7 @@
         <name>Get_Case_Record_Type</name>
         <label>Get Case Record Type</label>
         <locationX>182</locationX>
-        <locationY>3002</locationY>
+        <locationY>3050</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Indefinite_Funding_check</targetReference>
@@ -1337,7 +1374,7 @@
         <name>Get_Case_Record_Type_for_renewal</name>
         <label>Get Case Record Type for renewal</label>
         <locationX>974</locationX>
-        <locationY>3002</locationY>
+        <locationY>3050</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Decision_10</targetReference>
@@ -1367,7 +1404,7 @@
         <name>Get_EDRD_MR_Record_Type</name>
         <label>Get EDRD MR Record Type</label>
         <locationX>578</locationX>
-        <locationY>1862</locationY>
+        <locationY>1910</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Other_Medication_Decision</targetReference>
@@ -1395,13 +1432,12 @@
         <name>Get_EDRDCPRecord</name>
         <label>Get_EDRDCPRecord</label>
         <locationX>2591</locationX>
-        <locationY>782</locationY>
+        <locationY>830</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_EDRDCPRecord</targetReference>
         </connector>
         <faultConnector>
-            <isGoTo>true</isGoTo>
             <targetReference>CP_ErrorScreen</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
@@ -1422,7 +1458,7 @@
         <name>Get_Medication</name>
         <label>Get Medication</label>
         <locationX>578</locationX>
-        <locationY>1754</locationY>
+        <locationY>1802</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_EDRD_MR_Record_Type</targetReference>
@@ -1461,10 +1497,10 @@
         <name>Get_New_Case</name>
         <label>Get New Case</label>
         <locationX>182</locationX>
-        <locationY>4058</locationY>
+        <locationY>4106</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Sucees</targetReference>
+            <targetReference>Send_Email_Notification</targetReference>
         </connector>
         <filterLogic>or</filterLogic>
         <filters>
@@ -1485,12 +1521,14 @@
         <outputReference>StoreNewCase</outputReference>
         <queriedFields>Id</queriedFields>
         <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_Patient_Contact_rec</name>
         <label>Get Patient Contact</label>
-        <locationX>446</locationX>
-        <locationY>2678</locationY>
+        <locationX>578</locationX>
+        <locationY>2726</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Provider_Contact_Rec</targetReference>
@@ -1519,8 +1557,8 @@
     <recordLookups>
         <name>Get_Patient_Records</name>
         <label>Get Patient Records</label>
-        <locationX>2665</locationX>
-        <locationY>566</locationY>
+        <locationX>3168</locationX>
+        <locationY>614</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_Is_patient_deceased</targetReference>
@@ -1545,8 +1583,8 @@
     <recordLookups>
         <name>Get_Patient_RecordTypeAccount</name>
         <label>Get Patient RecordType</label>
-        <locationX>2665</locationX>
-        <locationY>242</locationY>
+        <locationX>3168</locationX>
+        <locationY>290</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Cases</targetReference>
@@ -1575,8 +1613,8 @@
     <recordLookups>
         <name>Get_Provider_Contact_Rec</name>
         <label>Get Provider Contact</label>
-        <locationX>446</locationX>
-        <locationY>2786</locationY>
+        <locationX>578</locationX>
+        <locationY>2834</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Choose_case_option</targetReference>
@@ -1600,8 +1638,8 @@
     <recordLookups>
         <name>Get_Provider_Record_for_New_case</name>
         <label>Get Provider Record for New case</label>
-        <locationX>908</locationX>
-        <locationY>1322</locationY>
+        <locationX>1238</locationX>
+        <locationY>1370</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>get_ACRRecord</targetReference>
@@ -1624,8 +1662,8 @@
     <recordLookups>
         <name>Get_PSP_Queue</name>
         <label>Get PSP Queue</label>
-        <locationX>446</locationX>
-        <locationY>2570</locationY>
+        <locationX>578</locationX>
+        <locationY>2618</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Patient_Contact_rec</targetReference>
@@ -1652,14 +1690,13 @@
     <recordLookups>
         <name>get_RelatedCPERecord</name>
         <label>get_RelatedCPERecord</label>
-        <locationX>1535</locationX>
-        <locationY>998</locationY>
+        <locationX>1964</locationX>
+        <locationY>1046</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_CPERecord</targetReference>
         </connector>
         <faultConnector>
-            <isGoTo>true</isGoTo>
             <targetReference>CPE_NoCPE_ErrorScreen</targetReference>
         </faultConnector>
         <filterLogic>and</filterLogic>
@@ -1685,10 +1722,10 @@
         <name>Get_Renewal_Case</name>
         <label>Get Renewal Case</label>
         <locationX>974</locationX>
-        <locationY>4058</locationY>
+        <locationY>4106</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Success</targetReference>
+            <targetReference>Send_Email_Notification_Renewal</targetReference>
         </connector>
         <filterLogic>or</filterLogic>
         <filters>
@@ -1709,12 +1746,14 @@
         <outputReference>StoreRenewalCase</outputReference>
         <queriedFields>Id</queriedFields>
         <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>CreatedDate</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>getProviderRecordType</name>
         <label>Get Provider Record Type</label>
-        <locationX>2665</locationX>
-        <locationY>134</locationY>
+        <locationX>3168</locationX>
+        <locationY>182</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Patient_RecordTypeAccount</targetReference>
@@ -1743,8 +1782,8 @@
     <screens>
         <name>ACR_InactiveErrorScreen</name>
         <label>ACR_InactiveErrorScreen</label>
-        <locationX>1106</locationX>
-        <locationY>1646</locationY>
+        <locationX>1634</locationX>
+        <locationY>1694</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1760,7 +1799,7 @@
         <name>Copy_1_of_EDRD_Staff</name>
         <label>EDRD Staff Error Screen</label>
         <locationX>1370</locationX>
-        <locationY>3734</locationY>
+        <locationY>3782</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1775,8 +1814,8 @@
     <screens>
         <name>CP_ErrorScreen</name>
         <label>CP_ErrorScreen</label>
-        <locationX>2690</locationX>
-        <locationY>998</locationY>
+        <locationX>3218</locationX>
+        <locationY>1046</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1791,8 +1830,8 @@
     <screens>
         <name>CPE_InactiveErrorScreen</name>
         <label>CPE_InactiveErrorScreen</label>
-        <locationX>1898</locationX>
-        <locationY>1214</locationY>
+        <locationX>2426</locationX>
+        <locationY>1262</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1807,8 +1846,8 @@
     <screens>
         <name>CPE_NoCPE_ErrorScreen</name>
         <label>CPE_NoCPE_ErrorScreen</label>
-        <locationX>2162</locationX>
-        <locationY>1214</locationY>
+        <locationX>2690</locationX>
+        <locationY>1262</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1824,7 +1863,7 @@
         <name>EDRD_Staff</name>
         <label>EDRD Staff Error Screen</label>
         <locationX>578</locationX>
-        <locationY>3734</locationY>
+        <locationY>3782</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1839,8 +1878,8 @@
     <screens>
         <name>Indication_Screen</name>
         <label>Indication Screen</label>
-        <locationX>644</locationX>
-        <locationY>2078</locationY>
+        <locationX>776</locationX>
+        <locationY>2126</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1868,8 +1907,8 @@
     <screens>
         <name>Medication_Request</name>
         <label>Medication Request</label>
-        <locationX>446</locationX>
-        <locationY>1646</locationY>
+        <locationX>578</locationX>
+        <locationY>1694</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1944,8 +1983,8 @@
     <screens>
         <name>MedicationRequestDetails</name>
         <label>Medication details</label>
-        <locationX>512</locationX>
-        <locationY>2294</locationY>
+        <locationX>644</locationX>
+        <locationY>2342</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1978,7 +2017,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>2</scale>
+                    <scale>0</scale>
                 </fields>
                 <fields>
                     <name>Requested_Frequency</name>
@@ -1990,7 +2029,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>2</scale>
+                    <scale>0</scale>
                 </fields>
                 <fields>
                     <name>Indefinite_Funding_initial</name>
@@ -2020,7 +2059,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>2</scale>
+                    <scale>0</scale>
                     <visibilityRule>
                         <conditionLogic>or</conditionLogic>
                         <conditions>
@@ -2163,7 +2202,7 @@
         <name>New_Cases</name>
         <label>New Case</label>
         <locationX>3168</locationX>
-        <locationY>350</locationY>
+        <locationY>398</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2197,8 +2236,8 @@
     <screens>
         <name>No_ACR_ErrorScreen</name>
         <label>No_ACR_ErrorScreen</label>
-        <locationX>1370</locationX>
-        <locationY>1646</locationY>
+        <locationX>1898</locationX>
+        <locationY>1694</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2213,8 +2252,8 @@
     <screens>
         <name>Other_Medication</name>
         <label>Other Medication</label>
-        <locationX>248</locationX>
-        <locationY>2078</locationY>
+        <locationX>380</locationX>
+        <locationY>2126</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2300,8 +2339,8 @@
     <screens>
         <name>Other_Medication_details</name>
         <label>Other Medication details</label>
-        <locationX>248</locationX>
-        <locationY>2186</locationY>
+        <locationX>380</locationX>
+        <locationY>2234</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2324,8 +2363,8 @@
     <screens>
         <name>PatientDeceased_ErrorScreen</name>
         <label>PatientDeceased_ErrorScreen</label>
-        <locationX>3218</locationX>
-        <locationY>782</locationY>
+        <locationX>3746</locationX>
+        <locationY>830</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2340,8 +2379,8 @@
     <screens>
         <name>Renwal_Medication_details</name>
         <label>Medication details</label>
-        <locationX>776</locationX>
-        <locationY>2294</locationY>
+        <locationX>908</locationX>
+        <locationY>2342</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2374,7 +2413,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>2</scale>
+                    <scale>0</scale>
                 </fields>
                 <fields>
                     <name>Renewal_Requested_Frequency</name>
@@ -2386,7 +2425,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>2</scale>
+                    <scale>0</scale>
                 </fields>
                 <fields>
                     <name>Indefinite_Funding_Renewal</name>
@@ -2416,7 +2455,7 @@
                     <fieldType>InputField</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
-                    <scale>2</scale>
+                    <scale>0</scale>
                     <visibilityRule>
                         <conditionLogic>or</conditionLogic>
                         <conditions>
@@ -2558,7 +2597,7 @@
         <name>Search_Patient</name>
         <label>Search Patient</label>
         <locationX>3168</locationX>
-        <locationY>458</locationY>
+        <locationY>506</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2586,7 +2625,7 @@
         <name>Search_Provider_for_New_Case</name>
         <label>Search Provider for New Case</label>
         <locationX>1238</locationX>
-        <locationY>1214</locationY>
+        <locationY>1262</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2612,8 +2651,8 @@
     <screens>
         <name>Success</name>
         <label>Success</label>
-        <locationX>974</locationX>
-        <locationY>4166</locationY>
+        <locationX>972</locationX>
+        <locationY>4371</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2697,7 +2736,7 @@
         <name>Sucees</name>
         <label>Sucees</label>
         <locationX>182</locationX>
-        <locationY>4166</locationY>
+        <locationY>4322</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2781,7 +2820,7 @@
         <name>Upload_Document</name>
         <label>Upload Document</label>
         <locationX>182</locationX>
-        <locationY>3410</locationY>
+        <locationY>3458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2826,7 +2865,7 @@
         <name>UploadDocument</name>
         <label>Upload Document</label>
         <locationX>974</locationX>
-        <locationY>3410</locationY>
+        <locationY>3458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2869,7 +2908,7 @@
     </screens>
     <start>
         <locationX>3042</locationX>
-        <locationY>0</locationY>
+        <locationY>48</locationY>
         <connector>
             <targetReference>getProviderRecordType</targetReference>
         </connector>
