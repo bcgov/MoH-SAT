@@ -3,7 +3,7 @@
 * @Date:        14/03/2025
 * @Description: The purpose of this class is Send Email notification to EDRD PSP queue used in flow 'Create_EDRD_Case'
 *******************************************************************************************************************************/
-public without sharing class EDRD_SendNewCaseCreationNotification {
+public with sharing class EDRD_SendNewCaseCreationNotification {
 
     @InvocableMethod(label='Send EDRD Case creation Email Notification' description='Send EDRD Case creation Email Notification')
     public static void sendNewCaseCreationEmailNotificationTo(List<Case> caselist){
