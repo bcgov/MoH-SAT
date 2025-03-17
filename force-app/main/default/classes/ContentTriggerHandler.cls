@@ -1,7 +1,6 @@
 public without sharing class ContentTriggerHandler {
-    /*
-    public static void createPublicLinkForFile(List<ContentVersion> contentVersions) {
-     /* ContentDistribution[] distributionsToInsert = new List<ContentDistribution>();
+    /* public static void createPublicLinkForFile(List<ContentVersion> contentVersions) {
+      ContentDistribution[] distributionsToInsert = new List<ContentDistribution>();
       for (ContentVersion objContentVersion: contentVersions) {
         System.debug('');
         System.debug(objContentVersion);
@@ -21,6 +20,6 @@ public without sharing class ContentTriggerHandler {
       newDist.PreferencesAllowViewInBrowser = true;
       newDist.PreferencesAllowOriginalDownload = true;
       System.debug( 'createContentDistribution created' );
-      return newDist; */
-    } 
+      return newDist; 
+    } */
 }
