@@ -107,33 +107,42 @@ Date : 19/Feb/2025
     public void updateSubmitPharmanet(String jsonInput, Map<String,Object> outputMap)
     {
         EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();     
-        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);       
-        try
-        {
+        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);              
+        try{
+            if(!Test.isRunningTest()){
             saaRequestAPICallout(inputWrapper);
-	    updateCaseRec(inputWrapper);
-            if(!Test.isRunningTest()){
-                Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY CreatedDate DESC LIMIT 1];
-                wrapper.isSubmitSuccessful = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c));
-            	wrapper.isPharmaNetSubmitSuccessfull = ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c)); // Show for read only
-        }            
-        	outputMap.put('isPharmaNetSubmitSuccessfull',wrapper.isPharmaNetSubmitSuccessfull); // for Read-only
-            outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); // Success message displaying            
-        }
-        catch(Exception e)
-        {	
-            if(!Test.isRunningTest()){
-            Integration_Log__c intRecord = [SELECT Id, Message__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY CreatedDate DESC LIMIT 1];
-                wrapper.ErrorMessage = intRecord.Message__c; 
+            wrapper = getDataFromIntLog(inputWrapper);
             }            
-            wrapper.isPharmaNetSubmitSuccessfull = false;
-            wrapper.isSubmitSuccessful = false;
-            outputMap.put('isPharmaNetSubmitSuccessfull', wrapper.isPharmaNetSubmitSuccessfull); 
-            outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); 
-            outputMap.put('ErrorMessage',wrapper.ErrorMessage);
-        }        
-        return;
+        }
+        catch(Exception e){
+             if(!Test.isRunningTest()){
+            	wrapper = getDataFromIntLog(inputWrapper);
+             }
+        }
+        outputMap.put('isPharmaNetSubmitSuccessfull', wrapper.isPharmaNetSubmitSuccessfull); 
+        outputMap.put('isSubmitMessage',wrapper.isSubmitSuccessful); 
+        outputMap.put('ErrorMessage',wrapper.ErrorMessage);      
+        return ;
     }
+    private EDRD_PharmanetWrapper.OutputWrapper getDataFromIntLog(EDRD_PharmanetWrapper.InputWrapper inputWrapper){
+     	EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();
+        datetime start = System.Now();
+        while(System.Now() < start.addSeconds(5)){}
+        Integration_Log__c intRecord = [SELECT Id, Message__c,CreatedDate,Code__c FROM Integration_Log__c WHERE SA_Request__c =: inputWrapper.caseId ORDER BY CreatedDate DESC LIMIT 1];
+        if(ESA_cls_constants.EDRD_Success.equalsIgnoreCase(String.ValueOf(intRecord.Message__c)) || intRecord.Code__c == 201 ||  intRecord.Code__c == 200){
+            wrapper.isSubmitSuccessful = true;
+            wrapper.isPharmaNetSubmitSuccessfull = true;
+            wrapper.ErrorMessage = intRecord.Message__c;
+            updateCaseRec(inputWrapper);
+        }
+        else
+        {
+            wrapper.isSubmitSuccessful = false;
+            wrapper.isPharmaNetSubmitSuccessfull = false;
+            wrapper.ErrorMessage = intRecord.Message__c; 
+        }      
+       return wrapper;          
+ }
 /*-------------------------------------------------------------------
 Method Name : markPushedToPharmanet
 Purpose : Updating case Pharmanet.
@@ -185,8 +194,8 @@ Date : 19/Feb/2025
         saaRequest.saRecord.maxPricePct = inputWrapper.maxPricePct;
         saaRequest.saRecord.justificationCodes = justificationCodesList;
         saaRequest.saRecord.excludedPlans = excludedPlansList;      
-        if(!String.isBlank(inputWrapper.din)){saaRequest.saRecord.specialItem.din =  String.valueof(inputWrapper.din);}
-        if(!String.isBlank(inputWrapper.rdp)){saaRequest.saRecord.specialItem.rdp =  String.valueof(inputWrapper.rdp);}
+        if(!String.isBlank(inputWrapper.din) && inputWrapper.din != 'null'){saaRequest.saRecord.specialItem.din =  String.valueof(inputWrapper.din);}
+        if(!String.isBlank(inputWrapper.rdp) && inputWrapper.rdp != 'null'){saaRequest.saRecord.specialItem.rdp =  String.valueof(inputWrapper.rdp);}
         if(!Test.isRunningTest()){
             PharmanetPayloadController.submitSinglePnetSar(inputWrapper.caseId, saaRequest);           
         }
