@@ -1,8 +1,8 @@
 {
   "orgName": "Special Authority Scratch Org",
-  "edition": "Developer",
+  "edition": "Enterprise",
   "description": "This org is created for Spring'23 org",
-  "features": ["PersonAccounts", "LightningServiceConsole", "ServiceCloud","Communities","Sites","HealthCloudForCmty","HealthCloudAddOn","ContactsToMultipleAccounts","OmniStudioDesigner","OmniStudioRuntime","InsuranceCalculationUser","Assessments"],
+  "features": ["PersonAccounts", "LightningServiceConsole", "ServiceCloud","Communities","CustomerCommunityPlus","PartnerCommunity","CustomerCommunity","WorkplaceCommandCenterUser","ForceComPlatform","Sites","HealthCloudForCmty","HealthCloudAddOn","ContactsToMultipleAccounts","OmniStudioDesigner","OmniStudioRuntime","InsuranceCalculationUser","Assessments","WorkThanksPref","BusinessRulesEngine","DocGen","DocGenDesigner"],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
@@ -15,12 +15,32 @@
     },
     "industriesSettings": {
       "enableIndustriesAssessment": true,
-      "enableDiscoveryFrameworkMetadata": true
+      "enableDiscoveryFrameworkMetadata": true,
+      "enableGroupMembershipPref": true
     },
     "communitiesSettings": {
         "enableNetworksEnabled": true
+    },
+    "emailAdministrationSettings": {
+        "enableEnhancedEmailEnabled": true
+    },
+    "workDotComSettings": {
+        "enableWorkThanksPref": true,
+        "enableProfileSkills": true
+    },
+    "experienceBundleSettings": {
+        "enableExperienceBundleMetadata": true
+    },
+    "chatterSettings": {
+         "allowRecordsInChatterGroup": true
+    },
+    "chatterEmailsMDSettings": {
+         "enableEmailToChatter": true
+    },
+    "OmniStudioSettings": {
+          "enableOmniStudioMetadata": true
     }
-  },
+  }, 
   "objectSettings": {
     "account": {
       "sharingModel": "readWrite"
