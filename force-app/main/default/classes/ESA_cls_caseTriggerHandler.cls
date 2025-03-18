@@ -45,6 +45,9 @@ public with sharing class ESA_cls_caseTriggerHandler {
                     newCaseMap.put(cs.Id, allNewCaseMap.get(cs.Id));
                 }
             }
+            if(cs.RecordTypeId == recordTypeCaseEDRD &&  cs.Pushed_to_Pnet__c == true){                   
+                cs.Termination_Date__c =  ESA_cls_constants.Extended.equalsIgnoreCase(String.ValueOf(cs.EDRD_MOHFunding_Decision__c)) && cs.EDRD_MOHFunding_Extension_Date__c != null ? cs.EDRD_MOHFunding_Extension_Date__c : ( ESA_cls_constants.Approved.equalsIgnoreCase(String.ValueOf(cs.EDRD_MOHFunding_Decision__c)) && cs.EDRD_MOHFunding_Expiry_Date__c != null ? cs.EDRD_MOHFunding_Expiry_Date__c : null);   
+            }
         }
 
         if(newCases != NULL && newCases.size()>0){
