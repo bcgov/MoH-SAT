@@ -88,7 +88,7 @@
     <name>createCaseRequestWithNoSupplementoryDR</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;New&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
         <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;New&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
@@ -277,7 +277,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;Renewal&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
         <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;Renewal&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
@@ -350,7 +350,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem3</globalKey>
         <inputFieldName>CaseOverride</inputFieldName>
@@ -493,7 +493,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem35</globalKey>
-        <inputFieldName>CaseRecordTypeId</inputFieldName>
+        <inputFieldName>SUMMARY:SummaryBlock:CaseType</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
@@ -882,7 +882,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoSupplementoryDRCustom9449</globalKey>
         <inputFieldName>RenewalCaseOverride</inputFieldName>

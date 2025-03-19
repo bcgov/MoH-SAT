@@ -205,7 +205,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoEligiblityDRCustom0jIAq0000004N2rMAEItem22</globalKey>
         <inputFieldName>CaseOverride</inputFieldName>
@@ -289,7 +289,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoEligiblityDRCustom6853</globalKey>
         <inputFieldName>RenewalCaseOverride</inputFieldName>
@@ -348,7 +348,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoEligiblityDRCustom0jIAq0000004N2rMAEItem47</globalKey>
-        <inputFieldName>CaseRecordTypeId</inputFieldName>
+        <inputFieldName>SUMMARY:SummaryBlock:CaseType</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoEligiblityDR</name>
@@ -531,7 +531,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;Renewal&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
         <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;Renewal&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
@@ -626,7 +626,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>false</disabled>
+        <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;New&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
         <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;New&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
