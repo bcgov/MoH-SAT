@@ -2,7 +2,7 @@
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>EDRD Renewal Submission Form with eforms</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -40,7 +40,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>14.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -897,7 +897,7 @@
   &quot;validationRequired&quot; : true,
   &quot;label&quot; : &quot;DRUG AND DOSAGE&quot;
 }</propertySetConfig>
-        <sequenceNumber>16.0</sequenceNumber>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -947,7 +947,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>15.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1061,7 +1061,7 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;sendOnlyExtraPayload&quot; : true
 }</propertySetConfig>
-        <sequenceNumber>13.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1129,7 +1129,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>22.0</sequenceNumber>
+        <sequenceNumber>16.0</sequenceNumber>
         <type>Matrix Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1165,153 +1165,8 @@
   &quot;targetName&quot; : &quot;%SitePageAPIName%&quot;,
   &quot;targetParams&quot; : &quot;%Summary%&quot;
 }</propertySetConfig>
-        <sequenceNumber>23.0</sequenceNumber>
+        <sequenceNumber>17.0</sequenceNumber>
         <type>Navigate Action</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>dataTableheaderrenewal</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;dataTableheaderrenewal&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;hide&quot; : false,
-  &quot;lwcName&quot; : &quot;cfDataTableHeading&quot;,
-  &quot;bStandalone&quot; : false,
-  &quot;customAttributes&quot; : [ {
-    &quot;name&quot; : &quot;parent-data&quot;,
-    &quot;source&quot; : &quot;true&quot;
-  }, {
-    &quot;name&quot; : &quot;records&quot;,
-    &quot;source&quot; : &quot;%searchOutput%&quot;
-  } ]
-}</propertySetConfig>
-            <sequenceNumber>0.0</sequenceNumber>
-            <type>Custom Lightning Web Component</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>showPatientData</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;PatientInformation&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;hide&quot; : false,
-  &quot;lwcName&quot; : &quot;cfDataTable&quot;,
-  &quot;bStandalone&quot; : true,
-  &quot;customAttributes&quot; : [ {
-    &quot;name&quot; : &quot;parent-data&quot;,
-    &quot;source&quot; : &quot;true&quot;
-  }, {
-    &quot;name&quot; : &quot;records&quot;,
-    &quot;source&quot; : &quot;%searchOutput%&quot;
-  } ]
-}</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
-            <type>Custom Lightning Web Component</type>
-        </childElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>PatientDeatils</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;label&quot; : &quot;Patient Search Information&quot;,
-  &quot;validationRequired&quot; : true,
-  &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3,
-  &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3,
-  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
-  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;saveLabel&quot; : &quot;Save for later&quot;,
-  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
-  &quot;completeLabel&quot; : &quot;Complete&quot;,
-  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
-  &quot;instruction&quot; : &quot;&quot;,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;remoteOptions&quot; : { },
-  &quot;knowledgeOptions&quot; : {
-    &quot;language&quot; : &quot;English&quot;,
-    &quot;publishStatus&quot; : &quot;Online&quot;,
-    &quot;keyword&quot; : &quot;&quot;,
-    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
-    &quot;typeFilter&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonFormula&quot;
-      } ]
-    }
-  },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;instructionKey&quot; : &quot;&quot;,
-  &quot;chartLabel&quot; : null,
-  &quot;allowSaveForLater&quot; : true,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
-        <type>Step</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>patientDetailsError</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;SetErrors1&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;elementErrorMap&quot; : {
-    &quot;dataTableheaderrenewal&quot; : &quot;=&quot;
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;false&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;isRecordSelected&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>11.0</sequenceNumber>
-        <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
         <childElements>
@@ -1367,24 +1222,20 @@
         &quot;field&quot; : &quot;searchOutput:deceased&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;data&quot; : &quot;false&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonFormula&quot;
       } ]
     }
   },
   &quot;hideLabel&quot; : true,
   &quot;messages&quot; : [ {
     &quot;value&quot; : true,
-    &quot;type&quot; : &quot;Success&quot;,
-    &quot;text&quot; : &quot;&quot;,
-    &quot;active&quot; : false
-  }, {
-    &quot;value&quot; : false,
     &quot;type&quot; : &quot;Warning&quot;,
     &quot;text&quot; : &quot;An EDRD case cannot be created for a deceased patient. Please Contact PHSA PSP for additional information at psp@phsa.ca.&quot;,
     &quot;active&quot; : true
+  }, {
+    &quot;value&quot; : false,
+    &quot;type&quot; : &quot;Warning&quot;,
+    &quot;text&quot; : &quot;&quot;,
+    &quot;active&quot; : false
   } ],
   &quot;validateExpression&quot; : {
     &quot;group&quot; : {
@@ -1393,17 +1244,13 @@
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;searchOutput:deceased&quot;
-      }, {
-        &quot;field&quot; : &quot;reasonFormula&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
       } ]
     }
   },
   &quot;label&quot; : &quot;deceasedPatientErrorMessage&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-            <sequenceNumber>5.0</sequenceNumber>
+            <sequenceNumber>6.0</sequenceNumber>
             <type>Validation</type>
         </childElements>
         <childElements>
@@ -1538,7 +1385,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
+            <sequenceNumber>4.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -1571,10 +1418,6 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : null,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonRenewal&quot;
-      }, {
         &quot;field&quot; : &quot;PatientIdentifierRenewal&quot;,
         &quot;condition&quot; : &quot;&gt;=&quot;,
         &quot;data&quot; : &quot;0&quot;
@@ -1589,70 +1432,8 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
+            <sequenceNumber>2.0</sequenceNumber>
             <type>Text</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>patientNotInSFErrorMessage</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;patientNotInSFErrorMessage&quot;,
-  &quot;validateExpression&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;searchOutput:isClickEmpiSearch&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInSF&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
-      } ]
-    }
-  },
-  &quot;messages&quot; : [ {
-    &quot;value&quot; : true,
-    &quot;type&quot; : &quot;Warning&quot;,
-    &quot;text&quot; : &quot;Patient doesn&apos;t have related Cases.&quot;,
-    &quot;active&quot; : true
-  }, {
-    &quot;value&quot; : false,
-    &quot;type&quot; : &quot;Warning&quot;,
-    &quot;text&quot; : &quot;&quot;,
-    &quot;active&quot; : false
-  } ],
-  &quot;hideLabel&quot; : true,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;searchOutput:isClickEmpiSearch&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;true&quot;
-      }, {
-        &quot;field&quot; : &quot;searchOutput:isPatientInSF&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
-            <type>Validation</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -1667,118 +1448,38 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;1&quot;,
+        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;2&quot;
+        &quot;data&quot; : &quot;false&quot;
       } ]
     }
   },
   &quot;messages&quot; : [ {
     &quot;value&quot; : true,
-    &quot;type&quot; : &quot;Success&quot;,
-    &quot;text&quot; : &quot;&quot;,
-    &quot;active&quot; : false
+    &quot;type&quot; : &quot;Warning&quot;,
+    &quot;text&quot; : &quot;Patient record not found. Please contact PHSA at PSP@PHSA.ca&quot;,
+    &quot;active&quot; : true
   }, {
     &quot;value&quot; : false,
     &quot;type&quot; : &quot;Warning&quot;,
-    &quot;text&quot; : &quot;NO RESULT FOUND&quot;,
-    &quot;active&quot; : true
+    &quot;text&quot; : &quot;&quot;,
+    &quot;active&quot; : false
   } ],
   &quot;hideLabel&quot; : true,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;false&quot;,
+        &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonFormula&quot;
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;AND&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isPatientInEMPI&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;false&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          } ]
-        }
+        &quot;data&quot; : &quot;false&quot;
       } ]
     }
   },
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
+            <sequenceNumber>5.0</sequenceNumber>
             <type>Validation</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>reasonFormula</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;reasonFormula&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF(%reasonRenewal%, true, false)&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>reasonRenewal</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Select Override Reason&quot;,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;horizontalMode&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;options&quot; : [ ],
-  &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.EDRD_EMPI_Override_Reason_Renewal__c&quot;
-  },
-  &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;&quot;,
-    &quot;type&quot; : &quot;&quot;,
-    &quot;source&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;optionWidth&quot; : 100,
-  &quot;optionHeight&quot; : 100,
-  &quot;imageCountInRow&quot; : 3,
-  &quot;enableCaption&quot; : true,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
-            <type>Radio</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
@@ -1839,20 +1540,33 @@
   &quot;businessEvent&quot; : &quot;&quot;,
   &quot;sendOnlyExtraPayload&quot; : true
 }</propertySetConfig>
-            <sequenceNumber>2.0</sequenceNumber>
+            <sequenceNumber>3.0</sequenceNumber>
             <type>Remote Action</type>
         </childElements>
         <childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock6</name>
+            <name>TextBlock4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock4&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Override&lt;/strong&gt;&lt;/p&gt;&quot;,
-  &quot;show&quot; : null,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Email: &lt;a data-testid=\&quot;link-with-safety\&quot; href=\&quot;mailto:PSP@PHSA.ca\&quot; title=\&quot;mailto:PSP@PHSA.ca\&quot; data-renderer-mark=\&quot;true\&quot; class=\&quot;css-1rn59kg\&quot;&gt;PSP@PHSA.ca&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;phnNotFoundErrorMessage&quot;
+      }, {
+        &quot;field&quot; : &quot;deceasedPatientErrorMessage&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      } ]
+    }
+  },
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
@@ -1865,19 +1579,19 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock7</name>
+            <name>TextBlock5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock4&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;In case you don&apos;t have the patient information you can continue by providing a reason for the override&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock5&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;If a valid PHN is not available, please contact &lt;a data-testid=\&quot;link-with-safety\&quot; href=\&quot;mailto:PSP@PHSA.ca\&quot; title=\&quot;mailto:PSP@PHSA.ca\&quot; data-renderer-mark=\&quot;true\&quot; class=\&quot;css-1rn59kg\&quot;&gt;PSP@PHSA.ca&lt;/a&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : null,
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>1.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <childElements>
@@ -1901,7 +1615,7 @@
   &quot;label&quot; : &quot;validation Formula&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <isActive>true</isActive>
@@ -2066,7 +1780,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>12.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2099,747 +1813,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>17.0</sequenceNumber>
-        <type>Set Errors</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <childElements>
-            <childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>firstNameRenewal</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;autocomplete&quot; : null,
-  &quot;disOnTplt&quot; : false,
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;First name&quot;,
-  &quot;controlWidth&quot; : 4
-}</propertySetConfig>
-                    <sequenceNumber>1.0</sequenceNumber>
-                    <type>Text</type>
-                </childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>lastNameRenewal</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;Last name&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
-}</propertySetConfig>
-                    <sequenceNumber>2.0</sequenceNumber>
-                    <type>Text</type>
-                </childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>patientDOBRenewal</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Patient Birth Date&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;dateType&quot; : &quot;string&quot;,
-  &quot;modelDateFormat&quot; : &quot;yyyy-MM-dd&quot;,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;minDate&quot; : &quot;&quot;,
-  &quot;maxDate&quot; : &quot;TODAY&quot;
-}</propertySetConfig>
-                    <sequenceNumber>3.0</sequenceNumber>
-                    <type>Date</type>
-                </childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>SearchbyDetails</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;Search by Details&quot;,
-  &quot;remoteClass&quot; : &quot;EDRD_EmpiIntegration&quot;,
-  &quot;remoteMethod&quot; : &quot;getSFdata&quot;,
-  &quot;remoteOptions&quot; : {
-    &quot;preTransformBundle&quot; : &quot;&quot;,
-    &quot;postTransformBundle&quot; : &quot;&quot;
-  },
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;preTransformBundle&quot; : &quot;&quot;,
-  &quot;postTransformBundle&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;extraPayload&quot; : {
-    &quot;firstname&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByName:firstNameRenewal%&quot;,
-    &quot;lastname&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByName:lastNameRenewal%&quot;,
-    &quot;dateOfBirth&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByName:patientDOBRenewal%&quot;,
-    &quot;clickBy&quot; : &quot;RenewalSFSearch&quot;
-  },
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;validationRequired&quot; : &quot;None&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : null,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;firstNameRenewal&quot;
-      }, {
-        &quot;field&quot; : &quot;lastNameRenewal&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : null
-      }, {
-        &quot;field&quot; : &quot;patientDOBRenewal&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : null
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;svgSprite&quot; : &quot;&quot;,
-  &quot;svgIcon&quot; : &quot;&quot;,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;useContinuation&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;sendOnlyExtraPayload&quot; : true
-}</propertySetConfig>
-                    <sequenceNumber>4.0</sequenceNumber>
-                    <type>Remote Action</type>
-                </childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>TextBlock10</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;sanitize&quot; : false,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dataJSON&quot; : false,
-  &quot;show&quot; : null,
-  &quot;text&quot; : &quot;&lt;p&gt;Search by Patient Details&lt;/p&gt;&quot;,
-  &quot;label&quot; : &quot;TextBlock4&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-                    <sequenceNumber>0.0</sequenceNumber>
-                    <type>Text Block</type>
-                </childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>blockSearchByName</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;repeatLimit&quot; : null,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;collapse&quot; : false,
-  &quot;label&quot; : &quot;&quot;,
-  &quot;controlWidth&quot; : 8
-}</propertySetConfig>
-                <sequenceNumber>1.0</sequenceNumber>
-                <type>Block</type>
-            </childElements>
-            <childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>phnRenewal</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Patient Identifier&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;required&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;readOnly&quot; : false,
-  &quot;defaultValue&quot; : null,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;mask&quot; : &quot;&quot;,
-  &quot;pattern&quot; : &quot;&quot;,
-  &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 10,
-  &quot;placeholder&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false,
-  &quot;disOnTplt&quot; : false,
-  &quot;autocomplete&quot; : null
-}</propertySetConfig>
-                    <sequenceNumber>1.0</sequenceNumber>
-                    <type>Text</type>
-                </childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>SearchbyIdentifier</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;sendOnlyExtraPayload&quot; : true,
-  &quot;businessEvent&quot; : &quot;&quot;,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;useContinuation&quot; : false,
-  &quot;enableActionMessage&quot; : false,
-  &quot;enableDefaultAbort&quot; : false,
-  &quot;errorMessage&quot; : {
-    &quot;default&quot; : null,
-    &quot;custom&quot; : [ ]
-  },
-  &quot;svgIcon&quot; : &quot;&quot;,
-  &quot;svgSprite&quot; : &quot;&quot;,
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : null,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;field&quot; : &quot;phnRenewal&quot;
-      } ]
-    }
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;redirectPreviousWidth&quot; : 3,
-  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
-  &quot;redirectNextWidth&quot; : 3,
-  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
-  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
-  &quot;redirectPageName&quot; : &quot;&quot;,
-  &quot;validationRequired&quot; : &quot;None&quot;,
-  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
-  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
-  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
-  &quot;postMessage&quot; : &quot;Done&quot;,
-  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
-  &quot;extraPayload&quot; : {
-    &quot;phn&quot; : &quot;%SearchPatient:blockSearchMain:blockSearchByPHN:phnRenewal%&quot;,
-    &quot;clickBy&quot; : &quot;RenewalSFSearch&quot;
-  },
-  &quot;responseJSONNode&quot; : &quot;&quot;,
-  &quot;responseJSONPath&quot; : &quot;&quot;,
-  &quot;sendJSONNode&quot; : &quot;&quot;,
-  &quot;sendJSONPath&quot; : &quot;&quot;,
-  &quot;postTransformBundle&quot; : &quot;&quot;,
-  &quot;preTransformBundle&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;remoteOptions&quot; : {
-    &quot;preTransformBundle&quot; : &quot;&quot;,
-    &quot;postTransformBundle&quot; : &quot;&quot;
-  },
-  &quot;remoteMethod&quot; : &quot;validatePHN&quot;,
-  &quot;remoteClass&quot; : &quot;EDRD_EmpiIntegration&quot;,
-  &quot;label&quot; : &quot;Search EDRD Records&quot;,
-  &quot;controlWidth&quot; : null
-}</propertySetConfig>
-                    <sequenceNumber>2.0</sequenceNumber>
-                    <type>Remote Action</type>
-                </childElements>
-                <childElements>
-                    <isActive>true</isActive>
-                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                    <level>3.0</level>
-                    <name>TextBlock9</name>
-                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                    <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;TextBlock4&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;Search by Patient Identifier&lt;/p&gt;&quot;,
-  &quot;show&quot; : null,
-  &quot;dataJSON&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;textKey&quot; : &quot;&quot;,
-  &quot;sanitize&quot; : false
-}</propertySetConfig>
-                    <sequenceNumber>0.0</sequenceNumber>
-                    <type>Text Block</type>
-                </childElements>
-                <isActive>true</isActive>
-                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-                <level>2.0</level>
-                <name>blockSearchByPHN</name>
-                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-                <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;&quot;,
-  &quot;collapse&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;repeatClone&quot; : false,
-  &quot;repeatLimit&quot; : null,
-  &quot;show&quot; : null,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;hide&quot; : false
-}</propertySetConfig>
-                <sequenceNumber>0.0</sequenceNumber>
-                <type>Block</type>
-            </childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>blockSearchMain</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;hide&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;accessibleInFutureSteps&quot; : false,
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
-  &quot;repeatLimit&quot; : null,
-  &quot;repeatClone&quot; : false,
-  &quot;repeat&quot; : false,
-  &quot;collapse&quot; : false,
-  &quot;label&quot; : &quot;&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
-            <type>Block</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>LineBreak10</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;padding&quot; : 0,
-  &quot;label&quot; : &quot;LineBreak10&quot;
-}</propertySetConfig>
-            <sequenceNumber>0.0</sequenceNumber>
-            <type>Line Break</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>searchPatientResultMessage</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;searchPatientResultMessage&quot;,
-  &quot;validateExpression&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput|1:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          } ]
-        }
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput|1:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          } ]
-        }
-      } ]
-    }
-  },
-  &quot;messages&quot; : [ {
-    &quot;value&quot; : true,
-    &quot;type&quot; : &quot;Success&quot;,
-    &quot;text&quot; : &quot;The patient details matching the search have been found. Please click \&quot;Next\&quot; to view the patient, and then click \&quot;Select Patient\&quot; to proceed.&quot;,
-    &quot;active&quot; : true
-  }, {
-    &quot;value&quot; : false,
-    &quot;type&quot; : &quot;Warning&quot;,
-    &quot;text&quot; : &quot;&quot;,
-    &quot;active&quot; : false
-  } ],
-  &quot;hideLabel&quot; : true,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput|1:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          } ]
-        }
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput|1:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          } ]
-        }
-      }, {
-        &quot;field&quot; : &quot;searchOutput&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : null
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;showMessageAs&quot; : &quot;inline&quot;,
-  &quot;toastMode&quot; : &quot;sticky&quot;
-}</propertySetConfig>
-            <sequenceNumber>2.0</sequenceNumber>
-            <type>Validation</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>serachPatientNotFound</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;toastMode&quot; : &quot;sticky&quot;,
-  &quot;showMessageAs&quot; : &quot;inline&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;false&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput|1:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;false&quot;
-          } ]
-        }
-      }, {
-        &quot;field&quot; : &quot;searchOutput&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : null
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput|1:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          } ]
-        }
-      } ]
-    }
-  },
-  &quot;hideLabel&quot; : true,
-  &quot;messages&quot; : [ {
-    &quot;value&quot; : true,
-    &quot;type&quot; : &quot;Warning&quot;,
-    &quot;text&quot; : &quot;NO RESULT FOUND&quot;,
-    &quot;active&quot; : true
-  }, {
-    &quot;value&quot; : false,
-    &quot;type&quot; : &quot;Warning&quot;,
-    &quot;text&quot; : &quot;&quot;,
-    &quot;active&quot; : false
-  } ],
-  &quot;validateExpression&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;false&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput|1:isPatientFound&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;false&quot;
-          } ]
-        }
-      }, {
-        &quot;field&quot; : &quot;searchOutput&quot;,
-        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
-        &quot;data&quot; : null
-      }, {
-        &quot;group&quot; : {
-          &quot;operator&quot; : &quot;OR&quot;,
-          &quot;rules&quot; : [ {
-            &quot;field&quot; : &quot;searchOutput:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          }, {
-            &quot;field&quot; : &quot;searchOutput|1:isClickSFsearch&quot;,
-            &quot;condition&quot; : &quot;=&quot;,
-            &quot;data&quot; : &quot;true&quot;
-          } ]
-        }
-      } ]
-    }
-  },
-  &quot;label&quot; : &quot;serachPatientNotFound&quot;,
-  &quot;controlWidth&quot; : 12,
-  &quot;lwcComponentOverride&quot; : &quot;&quot;
-}</propertySetConfig>
-            <sequenceNumber>3.0</sequenceNumber>
-            <type>Validation</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>validatePatientFormula</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;Validate Patient Formula&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF(((%searchOutput:isPatientSFRenewal% == true|| %searchOutput|1:isPatientSFRenewal% == true)&amp;&amp;(%serachPatientNotFound%!= true)), true, false)&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>SearchPatient</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;label&quot; : &quot;SEARCH PATIENT&quot;,
-  &quot;validationRequired&quot; : true,
-  &quot;previousLabel&quot; : &quot;Previous&quot;,
-  &quot;previousWidth&quot; : 3,
-  &quot;nextLabel&quot; : &quot;Next&quot;,
-  &quot;nextWidth&quot; : 3,
-  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
-  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
-  &quot;saveLabel&quot; : &quot;Save for later&quot;,
-  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
-  &quot;completeLabel&quot; : &quot;Complete&quot;,
-  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
-  &quot;instruction&quot; : &quot;&quot;,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;remoteClass&quot; : &quot;&quot;,
-  &quot;remoteMethod&quot; : &quot;&quot;,
-  &quot;remoteTimeout&quot; : 30000,
-  &quot;remoteOptions&quot; : { },
-  &quot;knowledgeOptions&quot; : {
-    &quot;language&quot; : &quot;English&quot;,
-    &quot;publishStatus&quot; : &quot;Online&quot;,
-    &quot;keyword&quot; : &quot;&quot;,
-    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
-    &quot;remoteTimeout&quot; : 30000,
-    &quot;typeFilter&quot; : &quot;&quot;
-  },
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonFormula&quot;
-      } ]
-    }
-  },
-  &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;instructionKey&quot; : &quot;&quot;,
-  &quot;chartLabel&quot; : null,
-  &quot;allowSaveForLater&quot; : true,
-  &quot;errorMessage&quot; : {
-    &quot;custom&quot; : [ ],
-    &quot;default&quot; : null
-  },
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false,
-  &quot;businessCategory&quot; : &quot;&quot;,
-  &quot;businessEvent&quot; : &quot;&quot;
-}</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
-        <type>Step</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>SetErrorSearchPatient</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;SetErrorSearchPatient&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;elementErrorMap&quot; : {
-    &quot;searchPatientResultMessage&quot; : &quot;=&quot;
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;false&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;validatePatientFormula&quot;
-      }, {
-        &quot;field&quot; : &quot;searchError&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>11.0</sequenceNumber>
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2863,10 +1837,6 @@
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;validationFormula&quot;
-      }, {
-        &quot;field&quot; : &quot;reasonFormula&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;false&quot;
       } ]
     }
   },
@@ -2899,7 +1869,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>21.0</sequenceNumber>
+        <sequenceNumber>15.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2918,72 +1888,6 @@
     &quot;PatientAccountId&quot; : &quot;%searchOutput:patientaccountId%&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;false&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonFormula&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>SetPatientIdBySFSearch</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;SetPatientIdBySFSearch&quot;,
-  &quot;elementValueMap&quot; : {
-    &quot;PatientAccountId&quot; : &quot;%PatientDeatils:showPatientData:selectedPatient:selectedPatientAccountId%&quot;,
-    &quot;PatientId&quot; : &quot;%PatientDeatils:showPatientData:selectedPatient:selectedId%&quot;,
-    &quot;isRecordSelected&quot; : &quot;=IF((%PatientDeatils% &amp;&amp; %PatientDeatils:showPatientData:selectedPatient% ), true, false)&quot;
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;true&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonFormula&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>10.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <name>SetValues1</name>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;SetValues1&quot;,
-  &quot;elementValueMap&quot; : {
-    &quot;searchError&quot; : &quot;=IF(%searchOutput%, true, false)&quot;
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
@@ -2991,7 +1895,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3061,7 +1965,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>19.0</sequenceNumber>
+        <sequenceNumber>13.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3084,7 +1988,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>20.0</sequenceNumber>
+        <sequenceNumber>14.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3221,7 +2125,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>18.0</sequenceNumber>
+        <sequenceNumber>12.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -3268,16 +2172,7 @@
   &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
   &quot;redirectPreviousWidth&quot; : 3,
   &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;false&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;reasonFormula&quot;
-      } ]
-    }
-  },
+  &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;wpm&quot; : false,
   &quot;ssm&quot; : false,
@@ -3300,10 +2195,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
-    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:&quot;%CaseType% - %PatientName% - %PatientIdentifier%&quot;,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%PatAccId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:false,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;EDRD_Renewal_PatientSearch_v6&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;top&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;,&quot;isSeoEnabled&quot;:false,&quot;scrollToTopWhenNavigatingBetweenStepsOnExperienceCloudSites&quot;:false,&quot;elementTypeToLwcTemplateMapping&quot;:{&quot;&quot;:null}}</propertySetConfig>
+    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:false,&quot;saveNameTemplate&quot;:&quot;%CaseType% - %PatientName% - %PatientIdentifier%&quot;,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%PatAccId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:false,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;EDRD_Renewal_PatientSearch_v7&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;top&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;,&quot;isSeoEnabled&quot;:false,&quot;scrollToTopWhenNavigatingBetweenStepsOnExperienceCloudSites&quot;:false,&quot;elementTypeToLwcTemplateMapping&quot;:{&quot;&quot;:null}}</propertySetConfig>
     <subType>RenewForm</subType>
     <type>EDRD</type>
-    <uniqueName>EDRD_RenewForm_English_11</uniqueName>
-    <versionNumber>11.0</versionNumber>
-    <webComponentKey>78f8e49c-bef6-e03c-0e0b-933bf2df7a96</webComponentKey>
+    <uniqueName>EDRD_RenewForm_English_16</uniqueName>
+    <versionNumber>16.0</versionNumber>
+    <webComponentKey>dd9e4361-bafe-71c5-40e5-f02f19f1a49b</webComponentKey>
 </OmniScript>
