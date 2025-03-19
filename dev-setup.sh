@@ -6,7 +6,7 @@ help() {
    echo "  $0 [-a <string>] [-d <integer>]"
    echo ""
    echo "OPTIONS:"
-   echo -e " -a Alias. Set a custom alias for scratch org. Default: 'sat-dev'."
+   echo -e " -a Alias. Set a custom alias for scratch org. Default: 'dev-scratch'."
    echo -e " -d Duration. Set a custom duration for a scratch org. Default: 7, min: 1, max: 30."
    echo ""
    echo "EXAMPLES:"
@@ -16,7 +16,7 @@ help() {
 
 verbose=true;
 duration=15;
-alias='sat-dev';
+alias='dev-scratch';
 
 while getopts a:d: opt 
 do
@@ -53,45 +53,69 @@ dx() {
 }
 
 echo "Creating scratch org, \"$alias\"..."
-dx force:org:create -v devhub -a $alias -f config/project-scratch-def.json -d $duration -s
-dx force:data:record:update -u $alias -s Organization -w "Name='Special Authority Scratch Org'" -v "TimeZoneSidKey='America/Los_Angeles'"
-dx force:data:record:update -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
-sfdx force:user:permsetlicense:assign -u $alias -n "OmniStudio"
-sfdx force:user:permsetlicense:assign -u $alias -n "OmniStudio User"
-sfdx force:user:permset:assign -u $alias -n OmniStudioAdmin
-sfdx force:user:permset:assign -u $alias -n OmniStudioExecution
-sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud"
-sfdx force:user:permsetlicense:assign -u $alias -n "Health Cloud Platform"
-sfdx force:user:permset:assign -u $alias -n HealthCloudFoundation
+
+sf org create scratch --definition-file config/project-scratch-def.json --alias $alias --set-default --target-dev-hub devhub --duration-days 30
+sf data update record -u $alias -s Organization -w "Name='Special Authority Scratch Org'" -v "TimeZoneSidKey='America/Los_Angeles'"
+sf data update record -u $alias -s User -w "Name='User User'" -v "TimeZoneSidKey='America/Los_Angeles'"
+
+echo "Installing OmniStudio managed package"
+
+sf package install --package "04t4W000003CjY5" --target-org $alias -w 15 --noprompt 
+
+echo "Installing Health Cloud managed package"
+
+sf package install --package "04t4W000002V2Ub" --target-org $alias -w 15 --noprompt 
+
+echo "Set deployment user standard security"
+
+sf org assign permsetlicense --name OmniStudio --target-org $alias
+sf org assign permsetlicense --name HealthCloudGA_HealthCloudPsl --target-org $alias
+sf org assign permset --name HealthCloudFoundation --target-org $alias
+sf org assign permset --name DocGenDesigner --target-org $alias
+sf org assign permset --name DocGenUser --target-org $alias
+sf org assign permset --name BREDesigner --target-org $alias
+sf org assign permset --name BRERuntime --target-org $alias
+sf org assign permsetlicense --name BREDesigner --target-org $alias
+sf org assign permsetlicense --name BRERuntime --target-org $alias
 
 echo "Uploading source code..."
-sfdx force:source:deploy -p dev-app-pre -u $alias
-sfdx force:source:deploy -p force-app -u $alias
-sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u $alias -w 15
-sfdx force:source:deploy -p dev-app-post -u $alias
-sfdx force:source:tracking:reset -u $alias --noprompt    
-# dx force:source:push -u $alias 
+
+sf project deploy start --source-dir dev-app-pre --target-org $alias 
+sf project deploy start --source-dir force-app --target-org $alias --ignore-conflicts
+sf project deploy start --source-dir force-app/main/default/objects --target-org $alias
+sf project deploy start --source-dir force-app/main/default/queues --target-org $alias
+sf project deploy start --source-dir OmniStudio-Components --target-org $alias
+sf project deploy start --source-dir dev-app-post --target-org $alias --ignore-conflicts
+#sfdx force:source:tracking:reset -u $alias --noprompt 
+sf project reset tracking --target-org $alias --noprompt 
+#dx force:source:push -u $alias 
+sf project deploy start --target-org $alias
 
 echo "Assigning permissions..."
-sfdx force:user:permset:assign -u $alias -n SA_Administrator
-sfdx force:apex:execute -u $alias -f scripts/apex/scratchorg-set-current-user.apex
+
+sf org assign permset --name SA_Administrator --target-org $alias
+sf org assign permset --name EDRD_PS_Operational_Support --target-org $alias
+sf apex run --file scripts/apex/scratchorg-set-current-user.apex --target-org $alias
 
 echo "Uploading data..."
-dx force:data:bulk:upsert -u $alias -s Drug__c -f data/drugs.csv -i Drug_Code__c -w 5 
-dx force:data:bulk:upsert -u $alias -s Account -f data/accounts.csv -i Id -w 5 
-dx force:data:bulk:upsert -u $alias -s Account -f data/decs.csv -i Id -w 5 
-dx force:data:bulk:upsert -u $alias -s Case -f data/cases.csv -i Id -w 5
-dx force:data:tree:import -u $alias -p data/comm-plan.json
-dx force:apex:execute -u $alias -f scripts/apex/scratchorg-add-comm-users.apex
-dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-cases-to-ecs.apex
-dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-cases-to-queue.apex
-dx force:apex:execute -u $alias -f scripts/apex/scratchorg-add-form-questions.apex
-dx force:data:bulk:upsert -u $alias -s Diagnosis__c -f data/diagnosis.csv -i Id -w 5
-dx force:data:bulk:upsert -u $alias -s Product_Health_Category__c -f data/producthealthcategories.csv -i Id -w 5
-dx force:data:bulk:upsert -u $alias -s Step__c -f data/steps.csv -i Id -w 5
-dx force:data:bulk:upsert -u $alias -s Step_Criteria__c -f data/stepcriteria.csv -i Id -w 5
-dx force:data:bulk:upsert -u $alias -s Step_Action__c -f data/stepactions.csv -i Id -w 5
-dx force:apex:execute -u $alias -f scripts/apex/scratchorg-assign-drug-default-queues.apex
+
+sf force data bulk upsert --sobject Drug__c --file data/drugs.csv --external-id Drug_Code__c --wait 5 --target-org $alias
+sf force data bulk upsert --sobject Account --file data/accounts.csv --external-id Id --wait 5 --target-org $alias
+sf force data bulk upsert --sobject Account --file data/decs.csv --external-id Id --wait 5 --target-org $alias
+sf force data bulk upsert --sobject Case --file data/cases.csv --external-id Id --wait 5 --target-org $alias
+sf data import tree --files data/comm-plan.json --target-org $alias
+sf apex run --target-org $alias --file scripts/apex/scratchorg-add-comm-users.apex
+sf apex run --target-org $alias --file scripts/apex/scratchorg-assign-cases-to-ecs.apex
+sf apex run --target-org $alias --file scripts/apex/scratchorg-add-comm-users.apex
+sf apex run --target-org $alias --file scripts/apex/scratchorg-assign-cases-to-queue.apex
+sf apex run --target-org $alias --file scripts/apex/scratchorg-add-form-questions.apex
+sf force data bulk upsert --sobject Diagnosis__c --file data/diagnosis.csv --external-id Id --wait 5 --target-org $alias
+sf force data bulk upsert --sobject Product_Health_Category__c --file data/producthealthcategories.csv --external-id Id --wait 5 --target-org $alias
+sf force data bulk upsert --sobject Step__c --file data/steps.csv --external-id Id --wait 5 --target-org $alias
+sf force data bulk upsert --sobject Step_Criteria__c --file data/stepcriteria.csv --external-id Id --wait 5 --target-org $alias
+sf force data bulk upsert --sobject Step_Action__c --file data/stepactions.csv --external-id Id --wait 5 --target-org $alias
+sf apex run --target-org $alias --file scripts/apex/scratchorg-assign-drug-default-queues.apex
 
 echo "$alias is ready."
-dx force:org:open -u $alias;
+
+sf org open --target-org $alias
