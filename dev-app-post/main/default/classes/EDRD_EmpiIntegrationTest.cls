@@ -84,7 +84,8 @@ Devloper Name : Accenture.
             'input' => new Map<String, Object>{
                 'elementName' => 'searchPatient',
                 'omniScriptId' => '0jNAq000000VXJ3MAO',
-                'phn' => '9879450112'
+                'phn' => '9879450112',
+                'clickBy' => 'EMPICreatedRenewal'
             },
             'options' => new Map<String, Object>{
                 'ignoreCache' => false,
@@ -103,35 +104,6 @@ Devloper Name : Accenture.
         // Assert results
         System.assertNotEquals(null, result, 'Result should not be null');
     }   
-/*---------------------------------------------------------------------
-Method Name : testValidatePHN
-Method Calling for : ValidatePHN
-Purpose : Check PHN is Exsit in salesforce Database or Not.
-Version : 1.0
-Devloper Name : Accenture.
---------------------------------------------------------------------------*/
-    @isTest
-    static void testValidatePHN() {        
-        
-        EDRD_EmpiIntegration integration = new EDRD_EmpiIntegration();
-		
-        // Mock data
-        Map<String, Object> inputMap = new Map<String, Object>{
-            'phn' => '9879450112'
-        };
-        Map<String, Object> outputMap = new Map<String, Object>();
-        Map<String, Object> outputMapMain = new Map<String, Object>();
-        outputMapMain.put('input',inputMap);
-		String jsonInput = Json.serialize(outputMapMain.get('input'));
-        EDRD_EmpiWrapper.InputWrapper inputWrapper = (EDRD_EmpiWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_EmpiWrapper.InputWrapper.class);
-        // Call the method
-        integration.validatePHN(inputWrapper, outputMap);
-
-        // Assert output
-        System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
-        Map<String, Object> searchOutput = (Map<String, Object>) outputMap.get('searchOutput');
-        System.assertEquals(true, searchOutput.get('isPatientFound'), 'Patient should be found');
-    }
 
 /*---------------------------------------------------------------------
 Method Name : testCreateUpdatePatient
@@ -165,75 +137,6 @@ Devloper Name : Accenture.
 
         // Assert results
         System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
-    }
-/*---------------------------------------------------------------------
-Method Name : testGetSFData
-Method Calling for : GetSFData
-Purpose : Get the Data from salesforce based on user input(it cloud be PHN or Patient details).
-Version : 1.0
-Devloper Name : Accenture.
---------------------------------------------------------------------------*/
-    @isTest
-    static void testGetSFData() {
-        // Instantiate the class
-        EDRD_EmpiIntegration integration = new EDRD_EmpiIntegration();
-
-        // Mock data
-        Map<String, Object> inputMap = new Map<String, Object>{
-            'firstName' => 'John',
-            'lastName' => 'Doe',
-            'dateOfBirth' => Date.newInstance(1990, 01, 01)
-        };
-        Map<String, Object> outputMap = new Map<String, Object>();
-
-       Map<String, Object> inputMapMain = new Map<String, Object>();
-        inputMapMain.put('input',inputMap);
-		String jsonInput = Json.serialize(inputMapMain.get('input'));
-        EDRD_EmpiWrapper.InputWrapper inputWrapper = (EDRD_EmpiWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_EmpiWrapper.InputWrapper.class);
-        // Call the method
-        integration.getSFdata(inputWrapper, outputMap);
-
-        // Assert results
-        System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
-       // List<Map<String, Object>> searchOutput = (List<Map<String, Object>>) outputMap.get('searchOutput');
-       // System.assert(searchOutput.size() > 0, 'Search output should not be empty');
-    }
-/*---------------------------------------------------------------------
-Method Name : testCreatePatientInSF
-Method Calling for : CreatePatientInSF
-Purpose : Create Date in salesforce database.
-Version : 1.0
-Devloper Name : Accenture.
---------------------------------------------------------------------------*/
-    @isTest
-    static void testCreatePatientInSF() {
-        // Instantiate the class
-        EDRD_EmpiIntegration integration = new EDRD_EmpiIntegration();
-
-        // Mock data
-
-        Map<String, Object> inputMap = new Map<String, Object>{
-            'firstName' => 'Jane',
-            'lastName' => 'Smith',
-            'dateOfBirth' => Date.newInstance(1985, 07, 15),
-            'phn' => '1234567890',
-            'clickBy' => ESA_cls_constants.ManullyCreated
-        };
-        Map<String, Object> outputMap = new Map<String, Object>();
-        
-     Map<String, Object> inputMapMain = new Map<String, Object>();
-        inputMapMain.put('input',inputMap);
-		String jsonInput = Json.serialize(inputMapMain.get('input'));
-        system.debug('jsonInput=136='+jsonInput);
-        EDRD_EmpiWrapper.InputWrapper inputWrapper = (EDRD_EmpiWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_EmpiWrapper.InputWrapper.class);
-	    system.debug('inputWrapper=134='+inputWrapper);
-        // Call the method
-        integration.createPatientInSF(InputWrapper, outputMap);
-
-        // Assert results
-        System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
-        Map<String, Object> searchOutput = (Map<String, Object>) outputMap.get('searchOutput');
-        System.assertEquals(true, searchOutput.get('isClickManulRecord'), 'Click manual record should be true');
     }
 /*---------------------------------------------------------------------
 Method Name : testCreateACR

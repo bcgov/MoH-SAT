@@ -11,7 +11,7 @@ public class EDRD_EmpiWrapper {
         public Id patientAccId {get;set;}
         public Id providerConId {get;set;}
         public Id LoginUserAccountId {get;set;}
-        public Id PatientContactId {get;set;}
+        public Id PatientContactId {get;set;}       
     }
     public class OutputWrapper
     {   
@@ -26,17 +26,10 @@ public class EDRD_EmpiWrapper {
         public Id patientId {get; set;}
         public Id patientaccountId {get; set;}
         public Id patientContactId {get; set;}
-        public Boolean isValidatePHNClick {get;set;}
         public Boolean isClickEmpiSearch {get;set;}
-        public Boolean isClickSFsearch {get;set;}
-        public Boolean isClickManulRecord {get;set;}
         public Boolean isPatientInSF {get;set;}
-        public Boolean isPatientInEMPI {get;set;} 
-        public Boolean isClickEMPISearchNew {get;set;} // In New-Summbation on 1-Screen,when click on Patient Search after enter thr PHN.
-        public Boolean isPatientSFRenewal {get;set;}  
-        public Boolean isClickSFSearchNew {get;set;} // In New-Summbation on 2-Screen,when click on Patient Search by Deatils and PHN.
-        public String clickByNew {get;set;} 
-
+        public Boolean isPatientInEMPI {get;set;}     
+        public String clickByNew {get;set;}         
       }
     public class Patient {
     public boolean deceased {get;set;}

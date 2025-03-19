@@ -26,17 +26,8 @@ global without sharing class EDRD_EmpiIntegration implements Callable
             when 'getEmpidata'{
                 this.getEmpidata(inputWrapper,outputMap);
             }
-            when 'createPatientInSF'{
-                this.createPatientInSF(inputWrapper,outputMap);
-            }
-            when 'getSFdata'{
-                this.getSFdata(inputWrapper,outputMap);
-            }
             when 'createUpdatePatient'{
                 this.createUpdatePatient(inputWrapper,outputMap);
-            }
-            when 'validatePHN'{
-                this.validatePHN(inputWrapper,outputMap);
             }
             when 'createACR'{
                 this.createACR(inputWrapper,outputMap);
@@ -48,101 +39,6 @@ global without sharing class EDRD_EmpiIntegration implements Callable
         return result;
     }   
 /*---------------------------------------------------------------------
-Method Name : validatePHN
-Purpose :  Check PHN is Exsit in salesforce Database or Not.
-Version : 1.0
-Devloper Name : Accenture.
-Date : 19/Dec/2024
---------------------------------------------------------------------------*/
-    public void validatePHN(EDRD_EmpiWrapper.InputWrapper inputWrapper,Map<String,Object> outputMap){
-        EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper= new EDRD_EmpiWrapper.OutputWrapper();
-        List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
-        if(!patientRecord.isEmpty()){
-               for(Account acc:patientRecord){
-                patientOutputWrapper.firstName = acc.FirstName;
-                patientOutputWrapper.lastName = acc.LastName;
-                patientOutputWrapper.dateOfBirth = acc.PersonBirthdate;
-                patientOutputWrapper.gender = acc.PersonGender;                   
-                patientOutputWrapper.phn = acc.Patient_Identifier__pc;
-                patientOutputWrapper.isPatientFound = true; 
-                patientOutputWrapper.patientaccountId = acc.Id;
-                patientOutputWrapper.patientId = acc.PersonContactId; 
-                patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPHN' : null;
-                patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy));
-            }           
-        }
-        else{
-             patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPHN' : null;
-             patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy));
-             patientOutputWrapper.isPatientFound = false; 
-        }
-        
-        patientOutputWrapper.isClickSFsearch = true;
-        patientOutputWrapper.isValidatePHNClick = true;
-        String result = Json.serialize(patientOutputWrapper);
-        outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
-        return;
-    }
-/*---------------------------------------------------------------------
-Method Name : getSFdata
-Purpose : Get the Data from salesforce based on user input(it cloud be PHN or Patient details).
-Version : 1.0
-Devloper Name : Accenture.
-Date : 19/Dec/2024
---------------------------------------------------------------------------*/    
-    public void getSFdata(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) {
-        List<EDRD_EmpiWrapper.OutputWrapper> lstpatientOutputWrapper=new List<EDRD_EmpiWrapper.OutputWrapper>(); 
-            List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
-           system.debug('patientRecord=103='+patientRecord);
-            if(!patientRecord.isEmpty()){
-                for(Account acc:patientRecord){
-                    EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper= new EDRD_EmpiWrapper.OutputWrapper();
-                    patientOutputWrapper = loopsPatientDeatils(acc);
-                    patientOutputWrapper.isPatientFound = true;
-                    patientOutputWrapper.isClickSFsearch = true;
-                    patientOutputWrapper.patientaccountId = acc.Id;
-                    patientOutputWrapper.patientId = acc.PersonContactId; 
-                    patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPatientDeatils' : null;
-                    patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy));
-                    lstpatientOutputWrapper.add(patientOutputWrapper);
-                }
-            }
-            else{
-                EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper= new EDRD_EmpiWrapper.OutputWrapper();
-                patientOutputWrapper.isClickSFsearch = true;
-                patientOutputWrapper.isPatientFound = false;
-                patientOutputWrapper.clickByNew = ESA_cls_constants.NewSearch.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFPatientDeatils' : null;                    
-                patientOutputWrapper.isPatientSFRenewal = ESA_cls_constants.RenewalSFSearch.equals(String.ValueOf(inputWrapper.clickBy));
-                lstpatientOutputWrapper.add(patientOutputWrapper);
-            }
-            
-            String result = Json.serialize(lstpatientOutputWrapper);
-            outputMap.put('searchOutput',JSON.deserializeuntyped(result));
-        
-        return;
-                
-    }
-/*---------------------------------------------------------------------
-Method Name : validatePHN
-Purpose : This common class, which we can call from any class to assine the patientOutputWrapper data
-Version : 1.0
-Devloper Name : Accenture.
-Date : 19/Dec/2024
---------------------------------------------------------------------------*/    
-    public EDRD_EmpiWrapper.OutputWrapper loopsPatientDeatils(Account acc){
-        
-        EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();               
-        patientOutputWrapper.phn = acc.Patient_Identifier__pc;
-        patientOutputWrapper.firstName = acc.FirstName;
-        patientOutputWrapper.lastName = acc.LastName;
-        patientOutputWrapper.dateOfBirth = acc.PersonBirthdate;   
-        patientOutputWrapper.patientId = acc.PersonContactId;
-        patientOutputWrapper.patientaccountId = acc.Id;        
-        patientOutputWrapper.gender = acc.PersonGender;        
-        return patientOutputWrapper;
-        
-    } 
-/*---------------------------------------------------------------------
 Method Name : createUpdatePatient
 Purpose : If we found the Patient information in EMPI we update or create same dataCheck 
           PHN is Exsit in salesforce Database or Not.
@@ -153,7 +49,7 @@ Date : 19/Dec/2024
     public void createUpdatePatient(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) {
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();        
         List<Account> outAccRecord = new  List<Account>();
-        List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
+        List<Account> patientRecord = new Elevated().selectByPHN(String.ValueOf(inputWrapper.phn));
         if(!patientRecord.isEmpty()){
               for(Account acc : patientRecord){
                 acc.FirstName = inputWrapper.firstName;
@@ -171,10 +67,6 @@ Date : 19/Dec/2024
           String result = Json.serialize(patientOutputWrapper);
           outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
           return;            
-        }
-        else if(!ESA_cls_constants.EMPICreatedRenewal.equals(String.ValueOf(inputWrapper.clickBy))){
-            createPatientInSF(inputWrapper,outputMap);
-            return;
         }
     }   
 /*---------------------------------------------------------------------
@@ -196,7 +88,7 @@ Date : 19/Dec/2024
 
         if(ESA_cls_constants.EMPICreatedRenewal.equals(String.ValueOf(inputWrapper.clickBy)))
         {
-            List<Account> patientRecord = new Elevated().getSalesforceData(inputWrapper);
+            List<Account> patientRecord = new Elevated().selectByPHN(String.ValueOf(inputWrapper.phn));
             if(!patientRecord.isEmpty() && patientOutputWrapper.isPatientFound == true){
                 for(Account acc : patientRecord)
                 {
@@ -214,14 +106,14 @@ Date : 19/Dec/2024
                     patientOutputWrapper.patientaccountId = acc.Id;
                     patientOutputWrapper.isPatientFound = true;
                     patientOutputWrapper.isPatientInSF = true;
-                    patientOutputWrapper.isPatientInEMPI = false;
+                    patientOutputWrapper.isPatientInEMPI = false;                 
                 }
         	}
             else{
                patientOutputWrapper.isPatientFound = false; 
                patientOutputWrapper.isPatientInSF = false;
             }
-        }
+        }       
         String result = Json.serialize(patientOutputWrapper);
         outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
         return;
@@ -237,7 +129,7 @@ Date : 19/Dec/2024
         
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
         EDRD_EmpiWrapper.Patient patient = (EDRD_EmpiWrapper.Patient) JSON.deserialize(patientJSON, EDRD_EmpiWrapper.Patient.class);
-        
+       
         if(String.isBlank(patient.dob) || String.isBlank(patient.gender) || patient.names.isEmpty()){
             patientOutputWrapper.firstName = null;
             patientOutputWrapper.lastName = null;
@@ -252,52 +144,12 @@ Date : 19/Dec/2024
             patientOutputWrapper.lastName = patient.names[0].familyName;
             patientOutputWrapper.dateOfBirth = Date.valueOf(patient.dob);
             patientOutputWrapper.deceased = patient.deceased;
-            patientOutputWrapper.gender = patient.gender.equals('F') ? 'Female' : 'Male';
+            patientOutputWrapper.gender = patient.gender.equals('F') ? 'Female' : 'Male'; 
             patientOutputWrapper.isPatientFound = true;
             patientOutputWrapper.phn = patient.phn;
             patientOutputWrapper.isPatientInEMPI = true;
         }
         return patientOutputWrapper;
-    }
-/*---------------------------------------------------------------------
-Method Name : createPatientInSF
-Purpose : Create Date in salesforce database.
-Version : 1.0
-Devloper Name : Accenture.
-Date : 19/Dec/2024
---------------------------------------------------------------------------*/
-    public void createPatientInSF(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) 
-    {
-        EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
-        Account patientAccount = new Account();        
-        patientAccount.Patient_Identifier__pc  = inputWrapper.phn;
-        patientAccount.FirstName = inputWrapper.firstName;
-        patientAccount.LastName = inputWrapper.lastName;
-        patientAccount.PersonBirthdate =  inputWrapper.dateOfBirth;
-        patientAccount.RecordTypeId = ESA_cls_constants.PatientRecordTypeId;  
-        insert patientAccount;    
-        
-        List<Account> patientRecord = new Elevated().selectAccountById(patientAccount.Id);
-        system.debug('patientRecord=='+patientRecord);
-        if(!patientRecord.isEmpty()){
-            for(Account acc : patientRecord){
-                patientOutputWrapper.patientId = acc.PersonContactId;
-                patientOutputWrapper.patientaccountId = acc.Id;
-                patientOutputWrapper.phn = acc.Patient_Identifier__pc;
-
-            }
-        }
-        createCareProgramEnrollee(patientAccount.Id);        
-        patientOutputWrapper.clickByNew = ESA_cls_constants.ManullyCreated.equals(String.ValueOf(inputWrapper.clickBy)) ? 'SFManulCreate' : null;
-        if(ESA_cls_constants.ManullyCreated.equals(String.ValueOf(inputWrapper.clickBy))){
-          patientOutputWrapper.isClickManulRecord = true;  
-        }
-        if(ESA_cls_constants.EMPICreated.equals(String.ValueOf(inputWrapper.clickBy))){
-            patientOutputWrapper.isClickEmpiSearch = true;  
-        }        
-        String result = Json.serialize(patientOutputWrapper);
-        outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
-        return;
     }
 /*---------------------------------------------------------------------
 Method Name : createCareProgramEnrollee
@@ -359,18 +211,8 @@ Date : 19/Dec/2024
             return [Select Id, FirstName, LastName, Patient_is_Deceased__pc, PersonBirthdate,Patient_Identifier__pc,PersonGender,PersonContactId from Account where Id =: accountId];
         }
         public List<Account> selectByPHN(String phn){
-            return [Select Id, FirstName, LastName, Patient_is_Deceased__pc, PersonBirthdate,Patient_Identifier__pc,PersonGender,PersonContactId from Account where Patient_Identifier__pc =: phn];
-        }
-         public List<Account> getSalesforceData(EDRD_EmpiWrapper.InputWrapper inputWrapper){
-             if(String.isBlank(String.ValueOf(inputWrapper.phn))){
-              return [Select Id,Patient_Identifier__pc, FirstName, LastName, Patient_is_Deceased__pc, PersonBirthdate,PersonGender,PersonContactId from Account where FirstName =: inputWrapper.firstName AND LastName =: inputWrapper.lastName AND PersonBirthdate =: inputWrapper.dateOfBirth];   
-             }
-             else{
-              return [Select Id,Patient_Identifier__pc, FirstName, LastName, Patient_is_Deceased__pc, PersonBirthdate,PersonGender,PersonContactId from Account where Patient_Identifier__pc =: inputWrapper.phn];      
-            }
-            
-        }  
-        
+            return [Select Id,FirstName,LastName,Patient_Identifier__pc, Patient_is_Deceased__pc, PersonBirthdate,PersonGender,PersonContactId from Account where Patient_Identifier__pc =: phn];
+        }        
      }    
     
 }
