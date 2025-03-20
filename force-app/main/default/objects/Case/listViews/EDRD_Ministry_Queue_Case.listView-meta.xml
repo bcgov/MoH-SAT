@@ -2,12 +2,15 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_Ministry_Queue_Case</fullName>
     <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>Patient_Identifier__c</columns>
+    <columns>EDRD_Ref_No__c</columns>
     <columns>NAME</columns>
-    <columns>CASES.SUBJECT</columns>
+    <columns>Provider__c</columns>
+    <columns>Medication_Name__c</columns>
     <columns>CASES.STATUS</columns>
-    <columns>CASES.PRIORITY</columns>
-    <columns>CASES.CREATED_DATE</columns>
-    <columns>CORE.USERS.ALIAS</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
     <filterScope>Queue</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>

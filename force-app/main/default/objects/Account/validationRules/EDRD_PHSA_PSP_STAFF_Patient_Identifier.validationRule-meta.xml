@@ -3,6 +3,11 @@
     <fullName>EDRD_PHSA_PSP_STAFF_Patient_Identifier</fullName>
     <active>true</active>
     <description>EDRD_PHSA_PSP_STAFF shouldn&apos;t be able to edit the Patient Identifier</description>
-    <errorConditionFormula>AND(NOT(ISNEW()),$Permission.EDRD_PHSA_PSP_Staff, ISCHANGED( Patient_Identifier__pc )  )</errorConditionFormula>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    $Permission.EDRD_PHSA_PSP_Staff,
+    ISCHANGED(Patient_Identifier__pc),
+    EDRD_Bypass_Validation__pc = FALSE
+)</errorConditionFormula>
     <errorMessage>You don&apos;t have permission to edit the Patient Identifier.</errorMessage>
 </ValidationRule>

@@ -6,6 +6,18 @@
         <objectField>Provider__c.Account</objectField>
         <userField>Contact.Account</userField>
     </accessMappings>
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>Committee_Review_Case__c</object>
+        <objectField>Service_Appointment__c.Account</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
+    <accessMappings>
+        <accessLevel>Read</accessLevel>
+        <object>ServiceAppointment</object>
+        <objectField>Account</objectField>
+        <userField>Contact.RelatedAccount</userField>
+    </accessMappings>
     <name>EDRD_grantCaseAccess</name>
     <profiles>edrd prescriber community user</profiles>
 </SharingSet>

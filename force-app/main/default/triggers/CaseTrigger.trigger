@@ -29,6 +29,7 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
             }
         }  
         ESA_cls_caseTriggerHandler.UpdateProviderOnEDRDCase(trigger.new);
+        ESA_cls_caseTriggerHandler.updateCareProgramEnrolee(trigger.new);
     }
     
     if(trigger.isBefore){

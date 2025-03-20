@@ -18,6 +18,11 @@
         <field>EDRD_Ref_No__pc</field>
         <operation>notEqual</operation>
     </filters>
+    <filters>
+        <field>Patient_is_Deceased__pc</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
     <label>EDRD - Enrolled Patients</label>
     <sharedTo>
         <role>Developer</role>

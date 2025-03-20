@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Type_adherence_issues</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND
+(
+Record_Type_Name__c  = &apos;EDRD&apos;,
+ISBLANK(EDRD_Reason_for_adherence_issues__c),
+INCLUDES( EDRD_Type_of_adherence_issues__c ,&apos;other&apos;)
+)</errorConditionFormula>
+    <errorDisplayField>EDRD_Reason_for_adherence_issues__c</errorDisplayField>
+    <errorMessage>Please fill this field.</errorMessage>
+</ValidationRule>

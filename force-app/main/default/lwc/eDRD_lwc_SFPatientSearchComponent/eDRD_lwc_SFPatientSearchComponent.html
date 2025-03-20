@@ -1,0 +1,186 @@
+<template>
+    <lightning-card title="Patient Search Information" icon-name="standard:contact">
+
+        <!-- Patient Identifier Section -->
+        <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small slds-m-bottom_medium">
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-4">
+                <lightning-input 
+                    label="Patient Identifier" 
+                    value={patientIdentifierSearch} 
+                    type="text" 
+                    field-level-help="Personal Health Number"
+                    onchange={handlePatientIdentifierChange}>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-4" style="margin-top: 22px;">
+                <lightning-button 
+                    label="Search by Identifier" 
+                    onclick={handleSearchByIdentifier} 
+                    variant="brand"
+                    disabled={isDisabledSearchByPHN}>
+                </lightning-button>
+            </div>
+        </div>
+
+        <!-- First Name, Last Name, and Birthdate Section -->
+        <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small slds-m-bottom_medium">
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-4">
+                <lightning-input 
+                    label="First Name" 
+                    value={firstName} 
+                    type="text" 
+                    onchange={handleFirstNameChange}>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-4">
+                <lightning-input 
+                    label="Last Name" 
+                    value={lastName} 
+                    type="text" 
+                    onchange={handleLastNameChange}>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-4">
+                <lightning-input 
+                    label="Birthdate" 
+                    value={birthDate} 
+                    type="date" 
+                    onchange={handleDOBChange}>
+                </lightning-input>
+            </div>
+            <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-4" style="margin-top: 22px;">
+                <lightning-button 
+                    label="Search by Details" 
+                    onclick={handleSearchByNameAndBirthdate} 
+                    variant="brand"
+                    disabled={isDisabledSearchBy3Param}>
+                </lightning-button>
+            </div>
+        </div>
+
+        <!-- Create Patient Manually Checkbox -->
+        <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small slds-m-top_medium">
+            <div class="slds-col slds-var-p-horizontal_x-small">
+                <lightning-input 
+                    type="checkbox" 
+                    label="Create Patient Manually"
+                    value={isCreatePatientManuallyChecked}
+                    data-id="manualCreatePatient" 
+                    onchange={handleCreatePatientManuallyChange}>
+                </lightning-input>
+            </div>
+        </div>
+
+        <!-- Manual Patient Creation Fields -->
+        <div if:true={isCreatePatientManuallyChecked}>
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small slds-m-top_medium">
+                <!-- First Row -->
+                <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2">
+                    <lightning-input 
+                        label="First Name" 
+                        type="text" 
+                        value={manualFirstName} 
+                        onchange={handleManualInputChange} 
+                        required
+                        data-id="manualFirstName"
+                        maxlength="60">
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-2">
+                    <lightning-input 
+                        label="Last Name" 
+                        type="text" 
+                        value={manualLastName} 
+                        onchange={handleManualInputChange} 
+                        required
+                        data-id="manualLastName"
+                        maxlength="40">
+                    </lightning-input>
+                </div>
+            </div>
+            <!-- Second Row -->
+            <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small slds-m-top_medium">
+                <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-3">
+                    <lightning-combobox 
+                        label="Gender" 
+                        value={manualGender} 
+                        options={genderOptions.data.values} 
+                        onchange={handleManualInputChange} 
+                        data-id="manualGender">
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-3">
+                    <lightning-input 
+                        label="Birthdate" 
+                        type="date" 
+                        value={manualBirthDate} 
+                        onchange={handleManualInputChange}
+                        data-id="manualBirthDate" 
+                        required>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-var-p-horizontal_x-small slds-size_1-of-3">
+                    <lightning-input 
+                        label="Patient Identifier" 
+                        type="text" 
+                        value={manualPatientIdentifier} 
+                        onchange={handleManualInputChange} 
+                        data-id="manualPatientIdentifier"
+                        field-level-help="Personal Health Number"
+                        minlength="10"
+                        maxlength="10">
+                    </lightning-input>
+                </div>
+            </div>
+            <div class="slds-m-top_medium">
+                <lightning-button 
+                    label="Validate Patient PHN" 
+                    onclick={handleValidatePatient} 
+                    data-id="valPatientIdentifier"
+                    disabled={isDisableValidatePHN}
+                    variant="brand">
+                </lightning-button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div if:true={patients}>
+            <div class="slds-m-top_medium">
+                <p><strong>EDRD Search Results:</strong></p>
+                <lightning-datatable 
+                    key-field="Id" 
+                    data={patients} 
+                    columns={columns}
+                    hide-checkbox-column={isCreatePatientManuallyChecked}
+                    max-row-selection="1"
+                    onrowselection={handleRowSelection}>
+                </lightning-datatable>
+            </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div if:true={showNoResultsMessage}>
+            <p class="slds-text-color_error">No patients found for the given search criteria.</p>
+        </div>
+        <br />
+        <footer class="slds-modal__footer slds-scope footerContainer slds-grid slds-grid_align-spread" style="background-color: white;">
+            <div class="navigation-bar__spacer">
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                <lightning-button 
+                    class="slds-button_neutral" 
+                    label="Previous" 
+                    onclick={handleBack} 
+                    style="margin-right: 5px;">
+                </lightning-button>
+                <lightning-button 
+                    class="slds-button_brand" 
+                    label="Next" 
+                    onclick={handleNext} 
+                    variant="brand" 
+                    disabled={isNextDisable}>
+                </lightning-button>
+            </div>
+        </footer>
+    </lightning-card>
+</template>
