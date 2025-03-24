@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EDRD_AC_Cases_Upcoming</fullName>
+    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+    <columns>EDRD_Advisory_Committee__c</columns>
     <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.TYPE</columns>
+    <columns>Patient_Identifier__c</columns>
     <columns>EDRD_Ref_No__c</columns>
-    <columns>CASES.STATUS</columns>
+    <columns>NAME</columns>
     <columns>Provider__c</columns>
     <columns>Medication_Name__c</columns>
-    <columns>NAME</columns>
-    <columns>Patient_Identifier__c</columns>
+    <columns>CASES.STATUS</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
     <filterScope>Everything</filterScope>
-<filters>
+    <filters>
         <field>EDRD_Advisory_Committee__c</field>
         <operation>equals</operation>
         <value>EDRD Advisory Committee</value>
@@ -19,8 +24,13 @@
         <operation>equals</operation>
         <value>AC Review</value>
     </filters>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.EDRD</value>
+    </filters>
     <label>EDRD AC Cases - Pending Cases</label>
     <sharedTo>
-        <group>EDRD_Advisory_Committee</group>
+        <group>EDRD_Operational_Support</group>
     </sharedTo>
 </ListView>

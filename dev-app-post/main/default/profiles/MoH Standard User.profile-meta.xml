@@ -71,6 +71,14 @@
         <default>false</default>
         <visible>false</visible>
     </applicationVisibilities>
+     <classAccesses>
+        <apexClass>EDRD_PharmanetPayload</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EDRD_PharmanetWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <layoutAssignments>
         <layout>Account-SA Account Layout</layout>
         <recordType>Account.Business_Account</recordType>
@@ -82,6 +90,10 @@
     <layoutAssignments>
         <layout>Account-Manufacturer</layout>
         <recordType>Account.Manufacturer</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account-EDRD Committee</layout>
+        <recordType>Account.EDRD_Committee</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>AccountContactRelation-EDRD Account Contact Relationship Layout</layout>
@@ -124,6 +136,9 @@
         <recordType>CodeSetBundle.EDRD_Code_Set_Bundle</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Committee_Review_Case__c-Committee Review Case Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Drug__c-Drug Layout</layout>
     </layoutAssignments>
 	<layoutAssignments>
@@ -155,6 +170,9 @@
         <recordType>PersonAccount.Provider</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Pharmanet_Payload__c-Pharmanet Payload Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Request_Detail__c-Request Detail Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -176,12 +194,21 @@
         <layout>Step_Criteria__c-Step Criteria Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+         <layout>ServiceAppointment-EDRD Service Appointment Layout</layout>
+        <recordType>ServiceAppointment.EDRD_Committee_Meeting</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>UnitOfMeasure-Unit of Measure Layout</layout>
     </layoutAssignments>
     <recordTypeVisibilities>
         <default>false</default>
+        <recordType>Account.Business_Account</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
         <recordType>Account.DEC</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>

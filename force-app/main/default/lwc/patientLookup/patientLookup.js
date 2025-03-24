@@ -17,6 +17,7 @@ export default class PatientLookup extends LightningElement {
 
     completeAndNoResults = false;
     hasData = false;
+    isOfficialOrUsualName = false;
     
     form = {
         overrideReason: 'None'
@@ -120,6 +121,8 @@ export default class PatientLookup extends LightningElement {
                     this.patientProvider.names.forEach(element => {
                         if (element.type == 'L'||  element.type == this.lraResponseName_Official ||
                             element.type == this.lraResponseName_Usual) {
+                        this.isOfficialOrUsualName = element.type === this.lraResponseName_Official || 
+                                element.type === this.lraResponseName_Usual;
                              LastName = element.familyName;
                             element.givenNames.forEach(given => {
                                 FirstName += given + ", ";

@@ -3,6 +3,9 @@
 * @Date:        21/08/2024
 * @Description: The purpose of this class is to cover Code coverage of AccountContactRelationTriggerHandler
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description] 
+                21 Aug -  EDRD-911          -  Accenture   -  Added Patient Share/delete With Provider User
+                20 Dec -  EDRD-1150         -  Accenture   -  The purpose of this method is to update Committee based on ACR insert of EDRD_Committee & Provider OR Committee_Reviewer.
+                20 Dec -  EDRD-1150         -  Accenture   -  The purpose of this method is to Remove Committee based on ACR delete of EDRD_Committee & Provider OR Committee_Reviewer.
 ***********************************************************************************************/
 @isTest
 public class AccountContactRelationTriggerHandlerTest {
@@ -124,4 +127,194 @@ public class AccountContactRelationTriggerHandlerTest {
         Assert.areNotEqual(accShareList2.size(), NULL, 'AccountShare record should is not created');
         Assert.areNotEqual(accShareList2.isEmpty(), true, 'AccountShare record list cannot be empty, after the ACR is updated');
     } 
+    
+/**
+* @author: Deepak
+* @date: 20 Dec 2024
+* @description: The purpose of this method is to cover Testcoverage of updateCommitteeFieldOnACRInsert
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/   
+    @isTest
+    public static void updateCommitteeFieldOnACRInsertTest(){
+        List<Account> providerList = new List<Account>();
+        Account providerAcc = TestFactory.newProvider('Provider');
+        providerAcc.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerList.add(providerAcc);
+        Account providerAcc2 = TestFactory.newProvider('Provider2');
+        providerAcc2.Provider_Identifier__pc = '111222';
+        providerAcc2.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerList.add(providerAcc2);
+        Account providerAcc3 = TestFactory.newProvider('Provider3');
+        providerAcc3.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
+        providerAcc3.Committee_Name__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE;
+        providerAcc3.Provider_Identifier__pc = '1112223';
+        providerAcc3.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerList.add(providerAcc3);
+        Account providerAcc4 = TestFactory.newProvider('Provider4');
+        providerAcc4.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_AC;
+        providerAcc4.Provider_Identifier__pc = '1112224';
+        providerAcc4.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerList.add(providerAcc4);
+        Account providerAcc5 = TestFactory.newProvider('Provider5');
+        providerAcc5.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC;
+        providerAcc5.Committee_Name__pc = 'Cystic Fibrosis Subcommittee;Ophthalmology Subcommittee';
+        providerAcc5.Provider_Identifier__pc = '1112225';
+        providerAcc5.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerList.add(providerAcc5);
+        Account providerAcc6 = TestFactory.newProvider('Provider6');
+        providerAcc6.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
+        providerAcc6.Committee_Name__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE;
+        providerAcc6.Provider_Identifier__pc = '7112223';
+        providerAcc6.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerList.add(providerAcc6);
+        insert providerList;
+        
+        List<Account> committeeList = new List<Account>();
+        Account sCBusinessAcc = TestFactory.createEDRDSCAccount(ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE);
+        committeeList.add(sCBusinessAcc);
+        Account sCBusinessAcc1 = TestFactory.createEDRDSCAccount('Cardiac Subcommittee');
+        committeeList.add(sCBusinessAcc1);
+        Account aCBusinessAcc = TestFactory.createEDRDACAccount(ESA_cls_constants.EDRD_PERSONACCOUNT_AC);
+        committeeList.add(aCBusinessAcc);
+        insert committeeList;
+        
+        List<AccountContactRelation> aCRListTOInsert = new List<AccountContactRelation>();
+        Id providerContactId = [SELECT Id FROM Contact Where accountId =: providerAcc.Id].get(0).Id;
+        AccountContactRelation ACRObj = new AccountContactRelation();
+        ACRObj.AccountId = sCBusinessAcc.Id;
+        ACRObj.ContactId = providerContactId;
+        ACRObj.Roles = ESA_cls_constants.EDRD_ACR_ROLES_REVIEWER;
+        aCRListTOInsert.add(ACRObj);
+        Id provider2ContactId = [SELECT Id FROM Contact Where accountId =: providerAcc2.Id].get(0).Id;
+        AccountContactRelation ACRObj2 = new AccountContactRelation();
+        ACRObj2.AccountId = aCBusinessAcc.Id;
+        ACRObj2.ContactId = provider2ContactId;
+        ACRObj2.Roles = ESA_cls_constants.EDRD_ACR_ROLES_CHAIR;
+        aCRListTOInsert.add(ACRObj2);
+        Id provider3ContactId = [SELECT Id FROM Contact Where accountId =: providerAcc3.Id].get(0).Id;
+        AccountContactRelation ACRObj3 = new AccountContactRelation();
+        ACRObj3.AccountId = aCBusinessAcc.Id;
+        ACRObj3.ContactId = provider3ContactId;
+        ACRObj3.Roles = ESA_cls_constants.EDRD_ACR_ROLES_VICE_CHAIR;
+        aCRListTOInsert.add(ACRObj3);
+        Id provider4ContactId = [SELECT Id FROM Contact Where accountId =: providerAcc4.Id].get(0).Id;
+        AccountContactRelation ACRObj4 = new AccountContactRelation();
+        ACRObj4.AccountId = sCBusinessAcc1.Id;
+        ACRObj4.ContactId = provider4ContactId;
+        ACRObj4.Roles = ESA_cls_constants.EDRD_ACR_ROLES_VICE_CHAIR;
+        aCRListTOInsert.add(ACRObj4);
+        Id provider5ContactId = [SELECT Id FROM Contact Where accountId =: providerAcc5.Id].get(0).Id;
+        AccountContactRelation ACRObj5 = new AccountContactRelation();
+        ACRObj5.AccountId = sCBusinessAcc1.Id;
+        ACRObj5.ContactId = provider5ContactId;
+        ACRObj5.Roles = ESA_cls_constants.EDRD_ACR_ROLES_CHAIR;
+        aCRListTOInsert.add(ACRObj5);
+        Id provider6ContactId = [SELECT Id FROM Contact Where accountId =: providerAcc6.Id].get(0).Id;
+        AccountContactRelation ACRObj6 = new AccountContactRelation();
+        ACRObj6.AccountId = sCBusinessAcc1.Id;
+        ACRObj6.ContactId = provider6ContactId;
+        ACRObj6.Roles = ESA_cls_constants.EDRD_ACR_ROLES_REVIEWER;
+        aCRListTOInsert.add(ACRObj6);
+        AccountContactRelation ACRObj7 = new AccountContactRelation();
+        ACRObj7.AccountId = aCBusinessAcc.Id;
+        ACRObj7.ContactId = provider4ContactId;
+        ACRObj7.Roles = ESA_cls_constants.EDRD_ACR_ROLES_CHAIR;
+        aCRListTOInsert.add(ACRObj7);
+        AccountContactRelation ACRObj8 = new AccountContactRelation();
+        ACRObj8.AccountId = aCBusinessAcc.Id;
+        ACRObj8.ContactId = provider5ContactId;
+        ACRObj8.Roles = ESA_cls_constants.EDRD_ACR_ROLES_VICE_CHAIR;
+        aCRListTOInsert.add(ACRObj8);
+        
+        Test.startTest();
+        insert aCRListTOInsert;
+        Test.stopTest();
+        
+        Map<Id, Account> updatedProviders = new Map<Id, Account>([SELECT Id, Committee__pc, Committee_Name__pc FROM Account
+                                                                  WHERE Id IN (:providerAcc.Id, :providerAcc2.Id, :providerAcc3.Id)]);
+        
+        Account updatedProviderAccount = updatedProviders.get(providerAcc.Id);
+        Assert.areEqual(ESA_cls_constants.EDRD_PERSONACCOUNT_SC, updatedProviderAccount.Committee__pc, 'Provider Record should be updated');
+        Assert.areNotEqual(NULL, updatedProviderAccount.Committee_Name__pc, 'Committee_Name__pc on provider field should not be NULL');
+        Assert.areEqual('Metabolic Subcommittee', updatedProviderAccount.Committee_Name__pc, 'Provider Committee_Name__pc should be updated');
+        
+        Account updatedProviderAccount2 = updatedProviders.get(providerAcc2.Id);
+        Assert.areEqual(ESA_cls_constants.EDRD_PERSONACCOUNT_AC, updatedProviderAccount2.Committee__pc, 'Provider Record should be updated');
+        Assert.areEqual(NULL, updatedProviderAccount2.Committee_Name__pc, 'Provider2 Committee_Name__pc should be NULL');
+        
+        Account updatedProviderAccount3 = updatedProviders.get(providerAcc3.Id);
+        Assert.areEqual(ESA_cls_constants.EDRD_PERSONACCOUNT_ACSC, updatedProviderAccount3.Committee__pc, 'Provider3 Record should be updated');
+        Assert.areNotEqual(NULL, updatedProviderAccount3.Committee_Name__pc, 'Committee_Name__pc on provider3 field should not be NULL');
+        Assert.areEqual('Metabolic Subcommittee', updatedProviderAccount3.Committee_Name__pc, 'Provider Committee_Name__pc should be updated');
+    }
+    
+/**
+* @author: Deepak
+* @date: 20 Dec 2024
+* @description: The purpose of this method is to cover Testcoverage of removeCommitteeFieldOnACRDelete
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/   
+    @isTest
+    public static void removeCommitteeFieldOnACRDeleteTest(){
+        List<Account> providerAccList = new List<Account>();
+        Account provider = TestFactory.newProvider('Provider');
+        provider.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerAccList.add(provider);
+        Account provider2 = TestFactory.newProvider('Provider2');
+        provider2.Provider_Identifier__pc = '111222';
+        provider2.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerAccList.add(provider2);
+        Account provider3 = TestFactory.newProvider('Provider3');
+        provider3.Committee__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC;
+        provider3.Committee_Name__pc = ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE;
+        provider3.Provider_Identifier__pc = '1112223';
+        provider3.Provider_Type__pc = ESA_cls_constants.EDRD_PHYSICIAN;
+        providerAccList.add(provider3);
+        insert providerAccList;
+        
+        List<Account> committeeList = new List<Account>();
+        Account sCBusinessAcc = TestFactory.createEDRDSCAccount(ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE);
+        committeeList.add(sCBusinessAcc);
+        Account aCBusinessAcc = TestFactory.createEDRDACAccount(ESA_cls_constants.EDRD_PERSONACCOUNT_AC);
+        committeeList.add(aCBusinessAcc);
+        insert committeeList;
+        
+        List<AccountContactRelation> aCRListTOInsert = new List<AccountContactRelation>();
+        Id providerContactId = [SELECT Id FROM Contact Where accountId =: provider.Id].get(0).Id;
+        AccountContactRelation ACRObj = new AccountContactRelation();
+        ACRObj.AccountId = sCBusinessAcc.Id;
+        ACRObj.ContactId = providerContactId;
+        ACRObj.Roles = ESA_cls_constants.EDRD_ACR_ROLES_REVIEWER;
+        aCRListTOInsert.add(ACRObj);
+        Id provider2ContactId = [SELECT Id FROM Contact Where accountId =: provider2.Id].get(0).Id;
+        AccountContactRelation ACRObj2 = new AccountContactRelation();
+        ACRObj2.AccountId = aCBusinessAcc.Id;
+        ACRObj2.ContactId = provider2ContactId;
+        ACRObj2.Roles = ESA_cls_constants.EDRD_ACR_ROLES_CHAIR;
+        aCRListTOInsert.add(ACRObj2);
+        Id provider3ContactId = [SELECT Id FROM Contact Where accountId =: provider3.Id].get(0).Id;
+        AccountContactRelation ACRObj3 = new AccountContactRelation();
+        ACRObj3.AccountId = aCBusinessAcc.Id;
+        ACRObj3.ContactId = provider3ContactId;
+        ACRObj3.Roles = ESA_cls_constants.EDRD_ACR_ROLES_VICE_CHAIR;
+        aCRListTOInsert.add(ACRObj3);
+        insert aCRListTOInsert;
+        
+        Test.startTest();
+        delete aCRListTOInsert;
+        Test.stopTest();
+        
+        Map<Id, Account> accountMap = new Map<Id, Account>([SELECT Id, Committee__pc, Committee_Name__pc FROM Account 
+                                                            WHERE Id IN :new Set<Id>{provider2.Id, provider3.Id}]);
+        
+        Account provider3AfterDelete = accountMap.get(provider3.Id);
+        Assert.areEqual(provider3AfterDelete.Committee__pc, ESA_cls_constants.EDRD_PERSONACCOUNT_SC, 'Committee should be null after deletion');
+        Assert.areEqual(provider3AfterDelete.Committee_Name__pc, ESA_cls_constants.EDRD_PERSONACCOUNT_SC_METABOLIC_SUBCOMMITTEE, 'Committee Name should be null after deletion');
+        Assert.areNotEqual(provider3AfterDelete.Committee__pc, NULL, 'Committee should not be null after deletion');
+        Assert.areNotEqual(provider3AfterDelete.Committee_Name__pc, NULL, 'Committee Name should not be null after deletion');
+        
+        Account provider2AfterDelete = accountMap.get(provider2.Id);
+        Assert.areEqual(provider2AfterDelete.Committee__pc, NULL, 'Provider2 Committee should not be null');
+        Assert.areEqual(provider2AfterDelete.Committee_Name__pc, NULL, 'Provider2 Committee Name should remain unchanged');        
+    }
 }

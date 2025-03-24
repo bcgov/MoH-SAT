@@ -1,6 +1,310 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <apiVersion>59.0</apiVersion>
+    <apiVersion>61.0</apiVersion>
+    <assignments>
+        <name>Assign_PatientOverRide_Reason</name>
+        <label>Assign_PatientOverRide_Reason</label>
+        <locationX>1018</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>PatientOverrideReason</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newCasePatientsearch.overRideReason</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_PatientOverrideReason</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assigning_Manual_Patient_SF_Details</name>
+        <label>Assigning_Manual_Patient_SF_Details</label>
+        <locationX>1612</locationX>
+        <locationY>998</locationY>
+        <assignmentItems>
+            <assignToReference>SFPatientId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SFPatientSearch.patientSFId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Patient_Records_After_Create_Update</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assigning_Manual_PatientDetails</name>
+        <label>Assigning_Manual_PatientDetails</label>
+        <locationX>1216</locationX>
+        <locationY>998</locationY>
+        <assignmentItems>
+            <assignToReference>Patient_FirstName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SFPatientSearch.patientFirstName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_LastName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SFPatientSearch.patientLastName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_PHN</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SFPatientSearch.patientIdentifier</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_Deceased</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>No</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_Gender</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SFPatientSearch.patientGender</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_DOB</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SFPatientSearch.patientBirthdate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>PatientSummary_ScreenManual</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assigning_PatientDetails</name>
+        <label>Assigning_PatientDetails</label>
+        <locationX>622</locationX>
+        <locationY>782</locationY>
+        <assignmentItems>
+            <assignToReference>Patient_FirstName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newCasePatientsearch.FirstName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_LastName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newCasePatientsearch.LastName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_PHN</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newCasePatientsearch.accountPHN</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_Deceased</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newCasePatientsearch.Deceased</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_Gender</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newCasePatientsearch.Gender</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Patient_DOB</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>newCasePatientsearch.PatientDOB</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>validate_Is_patient_deceased</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assigning_SFPatientId_create</name>
+        <label>Assigning_SFPatientId_create</label>
+        <locationX>556</locationX>
+        <locationY>1430</locationY>
+        <assignmentItems>
+            <assignToReference>SFPatientId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Create_patientRecordWithEMPI</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Patient_Records_After_Create_Update</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assigning_SFPatientId_createManuallyPHN</name>
+        <label>Assigning_SFPatientId_createManuallyPHN</label>
+        <locationX>1084</locationX>
+        <locationY>1430</locationY>
+        <assignmentItems>
+            <assignToReference>SFPatientId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Manual_Create_patientRecord</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Patient_Records_After_Create_Update</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assigning_SFPatientId_createNoPHN</name>
+        <label>Assigning_SFPatientId_createNoPHN</label>
+        <locationX>1348</locationX>
+        <locationY>1430</locationY>
+        <assignmentItems>
+            <assignToReference>SFPatientId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Manual_Create_patientRecord_NoPHN</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Patient_Records_After_Create_Update</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assigning_SFPatientId_update</name>
+        <label>Assigning_SFPatientId_update</label>
+        <locationX>292</locationX>
+        <locationY>1538</locationY>
+        <assignmentItems>
+            <assignToReference>SFPatientId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>searchedPatientRecId.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Patient_Records_After_Create_Update</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assignment_CDL_Record</name>
+        <label>Assignment_CDL_Record</label>
+        <locationX>402</locationX>
+        <locationY>5750</locationY>
+        <assignmentItems>
+            <assignToReference>Insert_CDL_Records</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CDL_Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assignment_Renewal_CDL_Record</name>
+        <label>Assignment_Renewal_CDL_Record</label>
+        <locationX>930</locationX>
+        <locationY>5750</locationY>
+        <assignmentItems>
+            <assignToReference>Insert_CDL_Records</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CDL_Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_CD_Records</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_CD_with_Entity_Id</name>
+        <label>Update CD with Entity Id</label>
+        <locationX>930</locationX>
+        <locationY>5642</locationY>
+        <assignmentItems>
+            <assignToReference>CDL_Record.ContentDocumentId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Iterate_CD_Records</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.LinkedEntityId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>StoreRenewalCase.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.ShareType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>I</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.Visibility</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>AllUsers</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assignment_Renewal_CDL_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_CD_with_Entity_Id_NewCaseType</name>
+        <label>Update CD with Entity Id__NewCaseType</label>
+        <locationX>402</locationX>
+        <locationY>5642</locationY>
+        <assignmentItems>
+            <assignToReference>CDL_Record.ContentDocumentId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Iterate_CD_Records_NewCaseType</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.LinkedEntityId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>StoreNewCase.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.ShareType</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>I</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CDL_Record.Visibility</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>AllUsers</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assignment_CDL_Record</targetReference>
+        </connector>
+    </assignments>
     <choices>
         <name>AC_Review</name>
         <choiceText>AC Review</choiceText>
@@ -55,10 +359,160 @@
         <dataType>String</dataType>
     </choices>
     <decisions>
+        <name>Check_createpatientvalue</name>
+        <label>Check_createpatientvalue</label>
+        <locationX>1414</locationX>
+        <locationY>890</locationY>
+        <defaultConnector>
+            <targetReference>Assigning_Manual_Patient_SF_Details</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CheckDecision_createpatientvalue</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>SFPatientSearch.isCreatePatientManuallyChecked</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assigning_Manual_PatientDetails</targetReference>
+            </connector>
+            <label>CheckDecision_createpatientvalue</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Insert_CDL_list_is_not_empty</name>
+        <label>check Insert CDL list is not empty</label>
+        <locationX>842</locationX>
+        <locationY>5942</locationY>
+        <defaultConnector>
+            <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CDL_List_is_not_Empty</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Insert_CDL_Records</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_RelatedCDLfor_RenewalCase</targetReference>
+            </connector>
+            <label>CDL List is not Empty</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Insert_CDL_list_is_not_empty_NewCaseType</name>
+        <label>check Insert CDL list is not empty_NewCaseType</label>
+        <locationX>314</locationX>
+        <locationY>5942</locationY>
+        <defaultConnector>
+            <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CDL_List_is_not_Empty_NewCaseType</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Insert_CDL_Records</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_RelatedCDLfor_RenewalCase_NewCaseType</targetReference>
+            </connector>
+            <label>CDL List is not Empty_NewCaseType</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_isManaulPHNPresent</name>
+        <label>Check_isManaulPHNPresent</label>
+        <locationX>1216</locationX>
+        <locationY>1214</locationY>
+        <defaultConnector>
+            <targetReference>Manual_Create_patientRecord_NoPHN</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>CheckOutcome_isManaul_PHNPresent</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Patient_PHN</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Manual_Create_patientRecord</targetReference>
+            </connector>
+            <label>CheckOutcome_isManaul_PHNPresent</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_patientFoundInSF</name>
+        <label>Check_patientFoundInSF</label>
+        <locationX>424</locationX>
+        <locationY>1214</locationY>
+        <defaultConnector>
+            <targetReference>Create_patientRecordWithEMPI</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>If_PHN_found</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>searchedPatientRecId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_patientRecordWithEMPI</targetReference>
+            </connector>
+            <label>If PHN found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_PatientOverrideReason</name>
+        <label>Check_PatientOverrideReason</label>
+        <locationX>1018</locationX>
+        <locationY>674</locationY>
+        <defaultConnector>
+            <targetReference>Search_Patient_in_SF</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>PatientOverrideReason_isNone</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>PatientOverrideReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>None</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assigning_PatientDetails</targetReference>
+            </connector>
+            <label>PatientOverrideReason_isNone</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Choose_case_option</name>
         <label>Choose case option</label>
-        <locationX>446</locationX>
-        <locationY>2894</locationY>
+        <locationX>578</locationX>
+        <locationY>4610</locationY>
         <defaultConnector>
             <targetReference>Get_Case_Record_Type_for_renewal</targetReference>
         </defaultConnector>
@@ -82,8 +536,8 @@
     <decisions>
         <name>Copy_1_of_Renewal_Indefinite_Funding_check2</name>
         <label>Renewal Indefinite Funding check</label>
-        <locationX>710</locationX>
-        <locationY>3626</locationY>
+        <locationX>842</locationX>
+        <locationY>5234</locationY>
         <defaultConnector>
             <targetReference>Create_Medication_Request_with_New_Renewal_Case_without_indef</targetReference>
         </defaultConnector>
@@ -95,7 +549,7 @@
                 <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>cysteamine</stringValue>
+                    <stringValue>cysteamine - Procysbi</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -107,8 +561,8 @@
     <decisions>
         <name>Decision_10</name>
         <label>Renewal Indefinite Funding check</label>
-        <locationX>710</locationX>
-        <locationY>3110</locationY>
+        <locationX>842</locationX>
+        <locationY>4826</locationY>
         <defaultConnector>
             <targetReference>New_renewal_case_creation_for_RecType_Renew_without_indef</targetReference>
         </defaultConnector>
@@ -120,7 +574,7 @@
                 <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>cysteamine</stringValue>
+                    <stringValue>cysteamine - Procysbi</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -132,8 +586,8 @@
     <decisions>
         <name>Medication_details_New_Renewal_decision</name>
         <label>Medication details New/Renewal decision</label>
-        <locationX>644</locationX>
-        <locationY>2186</locationY>
+        <locationX>776</locationX>
+        <locationY>3386</locationY>
         <defaultConnector>
             <targetReference>Renwal_Medication_details</targetReference>
         </defaultConnector>
@@ -157,8 +611,8 @@
     <decisions>
         <name>New_Indefinite_Funding_check</name>
         <label>New Indefinite Funding check</label>
-        <locationX>182</locationX>
-        <locationY>3110</locationY>
+        <locationX>314</locationX>
+        <locationY>4826</locationY>
         <defaultConnector>
             <targetReference>New_case_Creation_for_Rec_type_New_without_indef</targetReference>
         </defaultConnector>
@@ -170,7 +624,7 @@
                 <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>cysteamine</stringValue>
+                    <stringValue>cysteamine - Procysbi</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -182,8 +636,8 @@
     <decisions>
         <name>New_Indefinite_Funding_check2</name>
         <label>New Indefinite Funding check</label>
-        <locationX>182</locationX>
-        <locationY>3626</locationY>
+        <locationX>314</locationX>
+        <locationY>5234</locationY>
         <defaultConnector>
             <targetReference>Create_Medication_request_with_New_Case_without_indef</targetReference>
         </defaultConnector>
@@ -195,7 +649,7 @@
                 <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>cysteamine</stringValue>
+                    <stringValue>cysteamine - Procysbi</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -207,8 +661,8 @@
     <decisions>
         <name>Other_Medication_Decision</name>
         <label>Other Medication Decision</label>
-        <locationX>446</locationX>
-        <locationY>1970</locationY>
+        <locationX>578</locationX>
+        <locationY>3170</locationY>
         <defaultConnector>
             <targetReference>Indication_Screen</targetReference>
         </defaultConnector>
@@ -239,15 +693,15 @@
     <decisions>
         <name>validate_ACR_Relationship</name>
         <label>validate_ACR_Relationship</label>
-        <locationX>908</locationX>
-        <locationY>1538</locationY>
+        <locationX>578</locationX>
+        <locationY>3986</locationY>
         <defaultConnector>
-            <targetReference>No_ACR_ErrorScreen</targetReference>
+            <targetReference>Get_PSP_Queue</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>ACR_Active</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>get_ACRRecord</leftValueReference>
                 <operator>IsNull</operator>
@@ -263,16 +717,16 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>get_ACRRecord.Is_EDRD_Data_Migration__c</leftValueReference>
+                <leftValueReference>ProviderRecord.IsCustomerPortal</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Medication_Request</targetReference>
+                <targetReference>Get_PSP_Queue</targetReference>
             </connector>
-            <label>ACR &amp; Active</label>
+            <label>Customer Portal &amp; ACR &amp; Active</label>
         </rules>
         <rules>
             <name>ACR_Inactive</name>
@@ -292,6 +746,86 @@
                 </rightValue>
             </conditions>
             <conditions>
+                <leftValueReference>ProviderRecord.IsCustomerPortal</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_ACR_CusP_Status</targetReference>
+            </connector>
+            <label>Customer Portal &amp; ACR &amp; Inactive</label>
+        </rules>
+        <rules>
+            <name>Customer_Portal_ACR_Create</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_ACRRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>ProviderRecord.IsCustomerPortal</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_ACR_CusP_Active_Status</targetReference>
+            </connector>
+            <label>Customer Portal &amp; ACR &amp; Create</label>
+        </rules>
+        <rules>
+            <name>Not_Customer_Portal_ACR_Active</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_ACRRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>ProviderRecord.IsCustomerPortal</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>get_ACRRecord.Is_EDRD_Data_Migration__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_PSP_Queue</targetReference>
+            </connector>
+            <label>Not Customer Portal &amp; ACR &amp; Active</label>
+        </rules>
+        <rules>
+            <name>Not_Customer_Portal_ACR_Inactive</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_ACRRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>ProviderRecord.IsCustomerPortal</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
                 <leftValueReference>get_ACRRecord.Is_EDRD_Data_Migration__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
@@ -299,18 +833,40 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>ACR_InactiveErrorScreen</targetReference>
+                <targetReference>Update_ACR_NotCusP_EDRD_DM</targetReference>
             </connector>
-            <label>ACR &amp; Inactive</label>
+            <label>Not Customer Portal &amp; ACR &amp; Inactive</label>
+        </rules>
+        <rules>
+            <name>Not_Customer_Portal_ACR_Create</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>get_ACRRecord</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>ProviderRecord.IsCustomerPortal</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_ACR_NotCusP_EDRD_DM</targetReference>
+            </connector>
+            <label>Not Customer Portal &amp; ACR &amp; Create</label>
         </rules>
     </decisions>
     <decisions>
         <name>validate_CPERecord</name>
         <label>validate_CPERecord</label>
-        <locationX>1535</locationX>
-        <locationY>1106</locationY>
+        <locationX>578</locationX>
+        <locationY>2330</locationY>
         <defaultConnector>
-            <targetReference>CPE_NoCPE_ErrorScreen</targetReference>
+            <targetReference>Create_CPEStatus_Active</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -353,7 +909,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>CPE_InactiveErrorScreen</targetReference>
+                <targetReference>Update_CPEStatus_Active</targetReference>
             </connector>
             <label>CPE &amp; Inactive</label>
         </rules>
@@ -361,8 +917,8 @@
     <decisions>
         <name>validate_EDRDCPRecord</name>
         <label>validate_EDRDCPRecord</label>
-        <locationX>2112</locationX>
-        <locationY>890</locationY>
+        <locationX>1018</locationX>
+        <locationY>2114</locationY>
         <defaultConnector>
             <targetReference>CP_ErrorScreen</targetReference>
         </defaultConnector>
@@ -386,8 +942,8 @@
     <decisions>
         <name>validate_Is_patient_deceased</name>
         <label>validate_Is_patient_deceased</label>
-        <locationX>2665</locationX>
-        <locationY>674</locationY>
+        <locationX>622</locationX>
+        <locationY>890</locationY>
         <defaultConnector>
             <targetReference>PatientDeceased_ErrorScreen</targetReference>
         </defaultConnector>
@@ -396,19 +952,19 @@
             <name>Patient_Not_Deceased</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>searchedPatientRecId.Patient_is_Deceased__pc</leftValueReference>
+                <leftValueReference>Patient_Deceased</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <booleanValue>false</booleanValue>
+                    <stringValue>No</stringValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_EDRDCPRecord</targetReference>
+                <targetReference>PatientSummary_Screen</targetReference>
             </connector>
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Updates to HC Approved Dosage, Frequency &amp; Funding Duration fields to decimals.</description>
+    <description>Changes related EMPI Integrations-v1.6- Changes to Patient Deceased and Updates to HC Approved Dosage, Frequency &amp; Funding Duration fields to decimals.</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -460,8 +1016,41 @@
         <picklistObject>MedicationRequest</picklistObject>
     </dynamicChoiceSets>
     <environments>Default</environments>
+    <formulas>
+        <name>Patient_SFDeceased</name>
+        <dataType>Boolean</dataType>
+        <expression>IF({!Patient_Deceased} = &quot;Yes&quot;, TRUE, FALSE)</expression>
+    </formulas>
     <interviewLabel>Create EDRD Case {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Create EDRD Case</label>
+    <loops>
+        <name>Iterate_CD_Records</name>
+        <label>Iterate_CD_Records</label>
+        <locationX>842</locationX>
+        <locationY>5534</locationY>
+        <collectionReference>UploadScreenDocument.contentDocIds</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_CD_with_Entity_Id</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>check_Insert_CDL_list_is_not_empty</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>Iterate_CD_Records_NewCaseType</name>
+        <label>Iterate_CD_Records_NewCaseType</label>
+        <locationX>314</locationX>
+        <locationY>5534</locationY>
+        <collectionReference>UploadScreenDocument.contentDocIds</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Update_CD_with_Entity_Id_NewCaseType</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>check_Insert_CDL_list_is_not_empty_NewCaseType</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -482,18 +1071,135 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
+        <name>Create_ACR_CusP_Active_Status</name>
+        <label>Create_ACR_CusP_Active_Status</label>
+        <locationX>314</locationX>
+        <locationY>4094</locationY>
+        <connector>
+            <targetReference>Get_PSP_Queue</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>ProviderRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>searchedPatientRecId.PersonContact.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>IsActive</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Is_EDRD_Data_Migration__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
+            </value>
+        </inputAssignments>
+        <object>AccountContactRelation</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_ACR_NotCusP_EDRD_DM</name>
+        <label>Create_ACR_NotCusP_EDRD_DM</label>
+        <locationX>1018</locationX>
+        <locationY>4094</locationY>
+        <connector>
+            <targetReference>Get_PSP_Queue</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>ProviderRecord.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId</field>
+            <value>
+                <elementReference>searchedPatientRecId.PersonContact.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>IsActive</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Is_EDRD_Data_Migration__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
+            </value>
+        </inputAssignments>
+        <object>AccountContactRelation</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_CPEStatus_Active</name>
+        <label>Create_CPEStatus_Active</label>
+        <locationX>798</locationX>
+        <locationY>2438</locationY>
+        <connector>
+            <targetReference>Search_Provider_for_New_Case</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>SFPatientId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>CareProgramId</field>
+            <value>
+                <elementReference>EDRD_careProgramRecordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <stringValue>Test</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </inputAssignments>
+        <object>CareProgramEnrollee</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
         <name>Create_Medication_request_with_New_Case</name>
         <label>Create Medication request with New Case</label>
-        <locationX>50</locationX>
-        <locationY>3626</locationY>
+        <locationX>182</locationX>
+        <locationY>5342</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Get_New_Case</targetReference>
+            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>New_case_Creation_for_Rec_type_New</elementReference>
+                <elementReference>StoreNewCase.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -529,7 +1235,7 @@
         <inputAssignments>
             <field>Other_Medication_Detail__c</field>
             <value>
-                <stringValue>{!Medication_Name}, {!Other_Brand}, {!Other_Indication}, {!Supplier}, {!Dosing}, {!Dosage_Form}</stringValue>
+                <stringValue>{!Medication_Name} {!Other_Brand} {!Other_Indication} {!Supplier} {!Dosing} {!Dosage_Form}</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -583,7 +1289,7 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <stringValue>New</stringValue>
+                <elementReference>StoreNewCase.Type</elementReference>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
@@ -591,19 +1297,16 @@
     <recordCreates>
         <name>Create_Medication_request_with_New_Case_without_indef</name>
         <label>Create Medication request with New Case without indef</label>
-        <locationX>314</locationX>
-        <locationY>3626</locationY>
+        <locationX>446</locationX>
+        <locationY>5342</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Get_New_Case</targetReference>
+            <targetReference>Iterate_CD_Records_NewCaseType</targetReference>
         </connector>
-        <faultConnector>
-            <targetReference>EDRD_Staff</targetReference>
-        </faultConnector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>New_case_Creation_for_Rec_type_New_without_indef</elementReference>
+                <elementReference>StoreNewCase.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -633,7 +1336,7 @@
         <inputAssignments>
             <field>Other_Medication_Detail__c</field>
             <value>
-                <stringValue>{!Medication_Name}, {!Other_Brand}, {!Other_Indication}, {!Supplier}, {!Dosing}, {!Dosage_Form}</stringValue>
+                <stringValue>{!Medication_Name} {!Other_Brand} {!Other_Indication} {!Supplier} {!Dosing} {!Dosage_Form}</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -687,7 +1390,7 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <stringValue>New</stringValue>
+                <elementReference>StoreNewCase.Type</elementReference>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
@@ -695,16 +1398,16 @@
     <recordCreates>
         <name>Create_Medication_Request_with_New_Renewal_Case</name>
         <label>Create Medication Request with New Renewal Case</label>
-        <locationX>842</locationX>
-        <locationY>3626</locationY>
+        <locationX>710</locationX>
+        <locationY>5342</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Get_Renewal_Case</targetReference>
+            <targetReference>Iterate_CD_Records</targetReference>
         </connector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
+                <elementReference>StoreRenewalCase.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -740,7 +1443,7 @@
         <inputAssignments>
             <field>Other_Medication_Detail__c</field>
             <value>
-                <stringValue>{!Medication_Name}, {!Other_Brand}, {!Other_Indication}, {!Supplier}, {!Dosing}, {!Dosage_Form}</stringValue>
+                <stringValue>{!Medication_Name} {!Other_Brand} {!Other_Indication} {!Supplier} {!Dosing} {!Dosage_Form}</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -794,7 +1497,7 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <stringValue>Renewal</stringValue>
+                <elementReference>StoreRenewalCase.Type</elementReference>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
@@ -802,19 +1505,16 @@
     <recordCreates>
         <name>Create_Medication_Request_with_New_Renewal_Case_without_indef</name>
         <label>Create Medication Request with New Renewal Case without indef</label>
-        <locationX>1106</locationX>
-        <locationY>3626</locationY>
+        <locationX>974</locationX>
+        <locationY>5342</locationY>
         <assignRecordIdToReference>MedicationRequestRec</assignRecordIdToReference>
         <connector>
-            <targetReference>Get_Renewal_Case</targetReference>
+            <targetReference>Iterate_CD_Records</targetReference>
         </connector>
-        <faultConnector>
-            <targetReference>Copy_1_of_EDRD_Staff</targetReference>
-        </faultConnector>
         <inputAssignments>
             <field>Case__c</field>
             <value>
-                <elementReference>New_renewal_case_creation_for_RecType_Renew_without_indef</elementReference>
+                <elementReference>StoreRenewalCase.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -844,7 +1544,7 @@
         <inputAssignments>
             <field>Other_Medication_Detail__c</field>
             <value>
-                <stringValue>{!Medication_Name}, {!Other_Brand}, {!Other_Indication}, {!Supplier}, {!Dosing}, {!Dosage_Form}</stringValue>
+                <stringValue>{!Medication_Name} {!Other_Brand} {!Other_Indication} {!Supplier} {!Dosing} {!Dosage_Form}</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -898,18 +1598,191 @@
         <inputAssignments>
             <field>Type</field>
             <value>
-                <stringValue>Renewal</stringValue>
+                <elementReference>StoreRenewalCase.Type</elementReference>
             </value>
         </inputAssignments>
         <object>MedicationRequest</object>
     </recordCreates>
     <recordCreates>
+        <name>Create_patientRecordWithEMPI</name>
+        <label>Create_patientRecordWithEMPI</label>
+        <locationX>556</locationX>
+        <locationY>1322</locationY>
+        <connector>
+            <targetReference>Assigning_SFPatientId_create</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>Patient_FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>Patient_LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_Identifier__pc</field>
+            <value>
+                <elementReference>Patient_PHN</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_is_Deceased__pc</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonBirthdate</field>
+            <value>
+                <elementReference>Patient_DOB</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonGender</field>
+            <value>
+                <elementReference>Patient_Gender</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordTypeId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_RelatedCDLfor_RenewalCase</name>
+        <label>Create_RelatedCDLfor_RenewalCase</label>
+        <locationX>710</locationX>
+        <locationY>6050</locationY>
+        <connector>
+            <targetReference>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</targetReference>
+        </connector>
+        <inputReference>Insert_CDL_Records</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_RelatedCDLfor_RenewalCase_NewCaseType</name>
+        <label>Create_RelatedCDLfor_RenewalCase_NewCaseType</label>
+        <locationX>182</locationX>
+        <locationY>6050</locationY>
+        <connector>
+            <targetReference>Update_EDRDNewCase_withPSPOwner</targetReference>
+        </connector>
+        <inputReference>Insert_CDL_Records</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <name>Manual_Create_patientRecord</name>
+        <label>Manual_Create_patientRecord</label>
+        <locationX>1084</locationX>
+        <locationY>1322</locationY>
+        <connector>
+            <targetReference>Assigning_SFPatientId_createManuallyPHN</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>Patient_FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>Patient_LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_Identifier__pc</field>
+            <value>
+                <elementReference>Patient_PHN</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_is_Deceased__pc</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonBirthdate</field>
+            <value>
+                <elementReference>Patient_DOB</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonGender</field>
+            <value>
+                <elementReference>Patient_Gender</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordTypeId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Manual_Create_patientRecord_NoPHN</name>
+        <label>Manual_Create_patientRecord_NoPHN</label>
+        <locationX>1348</locationX>
+        <locationY>1322</locationY>
+        <connector>
+            <targetReference>Assigning_SFPatientId_createNoPHN</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>Patient_FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>Patient_LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_is_Deceased__pc</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonBirthdate</field>
+            <value>
+                <elementReference>Patient_DOB</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonGender</field>
+            <value>
+                <elementReference>Patient_Gender</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>recordTypeId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
         <name>New_case_Creation_for_Rec_type_New</name>
         <label>New case Creation for Rec type New</label>
-        <locationX>50</locationX>
-        <locationY>3218</locationY>
+        <locationX>182</locationX>
+        <locationY>4934</locationY>
         <connector>
-            <targetReference>Upload_Document</targetReference>
+            <targetReference>Get_Newly_created_Case</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -960,15 +1833,15 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Origin</field>
+            <field>EDRD_Patient_Override_Reason__c</field>
             <value>
-                <elementReference>Case_Origin</elementReference>
+                <elementReference>PatientOverrideReason</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>OwnerId</field>
+            <field>Origin</field>
             <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
+                <elementReference>Case_Origin</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1001,10 +1874,10 @@
     <recordCreates>
         <name>New_case_Creation_for_Rec_type_New_without_indef</name>
         <label>New case Creation for Rec type New without indef</label>
-        <locationX>314</locationX>
-        <locationY>3218</locationY>
+        <locationX>446</locationX>
+        <locationY>4934</locationY>
         <connector>
-            <targetReference>Upload_Document</targetReference>
+            <targetReference>Get_Newly_created_Case_without_indef</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -1049,15 +1922,15 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Origin</field>
+            <field>EDRD_Patient_Override_Reason__c</field>
             <value>
-                <elementReference>Case_Origin</elementReference>
+                <elementReference>PatientOverrideReason</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>OwnerId</field>
+            <field>Origin</field>
             <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
+                <elementReference>Case_Origin</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1090,10 +1963,10 @@
     <recordCreates>
         <name>New_renewal_case_creation_for_RecType_Renew</name>
         <label>New renewal case creation for RecType Renew</label>
-        <locationX>842</locationX>
-        <locationY>3218</locationY>
+        <locationX>710</locationX>
+        <locationY>4934</locationY>
         <connector>
-            <targetReference>UploadDocument</targetReference>
+            <targetReference>Get_newly_created_Renewal_Rec</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -1144,15 +2017,15 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Origin</field>
+            <field>EDRD_Patient_Override_Reason__c</field>
             <value>
-                <elementReference>Case_Origin</elementReference>
+                <elementReference>PatientOverrideReason</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>OwnerId</field>
+            <field>Origin</field>
             <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
+                <elementReference>Case_Origin</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1185,10 +2058,10 @@
     <recordCreates>
         <name>New_renewal_case_creation_for_RecType_Renew_without_indef</name>
         <label>New renewal case creation for RecType Renew without indef</label>
-        <locationX>1106</locationX>
-        <locationY>3218</locationY>
+        <locationX>974</locationX>
+        <locationY>4934</locationY>
         <connector>
-            <targetReference>UploadDocument</targetReference>
+            <targetReference>Get_newly_created_Renewal_Rec_without_indef</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -1233,15 +2106,15 @@
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Origin</field>
+            <field>EDRD_Patient_Override_Reason__c</field>
             <value>
-                <elementReference>Case_Origin</elementReference>
+                <elementReference>PatientOverrideReason</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>OwnerId</field>
+            <field>Origin</field>
             <value>
-                <elementReference>Get_PSP_Queue.Id</elementReference>
+                <elementReference>Case_Origin</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1274,16 +2147,12 @@
     <recordLookups>
         <name>get_ACRRecord</name>
         <label>get_ACRRecord</label>
-        <locationX>1238</locationX>
-        <locationY>1430</locationY>
+        <locationX>578</locationX>
+        <locationY>3878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_ACR_Relationship</targetReference>
         </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>No_ACR_ErrorScreen</targetReference>
-        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>AccountId</field>
@@ -1306,8 +2175,8 @@
     <recordLookups>
         <name>Get_Case_Record_Type</name>
         <label>Get Case Record Type</label>
-        <locationX>182</locationX>
-        <locationY>3002</locationY>
+        <locationX>314</locationX>
+        <locationY>4718</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>New_Indefinite_Funding_check</targetReference>
@@ -1336,8 +2205,8 @@
     <recordLookups>
         <name>Get_Case_Record_Type_for_renewal</name>
         <label>Get Case Record Type for renewal</label>
-        <locationX>974</locationX>
-        <locationY>3002</locationY>
+        <locationX>842</locationX>
+        <locationY>4718</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Decision_10</targetReference>
@@ -1367,7 +2236,7 @@
         <name>Get_EDRD_MR_Record_Type</name>
         <label>Get EDRD MR Record Type</label>
         <locationX>578</locationX>
-        <locationY>1862</locationY>
+        <locationY>3062</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Other_Medication_Decision</targetReference>
@@ -1394,8 +2263,8 @@
     <recordLookups>
         <name>Get_EDRDCPRecord</name>
         <label>Get_EDRDCPRecord</label>
-        <locationX>2591</locationX>
-        <locationY>782</locationY>
+        <locationX>1018</locationX>
+        <locationY>2006</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_EDRDCPRecord</targetReference>
@@ -1422,7 +2291,7 @@
         <name>Get_Medication</name>
         <label>Get Medication</label>
         <locationX>578</locationX>
-        <locationY>1754</locationY>
+        <locationY>2954</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_EDRD_MR_Record_Type</targetReference>
@@ -1458,22 +2327,15 @@
         <queriedFields>Renewal_Recommended_Dosage__c</queriedFields>
     </recordLookups>
     <recordLookups>
-        <name>Get_New_Case</name>
-        <label>Get New Case</label>
+        <name>Get_Newly_created_Case</name>
+        <label>Get Newly created Case</label>
         <locationX>182</locationX>
-        <locationY>4058</locationY>
+        <locationY>5042</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Sucees</targetReference>
+            <targetReference>New_Indefinite_Funding_check2</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>New_case_Creation_for_Rec_type_New_without_indef</elementReference>
-            </value>
-        </filters>
+        <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
@@ -1484,13 +2346,99 @@
         <object>Case</object>
         <outputReference>StoreNewCase</outputReference>
         <queriedFields>Id</queriedFields>
+        <queriedFields>ContactId</queriedFields>
+        <queriedFields>Provider__c</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Status</queriedFields>
         <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Origin</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Newly_created_Case_without_indef</name>
+        <label>Get Newly created Case without indef</label>
+        <locationX>446</locationX>
+        <locationY>5042</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>New_Indefinite_Funding_check2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_case_Creation_for_Rec_type_New_without_indef</elementReference>
+            </value>
+        </filters>
+        <object>Case</object>
+        <outputReference>StoreNewCase</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ContactId</queriedFields>
+        <queriedFields>Provider__c</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Origin</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_newly_created_Renewal_Rec</name>
+        <label>Get newly created Renewal Rec</label>
+        <locationX>710</locationX>
+        <locationY>5042</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
+            </value>
+        </filters>
+        <object>Case</object>
+        <outputReference>StoreRenewalCase</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ContactId</queriedFields>
+        <queriedFields>Provider__c</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Origin</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_newly_created_Renewal_Rec_without_indef</name>
+        <label>Get newly created Renewal Rec without indef</label>
+        <locationX>974</locationX>
+        <locationY>5042</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_renewal_case_creation_for_RecType_Renew_without_indef</elementReference>
+            </value>
+        </filters>
+        <object>Case</object>
+        <outputReference>StoreRenewalCase</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>ContactId</queriedFields>
+        <queriedFields>Provider__c</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Status</queriedFields>
+        <queriedFields>CaseNumber</queriedFields>
+        <queriedFields>Origin</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_Patient_Contact_rec</name>
         <label>Get Patient Contact</label>
-        <locationX>446</locationX>
-        <locationY>2678</locationY>
+        <locationX>578</locationX>
+        <locationY>4394</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Provider_Contact_Rec</targetReference>
@@ -1519,18 +2467,18 @@
     <recordLookups>
         <name>Get_Patient_Records</name>
         <label>Get Patient Records</label>
-        <locationX>2665</locationX>
-        <locationY>566</locationY>
+        <locationX>424</locationX>
+        <locationY>1106</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>validate_Is_patient_deceased</targetReference>
+            <targetReference>Check_patientFoundInSF</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Id</field>
+            <field>Patient_Identifier__pc</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>newCasePatientsearch.AccountId</elementReference>
+                <elementReference>Patient_PHN</elementReference>
             </value>
         </filters>
         <object>Account</object>
@@ -1541,11 +2489,39 @@
         <queriedFields>PersonBirthdate</queriedFields>
         <queriedFields>Patient_is_Deceased__pc</queriedFields>
         <queriedFields>PersonContactId</queriedFields>
+        <queriedFields>PersonGender</queriedFields>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Patient_Records_After_Create_Update</name>
+        <label>Get Patient Records After Create/Update</label>
+        <locationX>1018</locationX>
+        <locationY>1898</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_EDRDCPRecord</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>SFPatientId</elementReference>
+            </value>
+        </filters>
+        <object>Account</object>
+        <outputReference>searchedPatientRecId</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Patient_Identifier__pc</queriedFields>
+        <queriedFields>PersonBirthdate</queriedFields>
+        <queriedFields>Patient_is_Deceased__pc</queriedFields>
+        <queriedFields>PersonContactId</queriedFields>
+        <queriedFields>PersonGender</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_Patient_RecordTypeAccount</name>
         <label>Get Patient RecordType</label>
-        <locationX>2665</locationX>
+        <locationX>1018</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1575,8 +2551,8 @@
     <recordLookups>
         <name>Get_Provider_Contact_Rec</name>
         <label>Get Provider Contact</label>
-        <locationX>446</locationX>
-        <locationY>2786</locationY>
+        <locationX>578</locationX>
+        <locationY>4502</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Choose_case_option</targetReference>
@@ -1600,11 +2576,11 @@
     <recordLookups>
         <name>Get_Provider_Record_for_New_case</name>
         <label>Get Provider Record for New case</label>
-        <locationX>908</locationX>
-        <locationY>1322</locationY>
+        <locationX>578</locationX>
+        <locationY>2738</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>get_ACRRecord</targetReference>
+            <targetReference>Medication_Request</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1620,12 +2596,13 @@
         <queriedFields>Name</queriedFields>
         <queriedFields>Provider_Type__pc</queriedFields>
         <queriedFields>Provider_Identifier__pc</queriedFields>
+        <queriedFields>IsCustomerPortal</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_PSP_Queue</name>
         <label>Get PSP Queue</label>
-        <locationX>446</locationX>
-        <locationY>2570</locationY>
+        <locationX>578</locationX>
+        <locationY>4286</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Patient_Contact_rec</targetReference>
@@ -1652,22 +2629,18 @@
     <recordLookups>
         <name>get_RelatedCPERecord</name>
         <label>get_RelatedCPERecord</label>
-        <locationX>1535</locationX>
-        <locationY>998</locationY>
+        <locationX>578</locationX>
+        <locationY>2222</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>validate_CPERecord</targetReference>
         </connector>
-        <faultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>CPE_NoCPE_ErrorScreen</targetReference>
-        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>AccountId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>newCasePatientsearch.AccountId</elementReference>
+                <elementReference>SFPatientId</elementReference>
             </value>
         </filters>
         <filters>
@@ -1682,38 +2655,9 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Renewal_Case</name>
-        <label>Get Renewal Case</label>
-        <locationX>974</locationX>
-        <locationY>4058</locationY>
-        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Success</targetReference>
-        </connector>
-        <filterLogic>or</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>New_renewal_case_creation_for_RecType_Renew_without_indef</elementReference>
-            </value>
-        </filters>
-        <object>Case</object>
-        <outputReference>StoreRenewalCase</outputReference>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>CaseNumber</queriedFields>
-    </recordLookups>
-    <recordLookups>
         <name>getProviderRecordType</name>
         <label>Get Provider Record Type</label>
-        <locationX>2665</locationX>
+        <locationX>1018</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1740,43 +2684,235 @@
             <field>Id</field>
         </outputAssignments>
     </recordLookups>
-    <screens>
-        <name>ACR_InactiveErrorScreen</name>
-        <label>ACR_InactiveErrorScreen</label>
-        <locationX>1106</locationX>
-        <locationY>1646</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>ACR_Errordisplay</name>
-            <fieldText>&lt;p&gt;{!$Label.EDRD_label_ACR_InactiveErrorScreen}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Copy_1_of_EDRD_Staff</name>
-        <label>EDRD Staff Error Screen</label>
-        <locationX>1370</locationX>
-        <locationY>3734</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>Copy_1_of_EDRD_Staff_Error</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(28, 27, 27);&quot;&gt;You do not have the privilege of renewing a case.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(28, 27, 27);&quot;&gt;Please contact your Administrator.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
+    <recordUpdates>
+        <name>Copy_2_of_Update_EDRDRenewCase_withPSPOwner</name>
+        <label>Update_EDRDRenewCase_withPSPOwner</label>
+        <locationX>842</locationX>
+        <locationY>6242</locationY>
+        <connector>
+            <targetReference>Success</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>StoreRenewalCase.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_ACR_CusP_Status</name>
+        <label>Update_ACR_CusP_Status</label>
+        <locationX>50</locationX>
+        <locationY>4094</locationY>
+        <connector>
+            <targetReference>Get_PSP_Queue</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>get_ACRRecord.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>IsActive</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
+            </value>
+        </inputAssignments>
+        <object>AccountContactRelation</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_ACR_NotCusP_EDRD_DM</name>
+        <label>Update_ACR_NotCusP_EDRD_DM</label>
+        <locationX>754</locationX>
+        <locationY>4094</locationY>
+        <connector>
+            <targetReference>Get_PSP_Queue</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ProviderRecord.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Is_EDRD_Data_Migration__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Roles</field>
+            <value>
+                <stringValue>Physician</stringValue>
+            </value>
+        </inputAssignments>
+        <object>AccountContactRelation</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_CPEStatus_Active</name>
+        <label>Update_CPEStatus_Active</label>
+        <locationX>534</locationX>
+        <locationY>2438</locationY>
+        <connector>
+            <targetReference>Search_Provider_for_New_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>SFPatientId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CareProgramId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>EDRD_careProgramRecordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Inactive_Reason__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Active</stringValue>
+            </value>
+        </inputAssignments>
+        <object>CareProgramEnrollee</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_EDRDNewCase_withPSPOwner</name>
+        <label>Update_EDRDNewCase_withPSPOwner</label>
+        <locationX>314</locationX>
+        <locationY>6242</locationY>
+        <connector>
+            <targetReference>Sucees</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>StoreNewCase.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_PSP_Queue.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_patientRecordWithEMPI</name>
+        <label>Update_patientRecordWithEMPI</label>
+        <locationX>292</locationX>
+        <locationY>1322</locationY>
+        <connector>
+            <targetReference>Update_patientRecordWithEMPI_BypassVR</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Patient_Identifier__pc</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Patient_PHN</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>EDRD_Bypass_Validation__pc</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>Patient_FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>Patient_LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Patient_is_Deceased__pc</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonBirthdate</field>
+            <value>
+                <elementReference>Patient_DOB</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonGender</field>
+            <value>
+                <elementReference>Patient_Gender</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_patientRecordWithEMPI_BypassVR</name>
+        <label>Update_patientRecordWithEMPI_BypassVR</label>
+        <locationX>292</locationX>
+        <locationY>1430</locationY>
+        <connector>
+            <targetReference>Assigning_SFPatientId_update</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Patient_Identifier__pc</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Patient_PHN</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>EDRD_Bypass_Validation__pc</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>CP_ErrorScreen</name>
         <label>CP_ErrorScreen</label>
-        <locationX>2690</locationX>
-        <locationY>998</locationY>
+        <locationX>1458</locationX>
+        <locationY>2222</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1786,61 +2922,13 @@
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>CPE_InactiveErrorScreen</name>
-        <label>CPE_InactiveErrorScreen</label>
-        <locationX>1898</locationX>
-        <locationY>1214</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>CPE_InactiveErrordisplay</name>
-            <fieldText>&lt;p&gt;{!$Label.EDRD_label_CPE_InactiveErrorScreen}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>CPE_NoCPE_ErrorScreen</name>
-        <label>CPE_NoCPE_ErrorScreen</label>
-        <locationX>2162</locationX>
-        <locationY>1214</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>CPE_No_CPE_Errordisplay</name>
-            <fieldText>&lt;p&gt;{!$Label.EDRD_label_CPE_NoCPE_ErrorScreen}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>EDRD_Staff</name>
-        <label>EDRD Staff Error Screen</label>
-        <locationX>578</locationX>
-        <locationY>3734</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>EDRD_Staff_Error</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(27, 26, 26);&quot;&gt;You do not have the privilege of creating a new case.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(27, 26, 26);&quot;&gt;Please contact your Administrator.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>Indication_Screen</name>
         <label>Indication Screen</label>
-        <locationX>644</locationX>
-        <locationY>2078</locationY>
+        <locationX>776</locationX>
+        <locationY>3278</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1868,8 +2956,8 @@
     <screens>
         <name>Medication_Request</name>
         <label>Medication Request</label>
-        <locationX>446</locationX>
-        <locationY>1646</locationY>
+        <locationX>578</locationX>
+        <locationY>2846</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1944,13 +3032,13 @@
     <screens>
         <name>MedicationRequestDetails</name>
         <label>Medication details</label>
-        <locationX>512</locationX>
-        <locationY>2294</locationY>
+        <locationX>644</locationX>
+        <locationY>3494</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_PSP_Queue</targetReference>
+            <targetReference>Upload_Supporting_Documents</targetReference>
         </connector>
         <fields>
             <name>MedicationInformation</name>
@@ -2005,7 +3093,7 @@
                             <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <stringValue>cysteamine</stringValue>
+                                <stringValue>cysteamine - Procysbi</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2034,7 +3122,7 @@
                             <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>cysteamine</stringValue>
+                                <stringValue>cysteamine - Procysbi</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2139,7 +3227,7 @@
                             <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>cysteamine</stringValue>
+                                <stringValue>cysteamine - Procysbi</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2162,7 +3250,7 @@
         <description>New Case</description>
         <name>New_Cases</name>
         <label>New Case</label>
-        <locationX>3168</locationX>
+        <locationX>1018</locationX>
         <locationY>350</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -2195,26 +3283,10 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>No_ACR_ErrorScreen</name>
-        <label>No_ACR_ErrorScreen</label>
-        <locationX>1370</locationX>
-        <locationY>1646</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <fields>
-            <name>No_ACR_Errordisplay</name>
-            <fieldText>&lt;p&gt;{!$Label.EDRD_label_No_ACR_ErrorScreen}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
         <name>Other_Medication</name>
         <label>Other Medication</label>
-        <locationX>248</locationX>
-        <locationY>2078</locationY>
+        <locationX>380</locationX>
+        <locationY>3278</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2300,13 +3372,13 @@
     <screens>
         <name>Other_Medication_details</name>
         <label>Other Medication details</label>
-        <locationX>248</locationX>
-        <locationY>2186</locationY>
+        <locationX>380</locationX>
+        <locationY>3386</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_PSP_Queue</targetReference>
+            <targetReference>Upload_Supporting_Documents</targetReference>
         </connector>
         <fields>
             <name>Other_MedicationInformation</name>
@@ -2324,8 +3396,8 @@
     <screens>
         <name>PatientDeceased_ErrorScreen</name>
         <label>PatientDeceased_ErrorScreen</label>
-        <locationX>3218</locationX>
-        <locationY>782</locationY>
+        <locationX>820</locationX>
+        <locationY>998</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2335,18 +3407,56 @@
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Renwal_Medication_details</name>
-        <label>Medication details</label>
-        <locationX>776</locationX>
-        <locationY>2294</locationY>
+        <name>PatientSummary_Screen</name>
+        <label>PatientSummary_Screen</label>
+        <locationX>424</locationX>
+        <locationY>998</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_PSP_Queue</targetReference>
+            <targetReference>Get_Patient_Records</targetReference>
+        </connector>
+        <fields>
+            <name>PatientSummary</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Patient_FirstName}{!Patient_LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Patient Identifier: {!Patient_PHN}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: {!Patient_DOB}&lt;/p&gt;&lt;p&gt;Patient Gender: {!Patient_Gender}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>PatientSummary_ScreenManual</name>
+        <label>PatientSummary_ScreenManual</label>
+        <locationX>1216</locationX>
+        <locationY>1106</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Check_isManaulPHNPresent</targetReference>
+        </connector>
+        <fields>
+            <name>PatientSummary_ManualCreate</name>
+            <fieldText>&lt;p&gt;&lt;strong&gt;&lt;u&gt;Patient Details&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Patient Name: {!Patient_FirstName} {!Patient_LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Patient Identifier: {!Patient_PHN}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Patient Date of Birth: {!Patient_DOB}&lt;/p&gt;&lt;p&gt;Patient Gender: {!Patient_Gender}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Renwal_Medication_details</name>
+        <label>Medication details</label>
+        <locationX>908</locationX>
+        <locationY>3494</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Upload_Supporting_Documents</targetReference>
         </connector>
         <fields>
             <name>Copy_1_of_MedicationInformation</name>
@@ -2401,7 +3511,7 @@
                             <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>EqualTo</operator>
                             <rightValue>
-                                <stringValue>cysteamine</stringValue>
+                                <stringValue>cysteamine - Procysbi</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2430,7 +3540,7 @@
                             <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>cysteamine</stringValue>
+                                <stringValue>cysteamine - Procysbi</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2535,7 +3645,7 @@
                             <leftValueReference>VarMedicationInformationRec.Name</leftValueReference>
                             <operator>NotEqualTo</operator>
                             <rightValue>
-                                <stringValue>cysteamine</stringValue>
+                                <stringValue>cysteamine - Procysbi</stringValue>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -2557,22 +3667,46 @@
     <screens>
         <name>Search_Patient</name>
         <label>Search Patient</label>
-        <locationX>3168</locationX>
+        <locationX>1018</locationX>
         <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Get_Patient_Records</targetReference>
+            <targetReference>Assign_PatientOverRide_Reason</targetReference>
         </connector>
-        <fields>
-            <name>Search_Patient_Text</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Select a Patient&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
         <fields>
             <name>newCasePatientsearch</name>
             <extensionName>c:lookupSearchComp</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>overRideReason</name>
+                <value>
+                    <stringValue>None</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <nextOrFinishButtonLabel>Next</nextOrFinishButtonLabel>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Search_Patient_in_SF</name>
+        <label>Search Patient in SF</label>
+        <locationX>1414</locationX>
+        <locationY>782</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Check_createpatientvalue</targetReference>
+        </connector>
+        <fields>
+            <name>SFPatientSearch</name>
+            <extensionName>c:eDRD_lwc_SFPatientSearchComponent</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
@@ -2585,19 +3719,14 @@
     <screens>
         <name>Search_Provider_for_New_Case</name>
         <label>Search Provider for New Case</label>
-        <locationX>1238</locationX>
-        <locationY>1214</locationY>
+        <locationX>578</locationX>
+        <locationY>2630</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
             <targetReference>Get_Provider_Record_for_New_case</targetReference>
         </connector>
-        <fields>
-            <name>Search_Provider_New</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Search for Provider&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
         <fields>
             <name>searchNewCaseProvider</name>
             <extensionName>c:providerAccountComp</extensionName>
@@ -2612,8 +3741,8 @@
     <screens>
         <name>Success</name>
         <label>Success</label>
-        <locationX>974</locationX>
-        <locationY>4166</locationY>
+        <locationX>842</locationX>
+        <locationY>6350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2696,8 +3825,8 @@
     <screens>
         <name>Sucees</name>
         <label>Sucees</label>
-        <locationX>182</locationX>
-        <locationY>4166</locationY>
+        <locationX>314</locationX>
+        <locationY>6350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2778,80 +3907,29 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
-        <name>Upload_Document</name>
-        <label>Upload Document</label>
-        <locationX>182</locationX>
-        <locationY>3410</locationY>
+        <name>Upload_Supporting_Documents</name>
+        <label>Upload Supporting Documents</label>
+        <locationX>578</locationX>
+        <locationY>3770</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>New_Indefinite_Funding_check2</targetReference>
+            <targetReference>get_ACRRecord</targetReference>
         </connector>
         <fields>
-            <name>Upload2</name>
+            <name>Upload_SupportingDocuments</name>
             <fieldText>&lt;p&gt;&lt;strong&gt;Upload Supporting Documents&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>FileUpload</name>
+            <name>UploadScreenDocument</name>
             <extensionName>forceContent:fileUpload</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>label</name>
                 <value>
                     <stringValue>Upload File</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>recordId</name>
-                <value>
-                    <elementReference>New_case_Creation_for_Rec_type_New</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>multiple</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>UploadDocument</name>
-        <label>Upload Document</label>
-        <locationX>974</locationX>
-        <locationY>3410</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Copy_1_of_Renewal_Indefinite_Funding_check2</targetReference>
-        </connector>
-        <fields>
-            <name>Upload</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Upload Supporting Documents&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>File_Upload</name>
-            <extensionName>forceContent:fileUpload</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Upload File</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>recordId</name>
-                <value>
-                    <elementReference>New_renewal_case_creation_for_RecType_Renew</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -2868,7 +3946,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>3042</locationX>
+        <locationX>892</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>getProviderRecordType</targetReference>
@@ -2881,6 +3959,14 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>CDL_Record</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ContentDocumentLink</objectType>
     </variables>
     <variables>
         <name>EDRD_careProgramRecordId</name>
@@ -2913,6 +3999,14 @@
         <objectType>Account</objectType>
     </variables>
     <variables>
+        <name>Insert_CDL_Records</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>ContentDocumentLink</objectType>
+    </variables>
+    <variables>
         <name>MedicationRequestRec</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -2937,12 +4031,61 @@
         <isOutput>true</isOutput>
     </variables>
     <variables>
+        <name>Patient_Deceased</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Patient_DOB</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Patient_FirstName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Patient_Gender</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Patient_LastName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>Patient_PHN</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>patientContactRec</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
         <objectType>Contact</objectType>
+    </variables>
+    <variables>
+        <name>PatientOverrideReason</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>ProviderContactRec</name>
@@ -2988,6 +4131,13 @@
         <isInput>true</isInput>
         <isOutput>false</isOutput>
         <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>SFPatientId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>storedNewCaseSearchedProviderRec</name>

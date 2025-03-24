@@ -1,4 +1,4 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import {
 FlowNavigationBackEvent,
 FlowNavigationNextEvent
@@ -17,12 +17,16 @@ export default class ProviderAccountComp extends LightningElement {
 @api ProviderAccId;
 @api ProviderIdentifier;
 @api availableActions = [];
+
+@track disableNextButton = true;
+
 handlekeychange(event) {
     if (event.currentTarget) {
         this.accountPHN = event.currentTarget.value;
     }
         }
 handleSearch() {
+        this.disableNextButton = false;
         if(!this.accountPHN) {
             this.messageResult=true;
             this.accountList = undefined;
@@ -42,6 +46,7 @@ handleSearch() {
             }else {
             this.accountList = undefined;
             this.messageResult = true;
+             this.disableNextButton = true;
             }
             
         })

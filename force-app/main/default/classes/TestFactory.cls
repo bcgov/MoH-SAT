@@ -538,4 +538,46 @@ public with sharing class TestFactory {
         );
         return cDL;
     }
+    
+    public static Account createEDRDSCAccount(String Name){
+        Id committeeRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('EDRD_Committee').getRecordTypeId();
+        Account accountObj = new Account();
+        accountObj.Name = Name;
+        accountObj.IsActive = true;
+        accountObj.RecordTypeId = committeeRecordTypeId;
+        accountObj.EDRD_Committee_Type__c = 'Subcommittee';
+        return accountObj;
+    }
+    
+    public static Account createEDRDACAccount(String Name){
+        Id committeeRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('EDRD_Committee').getRecordTypeId();
+        Account accountObj = new Account();
+        accountObj.Name = Name;
+        accountObj.IsActive = true;
+        accountObj.RecordTypeId = committeeRecordTypeId;
+        accountObj.EDRD_Committee_Type__c = 'Advisory Committee';
+        return accountObj;
+    }
+    
+    public static Assessment createEDRDAssessment(Id CaseId){
+        Assessment assessmentObj = new Assessment();
+        assessmentObj.Name = 'Assessment Test';
+        assessmentObj.AssessmentStatus = 'Completed';
+        assessmentObj.caseId = CaseId;
+        return assessmentObj;
+    }
+    
+    public static ServiceAppointment createEDRDCommitteeMeeting(Id parentAccountId) {
+        Id recordTypeServiceAppointmentEDRD = Schema.SObjectType.ServiceAppointment.getRecordTypeInfosByDeveloperName().get('EDRD_Committee_Meeting').getRecordTypeId();        
+        DateTime startDateTime = DateTime.newInstance(2026, 8, 21, 14, 30, 0);
+        DateTime endDateTime = DateTime.newInstance(2026, 10, 21, 14, 30, 0);
+        
+        ServiceAppointment serviceAppRec = new ServiceAppointment();
+        serviceAppRec.Status = 'Planned';
+        serviceAppRec.ParentRecordId = parentAccountId;
+        serviceAppRec.EarliestStartTime = startDateTime;
+        serviceAppRec.DueDate = endDateTime;
+        serviceAppRec.RecordTypeId = recordTypeServiceAppointmentEDRD;        
+        return serviceAppRec;
+    }
 }

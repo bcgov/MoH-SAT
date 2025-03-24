@@ -31,58 +31,33 @@
     <name>EDRDCareObservation</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <disabled>true</disabled>
+        <defaultValue>Kilograms</defaultValue>
+        <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>EDRDCareObservationCustom8931</globalKey>
+        <globalKey>EDRDCareObservationCustom7055</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
+        <lookupByFieldName>Name</lookupByFieldName>
+        <lookupObjectName>UnitOfMeasure</lookupObjectName>
+        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
         <name>EDRDCareObservation</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
+        <outputFieldName>ObservedValueUnitId</outputFieldName>
         <outputObjectName>CareObservation</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <defaultValue>Patient</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDCareObservationCustom9934</globalKey>
-        <inputFieldName>PatientInformation:PatAccId</inputFieldName>
+        <globalKey>EDRDCareObservationCustom7399</globalKey>
+        <inputFieldName>PatientInformation:PatientName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDCareObservation</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ObservedSubjectId</outputFieldName>
-        <outputObjectName>CareObservation</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDCareObservationCustom9935</globalKey>
-        <inputFieldName>EffectiveDate</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDCareObservation</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EffectiveDateTime</outputFieldName>
-        <outputObjectName>CareObservation</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDCareObservationCustom9026</globalKey>
-        <inputFieldName>DrugandDosage:PatientWeight</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDCareObservation</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ObservedValueNumerator</outputFieldName>
+        <outputFieldName>Name</outputFieldName>
         <outputObjectName>CareObservation</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -119,33 +94,58 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <defaultValue>Kilograms</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDCareObservationCustom7055</globalKey>
+        <globalKey>EDRDCareObservationCustom9935</globalKey>
+        <inputFieldName>EffectiveDate</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <lookupByFieldName>Name</lookupByFieldName>
-        <lookupObjectName>UnitOfMeasure</lookupObjectName>
-        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
         <name>EDRDCareObservation</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ObservedValueUnitId</outputFieldName>
+        <outputFieldName>EffectiveDateTime</outputFieldName>
         <outputObjectName>CareObservation</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <defaultValue>Patient</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDCareObservationCustom7399</globalKey>
-        <inputFieldName>PatientInformation:PatientName</inputFieldName>
+        <globalKey>EDRDCareObservationCustom9026</globalKey>
+        <inputFieldName>DrugandDosage:PatientWeight</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDCareObservation</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Name</outputFieldName>
+        <outputFieldName>ObservedValueNumerator</outputFieldName>
+        <outputObjectName>CareObservation</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>EDRDCareObservationCustom8931</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>EDRDCareObservation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>CareObservation</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDCareObservationCustom9934</globalKey>
+        <inputFieldName>PatientAccountId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDCareObservation</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>ObservedSubjectId</outputFieldName>
         <outputObjectName>CareObservation</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

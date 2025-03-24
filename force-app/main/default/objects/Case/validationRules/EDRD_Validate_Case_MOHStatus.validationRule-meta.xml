@@ -10,8 +10,7 @@ NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Approved&quot;)),
 NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Denied&quot;)),
 NOT(ISPICKVAL(EDRD_MOHFunding_Decision__c, &quot;Extended&quot;)),
 ISPICKVAL(PRIORVALUE(Status),&apos;MOH Review&apos;),
-OR(ISPICKVAL(Status,&apos;Cancelled&apos;),
-ISPICKVAL(Status,&apos;Funding Approved&apos;),
+OR(ISPICKVAL(Status,&apos;Funding Approved&apos;),
 ISPICKVAL(Status,&apos;Funding Denied&apos;))
 )</errorConditionFormula>
     <errorDisplayField>EDRD_MOHFunding_Decision__c</errorDisplayField>
