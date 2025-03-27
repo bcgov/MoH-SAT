@@ -1,6 +1,6 @@
 # Developer Tips
 ## Integrate Scratch Org with External Systems. 
-_Integrate your scratch org with test instances of ODR, EMPI, or Filescan Connect Web Service._
+_Integrate your scratch org with test instances of ODR, EMPI, EMPI_EDRD or Filescan Connect Web Service._
 ### Install the needed certificates:
 - Download [moh_dev_certs.jks](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597).
 - Go to Setup > Identity > Certificate and Key Management > Create a self-signed certificate `dev_cert` from Key 4096 and save.
@@ -17,6 +17,14 @@ Create new Legacy Named Credential "EMPI"
 - Name: empi
 - URL: https://hiat3.hcim.ehealth.gov.bc.ca 
 - Certificate: "empi"
+- Identity Type: Anonymous
+- Athenticaion Protocol: No Authentication needed
+
+Create new Legacy Named Credential "EMPI_EDRD"
+- Label: EMPI_EDRD
+- Name: empi_edrd
+- URL: https://hiat3.hcim.ehealth.gov.bc.ca 
+- Certificate: "pharm_edrd"
 - Identity Type: Anonymous
 - Athenticaion Protocol: No Authentication needed
 
