@@ -61,12 +61,14 @@ Date : 19/Dec/2024
                 outAccRecord.add(acc);
                 createCareProgramEnrollee(acc.Id);
           }                 
-          update outAccRecord;
-          
-          
+          new Elevated().updateAccounts(outAccRecord);          
           String result = Json.serialize(patientOutputWrapper);
           outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
           return;            
+        }
+        else if(!ESA_cls_constants.EMPICreatedRenewal.equals(String.ValueOf(inputWrapper.clickBy))){
+            createPatientInSF(inputWrapper,outputMap);
+            return;
         }
     }   
 /*---------------------------------------------------------------------
@@ -152,6 +154,39 @@ Date : 19/Dec/2024
         return patientOutputWrapper;
     }
 /*---------------------------------------------------------------------
+Method Name : createPatientInSF
+Purpose : Create Date in salesforce database.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 19/Dec/2024
+--------------------------------------------------------------------------*/
+    public void createPatientInSF(EDRD_EmpiWrapper.InputWrapper inputWrapper, Map<String,Object> outputMap) 
+    {
+        EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
+        Account patientAccount = new Account();        
+        patientAccount.Patient_Identifier__pc  = inputWrapper.phn;
+        patientAccount.FirstName = inputWrapper.firstName;
+        patientAccount.LastName = inputWrapper.lastName;
+        patientAccount.PersonBirthdate =  inputWrapper.dateOfBirth;
+        patientAccount.RecordTypeId = ESA_cls_constants.PatientRecordTypeId;  
+        Id patientAccountId = new Elevated().createAccounts(patientAccount);               
+        List<Account> patientRecord = new Elevated().selectAccountById(patientAccountId);
+        if(!patientRecord.isEmpty()){
+            for(Account acc : patientRecord){
+                patientOutputWrapper.patientId = acc.PersonContactId;
+                patientOutputWrapper.patientaccountId = acc.Id;
+                patientOutputWrapper.phn = acc.Patient_Identifier__pc;                
+            }
+        }
+        createCareProgramEnrollee(patientAccount.Id);        
+        if(ESA_cls_constants.EMPICreated.equals(String.ValueOf(inputWrapper.clickBy))){
+            patientOutputWrapper.isClickEmpiSearch = true;  
+        }        
+        String result = Json.serialize(patientOutputWrapper);
+        outputMap.put('searchOutput',JSON.deserializeuntyped(result)); 
+        return;
+    }
+/*---------------------------------------------------------------------
 Method Name : createCareProgramEnrollee
 Purpose : Create CareProgramEnrollee to associcated Account.
 Version : 1.0
@@ -167,7 +202,7 @@ Date : 19/Dec/2024
                 careProgram.Name = 'test';
                 careProgram.Status = 'Active';
                 careProgram.CareProgramId = !CareProgramName.isEmpty() ? CareProgramName[0].Id : null;
-                insert careProgram;
+                new Elevated().insertCareProgramEnrollee(careProgram);
            }
     }
 /*---------------------------------------------------------------------
@@ -212,7 +247,17 @@ Date : 19/Dec/2024
         }
         public List<Account> selectByPHN(String phn){
             return [Select Id,FirstName,LastName,Patient_Identifier__pc, Patient_is_Deceased__pc, PersonBirthdate,PersonGender,PersonContactId from Account where Patient_Identifier__pc =: phn];
-        }        
+        } 
+        public void insertCareProgramEnrollee(CareProgramEnrollee careProgram){
+            insert careProgram;
+        }   
+        public void updateAccounts(List<Account> accounts){
+            update accounts;
+        }
+         public Id createAccounts(Account patientAccount){
+            insert patientAccount;
+            return patientAccount.Id;
+        }  
      }    
     
 }
