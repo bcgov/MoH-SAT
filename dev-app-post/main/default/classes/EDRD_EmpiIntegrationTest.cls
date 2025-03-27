@@ -139,6 +139,40 @@ Devloper Name : Accenture.
         System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
     }
 /*---------------------------------------------------------------------
+Method Name : testCreatePatientInSF
+Method Calling for : CreatePatientInSF
+Purpose : Create Date in salesforce database.
+Version : 1.0
+Devloper Name : Accenture.
+--------------------------------------------------------------------------*/
+    @isTest
+    static void testCreatePatientInSF() {
+        // Instantiate the class
+        EDRD_EmpiIntegration integration = new EDRD_EmpiIntegration();
+
+        // Mock data
+
+        Map<String, Object> inputMap = new Map<String, Object>{
+            'firstName' => 'Jane',
+            'lastName' => 'Smith',
+            'dateOfBirth' => Date.newInstance(1985, 07, 15),
+            'phn' => '1234567890',
+            'clickBy' => ESA_cls_constants.ManullyCreated
+        };
+        Map<String, Object> outputMap = new Map<String, Object>();
+        
+     Map<String, Object> inputMapMain = new Map<String, Object>();
+        inputMapMain.put('input',inputMap);
+		String jsonInput = Json.serialize(inputMapMain.get('input'));
+        EDRD_EmpiWrapper.InputWrapper inputWrapper = (EDRD_EmpiWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_EmpiWrapper.InputWrapper.class);
+        // Call the method
+        integration.createPatientInSF(InputWrapper, outputMap);
+
+        // Assert results
+        System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
+        Map<String, Object> searchOutput = (Map<String, Object>) outputMap.get('searchOutput');
+    } 
+/*---------------------------------------------------------------------
 Method Name : testCreateACR
 Method Calling for : CreateACR
 Purpose : Create ACR Recods.
