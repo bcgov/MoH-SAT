@@ -131,8 +131,8 @@ Date : 19/Dec/2024
         
         EDRD_EmpiWrapper.OutputWrapper patientOutputWrapper = new EDRD_EmpiWrapper.OutputWrapper();
         EDRD_EmpiWrapper.Patient patient = (EDRD_EmpiWrapper.Patient) JSON.deserialize(patientJSON, EDRD_EmpiWrapper.Patient.class);
-       
-        if(String.isBlank(patient.dob) || String.isBlank(patient.gender) || patient.names.isEmpty()){
+
+        if(String.isBlank(patient.dob) || String.isBlank(patient.gender) || patient.names[0].givenNames == null || patient.names[0].familyName == null) {
             patientOutputWrapper.firstName = null;
             patientOutputWrapper.lastName = null;
             patientOutputWrapper.dateOfBirth = null;
@@ -152,7 +152,7 @@ Date : 19/Dec/2024
             patientOutputWrapper.isPatientInEMPI = true;
         }
         return patientOutputWrapper;
-    }
+    } 
 /*---------------------------------------------------------------------
 Method Name : createPatientInSF
 Purpose : Create Date in salesforce database.
@@ -169,13 +169,13 @@ Date : 19/Dec/2024
         patientAccount.LastName = inputWrapper.lastName;
         patientAccount.PersonBirthdate =  inputWrapper.dateOfBirth;
         patientAccount.RecordTypeId = ESA_cls_constants.PatientRecordTypeId;  
-        Id patientAccountId = new Elevated().createAccounts(patientAccount);               
+        Id patientAccountId = new Elevated().createAccounts(patientAccount);
         List<Account> patientRecord = new Elevated().selectAccountById(patientAccountId);
         if(!patientRecord.isEmpty()){
             for(Account acc : patientRecord){
                 patientOutputWrapper.patientId = acc.PersonContactId;
                 patientOutputWrapper.patientaccountId = acc.Id;
-                patientOutputWrapper.phn = acc.Patient_Identifier__pc;                
+                patientOutputWrapper.phn = acc.Patient_Identifier__pc;
             }
         }
         createCareProgramEnrollee(patientAccount.Id);        
@@ -202,7 +202,7 @@ Date : 19/Dec/2024
                 careProgram.Name = 'test';
                 careProgram.Status = 'Active';
                 careProgram.CareProgramId = !CareProgramName.isEmpty() ? CareProgramName[0].Id : null;
-                new Elevated().insertCareProgramEnrollee(careProgram);
+                 new Elevated().insertCareProgramEnrollee(careProgram);
            }
     }
 /*---------------------------------------------------------------------
