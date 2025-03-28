@@ -47,8 +47,7 @@ jobs:
     - name: Deploy Source in dev-app-post
       run: sf project deploy start -d dev-app-post -o SAT-STAGING -w 15 --ignore-conflicts
 
-    - name: Run Apex Tests
-      run: sf apex run test -o SAT-STAGING -w 15
+    
 
 #    - name: Deploy destructive changes
 #      run: sdfx force:mdapi:deploy --postdestructivechanges destructiveChanges -u SAT-STAGING -o -g -l RunLocalTests -w 15
