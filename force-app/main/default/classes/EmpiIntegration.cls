@@ -25,7 +25,7 @@ public with sharing class EmpiIntegration {
     private static final String LRA_RESPONSE_ISSUE = 'issue';
     private static final String LRA_API_CUSTOMSETTING_NAME = 'LRA_API_Configuration';
     private static final User currentUser = [Select Id, Profile.Name, UserRole.Name FROM USER WHERE Id =: UserInfo.getUserId()];
-    private static final Boolean isEDRDUser = currentUser.Profile.Name.EqualsIgnoreCase('EDRD Prescriber Community User') || currentUser.UserRole.Name.EqualsIgnoreCase('EDRD');
+    private static final Boolean isEDRDUser = currentUser.Profile.Name.EqualsIgnoreCase('EDRD Prescriber Community User') || currentUser.UserRole.Name.ContainsIgnoreCase('EDRD');
     private static final String EDRD_Endpoint = 'callout:empi_edrd/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc';
     private static final String SAT_Endpoint = 'callout:empi/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc';
 
