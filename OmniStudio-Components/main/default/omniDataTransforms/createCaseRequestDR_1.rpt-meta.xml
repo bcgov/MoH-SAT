@@ -162,7 +162,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestDRCustom0jIAq0000004MzdMAEItem14</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:patientContactId</inputFieldName>
+        <inputFieldName>AccountContact</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestDR</name>
@@ -667,6 +667,37 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestDRCustom1959</globalKey>
+        <inputFieldName>PatAccId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AccountId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>var:SUMMARY:SummaryBlock:patientContactId</formulaConverted>
+        <formulaExpression>SUMMARY:SummaryBlock:patientContactId</formulaExpression>
+        <formulaResultPath>AccountContact</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>createCaseRequestDRCustom5074</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -730,105 +761,107 @@
     </omniDataTransformItem>
     <outputType>SObject</outputType>
     <previewJsonData>{
-  &quot;omniscriptId&quot; : &quot;0jNAq000000OqGnMAK&quot;,
-  &quot;language&quot; : &quot;English&quot;,
-  &quot;type&quot; : &quot;EDRDNewForm&quot;,
-  &quot;runMode&quot; : &quot;preview&quot;,
-  &quot;sId&quot; : &quot;0jNAq000000OqGnMAK&quot;,
-  &quot;theme&quot; : &quot;lightning&quot;,
-  &quot;subType&quot; : &quot;EDRDNewForm&quot;,
-  &quot;timeStamp&quot; : &quot;2024-09-04T14:55:49.687Z&quot;,
-  &quot;userProfile&quot; : &quot;System Administrator&quot;,
+  &quot;ContactName&quot; : &quot;PRINCE SOSA&quot;,
+  &quot;requestedFreqUnits&quot; : &quot;Weekly&quot;,
   &quot;userTimeZoneName&quot; : &quot;America/Los_Angeles&quot;,
+  &quot;PatAccId&quot; : &quot;001Aq00000YksGyIAJ&quot;,
+  &quot;requestedDosageUnit&quot; : &quot;Milligrams&quot;,
+  &quot;PatientWeight&quot; : &quot;&quot;,
+  &quot;timeStamp&quot; : &quot;2025-03-24T10:57:07.625Z&quot;,
   &quot;userTimeZone&quot; : &quot;-420&quot;,
+  &quot;requestedFreq&quot; : &quot;0.5&quot;,
+  &quot;userId&quot; : &quot;005Aq00000NQNNLIA5&quot;,
+  &quot;userName&quot; : &quot;test@gov.bc.ca.123&quot;,
+  &quot;omniScriptId&quot; : &quot;0jNAq000000VZ4jMAG&quot;,
+  &quot;ContactPatient_Identifier__c&quot; : &quot;9879450714&quot;,
+  &quot;CaseRecTypeId&quot; : &quot;012OG000000N0H5YAK&quot;,
+  &quot;MedicalDiagnosisIndicationName&quot; : &quot;Pompe disease - Pompe&quot;,
+  &quot;IndicationId&quot; : &quot;a1nAq00000HnYOwIAN&quot;,
+  &quot;omniProcessId&quot; : &quot;0jNAq000000VZ4jMAG&quot;,
+  &quot;CaseRecordTypeId&quot; : &quot;012OG000000N0H5YAK&quot;,
+  &quot;providerId&quot; : &quot;003Aq00000cokuIIAQ&quot;,
+  &quot;MedicationHC_Renewal_Dosage_Units__c&quot; : &quot;0hEAq0000000XDoMAM&quot;,
+  &quot;caseType&quot; : &quot;New&quot;,
+  &quot;userProfile&quot; : &quot;EDRD Prescriber Community User&quot;,
+  &quot;ContactId&quot; : &quot;003Aq00000dblu9IAA&quot;,
+  &quot;IndefiniteFund&quot; : &quot;&quot;,
   &quot;userCurrencyCode&quot; : &quot;CAD&quot;,
-  &quot;userName&quot; : &quot;sachin.kumar.soni@accenture.com.edrddev&quot;,
-  &quot;userId&quot; : &quot;005Aq00000Kj2YUIAZ&quot;,
-  &quot;omniProcessId&quot; : &quot;0jNAq000000OqGnMAK&quot;,
-  &quot;localTimeZoneName&quot; : &quot;Asia/Calcutta&quot;,
-  &quot;TRANSPLANTSTATUS&quot; : {
-    &quot;TransplantStatusQuestion&quot; : &quot;De novo Disease&quot;
-  },
-  &quot;eculizumab-DeNovoInitialSubmission&quot; : {
-    &quot;DrugInformation&quot; : {
-      &quot;HUS_For_DeNovo_Initial_Drug_Information_Q1_R1&quot; : null,
-      &quot;HUS_For_DeNovo_Initial_Drug_Information_Q1_R2&quot; : null
+  &quot;MedicationRequestMedicationId&quot; : &quot;a1nAq00000HnYOwIAN&quot;,
+  &quot;MediName&quot; : &quot;alglucosidase alfa - Myozyme&quot;,
+  &quot;overridereason&quot; : &quot;&quot;,
+  &quot;MedicationId&quot; : &quot;0itAq0000000yCJIAY&quot;,
+  &quot;MedicationHC_Initial_Dosage_Units__c&quot; : &quot;0hEAq0000000XDoMAM&quot;,
+  &quot;ContactBirthDate&quot; : &quot;1965-09-21&quot;,
+  &quot;alglucosidasealfa-InitialSubmission&quot; : {
+    &quot;CurrentStatus&quot; : {
+      &quot;Block5&quot; : {
+        &quot;Alglucosidase_Alpha_Current_Status_18_R2&quot; : &quot;sdsf&quot;
+      }
+    },
+    &quot;PatientHistorywithLateOnSetPompe&quot; : {
+      &quot;Alglucosidase_Alpha_Patient_History_Late_Q2_R1&quot; : null,
+      &quot;Alglucosidase_Alpha_Patient_History_Late_Q2_R2&quot; : null
     }
   },
-  &quot;eculizumab-PeriInitialSubmission&quot; : null,
-  &quot;eculizumab-PostInitialSubmission&quot; : null,
-  &quot;eculizumab - PNH Initial Submission&quot; : null,
-  &quot;ivacaftor-InitialSubmission&quot; : null,
-  &quot;nusinersen-InitialSubmission&quot; : null,
-  &quot;cerliponasealfa-InitialSubmission&quot; : null,
-  &quot;elosulfasealfa-InitialSubmission&quot; : null,
-  &quot;cysteamine-Submission&quot; : null,
-  &quot;Gaucher-InitialSubmission&quot; : null,
-  &quot;alglucosidasealfa-InitialSubmission&quot; : null,
-  &quot;canakinumab-InitialSubmission&quot; : null,
-  &quot;inotersen-InitialSubmission&quot; : null,
-  &quot;lanadelumab-InitialSubmission&quot; : null,
-  &quot;patisiran-InitialSubmission&quot; : null,
-  &quot;burosumab-InitialSubmission&quot; : null,
-  &quot;tafamidis-InitialSubmission&quot; : null,
-  &quot;elexacaftor/tezacaftor/ivacaftor-InitialSubmission&quot; : null,
-  &quot;risdiplam-InitialSubmission&quot; : null,
-  &quot;voretigeneneparvovec-Submission&quot; : null,
-  &quot;sebelipasealfa-InitialSubmission&quot; : null,
-  &quot;triheptanoin-InitialSubmission&quot; : null,
-  &quot;givosiran-InitialSubmission&quot; : null,
-  &quot;onasemnogeneabeparvovec-Submission&quot; : null,
-  &quot;mecasermin-InitialSubmission&quot; : null,
-  &quot;GENERICSUBMISSION&quot; : null,
-  &quot;Lumasiran-InitialSubmission&quot; : null,
-  &quot;Pegcetacoplan-InitialSubmission&quot; : null,
-  &quot;CaseRecTypeId&quot; : &quot;012Aq000000zfXhIAI&quot;,
-  &quot;ProviderId&quot; : &quot;003Aq00000H2uoXIAR&quot;,
-  &quot;PatientInformation&quot; : {
-    &quot;cnt&quot; : false,
-    &quot;PhnnotAvailableErrorMessage&quot; : null,
-    &quot;PatientDeceasedErrorMessage&quot; : null,
-    &quot;PhnNotFoundErrorMessage&quot; : null,
-    &quot;CaseType&quot; : &quot;New&quot;,
-    &quot;PrescriberId&quot; : &quot;001Aq00000HqMi1IAF&quot;,
-    &quot;PatientIdentifier&quot; : &quot;1234567890&quot;,
-    &quot;PatientBirthDate&quot; : &quot;2023-06-27&quot;,
-    &quot;IdPatient&quot; : &quot;003Aq00000IXh8gIAD&quot;,
-    &quot;PatAccId&quot; : &quot;001Aq00000IneI6IAJ&quot;,
-    &quot;phn&quot; : &quot;1234567890&quot;,
-    &quot;PhnCount&quot; : 1,
-    &quot;PatientName&quot; : &quot;Archie Andrews&quot;
-  },
-  &quot;Contt&quot; : &quot;003Aq00000IXh8gIAD&quot;,
-  &quot;DrugandDosage&quot; : {
-    &quot;PatientWeight&quot; : null,
-    &quot;InitialDosageDetail&quot; : {
-      &quot;NewIndefiniteFunding&quot; : null,
-      &quot;RequestedFrequencyUnits&quot; : &quot;Weekly&quot;,
-      &quot;RequestedFrequency&quot; : 0.5,
-      &quot;RequestedFundingDurationUnits&quot; : &quot;Months&quot;,
-      &quot;RequestedDosage&quot; : 900,
-      &quot;RequestedFundingDuration&quot; : 6,
-      &quot;RequestedDosageUnits&quot; : &quot;Milligrams&quot;
-    },
-    &quot;PleaseEnterOtherDrugDetails&quot; : null,
-    &quot;SelectADrug&quot; : &quot;0itAq00000002LBIAY&quot;,
-    &quot;IndicationId&quot; : &quot;a1nAq00000CealpIAB&quot;,
-    &quot;MaxInitialFundDuration&quot; : &quot;6 months&quot;,
-    &quot;MedicationName&quot; : &quot;eculizumab&quot;
-  },
-  &quot;RenewalRecDose&quot; : &quot;aHUS - 1200 mg every two weeks &amp; PNH - 900 mg every two weeks&quot;,
-  &quot;Weight&quot; : false,
-  &quot;RequestedNewDosageUnitId&quot; : &quot;0hEAq00000002WTMAY&quot;,
-  &quot;InitialRecDose&quot; : &quot;aHUS - 900 mg once weekly x 4 weeks; 1200 mg once, one week later; 1200 mg every two weeks thereafter &amp; PNH - 600 mg once weekly x 4 weeks; 900 mg once, one week later; 900 mg every two weeks thereafter&quot;,
-  &quot;MaxRenewFundDuration&quot; : &quot;12 months&quot;,
-  &quot;MedicationIdValue&quot; : &quot;a1nAq00000CealpIAB&quot;,
-  &quot;IndicationName&quot; : &quot;atypical hemolytic uremic syndrome - aHUS&quot;,
+  &quot;UserAccountId&quot; : &quot;001Aq00000YHbUPIA1&quot;,
   &quot;DECLARATION&quot; : {
     &quot;ReasonforNotHavingRelevantExpertise&quot; : null,
-    &quot;SignedDate&quot; : &quot;2024-09-04&quot;,
+    &quot;Treating_Clinician_Signature&quot; : &quot;Test&quot;,
+    &quot;SignedDate&quot; : &quot;2025-03-24&quot;,
     &quot;ConfirmingRelevantExpertise&quot; : &quot;Yes&quot;
-  }
+  },
+  &quot;PrescriberId&quot; : &quot;001Aq00000YHbUPIA1&quot;,
+  &quot;Overridereason&quot; : null,
+  &quot;RequestedNewDosageUnitId&quot; : &quot;0hEAq0000000XDoMAM&quot;,
+  &quot;UserContactId&quot; : &quot;003Aq00000cokuIIAQ&quot;,
+  &quot;MedicationName&quot; : &quot;alglucosidase alfa - Myozyme&quot;,
+  &quot;localTimeZoneName&quot; : &quot;Asia/Calcutta&quot;,
+  &quot;UploadAttachment&quot; : {
+    &quot;UploadSupportingDoc&quot; : [ {
+      &quot;deleteLabel&quot; : &quot;Delete Test.pdf&quot;,
+      &quot;size&quot; : 89476,
+      &quot;data&quot; : &quot;069Aq000007w9wXIAQ&quot;,
+      &quot;filename&quot; : &quot;Test.pdf&quot;,
+      &quot;vId&quot; : &quot;068Aq000007liRNIAY&quot;
+    } ],
+    &quot;UploadEligibilityForm&quot; : [ {
+      &quot;deleteLabel&quot; : &quot;Delete Test.pdf&quot;,
+      &quot;size&quot; : 89476,
+      &quot;data&quot; : &quot;069Aq000007w9uvIAA&quot;,
+      &quot;filename&quot; : &quot;Test.pdf&quot;,
+      &quot;vId&quot; : &quot;068Aq000007liPlIAI&quot;
+    } ]
+  },
+  &quot;ApprovedDose&quot; : 1,
+  &quot;SUMMARY&quot; : {
+    &quot;Formula1&quot; : null,
+    &quot;SummaryBlock&quot; : {
+      &quot;requestedFrequency&quot; : 0.5,
+      &quot;requestedFrequencyUnits&quot; : &quot;Weekly&quot;,
+      &quot;patientBirthdate&quot; : &quot;1965-09-21&quot;,
+      &quot;requestedFundingDurationUnits&quot; : &quot;Months&quot;,
+      &quot;ApprovedDosage&quot; : 1,
+      &quot;indicationName&quot; : &quot;Pompe disease - Pompe&quot;,
+      &quot;phnNumber&quot; : &quot;9879450714&quot;,
+      &quot;CaseType&quot; : &quot;New&quot;,
+      &quot;requestedFundingDuration&quot; : 12,
+      &quot;requestedDosageUnits&quot; : &quot;Milligrams&quot;,
+      &quot;patientName&quot; : &quot;PRINCE SOSA&quot;,
+      &quot;medicationName&quot; : &quot;alglucosidase alfa - Myozyme&quot;
+    },
+    &quot;OverridereasonValue&quot; : null,
+    &quot;patientContactId&quot; : &quot;003Aq00000dblu9IAA&quot;,
+    &quot;IndefiniteFunding&quot; : null,
+    &quot;ProviderId&quot; : &quot;003Aq00000cokuIIAQ&quot;
+  },
+  &quot;elementName&quot; : &quot;createCaseAndRelatedData&quot;,
+  &quot;UserContextId&quot; : &quot;005Aq00000NQNNLIA5&quot;,
+  &quot;patientRefNo&quot; : &quot;00065-PS&quot;,
+  &quot;ContactAccountId&quot; : &quot;001Aq00000YksGyIAJ&quot;,
+  &quot;requestedFundDuration&quot; : &quot;12&quot;,
+  &quot;requestedFundDurationUnits&quot; : &quot;Months&quot;,
+  &quot;prescriberId&quot; : &quot;001Aq00000YHbUPIA1&quot;,
+  &quot;IndicationName&quot; : &quot;Pompe disease - Pompe&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

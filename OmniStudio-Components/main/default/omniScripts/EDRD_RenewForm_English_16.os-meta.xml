@@ -48,6 +48,79 @@
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>IndicationValueRenew</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 6,
+  &quot;label&quot; : &quot;Indication&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : true,
+  &quot;defaultValue&quot; : &quot;%IndicationDetails:IndicationNameRenewal%&quot;,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;dataSource&quot; : {
+    &quot;type&quot; : &quot;SObject&quot;,
+    &quot;mapItems&quot; : {
+      &quot;phase1MapItems&quot; : [ {
+        &quot;InterfaceObjectName__c&quot; : &quot;Medical_Diagnosis__c&quot;,
+        &quot;InterfaceFieldAPIName__c&quot; : &quot;Medication__c&quot;,
+        &quot;FilterOperator__c&quot; : &quot;=&quot;,
+        &quot;FilterValue__c&quot; : &quot;MedId&quot;,
+        &quot;InterfaceObjectLookupOrder__c&quot; : 1,
+        &quot;DomainObjectFieldAPIName__c&quot; : &quot;Indications&quot;
+      } ],
+      &quot;phase2MapItems&quot; : [ {
+        &quot;DomainObjectFieldAPIName__c&quot; : &quot;name&quot;,
+        &quot;InterfaceFieldAPIName__c&quot; : &quot;Indications:Id&quot;,
+        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
+        &quot;DomainObjectCreationOrder__c&quot; : 1
+      }, {
+        &quot;DomainObjectFieldAPIName__c&quot; : &quot;value&quot;,
+        &quot;InterfaceFieldAPIName__c&quot; : &quot;Indications:Healthcare_Diagnosis__r.Name&quot;,
+        &quot;DomainObjectAPIName__c&quot; : &quot;JSON&quot;,
+        &quot;DomainObjectCreationOrder__c&quot; : 1
+      } ],
+      &quot;inputParameters&quot; : [ {
+        &quot;inputParam&quot; : &quot;MedId&quot;,
+        &quot;element&quot; : &quot;SelectDrugRenewal&quot;
+      } ]
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;MedicationNameRenewal&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false,
+  &quot;clearValue&quot; : true,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  }
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Lookup</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
             <name>IndicationValueRenewal</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -61,7 +134,16 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;field&quot; : &quot;MedicationNameRenewal&quot;
+      } ]
+    }
+  },
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;dataSource&quot; : {
     &quot;mapItems&quot; : {
@@ -143,7 +225,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>8.0</sequenceNumber>
+            <sequenceNumber>9.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -181,7 +263,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>9.0</sequenceNumber>
+            <sequenceNumber>10.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -213,7 +295,7 @@
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-            <sequenceNumber>10.0</sequenceNumber>
+            <sequenceNumber>11.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <childElements>
@@ -618,7 +700,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>11.0</sequenceNumber>
+            <sequenceNumber>12.0</sequenceNumber>
             <type>Block</type>
         </childElements>
         <childElements>
@@ -642,7 +724,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>7.0</sequenceNumber>
+            <sequenceNumber>8.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -666,7 +748,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>6.0</sequenceNumber>
+            <sequenceNumber>7.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -719,7 +801,7 @@
   &quot;label&quot; : &quot;Load Initial/Renewal eForm&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>5.0</sequenceNumber>
+            <sequenceNumber>6.0</sequenceNumber>
             <type>DataRaptor Extract Action</type>
         </childElements>
         <childElements>
@@ -845,7 +927,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>4.0</sequenceNumber>
+            <sequenceNumber>5.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <isActive>true</isActive>
@@ -1489,7 +1571,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;Search MSP&quot;,
+  &quot;label&quot; : &quot;Search Patient&quot;,
   &quot;remoteClass&quot; : &quot;EDRD_EmpiIntegration&quot;,
   &quot;remoteMethod&quot; : &quot;getEmpidata&quot;,
   &quot;remoteOptions&quot; : {
@@ -1794,7 +1876,7 @@
   &quot;label&quot; : &quot;RenewalMedicationIdNullcheck&quot;,
   &quot;validationRequired&quot; : &quot;Step&quot;,
   &quot;elementErrorMap&quot; : {
-    &quot;IndicationValueRenewal&quot; : &quot;Please click on the Load Initial/Renewal eForm&quot;
+    &quot;IndicationValueRenew&quot; : &quot;=CONCATENATE(&apos; &apos;)+ &apos;Please click on the Load Initial/Renewal eForm&apos;&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
@@ -2200,5 +2282,5 @@
     <type>EDRD</type>
     <uniqueName>EDRD_RenewForm_English_16</uniqueName>
     <versionNumber>16.0</versionNumber>
-    <webComponentKey>dd9e4361-bafe-71c5-40e5-f02f19f1a49b</webComponentKey>
+    <webComponentKey>7b4365b7-c9a2-48cb-96be-a0ac96a10d25</webComponentKey>
 </OmniScript>

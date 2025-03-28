@@ -191,7 +191,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoDocDRCustom0jIAq0000004N1FMAUItem5</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:patientContactId</inputFieldName>
+        <inputFieldName>AccountContact</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoDocDR</name>
@@ -496,6 +496,20 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoDocDRCustom8077</globalKey>
+        <inputFieldName>PatAccId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoDocDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AccountId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoDocDRCustom0jIAq0000004N1FMAUItem14</globalKey>
         <inputFieldName>RequestedNewDosageUnitId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -762,6 +776,23 @@
         <outputCreationSequence>2.0</outputCreationSequence>
         <outputFieldName>Requested_Frequency_Unit__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>var:SUMMARY:SummaryBlock:patientContactId</formulaConverted>
+        <formulaExpression>SUMMARY:SummaryBlock:patientContactId</formulaExpression>
+        <formulaResultPath>AccountContact</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>createCaseRequestWithNoDocDRCustom7349</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoDocDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>

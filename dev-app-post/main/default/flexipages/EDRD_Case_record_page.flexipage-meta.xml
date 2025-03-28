@@ -1930,6 +1930,29 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>PharmanetPayload</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Status}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Funding Approved</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Medication_Name__c}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Trikafta</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>

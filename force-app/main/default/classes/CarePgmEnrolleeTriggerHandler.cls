@@ -44,14 +44,25 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
     public static void updateEnrolleeNameOnAcc(List<CareProgramEnrollee> carePgmEnrolleeList){
         List<Account> accList = new List<Account>();
         List<CareProgramEnrollee> cPEList =[SELECT Id, CareProgram.Name FROM CareProgramEnrollee 
-                                            WHERE Id IN: carePgmEnrolleeList and CareProgram.Name = 'EDRD'];
-        
+                                            WHERE Id IN: carePgmEnrolleeList and CareProgram.Name = 'EDRD'];        
         for(CareProgramEnrollee carePgmEnrollee: carePgmEnrolleeList){
             accList.add(new Account(Id = carePgmEnrollee.AccountId, EDRD_Ref_No__pc = carePgmEnrollee.Name));
-        }  
-        
+        }          
         if(!accList.isEmpty()){
-            Database.update(accList, true);
+           new Elevated().updateAccount(accList);
         }
     }
+/*---------------------------------------------------------------------
+Class Name : Elevated
+Purpose : This is Elevated class to get the salesforce data on System mode.
+Version : 1.0
+Devloper Name : Accenture.
+Date : 26/March/2025
+--------------------------------------------------------------------------*/
+public without sharing class Elevated
+{
+    public void updateAccount(List<Account> accList){
+        update accList;
+    } 
+ }
 }

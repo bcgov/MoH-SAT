@@ -160,7 +160,7 @@ export default class CustomObjectForm extends LightningElement {
         this.Name = '';
         this.AccountId = '';
         this.Deceased = '';
-        this.PatientDOB = '';
+        this.PatientDOB = null;
         this.Gender = '';
         this.accountPHN = '';
         this.patientPHN = '';
@@ -206,18 +206,18 @@ export default class CustomObjectForm extends LightningElement {
     }
 
     disconnectedCallback() {
-        this.PatientFullNameDisplay = NULL;
-        this.FirstName = NULL;
-        this.LastName = NULL;
-        this.Name = NULL;
-        this.Gender = NULL ;
-        this.Deceased = NULL;
-        this.Birthdate = NULL;
-        this.PatientDOB = NULL;
-        this.patientPHN = NULL;
-        this.verified = NULL;
-        this.isNextDisable = NULL;
-        this.isShowNoPHNFound = NULL;  
+        this.PatientFullNameDisplay = '';
+        this.FirstName = '';
+        this.LastName = '';
+        this.Name = '';
+        this.Gender = '';
+        this.Deceased = '';
+        this.Birthdate = '';
+        this.PatientDOB = null;
+        this.patientPHN = '';
+        this.verified = '';
+        this.isNextDisable = '';
+        this.isShowNoPHNFound = '';  
         this.overRideReason = 'None';  
     }
 }
