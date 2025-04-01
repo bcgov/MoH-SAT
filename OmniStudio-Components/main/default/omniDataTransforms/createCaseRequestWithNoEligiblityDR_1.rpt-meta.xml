@@ -531,6 +531,23 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>var:SUMMARY:SummaryBlock:patientContactId</formulaConverted>
+        <formulaExpression>SUMMARY:SummaryBlock:patientContactId</formulaExpression>
+        <formulaResultPath>AccountContact</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>createCaseRequestWithNoEligiblityDRCustom5384</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoEligiblityDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;Renewal&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
@@ -755,6 +772,20 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoEligiblityDRCustom2067</globalKey>
+        <inputFieldName>PatAccId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoEligiblityDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AccountId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <defaultValue>Portal</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -828,7 +859,7 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoEligiblityDRCustom0jIAq0000004N2rMAEItem9</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:patientContactId</inputFieldName>
+        <inputFieldName>AccountContact</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoEligiblityDR</name>

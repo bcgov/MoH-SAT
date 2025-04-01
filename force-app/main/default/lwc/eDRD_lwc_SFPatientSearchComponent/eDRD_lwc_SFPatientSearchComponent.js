@@ -296,7 +296,7 @@ export default class eDRD_lwc_SFPatientSearchComponent extends LightningElement 
         this.patientFirstName = '';
         this.patientLastName = '';
         this.patientGender = '';
-        this.patientBirthdate = '';
+        this.patientBirthdate = null;
         this.patientIdentifier = '';
         this.patient_IdentifierManual = '';
         this.isCreatePatientManuallyChecked = false;
