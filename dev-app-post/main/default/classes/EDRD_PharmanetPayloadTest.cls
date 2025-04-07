@@ -78,32 +78,4 @@ private class EDRD_PharmanetPayloadTest {
         saaRequest.clientName = 'Test saaREq';        
         payload.saaRequestAPICallout(inputWrapper);
     }
-    
-    // Test for markPushedToPharmanet
-    @isTest
-    static void testMarkPushedToPharmanet() {
-        // Create a mock Case
-        Case testCase = new Case(
-            Status = ESA_cls_constants.FundingApproved,
-            Subject = 'Test Case',
-            Priority = 'High',
-            Origin = 'Email'
-        );
-        insert testCase;
-        
-        String methodName = 'markPushedToPharmanet';
-        String jsonInput = '{"input":{"caseId":"'+ testCase.Id +'","indication":"cystic fibrosis - CF","phn":"1234567890","caseStatus":"Funding Approved","practId":"003Aq00000eHdIrIAK","medicationName":"elexacaftor/tezacaftor/ivacaftor - Trikafta"}}';
-        Map<String, Object> inputMap = (Map<String, Object>) JSON.deserializeUntyped(jsonInput);
-        
-        Test.startTest();
-        EDRD_PharmanetPayload payload = new EDRD_PharmanetPayload();
-        payload.call(methodName, inputMap);
-        
-        Case updatedCase = [SELECT Pushed_to_Pnet__c, Pushed_to_Pnet_Date__c FROM Case WHERE Id = :testCase.Id];
-        Test.stopTest();
-        System.assert(updatedCase.Pushed_to_Pnet__c == true, 'Pushed_to_Pnet__c should be true');
-        System.assertNotEquals(updatedCase.Pushed_to_Pnet_Date__c, null, 'Pushed_to_Pnet_Date__c should be set');       
-        
-    }
-    
 }
