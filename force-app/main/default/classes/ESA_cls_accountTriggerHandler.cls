@@ -7,6 +7,8 @@
                 20 Dec -  EDRD-1150         -  Accenture   -  Adding/Removing - Provider/Reviewer to public groups based on Committees. 
 ***********************************************************************************************/
 public with sharing class ESA_cls_accountTriggerHandler {
+    public static Id recordTypeProvider = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_PROVIDER).getRecordTypeId();
+    public static Id recordTypeEDRDReviewer = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_COMMITTEE_REVIEWER).getRecordTypeId();
     
 /**
 * @author: Deepak
@@ -92,21 +94,24 @@ public with sharing class ESA_cls_accountTriggerHandler {
 * @author: Deepak
 * @date: 20 Dec 2024
 * @description: The purpose of this method is to Adding/Removing - Provider/Reviewer to public groups based on EDRD Committees.
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]                    
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]  
+                     02 Oct -  EDRD-1450         -  Accenture   -  Adding/Removing - Provider/Reviewer to EDRD Reviewer public groups & Permission set
 */ 
     public static void handlePublicGroupMemberships(Map<Id, Account> oldAccountMap, Map<Id, Account> newAccountMap) {
         Map<Id, Set<String>> perConIdVsOldCommittesName = new Map<Id, Set<String>>();
         Map<Id, Set<String>> perConIdVsnewCommitteeName = new Map<Id, Set<String>>();
         List<String> perConIdVsOldCommittesNameSTRList = new List<String>();
         List<String> perConIdVsnewCommitteeNameSTRList = new List<String>();
-        Map<String, Id> accNameVsPerConId = new Map<String, Id>();                
+        Map<String, Id> accNameVsPerConId = new Map<String, Id>();
+        Map<Id, String> PerConIdVsTransType = new Map<Id, String>();
         
-        for (Id accountId : newAccountMap.keySet()) {
+        for (Id accountId : newAccountMap.keySet() ) {
             Account oldAccount = oldAccountMap.get(accountId);
             Account newAccount = newAccountMap.get(accountId);
-            if(oldAccount.Committee__pc == newAccount.Committee__pc && oldAccount.Committee_Name__pc == newAccount.Committee_Name__pc){
-                continue;
-            }
+            if(oldAccount.Committee__pc == newAccount.Committee__pc && oldAccount.Committee_Name__pc == newAccount.Committee_Name__pc 
+               || ((newAccount.RecordTypeId != recordTypeProvider) && (newAccount.RecordTypeId != recordTypeEDRDReviewer))){
+                   continue;
+               }
             accNameVsPerConId.put(newAccount.Name, newAccount.PersonContactId);
             
             if(oldAccount.Committee_Name__pc != newAccount.Committee_Name__pc){
@@ -118,6 +123,11 @@ public with sharing class ESA_cls_accountTriggerHandler {
                 }
             }
             if(oldAccount.Committee__pc != newAccount.Committee__pc){
+                if(!String.IsEmpty(newAccount.Committee__pc) && String.IsEmpty(oldAccount.Committee__pc)){
+                    PerConIdVsTransType.put(newAccount.personContactId, 'ADD');
+                }else if(String.IsEmpty(newAccount.Committee__pc) && !String.IsEmpty(oldAccount.Committee__pc)){
+                    PerConIdVsTransType.put(newAccount.personContactId, 'REMOVE');
+                }
                 if(!perConIdVsOldCommittesName.containsKey(oldAccount.perSonContactId)){
                     perConIdVsOldCommittesName.put(oldAccount.perSonContactId, new Set<String>());
                 }
@@ -163,7 +173,7 @@ public with sharing class ESA_cls_accountTriggerHandler {
                 perConIdVsnewCommitteeNameSTRList.add(JSON.serialize(gMWObj));
             }
             if(!perConIdVsOldCommittesNameSTRList.isEmpty() || !perConIdVsnewCommitteeNameSTRList.isEmpty()){
-                EDRD_cls_HandleGroups.handleGroupMembership(perConIdVsOldCommittesNameSTRList, perConIdVsnewCommitteeNameSTRList);
+                EDRD_cls_HandleGroups.handleGroupMembership(perConIdVsOldCommittesNameSTRList, perConIdVsnewCommitteeNameSTRList, PerConIdVsTransType);
             }
         }
     }
