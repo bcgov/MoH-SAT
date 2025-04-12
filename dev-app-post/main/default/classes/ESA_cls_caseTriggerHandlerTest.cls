@@ -84,9 +84,11 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @date: 04 Dec 2023
 * @description: The purpose of this method is to cover Testcoverage of assignStatus
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     08 Apr -     EDRD-1450		 -  Deepak      -  Adding EDRD RecordType check
 */      
    @isTest
     public static void assignStatusTest(){
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         List<Case> allCases = new List<Case>();  
         for(integer i=0; i<3; i++){
             Case caseObj = new case();
@@ -94,6 +96,7 @@ public class ESA_cls_caseTriggerHandlerTest {
             caseObj.EDRD_SC_Review_Pathway__c = '';
             caseObj.EDRD_AC_Review_Pathway__c = '';
             caseObj.EDRD_Bypass_Eligibility_Form__c = true;
+            caseObj.RecordTypeId = recordTypeCaseEDRD;
             allCases.add(caseObj);
         }
         insert allCases;        
@@ -116,15 +119,25 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @date: 15 Dec 2023
 * @description: The purpose of this method is to cover Testcoverage of syncCaseToMR
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     08 Apr -     EDRD-1450		 -  Deepak      -  Adding Provider change logic for EDRD Case
 */    
     @isTest
     public static void syncCaseToMR_positive(){
+        List<Account> requestorAccList = new List<Account>();
         Account requestorAcc = TestFactory.newProvider('Provider Test');
-        insert requestorAcc;
+        requestorAcc.Provider_Type__pc = 'Provider';
+        requestorAcc.Provider_Identifier__pc = '111222334';
+        requestorAccList.add(requestorAcc);
+        Account requestorAcc2 = TestFactory.newProvider('Provider Test2');
+        requestorAcc2.Provider_Type__pc = 'Provider';
+        requestorAccList.add(requestorAcc2);
+        insert requestorAccList;
+        List<Contact> requestorContacts = [SELECT Id FROM Contact WHERE AccountId IN :requestorAccList];
         Account patientAcc = TestFactory.newPatient('Patient Test');
         insert patientAcc;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         List<Case> caseMRList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, RequestorAcc.Id);
+        caseMRList[0].Provider__c = requestorContacts[0].Id;
         insert caseMRList;
         List<Medication> MediRecList = TestFactory.createMedication(1, 'Test Medication');
         insert MediRecList;
@@ -139,6 +152,7 @@ public class ESA_cls_caseTriggerHandlerTest {
             caseMRList.get(0).Type = 'Renewal';
             caseMRList.get(0).Priority = 'Routine';
             caseMRList.get(0).EDRD_MOHIndefinite_Funding__c = false;
+            caseMRList.get(0).Provider__c = requestorContacts[1].Id;
             ESA_cls_caseTriggerHandler.firstrun = false;
             Update caseMRList;
             Test.stopTest();

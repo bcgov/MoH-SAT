@@ -1,5 +1,21 @@
 public with sharing class ODRIntegration {
     public ODRIntegration() { }
+    
+    private static final User currentUser = [Select Id, UserRole.Name FROM USER WHERE Id =: UserInfo.getUserId()];
+    private static final Boolean isEDRDUser = (currentUser.UserRoleId != NULL && currentUser.UserRole.Name.ContainsIgnoreCase('EDRD'));
+    private static final String EDRD_Endpoint_Prescriber_Verification = 'callout:ODR_EDRD/primesvc/getPractitioner';
+    private static final String SAT_Endpoint_Prescriber_Verification = 'callout:ODR_Credentials/primesvc/getPractitioner';
+    private static final String EDRD_Endpoint_SA_Request_Approval = 'callout:ODR_EDRD/odr/sat/pnetsa/saApproval';
+    private static final String SAT_Endpoint_SA_Request_Approval = 'callout:ODR_Credentials/odr/sat/pnetsa/saApproval';
+    private static final String EDRD_Endpoint_SA_Approval_Terminate_Request = 'callout:ODR_EDRD/odr/sat/pnetsa/saApprovalUpdate';
+    private static final String SAT_Endpoint_SA_Approval_Terminate_Request = 'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate';
+    private static final String EDRD_Endpoint_Patient_Benefit_Plan = 'callout:ODR_EDRD/odr/sat/pnetsa/benefits';
+    private static final String SAT_Endpoint_Patient_Benefit_Plan = 'callout:ODR_Credentials/odr/sat/pnetsa/benefits';
+    private static final String EDRD_Endpoint_SA_Approval_History = 'callout:ODR_EDRD/odr/sat/pnetsa/saHistory';
+    private static final String SAT_Endpoint_SA_Approval_History = 'callout:ODR_Credentials/odr/sat/pnetsa/saHistory';
+    private static final String EDRD_Endpoint_Prescription_History = 'callout:ODR_EDRD/odr/sat/pnetsa/medHistory';
+    private static final String SAT_Endpoint_Prescription_History = 'callout:ODR_Credentials/odr/sat/pnetsa/medHistory';
+    private static String Endpoint = '';
 
     // LWC Path
     @AuraEnabled(cacheable=true)
@@ -110,9 +126,10 @@ public with sharing class ODRIntegration {
 
         Provider p = null;
         String saarObject = JSON.serialize(getPractitionerObject);
+        Endpoint = isEDRDUser ? EDRD_Endpoint_Prescriber_Verification : SAT_Endpoint_Prescriber_Verification;
 
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                         'callout:ODR_Credentials/primesvc/getPractitioner',
+                                                                         Endpoint,
                                                                          null,
                                                                          'POST',
                                                                          saarObject,
@@ -252,10 +269,11 @@ public with sharing class ODRIntegration {
         saaRequest.requestUUID = OdrIntegration.getUUIDString();
         saaRequest.clientName = 'SpecAuth';
         saaRequest.userid = OdrIntegration.getUserIdentifier();
+        Endpoint = isEDRDUser ? EDRD_Endpoint_SA_Request_Approval : SAT_Endpoint_SA_Request_Approval;
 
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(
             caseId,
-            'callout:ODR_Credentials/odr/sat/pnetsa/saApproval',
+            Endpoint,
             null,
             'POST',
             JSON.serialize(saaRequest),
@@ -279,13 +297,14 @@ public with sharing class ODRIntegration {
         saaUpdateRequest.requestUUID = OdrIntegration.getUUIDString();
         saaUpdateRequest.clientName = 'SpecAuth';
         saaUpdateRequest.userid = ODRIntegration.getUserIdentifier();
+        Endpoint = isEDRDUser ? EDRD_Endpoint_SA_Approval_Terminate_Request : SAT_Endpoint_SA_Approval_Terminate_Request;
         
         // If terminate, supress nulls.
         CalloutResponse calloutResponseObject;
         if (saaUpdateRequest.updateType == 'T') {
             calloutResponseObject = sendRequestAndReturnBody(
                     caseId, 
-                    'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
+                    Endpoint, 
                     null,
                     'PUT', 
                     JSON.serialize(saaUpdateRequest, true), 
@@ -294,7 +313,7 @@ public with sharing class ODRIntegration {
         } else {
             calloutResponseObject = sendRequestAndReturnBody(
                     caseId, 
-                    'callout:ODR_Credentials/odr/sat/pnetsa/saApprovalUpdate', 
+                    Endpoint, 
                     null,
                     'PUT', 
                     JSON.serialize(saaUpdateRequest, true), 
@@ -324,6 +343,7 @@ public with sharing class ODRIntegration {
         BenefitsResponse bres = null;
 
         String queryParams = '';
+        Endpoint = isEDRDUser ? EDRD_Endpoint_Patient_Benefit_Plan : SAT_Endpoint_Patient_Benefit_Plan;
 
         Map<String, String> jsonMap = new Map<String, String>();
         jsonMap.put('clientName', 'SpecAuth');
@@ -331,7 +351,7 @@ public with sharing class ODRIntegration {
         jsonMap.put('userid', getUserIdentifier());
         jsonMap.put('phn', getPatientIdentifier(recordId));
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/benefits',
+                                                                         Endpoint,
                                                                          queryParams,
                                                                          'POST',
                                                                          JSON.serialize(jsonMap),
@@ -361,7 +381,7 @@ public with sharing class ODRIntegration {
         SAApprovalHistoryResponse sar = null;
 
         String queryParams = '';
-
+        Endpoint = isEDRDUser ? EDRD_Endpoint_SA_Approval_History : SAT_Endpoint_SA_Approval_History;
 
         Map<String, String> jsonMap = new Map<String, String>();
         jsonMap.put('clientName', 'SpecAuth');
@@ -372,7 +392,7 @@ public with sharing class ODRIntegration {
         jsonMap.put('endDate','3000-01-01');
         
         CalloutResponse calloutResponseObject = sendRequestAndReturnBody(null,
-                                                                         'callout:ODR_Credentials/odr/sat/pnetsa/saHistory',
+                                                                         Endpoint,
                                                                          queryParams,
                                                                          'POST',
                                                                          JSON.serialize(jsonMap),
@@ -429,6 +449,7 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
     public static PrescriptionHistoryResponse fetchPrescriptionHistory(Id recordId, String page, String count, List<Integer> dinList) {
         
         PrescriptionHistoryResponse sar = null;
+        Endpoint = isEDRDUser ? EDRD_Endpoint_Prescription_History : SAT_Endpoint_Prescription_History;
 
         // Build Request Body
         Map<String, Object> jsonMap = new Map<String, Object>();
@@ -450,7 +471,7 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
             jsonMap.put('startDate', '1900-01-01');
 
             CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                            'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                            Endpoint,
                                                                             null,
                                                                             'POST',
                                                                             JSON.serialize(jsonMap),
@@ -485,7 +506,7 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
                 jsonMap.put('startDate', '1900-01-01');
 
                 CalloutResponse calloutResponseObject = sendRequestAndReturnBody(recordId,
-                                                                                'callout:ODR_Credentials/odr/sat/pnetsa/medHistory',
+                                                                                Endpoint,
                                                                                 null,
                                                                                 'POST',
                                                                                 JSON.serialize(jsonMap),

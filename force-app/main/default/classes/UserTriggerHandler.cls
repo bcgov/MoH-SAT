@@ -6,11 +6,13 @@
                 24Sept -  EDRD-911          -  Accenture   -  Added activateACROnEDRDPortalEnable method
                 07Jan -   EDRD-1150         -  Accenture   -  Added handleEDRDPublicGroupMember method
                 07Jan -   EDRD-1150         -  Accenture   -  Added handleGroupsForUsersAsync method
+                03 Apr -  EDRD-1450         -  Accenture   -  Adding/Removing - Provider/Reviewer to EDRD Reviewer public groups & Permission set
 ***********************************************************************************************/
 public with sharing class UserTriggerHandler {
     public static Id eDRDPrescriberProfileId = [SELECT Id FROM Profile WHERE Name =: ESA_cls_constants.EDRD_PRESCRIBER_COMMUNITY_USER LIMIT 1].Id;
     public static Id recordTypeProvider = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_PROVIDER).getRecordTypeId();
     public static Id recordTypeEDRDReviewer = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_COMMITTEE_REVIEWER).getRecordTypeId();
+    public static Boolean isAssignPSG = true;
     
 /**
 * @author: Deepak
@@ -73,7 +75,7 @@ public with sharing class UserTriggerHandler {
         Set<Id> userIdSet = new Set<Id>();
         
         for (User userObj : newUserList) {
-            if ((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled)) {
+            if ((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled && userObj.IsActive)) {
                 userIdSet.add(userObj.Id);
             }
         }
@@ -88,6 +90,7 @@ public with sharing class UserTriggerHandler {
 * @date: 07 Jan 2025
 * @description: The purpose of this method is to async and insert the public groupmember records.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     03 Apr -  EDRD-1450         -  Accenture   -  Added assignUserToReviewerGroupAndPermissionSet Method.
 */    
     @future
     public static void handleGroupsForUsersAsync(Set<Id> userIds){
@@ -102,6 +105,10 @@ public with sharing class UserTriggerHandler {
                          AND (Contact.Account.Committee__pc != NULL OR Contact.Account.Committee_Name__pc != NULL)
                          AND (Account.RecordTypeId = :recordTypeProvider OR Account.RecordTypeId = :recordTypeEDRDReviewer)];
         
+        if(!relevantUsers.isEmpty() && isAssignPSG){
+            assignUserToReviewerGroupAndPermissionSet(relevantUsers);
+        }
+                
         for (User userObj : relevantUsers) {
             if (userObj.Contact.Account.Committee_Name__pc != NULL) {
                 userIdVsGroupsToBeAdded.put(userObj.Id, userObj.Contact.Account.Committee_Name__pc.split(';'));
@@ -135,6 +142,38 @@ public with sharing class UserTriggerHandler {
         
         if (!groupMemberToInsert.isEmpty()) {
             Database.insert(groupMemberToInsert, true);
+        }
+    }
+    
+/**
+* @author: Deepak
+* @date: 03 April 2024
+* @description: The purpose of this method is to Adding/Removing - Provider/Reviewer to EDRD Reviewer public groups & Permission set.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]                    
+*/ 
+    public static void assignUserToReviewerGroupAndPermissionSet(List<User> relevantUsers) {
+        List<GroupMember> groupMemberToInsert = new List<GroupMember>();
+        List<PermissionSetAssignment> permSetAssignToInsert = new List<PermissionSetAssignment>();
+        List<Group> eDRDReviewerPG = [SELECT Id FROM Group WHERE DeveloperName = 'EDRD_Reviewer' LIMIT 1];
+        List<PermissionSet> eDRDReviewerPermSet = [SELECT Id FROM PermissionSet WHERE Name = 'EDRD_PS_Reviewer' LIMIT 1];
+        
+        if (!eDRDReviewerPG.isEmpty() && !eDRDReviewerPermSet.isEmpty()) {
+            Id groupId = eDRDReviewerPG[0].Id;
+            Id permSetId = eDRDReviewerPermSet[0].Id;
+            
+            for (User user : relevantUsers) {
+                groupMemberToInsert.add(new GroupMember(UserOrGroupId = user.Id, GroupId = groupId));
+                
+                permSetAssignToInsert.add(new PermissionSetAssignment(AssigneeId = user.Id, PermissionSetId = permSetId));
+            }
+            
+            if (!groupMemberToInsert.isEmpty()) {
+                Database.insert(groupMemberToInsert, true);
+            }
+            
+            if (!permSetAssignToInsert.isEmpty()) {
+                Database.insert(permSetAssignToInsert, true);
+            }
         }
     }
 }

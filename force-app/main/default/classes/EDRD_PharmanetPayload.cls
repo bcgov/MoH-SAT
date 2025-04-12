@@ -25,9 +25,6 @@ global with sharing class EDRD_PharmanetPayload implements Callable{
             when 'getPharmanetDecisionTable'{
                 this.getPharmanetDecisionTable(jsonInput,outputMap);
             }
-            when 'markPushedToPharmanet'{
-                this.markPushedToPharmanet(jsonInput,outputMap);
-            }
             when else{                
             }
         }
@@ -108,7 +105,7 @@ Date : 19/Feb/2025
     public void updateSubmitPharmanet(String jsonInput, Map<String,Object> outputMap)
     {
         EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();     
-        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);               
+        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);              
         try{
             if(!Test.isRunningTest()){
             saaRequestAPICallout(inputWrapper);
@@ -141,32 +138,9 @@ Date : 19/Feb/2025
             wrapper.isSubmitSuccessful = false;
             wrapper.isPharmaNetSubmitSuccessfull = false;
             wrapper.ErrorMessage = intRecord.Message__c; 
-        }       
+        }      
        return wrapper;                
  }
-/*-------------------------------------------------------------------
-Method Name : markPushedToPharmanet
-Purpose : Updating case Pharmanet.
-Version : 1.0
-Devloper Name : Accenture.
-Date : 19/Feb/2025
---------------------------------------------------------------------------*/
-    public void markPushedToPharmanet(String jsonInput, Map<String,Object> outputMap)
-    {
-        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
-        EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();
-        try{
-            updateCaseRec(inputWrapper);
-            wrapper.ismarkPushedToPharmanet = true;
-        }
-        catch(Exception e){
-            wrapper.ismarkPushedToPharmanet = false;
-        }
-        if(!Test.isRunningTest()){
-        outputMap.put('ismarkPushedToPharmanet',wrapper.ismarkPushedToPharmanet); 
-        }
-      return;        
-    }
     public void saaRequestAPICallout(EDRD_PharmanetWrapper.InputWrapper inputWrapper)
     {
         List<String> justificationCodesList = new List<String>{inputWrapper.justificationCodes};
@@ -203,11 +177,11 @@ Date : 19/Feb/2025
     }
 
     private static void updateCaseRec(EDRD_PharmanetWrapper.InputWrapper inputWrapper){
-        Case record = new Case();      
+        Case record = new Case();     
         record.Id = inputWrapper.caseId;
         record.Pushed_to_Pnet__c = true;
         record.Pushed_to_Pnet_Date__c = Datetime.now();
-        record.Termination_Date__c = getTerminationDate(inputWrapper); 
+        record.Termination_Date__c = getTerminationDate(inputWrapper);       
         update record;
 
     }
