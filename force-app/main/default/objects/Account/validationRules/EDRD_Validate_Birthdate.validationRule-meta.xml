@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_Birthdate</fullName>
+    <active>true</active>
+    <description>This formula will evaluate to true if the PersonBirthdate is a future date, which triggers this validation rule.</description>
+    <errorConditionFormula>AND(
+				PersonBirthdate &gt; TODAY(),
+				CONTAINS($UserRole.Name, &quot;EDRD&quot;)
+				)</errorConditionFormula>
+    <errorMessage>Birthdate cannot be a future date.</errorMessage>
+</ValidationRule>
