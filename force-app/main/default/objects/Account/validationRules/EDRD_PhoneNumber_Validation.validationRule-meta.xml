@@ -3,8 +3,8 @@
     <fullName>EDRD_PhoneNumber_Validation</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-    RecordType.Name = &apos;Provider&apos;,
-    RecordType.Name = &apos;Patient&apos;,
+    OR(RecordType.Name = &apos;Provider&apos;,
+    RecordType.Name = &apos;Patient&apos;),
     CONTAINS($UserRole.Name, &quot;EDRD&quot;),
     OR(
         AND(
