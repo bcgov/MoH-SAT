@@ -11,31 +11,34 @@
         <inputParameters>
             <name>caseIds</name>
             <value>
-                <elementReference>Get_ToBeFaxed_Queue.Id</elementReference>
+                <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>FaxService</nameSegment>
+        <offset>0</offset>
     </actionCalls>
-    <apiVersion>61.0</apiVersion>
+    <apiVersion>60.0</apiVersion>
     <assignments>
-        <name>Assign_to_ToBeFaxed_Queue</name>
-        <label>Assign to ToBeFaxed Queue</label>
+        <name>Assign_to_General_Queue</name>
+        <label>Assign to General Queue</label>
         <locationX>176</locationX>
         <locationY>431</locationY>
         <assignmentItems>
             <assignToReference>$Record.OwnerId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Get_ToBeFaxed_Queue.Id</elementReference>
+                <elementReference>Get_General_Queue.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
             <targetReference>Update_Dups</targetReference>
         </connector>
     </assignments>
-    <description>Updated with Record Type</description>
+    <description>Updated with Record Type, Changed to General Queue
+Update Apex SendFax with case id parameter</description>
     <environments>Default</environments>
     <interviewLabel>Dups to ToBeFaxed Queue {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Dups to ToBeFaxed Queue</label>
+    <label>Dups to General Queue</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -56,13 +59,13 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
-        <name>Get_ToBeFaxed_Queue</name>
-        <label>Get ToBeFaxed Queue</label>
+        <name>Get_General_Queue</name>
+        <label>Get General Queue</label>
         <locationX>176</locationX>
         <locationY>323</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_to_ToBeFaxed_Queue</targetReference>
+            <targetReference>Assign_to_General_Queue</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -76,7 +79,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>To_be_faxed_queue</stringValue>
+                <stringValue>General_Queue</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -105,7 +108,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_ToBeFaxed_Queue</targetReference>
+            <targetReference>Get_General_Queue</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
