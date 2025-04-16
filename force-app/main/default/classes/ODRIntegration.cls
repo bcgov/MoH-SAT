@@ -599,6 +599,7 @@ public static PrescriptionHistoryResponse fetchPrescriptionHistoryWithSearchKey(
     public static String getUserIdentifier() {
         // Who's calling this?
         String userid = [Select FederationIdentifier From User Where Id = :UserInfo.getUserId()][0].FederationIdentifier;
+        userid = !String.IsBlank(userid) && userid.Length() > 16 ? userid.SubString(0,16) : userid;
         return userid;
     }
 
