@@ -23,10 +23,8 @@ public with sharing class medicationRequestTriggerHandler {
         }
         Map<Id, Case> caseIdVsRec = new Map<Id, case> ([SELECT Id, EDRD_Ref_No__c, (SELECT Id, Case__c FROM Medication_Requests__r) 
                                      FROM Case WHERE ID IN: caseIdSet]);
-        for(MedicationRequest MRObj : MRListValidate)
-        {
-            if(String.isBlank(MRObj.EDRD_Reference_Number__c))
-			{                
+        for(MedicationRequest MRObj : MRListValidate){
+            if(String.isBlank(MRObj.EDRD_Reference_Number__c)){                
                 Boolean isMRInsertNHasOldMR = trigger.isInsert && caseIdVsRec.containsKey(MRObj.Case__c) && 
                                                caseIdVsRec.get(MRObj.Case__c).medication_Requests__r != NULL && 
                                                !caseIdVsRec.get(MRObj.Case__c).medication_Requests__r.isEmpty();
