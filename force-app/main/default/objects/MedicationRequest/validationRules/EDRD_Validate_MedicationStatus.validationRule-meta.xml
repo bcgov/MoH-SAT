@@ -4,6 +4,8 @@
     <active>true</active>
     <errorConditionFormula>AND(
 RecordType.DeveloperName = &apos;EDRD_Medication_Request&apos;,
+$Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+$Profile.Name &lt;&gt; &apos;Service Account Profile&apos;,
 OR(
 IsNew(),
 IsChanged(MedicationId)),
