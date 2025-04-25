@@ -3,7 +3,8 @@
     <fullName>EDRD_Prevent_Case_Edit_After_Closed</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
- $Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+ OR($Profile.Name &lt;&gt; &apos;System Administrator&apos;,
+$Profile.Name &lt;&gt; &apos;Service Account Profile&apos;),
  $Permission.EDRD_PHSA_PSP_Staff  = TRUE,
 RecordType.DeveloperName = &apos;EDRD&apos;,
             
