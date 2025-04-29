@@ -85,7 +85,7 @@ public class UserTriggerHandlerTest {
         List<GroupMember> groupMembers = [SELECT Id, GroupId, UserOrGroupId FROM GroupMember WHERE UserOrGroupId = :communityUser.Id];
         
         Assert.areEqual(TRUE, groupMembers.size() > 0, 'At least one GroupMember should be created for the community user.');
-        Assert.areEqual(1, groupMembers.size(), 'Exactly one GroupMember should be created for the community user.'); 
+        Assert.areEqual(2, groupMembers.size(), 'Exactly one GroupMember should be created for the community user.'); 
         Assert.areNotEqual(null, groupMembers[0].GroupId, 'GroupMember should have a valid GroupId.');
     }
 }

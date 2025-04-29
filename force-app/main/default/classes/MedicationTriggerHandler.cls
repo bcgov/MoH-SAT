@@ -59,7 +59,7 @@ public with sharing class MedicationTriggerHandler {
 * @description: The purpose of this method is to send custom Notification when Medication is inactive.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-    Private static void sendNotification(Map<Id, Map<String, String>> accountIdVsNotificationDetails){
+    public static void sendNotification(Map<Id, Map<String, String>> accountIdVsNotificationDetails){
         List<User> userList = [SELECT Id, Contact.AccountId FROM USER WHERE Contact.AccountId IN: accountIdVsNotificationDetails.KeySet()];
         List<CustomNotificationType> TemplateInfoDetail = [SELECT Id, DeveloperName FROM CustomNotificationType
                                                            WHERE DeveloperName='EDRD_BellNotificationForProviders'];

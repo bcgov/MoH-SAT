@@ -2,7 +2,11 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Prevent_Care_Program_CreationforDeceased</fullName>
     <active>true</active>
-    <description>Prevent user from creating Care Program Enroller for Deceased Patient</description>
-    <errorConditionFormula>Account.PersonContact.Patient_is_Deceased__c = true</errorConditionFormula>
-    <errorMessage>You can not create a Care Program Enrollee for a Deceased Patient</errorMessage>
+    <description>Prevent user from creating/Insert Care Program Enroller for Deceased Patient</description>
+    <errorConditionFormula>AND(
+				ISNEW(),
+    CareProgram.Name = &quot;EDRD&quot;,
+    Account.PersonContact.Patient_is_Deceased__c = true
+				)</errorConditionFormula>
+    <errorMessage>You cannot create a Care Program Enrollee for a Deceased Patient</errorMessage>
 </ValidationRule>
