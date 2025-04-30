@@ -82,7 +82,7 @@ jobs:
         # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
         
     - name: Run Apex test
-      run: sfdx force:apex:test:run -c -r human
+      run: sf apex run test -c -r human
 
     - name: Delete scratch org
       if: ${{ always() }}
