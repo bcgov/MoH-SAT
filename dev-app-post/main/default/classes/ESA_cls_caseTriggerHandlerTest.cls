@@ -349,7 +349,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         casesList.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
         casesList.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
         casesList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
-        casesList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        casesList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(Date.today().year()+1, 1, 1);
         insert casesList;
         List<Medication> drugList = TestFactory.createMedication(1, 'Test Medication');
         insert drugList;
@@ -403,7 +403,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         caseRec.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
         caseRec.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
         caseRec.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
-        caseRec.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        caseRec.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(Date.today().year()+1, 1, 1);
         insert caseRec;
         List<Medication> medList = TestFactory.createMedication(1, 'Test Medication');
         insert medList;
@@ -427,7 +427,7 @@ public class ESA_cls_caseTriggerHandlerTest {
                 
         Test.startTest();
         ESA_cls_caseTriggerHandler.FYOnce = true;
-        caseRec.get(0).EDRD_MOHFunding_Expiry_Date__c = Date.newInstance(2029, 12, 31);
+        caseRec.get(0).EDRD_MOHFunding_Expiry_Date__c = Date.newInstance(Date.today().year() + 6, 12, 31);
         update caseRec.get(0);
         Test.stopTest();
         
