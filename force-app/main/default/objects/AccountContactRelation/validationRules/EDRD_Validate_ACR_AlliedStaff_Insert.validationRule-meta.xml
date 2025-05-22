@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_ACR_AlliedStaff_Insert</fullName>
+    <active>true</active>
+    <description>Prevents EDRD users from creating an inappropriate Provider-Allied Staff relationship when the Account and Contact record types are specific and roles as Allied Staff and based ProviderType field as well.</description>
+    <errorConditionFormula>AND(
+  ISNEW(),
+  CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+  Account.RecordType.DeveloperName = &apos;Provider&apos;,
+  Contact.Account.RecordType.DeveloperName = &apos;Provider&apos;,
+  INCLUDES(Roles, &apos;Allied Staff&apos;),
+  NOT(ISPICKVAL(Account.Provider_Type__pc, &apos;Physician&apos;)),
+  AND(
+    NOT(ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Pharmacist&apos;)),
+    NOT(ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Nurse&apos;))
+  )
+)</errorConditionFormula>
+    <errorMessage>An EDRD user can only create a relationship with the Allied Staff role, where the account is a Physician and the contact is either a Nurse or a Pharmacist.</errorMessage>
+</ValidationRule>
