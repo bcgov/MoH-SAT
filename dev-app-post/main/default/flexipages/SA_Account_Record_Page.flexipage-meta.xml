@@ -476,7 +476,7 @@
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -491,6 +491,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Developer</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Provider_Type__pc}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Physician</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
