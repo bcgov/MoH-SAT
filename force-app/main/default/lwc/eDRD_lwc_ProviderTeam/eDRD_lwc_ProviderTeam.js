@@ -75,18 +75,18 @@ export default class Edrd_lwc_ProviderTeam extends LightningElement {
         this.updateDataToBeDisplayed();
     }
 
-    handleSort(event) {
+    handledSort(event) {
         const { fieldName: sortedBy, sortDirection } = event.detail;
         this.sortedBy = sortedBy;
         this.sortedDirection = sortDirection;
 
-        this.data = [...this.data].sort((a, b) => {
-            const aValue = a[sortedBy] ? a[sortedBy].toString().toLowerCase() : '';
-            const bValue = b[sortedBy] ? b[sortedBy].toString().toLowerCase() : '';
+        this.data = [...this.data].sort((x, y) => {
+            const xValue = x[sortedBy] ? x[sortedBy].toString().toLowerCase() : '';
+            const yValue = y[sortedBy] ? y[sortedBy].toString().toLowerCase() : '';
 
             return sortDirection === 'asc'
-                ? aValue.localeCompare(bValue)
-                : bValue.localeCompare(aValue);
+                ? xValue.localeCompare(yValue)
+                : yValue.localeCompare(xValue);
         });
 
         this.updateDataToBeDisplayed();

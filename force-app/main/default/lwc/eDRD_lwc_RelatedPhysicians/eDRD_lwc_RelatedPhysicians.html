@@ -10,15 +10,7 @@
                 </lightning-layout>
                 <template if:true={dataToDisplay}>
                     <div style="border: 1px solid #dcdcdc; border-radius: 4px; padding: 10px; overflow: hidden;">
-                        <lightning-datatable
-                            data={dataToDisplay}
-                            columns={columns}
-                            key-field="Id"
-                            onsort={handleSort}
-                            sorted-by={sortedBy}
-                            sorted-direction={sortedDirection}
-                            hide-checkbox-column="true">
-                        </lightning-datatable>
+                        <lightning-datatable data={dataToDisplay} columns={columns} key-field="Id" onsort={handleSort} sorted-by={sortedBy} sorted-direction={sortedDirection} hide-checkbox-column="true"></lightning-datatable>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                         <span>{pageIndicator}</span>
