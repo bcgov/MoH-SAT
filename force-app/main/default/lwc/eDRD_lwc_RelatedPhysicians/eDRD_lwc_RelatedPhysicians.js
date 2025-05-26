@@ -29,18 +29,18 @@ export default class EdrdLwcRelatedPhysicians extends LightningElement {
             this.data = JSON.parse(JSON.stringify(data));
             this.initialRecords = [...this.data];
             this.totalPages = Math.ceil(this.data.length / PAGE_SIZE);
-            this.updateDataToDisplay();
+            this.updateDataToBeDisplay();
         } else if (error) {
             this.error = error;
         }
     }
 
-    updateDataToDisplay() {
-        const startIdx = (this.currentPage - 1) * PAGE_SIZE;
-        const endIdx = startIdx + PAGE_SIZE;
-        this.dataToDisplay = this.data.slice(startIdx, endIdx).map((record, index) => ({
+    updateDataToBeDisplay() {
+        const startId = (this.currentPage - 1) * PAGE_SIZE;
+        const endId = startId + PAGE_SIZE;
+        this.dataToDisplay = this.data.slice(startId, endId).map((record, index) => ({
             ...record,
-            serialNumber: startIdx + index + 1
+            serialNumber: startId + index + 1
         }));
     }
 
@@ -54,7 +54,7 @@ export default class EdrdLwcRelatedPhysicians extends LightningElement {
 
         this.totalPages = Math.ceil(this.data.length / PAGE_SIZE);
         this.currentPage = 1;
-        this.updateDataToDisplay();
+        this.updateDataToBeDisplay();
     }
 
     handleSort(event) {
@@ -68,20 +68,20 @@ export default class EdrdLwcRelatedPhysicians extends LightningElement {
             return sortDirection === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
         });
 
-        this.updateDataToDisplay();
+        this.updateDataToBeDisplay();
     }
 
     handleNext() {
         if (this.currentPage < this.totalPages) {
             this.currentPage++;
-            this.updateDataToDisplay();
+            this.updateDataToBeDisplay();
         }
     }
 
     handlePrevious() {
         if (this.currentPage > 1) {
             this.currentPage--;
-            this.updateDataToDisplay();
+            this.updateDataToBeDisplay();
         }
     }
 

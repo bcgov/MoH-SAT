@@ -29,33 +29,33 @@ export default class Edrd_lwc_ProviderTeam extends LightningElement {
             this.data = JSON.parse(JSON.stringify(data));
             this.initialRecords = [...this.data];
             this.totalPages = Math.ceil(this.data.length / PAGE_SIZE);
-            this.updateDataToDisplay();
+            this.updateDataToBeDisplayed();
         } else if (error) {
             this.error = error;
         }
     }
 
-    updateDataToDisplay() {
-        const startIdx = (this.currentPage - 1) * PAGE_SIZE;
-        const endIdx = startIdx + PAGE_SIZE;
+    updateDataToBeDisplayed() {
+        const startIds = (this.currentPage - 1) * PAGE_SIZE;
+        const endIds = startIds + PAGE_SIZE;
 
-        this.dataToDisplay = this.data.slice(startIdx, endIdx).map((record, index) => ({
+        this.dataToDisplay = this.data.slice(startIds, endIds).map((record, index) => ({
             ...record,
-            serialNumber: startIdx + index + 1
+            serialNumber: startIds + index + 1
         }));
     }
 
     handleNext() {
         if (this.currentPage < this.totalPages) {
             this.currentPage += 1;
-            this.updateDataToDisplay();
+            this.updateDataToBeDisplayed();
         }
     }
 
     handlePrevious() {
         if (this.currentPage > 1) {
             this.currentPage -= 1;
-            this.updateDataToDisplay();
+            this.updateDataToBeDisplayed();
         }
     }
 
@@ -72,7 +72,7 @@ export default class Edrd_lwc_ProviderTeam extends LightningElement {
         }
         this.totalPages = Math.ceil(this.data.length / PAGE_SIZE);
         this.currentPage = 1;
-        this.updateDataToDisplay();
+        this.updateDataToBeDisplayed();
     }
 
     handleSort(event) {
@@ -89,7 +89,7 @@ export default class Edrd_lwc_ProviderTeam extends LightningElement {
                 : bValue.localeCompare(aValue);
         });
 
-        this.updateDataToDisplay();
+        this.updateDataToBeDisplayed();
     }
 
     get disablePrevious() {
