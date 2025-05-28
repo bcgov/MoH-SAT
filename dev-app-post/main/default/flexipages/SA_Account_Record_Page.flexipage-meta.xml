@@ -572,10 +572,16 @@
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList3</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Record_Type_Name__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Provider</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Provider_Type__pc}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Physician</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

@@ -6,8 +6,8 @@ const PAGE_SIZE = 20;
 const columns = [
     { label: 'Serial No', fieldName: 'serialNumber', type: 'number', initialWidth: 100, sortable: true },
     { label: 'Name', fieldName: 'Name', type: 'text', sortable: true },
-    { label: 'Provider Type', fieldName: 'Provider_Type__c', type: 'text', sortable: true },
-    { label: 'Provider Identifier', fieldName: 'Provider_Identifier__c', type: 'text', sortable: true },
+    { label: 'Provider Type', fieldName: 'ProviderType', type: 'text', sortable: true },
+    { label: 'Provider Identifier', fieldName: 'ProviderIdentifier', type: 'text', sortable: true },
     { label: 'Role', fieldName: 'Role', type: 'text', sortable: true }
 ];
 
