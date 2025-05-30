@@ -14,6 +14,8 @@
                 07 Jun-     EDRD-679		  -  Accenture    -  Generate FY forecasting records
                 17 Oct-     EDRD-1010		  -  Accenture    -  Collect set of caseId's and pass it to future method
                 17 Oct-     EDRD-1010		  -  Accenture    -  Future method(Private) is to update EDRD Provider field on Person Account.
+                19 May-     EDRD-1216		  -  Accenture    -  Method to update Status of Care Program Enrolee From Inactive to Active
+                30 May-     EDRD-1469		  -  Accenture    -  Method to update EDRD Provider Account field on Case if Provider lookup gets updated.
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -399,26 +401,57 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @description: The purpose of this method is to update Status of Care Program Enrolee From Inactive to Active while creating the case from Provider Portal.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */
-public static void updateCareProgramEnrolee(List<case> newCases){
-    Set<Id> personAccounts = new Set<Id>();
-    List<CareProgramEnrollee> cpeRecordsToUpdate = new List <CareProgramEnrollee>();
-    for(Case caseRec : newCases){
-        if(caseRec.AccountId != null){
-            personAccounts.add(caseRec.AccountId);
-        }
-    }
-    List<CareProgramEnrollee> cpeRecords = [SELECT Id, Status FROM CareProgramEnrollee WHERE AccountId IN : personAccounts];
-    if(!cpeRecords.isEmpty()){
-        for(CareProgramEnrollee cpeRec : cpeRecords){
-            if(ESA_cls_constants.EDRD_Inactive.equals(String.ValueOf(cpeRec.Status))){
-                cpeRec.Status = ESA_cls_constants.EDRD_Active;
-                cpeRecordsToUpdate.add(cpeRec);
+    public static void updateCareProgramEnrolee(List<case> newCases){
+        Set<Id> personAccounts = new Set<Id>();
+        List<CareProgramEnrollee> cpeRecordsToUpdate = new List <CareProgramEnrollee>();
+        for(Case caseRec : newCases){
+            if(caseRec.AccountId != null){
+                personAccounts.add(caseRec.AccountId);
             }
         }
-        if(!cpeRecordsToUpdate.isEmpty()){
-            update cpeRecordsToUpdate;
+        List<CareProgramEnrollee> cpeRecords = [SELECT Id, Status FROM CareProgramEnrollee WHERE AccountId IN : personAccounts];
+        if(!cpeRecords.isEmpty()){
+            for(CareProgramEnrollee cpeRec : cpeRecords){
+                if(ESA_cls_constants.EDRD_Inactive.equals(String.ValueOf(cpeRec.Status))){
+                    cpeRec.Status = ESA_cls_constants.EDRD_Active;
+                    cpeRecordsToUpdate.add(cpeRec);
+                }
+            }
+            if(!cpeRecordsToUpdate.isEmpty()){
+                update cpeRecordsToUpdate;
+            }
         }
     }
-}
-
+    
+/**
+* @author: Deepak
+* @date: 30 May 2025
+* @description: The purpose of this method is to update EDRD Provider Account field on Case if Provider lookup gets updated.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/   
+    public static void updateProviderAcc(Map<Id, Case> oldCaseMap, Map<Id, Case> newCaseMap){
+        Map<Id, Id> contactToproviderAccIdMap = new Map<Id, Id>();
+        Set<Id> providerContactIdSet = new Set<Id>();
+        List<Case> caseListToUpdate = new List<Case>();
+        
+        for(Case caseObj: newCaseMap.values()){
+            Boolean isProviderChanged = oldCaseMap.get(caseObj.id).Provider__c != newCaseMap.get(caseObj.id).Provider__c && caseObj.Provider__c != NULL;
+            if(caseObj.RecordTypeId == recordTypeCaseEDRD && isProviderChanged){
+                providerContactIdSet.add(caseObj.provider__c);
+            }
+        }
+        
+        if (!providerContactIdSet.isEmpty()){
+            for (Contact conObj : [SELECT Id, AccountId FROM Contact WHERE Id IN :providerContactIdSet]){
+                contactToproviderAccIdMap.put(conObj.Id, conObj.AccountId);
+            }
+        }
+        
+        for (Case caseObj : newCaseMap.values()){
+            Id providerAccountId = contactToproviderAccIdMap.get(caseObj.Provider__c);
+            if (providerAccountId != null && caseObj.Provider_Account__c != providerAccountId) {
+                caseObj.Provider_Account__c = providerAccountId;
+            }
+        }
+    }
 }

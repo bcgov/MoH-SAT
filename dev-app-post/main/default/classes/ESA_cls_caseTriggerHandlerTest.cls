@@ -12,6 +12,8 @@
                 20 Jun-     EDRD-764        -  Accenture   -  Populate EDRD Reference number
                 08 Aug-     EDRD-679        -  Accenture   -  Generate FY forecasting records
                 17 Oct-     EDRD-1010		-  Accenture   -  Update Provider's - EDRD Checkbox On EDRD Case Insert
+                19 Oct-     EDRD-1216		-  Accenture   -   Method to update Status of Care Program Enrolee From Inactive to Active
+                30 May-     EDRD-1469		-  Accenture   -  update EDRD Provider Account field on Case if Provider lookup gets updated
 ***********************************************************************************************/
 
 @isTest
@@ -459,5 +461,74 @@ public class ESA_cls_caseTriggerHandlerTest {
         List<Account> providerRecords = [SELECT Id, Is_EDRD_Provider__pc FROM Account WHERE Id =: providerAccount.Id];
         Assert.areEqual(TRUE, providerRecords.get(0).Is_EDRD_Provider__pc, 'Is EDRD Provider Field should be True');
         Assert.areNotEqual(FALSE, providerRecords.get(0).Is_EDRD_Provider__pc, 'Is EDRD Provider Field cannot be False');    
+    }
+    
+/**
+* @author: Deepak
+* @date: 30 May 2025
+* @description: The purpose of this method is to cover Testcoverage of delete updateCareProgramEnrolee
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    @isTest
+    public static void updateCareProgramEnroleeTest(){
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        Account reqstAcc = TestFactory.newProvider('Provider Test');
+        insert reqstAcc;
+        Id reqstConId = [SELECT Id FROM Contact Where AccountId =: reqstAcc.Id].Id;
+        Account patntAcc = TestFactory.newPatient('Patient Test');
+        insert patntAcc;        
+        List<Case> caseRecList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, patntAcc.Id);
+        caseRecList[0].Provider__c = reqstConId;
+        
+        careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
+        insert careProgramRec;
+        CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', patntAcc.Id, careProgramRec.Id);
+        insert CareProgramEnrolleeRec;
+        List<CareProgramEnrollee> cPEUpdateList = [SELECT Id, Name, status FROM CareProgramEnrollee WHERE Id =: CareProgramEnrolleeRec.Id LIMIT 1];
+        cPEUpdateList[0].Status = 'Inactive';
+        cPEUpdateList[0].Inactive_Reason__c = 'Other';
+        Update cPEUpdateList;
+        
+        Test.startTest();
+        insert caseRecList;
+        Test.stopTest();
+        
+        List<CareProgramEnrollee> cPEList = [SELECT Id, Name, status FROM CareProgramEnrollee WHERE Id =: CareProgramEnrolleeRec.Id];          
+        Assert.areEqual(cPEList.get(0).status, 'Active', 'Status Should matched');
+        Assert.areNotEqual(cPEList.get(0).status, 'Inactive', 'Status Should not be In-active');
+    }
+    
+/**
+* @author: Deepak
+* @date: 30 May 2025
+* @description: The purpose of this method is to cover Testcoverage of delete updateProviderAcc
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    @isTest
+    public static void updateProviderAccTest(){
+        Account reqstAcc = TestFactory.newProvider('Provider Test');
+        reqstAcc.Provider_Type__pc = 'Provider';
+        insert reqstAcc;
+        Account providerAcc = TestFactory.newProvider('Provider1 Test');
+        providerAcc.Provider_Type__pc = 'Provider';
+        providerAcc.Provider_Identifier__pc = '111222337';
+        insert providerAcc;
+        Account patntAcc = TestFactory.newPatient('Patient Test');
+        insert patntAcc;        
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> caseRecList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, reqstAcc.Id);
+        caseRecList.get(0).Provider_Account__c = reqstAcc.Id;
+        insert caseRecList;
+        
+        Id providerConId = [SELECT Id FROM Contact Where AccountId =: providerAcc.Id].Id;
+        caseRecList[0].Provider__c = providerConId;
+        
+        Test.startTest();
+        Update caseRecList;
+        Test.stopTest();
+        
+        List<Case> caseList = [SELECT Id, Provider__c, Provider_Account__c FROM Case WHERE Id =: caseRecList[0].Id];
+        Assert.areEqual(caseList.get(0).Provider_Account__c, providerAcc.Id, 'provider Account Should update');
+        Assert.areNotEqual(caseList.get(0).Provider_Account__c, reqstAcc.Id, 'provider Account Should not be same');
     }
 }
