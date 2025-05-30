@@ -10,19 +10,11 @@ public class EDRD_EmpiIntegrationTest {
     static void setupTestData() {
         
         // Step 1: Create and insert an Account
-        Account testAccountUser = new Account(
-            Name = 'TestAccountUser987'
-        );
+        Id recordTypeProvider = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get('Provider').getRecordTypeId();
+        Account testAccountUser = TestFactory.newProvider('Provider Test');        
         insert testAccountUser;
-
-        // Step 2: Create and insert a Contact related to the Account
-        Contact testContactUser = new Contact(
-            FirstName = 'Test',
-            LastName = 'ContactUser987',
-            Email = 'test.contact@example.com',
-            AccountId = testAccountUser.Id
-        );
-        insert testContactUser;
+        
+        Id providerContactId = [SELECT Id FROM Contact Where accountId =: testAccountUser.Id].get(0).Id;
 
         // Step 3: Create a User with associated Account and Contact
         Profile userProfile = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User' LIMIT 1];
@@ -37,7 +29,7 @@ public class EDRD_EmpiIntegrationTest {
             LocaleSidKey = 'en_US',
             EmailEncodingKey = 'UTF-8',
             LanguageLocaleKey = 'en_US',
-            ContactId = testContactUser.Id
+            ContactId = providerContactId
         );
         insert testUser;
         
@@ -138,6 +130,40 @@ Devloper Name : Accenture.
         // Assert results
         System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
     }
+/*---------------------------------------------------------------------
+Method Name : testCreatePatientInSF
+Method Calling for : CreatePatientInSF
+Purpose : Create Date in salesforce database.
+Version : 1.0
+Devloper Name : Accenture.
+--------------------------------------------------------------------------*/
+    @isTest
+    static void testCreatePatientInSF() {
+        // Instantiate the class
+        EDRD_EmpiIntegration integration = new EDRD_EmpiIntegration();
+
+        // Mock data
+
+        Map<String, Object> inputMap = new Map<String, Object>{
+            'firstName' => 'Jane',
+            'lastName' => 'Smith',
+            'dateOfBirth' => Date.newInstance(1985, 07, 15),
+            'phn' => '1234567890',
+            'clickBy' => ESA_cls_constants.ManullyCreated
+        };
+        Map<String, Object> outputMap = new Map<String, Object>();
+        
+     Map<String, Object> inputMapMain = new Map<String, Object>();
+        inputMapMain.put('input',inputMap);
+		String jsonInput = Json.serialize(inputMapMain.get('input'));
+        EDRD_EmpiWrapper.InputWrapper inputWrapper = (EDRD_EmpiWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_EmpiWrapper.InputWrapper.class);
+        // Call the method
+        integration.createPatientInSF(InputWrapper, outputMap);
+
+        // Assert results
+        System.assert(outputMap.containsKey('searchOutput'), 'Output should contain searchOutput');
+        Map<String, Object> searchOutput = (Map<String, Object>) outputMap.get('searchOutput');
+    } 
 /*---------------------------------------------------------------------
 Method Name : testCreateACR
 Method Calling for : CreateACR

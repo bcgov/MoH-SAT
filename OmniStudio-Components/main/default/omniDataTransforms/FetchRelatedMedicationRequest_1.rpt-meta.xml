@@ -11,52 +11,10 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>FetchRelatedMedicationRequestCustom3591</globalKey>
-        <inputFieldName>MedicationRequests:Case__r.EDRD_Ref_No__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>FetchRelatedMedicationRequest</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRDRefNo</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>FetchRelatedMedicationRequestCustom6072</globalKey>
-        <inputFieldName>MedicationRequests:Case__r.CaseNumber</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>FetchRelatedMedicationRequest</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>CaseNumber</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>FetchRelatedMedicationRequestCustom6728</globalKey>
-        <inputFieldName>MedicationRequests:Indication__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>FetchRelatedMedicationRequest</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Indication</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>&apos;false&apos;</filterValue>
-        <globalKey>FetchRelatedMedicationRequestCustom4086</globalKey>
-        <inputFieldName>Medication.One_time_Dose__c</inputFieldName>
+        <filterValue>ProviderId</filterValue>
+        <globalKey>FetchRelatedMedicationRequestCustom1706</globalKey>
+        <inputFieldName>RequesterId</inputFieldName>
         <inputObjectName>MedicationRequest</inputObjectName>
         <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -104,13 +62,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>FetchRelatedMedicationRequestCustom5017</globalKey>
-        <inputFieldName>MedicationRequests:CreatedDate</inputFieldName>
+        <globalKey>FetchRelatedMedicationRequestCustom6728</globalKey>
+        <inputFieldName>MedicationRequests:Indication__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedMedicationRequest</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>SubmittedDate</outputFieldName>
+        <outputFieldName>Indication</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -118,13 +76,75 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>FetchRelatedMedicationRequestCustom1411</globalKey>
-        <inputFieldName>MedicationRequests:Medication.Name</inputFieldName>
+        <filterOperator>=</filterOperator>
+        <filterValue>&apos;EDRD_Medication_Request&apos;</filterValue>
+        <globalKey>FetchRelatedMedicationRequestCustom8197</globalKey>
+        <inputFieldName>RecordType.DeveloperName</inputFieldName>
+        <inputObjectName>MedicationRequest</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedMedicationRequest</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>MedicationRequests</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <filterValue>&apos;false&apos;</filterValue>
+        <globalKey>FetchRelatedMedicationRequestCustom4086</globalKey>
+        <inputFieldName>Medication.One_time_Dose__c</inputFieldName>
+        <inputObjectName>MedicationRequest</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedMedicationRequest</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>MedicationRequests</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>FetchRelatedMedicationRequestCustom3591</globalKey>
+        <inputFieldName>MedicationRequests:Case__r.EDRD_Ref_No__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedMedicationRequest</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>MedicationName</outputFieldName>
+        <outputFieldName>EDRDRefNo</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>FetchRelatedMedicationRequestCustom6072</globalKey>
+        <inputFieldName>MedicationRequests:Case__r.CaseNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedMedicationRequest</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>CaseNumber</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>FetchRelatedMedicationRequestCustom4726</globalKey>
+        <inputFieldName>MedicationRequests:Type</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedMedicationRequest</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RequestType</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -160,20 +180,35 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>FetchRelatedMedicationRequestCustom4726</globalKey>
-        <inputFieldName>MedicationRequests:Type</inputFieldName>
+        <globalKey>FetchRelatedMedicationRequestCustom5017</globalKey>
+        <inputFieldName>MedicationRequests:CreatedDate</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedMedicationRequest</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RequestType</outputFieldName>
+        <outputFieldName>SubmittedDate</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>FetchRelatedMedicationRequestCustom1411</globalKey>
+        <inputFieldName>MedicationRequests:Medication.Name</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedMedicationRequest</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>MedicationName</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;AccountId&quot; : &quot;001Aq00000IneI6IAJ&quot;
+  &quot;AccountId&quot; : &quot;001Aq00000YksGVIAZ&quot;,
+  &quot;ProviderId&quot; : &quot;001Aq00000YHbUPIA1&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>

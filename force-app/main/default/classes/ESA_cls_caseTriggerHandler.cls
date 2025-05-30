@@ -95,13 +95,14 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @date: 04 Dec 2023
 * @description: The purpose of this method is to Change case status according to RPH, SC, AC Review Field
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     08 Apr -     EDRD-1450		  -  Deepak    -  Adding EDRD RecordType check
 */ 
     
     public static void assignStatus(Map<Id,Case> oldCaseMap, Map<Id,Case> newCaseMap){
         for(Case caseObj: newCaseMap.values()){
-            Boolean isRPHReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c;
-            Boolean isSCReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c;
-            Boolean isACReviewChanged = oldCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c;
+            Boolean isRPHReviewChanged = (caseObj.RecordTypeId == recordTypeCaseEDRD) && (oldCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_RPH_Review_Pathway__c);
+            Boolean isSCReviewChanged = (caseObj.RecordTypeId == recordTypeCaseEDRD) && (oldCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_SC_Review_Pathway__c);
+            Boolean isACReviewChanged = (caseObj.RecordTypeId == recordTypeCaseEDRD) && (oldCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c != newCaseMap.get(caseObj.Id).EDRD_AC_Review_Pathway__c);
             if((isRPHReviewChanged && isSCReviewChanged) || (isSCReviewChanged && isACReviewChanged) || (isRPHReviewChanged && isACReviewChanged)){
                 caseobj.addError(Label.EDRD_label_pathwayValidationErrorMsg);
             }
@@ -135,6 +136,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @date: 15 Dec 2023
 * @description: The purpose of this method is to Sync case field values with Medication Request.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     08 Apr -     EDRD-1450		  -  Deepak    -  Adding Provider change logic for EDRD Case
 */ 
     public static void syncCaseToMR(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
         List<MedicationRequest> MRListToUpdate = new List<MedicationRequest>();
@@ -146,15 +148,17 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
             Boolean isTypeChanged = oldCaseMap.get(caseObj.id).Type != newCaseMap.get(caseObj.id).Type;
             Boolean isEDRDRefChanged = oldCaseMap.get(caseObj.id).EDRD_Ref_No__c != newCaseMap.get(caseObj.id).EDRD_Ref_No__c;
-            if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged || isEDRDRefChanged)){
+            Boolean isProviderChanged = oldCaseMap.get(caseObj.id).Provider__c != newCaseMap.get(caseObj.id).Provider__c;
+            if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged || isEDRDRefChanged || isProviderChanged)){
                 caseIdSet.add(caseObj.Id);
             }
         }
-        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority, Case__r.EDRD_Ref_No__c FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
+        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority, Case__r.EDRD_Ref_No__c, Case__r.Provider__r.AccountId FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
             MRObj.Status = caseStatusValueSet.Contains(MRObj.Case__r.Status) ? 'Active' : MRObj.Case__r.Status;
             MRObj.Type = MRObj.Case__r.Type;
             MRObj.Priority = MRObj.Case__r.Priority;
             MRObj.EDRD_Reference_Number__c = !String.isBlank(MRObj.Case__r.EDRD_Ref_No__c) ? MRObj.Case__r.EDRD_Ref_No__c : NULL;
+            MRObj.RequesterId = (!String.isEmpty(MRObj.Case__c) && !String.isEmpty(MRObj.Case__r.Provider__c) && !String.isEmpty(MRObj.Case__r.Provider__r.AccountId)) ? MRObj.Case__r.Provider__r.AccountId : NULL;
             MRListToUpdate.add(MRObj);
         }
         

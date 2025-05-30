@@ -25,9 +25,6 @@ global with sharing class EDRD_PharmanetPayload implements Callable{
             when 'getPharmanetDecisionTable'{
                 this.getPharmanetDecisionTable(jsonInput,outputMap);
             }
-            when 'markPushedToPharmanet'{
-                this.markPushedToPharmanet(jsonInput,outputMap);
-            }
             when else{                
             }
         }
@@ -76,7 +73,7 @@ Date : 19/Feb/2025
             List<EDRD_PharmanetWrapper.OutputWrapper > outputWrappers = new List<EDRD_PharmanetWrapper.OutputWrapper >();    
             for (ConnectApi.DecisionTableOutcomeItem item : decisionTableItems) 
             {
-                EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();                 
+                EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();  
                 wrapper.din = (String) item.values.get(ESA_cls_constants.DIN);
                 wrapper.effectiveDate = inputWrapper.caseFundingStartdate;
                 wrapper.excludedPlans = (String) item.values.get(ESA_cls_constants.ExcludedPlans);
@@ -86,6 +83,7 @@ Date : 19/Feb/2025
                 wrapper.maxPricePct = (Double) item.values.get(ESA_cls_constants.MaxPricePercent);                
                 wrapper.medName = (String) item.values.get(ESA_cls_constants.MedName);
                 wrapper.practId = inputWrapper.practId;
+                wrapper.practIdRef = (String) System.Label.EDRD_Pharmanet_Pract_ReftId;
                 wrapper.phn = inputWrapper.phn;
                 wrapper.rdp = (String) item.values.get(ESA_cls_constants.RDPCode);                
                 wrapper.specAuthType = (String) item.values.get(ESA_cls_constants.SAType);               
@@ -112,7 +110,7 @@ Date : 19/Feb/2025
             if(!Test.isRunningTest()){
             saaRequestAPICallout(inputWrapper);
             wrapper = getDataFromIntLog(inputWrapper);
-            }            
+            }           
         }
         catch(Exception e){
              if(!Test.isRunningTest()){
@@ -141,31 +139,8 @@ Date : 19/Feb/2025
             wrapper.isPharmaNetSubmitSuccessfull = false;
             wrapper.ErrorMessage = intRecord.Message__c; 
         }      
-       return wrapper;          
+       return wrapper;                
  }
-/*-------------------------------------------------------------------
-Method Name : markPushedToPharmanet
-Purpose : Updating case Pharmanet.
-Version : 1.0
-Devloper Name : Accenture.
-Date : 19/Feb/2025
---------------------------------------------------------------------------*/
-    public void markPushedToPharmanet(String jsonInput, Map<String,Object> outputMap)
-    {
-        EDRD_PharmanetWrapper.InputWrapper inputWrapper = (EDRD_PharmanetWrapper.InputWrapper) JSON.deserialize(jsonInput, EDRD_PharmanetWrapper.InputWrapper.class);
-        EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();
-        try{
-            updateCaseRec(inputWrapper);
-            wrapper.ismarkPushedToPharmanet = true;
-        }
-        catch(Exception e){
-            wrapper.ismarkPushedToPharmanet = false;
-        }
-        if(!Test.isRunningTest()){
-        outputMap.put('ismarkPushedToPharmanet',wrapper.ismarkPushedToPharmanet); 
-        }
-      return;        
-    }
     public void saaRequestAPICallout(EDRD_PharmanetWrapper.InputWrapper inputWrapper)
     {
         List<String> justificationCodesList = new List<String>{inputWrapper.justificationCodes};
@@ -186,7 +161,7 @@ Date : 19/Feb/2025
         saaRequest.saRecord.specAuthType = inputWrapper.specAuthType;
         saaRequest.saRecord.phn = inputWrapper.phn;
         saaRequest.saRecord.saRequester.practId = inputWrapper.practId;
-        saaRequest.saRecord.saRequester.practIdRef = String.ValueOf(Label.EDRD_Pharmanet_Pract_ReftId);
+        saaRequest.saRecord.saRequester.practIdRef = String.ValueOf(inputWrapper.practIdRef);
         DateTime effectiveDate = inputWrapper.effectiveDate;
         String effectiveDateOnly = String.ValueOf(effectiveDate.Date());
         saaRequest.saRecord.effectiveDate =  effectiveDateOnly;
@@ -202,13 +177,22 @@ Date : 19/Feb/2025
     }
 
     private static void updateCaseRec(EDRD_PharmanetWrapper.InputWrapper inputWrapper){
-        Case record = new Case();
+        Case record = new Case();     
         record.Id = inputWrapper.caseId;
         record.Pushed_to_Pnet__c = true;
         record.Pushed_to_Pnet_Date__c = Datetime.now();
-        record.Termination_Date__c = inputWrapper.caseFundingStartdate;
+        record.Termination_Date__c = getTerminationDate(inputWrapper);       
         update record;
 
+    }
+    private Static Date getTerminationDate(EDRD_PharmanetWrapper.InputWrapper inputWrapper){
+         Date TerminationDate;
+        List<Case>  lstcase = [Select Id,EDRD_MOHFunding_Decision__c,EDRD_MOHFunding_Extension_Date__c,EDRD_MOHFunding_Expiry_Date__c From case where Id =:inputWrapper.caseId Limit 1];
+        if(lstcase.size() > 0){
+          TerminationDate = Date.ValueOf(ESA_cls_constants.Extended.equalsIgnoreCase(String.ValueOf(lstcase[0].EDRD_MOHFunding_Decision__c)) && lstcase[0].EDRD_MOHFunding_Extension_Date__c != null ? lstcase[0].EDRD_MOHFunding_Extension_Date__c : ( ESA_cls_constants.Approved.equalsIgnoreCase(String.ValueOf(lstcase[0].EDRD_MOHFunding_Decision__c)) && lstcase[0].EDRD_MOHFunding_Expiry_Date__c != null ? lstcase[0].EDRD_MOHFunding_Expiry_Date__c : null));      
+        }
+        return TerminationDate; 
+        
     }
 /*---------------------------------------------------------------------
 Class Name : Elevated
