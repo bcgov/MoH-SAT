@@ -318,7 +318,6 @@ public with sharing class ESA_cls_caseTriggerHandler {
 */   
     private Static String getLoginUserContactId(){
         String SubmitterId;
-        Contact con = new Contact();
         Id userId = UserInfo.getUserId();
         // Query the User's ContactId
         List<User> lstuser = [SELECT Id, ContactId FROM User WHERE Id = :userId LIMIT 1];
