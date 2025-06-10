@@ -304,8 +304,27 @@ public with sharing class ESA_cls_caseTriggerHandler {
             
             for(Case caseObj: newCaseList){
                 caseObj.EDRD_Ref_No__c = patientIdVsCarePrgEnrolle?.get(CaseObj?.ContactId)?.Name;
+                 if(caseObj.RecordTypeId == recordTypeCaseEDRD && caseObj.Origin == 'Portal'){
+                    caseObj.Submitter__c = getLoginUserContactId();
+                }
             }
         }
+    }
+
+    /**
+* @author: Accenture
+* @date: 01 June 2025
+* @description: Get the loginUser contact Id
+*/   
+    private Static String getLoginUserContactId(){
+        String SubmitterId;
+        Contact con = new Contact();
+        Id userId = UserInfo.getUserId();
+        // Query the User's ContactId
+        List<User> lstuser = [SELECT Id, ContactId FROM User WHERE Id = :userId LIMIT 1];
+        SubmitterId = lstuser.size() > 0 ? String.valueOf(lstuser[0].ContactId) : '';
+        return SubmitterId;
+      
     }
 
 /**
