@@ -3,43 +3,25 @@
     <active>false</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
-    <description>DR for Extract Login User Details for New/Renewal Case Form</description>
     <errorIgnored>false</errorIgnored>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
     <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
-    <name>EDRDDRextractloginuserid</name>
-    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <name>getACRDetails</name>
+    <nullInputsIncludedInOutput>true</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>&apos;EDRD&apos;</filterValue>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem2</globalKey>
-        <inputFieldName>DeveloperName</inputFieldName>
-        <inputObjectName>RecordType</inputObjectName>
-        <inputObjectQuerySequence>2.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>RecType</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <filterValue>captureId</filterValue>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem0</globalKey>
+        <filterValue>ACR:AccountId</filterValue>
+        <globalKey>0eaf0290-739e-4a8d-a984-c36b56dc133a</globalKey>
         <inputFieldName>Id</inputFieldName>
-        <inputObjectName>User</inputObjectName>
-        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
+        <inputObjectName>Account</inputObjectName>
+        <inputObjectQuerySequence>2.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
+        <name>getACRDetails</name>
         <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>User</outputFieldName>
+        <outputFieldName>Acc</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -47,13 +29,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem5</globalKey>
-        <inputFieldName>RecType:Id</inputFieldName>
+        <globalKey>5cb10437-79e2-495e-81b4-b8350da92454</globalKey>
+        <inputFieldName>Acc:Provider_Identifier__pc</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
+        <name>getACRDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>CaseRecTypeId</outputFieldName>
+        <outputFieldName>isProviderIdentifier</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -63,15 +45,15 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
-        <filterValue>&apos;Case&apos;</filterValue>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem1</globalKey>
-        <inputFieldName>SobjectType</inputFieldName>
-        <inputObjectName>RecordType</inputObjectName>
+        <filterValue>ProviderIdentifier</filterValue>
+        <globalKey>9fdee189-77ed-40c8-8370-a85dbda98d1b</globalKey>
+        <inputFieldName>Provider_Identifier__pc</inputFieldName>
+        <inputObjectName>Account</inputObjectName>
         <inputObjectQuerySequence>2.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
+        <name>getACRDetails</name>
         <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>RecType</outputFieldName>
+        <outputFieldName>Acc</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -79,80 +61,84 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRextractloginuseridCustom8644</globalKey>
-        <inputFieldName>isAlliedStaff</inputFieldName>
+        <globalKey>6f1e30eb-309e-447d-aa5f-9226607110a3</globalKey>
+        <inputFieldName>Acc:Id</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>isAlliedStaff</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:User:Contact.Provider_Type__c &quot;Nurse/\/\/Practitioner&quot; == var:User:Contact.Provider_Type__c &quot;Pharmacist&quot; == || true false IF</formulaConverted>
-        <formulaExpression>IF(%User:Contact.Provider_Type__c% == &quot;Nurse Practitioner&quot; || %User:Contact.Provider_Type__c% == &quot;Pharmacist&quot; , true,false)</formulaExpression>
-        <formulaResultPath>isAlliedStaff</formulaResultPath>
-        <formulaSequence>1.0</formulaSequence>
-        <globalKey>EDRDDRextractloginuseridCustom1680</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRextractloginuseridCustom1765</globalKey>
-        <inputFieldName>User:ContactId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ProviderId</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem4</globalKey>
-        <inputFieldName>User:AccountId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
+        <name>getACRDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>PrescriberId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRextractloginuseridCustom4768</globalKey>
-        <inputFieldName>User:Contact.Provider_Type__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <filterOperator>=</filterOperator>
+        <filterValue>ContactId</filterValue>
+        <globalKey>fc3d265e-102a-488d-ab52-1713930c13dd</globalKey>
+        <inputFieldName>ContactId</inputFieldName>
+        <inputObjectName>AccountContactRelation</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>test</outputFieldName>
+        <name>getACRDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>ACR</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>56420d46-6b95-42c1-85c0-3539dddcbd12</globalKey>
+        <inputFieldName>Acc:PersonContactId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>getACRDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>SelectedProviderId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>0fff45d4-c9ca-4062-9adc-c13c9f3cfd72</globalKey>
+        <inputFieldName>Acc:Id</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>getACRDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>SelectedPrescriberId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>e614db99-b859-452d-9f71-bcc523558816</globalKey>
+        <inputFieldName>ContactId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>getACRDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>SubmitterId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;captureId&quot; : &quot;005Aq00000T43HxIAJ&quot;
+  &quot;ContactId&quot; : &quot;003Aq00000fi4lLIAQ&quot;,
+  &quot;ProviderIdentifier&quot; : &quot;0A0W1&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
@@ -161,7 +147,7 @@
     <sourceObjectDefault>false</sourceObjectDefault>
     <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
     <type>Extract</type>
-    <uniqueName>EDRDDRextractloginuserid_1</uniqueName>
+    <uniqueName>getACRDetails_1</uniqueName>
     <versionNumber>1.0</versionNumber>
     <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
 </OmniDataTransform>
