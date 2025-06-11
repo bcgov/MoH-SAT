@@ -4,6 +4,7 @@
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
     <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
+    <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
     <isTestProcedure>false</isTestProcedure>
@@ -75,6 +76,68 @@
 }</propertySetConfig>
         <sequenceNumber>4.0</sequenceNumber>
         <type>Remote Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>DR_getProviderDetails</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;DR_getProviderDetails&quot;,
+  &quot;bundle&quot; : &quot;getACRDetails&quot;,
+  &quot;ignoreCache&quot; : false,
+  &quot;dataRaptor Input Parameters&quot; : [ {
+    &quot;element&quot; : &quot;ProviderIdentifier&quot;,
+    &quot;inputParam&quot; : &quot;ProviderIdentifier&quot;
+  }, {
+    &quot;element&quot; : &quot;ProviderId&quot;,
+    &quot;inputParam&quot; : &quot;ContactId&quot;
+  } ],
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;postMessage&quot; : &quot;Done&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isAlliedStaff&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>6.0</sequenceNumber>
+        <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
         <childElements>
@@ -1191,7 +1254,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>11.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1241,7 +1304,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1291,7 +1354,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>10.0</sequenceNumber>
+        <sequenceNumber>14.0</sequenceNumber>
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1408,7 +1471,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>14.0</sequenceNumber>
+        <sequenceNumber>18.0</sequenceNumber>
         <type>Matrix Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1441,7 +1504,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
+        <sequenceNumber>13.0</sequenceNumber>
         <type>Set Errors</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -1477,8 +1540,129 @@
   &quot;targetParams&quot; : &quot;%Summary%&quot;,
   &quot;targetName&quot; : &quot;%SitePageAPIName%&quot;
 }</propertySetConfig>
-        <sequenceNumber>15.0</sequenceNumber>
+        <sequenceNumber>19.0</sequenceNumber>
         <type>Navigate Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>FetchingRelatedPhysicianDataTable</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;FetchingRelatedPhysicianDataTable&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfPhysicianDataTable&quot;,
+  &quot;bStandalone&quot; : true,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%userId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>ProviderIdentifier</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 5,
+  &quot;label&quot; : &quot;Provider Identifier&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : true,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255,
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;debounceValue&quot; : 0,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Text</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>NewRelatedPhysician</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;SELECT RELATED PHYSICIAN&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;previousWidth&quot; : 3,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : 3,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isAlliedStaff&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : null,
+  &quot;allowSaveForLater&quot; : true,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;ariaLevel&quot; : 2,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
         <childElements>
@@ -2161,6 +2345,43 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ProviderNotFound</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;ProviderNotFound&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;elementErrorMap&quot; : {
+    &quot;ProviderIdentifier&quot; : &quot;The provider identifier does not match with any related physician&quot;
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isProviderIdentifier&quot;
+      }, {
+        &quot;field&quot; : &quot;isAlliedStaff&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Set Errors</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
         <name>SetErrorsForPatientValidation</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
@@ -2222,7 +2443,31 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>SetSelectedProviderAndPrescriberIds</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;SetSelectedProviderAndPrescriberIds&quot;,
+  &quot;elementValueMap&quot; : {
+    &quot;NewProviderId&quot; : &quot;=IF(%isAlliedStaff%, %SelectedProviderId%, %ProviderId%)&quot;,
+    &quot;NewPrescriberId&quot; : &quot;=IF(%isAlliedStaff%,%SelectedPrescriberId%,%PrescriberId%)&quot;
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2245,7 +2490,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>12.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2295,8 +2540,8 @@
     &quot;IndiName&quot; : &quot;=\&quot;&amp;c__IndicationId=\&quot;+%DrugandDosage:IndicationId%&quot;,
     &quot;captureId&quot; : &quot;=\&quot;&amp;c__UserContextId=\&quot;+%userId%&quot;,
     &quot;weight&quot; : &quot;=\&quot;&amp;c__weight=\&quot;+%PatientWeight%&quot;,
-    &quot;contactId&quot; : &quot;=\&quot;&amp;c__providerId=\&quot;+%ProviderId%&quot;,
-    &quot;providerAccountId&quot; : &quot;=\&quot;&amp;c__prescriberId=\&quot;+%PrescriberId%&quot;,
+    &quot;contactId&quot; : &quot;=\&quot;&amp;c__providerId=\&quot;+%NewProviderId%&quot;,
+    &quot;providerAccountId&quot; : &quot;=\&quot;&amp;c__prescriberId=\&quot;+%NewPrescriberId%&quot;,
     &quot;caseRecId&quot; : &quot;=\&quot;&amp;c__CaseRecTypeId=\&quot;+%CaseRecTypeId%&quot;,
     &quot;ReqDoseId&quot; : &quot;=\&quot;&amp;c__RequestedNewDosageUnitId=\&quot;+%RequestedNewDosageUnitId%&quot;,
     &quot;MediId&quot; : &quot;=\&quot;&amp;c__MedicationId=\&quot;+%DrugandDosage:SelectADrug%&quot;,
@@ -2314,7 +2559,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>12.0</sequenceNumber>
+        <sequenceNumber>16.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2337,7 +2582,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>13.0</sequenceNumber>
+        <sequenceNumber>17.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -2461,7 +2706,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>11.0</sequenceNumber>
+        <sequenceNumber>15.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
