@@ -1,0 +1,27 @@
+<template>
+    <div style="border: 2px solid #dcdcdc; border-radius: 8px; padding: 15px; margin: 10px;">
+        <lightning-card title="Related Physicians" icon-name="standard:account">
+            <div class="slds-p-horizontal_small">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="6" padding="around-small"></lightning-layout-item>
+                    <lightning-layout-item size="6" padding="around-small">
+                        <lightning-input type="search" label="Search Physicians" onchange={handleSearch}></lightning-input>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <template if:true={dataToDisplay}>
+                    <div style="border: 1px solid #dcdcdc; border-radius: 4px; padding: 10px; overflow: hidden;">
+                        <lightning-datatable data={dataToDisplay} columns={columns} key-field="Id" onsort={handleSort} sorted-by={sortedBy} sorted-direction={sortedDirection} hide-checkbox-column="true"></lightning-datatable>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <span>{pageIndicator}</span>
+                        <div>
+                            <lightning-button label="Previous" onclick={handlePrevious} disabled={disablePrevious} style="margin-right: 10px;"></lightning-button>
+                            <lightning-button label="Next" onclick={handleNext} disabled={disableNext}></lightning-button>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={error}>{error}</template>
+            </div>
+        </lightning-card>
+    </div>
+</template>
