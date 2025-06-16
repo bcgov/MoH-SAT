@@ -94,8 +94,8 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:User:Contact.Provider_Type__c &quot;Nurse/\/\/Practitioner&quot; == var:User:Contact.Provider_Type__c &quot;Pharmacist&quot; == || true false IF</formulaConverted>
-        <formulaExpression>IF(%User:Contact.Provider_Type__c% == &quot;Nurse Practitioner&quot; || %User:Contact.Provider_Type__c% == &quot;Pharmacist&quot; , true,false)</formulaExpression>
+        <formulaConverted>| var:User:Contact.Provider_Type__c &quot;Nurse/\/\/Practitioner&quot; == var:User:Contact.Provider_Type__c &quot;Pharmacist&quot; == || var:User:Contact.Provider_Type__c &quot;Nurse&quot; == || true false IF</formulaConverted>
+        <formulaExpression>IF(%User:Contact.Provider_Type__c% == &quot;Nurse Practitioner&quot; || %User:Contact.Provider_Type__c% == &quot;Pharmacist&quot; || %User:Contact.Provider_Type__c% == &quot;Nurse&quot;, true,false)</formulaExpression>
         <formulaResultPath>isAlliedStaff</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
         <globalKey>EDRDDRextractloginuseridCustom1680</globalKey>
@@ -132,20 +132,6 @@
         <name>EDRDDRextractloginuserid</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>PrescriberId</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRextractloginuseridCustom4768</globalKey>
-        <inputFieldName>User:Contact.Provider_Type__c</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>test</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
