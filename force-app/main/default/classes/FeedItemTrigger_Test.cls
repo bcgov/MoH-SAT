@@ -1,7 +1,7 @@
 @isTest
 private class FeedItemTrigger_Test {
 
-    @isTest
+    @isTest(SeeAllData=true)
     static void testFeedItemTrigger() {
         // Create a test user (required for Chatter posts)
         User testUser = new User(
