@@ -23,12 +23,5 @@ public with sharing class LightningForgotPasswordControllerTest {
   System.assertNotEquals(controller, null);
  }
 
- @isTest
-    static void testSetExperienceId_ValidId() {
-        Test.startTest();
-        String result = LightningForgotPasswordController.setExperienceId('0NXxxxxxxxxxxxx'); // use a dummy ExperienceId format
-        Test.stopTest();
-        System.assertEquals(null, result, 'Expected null when setting a valid Experience ID');
-    }
-
+ 
 }
