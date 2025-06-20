@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Audience xmlns="http://soap.sforce.com/2006/04/metadata">
+    <audienceName>EDRD Nurse &amp; Pharmacist</audienceName>
+    <container>EDRDPortal</container>
+    <criteria>
+        <criterion>
+            <criteriaNumber>1</criteriaNumber>
+            <criterionValue>
+                <isEnabled>true</isEnabled>
+                <permissionName>EDRD_CP_Nurse</permissionName>
+                <permissionType>Custom</permissionType>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Permission</type>
+        </criterion>
+        <criterion>
+            <criteriaNumber>2</criteriaNumber>
+            <criterionValue>
+                <isEnabled>true</isEnabled>
+                <permissionName>EDRD_CP_Pharmacist</permissionName>
+                <permissionType>Custom</permissionType>
+            </criterionValue>
+            <operator>Equal</operator>
+            <type>Permission</type>
+        </criterion>
+    </criteria>
+    <formulaFilterType>AnyCriterionMatches</formulaFilterType>
+    <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>87470739-e258-4ab0-9546-4d7369f4e59d$#$af4b8e77-c168-422b-b347-912cb36ca77e</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Home_Tab_Layout_New_3_Component</targetValue>
+        </target>
+        <target>
+            <groupName>422b0146-1f75-410a-9374-675d83e58d72$#$b30833f9-b211-41c0-a072-c074038a0398</groupName>
+            <priority>6</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Default_Theme_Navigation_Menu_5_Component_Properties</targetValue>
+        </target>
+    </targets>
+</Audience>

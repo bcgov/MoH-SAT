@@ -1,48 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <assignmentRulesUsed>false</assignmentRulesUsed>
     <deletedOnSuccess>false</deletedOnSuccess>
     <description>DR for Extract Login User Details for New/Renewal Case Form</description>
     <errorIgnored>false</errorIgnored>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
+    <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
     <name>EDRDDRextractloginuserid</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <filterValue>captureId</filterValue>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem0</globalKey>
-        <inputFieldName>Id</inputFieldName>
-        <inputObjectName>User</inputObjectName>
-        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>User</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <filterValue>&apos;Case&apos;</filterValue>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem1</globalKey>
-        <inputFieldName>SobjectType</inputFieldName>
-        <inputObjectName>RecordType</inputObjectName>
-        <inputObjectQuerySequence>2.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>RecType</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -63,13 +30,16 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem4</globalKey>
-        <inputFieldName>User:AccountId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <filterOperator>=</filterOperator>
+        <filterValue>captureId</filterValue>
+        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem0</globalKey>
+        <inputFieldName>Id</inputFieldName>
+        <inputObjectName>User</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>EDRDDRextractloginuserid</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>PrescriberId</outputFieldName>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>User</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -92,6 +62,55 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <filterValue>&apos;Case&apos;</filterValue>
+        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem1</globalKey>
+        <inputFieldName>SobjectType</inputFieldName>
+        <inputObjectName>RecordType</inputObjectName>
+        <inputObjectQuerySequence>2.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRextractloginuserid</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>RecType</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRextractloginuseridCustom8644</globalKey>
+        <inputFieldName>isAlliedStaff</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRextractloginuserid</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>isAlliedStaff</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:User:Contact.Provider_Type__c &quot;Nurse/\/\/Practitioner&quot; == var:User:Contact.Provider_Type__c &quot;Pharmacist&quot; == || var:User:Contact.Provider_Type__c &quot;Nurse&quot; == || true false IF</formulaConverted>
+        <formulaExpression>IF(%User:Contact.Provider_Type__c% == &quot;Nurse Practitioner&quot; || %User:Contact.Provider_Type__c% == &quot;Pharmacist&quot; || %User:Contact.Provider_Type__c% == &quot;Nurse&quot;, true,false)</formulaExpression>
+        <formulaResultPath>isAlliedStaff</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>EDRDDRextractloginuseridCustom1680</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRextractloginuserid</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>EDRDDRextractloginuseridCustom1765</globalKey>
         <inputFieldName>User:ContactId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -103,9 +122,23 @@
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>EDRDDRextractloginuseridCustom0jIAq0000001anpMAAItem4</globalKey>
+        <inputFieldName>User:AccountId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>EDRDDRextractloginuserid</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>PrescriberId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
     <outputType>JSON</outputType>
     <previewJsonData>{
-  &quot;captureId&quot; : &quot;005Aq00000B5vo5IAB&quot;
+  &quot;captureId&quot; : &quot;005Aq00000T43HxIAJ&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>
     <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
