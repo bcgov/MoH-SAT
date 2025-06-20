@@ -51,4 +51,83 @@ public class ContentDocumentLinkTriggerHandlerTest {
         Assert.areNotEqual(0, existingTemplates.size(), 'The DocumentTemplate should not be deleted.');
         
     }
+      @isTest
+    static void testGetDocumentGenerated_deletesMatchingDocs() {
+        // Create a dummy user (prefix '005') to simulate LinkedEntityId
+        User u = new User(
+            Alias = 'testu',
+            Email = 'testuser@example.com',
+            EmailEncodingKey = 'UTF-8',
+            LastName = 'User',
+            LanguageLocaleKey = 'en_US',
+            LocaleSidKey = 'en_US',
+            ProfileId = UserInfo.getProfileId(),
+            TimeZoneSidKey = 'America/New_York',
+            Username = 'testuser' + DateTime.now().getTime() + '@example.com'
+        );
+        insert u;
+
+        // Step 1: Create a ContentVersion (which auto-creates a ContentDocument)
+        ContentVersion cv = new ContentVersion(
+            Title = 'Eform Responses',
+            PathOnClient = 'test.docx',
+            VersionData = Blob.valueOf('Test Content')
+        );
+        insert cv;
+
+        // Retrieve the associated ContentDocumentId
+        Id contentDocId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :cv.Id].ContentDocumentId;
+
+        // Step 2: Create a ContentDocumentLink (simulate upload to a record, e.g. User)
+        ContentDocumentLink cdl = new ContentDocumentLink(
+            ContentDocumentId = contentDocId,
+            LinkedEntityId = u.Id, // starts with '005' in tests
+            ShareType = 'V',
+            Visibility = 'AllUsers'
+        );
+        insert cdl;
+
+        // Step 3: Call method under test
+        Test.startTest();
+        ContentDocumentLinkTriggerHandler.getDocumentGenerated(new List<ContentDocumentLink>{ cdl });
+        Test.stopTest(); // ensures @future runs
+
+        // Step 4: Verify the document was deleted
+        List<ContentDocument> remainingDocs = [SELECT Id FROM ContentDocument WHERE Id = :contentDocId];
+        System.assertEquals(0, remainingDocs.size(), 'ContentDocument should have been deleted');
+    }
+
+    @isTest
+    static void testGetDocumentGenerated_skipsNonMatchingEntity() {
+        // Create another ContentVersion
+        ContentVersion cv = new ContentVersion(
+            Title = 'Eform Responses',
+            PathOnClient = 'nonmatch.docx',
+            VersionData = Blob.valueOf('Other Content')
+        );
+        insert cv;
+
+        Id contentDocId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :cv.Id].ContentDocumentId;
+
+        // Simulate a record with a prefix NOT starting with '005' (e.g. Case: '500')
+        Case fakeCase = new Case(Subject = 'Test Case');
+        insert fakeCase;
+
+        ContentDocumentLink cdl = new ContentDocumentLink(
+            ContentDocumentId = contentDocId,
+            LinkedEntityId = fakeCase.Id, // starts with '500' (will be ignored in test)
+            ShareType = 'V',
+            Visibility = 'AllUsers'
+        );
+        insert cdl;
+
+        // Call method under test
+        Test.startTest();
+        ContentDocumentLinkTriggerHandler.getDocumentGenerated(new List<ContentDocumentLink>{ cdl });
+        Test.stopTest();
+
+        // Since prefix in test mode is '005', nothing should be deleted
+        List<ContentDocument> remainingDocs = [SELECT Id FROM ContentDocument WHERE Id = :contentDocId];
+        System.assertEquals(1, remainingDocs.size(), 'ContentDocument should NOT have been deleted');
+    }
 }
