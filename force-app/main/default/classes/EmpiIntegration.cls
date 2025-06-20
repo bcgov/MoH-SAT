@@ -37,10 +37,16 @@ public with sharing class EmpiIntegration {
           patientPHN = phn.deleteWhitespace();
         }
         LRA_API_Configuration__c lraApiSettings = getLRAApiConfiguration(LRA_API_CUSTOMSETTING_NAME);
-        if(lraApiSettings != null && lraApiSettings.Use_LRA_API__c == true) {
+        if (lraApiSettings != null 
+            && lraApiSettings.Use_LRA_API__c == true 
+            && !(currentUser?.Profile?.Name?.equalsIgnoreCase('EDRD Prescriber Community User') 
+            || (currentUser.UserRoleId != null && currentUser.UserRole.Name != null 
+             && currentUser.UserRole.Name.toLowerCase().contains('edrd')))) {
+
             p = fetchPatientData(patientPHN, lraApiSettings);
         }
         else {
+            //System.debug(' Calling EMPI SOAP API - Using stub.HCIM_IN_GetDemographics');
             Empi.II id;
             Empi.TS creationTime;
             Empi.CS versionCode;
@@ -214,7 +220,9 @@ public with sharing class EmpiIntegration {
         req.setHeader('UserID', userId);
         req.setEndpoint(endpoint);
         req.setMethod('GET');
-            
+        // System.debug(' fetchPatientData: Sending REST request to LRA');
+        // System.debug(' Request URL: ' + endpoint);
+        // System.debug(' PHN Identifier: ' + identifier);
         // Instantiate HTTP class and initialize a Patient object.
         Http http = new Http();
         System.debug(req.getBody());
