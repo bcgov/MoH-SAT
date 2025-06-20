@@ -580,4 +580,17 @@ public with sharing class TestFactory {
         serviceAppRec.RecordTypeId = recordTypeServiceAppointmentEDRD;        
         return serviceAppRec;
     }
+    
+    public static List<OmniScriptSavedSession> createOmniScriptSavedSessions(Integer noOfSessions) {
+        OmniProcess omniScript = new OmniProcess(Name = 'Test OS', Type = 'Test', Subtype = 'OS', Language = 'English');
+        insert omniScript;
+        
+        List<OmniScriptSavedSession> sessionList = new List<OmniScriptSavedSession>();
+        
+        for (Integer i = 1; i <= noOfSessions; i++) {
+            OmniScriptSavedSession session = new OmniScriptSavedSession(Name = 'Session ' + i, OmniScriptId = omniScript.Id, StatusCategory = 'In Progress');
+            sessionList.add(session);
+        }
+        return sessionList;
+    }
 }
