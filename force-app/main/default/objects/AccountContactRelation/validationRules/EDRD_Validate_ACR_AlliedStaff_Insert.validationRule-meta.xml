@@ -5,15 +5,19 @@
     <description>Prevents EDRD users from creating an inappropriate Provider-Allied Staff relationship when the Account and Contact record types are specific and roles as Allied Staff and based ProviderType field as well.</description>
     <errorConditionFormula>AND(
   CONTAINS($UserRole.Name, &quot;EDRD&quot;),
-  Account.RecordType.DeveloperName = &apos;Provider&apos;,
-  Contact.Account.RecordType.DeveloperName = &apos;Provider&apos;,
   INCLUDES(Roles, &apos;Allied Staff&apos;),
-  NOT(ISPICKVAL(Account.Provider_Type__pc, &apos;Physician&apos;)),
-    OR(
-      NOT(ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Nurse&apos;)),
-      NOT(ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Pharmacist&apos;)),
-      NOT(ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Nurse Practitioner&apos;))
+  OR(
+    Account.RecordType.DeveloperName != &apos;Provider&apos;,
+    Contact.Account.RecordType.DeveloperName != &apos;Provider&apos;,
+    NOT(ISPICKVAL(Account.Provider_Type__pc, &apos;Physician&apos;)),
+    NOT(
+      OR(
+        ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Nurse&apos;),
+        ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Pharmacist&apos;),
+        ISPICKVAL(Contact.Account.Provider_Type__pc, &apos;Nurse Practitioner&apos;)
+      )
     )
+  )
 )</errorConditionFormula>
     <errorMessage>An EDRD user can only create a relationship with the Allied Staff role, where the account is a Physician and the contact is either a Nurse or a Pharmacist.</errorMessage>
 </ValidationRule>

@@ -5,10 +5,12 @@
     <description>This validation rule ensures that when an Account Contact Relation is associated with an Account of type &apos;Provider&apos;, and the user&apos;s role contains &apos;EDRD&apos;, the Contact&apos;s related Account must be of type &apos;Patient&apos;.</description>
     <errorConditionFormula>AND(
   CONTAINS($UserRole.Name, &quot;EDRD&quot;),
-  Account.RecordType.DeveloperName = &apos;Provider&apos;,
-  Contact.Account.RecordType.DeveloperName != &apos;Patient&apos;,
   INCLUDES(Roles, &apos;Physician&apos;),
-  NOT(ISPICKVAL(Account.Provider_Type__pc, &apos;Physician&apos;))
+  OR(
+    Account.RecordType.DeveloperName != &apos;Provider&apos;,
+    Contact.Account.RecordType.DeveloperName != &apos;Patient&apos;,
+    NOT(ISPICKVAL(Account.Provider_Type__pc, &apos;Physician&apos;))
+  )
 )</errorConditionFormula>
     <errorMessage>An EDRD user cannot associate a Physician with a Provider Account unless the Contact&apos;s related Account is &apos;Patient&apos;.</errorMessage>
 </ValidationRule>
