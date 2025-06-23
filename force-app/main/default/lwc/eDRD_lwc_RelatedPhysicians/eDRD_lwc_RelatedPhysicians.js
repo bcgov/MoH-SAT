@@ -1,5 +1,6 @@
 import { LightningElement, wire, track } from 'lwc';
 import getRelatedPhysiciansList from '@salesforce/apex/EDRD_myPatientsController.getRelatedPhysiciansList';
+import providerNotFound from '@salesforce/label/c.EDRD_ProviderNotFound';
 
 const PAGE_SIZE = 15;
 
@@ -11,6 +12,7 @@ const columns = [
 ];
 
 export default class EdrdLwcRelatedPhysicians extends LightningElement {
+    label = {providerNotFound};
     @track data = [];
     @track dataToDisplay = [];
     @track initialRecords = [];

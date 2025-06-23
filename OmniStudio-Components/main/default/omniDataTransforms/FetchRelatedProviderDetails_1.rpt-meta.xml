@@ -46,6 +46,38 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:ACR:Account.PersonContact.Provider_Identifier__c true false IF</formulaConverted>
+        <formulaExpression>IF(%ACR:Account.PersonContact.Provider_Identifier__c%, true, false)</formulaExpression>
+        <formulaResultPath>isDataFound</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>38c90100-492f-479a-bd2f-fca14dba2722</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedProviderDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>361db9e6-1463-412d-b9eb-937a245e0a7c</globalKey>
+        <inputFieldName>isDataFound</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedProviderDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>isDataFound</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
         <filterValue>&apos;true&apos;</filterValue>
         <globalKey>1316d20b-303c-4436-989f-927b20362cb6</globalKey>
@@ -75,21 +107,6 @@
         <outputFieldName>ACR</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>0ff91686-1579-46fa-b3c3-fb6124835aad</globalKey>
-        <inputFieldName>ACR:Contact.Email</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>FetchRelatedProviderDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Email</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
@@ -125,21 +142,6 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>e5ff1162-e34f-40b8-9e01-c320e58f96cc</globalKey>
-        <inputFieldName>ACR:Account.Name</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>FetchRelatedProviderDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>AcountName</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <transformValuesMappings>{ }</transformValuesMappings>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>69689496-1c4e-41c1-bd7f-774e77fe73c3</globalKey>
         <inputFieldName>ACR:Account.PersonContact.Provider_Identifier__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -155,13 +157,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>4c14024b-246a-4611-917d-eca33042710c</globalKey>
-        <inputFieldName>user:AccountId</inputFieldName>
+        <globalKey>f1bdb1b6-6095-4154-8a09-133ce76f7b22</globalKey>
+        <inputFieldName>user:ContactId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>AccountId</outputFieldName>
+        <outputFieldName>UserContact</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -170,13 +172,43 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>f1bdb1b6-6095-4154-8a09-133ce76f7b22</globalKey>
-        <inputFieldName>user:ContactId</inputFieldName>
+        <globalKey>0ff91686-1579-46fa-b3c3-fb6124835aad</globalKey>
+        <inputFieldName>ACR:Contact.Email</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>UserContact</outputFieldName>
+        <outputFieldName>Email</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>e5ff1162-e34f-40b8-9e01-c320e58f96cc</globalKey>
+        <inputFieldName>ACR:Account.Name</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedProviderDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AcountName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>4c14024b-246a-4611-917d-eca33042710c</globalKey>
+        <inputFieldName>user:AccountId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>FetchRelatedProviderDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AccountId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
