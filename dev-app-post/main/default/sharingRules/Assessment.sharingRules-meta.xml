@@ -1,133 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingOwnerRules>
-        <fullName>Assessment_Sharing_Records_With_Providers</fullName>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_AssessmentQuestion_With_Reviewers</fullName>
         <accessLevel>Read</accessLevel>
-        <label>Assessment Sharing Records With Providers</label>
-        <sharedTo>
-            <group>EDRD_Physicians</group>
-        </sharedTo>
-        <sharedFrom>
-            <role>Developer</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareAdmin</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Share with EDRD Admins</description>
-        <label>EDRD_Assessment_ShareAdmin</label>
-        <sharedTo>
-            <role>EDRD_Admin</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>EDRD_Admin</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareAdminWithDeveloper</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Share Admin with Developer</description>
-        <label>EDRD_Assessment_ShareAdminWithDeveloper</label>
-        <sharedTo>
-            <role>Developer</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>EDRD_Admin</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareAdminWithStaff</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Share Admin owned With EDRDStaff</description>
-        <label>EDRD_Assessment_ShareAdminWithStaff</label>
-        <sharedTo>
-            <role>EDRD_Staff</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>EDRD_Admin</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareDeveloper</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>share with Developer for EDIT access</description>
-        <label>EDRD_Assessment_ShareDeveloper</label>
-        <sharedTo>
-            <role>Developer</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>Developer</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareDeveloperWithEDRDAdmins</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>share Developer owned with EDRD Admins for EDIT access</description>
-        <label>EDRD_Assessment_ShareDeveloperWithEDRDAdmins</label>
-        <sharedTo>
-            <role>EDRD_Admin</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>Developer</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareDeveloperWithEDRDStaff</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Share Developer with EDRD Staff for Read access</description>
-        <label>EDRD_Assessment_ShareDeveloperWithEDRDStaff</label>
-        <sharedTo>
-            <role>EDRD_Staff</role>
-        </sharedTo>
-        <sharedFrom>
-            <role>Developer</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareEDRDPhysiciansWithDevelopers</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>share EDRD Physician owned with EDRD Developers</description>
-        <label>EDRD_Assessment_ShareEDRDPhysiciansWithDevelopers</label>
-        <sharedTo>
-            <role>Developer</role>
-        </sharedTo>
-        <sharedFrom>
-            <group>EDRD_Physicians</group>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareEDRDPhysiciansWithEDRDAdmins</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>share EDRD Physician owned with EDRD Admins</description>
-        <label>EDRD_Assessment_ShareEDRDPhysiciansWithEDRDAdmins</label>
-        <sharedTo>
-            <role>EDRD_Admin</role>
-        </sharedTo>
-        <sharedFrom>
-            <group>EDRD_Physicians</group>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Assessment_ShareEDRDPhysiciansWithEDRDStaff</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>Share EDRDPhysicians With EDRDStaff</description>
-        <label>EDRD_Assessment_ShareEDRDPhysiciansWithEDRDStaff</label>
-        <sharedTo>
-            <role>EDRD_Staff</role>
-        </sharedTo>
-        <sharedFrom>
-            <group>EDRD_Physicians</group>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_Share_Assessment_with_Reviewers</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>EDRD_Share_Assessment_with_Reviewers</label>
+        <description>Share the assessment question with the portal user.</description>
+        <label>EDRD Share AssessmentQuestion With Reviewers</label>
         <sharedTo>
             <group>EDRD_Reviewer</group>
         </sharedTo>
-        <sharedFrom>
-            <group>EDRD_Physicians</group>
-        </sharedFrom>
-    </sharingOwnerRules>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_AssessmentQuestion_with_EDRD_Admin</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>EDRD Share Assessment Question with Internal User</description>
+        <label>EDRD Share AssessmentQuestion with EDRD Admin</label>
+        <sharedTo>
+            <role>EDRD_Admin</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_AssessmentQuestion_with_EDRD_Dev</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share AQR with Internal User</description>
+        <label>EDRD Share AssessmentQuestion with EDRD Dev</label>
+        <sharedTo>
+            <role>Developer</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Assessment</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>
