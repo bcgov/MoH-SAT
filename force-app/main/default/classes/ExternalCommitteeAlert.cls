@@ -68,7 +68,7 @@ public with sharing class ExternalCommitteeAlert {
         return Test.isRunningTest() ? mockOWEA : [
             SELECT Id, Address, DisplayName, IsAllowAllProfiles, Purpose 
             FROM OrgWideEmailAddress 
-            WHERE DisplayName = 'Special Authority'
+            WHERE DisplayName = 'BC PharmaCare'
         ];
     }
 
