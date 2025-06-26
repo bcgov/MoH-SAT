@@ -87,6 +87,21 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>daf17531-1f5b-4f39-978c-67844f030533</globalKey>
+        <inputFieldName>getSubmitterDetails:submitter</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoDocDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Submitter__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoDocDRCustom0jIAq0000004N1FMAUItem40</globalKey>
         <inputFieldName>MedicationId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -495,20 +510,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoDocDRCustom0jIAq0000004N1FMAUItem22</globalKey>
-        <inputFieldName>CaseOverride</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoDocDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_Patient_Override_Reason__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoDocDRCustom0jIAq0000004N1FMAUItem46</globalKey>
@@ -640,7 +641,7 @@
         <formulaConverted>var:SUMMARY:SummaryBlock:patientContactId</formulaConverted>
         <formulaExpression>SUMMARY:SummaryBlock:patientContactId</formulaExpression>
         <formulaResultPath>AccountContact</formulaResultPath>
-        <formulaSequence>5.0</formulaSequence>
+        <formulaSequence>3.0</formulaSequence>
         <globalKey>createCaseRequestWithNoDocDRCustom7349</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
@@ -676,20 +677,6 @@
         <outputCreationSequence>2.0</outputCreationSequence>
         <outputFieldName>Requested_Frequency__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoDocDRCustom8715</globalKey>
-        <inputFieldName>RenewalCaseOverride</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoDocDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_EMPI_Override_Reason_Renewal__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -752,23 +739,6 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;New&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
-        <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;New&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
-        <formulaResultPath>CaseOverride</formulaResultPath>
-        <formulaSequence>4.0</formulaSequence>
-        <globalKey>createCaseRequestWithNoDocDRCustom8660</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoDocDR</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoDocDRCustom0jIAq0000004N1FMAUItem11</globalKey>
         <inputFieldName>SUMMARY:ProviderId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -777,23 +747,6 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Provider__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;Renewal&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
-        <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;Renewal&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
-        <formulaResultPath>RenewalCaseOverride</formulaResultPath>
-        <formulaSequence>3.0</formulaSequence>
-        <globalKey>createCaseRequestWithNoDocDRCustom2218</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoDocDR</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
