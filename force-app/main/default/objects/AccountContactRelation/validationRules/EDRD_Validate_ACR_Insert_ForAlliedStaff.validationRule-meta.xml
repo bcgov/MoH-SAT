@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EDRD_Validate_ACR_Insert_ForAlliedStaff</fullName>
+    <active>true</active>
+    <description>Prevents EDRD users from creating an inactive Provider-Allied Staff relationship when the Account and Contact record types are specific and roles as Allied Staff.</description>
+    <errorConditionFormula>AND(
+ISNEW(),
+CONTAINS($UserRole.Name, &quot;EDRD&quot;),
+Account.RecordType.DeveloperName = &apos;Provider&apos;,
+Contact.Account.RecordType.DeveloperName = &apos;Provider&apos;,
+INCLUDES(Roles, &apos;Allied Staff&apos;),
+NOT(IsActive)
+)</errorConditionFormula>
+    <errorMessage>An EDRD user cannot create an inactive Physician – Nurse/Pharmacist relationship.</errorMessage>
+</ValidationRule>

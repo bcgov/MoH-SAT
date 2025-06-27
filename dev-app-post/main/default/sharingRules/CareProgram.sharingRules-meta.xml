@@ -30,6 +30,35 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_CP_withNurse</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>EDRD_Share_CP_withNurse</label>
+        <sharedTo>
+            <group>EDRD_Nurses</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_CP_withPharmacist</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing The CP with Pharmacist for EDRD</description>
+        <label>EDRD Share CP withPharmacist</label>
+        <sharedTo>
+            <group>EDRD_Pharmacists</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>EDRD_CareProgram_ShareDevReadWithEDRDPhysicians</fullName>
         <accessLevel>Read</accessLevel>

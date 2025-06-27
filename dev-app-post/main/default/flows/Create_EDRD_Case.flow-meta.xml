@@ -964,7 +964,7 @@
             <label>Patient Not Deceased</label>
         </rules>
     </decisions>
-    <description>Changes related EMPI Integrations-v1.6- Changes to Patient Deceased and Updates to HC Approved Dosage, Frequency &amp; Funding Duration fields to decimals.</description>
+    <description>Changes related to Provider Account field in Created EDRD Case.</description>
     <dynamicChoiceSets>
         <name>caseTypeSet</name>
         <dataType>Picklist</dataType>
@@ -1845,6 +1845,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Provider_Account__c</field>
+            <value>
+                <elementReference>ProviderContactRec.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Provider__c</field>
             <value>
                 <elementReference>ProviderContactRec.Id</elementReference>
@@ -1931,6 +1937,12 @@
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider_Account__c</field>
+            <value>
+                <elementReference>ProviderContactRec.AccountId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2029,6 +2041,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>Provider_Account__c</field>
+            <value>
+                <elementReference>ProviderContactRec.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>Provider__c</field>
             <value>
                 <elementReference>ProviderContactRec.Id</elementReference>
@@ -2115,6 +2133,12 @@
             <field>Origin</field>
             <value>
                 <elementReference>Case_Origin</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Provider_Account__c</field>
+            <value>
+                <elementReference>ProviderContactRec.AccountId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
