@@ -14,7 +14,9 @@
                     <div style="border: 1px solid #dcdcdc; border-radius: 4px; padding: 10px; overflow: hidden;">
                         <lightning-datatable data={dataToDisplay} columns={columns} key-field="Id" onsort={handleSort} sorted-by={sortedBy} sorted-direction={sortedDirection} hide-checkbox-column="true"></lightning-datatable>
                     </div>
-
+               <!-- <template if:false={dataToDisplay.length}>
+                <lightning-formatted-rich-text  value={label.providerNotFound}></lightning-formatted-rich-text>
+                </template> !-->
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                         <span>{pageIndicator}</span>
                         <div>
@@ -31,7 +33,7 @@
     </div>
     <div>
         <template if:false={dataToDisplay.length}>
-            <div style="border: 1px solid #dcdcdc; border-radius: 4px; padding: 10px; overflow: hidden;">
+            <div  style="margin-top: 10px; padding: 10px;">
                 <lightning-formatted-rich-text  value={label.providerNotFound}></lightning-formatted-rich-text>
             </div>
         </template>
