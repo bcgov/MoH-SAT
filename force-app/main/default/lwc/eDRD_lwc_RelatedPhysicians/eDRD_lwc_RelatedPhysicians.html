@@ -1,4 +1,6 @@
 <template>
+    <div>
+     <template if:true={dataToDisplay.length}>   
     <div style="border: 2px solid #dcdcdc; border-radius: 8px; padding: 15px; margin: 10px;">
         <lightning-card title="Related Physicians" icon-name="standard:account">
             <div class="slds-p-horizontal_small">
@@ -12,9 +14,7 @@
                     <div style="border: 1px solid #dcdcdc; border-radius: 4px; padding: 10px; overflow: hidden;">
                         <lightning-datatable data={dataToDisplay} columns={columns} key-field="Id" onsort={handleSort} sorted-by={sortedBy} sorted-direction={sortedDirection} hide-checkbox-column="true"></lightning-datatable>
                     </div>
-                <template if:false={dataToDisplay.length}>
-                <lightning-formatted-rich-text  value={label.providerNotFound}></lightning-formatted-rich-text>
-                </template>
+
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
                         <span>{pageIndicator}</span>
                         <div>
@@ -27,4 +27,14 @@
             </div>
         </lightning-card>
     </div>
+    </template>
+    </div>
+    <div>
+        <template if:false={dataToDisplay.length}>
+            <div style="border: 1px solid #dcdcdc; border-radius: 4px; padding: 10px; overflow: hidden;">
+                <lightning-formatted-rich-text  value={label.providerNotFound}></lightning-formatted-rich-text>
+            </div>
+        </template>
+    </div>
+  
 </template>
