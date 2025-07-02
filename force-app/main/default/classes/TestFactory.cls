@@ -560,9 +560,11 @@ public with sharing class TestFactory {
     }
     
     public static Assessment createEDRDAssessment(Id CaseId){
+        Id AssessmentRecordTypeId = Schema.SObjectType.Assessment.getRecordTypeInfosByDeveloperName().get('EDRD_Assessment').getRecordTypeId();
         Assessment assessmentObj = new Assessment();
         assessmentObj.Name = 'Assessment Test';
         assessmentObj.AssessmentStatus = 'Completed';
+        assessmentObj.RecordTypeId = AssessmentRecordTypeId;
         assessmentObj.caseId = CaseId;
         return assessmentObj;
     }

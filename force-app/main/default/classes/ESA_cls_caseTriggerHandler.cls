@@ -16,6 +16,8 @@
                 17 Oct-     EDRD-1010		  -  Accenture    -  Future method(Private) is to update EDRD Provider field on Person Account.
                 19 May-     EDRD-1216		  -  Accenture    -  Method to update Status of Care Program Enrolee From Inactive to Active
                 30 May-     EDRD-1469		  -  Accenture    -  Method to update EDRD Provider Account field on Case if Provider lookup gets updated.
+                19 Jun-     EDRD-1481		  -  Accenture    -  Method to to add/Remove the members from Case Team.
+                19 Jun-     EDRD-1481		  -  Accenture    -  Class/Methods is to perform DML in without Sharing Context.
 ***********************************************************************************************/
 
 public with sharing class ESA_cls_caseTriggerHandler {    
@@ -24,6 +26,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
     public static Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
     public static Decimal costPerDose = 0;
     public static Map<Id, Decimal> caseIdVsCostPerDose = new Map<Id, Decimal>();
+    public static Id edrdCaseTeamRoleId = [SELECT Id FROM CaseTeamRole WHERE Name = 'EDRD_Physician' LIMIT 1].Id;
 /**
 * @author: Deepak
 * @date: 23 Feb 2023
@@ -136,15 +139,21 @@ public with sharing class ESA_cls_caseTriggerHandler {
 /**
 * @author: Deepak
 * @date: 15 Dec 2023
-* @description: The purpose of this method is to Sync case field values with Medication Request.
+* @description: The purpose of this method is to Sync case field values with Medication Request & OwnerId of asssessment Record.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
                      08 Apr -     EDRD-1450		  -  Deepak    -  Adding Provider change logic for EDRD Case
+                     25 Jun -     EDRD-1481		  -  Deepak    -  Changing OwnerId of related MedicationRequest & Assessment OnwerId's
 */ 
     public static void syncCaseToMR(Map<id,Case> oldCaseMap, Map<id,Case> newCaseMap){
         List<MedicationRequest> MRListToUpdate = new List<MedicationRequest>();
+        List<Assessment> assessmentListToUpdate = new List<Assessment>();
+        Map<Id, Id> caseIdVsProviderId = new Map<Id, Id>();
+        Map<Id, Id> providerIdVsProvisionedUserId = new Map<Id, Id>();
         Set<String> caseStatusValueSet = new Set<String>{'Received - Awaiting Verification', 'SC Review', 'AC Review', 'MOH Review'};
         Set<Id> caseIdSet = new Set<Id>();
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> casesWithRelatedMRNAssessments = new List<Case>();
+        
         for(Case caseObj: newCaseMap.values()){
             Boolean isStatusChanged = oldCaseMap.get(caseObj.id).Status != newCaseMap.get(caseObj.id).Status;
             Boolean isProrityChanged = oldCaseMap.get(caseObj.id).Priority != newCaseMap.get(caseObj.id).Priority;
@@ -153,22 +162,49 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Boolean isProviderChanged = oldCaseMap.get(caseObj.id).Provider__c != newCaseMap.get(caseObj.id).Provider__c;
             if(caseObj.RecordTypeId == recordTypeCaseEDRD && (isStatusChanged || isProrityChanged || isTypeChanged || isEDRDRefChanged || isProviderChanged)){
                 caseIdSet.add(caseObj.Id);
+                if(isProviderChanged){
+                    caseIdVsProviderId.put(caseObj.Id, caseObj.Provider__c);
+                }
             }
         }
-        for(MedicationRequest MRObj:[SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority, Case__r.EDRD_Ref_No__c, Case__r.Provider__r.AccountId FROM MedicationRequest WHERE Case__c IN: caseIdSet]){
-            MRObj.Status = caseStatusValueSet.Contains(MRObj.Case__r.Status) ? 'Active' : MRObj.Case__r.Status;
-            MRObj.Type = MRObj.Case__r.Type;
-            MRObj.Priority = MRObj.Case__r.Priority;
-            MRObj.EDRD_Reference_Number__c = !String.isBlank(MRObj.Case__r.EDRD_Ref_No__c) ? MRObj.Case__r.EDRD_Ref_No__c : NULL;
-            MRObj.RequesterId = (!String.isEmpty(MRObj.Case__c) && !String.isEmpty(MRObj.Case__r.Provider__c) && !String.isEmpty(MRObj.Case__r.Provider__r.AccountId)) ? MRObj.Case__r.Provider__r.AccountId : NULL;
-            MRListToUpdate.add(MRObj);
+        
+        if(!caseIdVsProviderId.isEmpty()){
+            List<User> userList = [SELECT Id, ContactId From User WHERE ContactId IN: caseIdVsProviderId.values()];
+            for(User userObj: userList){
+                providerIdVsProvisionedUserId.put(userObj.ContactId, userObj.Id);
+            }
+        }
+        
+        casesWithRelatedMRNAssessments = [SELECT Id, Provider__c, (SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority, Case__r.EDRD_Ref_No__c, Case__r.Provider__r.AccountId, Case__r.OwnerId, Case__c, Case__r.Provider__c 
+                                                                   FROM Medication_Requests__r WHERE Case__c IN: caseIdSet), (SELECT Id, OwnerId FROM Assessments WHERE CaseId IN: caseIdVsProviderId.KeySet()) FROM Case WHERE Id IN: caseIdSet];
+        
+        for(Case caseObj: casesWithRelatedMRNAssessments){
+            for(MedicationRequest MRObj: caseObj.Medication_Requests__r){
+                MRObj.Status = caseStatusValueSet.Contains(MRObj.Case__r.Status) ? 'Active' : MRObj.Case__r.Status;
+                MRObj.Type = MRObj.Case__r.Type;
+                MRObj.Priority = MRObj.Case__r.Priority;
+                MRObj.EDRD_Reference_Number__c = !String.isBlank(MRObj.Case__r.EDRD_Ref_No__c) ? MRObj.Case__r.EDRD_Ref_No__c : NULL;
+                MRObj.RequesterId = (!String.isEmpty(MRObj.Case__c) && !String.isEmpty(MRObj.Case__r.Provider__c) && !String.isEmpty(MRObj.Case__r.Provider__r.AccountId)) ? MRObj.Case__r.Provider__r.AccountId : NULL;
+                if(caseIdVsProviderId.containsKey(MRObj.Case__c) && providerIdVsProvisionedUserId.ContainsKey(MRObj.Case__r.Provider__c)){
+                    MRObj.OwnerId = providerIdVsProvisionedUserId.get(MRObj.Case__r.Provider__c);
+                }
+                MRListToUpdate.add(MRObj);
+            }
+            
+            for(Assessment assessmentObj: caseObj.Assessments){
+                assessmentListToUpdate.add(new Assessment(Id = assessmentObj.id, OwnerId = providerIdVsProvisionedUserId.get(caseObj.Provider__c)));
+            }
         }
         
         if(!MRListToUpdate.isEmpty()){
             Update MRListToUpdate;
         }
+        
+        if(!assessmentListToUpdate.isEmpty()){
+            Update assessmentListToUpdate;
+        }
     }
-
+    
 /**
 * @author: Deepak
 * @date: 09 Jan 2024
@@ -304,11 +340,10 @@ public with sharing class ESA_cls_caseTriggerHandler {
             
             for(Case caseObj: newCaseList){
                 caseObj.EDRD_Ref_No__c = patientIdVsCarePrgEnrolle?.get(CaseObj?.ContactId)?.Name;
+               
             }
         }
     }
-
- 
 
 /**
 * @author: Deepak
@@ -435,16 +470,19 @@ public with sharing class ESA_cls_caseTriggerHandler {
         Map<Id, Id> contactToproviderAccIdMap = new Map<Id, Id>();
         Set<Id> providerContactIdSet = new Set<Id>();
         List<Case> caseListToUpdate = new List<Case>();
+        Map<Id, Id> caseIdVsAccIdToCreateCT = new Map<Id, Id>();
+        Map<Id, Id> caseIdVsAccIdToRemoveCT = new Map<Id, Id>();
         
         for(Case caseObj: newCaseMap.values()){
             Boolean isProviderChanged = oldCaseMap.get(caseObj.id).Provider__c != newCaseMap.get(caseObj.id).Provider__c && caseObj.Provider__c != NULL;
             if(caseObj.RecordTypeId == recordTypeCaseEDRD && isProviderChanged){
                 providerContactIdSet.add(caseObj.provider__c);
+                caseIdVsAccIdToRemoveCT.put(caseObj.Id, oldCaseMap.get(caseObj.id).Provider_Account__c);
             }
         }
         
         if (!providerContactIdSet.isEmpty()){
-            for (Contact conObj : [SELECT Id, AccountId FROM Contact WHERE Id IN :providerContactIdSet]){
+            for (Contact conObj : [SELECT Id, AccountId FROM Contact WHERE Id IN: providerContactIdSet]){
                 contactToproviderAccIdMap.put(conObj.Id, conObj.AccountId);
             }
         }
@@ -453,7 +491,87 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Id providerAccountId = contactToproviderAccIdMap.get(caseObj.Provider__c);
             if (providerAccountId != null && caseObj.Provider_Account__c != providerAccountId) {
                 caseObj.Provider_Account__c = providerAccountId;
+                caseIdVsAccIdToCreateCT.put(caseObj.Id, caseObj.Provider_Account__c);
             }
+        }
+        
+        if(!caseIdVsAccIdToCreateCT.isEmpty() && !caseIdVsAccIdToRemoveCT.isEmpty()){
+            addOrRemoveCTM(caseIdVsAccIdToCreateCT, caseIdVsAccIdToRemoveCT);
+        }
+    }
+    
+/**
+* @author: Deepak
+* @date: 30 May 2025
+* @description: The purpose of this method is to update EDRD Provider Account field on Case if Provider lookup gets updated.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/  
+    public static void handleCaseTeamOnEDRD(List<Case> newCases){
+        Map<Id, Id> caseIdVsAccIdToCreateCT = new Map<Id, Id>();
+        
+        for (Case caseObj : newCases){
+            if (caseObj.RecordTypeId == recordTypeCaseEDRD && caseObj.Provider__c != NULL) {
+                caseIdVsAccIdToCreateCT.put(caseObj.Id, caseObj.Provider_Account__c);
+            }
+        }
+        
+        if(!caseIdVsAccIdToCreateCT.isEmpty()){
+            addOrRemoveCTM(caseIdVsAccIdToCreateCT, new Map<Id, Id>());
+        }
+    }
+
+/**
+* @author: Deepak
+* @date: 19 June 2025
+* @description: The purpose of this method is to add/Remove the members from Case Team.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/    
+   public static void addOrRemoveCTM( Map<Id, Id> caseIdVsAccIdToCreateCT,  Map<Id, Id> caseIdVsAccIdToRemoveCT){
+        List<CaseTeamMember> cTMToInsert = new List<CaseTeamMember>();
+        List<CaseTeamMember> cTMToDelete = new List<CaseTeamMember>();
+        Map<Id, Id> providerIdVsProviderUserId = new Map<Id, Id>();
+        Set<Id> userIdToRemoveFromCTM = new Set<Id>();
+        
+        List<User> userList = [SELECT Id, AccountId FROM User WHERE Contact.AccountId IN: caseIdVsAccIdToCreateCT.Values() OR Contact.AccountId IN: caseIdVsAccIdToRemoveCT.Values()];
+        
+        for(User userObj: userList){
+            providerIdVsProviderUserId.put(userObj.AccountId, userObj.Id);
+        }
+        
+        for(Id caseId: caseIdVsAccIdToCreateCT.KeySet()){
+            if(providerIdVsProviderUserId.ContainsKey(caseIdVsAccIdToCreateCT.get(caseId))){
+                cTMToInsert.add(new CaseTeamMember(ParentId = caseId, MemberId = providerIdVsProviderUserId.get(caseIdVsAccIdToCreateCT.get(caseId)), TeamRoleId = edrdCaseTeamRoleId));
+            }
+        }
+        
+        if(!cTMToInsert.isEmpty()){
+            new Elevated().insertCaseTeamMember(cTMToInsert);            
+        }
+        
+        if(caseIdVsAccIdToRemoveCT.isEmpty()){
+            return;
+        }
+        
+        for(Id caseId: caseIdVsAccIdToRemoveCT.KeySet()){
+            userIdToRemoveFromCTM.add(providerIdVsProviderUserId.get(caseIdVsAccIdToRemoveCT.get(caseId)));
+        }
+        
+        cTMToDelete = [SELECT Id FROM CaseTeamMember WHERE ParentId IN: caseIdVsAccIdToRemoveCT.KeySet() AND TeamRoleId =: edrdCaseTeamRoleId AND MemberId IN: userIdToRemoveFromCTM];
+        
+        if(!cTMToDelete.isEmpty()){
+            Database.Delete(cTMToDelete, true);
+        }
+    }
+    
+/**
+* @author: Deepak
+* @date: 19 June 2025
+* @description: The purpose of this Class/Methods is to perform DML in without Sharing Context.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/     
+    public without sharing class Elevated{
+        public void insertCaseTeamMember(List<CaseTeamMember> cTMToInsert){
+            Database.Insert(cTMToInsert, true);
         }
     }
 }
