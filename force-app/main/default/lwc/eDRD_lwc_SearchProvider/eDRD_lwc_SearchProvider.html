@@ -1,0 +1,86 @@
+<template>
+    <lightning-card title="Provider Search Information" icon-name="standard:contact">
+        <div class="slds-grid slds-wrap slds-grid_pull-padded-x-small">
+            <!-- Provider Identifier -->
+            <div class="slds-col slds-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2">
+                <lightning-input 
+                    label="Provider Identifier" 
+                    name={providerPHN} 
+                    type="search" 
+                    onchange={handlekeychange} 
+                    value={providerPHN} 
+                    placeholder="Enter Identifier Number">
+                </lightning-input>
+            </div>
+            
+            <!-- Search and Clear Buttons -->
+            <div 
+                class="slds-col slds-p-horizontal_x-small slds-size_1-of-2 slds-medium-size_1-of-1 slds-large-size_1-of-2" 
+                style="margin-top: 22px;">
+                <lightning-button 
+                    variant="brand" 
+                    label="Search" 
+                    class="btnSearch" 
+                    onclick={handleSearch}>
+                </lightning-button>
+                <template if:true={showRemoveButton}>
+                    <lightning-button 
+                        variant="brand" 
+                        label="Clear" 
+                        class="btnClear" 
+                        onclick={handleRemoveResults} 
+                        style="padding-left: 5px">
+                    </lightning-button>
+                </template>
+            </div>
+        </div>
+
+        <!-- No Result Message -->
+        <div if:true={messageResult} class="slds-p-horizontal_small">
+            <p class="slds-text-color_error">
+                No result found. Please type correct Provider Identifier Number
+            </p>     
+        </div>
+
+        <!-- Provider Details -->
+        <div if:true={Name} class="slds-var-p-horizontal_small">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <!-- Provider Name -->
+                <div class="slds-col slds-size_1-of-2" style="padding-right: 10px;">
+                    <lightning-input 
+                        label="Provider Name" 
+                        value={Name} 
+                        disabled>
+                    </lightning-input>
+                </div>
+                
+                <!-- Provider Type -->
+                <div class="slds-col slds-size_1-of-2" style="padding-left: 10px;">
+                    <lightning-input 
+                        label="Provider Type" 
+                        value={Type} 
+                        disabled>
+                    </lightning-input>
+                </div>
+            </div>
+        </div>
+        </br>
+
+        <!-- Footer -->
+        <footer 
+            class="slds-modal__footer slds-scope footerContainer slds-grid slds-grid_align-spread" 
+            style="background-color: white;">
+            <div class="navigation-bar__spacer">
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-text-align_right">
+                <lightning-button 
+                    class="slds-button_brand" 
+                    label="Next" 
+                    onclick={handleNext} 
+                    disabled={disableNextButton}
+                    variant="brand">
+                </lightning-button>
+            </div>
+        </footer>
+    </lightning-card>
+</template>
