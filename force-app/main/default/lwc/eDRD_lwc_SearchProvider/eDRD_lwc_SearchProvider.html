@@ -7,7 +7,7 @@
                     label="Provider Identifier" 
                     name={providerPHN} 
                     type="search" 
-                    onchange={handlekeychange} 
+                    onchange={onProviderPhnChange} 
                     value={providerPHN} 
                     placeholder="Enter Identifier Number">
                 </lightning-input>
@@ -21,14 +21,14 @@
                     variant="brand" 
                     label="Search" 
                     class="btnSearch" 
-                    onclick={handleSearch}>
+                    onclick={performSearch}>
                 </lightning-button>
                 <template if:true={showRemoveButton}>
                     <lightning-button 
                         variant="brand" 
                         label="Clear" 
                         class="btnClear" 
-                        onclick={handleRemoveResults} 
+                        onclick={clearSearch} 
                         style="padding-left: 5px">
                     </lightning-button>
                 </template>
@@ -64,19 +64,18 @@
                 </div>
             </div>
         </div>
-        </br>
+        <br/>
 
         <!-- Footer -->
         <footer 
             class="slds-modal__footer slds-scope footerContainer slds-grid slds-grid_align-spread" 
             style="background-color: white;">
-            <div class="navigation-bar__spacer">
-            </div>
+            <div class="navigation-bar__spacer"></div>
             <div class="slds-col slds-size_1-of-1 slds-text-align_right">
                 <lightning-button 
                     class="slds-button_brand" 
                     label="Next" 
-                    onclick={handleNext} 
+                    onclick={proceedNext} 
                     disabled={disableNextButton}
                     variant="brand">
                 </lightning-button>
