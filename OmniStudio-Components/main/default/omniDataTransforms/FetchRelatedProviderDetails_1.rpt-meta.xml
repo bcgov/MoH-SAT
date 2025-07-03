@@ -46,8 +46,8 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:ACR:Account.PersonContact.Provider_Identifier__c true false IF</formulaConverted>
-        <formulaExpression>IF(%ACR:Account.PersonContact.Provider_Identifier__c%, true, false)</formulaExpression>
+        <formulaConverted>| var:ACR:Account.PersonContact.Provider_Identifier__c var:ACR|1:Account.PersonContact.Provider_Identifier__c || true false IF</formulaConverted>
+        <formulaExpression>IF(%ACR:Account.PersonContact.Provider_Identifier__c% || %ACR|1:Account.PersonContact.Provider_Identifier__c%  , true, false)</formulaExpression>
         <formulaResultPath>isDataFound</formulaResultPath>
         <formulaSequence>1.0</formulaSequence>
         <globalKey>38c90100-492f-479a-bd2f-fca14dba2722</globalKey>
@@ -69,7 +69,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>isDataFound</outputFieldName>
+        <outputFieldName>FCData:isDataFound</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -118,7 +118,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ProviderType</outputFieldName>
+        <outputFieldName>FCData:ProviderType</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -133,7 +133,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Roles</outputFieldName>
+        <outputFieldName>FCData:Roles</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -148,7 +148,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>ProviderIdentifier</outputFieldName>
+        <outputFieldName>FCData:ProviderIdentifier</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -163,7 +163,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>UserContact</outputFieldName>
+        <outputFieldName>FCData:UserContact</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -178,7 +178,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Email</outputFieldName>
+        <outputFieldName>FCData:Email</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -193,7 +193,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>AcountName</outputFieldName>
+        <outputFieldName>FCData:AcountName</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
@@ -208,7 +208,7 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>FetchRelatedProviderDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>AccountId</outputFieldName>
+        <outputFieldName>FCData:AccountId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <transformValuesMappings>{ }</transformValuesMappings>
