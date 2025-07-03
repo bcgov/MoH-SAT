@@ -2305,12 +2305,11 @@
     &quot;ReqDoseId&quot; : &quot;=\&quot;&amp;c__RequestedNewDosageUnitId=\&quot;+%RequestedDosageUnitId%&quot;,
     &quot;MediId&quot; : &quot;=\&quot;&amp;c__MedicationId=\&quot;+%DRUGANDDOSAGERENEWAL:RenewalMedicationDrugId%&quot;,
     &quot;IndiId&quot; : &quot;=\&quot;&amp;c__IndicationId=\&quot;+%DRUGANDDOSAGERENEWAL:RenewalIndicationId%&quot;,
-    &quot;Over&quot; : &quot;=\&quot;&amp;c__Overridereason=\&quot;+%PatientInformation:reasonRenewal%&quot;,
     &quot;TransplantStatus&quot; : &quot;=IF(%TRANSPLANTSTATUS:TransplantStatusQuestion%, %TRANSPLANTSTATUS:TransplantStatusQuestion%, &apos;no input&apos;)&quot;,
     &quot;MedicationName&quot; : &quot;%DRUGANDDOSAGERENEWAL:MedicationNameRenewal%&quot;,
     &quot;FormType&quot; : &quot;Renewal&quot;,
     &quot;IndicationName&quot; : &quot;%DRUGANDDOSAGERENEWAL:IndicationValueRenewal%&quot;,
-    &quot;Submitter&quot; : &quot;=\&quot;&amp;c__SubmitterId=\&quot;+%SubmitterId%&quot;
+    &quot;PublicGroupId&quot; : &quot;=\&quot;c__ProviderPGId=\&quot;+%providerPGId%&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
@@ -2333,7 +2332,7 @@
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;SetValuesForURL&quot;,
   &quot;elementValueMap&quot; : {
-    &quot;Summary&quot; : &quot;=%captureId%+%NewReqDosage%+%NewReqDosageUnts%+%NewReqFreq%+%NewReqFrequnts%+%NewReqFundDur%+%NewReqFundDurUnts%+%CaseTyp%+%IndiName%+%MedName%+%PatAcId%+%contactId%+%providerAccountId%+%caseRecId%+%ReqDoseId%+%Over%+%MediId%+%IndiId%+%NewIndeffund%+%Submitter%&quot;
+    &quot;Summary&quot; : &quot;=%captureId%+%NewReqDosage%+%NewReqDosageUnts%+%NewReqFreq%+%NewReqFrequnts%+%NewReqFundDur%+%NewReqFundDurUnts%+%CaseTyp%+%IndiName%+%MedName%+%PatAcId%+%contactId%+%providerAccountId%+%caseRecId%+%ReqDoseId%+%PublicGroupId%+%MediId%+%IndiId%+%NewIndeffund%&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
