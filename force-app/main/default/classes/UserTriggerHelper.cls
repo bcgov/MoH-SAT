@@ -97,7 +97,7 @@ public with sharing class UserTriggerHelper{
         
         List<Case> casesWithRelatedMRNAssessments = [SELECT Id, Provider__c, (SELECT Id, Case__r.Type, Case__r.Status, Case__r.Priority, Case__r.EDRD_Ref_No__c, Case__r.Provider__r.AccountId, Case__r.OwnerId, Case__c, Case__r.Provider__c 
                                                                    FROM Medication_Requests__r WHERE Case__c IN: caseIdVsProviderId.keySet()),
-                                          (SELECT Id, OwnerId FROM Assessments WHERE CaseId IN: caseIdVsProviderId.KeySet()) FROM Case WHERE Id IN: caseIdVsProviderId.keySet()];
+                                          (SELECT Id, OwnerId FROM Assessments WHERE CaseId IN: caseIdVsProviderId.KeySet()) FROM Case WHERE Id IN: caseIdVsProviderId.keySet() AND RecordTypeId =: ESA_cls_caseTriggerHandler.recordTypeCaseEDRD];
         
         for(Case caseObj: casesWithRelatedMRNAssessments){
             for(MedicationRequest MRObj: caseObj.Medication_Requests__r){

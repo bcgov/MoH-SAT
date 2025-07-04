@@ -190,18 +190,17 @@ public with sharing class UserTriggerHandler {
             }
         }
         
-        if(!providerIdSet.isEmpty() || !alliedStaffIdSet.isEmpty()){ 
+        if(!providerIdSet.isEmpty()){ 
             List<contact> conList = [SELECT Id, AccountId, EDRD_Provider_Public_GroupId__c FROM Contact 
-                                     WHERE (ID IN: providerIdSet OR ID IN: alliedStaffIdSet) AND 
-                                     Account.RecordTypeId =: recordTypeProvider];
+                                     WHERE ID IN: providerIdSet AND Account.RecordTypeId =: recordTypeProvider];
             for(Contact conObj: conList){
                 accProviderIdSet.add(conObj.accountId);
             }
         }
         
-        if(!accProviderIdSet.isEmpty()){
+        if(!accProviderIdSet.isEmpty() || !alliedStaffIdSet.isEmpty()){
             List<AccountContactRelation> aCRList = [SELECT Id, AccountId, ContactId, Roles FROM AccountContactRelation 
-                                                    WHERE AccountID IN: accProviderIdSet AND Roles =: ESA_cls_constants.EDRD_ALLIED_STAFF];
+                                                    WHERE (AccountID IN: accProviderIdSet OR ContactId IN: alliedStaffIdSet) AND Roles =: ESA_cls_constants.EDRD_ALLIED_STAFF];
             for(AccountContactRelation aCRRec : aCRList){
                 if(!contactIdVsAccountIdSet.ContainsKey(aCRRec.contactId) && !String.isEmpty(aCRRec.Roles) && aCRRec.Roles.containsIgnoreCase(ESA_cls_constants.EDRD_ALLIED_STAFF)){
                     contactIdVsAccountIdSet.put(aCRRec.contactId, new Set<Id>());

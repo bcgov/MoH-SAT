@@ -423,7 +423,7 @@ public with sharing class AccountContactRelationTriggerHandler {
             for(Id groupId: userIdVsGroupSetId.get(usrId)){
                 String key = groupId + '_' + usrId;
                 
-                if (!existingPairs.contains(key)) {
+                if (!existingPairs.contains(key) && groupId != NULL) {
                     groupMembersToInsert.add(new GroupMember(GroupId = groupId, UserOrGroupId = usrId));
                 }
             }
