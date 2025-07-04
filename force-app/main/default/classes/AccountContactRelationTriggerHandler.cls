@@ -282,19 +282,16 @@ public with sharing class AccountContactRelationTriggerHandler {
                 contactIdVsAccountIdSet.get(acr.ContactId).add(aCR.AccountId);
             }
         }
-        
         if (!providerAccountIds.isEmpty()) {
             providerAccounts = new Map<Id, Account>([SELECT Id, EDRD_Provider_Public_GroupId__pc
                 FROM Account WHERE Id IN :providerAccountIds AND Provider_Type__pc = 'Physician']);
         }
-        
         for (Account acc : providerAccounts.values()) {
             if (String.isNotBlank(acc.Id)) {
                 String groupName = generateGroupName(acc.Id);
                 expectedGroupNames.add(groupName);
             }
         }
-        
         if (!expectedGroupNames.isEmpty()) {
             for (Group groupObj : [SELECT Id, Name FROM Group WHERE Name IN :expectedGroupNames AND Type = 'Regular']) {
                 existingGroupsByName.put(groupObj.Name, groupObj);
@@ -303,12 +300,10 @@ public with sharing class AccountContactRelationTriggerHandler {
         
         for (Account acc : providerAccounts.values()) {
             String groupName = generateGroupName(acc.Id);
-            if (String.isNotBlank(acc.EDRD_Provider_Public_GroupId__pc) && String.isNotBlank(acc.Id)) {              
-                if (existingGroupsByName.containsKey(groupName)) {
-                    providerToGroupIdMap.put(acc.Id, existingGroupsByName.get(groupName).Id);
-                } 
+            if (String.isNotBlank(acc.EDRD_Provider_Public_GroupId__pc) && String.isNotBlank(acc.Id) && existingGroupsByName.containsKey(groupName)) {
+                providerToGroupIdMap.put(acc.Id, existingGroupsByName.get(groupName).Id);
             }else {
-                Group newGroup = new Group(Name = groupName, DeveloperName = groupName, Type = 'Regular');
+                Group newGroup = new Group(Name = groupName, DeveloperName = groupName, Type = 'Regular', DoesIncludeBosses = false);
                 groupsToInsert.add(newGroup);
                 providerToGroupIdMap.put(acc.Id, null);
             }
@@ -365,7 +360,6 @@ public with sharing class AccountContactRelationTriggerHandler {
 */    
     public static void addProvisionedUsersToProviderGroups(Map<Id, Set<Id>> contactIdVsAccountIdSet){
         Map<Id, Id> accountIdVsGroupId = new Map<Id, Id>();
-        Map<Id, Id> providerIdVsGroupId = new Map<Id, Id>();
         Map<Id, Id> contactIdVsUserId = new Map<Id, Id>();
         Map<Id, Id> accountIdVsUserId = new Map<Id, Id>();
         Set<Id> accountIdSet = new Set<Id>();
@@ -381,7 +375,7 @@ public with sharing class AccountContactRelationTriggerHandler {
         List<Account> providerList = [SELECT Id, EDRD_Provider_Public_GroupId__pc FROM Account WHERE Id IN: accountIdSet];
         
         for(Account accObj: providerList){
-            providerIdVsGroupId.put(accObj.Id, accObj.EDRD_Provider_Public_GroupId__pc);
+            accountIdVsGroupId.put(accObj.Id, accObj.EDRD_Provider_Public_GroupId__pc);
         }
         
         List<User> userList = [SELECT Id, ContactId, Contact.AccountId, Contact.Account.EDRD_Provider_Public_GroupId__pc FROM User 
@@ -400,14 +394,14 @@ public with sharing class AccountContactRelationTriggerHandler {
                 if(contactIdVsUserId.ContainsKey(conId) && !userIdVsGroupSetId.ContainsKey(contactIdVsUserId.get(conId))){
                     userIdVsGroupSetId.put(contactIdVsUserId.get(conId), new Set<Id>());
                 }
-                if(accountIdVsGroupId.ContainsKey(accId) && !userIdVsGroupSetId.ContainsKey(accountIdVsGroupId.get(accId))){
-                    userIdVsGroupSetId.put(accountIdVsGroupId.get(accId), new Set<Id>());
+                if(accountIdVsUserId.ContainsKey(accId) && !userIdVsGroupSetId.ContainsKey(accountIdVsUserId.get(accId))){
+                    userIdVsGroupSetId.put(accountIdVsUserId.get(accId), new Set<Id>());
                 }
-                if(contactIdVsUserId.ContainsKey(conId) && providerIdVsGroupId.ContainsKey(accId)){
-                    userIdVsGroupSetId.get(contactIdVsUserId.get(conId)).add(providerIdVsGroupId.get(accId));
+                if(contactIdVsUserId.ContainsKey(conId) && accountIdVsGroupId.ContainsKey(accId)){
+                    userIdVsGroupSetId.get(contactIdVsUserId.get(conId)).add(accountIdVsGroupId.get(accId));
                 }
-                if(accountIdVsGroupId.ContainsKey(accId) && providerIdVsGroupId.ContainsKey(accId)){
-                    userIdVsGroupSetId.get(accountIdVsGroupId.get(accId)).add(providerIdVsGroupId.get(accId));
+                if(accountIdVsUserId.ContainsKey(accId) && accountIdVsGroupId.ContainsKey(accId)){
+                    userIdVsGroupSetId.get(accountIdVsUserId.get(accId)).add(accountIdVsGroupId.get(accId));
                 }
             }            
         }
@@ -429,7 +423,7 @@ public with sharing class AccountContactRelationTriggerHandler {
             for(Id groupId: userIdVsGroupSetId.get(usrId)){
                 String key = groupId + '_' + usrId;
                 
-                if (!existingPairs.contains(key)) {
+                if (!existingPairs.contains(key) && groupId != NULL) {
                     groupMembersToInsert.add(new GroupMember(GroupId = groupId, UserOrGroupId = usrId));
                 }
             }

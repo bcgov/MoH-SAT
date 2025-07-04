@@ -185,14 +185,16 @@ public with sharing class ESA_cls_caseTriggerHandler {
                 MRObj.Priority = MRObj.Case__r.Priority;
                 MRObj.EDRD_Reference_Number__c = !String.isBlank(MRObj.Case__r.EDRD_Ref_No__c) ? MRObj.Case__r.EDRD_Ref_No__c : NULL;
                 MRObj.RequesterId = (!String.isEmpty(MRObj.Case__c) && !String.isEmpty(MRObj.Case__r.Provider__c) && !String.isEmpty(MRObj.Case__r.Provider__r.AccountId)) ? MRObj.Case__r.Provider__r.AccountId : NULL;
-                if(caseIdVsProviderId.containsKey(MRObj.Case__c) && providerIdVsProvisionedUserId.ContainsKey(MRObj.Case__r.Provider__c)){
+                if(caseIdVsProviderId.containsKey(MRObj.Case__c) && providerIdVsProvisionedUserId.ContainsKey(MRObj.Case__r.Provider__c) && providerIdVsProvisionedUserId != NULL){
                     MRObj.OwnerId = providerIdVsProvisionedUserId.get(MRObj.Case__r.Provider__c);
                 }
                 MRListToUpdate.add(MRObj);
             }
             
             for(Assessment assessmentObj: caseObj.Assessments){
+                if(!providerIdVsProvisionedUserId.isEmpty() && providerIdVsProvisionedUserId.ContainsKey(caseObj.Provider__c) && providerIdVsProvisionedUserId.get(caseObj.Provider__c) != NULL){
                 assessmentListToUpdate.add(new Assessment(Id = assessmentObj.id, OwnerId = providerIdVsProvisionedUserId.get(caseObj.Provider__c)));
+                }
             }
         }
         
@@ -526,13 +528,13 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @description: The purpose of this method is to add/Remove the members from Case Team.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-   public static void addOrRemoveCTM( Map<Id, Id> caseIdVsAccIdToCreateCT,  Map<Id, Id> caseIdVsAccIdToRemoveCT){
+   public static void addOrRemoveCTM(Map<Id, Id> caseIdVsAccIdToCreateCT,  Map<Id, Id> caseIdVsAccIdToRemoveCT){
         List<CaseTeamMember> cTMToInsert = new List<CaseTeamMember>();
         List<CaseTeamMember> cTMToDelete = new List<CaseTeamMember>();
         Map<Id, Id> providerIdVsProviderUserId = new Map<Id, Id>();
         Set<Id> userIdToRemoveFromCTM = new Set<Id>();
         
-        List<User> userList = [SELECT Id, AccountId FROM User WHERE Contact.AccountId IN: caseIdVsAccIdToCreateCT.Values() OR Contact.AccountId IN: caseIdVsAccIdToRemoveCT.Values()];
+        List<User> userList = new Elevated().providerUserList(caseIdVsAccIdToCreateCT, caseIdVsAccIdToRemoveCT);
         
         for(User userObj: userList){
             providerIdVsProviderUserId.put(userObj.AccountId, userObj.Id);
@@ -572,6 +574,11 @@ public with sharing class ESA_cls_caseTriggerHandler {
     public without sharing class Elevated{
         public void insertCaseTeamMember(List<CaseTeamMember> cTMToInsert){
             Database.Insert(cTMToInsert, true);
+        }
+        public List<User> providerUserList(Map<Id, Id> caseIdVsAccIdToCreateCT,  Map<Id, Id> caseIdVsAccIdToRemoveCT){
+            List<User> providerList = [SELECT Id, AccountId FROM User WHERE Contact.AccountId IN: caseIdVsAccIdToCreateCT.Values() 
+                                           OR Contact.AccountId IN: caseIdVsAccIdToRemoveCT.Values()];
+            return providerList;
         }
     }
 }
