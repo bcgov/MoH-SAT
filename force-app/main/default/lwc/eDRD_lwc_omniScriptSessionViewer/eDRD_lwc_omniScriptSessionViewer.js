@@ -36,6 +36,7 @@ export default class EDRD_lwc_omniScriptSessionViewer extends LightningElement {
             sortable: true
         },
         { label: 'Created By', fieldName: 'CreatedByName', type: 'text', sortable: true },
+        { label: 'Owner', fieldName: 'OwnerName', type: 'text', sortable: true },
         {
             label: 'Last Modified Date',
             fieldName: 'LastModifiedDate',
@@ -83,6 +84,7 @@ export default class EDRD_lwc_omniScriptSessionViewer extends LightningElement {
                     ...row,
                     slno: (this.pageNumber - 1) * this.pageSize + index + 1,
                     CreatedByName: row.CreatedBy?.Name,
+                    OwnerName: row.Owner?.Name,
                     LastModifiedByName: row.LastModifiedBy?.Name
                 }));
             })
