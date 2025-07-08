@@ -1839,7 +1839,7 @@
   &quot;mask&quot; : null,
   &quot;show&quot; : null,
   &quot;hide&quot; : true,
-  &quot;expression&quot; : &quot;IF(%searchOutput:deceased% == true || %searchOutput:isPatientInEMPI%== false ||  %searchOutput:isPatientInSF%== false, true, false)&quot;,
+  &quot;expression&quot; : &quot;IF(%searchOutput:deceased% == true || %searchOutput:isPatientInEMPI%== false ||  %searchOutput:isPatientInSF%== false || %searchOutput:isClickEmpiSearch% == NULL, true, false)&quot;,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;validation Formula&quot;,
@@ -2237,11 +2237,15 @@
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;validationFormula&quot;
+      }, {
+        &quot;field&quot; : &quot;searchOutput&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;&quot;
       } ]
     }
   },
