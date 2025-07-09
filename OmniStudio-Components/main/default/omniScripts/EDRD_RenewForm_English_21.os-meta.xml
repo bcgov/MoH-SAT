@@ -2199,7 +2199,7 @@
   &quot;label&quot; : &quot;RenewalMedicationIdNullcheck&quot;,
   &quot;validationRequired&quot; : &quot;Step&quot;,
   &quot;elementErrorMap&quot; : {
-    &quot;IndicationValueRenew&quot; : &quot;=CONCATENATE(&apos; &apos;)+ &apos;Please click on the Load Initial/Renewal eForm&apos;&quot;
+    &quot;IndicationValueRenew&quot; : &quot;=CONCATENATE(&apos; &apos;)+ &apos;Please click on the Load Dosage Details&apos;&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : {
@@ -2388,7 +2388,7 @@
     &quot;MedicationName&quot; : &quot;%DRUGANDDOSAGERENEWAL:MedicationNameRenewal%&quot;,
     &quot;FormType&quot; : &quot;Renewal&quot;,
     &quot;IndicationName&quot; : &quot;%DRUGANDDOSAGERENEWAL:IndicationValueRenewal%&quot;,
-    &quot;PublicGroupId&quot; : &quot;=\&quot;c__ProviderPGId=\&quot;+%providerPGId%&quot;
+    &quot;PublicGroupId&quot; : &quot;=\&quot;&amp;c__ProviderPGId=\&quot;+%providerPGId%&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
