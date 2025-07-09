@@ -7,6 +7,7 @@
                 08 Nov -  EDRD-             -  Accenture   -  Processes the Status category logic for after-insert triggers on OmniScriptSavedSession based on omniProcessId.
                 29 Jun -  EDRD-1483         -  Accenture   -  The purpose of this method is to manually share OmniScriptSavedSession Rec based on PG present in ResumeURL.
                 29 Jun -  EDRD-1483         -  Accenture   -  The purpose of this private method is to return PG Id from URL.
+                08 Jul -  EDRD-1483         -  Accenture   -  Class/Methods is to perform DML in without Sharing Context.
 ***********************************************************************************************/
 public with sharing class OmniScriptSavedSessionTriggerHandler {
 /**
@@ -92,12 +93,28 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
 * @description: The purpose of this method is to manually share OmniScriptSavedSession Rec based on PG present in ResumeURL.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-    public static void shareSavedSessionsRecToProviderPG(List<OmniScriptSavedSession> sessionList) {
+    public static void shareSavedSessionsRecToProviderPG(Map<Id, OmniScriptSavedSession> sessionIdVsNewRec, Map<Id, OmniScriptSavedSession> sessionIdVsOldRec) {
         Map<Id, String> sessionIdVsPGId = new Map<Id, String>();
+        Set<Id> updatedSessionIds = new Set<Id>();
         List<OmniScriptSavedSessionShare> sharesRecToInsert = new List<OmniScriptSavedSessionShare>();
         
-        for (OmniScriptSavedSession sessionRec : sessionList) {
-            if (String.isNotBlank(sessionRec.ResumeUrl) && sessionRec.ResumeUrl.contains('c__ProviderPGId=')) {
+        for (Id sessionId : sessionIdVsNewRec.keySet()) {
+            OmniScriptSavedSession newRec = sessionIdVsNewRec.get(sessionId);
+            OmniScriptSavedSession oldRec = sessionIdVsOldRec.get(sessionId);
+            
+            if (newRec.ResumeUrl != oldRec.ResumeUrl && !String.isBlank(newRec.ResumeUrl)) {
+                updatedSessionIds.add(sessionId);
+            }
+        }
+        
+        if (updatedSessionIds.isEmpty()) {
+            return;
+        }
+        
+        List<OmniScriptSavedSession> updatedSessions = new Elevated().returnOmniScriptSavedSessionList(updatedSessionIds);
+        
+        for (OmniScriptSavedSession sessionRec : updatedSessions) {
+            if (sessionRec.ResumeUrl != null && sessionRec.ResumeUrl.contains('c__ProviderPGId=')) {
                 String pgId = extractProviderPGId(sessionRec.ResumeUrl);
                 
                 if (String.isNotBlank(pgId) && pgId != 'null' && pgId.startsWith('00G')) {
@@ -110,12 +127,7 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
             return;
         }
         
-        Set<String> groupIds = new Set<String>(sessionIdVsPGId.values());
-        
-        Map<Id, Group> validGroups = new Map<Id, Group>();
-        for (Group grp : [SELECT Id FROM Group WHERE Id IN :groupIds]) {
-            validGroups.put(grp.Id, grp);
-        }
+        Map<Id, Group> validGroups = new Map<Id, Group>([SELECT Id FROM Group WHERE Id IN :sessionIdVsPGId.values()]);
         
         if (validGroups.isEmpty()) {
             return;
@@ -131,13 +143,13 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
         }
         
         if (!sharesRecToInsert.isEmpty()) {
-            insert sharesRecToInsert;
+            new Elevated().insertShareRecords(sharesRecToInsert);
         }
     }
 
 /**
 * @author: Deepak
-* @date: 08 Dec 2024
+* @date: 29 Jun 2024
 * @description: The purpose of this private method is to return PG Id from URL.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
@@ -162,5 +174,21 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
         String pgId = url.substring(startIndex, endIndex);
         
         return EncodingUtil.urlDecode(pgId, 'UTF-8');
+    }
+    
+/**
+* @author: Deepak
+* @date: 08 July 2025
+* @description: The purpose of this Class/Methods is to perform DML in without Sharing Context.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/     
+    public without sharing class Elevated{
+        public void insertShareRecords(List<OmniScriptSavedSessionShare> omniSciptSavedSessionShareToInsert){
+            Database.Insert(omniSciptSavedSessionShareToInsert, true);
+        }
+        public List<OmniScriptSavedSession> returnOmniScriptSavedSessionList(Set<Id> omniScriptSavedSessionIds){
+            List<OmniScriptSavedSession> omniScriptSavedSessionList = [SELECT Id, ResumeURL From OmniScriptSavedSession WHERE Id IN: omniScriptSavedSessionIds];
+            return omniScriptSavedSessionList;
+        }
     }
 }

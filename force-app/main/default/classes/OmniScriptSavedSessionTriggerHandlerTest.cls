@@ -118,10 +118,11 @@ public class OmniScriptSavedSessionTriggerHandlerTest {
         insert testGroup;
         
         List<OmniScriptSavedSession> sessionList = TestFactory.createOmniScriptSavedSessions(1);
+        insert sessionList;
         sessionList[0].ResumeUrl = 'https://example.com/?c__ProviderPGId=' + EncodingUtil.urlEncode(testGroup.Id, 'UTF-8');
         
         Test.startTest();
-        insert sessionList;
+        Update sessionList;
         Test.stopTest();
         
         List<OmniScriptSavedSessionShare> shareRecords = [SELECT Id, ParentId, UserOrGroupId, AccessLevel, RowCause FROM OmniScriptSavedSessionShare 

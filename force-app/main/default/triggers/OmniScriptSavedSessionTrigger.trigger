@@ -8,12 +8,9 @@
                 29 Jun -  EDRD-1483         -  Accenture   -  The purpose of this method is to manually share OmniScriptSavedSession Rec based on PG present in ResumeURL.
 ***********************************************************************************************/
 trigger OmniScriptSavedSessionTrigger on OmniScriptSavedSession (after insert, after update) {
-    if (Trigger.isAfter && Trigger.isInsert) {
-        OmniScriptSavedSessionTriggerHandler.shareSavedSessionsRecToProviderPG(Trigger.new);
-    }
-    
     if (Trigger.isAfter && Trigger.isUpdate) {
         OmniScriptSavedSessionTriggerHandler.processAfterInsert(Trigger.newMap, Trigger.oldMap);
         OmniScriptSavedSessionTriggerHandler.processAfterInsertByOmniScriptId(Trigger.newMap, Trigger.oldMap);
+        OmniScriptSavedSessionTriggerHandler.shareSavedSessionsRecToProviderPG(Trigger.newMap, Trigger.oldMap);
     }
 }
