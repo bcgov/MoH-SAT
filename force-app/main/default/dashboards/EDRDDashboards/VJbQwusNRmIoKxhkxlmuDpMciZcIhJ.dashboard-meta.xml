@@ -93,26 +93,27 @@
                 <chartSummary>
                     <aggregate>Sum</aggregate>
                     <axisBinding>y</axisBinding>
-                    <column>MedicationRequest$Case__c.EDRD_MOHDrug_Cost_Forecast__c</column>
+                    <column>Case.Medication_Dispenses__r$EDRD_Forecasted_Amount__c</column>
                 </chartSummary>
-                <componentType>Column</componentType>
+                <componentType>Bar</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <drillEnabled>false</drillEnabled>
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingColumn>MedicationRequest$Medication</groupingColumn>
+                <groupingColumn>Case$Medication_Name__c</groupingColumn>
                 <groupingSortProperties>
                     <groupingSorts>
                         <groupingLevel>g1</groupingLevel>
                         <sortOrder>a</sortOrder>
                     </groupingSorts>
                 </groupingSortProperties>
-                <header>EDRD Financial Projections of Drug - FY</header>
+                <header>EDRD Financial Projections of Drugs - FY</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>EDRDDashboardReports/EDRD_Financial_Projections_of_Drug_FY_Xfu</report>
+                <report>EDRDDashboardReports/EDRD_Financial_Projections_of_Drugs_FY</report>
                 <showPercentage>false</showPercentage>
+                <showPicturesOnCharts>false</showPicturesOnCharts>
                 <showValues>true</showValues>
                 <sortBy>RowLabelAscending</sortBy>
                 <useReportChart>false</useReportChart>
@@ -125,6 +126,7 @@
     </dashboardGridLayout>
     <dashboardType>SpecifiedUser</dashboardType>
     <isGridLayout>true</isGridLayout>
+    <owner>sasalesforceadmin@gov.bc.ca</owner>
     <runningUser>sasalesforceadmin@gov.bc.ca</runningUser>
     <textColor>#000000</textColor>
     <title>EDRD PHSA Staff Overview</title>
