@@ -12,8 +12,9 @@
                 20 Jun-     EDRD-764        -  Accenture   -  Populate EDRD Reference number
                 08 Aug-     EDRD-679        -  Accenture   -  Generate FY forecasting records
                 17 Oct-     EDRD-1010		-  Accenture   -  Update Provider's - EDRD Checkbox On EDRD Case Insert
-                19 Oct-     EDRD-1216		-  Accenture   -   Method to update Status of Care Program Enrolee From Inactive to Active
+                19 Oct-     EDRD-1216		-  Accenture   -  Method to update Status of Care Program Enrolee From Inactive to Active
                 30 May-     EDRD-1469		-  Accenture   -  update EDRD Provider Account field on Case if Provider lookup gets updated
+                19 Jun-     EDRD-1481		-  Accenture   -  Method to to add/Remove the members from Case Team.
 ***********************************************************************************************/
 
 @isTest
@@ -122,6 +123,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @description: The purpose of this method is to cover Testcoverage of syncCaseToMR
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
                      08 Apr -     EDRD-1450		 -  Deepak      -  Adding Provider change logic for EDRD Case
+                     25 Jun -     EDRD-1481		  -  Deepak    -  Changing OwnerId of related MedicationRequest & Assessment OnwerId's
 */    
     @isTest
     public static void syncCaseToMR_positive(){
@@ -135,6 +137,15 @@ public class ESA_cls_caseTriggerHandlerTest {
         requestorAccList.add(requestorAcc2);
         insert requestorAccList;
         List<Contact> requestorContacts = [SELECT Id FROM Contact WHERE AccountId IN :requestorAccList];
+        
+        Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
+        List<User> communityUserList = new List<User>();
+        User communityUser = TestFactory.createCommunityUser(requestorContacts[0].Id, profileObj.Id, 'Test1', 'Test');
+        communityUserList.add(communityUser);
+        User communityUser2 = TestFactory.createCommunityUser(requestorContacts[1].Id, profileObj.Id, 'Test2', 'Test');
+        communityUserList.add(communityUser2);
+        insert communityUserList;
+        
         Account patientAcc = TestFactory.newPatient('Patient Test');
         insert patientAcc;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
@@ -145,6 +156,8 @@ public class ESA_cls_caseTriggerHandlerTest {
         insert MediRecList;
         List<MedicationRequest> MedicationRequestList = TestFactory.createMedicationRequest(1, MediRecList.get(0).Id, caseMRList.get(0).Id, requestorAcc.Id, patientAcc.Id); 
         insert MedicationRequestList;
+        Assessment assessmentRecord = TestFactory.createEDRDAssessment(caseMRList[0].Id);
+        insert assessmentRecord;
         try{
             Test.startTest();
             Case CaseList = [SELECT Id, Status, Priority, Type from Case Where id =:caseMRList.get(0).Id ];

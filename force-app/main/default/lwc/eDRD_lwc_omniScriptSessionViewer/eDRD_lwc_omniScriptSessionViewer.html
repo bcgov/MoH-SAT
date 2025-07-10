@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Draft Sessions">
+        <div class="slds-p-horizontal_small">
+
+            <!-- View Mode on left and Refresh button on right -->
+            <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                <lightning-combobox
+                    name="viewMode"
+                    label="List View Type"
+                    value={viewMode}
+                    options={viewOptions}
+                    onchange={handleViewChange}>
+                </lightning-combobox>
+
+                <lightning-button
+                    label="Refresh"
+                    onclick={loadSessions}
+                    icon-name="utility:refresh"
+                    variant="neutral">
+                </lightning-button>
+            </div>
+
+            <!-- Data Table -->
+            <lightning-datatable
+                key-field="Id"
+                data={dataToDisplay}
+                columns={columns}
+                sorted-by={sortedBy}
+                sorted-direction={sortedDirection}
+                onsort={handleSort}
+                onrowaction={handleRowAction}
+                hide-checkbox-column>
+            </lightning-datatable>
+
+            <!-- Pagination Controls Right-Aligned -->
+            <div class="slds-m-top_medium slds-grid slds-grid_align-end">
+                <lightning-button label="Previous" onclick={handlePrevious} disabled={disablePrevious}></lightning-button>
+                <span class="slds-m-horizontal_small">{pageIndicator}</span>
+                <lightning-button label="Next" onclick={handleNext} disabled={disableNext}></lightning-button>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

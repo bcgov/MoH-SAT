@@ -2,7 +2,7 @@
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>New submission Form with eforms</description>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
@@ -2546,10 +2546,10 @@
     &quot;ReqDoseId&quot; : &quot;=\&quot;&amp;c__RequestedNewDosageUnitId=\&quot;+%RequestedNewDosageUnitId%&quot;,
     &quot;MediId&quot; : &quot;=\&quot;&amp;c__MedicationId=\&quot;+%DrugandDosage:SelectADrug%&quot;,
     &quot;IndiId&quot; : &quot;=\&quot;&amp;c__IndicationName=\&quot;+%IndicationName%&quot;,
-    &quot;Over&quot; : &quot;=\&quot;&amp;c__Overridereason=\&quot;+%CaseReason%&quot;,
     &quot;TransplantStatus&quot; : &quot;=IF(%TRANSPLANTSTATUS:TransplantStatusQuestion%, %TRANSPLANTSTATUS:TransplantStatusQuestion%, &apos;no input&apos;)&quot;,
     &quot;MedicationName&quot; : &quot;%DrugandDosage:MedicationName%&quot;,
-    &quot;FormType&quot; : &quot;Initial&quot;
+    &quot;FormType&quot; : &quot;Initial&quot;,
+    &quot;PublicGroupId&quot; : &quot;=\&quot;&amp;c__ProviderPGId=\&quot;+%providerPGId%&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
@@ -2572,7 +2572,7 @@
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;SetValuesForURL&quot;,
   &quot;elementValueMap&quot; : {
-    &quot;Summary&quot; : &quot;=%captureId%+%NewReqDosage%+%NewReqDosageUnts%+%NewReqFreq%+%NewReqFrequnts%+%NewReqFundDur%+%NewReqFundDurUnts%+%CaseTyp%+%IndiName%+%MedName%+%PatAcId%+%contactId%+%providerAccountId%+%caseRecId%+%ReqDoseId%+%Over%+%MediId%+%IndiId%+%NewIndeffund%&quot;
+    &quot;Summary&quot; : &quot;=%captureId%+%NewReqDosage%+%NewReqDosageUnts%+%NewReqFreq%+%NewReqFrequnts%+%NewReqFundDur%+%NewReqFundDurUnts%+%CaseTyp%+%IndiName%+%MedName%+%PatAcId%+%contactId%+%providerAccountId%+%caseRecId%+%ReqDoseId%+%PublicGroupId%+%MediId%+%IndiId%+%NewIndeffund%&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
