@@ -102,7 +102,7 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
             OmniScriptSavedSession newRec = sessionIdVsNewRec.get(sessionId);
             OmniScriptSavedSession oldRec = sessionIdVsOldRec.get(sessionId);
             
-            if (newRec.ResumeUrl != oldRec.ResumeUrl && !String.isBlank(newRec.ResumeUrl)) {
+            if (((newRec.ResumeUrl != oldRec.ResumeUrl) || (newRec.OwnerId != oldRec.OwnerId)) && !String.isBlank(newRec.ResumeUrl)) {
                 updatedSessionIds.add(sessionId);
             }
         }
@@ -116,8 +116,7 @@ public with sharing class OmniScriptSavedSessionTriggerHandler {
         for (OmniScriptSavedSession sessionRec : updatedSessions) {
             if (sessionRec.ResumeUrl != null && sessionRec.ResumeUrl.contains('c__ProviderPGId=')) {
                 String pgId = extractProviderPGId(sessionRec.ResumeUrl);
-                
-                if (String.isNotBlank(pgId) && pgId != 'null' && pgId.startsWith('00G')) {
+                if (pgId != 'null' && pgId.startsWith('00G')) {
                     sessionIdVsPGId.put(sessionRec.Id, pgId);
                 }
             }
