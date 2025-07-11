@@ -20,7 +20,7 @@ public with sharing class EDRD_cls_OmniSavedSessionController {
         Id currentUserId = UserInfo.getUserId();
         Integer offsetSize = (pageNumber - 1) * pageSize;
 
-        String baseQuery = 'SELECT Id, Draft_Name__c, StatusCategory, CreatedDate, LastModifiedDate, CreatedBy.Name, LastModifiedBy.Name, Owner.Name ' +
+        String baseQuery = 'SELECT Id, Draft_Name__c, StatusCategory, CreatedDate, LastModifiedDate, CreatedBy.Name, LastModifiedBy.Name, Owner.FirstName, Owner.LastName ' +
                            'FROM OmniScriptSavedSession WHERE StatusCategory = \'In Progress\'';
         
         if (viewMode == 'MyDrafts') {

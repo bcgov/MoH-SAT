@@ -84,7 +84,7 @@ export default class EDRD_lwc_omniScriptSessionViewer extends LightningElement {
                     ...row,
                     slno: (this.pageNumber - 1) * this.pageSize + index + 1,
                     CreatedByName: row.CreatedBy?.Name,
-                    OwnerName: row.Owner?.Name,
+                    OwnerName: row.Owner?.FirstName + ' ' + row.Owner?.LastName,
                     LastModifiedByName: row.LastModifiedBy?.Name
                 }));
             })
