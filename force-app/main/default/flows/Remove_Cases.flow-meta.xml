@@ -58,11 +58,11 @@
             <assignToReference>CRCtobeDeleted</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>Iterate_Over_CRC_with_Selected_Cases_Current_SA</elementReference>
+                <elementReference>Get_CRC_with_Selected_Cases_Current_SA</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Iterate_Over_CRC_with_Selected_Cases_Current_SA</targetReference>
+            <targetReference>Iterate_Over_Selected_Cases</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -191,11 +191,11 @@
             <leftValueReference>currentItem_Get_CRC_with_Selected_Cases_Current_SA.Related_Case__c</leftValueReference>
             <operator>EqualTo</operator>
             <rightValue>
-                <elementReference>Iterate_Over_Selected_Cases_to_Get_Case_Id.Id</elementReference>
+                <elementReference>Iterate_Over_Selected_Cases.Id</elementReference>
             </rightValue>
         </conditions>
         <connector>
-            <targetReference>Iterate_Over_Selected_Cases_to_Get_Case_Id</targetReference>
+            <targetReference>Get_CRC_to_be_Deleted</targetReference>
         </connector>
     </collectionProcessors>
     <constants>
@@ -404,22 +404,8 @@
         </noMoreValuesConnector>
     </loops>
     <loops>
-        <name>Iterate_Over_CRC_with_Selected_Cases_Current_SA</name>
-        <label>Iterate Over CRC with Selected Cases &amp; Current SA</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <collectionReference>Get_CRC_with_Selected_Cases_Current_SA</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>Get_CRC_to_be_Deleted</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>CRC_with_Selected_Cases_Current_SA_Exists</targetReference>
-        </noMoreValuesConnector>
-    </loops>
-    <loops>
-        <name>Iterate_Over_Selected_Cases_to_Get_Case_Id</name>
-        <label>Iterate Over Selected Cases to Get Case Id</label>
+        <name>Iterate_Over_Selected_Cases</name>
+        <label>Iterate Over Selected Cases</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <collectionReference>Committee_Cases.selectedRows</collectionReference>
@@ -428,7 +414,7 @@
             <targetReference>Get_CRC_with_Selected_Cases_Current_SA</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Iterate_Over_CRC_with_Selected_Cases_Current_SA</targetReference>
+            <targetReference>CRC_with_Selected_Cases_Current_SA_Exists</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -576,7 +562,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Iterate_Over_Selected_Cases_to_Get_Case_Id</targetReference>
+            <targetReference>Iterate_Over_Selected_Cases</targetReference>
         </connector>
         <fields>
             <name>confirmationMsg</name>
