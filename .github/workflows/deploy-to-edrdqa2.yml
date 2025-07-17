@@ -38,7 +38,10 @@ jobs:
       run: sf project deploy start -d force-app/main/default/queues -o SAT-EDRDQA2 -w 15 --ignore-conflicts
 
     - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o SAT-EDRDQA2 -w 15 --ignore-conflicts
+      run: sf project deploy start -d OmniStudio-Components -o SAT-EDRDQA2 -w 30 --ignore-conflicts
+
+    - name: Re-Deploy OmniScripts in OmniStudio Folder
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAT-EDRDQA2 -w 30 --ignore-conflicts
 
     - name: Deploy Source in dev-app-post
       run: sf project deploy start -d dev-app-post -o SAT-EDRDQA2 -w 15 --ignore-conflicts
