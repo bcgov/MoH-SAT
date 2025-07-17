@@ -1,55 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>MedicationRequest$Case__c</field>
+        <field>Case$CaseNumber</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>MedicationRequest$Case__c.EDRD_MOHDrug_Cost_Forecast__c</field>
+        <field>Case.Medication_Dispenses__r$EDRD_Forecasted_Amount__c</field>
     </columns>
     <columns>
-        <field>MedicationRequest$Case__c.Type</field>
+        <field>Case$Type</field>
     </columns>
     <columns>
-        <field>MedicationRequest$Case__c.Status</field>
+        <field>Case$Status</field>
     </columns>
     <columns>
-        <field>MedicationRequest$Case__c.Priority</field>
+        <field>Case$Priority</field>
     </columns>
     <filter>
         <criteriaItems>
-            <column>MedicationRequest$Case__c.RecordType</column>
+            <column>Case$RecordType</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>Case.EDRD</value>
         </criteriaItems>
         <criteriaItems>
-            <column>MedicationRequest$RecordType</column>
+            <column>Case$Status</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>MedicationRequest.EDRD_Medication_Request</value>
+            <value>Funding Approved</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.Medication_Dispenses__r$EDRD_Fiscal_Year__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>contains</operator>
+            <value>FY-2026</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>MedicationRequest$Medication</field>
+        <field>Case$Medication_Name__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>EDRD Cases Classified by Drugs</name>
+    <name>EDRD Financial Projections of Drugs - FY</name>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>Cases_with_Medication_Requests__c</reportType>
+    <reportType>Cases_with_Medication_Dispenses_FY__c</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
-        <dateColumn>MedicationRequest$CreatedDate</dateColumn>
-        <interval>INTERVAL_CURFY</interval>
+        <dateColumn>Case.Medication_Dispenses__r$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
