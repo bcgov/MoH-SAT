@@ -64,6 +64,9 @@ jobs:
     - name: Deploy source default OmniStudio-Components 
       run: sf project deploy start -d OmniStudio-Components -o ciorg -c
 
+    - name: Re-Deploy OmniScripts in OmniStudio Folder
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o ciorg -c
+
     - name: Deploy source default dev-app-post
       run: sf project deploy start -d dev-app-post -o ciorg -c
       # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
