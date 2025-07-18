@@ -15,7 +15,7 @@ public with sharing class EDRD_cls_OmniSavedSessionController {
 * @description: The purpose of this method is to retrieves a paginated and sorted list of "In Progress" OmniScript saved sessions.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */     
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static List<OmniScriptSavedSession> getSessions(Integer pageSize, Integer pageNumber, String sortBy, String sortDirection, String viewMode) {
         Id currentUserId = UserInfo.getUserId();
         Integer offsetSize = (pageNumber - 1) * pageSize;
@@ -41,7 +41,7 @@ public with sharing class EDRD_cls_OmniSavedSessionController {
 * @description: The purpose of this method is to returns the total count of "In Progress" OmniScript saved sessions.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */  
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static Integer getSessionCount(String viewMode){
         Id currentUserId = UserInfo.getUserId();
         String baseQuery = 'SELECT COUNT() FROM OmniScriptSavedSession WHERE StatusCategory = \'In Progress\'';
