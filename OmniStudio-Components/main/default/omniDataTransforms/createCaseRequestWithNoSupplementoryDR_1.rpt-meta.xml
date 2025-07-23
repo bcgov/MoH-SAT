@@ -85,52 +85,75 @@
 }</expectedInputJson>
     <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
     <inputType>JSON</inputType>
+    <isManagedUsingStdDesigner>false</isManagedUsingStdDesigner>
     <name>createCaseRequestWithNoSupplementoryDR</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;New&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
-        <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;New&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
-        <formulaResultPath>CaseOverride</formulaResultPath>
-        <formulaSequence>3.0</formulaSequence>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom3827</globalKey>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem42</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedDosage</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Dosage__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom1757</globalKey>
-        <inputFieldName>PatAccId</inputFieldName>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem16</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:requestedFrequency</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>AccountId</outputFieldName>
+        <outputFieldName>EDRD_MOHApproved_Frequency__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <defaultValue>EDRD_Medication_Request</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem32</globalKey>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem4</globalKey>
+        <inputFieldName>CaseRecTypeId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <lookupByFieldName>DeveloperName</lookupByFieldName>
-        <lookupObjectName>RecordType</lookupObjectName>
-        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom1978</globalKey>
+        <inputFieldName>OtherMedDetail</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
         <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputFieldName>Other_Medication_Detail__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem41</globalKey>
+        <inputFieldName>RequestedNewDosageUnitId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Dosage_Units__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -138,126 +161,42 @@
     <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem31</globalKey>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem15</globalKey>
         <inputFieldName>DrugandDosage:InitialDosageDetail:NewIndefiniteFunding</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem26</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem3</globalKey>
+        <inputFieldName>CaseOverride</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Funding_Duration__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem25</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:IndefiniteFunding</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_Patient_Override_Reason__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem24</globalKey>
-        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalIndicationId</inputFieldName>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom9449</globalKey>
+        <inputFieldName>RenewalCaseOverride</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <defaultValue>Active</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem23</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Status</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem30</globalKey>
-        <inputFieldName>IndicationId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem29</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Frequency__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem28</globalKey>
-        <inputFieldName>DrugandDosage:SelectADrug</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>MedicationId</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem27</globalKey>
-        <inputFieldName>PrescriberId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>RequesterId</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_EMPI_Override_Reason_Renewal__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -277,6 +216,20 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem11</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:requestedFundingDurationUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Funding_Duration_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem43</globalKey>
@@ -287,6 +240,22 @@
         <outputCreationSequence>2.0</outputCreationSequence>
         <outputFieldName>Requested_Funding_Duration_Unit__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem48</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedFieldName>Id</linkedFieldName>
+        <linkedObjectSequence>1.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>LinkedEntityId</outputFieldName>
+        <outputObjectName>ContentDocumentLink</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -308,6 +277,20 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem18</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <defaultValue>Received - Awaiting Verification</defaultValue>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
@@ -322,113 +305,15 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem42</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedDosage</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Dosage__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem4</globalKey>
-        <inputFieldName>CaseRecTypeId</inputFieldName>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem17</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:IndefiniteFunding</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>RecordTypeId</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem41</globalKey>
-        <inputFieldName>RequestedNewDosageUnitId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Dosage_Units__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem3</globalKey>
-        <inputFieldName>CaseOverride</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_Patient_Override_Reason__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem40</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:ApprovedDosage</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Dosage__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <defaultValue>Portal</defaultValue>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem10</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Origin</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem47</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:requestedFrequency</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Requested_Frequency__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem9</globalKey>
-        <inputFieldName>SUMMARY:ProviderId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Provider__c</outputFieldName>
+        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -492,6 +377,392 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem40</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:ApprovedDosage</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Dosage__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom2664</globalKey>
+        <inputFieldName>patientRefNo</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>EDRD_Reference_Number__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Portal</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem10</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Origin</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>var:SUMMARY:SummaryBlock:patientContactId</formulaConverted>
+        <formulaExpression>SUMMARY:SummaryBlock:patientContactId</formulaExpression>
+        <formulaResultPath>AccountContact</formulaResultPath>
+        <formulaSequence>4.0</formulaSequence>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom4285</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem47</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:requestedFrequency</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Frequency__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem9</globalKey>
+        <inputFieldName>SUMMARY:ProviderId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Provider__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem36</globalKey>
+        <inputFieldName>MedicationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>MedicationId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>EDRD_Medication_Request</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem32</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <lookupByFieldName>DeveloperName</lookupByFieldName>
+        <lookupObjectName>RecordType</lookupObjectName>
+        <lookupReturnedFieldName>Id</lookupReturnedFieldName>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>RecordTypeId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem22</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:requestedFundingDuration</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem31</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:NewIndefiniteFunding</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem21</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:ApprovedDosage</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Dosage__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem30</globalKey>
+        <inputFieldName>IndicationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem13</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequencyUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem29</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Frequency__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem50</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>ContentDocumentLink</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem28</globalKey>
+        <inputFieldName>DrugandDosage:SelectADrug</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>MedicationId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem12</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Frequency__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem27</globalKey>
+        <inputFieldName>PrescriberId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>RequesterId</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem49</globalKey>
+        <inputFieldName>UploadAttachment:UploadEligibilityForm:data</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>3.0</outputCreationSequence>
+        <outputFieldName>ContentDocumentId</outputFieldName>
+        <outputObjectName>ContentDocumentLink</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem26</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Requested_Funding_Duration__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem20</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:requestedFrequencyUnits</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem25</globalKey>
+        <inputFieldName>SUMMARY:SummaryBlock:IndefiniteFunding</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>EDRD_Indefinite_Funding__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem19</globalKey>
+        <inputFieldName>RequestedDosageUnitId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Dosage_Unit__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem24</globalKey>
+        <inputFieldName>DRUGANDDOSAGERENEWAL:RenewalIndicationId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Medical_Diagnosis__c</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom2505</globalKey>
+        <inputFieldName>patientRefNo</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_Ref_No__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <defaultValue>Active</defaultValue>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem23</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Status</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem14</globalKey>
+        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedDosage</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EDRD_MOHApproved_Dosage__c</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem44</globalKey>
         <inputFieldName>SUMMARY:SummaryBlock:requestedFundingDurationUnits</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -542,6 +813,74 @@
         <outputCreationSequence>2.0</outputCreationSequence>
         <outputFieldName>Requested_Frequency_Unit__c</outputFieldName>
         <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm + &quot;/\/\/&quot; + CONCAT</formulaConverted>
+        <formulaExpression>CONCAT(DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication +&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage+&quot; &quot;
++ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm+&quot; &quot;)</formulaExpression>
+        <formulaResultPath>OtherMedDetail</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem0</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem37</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>2.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>MedicationRequest</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:SUMMARY:SummaryBlock:CaseType &quot;New&quot; == var:SUMMARY:OverridereasonValue &apos;&apos; IF</formulaConverted>
+        <formulaExpression>IF(%SUMMARY:SummaryBlock:CaseType% == &quot;New&quot;, %SUMMARY:OverridereasonValue%,&apos;&apos;)</formulaExpression>
+        <formulaResultPath>CaseOverride</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom3827</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>createCaseRequestWithNoSupplementoryDRCustom1757</globalKey>
+        <inputFieldName>PatAccId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>createCaseRequestWithNoSupplementoryDR</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AccountId</outputFieldName>
+        <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -606,338 +945,16 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage + &quot;/\/\/&quot; + var:DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm + &quot;/\/\/&quot; + CONCAT</formulaConverted>
-        <formulaExpression>CONCAT(DrugandDosage:PleaseEnterOtherDrugDetails:OtherMedicationName+&quot; &quot;
-+ DrugandDosage:PleaseEnterOtherDrugDetails:OtherIndication +&quot; &quot;
-+ DrugandDosage:PleaseEnterOtherDrugDetails:OtherBrand+&quot; &quot;
-+ DrugandDosage:PleaseEnterOtherDrugDetails:OtherSupplier+&quot; &quot;
-+ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosage+&quot; &quot;
-+ DrugandDosage:PleaseEnterOtherDrugDetails:OtherDosageForm+&quot; &quot;)</formulaExpression>
-        <formulaResultPath>OtherMedDetail</formulaResultPath>
-        <formulaSequence>1.0</formulaSequence>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem0</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem37</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem36</globalKey>
-        <inputFieldName>MedicationId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>MedicationId</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem22</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:requestedFundingDuration</inputFieldName>
+        <globalKey>b1253f2f-bb3e-4b61-a6c5-71c37f571c19</globalKey>
+        <inputFieldName>PrescriberId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>createCaseRequestWithNoSupplementoryDR</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
+        <outputFieldName>Provider_Account__c</outputFieldName>
         <outputObjectName>Case</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem21</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:ApprovedDosage</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Dosage__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem20</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:requestedFrequencyUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem19</globalKey>
-        <inputFieldName>RequestedDosageUnitId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Dosage_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom2505</globalKey>
-        <inputFieldName>patientRefNo</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_Ref_No__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem14</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedDosage</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Dosage__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem13</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequencyUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Frequency_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem50</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>ContentDocumentLink</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem12</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFrequency</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Frequency__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem49</globalKey>
-        <inputFieldName>UploadAttachment:UploadEligibilityForm:data</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>ContentDocumentId</outputFieldName>
-        <outputObjectName>ContentDocumentLink</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem11</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:requestedFundingDurationUnits</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Funding_Duration_Unit__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem48</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedFieldName>Id</linkedFieldName>
-        <linkedObjectSequence>1.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>3.0</outputCreationSequence>
-        <outputFieldName>LinkedEntityId</outputFieldName>
-        <outputObjectName>ContentDocumentLink</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem18</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:RequestedFundingDuration</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Funding_Duration__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem17</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:IndefiniteFunding</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem16</globalKey>
-        <inputFieldName>SUMMARY:SummaryBlock:requestedFrequency</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHApproved_Frequency__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom1978</globalKey>
-        <inputFieldName>OtherMedDetail</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>Other_Medication_Detail__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom0jIAq0000004N4TMAUItem15</globalKey>
-        <inputFieldName>DrugandDosage:InitialDosageDetail:NewIndefiniteFunding</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_MOHIndefinite_Funding__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom9449</globalKey>
-        <inputFieldName>RenewalCaseOverride</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>EDRD_EMPI_Override_Reason_Renewal__c</outputFieldName>
-        <outputObjectName>Case</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom2664</globalKey>
-        <inputFieldName>patientRefNo</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>2.0</outputCreationSequence>
-        <outputFieldName>EDRD_Reference_Number__c</outputFieldName>
-        <outputObjectName>MedicationRequest</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>var:SUMMARY:SummaryBlock:patientContactId</formulaConverted>
-        <formulaExpression>SUMMARY:SummaryBlock:patientContactId</formulaExpression>
-        <formulaResultPath>AccountContact</formulaResultPath>
-        <formulaSequence>4.0</formulaSequence>
-        <globalKey>createCaseRequestWithNoSupplementoryDRCustom4285</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>createCaseRequestWithNoSupplementoryDR</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
+        <transformValuesMappings>{ }</transformValuesMappings>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <outputType>SObject</outputType>
