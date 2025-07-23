@@ -3,13 +3,18 @@
 * @Date:        24 Sept 2024
 * @Description: The purpose of this class is to create methods which can be used by different trigger event
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]   
-                24Sept -  EDRD-911          -  Accenture   -  Added activateACROnEDRDPortalEnable method
-                07Jan -   EDRD-1150         -  Accenture   -  Added handleEDRDPublicGroupMember method
-                07Jan -   EDRD-1150         -  Accenture   -  Added handleGroupsForUsersAsync method
+                24 Sep -  EDRD-911          -  Accenture   -  Added activateACROnEDRDPortalEnable method
+                07 Jan -  EDRD-1150         -  Accenture   -  Added handleEDRDPublicGroupMember method
+                07 Jan -  EDRD-1150         -  Accenture   -  Added handleGroupsForUsersAsync method
                 03 Apr -  EDRD-1450         -  Accenture   -  Adding/Removing - Provider/Reviewer to EDRD Reviewer public groups & Permission set
+                19 May -  EDRD-1216		    -  Accenture   -  Method to update Status of Care Program Enrolee From Inactive to Active
+                30 May -  EDRD-1469		    -  Accenture   -  Method to update EDRD Provider Account field on Case if Provider lookup gets updated.
+                02 Jul -  EDRD-1523		    -  Accenture   -  Method is to create Group MemberShip for Allied Staff Role User based on ACR.
 ***********************************************************************************************/
 public with sharing class UserTriggerHandler {
     public static Id eDRDPrescriberProfileId = [SELECT Id FROM Profile WHERE Name =: ESA_cls_constants.EDRD_PRESCRIBER_COMMUNITY_USER LIMIT 1].Id;
+    public static Id eDRDNurseProfileId = [SELECT Id FROM Profile WHERE Name =: ESA_cls_constants.EDRD_NURSE_COMMUNITY_USER LIMIT 1].Id;
+    public static Id eDRDPharmacistProfileId = [SELECT Id FROM Profile WHERE Name =: ESA_cls_constants.EDRD_PHARMACIST_COMMUNITY_USER LIMIT 1].Id;
     public static Id recordTypeProvider = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_PROVIDER).getRecordTypeId();
     public static Id recordTypeEDRDReviewer = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_COMMITTEE_REVIEWER).getRecordTypeId();
     public static Boolean isAssignPSG = true;
@@ -19,20 +24,20 @@ public with sharing class UserTriggerHandler {
 * @date: 24 Sept 2024
 * @description: The purpose of this method is to activate EDRD related ACR on provider releated to user.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     02 Jul -  EDRD-1522		 -  Deepak      -  post EDRD Provider User Provisioning records to update in future method
 */ 
     public static void activateACROnEDRDPortalEnable(List<User> newUserList){
         try{
             Set<Id> providerIdSet = new Set<Id>();
             Set<Id> accProviderIdSet = new Set<Id>();
-            Set<Id> acrIdsToUpdate = new Set<Id>();
             Map<Id, Contact> contactIdVsContactRec;
-
+            
             for(User userObj: newUserList){
                 if((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled)){
                     providerIdSet.add(userObj.ContactId);
                 }
             }
-
+            
             if(!providerIdSet.isEmpty()){ 
                 contactIdVsContactRec = new Map<Id, Contact>([SELECT Id, AccountId FROM Contact 
                                                               WHERE ID IN: providerIdSet AND 
@@ -41,23 +46,10 @@ public with sharing class UserTriggerHandler {
                     accProviderIdSet.add(conObj.accountId);
                 }
             }
-
+            
             if(!accProviderIdSet.isEmpty()){
-                List<AccountContactRelation> aCRList = [SELECT Id, AccountId, ContactId, Roles, Is_EDRD_Data_Migration__c, IsActive 
-                                                        FROM AccountContactRelation 
-                                                        WHERE AccountID IN: accProviderIdSet AND IsActive = false
-                                                        AND Is_EDRD_Data_Migration__c = true];
-
-                for(AccountContactRelation aCRObj : aCRList){
-                    if(!String.isEmpty(aCRObj.Roles) && aCRObj.Roles.containsIgnoreCase(ESA_cls_constants.EDRD_PHYSICIAN)){
-                        acrIdsToUpdate.add(aCRObj.Id);
-                    }
-                }
-
-                if (!acrIdsToUpdate.isEmpty()) {
-                    // Calling the future method to update ACR records in a separate transaction
-                    UserTriggerHelper.updateACRRecords(acrIdsToUpdate);
-                }
+                // Calling the future method to update ACR records in a separate transaction
+                UserTriggerHelper.postEDRDProviderUserProvisioning(accProviderIdSet);
             } 
         }
         catch(Exception ex){
@@ -174,6 +166,51 @@ public with sharing class UserTriggerHandler {
             if (!permSetAssignToInsert.isEmpty()) {
                 Database.insert(permSetAssignToInsert, true);
             }
+        }
+    }
+    
+/**
+* @author: Deepak
+* @date: 02 Jul 2025
+* @description: The purpose of this method is to create Group MemberShip for Allied Staff Role User based on ACR.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/ 
+    public static void createGMForAlliedStaffRoleACRUsers(List<User> newUserList){
+        Set<Id> providerIdSet = new Set<Id>();
+        Set<Id> accProviderIdSet = new Set<Id>();
+        Set<Id> alliedStaffIdSet = new Set<Id>();
+        Map<Id, Contact> contactIdVsContactRec = new Map<Id, Contact>();
+        Map<Id, Set<Id>> contactIdVsAccountIdSet = new Map<Id, Set<Id>>();
+        
+        for(User userObj: newUserList){
+            if((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled)){
+                providerIdSet.add(userObj.ContactId);
+            } else if((userObj.ProfileId == eDRDPharmacistProfileId || userObj.ProfileId == eDRDNurseProfileId) && userObj.IsPortalEnabled){
+                alliedStaffIdSet.add(userObj.ContactId);
+            }
+        }
+        
+        if(!providerIdSet.isEmpty()){ 
+            List<contact> conList = [SELECT Id, AccountId, EDRD_Provider_Public_GroupId__c FROM Contact 
+                                     WHERE ID IN: providerIdSet AND Account.RecordTypeId =: recordTypeProvider];
+            for(Contact conObj: conList){
+                accProviderIdSet.add(conObj.accountId);
+            }
+        }
+        
+        if(!accProviderIdSet.isEmpty() || !alliedStaffIdSet.isEmpty()){
+            List<AccountContactRelation> aCRList = [SELECT Id, AccountId, ContactId, Roles FROM AccountContactRelation 
+                                                    WHERE (AccountID IN: accProviderIdSet OR ContactId IN: alliedStaffIdSet) AND Roles =: ESA_cls_constants.EDRD_ALLIED_STAFF];
+            for(AccountContactRelation aCRRec : aCRList){
+                if(!contactIdVsAccountIdSet.ContainsKey(aCRRec.contactId) && !String.isEmpty(aCRRec.Roles) && aCRRec.Roles.containsIgnoreCase(ESA_cls_constants.EDRD_ALLIED_STAFF)){
+                    contactIdVsAccountIdSet.put(aCRRec.contactId, new Set<Id>());
+                }
+                contactIdVsAccountIdSet.get(aCRRec.ContactId).add(aCRRec.AccountId);
+            }
+        }
+        
+        if(!contactIdVsAccountIdSet.isEmpty()){
+            AccountContactRelationTriggerHandler.addProvisionedUsersToProviderGroups(contactIdVsAccountIdSet);
         }
     }
 }

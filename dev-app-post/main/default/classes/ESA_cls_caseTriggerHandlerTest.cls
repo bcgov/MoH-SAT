@@ -12,6 +12,9 @@
                 20 Jun-     EDRD-764        -  Accenture   -  Populate EDRD Reference number
                 08 Aug-     EDRD-679        -  Accenture   -  Generate FY forecasting records
                 17 Oct-     EDRD-1010		-  Accenture   -  Update Provider's - EDRD Checkbox On EDRD Case Insert
+                19 Oct-     EDRD-1216		-  Accenture   -  Method to update Status of Care Program Enrolee From Inactive to Active
+                30 May-     EDRD-1469		-  Accenture   -  update EDRD Provider Account field on Case if Provider lookup gets updated
+                19 Jun-     EDRD-1481		-  Accenture   -  Method to to add/Remove the members from Case Team.
 ***********************************************************************************************/
 
 @isTest
@@ -120,6 +123,7 @@ public class ESA_cls_caseTriggerHandlerTest {
 * @description: The purpose of this method is to cover Testcoverage of syncCaseToMR
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
                      08 Apr -     EDRD-1450		 -  Deepak      -  Adding Provider change logic for EDRD Case
+                     25 Jun -     EDRD-1481		  -  Deepak    -  Changing OwnerId of related MedicationRequest & Assessment OnwerId's
 */    
     @isTest
     public static void syncCaseToMR_positive(){
@@ -133,6 +137,15 @@ public class ESA_cls_caseTriggerHandlerTest {
         requestorAccList.add(requestorAcc2);
         insert requestorAccList;
         List<Contact> requestorContacts = [SELECT Id FROM Contact WHERE AccountId IN :requestorAccList];
+        
+        Profile profileObj = [SELECT Id FROM Profile WHERE Name = 'EDRD Prescriber Community User'];
+        List<User> communityUserList = new List<User>();
+        User communityUser = TestFactory.createCommunityUser(requestorContacts[0].Id, profileObj.Id, 'Test1', 'Test');
+        communityUserList.add(communityUser);
+        User communityUser2 = TestFactory.createCommunityUser(requestorContacts[1].Id, profileObj.Id, 'Test2', 'Test');
+        communityUserList.add(communityUser2);
+        insert communityUserList;
+        
         Account patientAcc = TestFactory.newPatient('Patient Test');
         insert patientAcc;
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
@@ -143,6 +156,8 @@ public class ESA_cls_caseTriggerHandlerTest {
         insert MediRecList;
         List<MedicationRequest> MedicationRequestList = TestFactory.createMedicationRequest(1, MediRecList.get(0).Id, caseMRList.get(0).Id, requestorAcc.Id, patientAcc.Id); 
         insert MedicationRequestList;
+        Assessment assessmentRecord = TestFactory.createEDRDAssessment(caseMRList[0].Id);
+        insert assessmentRecord;
         try{
             Test.startTest();
             Case CaseList = [SELECT Id, Status, Priority, Type from Case Where id =:caseMRList.get(0).Id ];
@@ -349,7 +364,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         casesList.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
         casesList.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
         casesList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
-        casesList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        casesList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(Date.today().year()+1, 1, 1);
         insert casesList;
         List<Medication> drugList = TestFactory.createMedication(1, 'Test Medication');
         insert drugList;
@@ -403,7 +418,7 @@ public class ESA_cls_caseTriggerHandlerTest {
         caseRec.get(0).EDRD_MOHApproved_Frequency_Unit__c = 'Weekly';
         caseRec.get(0).EDRD_MOHApproved_Funding_Duration__c = 6;
         caseRec.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Months';
-        caseRec.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        caseRec.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(Date.today().year()+1, 1, 1);
         insert caseRec;
         List<Medication> medList = TestFactory.createMedication(1, 'Test Medication');
         insert medList;
@@ -427,7 +442,7 @@ public class ESA_cls_caseTriggerHandlerTest {
                 
         Test.startTest();
         ESA_cls_caseTriggerHandler.FYOnce = true;
-        caseRec.get(0).EDRD_MOHFunding_Expiry_Date__c = Date.newInstance(2029, 12, 31);
+        caseRec.get(0).EDRD_MOHFunding_Expiry_Date__c = Date.newInstance(Date.today().year() + 6, 12, 31);
         update caseRec.get(0);
         Test.stopTest();
         
@@ -459,5 +474,74 @@ public class ESA_cls_caseTriggerHandlerTest {
         List<Account> providerRecords = [SELECT Id, Is_EDRD_Provider__pc FROM Account WHERE Id =: providerAccount.Id];
         Assert.areEqual(TRUE, providerRecords.get(0).Is_EDRD_Provider__pc, 'Is EDRD Provider Field should be True');
         Assert.areNotEqual(FALSE, providerRecords.get(0).Is_EDRD_Provider__pc, 'Is EDRD Provider Field cannot be False');    
+    }
+    
+/**
+* @author: Deepak
+* @date: 30 May 2025
+* @description: The purpose of this method is to cover Testcoverage of delete updateCareProgramEnrolee
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    @isTest
+    public static void updateCareProgramEnroleeTest(){
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        Account reqstAcc = TestFactory.newProvider('Provider Test');
+        insert reqstAcc;
+        Id reqstConId = [SELECT Id FROM Contact Where AccountId =: reqstAcc.Id].Id;
+        Account patntAcc = TestFactory.newPatient('Patient Test');
+        insert patntAcc;        
+        List<Case> caseRecList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, patntAcc.Id);
+        caseRecList[0].Provider__c = reqstConId;
+        
+        careProgram careProgramRec = TestFactory.createCareProgram('EDRD');
+        insert careProgramRec;
+        CareProgramEnrollee CareProgramEnrolleeRec = TestFactory.createCareProgramEnrollee('TEST', patntAcc.Id, careProgramRec.Id);
+        insert CareProgramEnrolleeRec;
+        List<CareProgramEnrollee> cPEUpdateList = [SELECT Id, Name, status FROM CareProgramEnrollee WHERE Id =: CareProgramEnrolleeRec.Id LIMIT 1];
+        cPEUpdateList[0].Status = 'Inactive';
+        cPEUpdateList[0].Inactive_Reason__c = 'Other';
+        Update cPEUpdateList;
+        
+        Test.startTest();
+        insert caseRecList;
+        Test.stopTest();
+        
+        List<CareProgramEnrollee> cPEList = [SELECT Id, Name, status FROM CareProgramEnrollee WHERE Id =: CareProgramEnrolleeRec.Id];          
+        Assert.areEqual(cPEList.get(0).status, 'Active', 'Status Should matched');
+        Assert.areNotEqual(cPEList.get(0).status, 'Inactive', 'Status Should not be In-active');
+    }
+    
+/**
+* @author: Deepak
+* @date: 30 May 2025
+* @description: The purpose of this method is to cover Testcoverage of delete updateProviderAcc
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    @isTest
+    public static void updateProviderAccTest(){
+        Account reqstAcc = TestFactory.newProvider('Provider Test');
+        reqstAcc.Provider_Type__pc = 'Provider';
+        insert reqstAcc;
+        Account providerAcc = TestFactory.newProvider('Provider1 Test');
+        providerAcc.Provider_Type__pc = 'Provider';
+        providerAcc.Provider_Identifier__pc = '111222337';
+        insert providerAcc;
+        Account patntAcc = TestFactory.newPatient('Patient Test');
+        insert patntAcc;        
+        Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
+        List<Case> caseRecList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, reqstAcc.Id);
+        caseRecList.get(0).Provider_Account__c = reqstAcc.Id;
+        insert caseRecList;
+        
+        Id providerConId = [SELECT Id FROM Contact Where AccountId =: providerAcc.Id].Id;
+        caseRecList[0].Provider__c = providerConId;
+        
+        Test.startTest();
+        Update caseRecList;
+        Test.stopTest();
+        
+        List<Case> caseList = [SELECT Id, Provider__c, Provider_Account__c FROM Case WHERE Id =: caseRecList[0].Id];
+        Assert.areEqual(caseList.get(0).Provider_Account__c, providerAcc.Id, 'provider Account Should update');
+        Assert.areNotEqual(caseList.get(0).Provider_Account__c, reqstAcc.Id, 'provider Account Should not be same');
     }
 }

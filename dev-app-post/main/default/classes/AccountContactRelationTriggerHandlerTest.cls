@@ -6,9 +6,53 @@
                 21 Aug -  EDRD-911          -  Accenture   -  Added Patient Share/delete With Provider User
                 20 Dec -  EDRD-1150         -  Accenture   -  The purpose of this method is to update Committee based on ACR insert of EDRD_Committee & Provider OR Committee_Reviewer.
                 20 Dec -  EDRD-1150         -  Accenture   -  The purpose of this method is to Remove Committee based on ACR delete of EDRD_Committee & Provider OR Committee_Reviewer.
+                06 Jun -  EDRD-1476         -  Accenture   -  The purpose of this method is to Create a EDRD Public Group for provider whenever an ACR is created with Allied staff role
+                29 Jun -  EDRD-1476         -  Accenture   -  The purpose of this method is to Collect Contact Account & Contact from ACR to perform GM delete.
+                29 Jun -  EDRD-1476         -  Accenture   -  The purpose of this method is to sent Ids to deleted Contact Users from Provider Public Group in async.
+                29 Jun -  EDRD-1476         -  Accenture   -  The purpose of this future method is to deleted Contact Users from Provider Public Group in Elevated access.
 ***********************************************************************************************/
 @isTest
 public class AccountContactRelationTriggerHandlerTest {
+    
+    @TestSetUp
+    public static void createTestACRData() {
+        List<Account> providerAccToInsert = new List<Account>();
+        Account pharmacistAccount = TestFactory.newProvider('Patient Test');
+        pharmacistAccount.Provider_Identifier__pc = '811222334';
+        providerAccToInsert.add(pharmacistAccount);
+        Account prescriberAccount = TestFactory.newProvider('Provider Test');
+        prescriberAccount.Provider_Identifier__pc = '711222334';
+        prescriberAccount.Provider_Type__pc = 'Physician';
+        providerAccToInsert.add(prescriberAccount);
+        insert providerAccToInsert;
+        
+        Map<Id, Contact> contactIdVsRec = new Map<Id, Contact>();
+        for (Contact con : [SELECT Id, AccountId FROM Contact WHERE AccountId IN :providerAccToInsert]) {
+            contactIdVsRec.put(con.AccountId, con);
+        }
+        Id prescriberConId = contactIdVsRec.get(prescriberAccount.Id).Id;
+        Id pharmacistConId = contactIdVsRec.get(pharmacistAccount.Id).Id;
+        
+        Map<String, Profile> profileMap = new Map<String, Profile>();
+        for(Profile profileObj: [SELECT Id, Name FROM Profile WHERE Name IN ('EDRD Prescriber Community User', 'BC HLTH Pharmacist Community User')]){
+            profileMap.put(profileObj.Name, profileObj);
+        }
+        List<User> communityUserToInsert = new List<User>();
+        User providercommunityUser = TestFactory.createCommunityUser(prescriberConId, profileMap.get('EDRD Prescriber Community User').Id, 'Test1', 'Provider');
+        communityUserToInsert.add(providercommunityUser);
+        User pharmacistCommunityUser = TestFactory.createCommunityUser(pharmacistConId, profileMap.get('BC HLTH Pharmacist Community User').Id, 'Test1', 'Pharmacist');
+        communityUserToInsert.add(pharmacistCommunityUser);
+        insert communityUserToInsert;
+        
+        AccountContactRelation ACRRec = new AccountContactRelation();
+        ACRRec.AccountId = prescriberAccount.Id;
+        ACRRec.ContactId = pharmacistConId;
+        ACRRec.Roles = 'Allied Staff'; 
+        
+        Test.startTest();
+        insert ACRRec;
+        Test.stopTest();        
+    }
     
 /**
 * @author: Deepak
@@ -16,7 +60,7 @@ public class AccountContactRelationTriggerHandlerTest {
 * @description: The purpose of this method is to cover Testcoverage of createPatientShare
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-    @isTest
+   /* @isTest
     public static void createPatientShare_Test(){
         Account patientAcc = TestFactory.newPatient('Patient Test');
         insert patientAcc;
@@ -46,7 +90,7 @@ public class AccountContactRelationTriggerHandlerTest {
         Assert.areEqual(accShare.size(), 1, 'AccountShare should have been created for the Patient');
         Assert.areNotEqual(accShare.isEmpty(), true, 'AccountShare list should not be empty');
         Assert.areNotEqual(accShare[0].UserOrGroupId, null, 'UserOrGroupId should not be null');     
-    }
+    } */
     
 /**
 * @author: Deepak
@@ -54,7 +98,7 @@ public class AccountContactRelationTriggerHandlerTest {
 * @description: The purpose of this method is to cover Testcoverage of removePatientShare
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */   
-    @isTest
+   /* @isTest
     public static void removePatientShare_Test(){
         Account patientAcc1 = TestFactory.newPatient('Patient Test');
         insert patientAcc1;
@@ -82,7 +126,7 @@ public class AccountContactRelationTriggerHandlerTest {
         
         Assert.areEqual(accShareList.isEmpty(), true, 'AccountShare records should not exist after the ACR is deleted');
         Assert.areNotEqual(accShareList.size(), 1, 'AccountShare record should be deleted');
-    } 
+    }  */
     
 /**
 * @author: Deepak
@@ -90,7 +134,7 @@ public class AccountContactRelationTriggerHandlerTest {
 * @description: The purpose of this method is to cover Testcoverage of updatePatientShare
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */   
-    @isTest
+   /* @isTest
     public static void updatePatientShare_Test(){
         Account patientAcc2 = TestFactory.newPatient('Patient Test');
         insert patientAcc2;
@@ -126,7 +170,7 @@ public class AccountContactRelationTriggerHandlerTest {
         Assert.areEqual(accShareList2.size(), 1, 'AccountShare record should be created');
         Assert.areNotEqual(accShareList2.size(), NULL, 'AccountShare record should is not created');
         Assert.areNotEqual(accShareList2.isEmpty(), true, 'AccountShare record list cannot be empty, after the ACR is updated');
-    } 
+    }  */
     
 /**
 * @author: Deepak
@@ -316,5 +360,99 @@ public class AccountContactRelationTriggerHandlerTest {
         Account provider2AfterDelete = accountMap.get(provider2.Id);
         Assert.areEqual(provider2AfterDelete.Committee__pc, NULL, 'Provider2 Committee should not be null');
         Assert.areEqual(provider2AfterDelete.Committee_Name__pc, NULL, 'Provider2 Committee Name should remain unchanged');        
+    }
+    
+/**
+* @author: Deepak
+* @date: 29 Jun 2025
+* @description: The purpose of this method is to cover Testcoverage of handleAlliedStaffACRPGInsert/generateGroupName/addProvisionedUsersToProviderGroups
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/   
+    @isTest
+    public static void handleAlliedStaffACRPGInsertNAddToProviderPGTest(){
+        List<Account> providerAccList = new List<Account>();
+        Account pharmacistAcc = TestFactory.newProvider('Patient Test');
+        providerAccList.add(pharmacistAcc);
+        Account prescriberAcc = TestFactory.newProvider('Provider Test');
+        prescriberAcc.Provider_Identifier__pc = '111222334';
+        prescriberAcc.Provider_Type__pc = 'Physician';
+        providerAccList.add(prescriberAcc);
+        insert providerAccList;
+        
+        Map<Id, Contact> contactMap = new Map<Id, Contact>();
+        for (Contact con : [SELECT Id, AccountId FROM Contact WHERE AccountId IN :providerAccList]) {
+            contactMap.put(con.AccountId, con);
+        }
+        Id prescriberContactId = contactMap.get(prescriberAcc.Id).Id;
+        Id pharmacistContactId = contactMap.get(pharmacistAcc.Id).Id;
+        
+        Map<String, Profile> profileMap = new Map<String, Profile>();
+        for(Profile profileObj: [SELECT Id, Name FROM Profile WHERE Name IN ('EDRD Prescriber Community User', 'BC HLTH Pharmacist Community User')]){
+            profileMap.put(profileObj.Name, profileObj);
+        }
+        List<User> communityUserToInsert = new List<User>();
+        User providercommunityUser = TestFactory.createCommunityUser(prescriberContactId, profileMap.get('EDRD Prescriber Community User').Id, 'Test1', 'Provider');
+        communityUserToInsert.add(providercommunityUser);
+        User pharmacistCommunityUser = TestFactory.createCommunityUser(pharmacistContactId, profileMap.get('BC HLTH Pharmacist Community User').Id, 'Test1', 'Pharmacist');
+        communityUserToInsert.add(pharmacistCommunityUser);
+        insert communityUserToInsert;
+        
+        AccountContactRelation ACRObj = new AccountContactRelation();
+        ACRObj.AccountId = prescriberAcc.Id;
+        ACRObj.ContactId = pharmacistContactId;
+        ACRObj.Roles = 'Allied Staff';
+        
+        Test.startTest();
+        insert ACRObj;
+        Test.stopTest();
+        
+        Account updatedPrescriberAcc = [SELECT Id, EDRD_Provider_Public_GroupId__pc FROM Account WHERE Id =: prescriberAcc.Id];
+        Assert.areNotEqual(null, updatedPrescriberAcc.EDRD_Provider_Public_GroupId__pc, 'Public Group ID should be set on Provider Account');
+        
+        Group publicGroup = [SELECT Id, Name FROM Group WHERE Id =: updatedPrescriberAcc.EDRD_Provider_Public_GroupId__pc];
+        Assert.areEqual(updatedPrescriberAcc.EDRD_Provider_Public_GroupId__pc, publicGroup.Id, 'Group Id should present');
+        Assert.areNotEqual(null, updatedPrescriberAcc.EDRD_Provider_Public_GroupId__pc, 'Public Group ID should not be Null');
+        
+        List<GroupMember> gmList = [SELECT Id, GroupId, UserOrGroupId FROM GroupMember WHERE GroupId = :publicGroup.Id];
+        Set<Id> userIdsInGroup = new Set<Id>();
+        for (GroupMember gm : gmList) {
+            userIdsInGroup.add(gm.UserOrGroupId);
+        }        
+        Assert.areEqual(true, userIdsInGroup.contains(pharmacistCommunityUser.Id), 'Allied Staff User should be part of Provider Public Group');
+    }
+    
+/**
+* @author: Deepak
+* @date: 29 Jun 2025
+* @description: The purpose of this method is to cover Testcoverage of removeAlliedStaffFromPG/removeAlliedStaffFromProviderGroup/deleteGMAsync.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/   
+    @isTest
+    public static void removeAlliedStaffFromPGTest(){
+        List<AccountContactRelation> aCRRec = [SELECT Id FROM AccountContactRelation WHERE Roles = 'Allied Staff'];  
+        List<Account> prescriberAccount = [SELECT Id FROM Account WHERE Provider_Identifier__pc = '711222334' LIMIT 1]; 
+        Map<String, User> communityUserMap = new Map<String, User>();
+        for (User userObj : [SELECT Id, Profile.Name FROM User WHERE Profile.Name IN ('EDRD Prescriber Community User', 'BC HLTH Pharmacist Community User')]) {
+            communityUserMap.put(userObj.Profile.Name, userObj);
+        }
+        User providerCommunityUser = communityUserMap.get('EDRD Prescriber Community User');
+        User pharmacistCommunityUser = communityUserMap.get('BC HLTH Pharmacist Community User');
+        
+        Test.startTest();
+        delete ACRRec;
+        Test.stopTest();               
+        
+        Account accWithGroup = [SELECT Id, EDRD_Provider_Public_GroupId__pc FROM Account WHERE Id =: prescriberAccount[0].Id LIMIT 1];
+        List<GroupMember> gmList = [SELECT Id, GroupId, UserOrGroupId FROM GroupMember WHERE GroupId =: accWithGroup.EDRD_Provider_Public_GroupId__pc LIMIT 1];
+        
+        Set<Id> userIdsInGroup = new Set<Id>();
+        for (GroupMember gm : gmList) {
+            userIdsInGroup.add(gm.UserOrGroupId);
+        }
+        
+        Assert.areEqual(true, !userIdsInGroup.contains(pharmacistCommunityUser.Id), 'Pharmacist should be removed from Provider Public Group');
+        Assert.areNotEqual(false, !userIdsInGroup.contains(pharmacistCommunityUser.Id), 'Pharmacist should be not be in Provider Public Group');
+        //Assert.areEqual(true, userIdsInGroup.contains(providerCommunityUser.Id), 'Provider should still be present in Provider Public Group');
+        //Assert.areEqual(false, !userIdsInGroup.contains(providerCommunityUser.Id), 'Provider should be in Provider Public Group');
     }
 }

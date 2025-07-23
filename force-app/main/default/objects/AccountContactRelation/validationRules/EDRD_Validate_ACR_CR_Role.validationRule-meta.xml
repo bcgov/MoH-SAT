@@ -5,12 +5,18 @@
     <description>Prevents EDRD users from creating a Committee-Reviewer relationship with the role &quot;Physician&quot; when specific Account and Contact record types are used.</description>
     <errorConditionFormula>AND(
     CONTAINS($UserRole.Name, &quot;EDRD&quot;),
-    Account.RecordType.DeveloperName = &apos;EDRD_Committee&apos;,
+    Account.RecordType.DeveloperName = &quot;EDRD_Committee&quot;,    
     OR(
-        Contact.Account.RecordType.DeveloperName = &apos;Provider&apos;,
-        Contact.Account.RecordType.DeveloperName = &apos;Committee_Reviewer&apos;
+        Contact.Account.RecordType.DeveloperName = &quot;Provider&quot;,
+        Contact.Account.RecordType.DeveloperName = &quot;Committee_Reviewer&quot;
     ),
-    INCLUDES(Roles, &apos;Physician&apos;)
+    NOT(
+        OR(
+            INCLUDES(Roles, &quot;Reviewer&quot;),
+            INCLUDES(Roles, &quot;Chair&quot;),
+            INCLUDES(Roles, &quot;Vice Chair&quot;)
+        )
+    )
 )</errorConditionFormula>
-    <errorMessage>An EDRD user cannot create a Committee-Reviewer relationship with the role as Physician.</errorMessage>
+    <errorMessage>An EDRD users cannot create a Committee-Reviewer relationship with any role other than &apos;Reviewer&apos;, &apos;Chair&apos;, or &apos;Vice Chair&apos;.</errorMessage>
 </ValidationRule>
