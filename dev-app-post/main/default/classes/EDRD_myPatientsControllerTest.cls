@@ -33,6 +33,7 @@ public class EDRD_myPatientsControllerTest {
             AccountContactRelation accountContact = new AccountContactRelation(
                 AccountId=provider.Id,
                 ContactId =patientContactId,
+                Roles = 'Physician',
                 IsActive = true);
             insert accountContact;
             PermissionSet ps = [SELECT Id FROM PermissionSet WHERE Name = 'EDRD_PS_Physicians'];
