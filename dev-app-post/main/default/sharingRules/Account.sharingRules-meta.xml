@@ -39,6 +39,26 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>EDRD_Share_Committees_With_Reviewers</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>None</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>To share Account-Committee Record Type with Reviwers</description>
+        <label>EDRD_Share_Committees_With_Reviewers</label>
+        <sharedTo>
+            <group>EDRD_Reviewer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD Committee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>EDRD_Share_Patients_With_Nurses</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
