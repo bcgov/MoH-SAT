@@ -122,7 +122,7 @@ Date : 19/Feb/2025
         outputMap.put('ErrorMessage',wrapper.ErrorMessage);      
         return ;
     }
-    private EDRD_PharmanetWrapper.OutputWrapper getDataFromIntLog(EDRD_PharmanetWrapper.InputWrapper inputWrapper){
+    public EDRD_PharmanetWrapper.OutputWrapper getDataFromIntLog(EDRD_PharmanetWrapper.InputWrapper inputWrapper){
      	EDRD_PharmanetWrapper.OutputWrapper wrapper = new EDRD_PharmanetWrapper.OutputWrapper();
         datetime start = System.Now();
         while(System.Now() < start.addSeconds(5)){}
