@@ -560,9 +560,11 @@ public with sharing class TestFactory {
     }
     
     public static Assessment createEDRDAssessment(Id CaseId){
+        Id AssessmentRecordTypeId = Schema.SObjectType.Assessment.getRecordTypeInfosByDeveloperName().get('EDRD_Assessment').getRecordTypeId();
         Assessment assessmentObj = new Assessment();
         assessmentObj.Name = 'Assessment Test';
         assessmentObj.AssessmentStatus = 'Completed';
+        assessmentObj.RecordTypeId = AssessmentRecordTypeId;
         assessmentObj.caseId = CaseId;
         return assessmentObj;
     }
@@ -579,5 +581,18 @@ public with sharing class TestFactory {
         serviceAppRec.DueDate = endDateTime;
         serviceAppRec.RecordTypeId = recordTypeServiceAppointmentEDRD;        
         return serviceAppRec;
+    }
+    
+    public static List<OmniScriptSavedSession> createOmniScriptSavedSessions(Integer noOfSessions) {
+        OmniProcess omniScript = new OmniProcess(Name = 'Test OS', Type = 'Test', Subtype = 'OS', Language = 'English');
+        insert omniScript;
+        
+        List<OmniScriptSavedSession> sessionList = new List<OmniScriptSavedSession>();
+        
+        for (Integer i = 1; i <= noOfSessions; i++) {
+            OmniScriptSavedSession session = new OmniScriptSavedSession(Name = 'Session ' + i, OmniScriptId = omniScript.Id, StatusCategory = 'In Progress');
+            sessionList.add(session);
+        }
+        return sessionList;
     }
 }

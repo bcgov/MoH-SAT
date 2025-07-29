@@ -30,26 +30,48 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_CareProgram_ShareDevReadWithEDRDPhysicians</fullName>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_CP_withNurse</fullName>
         <accessLevel>Read</accessLevel>
-        <label>EDRD_CareProgram_ShareReadWithEDRDPhysicians</label>
+        <label>EDRD_Share_CP_withNurse</label>
+        <sharedTo>
+            <group>EDRD_Nurses</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_CP_withPharmacist</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Sharing The CP with Pharmacist for EDRD</description>
+        <label>EDRD Share CP withPharmacist</label>
+        <sharedTo>
+            <group>EDRD_Pharmacists</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_CP_withPhysicians</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share CP Records with Physician (Portal Users)</description>
+        <label>EDRD Share CP withPhysicians</label>
         <sharedTo>
             <group>EDRD_Physicians</group>
         </sharedTo>
-        <sharedFrom>
-            <role>Developer</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>EDRD_CareProgram_ShareReadWithEDRDPhysicians</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>EDRD_CareProgram_ShareReadWithEDRDPhysicians</label>
-        <sharedTo>
-            <group>EDRD_Physicians</group>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinatesInternal>EDRD_Admin</roleAndSubordinatesInternal>
-        </sharedFrom>
-    </sharingOwnerRules>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>contains</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>
