@@ -26,7 +26,18 @@ public with sharing class ESA_cls_caseTriggerHandler {
     public static Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
     public static Decimal costPerDose = 0;
     public static Map<Id, Decimal> caseIdVsCostPerDose = new Map<Id, Decimal>();
-    public static Id edrdCaseTeamRoleId = [SELECT Id FROM CaseTeamRole WHERE Name = 'EDRD_Physician' LIMIT 1].Id;
+    public static Id edrdCaseTeamRoleId;
+    static {
+        try {
+            List<CaseTeamRole> roles = [SELECT Id FROM CaseTeamRole WHERE Name = 'EDRD_Physician' LIMIT 1];
+            if (!roles.isEmpty()) {
+                edrdCaseTeamRoleId = roles[0].Id;
+            }
+        } catch (Exception e) {
+            edrdCaseTeamRoleId = null;
+            System.debug('edrdCaseTeamRoleId is null');
+        }
+    }
 /**
 * @author: Deepak
 * @date: 23 Feb 2023
