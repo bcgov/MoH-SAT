@@ -198,9 +198,9 @@
                 <visibilityRule>
                     <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <leftValue>{!$Permission.CustomPermission.EDRD_CP_Operation_Support}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>Developer</rightValue>
+                        <rightValue>true</rightValue>
                     </criteria>
                     <criteria>
                         <leftValue>{!$Permission.CustomPermission.EDRD_SuperUser}</leftValue>
