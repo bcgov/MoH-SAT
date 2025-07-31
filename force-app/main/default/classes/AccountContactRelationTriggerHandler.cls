@@ -273,7 +273,7 @@ public with sharing class AccountContactRelationTriggerHandler {
         List<AccountContactRelation> acrList = [SELECT Id, AccountId, ContactId, Roles FROM AccountContactRelation WHERE Id IN: acrIds];
         
         for (AccountContactRelation aCR : acrList) {
-            if (!String.IsEmpty(aCR.Roles) && aCR.Roles.containsIgnoreCase(ESA_cls_constants.EDRD_ALLIED_STAFF)) {
+            if (!String.IsEmpty(aCR.Roles) && ESA_cls_constants.EDRD_ALLIED_STAFF.containsIgnoreCase(aCR.Roles)) {
                 providerAccountIds.add(aCR.AccountId);
                 alliedStaffContactIds.add(aCR.contactId);
                 if(!contactIdVsAccountIdSet.ContainsKey(aCR.contactId)){
