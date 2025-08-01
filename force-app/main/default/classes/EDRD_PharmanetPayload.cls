@@ -163,7 +163,7 @@ Date : 19/Feb/2025
         saaRequest.saRecord.saRequester.practId = inputWrapper.practId;
         saaRequest.saRecord.saRequester.practIdRef = String.ValueOf(inputWrapper.practIdRef);
         DateTime effectiveDate = inputWrapper.effectiveDate;
-        String effectiveDateOnly = String.ValueOf(effectiveDate.Date());
+        String effectiveDateOnly = String.ValueOf(effectiveDate.dateGmt());
         saaRequest.saRecord.effectiveDate =  effectiveDateOnly;
         saaRequest.saRecord.maxDaysSupply = Integer.valueof(inputWrapper.maxDaysSupply);
         saaRequest.saRecord.maxPricePct = inputWrapper.maxPricePct;
