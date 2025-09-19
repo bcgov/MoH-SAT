@@ -2,13 +2,16 @@
 ## Integrate Scratch Org with External Systems. 
 _Integrate your scratch org with test instances of ODR, EMPI, EMPI_EDRD, ODR_EDRD or Filescan Connect Web Service._
 ### Install the needed certificates:
-- Download [moh_dev_certs.jks](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1597).
+- Download moh_dev_certs.jks from [SAT Developer Home](https://proactionca.ent.cgi.com/confluence/pages/viewpage.action?pageId=132851398).
 - Go to Setup > Identity > Certificate and Key Management > Create a self-signed certificate `dev_cert` from Key 4096 and save.
 - Go to Setup > Identity > Identity Provider > Enable. Choose `dev_cert` and save.
 - Go to Setup > Certificate and Key Management > and click "Import from Keystore" 
-- Upload the jks file. Enter "JKS Password" listed in [moh-dev-certs.txt](https://hlth.sp.gov.bc.ca/sites/HLTHSP/HSIMT/SP/SAT/_layouts/15/DocIdRedir.aspx?ID=F2RWFFZUCM2Q-797944229-1598)
+- Upload the jks file. Enter "JKS Password" listed in moh-dev-certs.txt on [SAT Developer Home](https://proactionca.ent.cgi.com/confluence/pages/viewpage.action?pageId=132851398).
 ### Create the needed Named Credentials
 _The names of these Named Credentials are CASE SENSITIVE as they are api names that are referenced in code. Please match this carefullly, especially for EMPI as the Label and Name do not match._
+
+The most recent versions of the files for SAT Certificates can be found at this location:
+[SAT Developer Home](https://proactionca.ent.cgi.com/confluence/pages/viewpage.action?pageId=132851398).
 
 Go to Setup > Named Credentials.
 
