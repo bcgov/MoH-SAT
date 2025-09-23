@@ -3,10 +3,10 @@
     <fullName>Case_Funding_Expiry_Date__c</fullName>
     <formula>IF(
   ISPICKVAL(Related_Case__r.EDRD_MOHFunding_Decision__c, &quot;Approved&quot;),
-  Related_Case__r.EDRD_MOHFunding_Start_Date__c,
+  Related_Case__r.EDRD_MOHFunding_Expiry_Date__c,
   IF(
     ISPICKVAL(Related_Case__r.EDRD_MOHFunding_Decision__c, &quot;Extended&quot;),
-    Related_Case__r.EDRD_MOHFunding_Expiry_Date__c,
+    Related_Case__r.EDRD_MOHFunding_Extension_Date__c,
     NULL
   )
 )</formula>
