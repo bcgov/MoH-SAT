@@ -78,4 +78,64 @@ private class EDRD_PharmanetPayloadTest {
         saaRequest.clientName = 'Test saaREq';        
         payload.saaRequestAPICallout(inputWrapper);
     }
+    // Test method for Log
+    private static Integration_Log__c createLog(String message, Integer code, Id caseId) {
+        Integration_Log__c log = new Integration_Log__c(
+            Message__c = message,
+            Code__c = code,
+            SA_Request__c = caseId
+        );
+        insert log;
+        return log;
+    }
+    
+    @isTest
+    static void testGetDataFromIntLog_Success200() {
+        // Create a dummy case
+        Case testCase = new Case(Subject = 'Test Case');
+        insert testCase;
+
+        // Create Integration_Log__c with success message/code
+        createLog('Success', 200, testCase.Id);
+
+        // Build InputWrapper
+        EDRD_PharmanetWrapper.InputWrapper input = new EDRD_PharmanetWrapper.InputWrapper();
+        input.caseId = testCase.Id;
+
+        // Call the testable method
+        Test.startTest();
+        EDRD_PharmanetPayload payload = new EDRD_PharmanetPayload();
+        EDRD_PharmanetWrapper.OutputWrapper output = payload.getDataFromIntLog(input);
+        Test.stopTest();
+
+        // Validate
+        System.assertEquals(true, output.isSubmitSuccessful);
+        System.assertEquals(true, output.isPharmaNetSubmitSuccessfull);
+        System.assertEquals('Success', output.ErrorMessage);
+    }
+    
+    @isTest
+    static void testGetDataFromIntLog_Failure() {
+        // Create a dummy case
+        Case testCase = new Case(Subject = 'Test Case');
+        insert testCase;
+
+        // Create Integration_Log__c with failure message/code
+        createLog('Failed to submit', 400, testCase.Id);
+
+        // Build InputWrapper
+        EDRD_PharmanetWrapper.InputWrapper input = new EDRD_PharmanetWrapper.InputWrapper();
+        input.caseId = testCase.Id;
+
+        // Call the testable method
+        Test.startTest();
+        EDRD_PharmanetPayload payload = new EDRD_PharmanetPayload();
+        EDRD_PharmanetWrapper.OutputWrapper output = payload.getDataFromIntLog(input);
+        Test.stopTest();
+
+        // Validate
+        System.assertEquals(false, output.isSubmitSuccessful);
+        System.assertEquals(false, output.isPharmaNetSubmitSuccessfull);
+        System.assertEquals('Failed to submit', output.ErrorMessage);
+    }
 }

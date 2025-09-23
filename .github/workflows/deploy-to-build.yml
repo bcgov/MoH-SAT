@@ -41,7 +41,10 @@ jobs:
       run: sf project deploy start -d force-app/main/default/queues -o SAT-BUILD -w 15 
 
     - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o SAT-BUILD -w 15 
+      run: sf project deploy start -d OmniStudio-Components -o SAT-BUILD -w 30 
+
+    - name: Re-Deploy OmniScripts in OmniStudio Folder
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAT-BUILD -w 30 
 
     - name: Deploy Source in dev-app-post
       run: sf project deploy start -d dev-app-post -o SAT-BUILD -w 15 

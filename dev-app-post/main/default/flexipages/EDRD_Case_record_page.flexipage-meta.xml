@@ -7,13 +7,13 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
-                            <value>ChangeOwnerOne</value>
-                        </valueListItems>
-                        <valueListItems>
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Delete</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Case.Transfer_Case</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -513,6 +513,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Prescriber_Identifier_Template__c</fieldItem>
                 <identifier>RecordPrescriber_Identifier_Template_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Submitter__c</fieldItem>
+                <identifier>RecordSubmitter_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-aeebc913-93f0-493c-98db-dea153118824</name>
@@ -1552,13 +1562,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection4</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Status}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Funding Approved</rightValue>
-                    </criteria>
-                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -1945,7 +1948,7 @@
                     <criteria>
                         <leftValue>{!Record.Medication_Name__c}</leftValue>
                         <operator>CONTAINS</operator>
-                        <rightValue>Trikafta</rightValue>
+                        <rightValue>elexacaftor/tezacaftor/ivacaftor</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
