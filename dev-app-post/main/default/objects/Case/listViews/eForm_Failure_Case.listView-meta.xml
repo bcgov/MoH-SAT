@@ -11,6 +11,11 @@
     <columns>CASES.ORIGIN</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Special_Authority_Request</value>
+    </filters>
     <label>eForm Failure</label>
     <queue>eForm_Failure</queue>
     <sharedTo>

@@ -75,6 +75,9 @@ sf org assign permset --name DocGenDesigner --target-org $alias
 sf org assign permset --name DocGenUser --target-org $alias
 sf org assign permset --name BREDesigner --target-org $alias
 sf org assign permset --name BRERuntime --target-org $alias
+sf org assign permset --name OmniStudio_Standard_User --target-org $alias
+sf org assign permset --name OmniStudio_Standard_Experience_Users --target-org $alias
+sf org assign permset --name OmniStudio_Standard_User_Extras --target-org $alias
 sf org assign permsetlicense --name BREDesigner --target-org $alias
 sf org assign permsetlicense --name BRERuntime --target-org $alias
 

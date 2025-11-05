@@ -91,6 +91,26 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>EDRD_Share_Hepatology_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule is used share EDRD Case of Hepatology Subcommittee with Hepatology Subcommittee PG.</description>
+        <label>EDRD Share Hepatology Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Hepatology_Subcommittee</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Hepatology Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>EDRD_Share_Immunology_Subcommittee</fullName>
         <accessLevel>Read</accessLevel>
         <label>EDRD Share Immunology Subcommittee</label>
@@ -106,6 +126,26 @@
             <field>EDRD_SubCommittee_Name__c</field>
             <operation>equals</operation>
             <value>Immunology Subcommittee</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>EDRD_Share_Independent_Pharmacist_Review_Subcommittee</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule is used share EDRD Case of Independent Pharmacist Review Subcommittee with Independent Pharmacist Review Subcommittee PG.</description>
+        <label>EDRD Share Independent Pharmacist Review Subcommittee</label>
+        <sharedTo>
+            <group>EDRD_Independent_Pharmacist_Review_SC</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>EDRD</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>EDRD_SubCommittee_Name__c</field>
+            <operation>equals</operation>
+            <value>Independent Pharmacist Review Subcommittee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
