@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Evolocumab_Queue_Case</fullName>
+    <fullName>LCA_Case</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>Patient_Identifier__c</columns>
     <columns>Provider__c</columns>
-    <columns>CASES.SUBJECT</columns>
     <columns>Drug_Name__c</columns>
-    <columns>Request_Type__c</columns>
+    <columns>CASES.SUBJECT</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
+    <columns>Request_Type__c</columns>
     <columns>CASES.CREATED_DATE</columns>
     <columns>CASES.ORIGIN</columns>
     <filterScope>Queue</filterScope>
@@ -22,8 +22,8 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
-    <label>Evolocumab Queue</label>
-    <queue>Evolocumab_Queue</queue>
+    <label>LCA Queue</label>
+    <queue>LCA</queue>
     <sharedTo>
         <group>All_SAT_Team_Members</group>
     </sharedTo>
