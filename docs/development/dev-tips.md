@@ -19,7 +19,7 @@ Create new Legacy Named Credential "EMPI"
 - Label: EMPI
 - Name: empi
 - URL: https://hiat3.hcim.ehealth.gov.bc.ca 
-- Certificate: "empipharma"
+- Certificate: "empidevsat"
 - Identity Type: Anonymous
 - Athenticaion Protocol: No Authentication needed
 
@@ -43,13 +43,13 @@ Create new Legacy Named Credential "ODR Credentials"
 - Label: ODR Credentials
 - Name: ODR_Credentials
 - URL: https://odrdev.hlth.gov.bc.ca
-- Certificate: "odr"
+- Certificate: "odrdevcert"
 
 Create new Legacy Named Credential "ODR_EDRD"
 - Label: ODR_EDRD
 - Name: ODR_EDRD
 - URL: https://odrdev.hlth.gov.bc.ca
-- Certificate: "odr"
+- Certificate: "odrdevcert"
 - Identity Type: Named Principal
 - Authentication Protocol:Password Authentication
 
