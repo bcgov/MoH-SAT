@@ -5,12 +5,24 @@
     <columns>Patient_Identifier__c</columns>
     <columns>Provider__c</columns>
     <columns>Drug_Name__c</columns>
+    <columns>CASES.SUBJECT</columns>
     <columns>Request_Type__c</columns>
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
-    <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
+    <columns>Hold_Reason__c</columns>
+    <columns>CASES.CREATED_DATE</columns>
     <columns>CASES.ORIGIN</columns>
     <filterScope>Queue</filterScope>
+    <filters>
+        <field>CASES.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Case.Special_Authority_Request</value>
+    </filters>
+    <filters>
+        <field>CASES.CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
     <label>Compounds Queue</label>
     <queue>Compounds</queue>
     <sharedTo>
