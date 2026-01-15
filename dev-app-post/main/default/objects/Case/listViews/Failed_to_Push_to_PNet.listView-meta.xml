@@ -2,16 +2,14 @@
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Failed_to_Push_to_PNet</fullName>
     <columns>CASES.CASE_NUMBER</columns>
+    <columns>OWNER_NAME</columns>
     <columns>Patient_Identifier__c</columns>
     <columns>Drug_Name__c</columns>
     <columns>Provider__c</columns>
     <columns>CASES.STATUS</columns>
     <columns>Pushed_to_Pnet__c</columns>
-    <columns>CASES.CREATED_DATE</columns>
     <columns>CASES.CLOSED_DATE</columns>
     <columns>CASES.ORIGIN</columns>
-    <columns>CORE.USERS.ALIAS</columns>
-    <columns>Closed_by__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
@@ -24,19 +22,14 @@
         <value>0</value>
     </filters>
     <filters>
-        <field>OWNER_NAME</field>
-        <operation>contains</operation>
-        <value>Queue</value>
+        <field>CASES.STATUS</field>
+        <operation>equals</operation>
+        <value>Approved</value>
     </filters>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.Special_Authority_Request</value>
-    </filters>
-    <filters>
-        <field>CASES.STATUS</field>
-        <operation>equals</operation>
-        <value>Approved</value>
     </filters>
     <label>Failed to Push to PNet</label>
     <sharedTo>
