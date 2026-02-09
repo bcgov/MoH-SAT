@@ -26,7 +26,7 @@ public with sharing class EmpiIntegration {
     private static final String LRA_API_CUSTOMSETTING_NAME = 'LRA_API_Configuration';
     private static final Set<String> EDRD_COMMUNITY_USER_PROFILES = new Set<String>{'BC HLTH Pharmacist Community User','BC HLTH Nurse Community User','EDRD Prescriber Community User'};
     private static final User currentUser = [Select Id, Profile.Name, UserRole.Name FROM USER WHERE Id =: UserInfo.getUserId()];
-    private static final Boolean isEDRDUser =  EDRD_COMMUNITY_USER_PROFILES.contains(currentUser?.Profile?.Name) || (currentUser.UserRoleId != NULL && currentUser.UserRole.Name.ContainsIgnoreCase('EDRD'));
+    private static final Boolean IS_EDRD_USER =  EDRD_COMMUNITY_USER_PROFILES.contains(currentUser?.Profile?.Name) || (currentUser.UserRoleId != NULL && currentUser.UserRole.Name.ContainsIgnoreCase('EDRD'));
     private static final String EDRD_Endpoint = 'callout:empi_edrd/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc';
     private static final String SAT_Endpoint = 'callout:empi/HCIM.Services.Secured/Synchronous/QUPA_AR101102.svc';
 
@@ -40,7 +40,7 @@ public with sharing class EmpiIntegration {
         LRA_API_Configuration__c lraApiSettings = getLRAApiConfiguration(LRA_API_CUSTOMSETTING_NAME);
         if (lraApiSettings != null 
             && lraApiSettings.Use_LRA_API__c == true 
-            && !isEDRDUser) {
+            && !IS_EDRD_USER) {
 
             p = fetchPatientData(patientPHN, lraApiSettings);
         }
@@ -115,7 +115,7 @@ public with sharing class EmpiIntegration {
             sender.device.asAgent.representedOrganization.determinerCode = 'INSTANCE';
             sender.device.asAgent.representedOrganization.classCode = 'ORG';
             sender.device.asAgent.representedOrganization.id.root = '2.16.840.1.113883.3.51.1.1.3';
-            sender.device.asAgent.representedOrganization.id.extension = isEDRDUser ? 'PHARM_EDRD' : 'PHARM_SA';
+            sender.device.asAgent.representedOrganization.id.extension = IS_EDRD_USER ? 'PHARM_EDRD' : 'PHARM_SA';
 
             controlActProcess = new Empi.HCIM_IN_GetDemographics_QUQI_MT020001_ControlActProcess();
             controlActProcess.classCode = 'ACCM';
@@ -136,7 +136,7 @@ public with sharing class EmpiIntegration {
             controlActProcess.queryByParameter.queryByParameterPayload.person_id.value.assigningAuthorityName = 'MOH_CRS';
             
             Empi.QUPA_AR101102_Port stub = new Empi.QUPA_AR101102_Port();
-            stub.endpoint_x = isEDRDUser ? EDRD_Endpoint : SAT_Endpoint; // TEST
+            stub.endpoint_x = IS_EDRD_USER ? EDRD_Endpoint : SAT_Endpoint; // TEST
             stub.timeout_x = 60000;
         
             p.phn = phn;
