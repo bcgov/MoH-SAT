@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionCalls>
-        <name>send_fax</name>
-        <label>send_fax</label>
-        <locationX>176</locationX>
-        <locationY>647</locationY>
-        <actionName>FaxService</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>caseIds</name>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>FaxService</nameSegment>
-        <offset>0</offset>
-    </actionCalls>
     <apiVersion>60.0</apiVersion>
     <assignments>
         <name>Assign_to_General_Queue</name>
@@ -35,7 +18,7 @@
         </connector>
     </assignments>
     <description>Updated with Record Type, Changed to General Queue
-Update Apex SendFax with case id parameter</description>
+Removed SendFax Apex action</description>
     <environments>Default</environments>
     <interviewLabel>Dups to ToBeFaxed Queue {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Dups to General Queue</label>
@@ -93,9 +76,6 @@ Update Apex SendFax with case id parameter</description>
         <label>Update Dups</label>
         <locationX>176</locationX>
         <locationY>539</locationY>
-        <connector>
-            <targetReference>send_fax</targetReference>
-        </connector>
         <inputAssignments>
             <field>Status</field>
             <value>
