@@ -7,6 +7,9 @@
         <locationY>252</locationY>
         <actionName>FaxService</actionName>
         <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_Regular_Queue01</targetReference>
+        </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>caseIds</name>
@@ -14,12 +17,15 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>FaxService</nameSegment>
+        <offset>0</offset>
     </actionCalls>
-    <apiVersion>62.0</apiVersion>
-    <description>Updated Record Type</description>
+    <apiVersion>60.0</apiVersion>
+    <description>Updated Record Type
+Updated Fax Currently Approved AND Not Approved</description>
     <environments>Default</environments>
     <interviewLabel>Daily Autofax ToBeFaxed Queue {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Daily Autofax ToBeFaxed Queue</label>
+    <label>Daily Autofax General Queue</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -39,25 +45,67 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Regular_Queue01</name>
+        <label>Get Regular Queue01</label>
+        <locationX>176</locationX>
+        <locationY>360</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Faxed_to_Regular_Queue</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Type</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Queue</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>00G5W000000MXTvUAO</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Group</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Assign_Faxed_to_Regular_Queue</name>
+        <label>Assign Faxed to Regular Queue</label>
+        <locationX>176</locationX>
+        <locationY>468</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Fax_Sent_Date__c</field>
+            <operator>GreaterThan</operator>
+            <value>
+                <dateTimeValue>2024-11-04T08:00:00.000Z</dateTimeValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Regular_Queue01.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>send_fax</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND 2 AND 3 AND (4 OR 5)</filterLogic>
         <filters>
             <field>OwnerId</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>00G5W000000MiSkUAK</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Currently Approved</stringValue>
+                <stringValue>00G4W0000064KbkUAE</stringValue>
             </value>
         </filters>
         <filters>
@@ -74,11 +122,25 @@
                 <stringValue>Special_Authority_Request</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Currently Approved</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Not Approved</stringValue>
+            </value>
+        </filters>
         <object>Case</object>
         <schedule>
             <frequency>Daily</frequency>
-            <startDate>2023-12-08</startDate>
-            <startTime>16:15:00.000Z</startTime>
+            <startDate>2024-11-04</startDate>
+            <startTime>17:06:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
