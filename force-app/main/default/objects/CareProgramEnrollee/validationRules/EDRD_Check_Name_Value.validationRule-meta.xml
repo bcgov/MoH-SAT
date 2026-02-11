@@ -4,10 +4,11 @@
     <active>true</active>
     <description>Validation rule to prevent editing the name for EDRD Enrollee</description>
     <errorConditionFormula>AND(
-  NOT(ISNEW()),
-ISCHANGED(Name),
-NOT(ISBLANK(PRIORVALUE( Name))),
-CareProgram.Name=&apos;EDRD&apos;
+    NOT(ISNEW()),
+    ISCHANGED(Name),
+    NOT(ISBLANK(PRIORVALUE(Name))),
+    CareProgram.Name = &apos;EDRD&apos;,
+ $User.FederationIdentifier != &apos;nsahib@idir&apos;
 )</errorConditionFormula>
     <errorMessage>Not allowed to change the Name value.</errorMessage>
 </ValidationRule>
