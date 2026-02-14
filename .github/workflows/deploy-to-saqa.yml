@@ -26,9 +26,6 @@ jobs:
     - name: Deploy Source in dev-app-pre
       run: sf project deploy start -d dev-app-pre -o SAT-SAQA -w 15 --ignore-conflicts
 
-#    - name: Install version ID
-#      run: sfdx force:package:install --package "${{ github.event.inputs.package }}" -u SAT-SAQA -b 15 -w 15 --noprompt --wait 10
-
     - name: Deploy metadata
       run: sf project deploy start -d force-app -o SAT-SAQA -w 15 --ignore-conflicts
 
