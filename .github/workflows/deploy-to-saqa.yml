@@ -2,10 +2,18 @@ name: Deploy to SAQA
 on: 
   workflow_dispatch:
     inputs:
-      
+      SAQA:
+        description: 'Deploy to SAQA environment'
+        required: true
+        type: boolean
+        default: false
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.SAQA == 'true' }}
+    environment: SAQA
+    env:
+        SALESFORCEAUTHURL: ${{ secrets.SALESFORCEAUTHURL }}
     steps:
     - uses: actions/checkout@master
     - name: 'Install Salesforce CLI'
@@ -15,13 +23,14 @@ jobs:
           tar xJf sf-linux-x64.tar.xz -C ~/sfdx --strip-components 1
           echo "$HOME/sfdx/bin" >> $GITHUB_PATH
           ~/sfdx/bin/sf version
+
     - name: Authenticate with Sandbox
       run: |
-         echo ${{ secrets.SALESFORCEAUTHURL }} > sfdxurl.txt
-         sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias SAT-SAQA
+          echo "${{ env.SALESFORCEAUTHURL }}" > ./authfile
+          sf org login sfdx-url -f authfile -a SAQA
 
     - name: Remove auth file
-      run: rm -f ./sfdxurl.txt
+      run: rm -f ./authfile
 
     - name: Deploy Source in dev-app-pre
       run: sf project deploy start -d dev-app-pre -o SAT-SAQA -w 15 --ignore-conflicts

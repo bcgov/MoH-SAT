@@ -1,14 +1,22 @@
 name: Deploy to SAUAT
 on: 
   workflow_dispatch:
+    inputs:
+      SAUAT:
+        description: 'Deploy to SAUAT environment'
+        required: true
+        type: boolean
+        default: false
       
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.SAUAT == 'true' }}
+    environment: SAUAT
+    env:
+        SALESFORCEAUTHURL: ${{ secrets.SALESFORCEAUTHURL }}
     steps:
     - uses: actions/checkout@master
-
     - name: 'Install Salesforce CLI'
       run: |
           wget https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
@@ -19,11 +27,11 @@ jobs:
 
     - name: Authenticate with Sandbox
       run: |
-         echo ${{ secrets.SALESFORCEAUTHURL }} > sfdxurl.txt
-         sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias SAT-SAUAT
+         echo "${{ env.SALESFORCEAUTHURL }}" > ./authfile
+         sf org login sfdx-url -f authfile -a SAT-SAUAT
 
     - name: Remove auth file
-      run: rm -f ./sfdxurl.txt
+      run: rm -f ./authfile
 
     - name: Deploy Source in dev-app-pre
       run: sf project deploy start -d dev-app-pre -o SAT-SAUAT -w 15 --ignore-conflicts 
