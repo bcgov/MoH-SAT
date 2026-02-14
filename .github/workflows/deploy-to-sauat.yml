@@ -19,7 +19,7 @@ jobs:
 
     - name: Authenticate with Sandbox
       run: |
-         echo ${{ secrets.SALESFORCE_SAUAT_AUTH }} > sfdxurl.txt
+         echo ${{ secrets.SALESFORCEAUTHURL }} > sfdxurl.txt
          sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias SAT-SAUAT
 
     - name: Remove auth file

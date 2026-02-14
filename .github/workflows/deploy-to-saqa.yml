@@ -17,7 +17,7 @@ jobs:
           ~/sfdx/bin/sf version
     - name: Authenticate with Sandbox
       run: |
-         echo ${{ secrets.SALESFORCE_SAQA_AUTH }} > sfdxurl.txt
+         echo ${{ secrets.SALESFORCEAUTHURL }} > sfdxurl.txt
          sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias SAT-SAQA
 
     - name: Remove auth file
