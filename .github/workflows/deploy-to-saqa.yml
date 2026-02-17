@@ -1,0 +1,57 @@
+name: Deploy to SAQA
+on: 
+  workflow_dispatch:
+    inputs:
+      SAQA:
+        description: 'Deploy to SAQA environment'
+        required: true
+        type: boolean
+        default: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.SAQA == 'true' }}
+    environment: SAQA
+    env:
+        SALESFORCEAUTHURL: ${{ secrets.SALESFORCEAUTHURL }}
+    steps:
+    - uses: actions/checkout@master
+    - name: 'Install Salesforce CLI'
+      run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
+          mkdir ~/sfdx
+          tar xJf sf-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+          echo "$HOME/sfdx/bin" >> $GITHUB_PATH
+          ~/sfdx/bin/sf version
+
+    - name: Authenticate with Sandbox
+      run: |
+          echo "${{ env.SALESFORCEAUTHURL }}" > ./authfile
+          sf org login sfdx-url -f authfile -a SAQA
+
+    - name: Remove auth file
+      run: rm -f ./authfile
+
+    - name: Deploy Source in dev-app-pre
+      run: sf project deploy start -d dev-app-pre -o SAT-SAQA -w 15 --ignore-conflicts
+
+    - name: Deploy metadata
+      run: sf project deploy start -d force-app -o SAT-SAQA -w 15 --ignore-conflicts
+
+    - name: Re-deploy default objects
+      run: sf project deploy start -d force-app/main/default/objects -o SAT-SAQA -w 15 --ignore-conflicts
+
+    - name: Re-deploy default queues
+      run: sf project deploy start -d force-app/main/default/queues -o SAT-SAQA -w 15 --ignore-conflicts
+
+    - name: Deploy source default OmniStudio-Components 
+      run: sf project deploy start -d OmniStudio-Components -o SAT-SAQA -w 30 --ignore-conflicts
+
+    - name: Re-Deploy OmniScripts in OmniStudio Folder
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAT-SAQA -w 30 --ignore-conflicts
+
+    - name: Deploy Source in dev-app-post
+      run: sf project deploy start -d dev-app-post -o SAT-SAQA -w 15 --ignore-conflicts
+
+#    - name: Deploy destructive changes
+#      run: sdfx force:mdapi:deploy --postdestructivechanges destructiveChanges -u SAT-SAQA -o -g -l RunLocalTests -w 15
