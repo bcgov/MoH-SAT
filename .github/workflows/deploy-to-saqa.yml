@@ -27,7 +27,7 @@ jobs:
     - name: Authenticate with Sandbox
       run: |
           echo "${{ env.SALESFORCEAUTHURL }}" > ./authfile
-          sf org login sfdx-url -f authfile -a SAQA
+          sf org login sfdx-url -f authfile -a SAT-SAQA
 
     - name: Remove auth file
       run: rm -f ./authfile
