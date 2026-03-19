@@ -48,7 +48,7 @@ public class EDRD_cls_generatePDFDocTest {
         Assert.areEqual(1, generatedProcesses.size(), 'One DocumentGenerationProcess record should be created.');
         Assert.areEqual('GenerateAndConvert', generatedProcesses[0].Type, 'Type should be GenerateAndConvert.');
         Assert.areEqual(caseRecord[0].Id, generatedProcesses[0].ReferenceObject, 'ReferenceObject should match the Case Id.');
-        Assert.areEqual('TestTokenData', generatedProcesses[0].TokenData, 'TokenData should match the input value.');
+        Assert.areEqual('{"TOKENDATA":"TestTokenData"}', generatedProcesses[0].TokenData, 'TokenData should match the input value.');
     }
 
 }
