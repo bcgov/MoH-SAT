@@ -4,7 +4,7 @@
 * @Description: The purpose of this class is to cover Code coverage of EDRD_cls_generatePDFDoc.
 * @Revision(s): [Date] - [Change Reference] - [Changed By] - [Description]  
 ***********************************************************************************************/
-@isTest
+@IsTest
 public class EDRD_cls_generatePDFDocTest {
     
 /**
@@ -13,7 +13,7 @@ public class EDRD_cls_generatePDFDocTest {
 * @description: The purpose of this method is to cover Testcoverage of generateForecastRecords
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-    @isTest
+    @IsTest
     public static void EDRD_cls_IndefiniteBatchExecute_Test(){
         Account providerAccount = TestFactory.newProvider('Provider Test');
         insert providerAccount;
