@@ -35,19 +35,19 @@ jobs:
 
     - name: Set deployment user standard security
       run: |
-          sf force:user:permsetlicense:assign -u ciorg -n "OmniStudio"
-          sf force:user:permsetlicense:assign -u ciorg -n "OmniStudio User"
-          sf force:user:permset:assign -o ciorg -n OmniStudioAdmin
-          sf force:user:permset:assign -o ciorg -n OmniStudioExecution
-          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud"
-          sf force:user:permsetlicense:assign -u ciorg -n "Health Cloud Platform"
-          sf force:user:permset:assign -o ciorg -n HealthCloudFoundation
-          sf force:user:permset:assign -o ciorg -n DocGenDesigner
-          sf force:user:permset:assign -o ciorg -n DocGenUser
-          sf force:user:permset:assign -o ciorg -n BREDesigner
-          sf force:user:permset:assign -o ciorg -n BRERuntime
-          sf force:user:permsetlicense:assign -u ciorg -n BREDesigner
-          sf force:user:permsetlicense:assign -u ciorg -n BRERuntime
+          sf org assign permsetlicense -u ciorg -n "OmniStudio"
+          sf org assign permsetlicense -u ciorg -n "OmniStudio User"
+          sf org assign permset -o ciorg -n OmniStudioAdmin
+          sf org assign permset -o ciorg -n OmniStudioExecution
+          sf org assign permsetlicense -u ciorg -n "Health Cloud"
+          sf org assign permsetlicense -u ciorg -n "Health Cloud Platform"
+          sf org assign permset -o ciorg -n HealthCloudFoundation
+          sf org assign permset -o ciorg -n DocGenDesigner
+          sf org assign permset -o ciorg -n DocGenUser
+          sf org assign permset -o ciorg -n BREDesigner
+          sf org assign permset -o ciorg -n BRERuntime
+          sf org assign permsetlicense -u ciorg -n BREDesigner
+          sf org assign permsetlicense -u ciorg -n BRERuntime
 
     - name: Deploy source dev-app-pre
       run: sf project deploy start -d dev-app-pre -o ciorg 
@@ -74,7 +74,7 @@ jobs:
 
     - name: Set deployment user custom security
       run: |
-          sf force:user:permset:assign -o ciorg -n SA_Administrator
+          sf org assign permset -o ciorg -n SA_Administrator
           sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
         # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
         # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
