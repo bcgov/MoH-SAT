@@ -30,29 +30,29 @@ jobs:
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Installing SF managed packages
-      run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --noprompt  
+      run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --no-prompt  
 
     - name: Installing Health Cloud managed package
-      run: sf package install --package "04t4W000002V2Ub" -o ciorg -w 15 --noprompt 
+      run: sf package install --package "04t4W000002V2Ub" -o ciorg -w 15 --no-prompt 
 
     - name: Installing the IAM package 
-      run: sf package install --package "04tJQ0000014BvZYAU" -o ciorg -w 15 --noprompt 
+      run: sf package install --package "04tJQ0000014BvZYAU" -o ciorg -w 15 --no-prompt 
 
     - name: Set deployment user standard security
       run: |
-          sf org assign permsetlicense -u ciorg -n "OmniStudio"
-          sf org assign permsetlicense -u ciorg -n "OmniStudio User"
+          sf org assign permsetlicense -o ciorg -n "OmniStudio"
+          sf org assign permsetlicense -o ciorg -n "OmniStudio User"
           sf org assign permset -o ciorg -n OmniStudioAdmin
           sf org assign permset -o ciorg -n OmniStudioExecution
-          sf org assign permsetlicense -u ciorg -n "Health Cloud"
-          sf org assign permsetlicense -u ciorg -n "Health Cloud Platform"
-          sf org assign permset -o ciorg -n HealthCloudFoundation
+          sf org assign permsetlicense -o ciorg -n "Health Cloud" || true
+          sf org assign permsetlicense -o ciorg -n "Health Cloud Platform"  || true
+          sf org assign permset -o ciorg -n HealthCloudFoundation || true
           sf org assign permset -o ciorg -n DocGenDesigner
           sf org assign permset -o ciorg -n DocGenUser
           sf org assign permset -o ciorg -n BREDesigner
           sf org assign permset -o ciorg -n BRERuntime
-          sf org assign permsetlicense -u ciorg -n BREDesigner
-          sf org assign permsetlicense -u ciorg -n BRERuntime
+          sf org assign permsetlicense -o ciorg -n BREDesigner
+          sf org assign permsetlicense -o ciorg -n BRERuntime
 
     - name: Deploy source dev-app-pre
       run: sf project deploy start -d dev-app-pre -o ciorg 
@@ -80,7 +80,8 @@ jobs:
     - name: Set deployment user custom security
       run: |
           sf org assign permset -o ciorg -n SA_Administrator
-          sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
+          sf apex run -o ciorg --file scripts/apex/scratchorg-set-current-user.apex
+        # sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
         # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
         # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
         
