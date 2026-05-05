@@ -23,7 +23,7 @@ public without sharing class AdjudicationStrategy {
     }
 
     public void runEvaluate() {
-        if (!sar.hasDrug() || sar.saCase.isClosed) return;
+        if (!sar.hasDrug() ) return; //|| sar.saCase.isClosed
         
         onBeforeEvaluate();
         evaluate();
@@ -97,11 +97,15 @@ public without sharing class AdjudicationStrategy {
     public void print() {
         List<String> results = new List<String>();
         for (Step step : steps) {
-            Boolean executed = step.alwaysRun || step.criteriaResult;
+            Boolean executed = step.alwaysRun || (step.criteriaResult != null && step.criteriaResult);
             List<String> actionResults = new List<String>();
             
             if (executed) {
                 for (StepAction action : step.actions) {
+                    
+                    // ADD NULL CHECK FOR actionType
+                    if(action.actionType == null) continue;
+                    
                     actionResults.add(String.format(
                         '\tAction: {0}, Executed: {1}', new String[] {
                             action.actionType.name(),
@@ -109,7 +113,7 @@ public without sharing class AdjudicationStrategy {
                     }));
                 }
             }
-
+    
             results.add(String.format(
                 'Step: "{0}", Executed: {1}{2}', new String[] {
                     step.title,
@@ -117,10 +121,17 @@ public without sharing class AdjudicationStrategy {
                     executed ? '\n' + String.join(actionResults, '\n') : ''
             }));
         }
-        String printResult = '\n'+String.join(results, '\n');
+        
+        String printResult = '\n' + String.join(results, '\n');
         system.debug(LoggingLevel.INFO, printResult);
         
-        if (!Test.isRunningTest()) ConnectApi.ChatterFeeds.postFeedElement(null, sar.saCase.Id, ConnectApi.FeedElementType.FeedItem, printResult);
+        if (!Test.isRunningTest()) {
+            ConnectApi.ChatterFeeds.postFeedElement(
+                null, sar.saCase.Id, 
+                ConnectApi.FeedElementType.FeedItem, 
+                printResult
+            );
+        }
     }
     
     private List<Step__c> querySteps(Id drugId) {
@@ -131,7 +142,7 @@ public without sharing class AdjudicationStrategy {
                     select 
                         Order__c, Object_Name__c, Field_Name__c, Question_ID__c, Operator__c,
                         String_Value__c, Boolean_Value__c, Decimal_Value__c, Date_Value__c, Datetime_Value__c
-                    from Step_Criteria__r
+                    from Step_Criteria__r where Object_Name__c != 'Rx History'
                     order by Order__c asc
                 ),
                 (
