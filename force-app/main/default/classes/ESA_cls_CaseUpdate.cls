@@ -1,29 +1,18 @@
-/** 
- * @author: accenture_sat_team
- * @description: This class will be called from Step Action apex calss when the Case Update step action executed in the Adjucation process
- * which gets triggered when Adjudication button clicked or automatic adjucation during case creation.
- * @param: SpecialAuthorityRequest & StepAction 
- * @return:  ActionResult instance 
-**/
-public with sharing class ESA_cls_CaseUpdate implements Action {
-    public ActionResult execute(SpecialAuthorityRequest sar, StepAction actionParams) {
-        if(String.isNotBlank(actionParams.subject)){
-            sar.saCase.Subject = actionParams.subject;
-        }
-        if(String.isNotBlank(actionParams.description)){
-            sar.saCase.Description = actionParams.description;
-        }
-        sar.saCase.ESA_Approval_Time__c = actionParams.duration;
-        sar.saCase.ESA_Approval_Time_Unit__c = actionParams.durationUnit;
-        if(String.isNotBlank(actionParams.rationale)){
-            if(String.isNotBlank(sar.saCase.Rationale__c)){
-                sar.saCase.Rationale__c = sar.saCase.Rationale__c + '<br/>'+actionParams.rationale;
-            }
-            else{
-                sar.saCase.Rationale__c =actionParams.rationale;
-            }
-        }
-        sar.saCase.Max_Days_Supply__c = String.Valueof(actionParams.daysSupply);
-        return new ActionResult();
-    }
+@isTest
+public with sharing class ESA_cls_CaseUpdateTest {   
+    @isTest
+    static void testCaseUpdate() {
+        SpecialAuthorityRequest sar = TestFactory.newSpecialAuthorityRequest();
+        sar.saCase.Effective_Date__c = null;
+		Step_Action__c record  = TestFactory.newCaseUpdateStepAction(new Step__c(),1,20,12,'days','Test Case','Testing','Rationale1');
+        StepAction action = new StepAction(record);      
+		Step_Action__c record1  = TestFactory.newCaseUpdateStepAction(new Step__c(),1,20,12,'days','','','');
+        StepAction action1 = new StepAction(record1);
+        Test.startTest();
+        action.run(sar);   
+        Assert.areEqual(String.Valueof(20),sar.saCase.Max_Days_Supply__c, 'Max days Supply is not udpated on Case');  
+        action1.run(sar);
+        Assert.areNotEqual('',sar.saCase.Subject, 'Subject on case should not be overwritten with blank');  
+        Test.stopTest();      
+    } 
 }
