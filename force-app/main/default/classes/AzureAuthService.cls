@@ -1,5 +1,6 @@
 public class AzureAuthService {
-
+	@TestVisible
+    private static Boolean isTest = false;
     public static String getAccessToken() {
 
         String tenantId = Label.Azure_Tenant_Id;
@@ -41,7 +42,7 @@ public class AzureAuthService {
 
         return (String) result.get('access_token');
     }
-
+	 @TestVisible
     private static String createJWT(String clientId, String audience) {
 
         Long now = DateTime.now().getTime() / 1000;
@@ -73,19 +74,23 @@ public class AzureAuthService {
 
         String unsignedToken =
             encodedHeader + '.' + encodedClaims;
-
-        Blob signature = Crypto.signWithCertificate(
-            'RSA-SHA256',
-            Blob.valueOf(unsignedToken),
-            Label.Azure_Certificate_Name
-        );
+		 Blob signature;
+        if (Test.isRunningTest() && isTest) {
+            signature = Blob.valueOf('mock_signature');
+        } else {
+            signature = Crypto.signWithCertificate(
+                'RSA-SHA256',
+                Blob.valueOf(unsignedToken),
+                Label.Azure_Certificate_Name
+            );
+        }
 
         String encodedSignature =
             base64UrlEncode(signature);
 
         return unsignedToken + '.' + encodedSignature;
     }
-
+	 @TestVisible
     private static String base64UrlEncode(Blob input) {
 
         String base64 =
