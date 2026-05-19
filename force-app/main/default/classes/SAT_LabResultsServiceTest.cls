@@ -42,15 +42,15 @@ private class SAT_LabResultsServiceTest {
                 } else if (plisResponseType == 'httpError') {
                     res.setStatusCode(400);
                     res.setStatus('Bad Request');
-                    res.setBody('{"error": "Bad Request"}');
+                    res.setBody('{"error": "Bad Request - Invalid parameters"}');
                 } else if (plisResponseType == 'timeout') {
                     res.setStatusCode(500);
                     res.setStatus('Internal Server Error');
-                    res.setBody('{"error": "Timeout"}');
+                    res.setBody('{"error": "Request timeout"}');
                 } else if (plisResponseType == 'serverError') {
                     res.setStatusCode(500);
                     res.setStatus('Internal Server Error');
-                    res.setBody('{"error": "Server Error"}');
+                    res.setBody('{"error": "Internal server error occurred"}');
                 }
             }
             
