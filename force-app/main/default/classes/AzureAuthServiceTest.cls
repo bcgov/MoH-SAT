@@ -60,15 +60,11 @@ private class AzureAuthServiceTest {
         }
     }
     
-    @testSetup
-    static void setupTestData() {
-        // If you need to create any test certificates or custom settings
-        // You may need to create a certificate named 'plis' in your org for this test to work
-        // Or mock the Crypto.signWithCertificate method if possible
-    }
-    
     @isTest
     static void testGetAccessToken_Success() {
+        // Enable test mode to use mock signature
+        AzureAuthService.isTest = true;
+        
         // Set mock callout
         Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
         
@@ -83,23 +79,25 @@ private class AzureAuthServiceTest {
     
     @isTest
     static void testGetAccessToken_Failure() {
+        // Enable test mode to use mock signature
+        AzureAuthService.isTest = true;
+        
         // Set mock callout for failure
         Test.setMock(HttpCalloutMock.class, new MockFailureHttpResponse());
         
         Test.startTest();
-        try {
-            String accessToken = AzureAuthService.getAccessToken();
-            // The access_token key won't exist in error response, so it will return null
-            System.assertEquals(null, accessToken, 'Access token should be null on failure');
-        } catch (Exception e) {
-            // Expected behavior if error handling is added
-            System.assert(true, 'Exception expected on authentication failure');
-        }
+        String accessToken = AzureAuthService.getAccessToken();
         Test.stopTest();
+        
+        // The access_token key won't exist in error response, so it will return null
+        System.assertEquals(null, accessToken, 'Access token should be null on failure');
     }
     
     @isTest
     static void testGetAccessToken_Unauthorized() {
+        // Enable test mode to use mock signature
+        AzureAuthService.isTest = true;
+        
         // Set mock callout for unauthorized
         Test.setMock(HttpCalloutMock.class, new MockUnauthorizedHttpResponse());
         
@@ -115,11 +113,11 @@ private class AzureAuthServiceTest {
     static void testBase64UrlEncode() {
         Test.startTest();
         
-        // Test the base64UrlEncode method indirectly through JWT creation
+        // Test the base64UrlEncode method
         String testString = 'test+/=';
         Blob testBlob = Blob.valueOf(testString);
         
-        // This tests the conversion logic
+        // Standard base64 should contain special characters
         String base64Standard = EncodingUtil.base64Encode(testBlob);
         System.assert(base64Standard.contains('=') || base64Standard.contains('+') || base64Standard.contains('/'), 
                      'Standard base64 should contain special characters');
@@ -129,6 +127,9 @@ private class AzureAuthServiceTest {
     
     @isTest
     static void testJWTCreation() {
+        // Enable test mode
+        AzureAuthService.isTest = true;
+        
         // Set mock to capture the JWT in the request
         Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
         
@@ -151,12 +152,16 @@ private class AzureAuthServiceTest {
         
         System.assertNotEquals(null, thumbBlob, 'Thumbprint conversion should not be null');
         System.assert(thumbBlob.size() > 0, 'Thumbprint blob should have content');
+        System.assertEquals(20, thumbBlob.size(), 'SHA-1 thumbprint should be 20 bytes');
         
         Test.stopTest();
     }
     
     @isTest
     static void testMultipleTokenRequests() {
+        // Enable test mode
+        AzureAuthService.isTest = true;
+        
         // Test multiple consecutive token requests
         Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
         
@@ -168,5 +173,52 @@ private class AzureAuthServiceTest {
         System.assertNotEquals(null, token1, 'First token should not be null');
         System.assertNotEquals(null, token2, 'Second token should not be null');
         System.assertEquals(token1, token2, 'Tokens should be consistent with mock');
+    }
+    
+    @isTest
+    static void testErrorHandling_NoAccessToken() {
+        // Enable test mode
+        AzureAuthService.isTest = true;
+        
+        // Mock that returns response without access_token
+        Test.setMock(HttpCalloutMock.class, new MockFailureHttpResponse());
+        
+        Test.startTest();
+        String token = AzureAuthService.getAccessToken();
+        Test.stopTest();
+        
+        // Should return null when access_token is not in response
+        System.assertEquals(null, token, 'Should return null when access_token is missing');
+    }
+    
+    @isTest
+    static void testIsTestFlag() {
+        Test.startTest();
+        
+        // Test that isTest flag can be set
+        AzureAuthService.isTest = false;
+        System.assertEquals(false, AzureAuthService.isTest, 'isTest should be false');
+        
+        AzureAuthService.isTest = true;
+        System.assertEquals(true, AzureAuthService.isTest, 'isTest should be true');
+        
+        Test.stopTest();
+    }
+    
+    @isTest
+    static void testHTTPRequestFormat() {
+        // Enable test mode
+        AzureAuthService.isTest = true;
+        
+        // Set mock
+        Test.setMock(HttpCalloutMock.class, new MockSuccessHttpResponse());
+        
+        Test.startTest();
+        // The mock's respond method validates the request format
+        String token = AzureAuthService.getAccessToken();
+        Test.stopTest();
+        
+        // If we get here, the request format was validated successfully by the mock
+        System.assertNotEquals(null, token, 'Token should be retrieved with correct request format');
     }
 }
