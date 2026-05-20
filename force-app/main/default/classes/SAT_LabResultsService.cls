@@ -1,6 +1,11 @@
 public with sharing class SAT_LabResultsService {
 
     private static Integration_Log__c createLog(String message, Integer code, Id caseId) {
+        final Integer MAX_LENGTH = 255;
+    
+        if (String.isNotBlank(message) && message.length() > MAX_LENGTH) {
+            message = message.substring(0, MAX_LENGTH - 3) + '...';
+        }
         Integration_Log__c log = new Integration_Log__c(
             Message__c = message,
             Type__c = 'PLIS Lab Data',
