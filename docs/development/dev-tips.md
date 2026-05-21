@@ -18,7 +18,7 @@ Go to Setup > Named Credentials.
 Create new Legacy Named Credential "EMPI"
 - Label: EMPI
 - Name: empi
-- URL: https://hiat3.hcim.ehealth.gov.bc.ca 
+- URL: https://hiat1.hcim.ehealth.gov.bc.ca
 - Certificate: "empidevsat"
 - Identity Type: Anonymous
 - Athenticaion Protocol: No Authentication needed
@@ -26,7 +26,7 @@ Create new Legacy Named Credential "EMPI"
 Create new Legacy Named Credential "EMPI_EDRD"
 - Label: EMPI_EDRD
 - Name: empi_edrd
-- URL: https://hiat3.hcim.ehealth.gov.bc.ca 
+- URL: https://hiat1.hcim.ehealth.gov.bc.ca
 - Certificate: "pharm_edrd"
 - Identity Type: Anonymous
 - Athenticaion Protocol: No Authentication needed
