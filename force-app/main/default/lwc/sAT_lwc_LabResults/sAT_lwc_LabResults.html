@@ -1,0 +1,91 @@
+<template>
+    <section class="slds-card slds-m-around_medium">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-article" title="Lab Results">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#article"></use>
+                        </svg>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span class="slds-text-heading_small">Lab Results</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <div class="slds-card__body slds-card__body_inner">
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Loading lab results" size="small"></lightning-spinner>
+            </template>
+
+            <template if:true={error}>
+                <div class="slds-box slds-theme_error slds-m-bottom_small">
+                    <p class="slds-text-color_error"><strong>Error:</strong> {errorMessage}</p>
+                </div>
+            </template>
+
+            <div class="slds-grid slds-gutters slds-m-top_x-small">
+                <div class="slds-col slds-size_1-of-2 slds-p-right_small">
+                    <lightning-combobox
+                        name="testType"
+                        label="Filter by Test Type"
+                        value={selectedTestType}
+                        placeholder="Select Test Type"
+                        options={testTypeOptions}
+                        onchange={handleTestTypeChange}
+                        disabled={loading}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-col slds-align_absolute-center">
+                    <lightning-button 
+                        variant="brand" 
+                        label="Search" 
+                        onclick={handleSearch} 
+                        disabled={loading}>
+                    </lightning-button>
+                </div>
+            </div>
+
+            <template if:true={hasResults}>
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-top_small">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col"><div class="slds-truncate" title="Test">Test</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Result Date">Result Date</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Result Value">Result Value</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Units">Units</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Reference Range">Reference Range</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Abnormal Flag">Abnormal Flag</div></th>
+                                <th scope="col"><div class="slds-truncate" title="Coding">Coding</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={filteredResults} for:item="row" for:index="index">
+                                <tr key={row.rowKey} class="slds-hint-parent">
+                                    <td data-label="Test"><div class="slds-truncate" title={row.test}>{row.test}</div></td>
+                                    <td data-label="Result Date"><div class="slds-truncate" title={row.resultDate}>{row.resultDate}</div></td>
+                                    <td data-label="Result Value"><div class="slds-truncate" title={row.resultValue}>{row.resultValue}</div></td>
+                                    <td data-label="Units"><div class="slds-truncate" title={row.units}>{row.units}</div></td>
+                                    <td data-label="Reference Range"><div class="slds-truncate" title={row.referenceRange}>{row.referenceRange}</div></td>
+                                    <td data-label="Abnormal Flag"><div class="slds-truncate" title={row.abnormalFlag}>{row.abnormalFlag}</div></td>
+                                    <td data-label="Coding"><div class="slds-truncate" title={row.coding}>{row.coding}</div></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+
+            <template if:true={noResults}>
+                <div class="slds-m-top_small">
+                    <p class="slds-text-body_regular">No lab results to display.</p>
+                </div>
+            </template>
+        </div>
+    </section>
+</template>

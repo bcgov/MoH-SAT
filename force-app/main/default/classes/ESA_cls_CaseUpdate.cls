@@ -24,6 +24,10 @@ public with sharing class ESA_cls_CaseUpdate implements Action {
             }
         }
         sar.saCase.Max_Days_Supply__c = String.Valueof(actionParams.daysSupply);
+        //Supriya
+        if(String.isNotBlank(actionParams.adjudicationStatus)){
+            sar.saCase.Status = actionParams.adjudicationStatus;
+        }
         return new ActionResult();
     }
 }
