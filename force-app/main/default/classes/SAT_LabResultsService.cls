@@ -103,7 +103,7 @@ public with sharing class SAT_LabResultsService {
 
             String accessToken = AzureAuthService.getAccessToken();
 
-            String endpoint = 'https://moh-dms-m-sit-api.azure-api.net/api/plissit/getResults';
+            String endpoint = Label.SAT_Lab_Result_Endpoint;//'https://moh-dms-m-sit-api.azure-api.net/api/plissit/getResults';
 
             Map<String, Object> bodyMap = new Map<String, Object>{
                 'requester' => requester,
