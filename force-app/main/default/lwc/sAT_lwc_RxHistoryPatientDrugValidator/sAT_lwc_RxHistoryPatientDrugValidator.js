@@ -51,9 +51,9 @@ export default class SAT_lwc_RxHistoryPatientDrugValidator extends LightningElem
             this.data = data.map((row, index) => ({
                 ...row,
                 din: row.din || index.toString(),
-
+                foundText: row.found,    
                
-                foundText: row.found ? 'true' : 'false',
+                //foundText: row.found ? 'true' : 'false',
                 thresholdText: row.threshold ? 'true' : 'false'
             }));
             this.error = undefined;
