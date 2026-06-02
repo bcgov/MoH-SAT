@@ -54,21 +54,24 @@ public static void processCases(List<generatePDFParams> caseRecs) {
         throw new AuraHandledException('Org-wide email address not found.');
     }
         // If you need fresh fields for the VF page, query the full Case here
-        Case caseRec = [
-            SELECT Id, Provider__c, EDRD_Ref_No__c,Status,EDRD_MOHFunding_Decision__c
+            List<Case> caseRecsList = [
+            SELECT Id, Provider__c, EDRD_Ref_No__c, Status, EDRD_MOHFunding_Decision__c
             FROM Case
-            WHERE Id = :caseRecs[0].recordId AND EDRD_MOHFunding_Decision__c =: caseRecs[0].caseStatus
+            WHERE Id = :caseRecs[0].recordId
+            AND EDRD_MOHFunding_Decision__c = :caseRecs[0].caseStatus
             WITH USER_MODE
             LIMIT 1
+            ];
+      Case caseRec = caseRecsList.isEmpty() ? null : caseRecsList[0];
+   
+        List<Contact> providers = [
+        SELECT Email
+        FROM Contact
+        WHERE Id = :caseRec.Provider__c
+        WITH USER_MODE
+        LIMIT 1
         ];
-
-        Contact provider = [
-            SELECT Email
-            FROM Contact
-            WHERE Id = :caseRec.Provider__c
-            WITH USER_MODE
-            LIMIT 1
-        ];
+      Contact provider = providers.isEmpty() ? null : providers[0];
         List<String> params = new List<String>{caseRecs[0].recordId,caseRecs[0].caseStatus};
         PageReference vfPage = new PageReference('/apex/emailPDFTemplate');
         vfPage.getParameters().put('parameters', String.join(params, ','));
@@ -107,7 +110,6 @@ public static void processCases(List<generatePDFParams> caseRecs) {
             legacyAttachment.Name = 'PNL_' + caseRec.EDRD_Ref_No__c + '.pdf';
             legacyAttachment.ParentId = caseRec.Id;
             attachmentsToInsert.add(legacyAttachment);
-            //insert legacyAttachment;
             SObjectAccessDecision decision = Security.stripInaccessible(
                 AccessType.CREATABLE, 
                 attachmentsToInsert
