@@ -1,4 +1,4 @@
-public class SendEmailUtility{
+public with sharing class SendEmailUtility{
         public Case record{get; set;}
         public Case caseRec{get;set;}
         public static  List<MedicationRequest> medRequests{get;set;}
@@ -26,7 +26,7 @@ public class SendEmailUtility{
         from Case where Id =: receivedStatuses[0]];
         this.Status = receivedStatuses[1]; 
         this.medicationNames = new List<String>();
-        for(MedicationRequest medReq : [SELECT MedicationId,Medication.Name from MedicationRequest  where Case__c =: caseRec.Id]){
+        for(MedicationRequest medReq : [SELECT MedicationId,Medication.Name from MedicationRequest  where Case__c =: caseRec.Id LIMIT 100]){
             medicationNames.add(medReq.Medication.Name);
         }
         medicationDisplay = String.join(medicationNames, ', ');
@@ -58,6 +58,7 @@ public static void processCases(List<generatePDFParams> caseRecs) {
             SELECT Id, Provider__c, EDRD_Ref_No__c,Status,EDRD_MOHFunding_Decision__c
             FROM Case
             WHERE Id = :caseRecs[0].recordId AND EDRD_MOHFunding_Decision__c =: caseRecs[0].caseStatus
+            WITH USER_MODE
             LIMIT 1
         ];
 
@@ -65,6 +66,7 @@ public static void processCases(List<generatePDFParams> caseRecs) {
             SELECT Email
             FROM Contact
             WHERE Id = :caseRec.Provider__c
+            WITH USER_MODE
             LIMIT 1
         ];
         List<String> params = new List<String>{caseRecs[0].recordId,caseRecs[0].caseStatus};
@@ -96,14 +98,21 @@ public static void processCases(List<generatePDFParams> caseRecs) {
         email.setFileAttachments(new Messaging.EmailFileAttachment[] { attachment });
 
         Messaging.SendEmailResult[] results =
-            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
+            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });       
 
         if (results != null && !results.isEmpty() && results[0].isSuccess()) {
+            List<Attachment> attachmentsToInsert = new List<Attachment>();
             Attachment legacyAttachment = new Attachment();
             legacyAttachment.Body = pdfBlob;
             legacyAttachment.Name = 'PNL_' + caseRec.EDRD_Ref_No__c + '.pdf';
             legacyAttachment.ParentId = caseRec.Id;
-            insert legacyAttachment;
+            attachmentsToInsert.add(legacyAttachment);
+            //insert legacyAttachment;
+            SObjectAccessDecision decision = Security.stripInaccessible(
+                AccessType.CREATABLE, 
+                attachmentsToInsert
+            );
+            insert decision.getRecords();
         }
 }
 
