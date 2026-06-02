@@ -6,6 +6,7 @@ public with sharing class SendEmailUtility{
         public List<String> medicationNames{get;set;}
         public String medicationDisplay {get;set;}
         public String Status{get;set;}
+        public List<Case> cases;
 
     public SendEmailUtility(ApexPages.StandardController stdController) {
     
@@ -20,10 +21,14 @@ public with sharing class SendEmailUtility{
         
         this.record = (Case)stdController.getRecord();
         
-        this.caseRec = [Select Id,Provider__r.Name,Provider__r.Email, Provider__c,EDRD_MOHFunding_Decision__c,EDRD_Ref_No__c,EDRD_MOHFunding_Start_Date__c,
+        this.cases= [Select Id,Provider__r.Name,Provider__r.Email, Provider__c,EDRD_MOHFunding_Decision__c,EDRD_Ref_No__c,EDRD_MOHFunding_Start_Date__c,
         EDRD_MOHFunding_Expiry_Date__c,EDRD_Next_SC_Presentation_Date__c,EDRD_MOHApproved_Dosage__c,EDRD_MOHApproved_Dosage_Unit__r.name,
         EDRD_MOHApproved_Frequency__c,EDRD_MOHApproved_Frequency_Unit__c,PNL_Comments__c,Status
-        from Case where Id =: receivedStatuses[0]];
+        from Case where Id =: receivedStatuses[0]
+        LIMIT 1];
+        
+        this.caseRec = this.cases[0];
+        
         this.Status = receivedStatuses[1]; 
         this.medicationNames = new List<String>();
         for(MedicationRequest medReq : [SELECT MedicationId,Medication.Name from MedicationRequest  where Case__c =: caseRec.Id LIMIT 100]){
