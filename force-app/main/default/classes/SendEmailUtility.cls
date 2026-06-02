@@ -149,7 +149,7 @@ public with sharing class SendEmailUtility {
         attachment.setBody(pdfBlob);
         attachment.setContentType('application/pdf');
         
-        EmailTemplate emailTemplate = [
+        List<EmailTemplate> emailTemplate = [
             SELECT Id, Subject, Description, Body 
             FROM EmailTemplate 
             WHERE DeveloperName ='EDRD_Physician_Notification_1780429755402' 
@@ -159,7 +159,7 @@ public with sharing class SendEmailUtility {
         email.setOrgWideEmailAddressId(owea[0].Id);
         email.setTargetObjectId(provider.Id);
         email.setWhatId(caseRec.Id);
-        email.setTemplateId(emailTemplate.Id);
+        if(!emailTemplate.isEmpty()){email.setTemplateId(emailTemplate[0].Id);}
         email.setFileAttachments(new Messaging.EmailFileAttachment[] { attachment });
         Messaging.SendEmailResult[] results =
             Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
