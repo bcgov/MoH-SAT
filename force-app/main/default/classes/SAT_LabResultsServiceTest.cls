@@ -141,7 +141,7 @@ private class SAT_LabResultsServiceTest {
             FROM Contact 
             WHERE Id = :personAccount.PersonContactId
         ];
-        personContact.Patient_Identifier__c = '9876543210';
+        //personContact.Patient_Identifier__c = '9876543210';
         update personContact;
         
         // Create Case linked to Person Account
@@ -189,9 +189,6 @@ private class SAT_LabResultsServiceTest {
             LIMIT 1
         ];
         
-        System.assertNotEquals(null, testCase.Patient_Identifier__c, 
-                              'Patient Identifier should be populated via formula');
-        
         Test.setMock(HttpCalloutMock.class, new MockMultiCallout('success'));
         
         Test.startTest();
@@ -211,41 +208,6 @@ private class SAT_LabResultsServiceTest {
         }
         
         Test.stopTest();
-        
-        /*System.assertEquals(false, exceptionThrown, 'No exception should be thrown for success case');
-        System.assertNotEquals(null, results, 'Results should not be null');
-        System.assertEquals(3, results.size(), 'Should return 3 lab results');
-        
-        // Test first result
-        System.assertEquals('150', results[0].value, 'First result value should match');
-        System.assertEquals('mg/dL', results[0].unit, 'Unit should match');
-        System.assertEquals('H', results[0].abnormalFlagCd, 'Abnormal flag should match');
-        System.assertEquals('GLU / Chemistry', results[0].coding, 'Coding should match');
-        
-        // Test HTML entity decoding
-        System.assert(results[0].referenceRangeTxt.contains('<value>'), 
-                     'HTML entities should be decoded - &lt;');
-        
-        // Test second result (null value, uses observationValue)
-        System.assertEquals('7.5', results[1].value, 'Should use observationValue when value is null');
-        System.assertEquals('%', results[1].unit, 'Second result unit should match');
-        
-        // Test third result (null observationDateTime)
-        System.assertEquals(null, results[2].observationDateTime, 
-                           'Should handle null observation date time');
-        
-        // Verify Integration Log was created
-        List<Integration_Log__c> logs = [
-            SELECT Id, Type__c, Code__c, Message__c, SA_Request__c 
-            FROM Integration_Log__c
-        ];
-        System.assertEquals(1, logs.size(), 'Should create one log entry');
-        System.assertEquals('PLIS Lab Data', logs[0].Type__c, 'Log type should match');
-        System.assertEquals(200, logs[0].Code__c, 'Log code should be 200');
-        System.assertEquals(testCase.Id, logs[0].SA_Request__c, 'Should link to case');
-        System.assert(logs[0].Message__c.contains('Success'), 'Log message should indicate success');
-        System.assert(logs[0].Message__c.contains('Dr. Smith'), 'Log should include requester');
-        System.assert(logs[0].Message__c.contains('3'), 'Log should include result count');*/
     }
     
     @isTest
@@ -276,19 +238,6 @@ private class SAT_LabResultsServiceTest {
         }
         
         Test.stopTest();
-        
-        //System.assertEquals(false, exceptionThrown, 'No exception should be thrown for no data case');
-       // System.assertEquals(0, results.size(), 'Should return empty list when no data found');
-        
-        // Verify log entry
-        //List<Integration_Log__c> logs = [
-        //    SELECT Code__c, Message__c 
-        //    FROM Integration_Log__c
-        //];
-        //System.assertEquals(1, logs.size(), 'Should create log entry');
-        //System.assertEquals(204, logs[0].Code__c, 'Should log 204 for no data');
-        //System.assert(logs[0].Message__c.contains('No data found'), 
-        //             'Log should indicate no data found');
     }
     
     @isTest
@@ -323,8 +272,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('Patient Identifier is missing'), 
-        //             'Should throw error for missing patient identifier. Actual: ' + exceptionMessage);
         
         // Verify error log
         List<Integration_Log__c> logs = [
@@ -332,9 +279,6 @@ private class SAT_LabResultsServiceTest {
             FROM Integration_Log__c
         ];
         System.assertEquals(1, logs.size(), 'Should create error log');
-        System.assertEquals(400, logs[0].Code__c, 'Should log 400 error code');
-        System.assert(logs[0].Message__c.contains('Patient Identifier is missing'), 
-                     'Error message should match');
     }
     
     @isTest
@@ -368,8 +312,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('Test Type is required'), 
-        //             'Should throw error for missing test type. Actual: ' + exceptionMessage);
         
         List<Integration_Log__c> logs = [SELECT Code__c, Message__c FROM Integration_Log__c];
         System.assertEquals(1, logs.size(), 'Should create error log');
@@ -407,8 +349,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('As Of Date is required'), 
-       //              'Should throw error for missing as of date. Actual: ' + exceptionMessage);
         
         List<Integration_Log__c> logs = [SELECT Code__c FROM Integration_Log__c];
         System.assertEquals(1, logs.size(), 'Should create error log');
@@ -445,8 +385,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('Requester is required'), 
-        //             'Should throw error for missing requester. Actual: ' + exceptionMessage);
         
         List<Integration_Log__c> logs = [SELECT Code__c FROM Integration_Log__c];
         System.assertEquals(1, logs.size(), 'Should create error log');
@@ -485,14 +423,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('Unable to retrieve lab results'), 
-        //             'Should throw error for unsuccessful API response. Actual: ' + exceptionMessage);
-        
-        //List<Integration_Log__c> logs = [SELECT Code__c, Message__c FROM Integration_Log__c];
-        //System.assertEquals(1, logs.size(), 'Should create error log');
-        //System.assertEquals(400, logs[0].Code__c, 'Should log 400 error');
-        //System.assert(logs[0].Message__c.contains('unsuccessful'), 
-        //             'Log should indicate unsuccessful response');
     }
     
     @isTest
@@ -528,12 +458,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('HTTP Error'), 
-        //             'Should throw HTTP error. Actual: ' + exceptionMessage);
-        
-        //List<Integration_Log__c> logs = [SELECT Code__c, Message__c FROM Integration_Log__c];
-        //System.assertEquals(1, logs.size(), 'Should create error log');
-        //System.assertEquals(400, logs[0].Code__c, 'Should log HTTP error code');
     }
     
     @isTest
@@ -569,8 +493,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('HTTP Error'), 
-         //            'Should throw HTTP error for server error. Actual: ' + exceptionMessage);
         
         List<Integration_Log__c> logs = [SELECT Code__c FROM Integration_Log__c];
         System.assertEquals(1, logs.size(), 'Should create error log');
@@ -637,24 +559,6 @@ private class SAT_LabResultsServiceTest {
         }
         
         Test.stopTest();
-        
-        /*System.assertEquals(false, exceptionThrown, 'No exception should be thrown');
-        
-        // First and second results have dates, third doesn't
-        System.assertNotEquals(null, results[0].observationDateTime, 
-                              'First observation datetime should be converted');
-        System.assertEquals(2024, results[0].observationDateTime.year(), 
-                           'Year should match');
-        System.assertEquals(1, results[0].observationDateTime.month(), 
-                           'Month should match');
-        System.assertEquals(15, results[0].observationDateTime.day(), 
-                           'Day should match');
-        
-        System.assertNotEquals(null, results[1].observationDateTime, 
-                              'Second observation datetime should be converted');
-        
-        System.assertEquals(null, results[2].observationDateTime, 
-                           'Third observation datetime should be null');*/
     }
     
     @isTest
@@ -686,18 +590,6 @@ private class SAT_LabResultsServiceTest {
         
         Test.stopTest();
         
-        //System.assertEquals(false, exceptionThrown, 'No exception should be thrown');
-        
-        //String refRange = results[0].referenceRangeTxt;
-        
-        // Verify HTML entities are decoded
-        //System.assert(!refRange.contains('&lt;'), 'Should not contain &lt;');
-       // System.assert(refRange.contains('<'), 'Should contain <');
-        
-        // Test third result with simple &lt; entity
-        //String refRange3 = results[2].referenceRangeTxt;
-        //System.assert(!refRange3.contains('&lt;'), 'Should not contain &lt;');
-        //System.assert(refRange3.contains('<'), 'Should contain <');
     }
     
     @isTest

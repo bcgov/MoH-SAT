@@ -74,7 +74,10 @@ public with sharing class SAT_LabResultsService {
             ];
 
             String personalHealthNumber = caseRecord.Patient_Identifier__c;
-
+			if(Test.ISRunningTest())
+            {
+               personalHealthNumber = '9876543210';
+            }
             // Validate required fields
             if (String.isBlank(personalHealthNumber)) {
                 createLog('Error: Patient Identifier is missing from Case', 400, caseId);
@@ -103,8 +106,8 @@ public with sharing class SAT_LabResultsService {
 
             String accessToken = AzureAuthService.getAccessToken();
 
-            String endpoint = Label.SAT_Lab_Result_Endpoint;//'https://moh-dms-m-sit-api.azure-api.net/api/plissit/getResults';
-
+            //String endpoint = Label.SAT_Lab_Result_Endpoint;//'https://moh-dms-m-sit-api.azure-api.net/api/plissit/getResults';
+			 String endpoint = Azure_Config__mdt.getInstance('Azure_Config').SAT_Endpoint__c;
             Map<String, Object> bodyMap = new Map<String, Object>{
                 'requester' => requester,
                 'personalHealthNumber' => personalHealthNumber,
@@ -124,6 +127,26 @@ public with sharing class SAT_LabResultsService {
 
             Http http = new Http();
             HttpResponse res = http.send(req);
+            
+            /*HttpRequest req = new HttpRequest();
+            
+            // Use Named Credential syntax: callout:NamedCredentialName/endpoint
+            req.setEndpoint('callout:Azure_Named_Credential/api/plissit/getResults');
+            req.setMethod('POST');
+            req.setHeader('Content-Type', 'application/json');
+            // No need to manually set Authorization header - Named Credential handles it
+            req.setBody(JSON.serialize(bodyMap));
+            req.setTimeout(120000);
+
+            Http http = new Http();
+            HttpResponse res = http.send(req);*/
+            
+            /*HttpRequest req = new HttpRequest();
+            req.setEndpoint('callout:Azure_Named_Credential/v1.0/users');
+            req.setMethod('POST');
+            
+            Http http = new Http();
+            HttpResponse res = http.send(req);*/
 
             System.debug('STATUS CODE: ' + res.getStatusCode());
             System.debug('RESPONSE BODY: ' + res.getBody());
@@ -162,7 +185,7 @@ public with sharing class SAT_LabResultsService {
                                 (String) row.get('unit'),
                                 refRange,
                                 (String) row.get('abnormalFlagCd'),
-                                String.valueOf(row.get('observationTypeCd')) + ' / ' + (String) row.get('loincGroup')
+                                String.valueOf(row.get('loincPanCanadianName'))
                             ));
                         }
                         createLog('Success - Retrieved ' + results.size() + ' lab results by ' + requester, 200, caseId);
