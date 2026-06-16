@@ -141,7 +141,6 @@ private class SAT_LabResultsServiceTest {
             FROM Contact 
             WHERE Id = :personAccount.PersonContactId
         ];
-        //personContact.Patient_Identifier__c = '9876543210';
         update personContact;
         
         // Create Case linked to Person Account
@@ -523,8 +522,6 @@ private class SAT_LabResultsServiceTest {
         Test.stopTest();
         
         System.assert(exceptionThrown, 'Should have thrown exception');
-        //System.assert(exceptionMessage.contains('Case record not found'), 
-       //              'Should throw error for invalid case ID. Actual: ' + exceptionMessage);
         
         List<Integration_Log__c> logs = [SELECT Code__c FROM Integration_Log__c];
         System.assertEquals(1, logs.size(), 'Should create error log');
