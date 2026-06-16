@@ -1,8 +1,14 @@
-public with sharing class SAT_LabResultsService {
+/**********************************************************************************************
+* @Author:      PBCS 
+* @Description: The purpose of this helper class is to call PLIS API and get the Lab Results
+* @Revision(s): 
+***********************************************************************************************/
 
+public with sharing class SAT_LabResultsService {
+    
     private static Integration_Log__c createLog(String message, Integer code, Id caseId) {
         final Integer MAX_LENGTH = 255;
-    
+        
         if (String.isNotBlank(message) && message.length() > MAX_LENGTH) {
             message = message.substring(0, MAX_LENGTH - 3) + '...';
         }
@@ -15,7 +21,7 @@ public with sharing class SAT_LabResultsService {
         insert log;
         return log;
     }
-
+    
     public class LabResultDTO {
         @AuraEnabled public String test;
         @AuraEnabled public Datetime observationDateTime;
@@ -24,7 +30,7 @@ public with sharing class SAT_LabResultsService {
         @AuraEnabled public String referenceRangeTxt;
         @AuraEnabled public String abnormalFlagCd;
         @AuraEnabled public String coding;
-
+        
         public LabResultDTO(
             String test,
             Datetime observationDateTime,
@@ -43,7 +49,7 @@ public with sharing class SAT_LabResultsService {
             this.coding = coding;
         }
     }
-
+    
     @AuraEnabled(cacheable=true)
     public static String getCurrentUser() {
         User currentUser = [
@@ -54,7 +60,7 @@ public with sharing class SAT_LabResultsService {
         ];
         return currentUser.LastName;
     }
-
+    
     @AuraEnabled(cacheable=false)
     public static List<LabResultDTO> getLabResults(
         String caseId,
@@ -63,7 +69,7 @@ public with sharing class SAT_LabResultsService {
         String requester
     ) {
         List<LabResultDTO> results = new List<LabResultDTO>();
-
+        
         try {
             // Query Case to get Patient_Identifier__c
             Case caseRecord = [
@@ -72,102 +78,71 @@ public with sharing class SAT_LabResultsService {
                 WHERE Id = :caseId 
                 LIMIT 1
             ];
-
+            
             String personalHealthNumber = caseRecord.Patient_Identifier__c;
-			if(Test.ISRunningTest())
+            if(Test.ISRunningTest())
             {
-               personalHealthNumber = '9876543210';
+                personalHealthNumber = '9876543210';
             }
             // Validate required fields
             if (String.isBlank(personalHealthNumber)) {
                 createLog('Error: Patient Identifier is missing from Case', 400, caseId);
                 throw new AuraHandledException('Patient Identifier is missing from the Case record.');
             }
-
+            
             if (String.isBlank(testType)) {
                 createLog('Error: Test Type is required', 400, caseId);
                 throw new AuraHandledException('Test Type is required.');
             }
-
+            
             if (String.isBlank(asOfDate)) {
                 createLog('Error: As Of Date is required', 400, caseId);
                 throw new AuraHandledException('As Of Date is required.');
             }
-
+            
             if (String.isBlank(requester)) {
                 createLog('Error: Requester is required', 400, caseId);
                 throw new AuraHandledException('Requester is required.');
             }
-
-            System.debug('PHN: ' + personalHealthNumber);
-            System.debug('testType: ' + testType);
-            System.debug('asOfDate: ' + asOfDate);
-            System.debug('requester: ' + requester);
-
+            
             String accessToken = AzureAuthService.getAccessToken();
-
-            //String endpoint = Label.SAT_Lab_Result_Endpoint;//'https://moh-dms-m-sit-api.azure-api.net/api/plissit/getResults';
-			 String endpoint = Azure_Config__mdt.getInstance('Azure_Config').SAT_Endpoint__c;
+            
+            String endpoint = Azure_Config__mdt.getInstance('Azure_Config').SAT_Endpoint__c;
             Map<String, Object> bodyMap = new Map<String, Object>{
                 'requester' => requester,
-                'personalHealthNumber' => personalHealthNumber,
-                'testType' => testType,
-                'asOfDate' => asOfDate
-            };
-
-            System.debug('REQUEST BODY: ' + JSON.serializePretty(bodyMap));
-
-            HttpRequest req = new HttpRequest();
+                    'personalHealthNumber' => personalHealthNumber,
+                    'testType' => testType,
+                    'asOfDate' => asOfDate
+                    };
+                        
+                        HttpRequest req = new HttpRequest();
             req.setEndpoint(endpoint);
             req.setMethod('POST');
             req.setHeader('Content-Type', 'application/json');
             req.setHeader('Authorization', 'Bearer ' + accessToken);
             req.setBody(JSON.serialize(bodyMap));
             req.setTimeout(120000);
-
+            
             Http http = new Http();
             HttpResponse res = http.send(req);
             
-            /*HttpRequest req = new HttpRequest();
-            
-            // Use Named Credential syntax: callout:NamedCredentialName/endpoint
-            req.setEndpoint('callout:Azure_Named_Credential/api/plissit/getResults');
-            req.setMethod('POST');
-            req.setHeader('Content-Type', 'application/json');
-            // No need to manually set Authorization header - Named Credential handles it
-            req.setBody(JSON.serialize(bodyMap));
-            req.setTimeout(120000);
-
-            Http http = new Http();
-            HttpResponse res = http.send(req);*/
-            
-            /*HttpRequest req = new HttpRequest();
-            req.setEndpoint('callout:Azure_Named_Credential/v1.0/users');
-            req.setMethod('POST');
-            
-            Http http = new Http();
-            HttpResponse res = http.send(req);*/
-
-            System.debug('STATUS CODE: ' + res.getStatusCode());
-            System.debug('RESPONSE BODY: ' + res.getBody());
-
             if (res.getStatusCode() == 200) {
                 Map<String, Object> parsed = (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
                 Map<String, Object> content = (Map<String, Object>) parsed.get('content');
-
+                
                 if (content != null && (Boolean) content.get('success')) {
                     List<Object> plisData = (List<Object>) content.get('plisData');
-
+                    
                     if (plisData != null && !plisData.isEmpty()) {
                         for (Object rowObj : plisData) {
                             Map<String, Object> row = (Map<String, Object>) rowObj;
-
+                            
                             Datetime obsDateTime = null;
                             String dt = (String) row.get('observationDateTime');
                             if (dt != null) {
                                 obsDateTime = Datetime.valueOf(dt.replace('T', ' '));
                             }
-
+                            
                             String refRange = (String) row.get('referenceRangeTxt');
                             if (String.isNotBlank(refRange)) {
                                 refRange = refRange
@@ -177,15 +152,21 @@ public with sharing class SAT_LabResultsService {
                                     .replace('&quot;', '"')
                                     .replace('&#39;', '\'');
                             }
-
+                            
                             results.add(new LabResultDTO(
                                 testType,
                                 obsDateTime,
-                                String.valueOf(row.get('value') != null ? row.get('value') : row.get('observationValue')),
-                                (String) row.get('unit'),
+                                String.valueOf(
+                                    row.containsKey('value') && row.get('value') != null
+                                    ? row.get('value')
+                                    : (row.containsKey('observationValue') ? row.get('observationValue') : null)
+                                ),
+                                row.containsKey('unit') ? (String) row.get('unit') : null,
                                 refRange,
-                                (String) row.get('abnormalFlagCd'),
-                                String.valueOf(row.get('loincPanCanadianName'))
+                                row.containsKey('abnormalFlagCd') ? (String) row.get('abnormalFlagCd') : null,
+                                row.containsKey('loincPanCanadianName')
+                                ? String.valueOf(row.get('loincPanCanadianName'))
+                                : null
                             ));
                         }
                         createLog('Success - Retrieved ' + results.size() + ' lab results by ' + requester, 200, caseId);
@@ -200,7 +181,7 @@ public with sharing class SAT_LabResultsService {
                 createLog('HTTP Error: ' + res.getStatus(), res.getStatusCode(), caseId);
                 throw new AuraHandledException('HTTP Error: ' + res.getStatus());
             }
-
+            
         } catch (QueryException qe) {
             createLog('QueryException: ' + qe.getMessage(), 404, null);
             throw new AuraHandledException('Case record not found.');
@@ -210,7 +191,7 @@ public with sharing class SAT_LabResultsService {
             createLog('Exception: ' + e.getMessage(), 500, null);
             throw new AuraHandledException(e.getMessage());
         }
-
+        
         return results;
     }
 }

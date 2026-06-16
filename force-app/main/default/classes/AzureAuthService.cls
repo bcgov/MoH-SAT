@@ -34,9 +34,6 @@ public class AzureAuthService {
         Http http = new Http();
         HttpResponse res = http.send(req);
 
-        System.debug('Status: ' + res.getStatus());
-        System.debug('Response: ' + res.getBody());
-
         Map<String, Object> result = 
             (Map<String, Object>) JSON.deserializeUntyped(res.getBody());
 
