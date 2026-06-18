@@ -77,37 +77,61 @@ private class AzureAuthServiceTest {
         System.assertEquals('mock_access_token_12345', accessToken, 'Access token should match mock value');
     }
     
-    @isTest
-    static void testGetAccessToken_Failure() {
-        // Enable test mode to use mock signature
-        AzureAuthService.isTest = true;
-        
-        // Set mock callout for failure
-        Test.setMock(HttpCalloutMock.class, new MockFailureHttpResponse());
-        
-        Test.startTest();
-        String accessToken = AzureAuthService.getAccessToken();
-        Test.stopTest();
-        
-        // The access_token key won't exist in error response, so it will return null
-        System.assertEquals(null, accessToken, 'Access token should be null on failure');
+@isTest
+static void testGetAccessToken_Failure() {
+    // Enable test mode to use mock signature
+    AzureAuthService.isTest = true;
+
+    // Mock a failed HTTP response
+    Test.setMock(HttpCalloutMock.class, new MockFailureHttpResponse());
+
+    Test.startTest();
+
+    try {
+        AzureAuthService.getAccessToken();
+        System.assert(false, 'Expected CalloutException was not thrown');
+    } catch (CalloutException ex) {
+        System.assert(
+            ex.getMessage().contains('Failed to retrieve Azure access token'),
+            'Unexpected exception message: ' + ex.getMessage()
+        );
+
+        System.assert(
+            ex.getMessage().contains('Status Code:'),
+            'Status code should be included in exception message'
+        );
     }
+
+    Test.stopTest();
+}
     
-    @isTest
-    static void testGetAccessToken_Unauthorized() {
-        // Enable test mode to use mock signature
-        AzureAuthService.isTest = true;
-        
-        // Set mock callout for unauthorized
-        Test.setMock(HttpCalloutMock.class, new MockUnauthorizedHttpResponse());
-        
-        Test.startTest();
-        String accessToken = AzureAuthService.getAccessToken();
-        Test.stopTest();
-        
-        // Should return null as access_token won't be in error response
-        System.assertEquals(null, accessToken, 'Access token should be null when unauthorized');
+@isTest
+static void testGetAccessToken_Unauthorized() {
+    // Enable test mode to use mock signature
+    AzureAuthService.isTest = true;
+
+    // Mock a 401 Unauthorized response
+    Test.setMock(HttpCalloutMock.class, new MockUnauthorizedHttpResponse());
+
+    Test.startTest();
+
+    try {
+        AzureAuthService.getAccessToken();
+        System.assert(false, 'Expected CalloutException was not thrown');
+    } catch (CalloutException ex) {
+        System.assert(
+            ex.getMessage().contains('Failed to retrieve Azure access token'),
+            'Unexpected exception message: ' + ex.getMessage()
+        );
+
+        System.assert(
+            ex.getMessage().contains('401'),
+            'Expected 401 status code in exception message'
+        );
     }
+
+    Test.stopTest();
+}
     
     @isTest
     static void testBase64UrlEncode() {
@@ -177,18 +201,21 @@ private class AzureAuthServiceTest {
     
     @isTest
     static void testErrorHandling_NoAccessToken() {
-        // Enable test mode
         AzureAuthService.isTest = true;
         
-        // Mock that returns response without access_token
         Test.setMock(HttpCalloutMock.class, new MockFailureHttpResponse());
         
         Test.startTest();
-        String token = AzureAuthService.getAccessToken();
+        try {
+            AzureAuthService.getAccessToken();
+            System.assert(false, 'Expected CalloutException to be thrown');
+        } catch (CalloutException ex) {
+            System.assert(
+                ex.getMessage().contains('Failed to retrieve Azure access token'),
+                'Unexpected exception message: ' + ex.getMessage()
+            );
+        }
         Test.stopTest();
-        
-        // Should return null when access_token is not in response
-        System.assertEquals(null, token, 'Should return null when access_token is missing');
     }
     
     @isTest
