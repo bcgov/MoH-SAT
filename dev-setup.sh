@@ -88,6 +88,7 @@ sf project deploy start --source-dir force-app --target-org $alias --ignore-conf
 sf project deploy start --source-dir force-app/main/default/objects --target-org $alias
 sf project deploy start --source-dir force-app/main/default/queues --target-org $alias
 sf project deploy start --source-dir OmniStudio-Components --target-org $alias
+sf project deploy start --source-dir OmniStudio-Components/main/default/omniScripts --target-org $alias -w 30 --ignore-conflicts
 sf project deploy start --source-dir dev-app-post --target-org $alias --ignore-conflicts
 #sfdx force:source:tracking:reset -u $alias --noprompt 
 sf project reset tracking --target-org $alias --noprompt 

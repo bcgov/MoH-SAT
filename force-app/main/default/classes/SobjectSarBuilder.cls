@@ -56,7 +56,7 @@ public inherited sharing class SobjectSarBuilder implements SarBuilder {
                 Provider_Validated_Date__c, Termination_Date__c, Effective_Date__c, DEC_Name__c,Description,Rationale__c,
 
                 Drug__c, Drug_Name__c, Drug__r.OwnerId,
-
+                Dispensed__c, Compliance__c, // Supriya
                 Contact.Account.FirstName, Contact.Account.LastName, Contact.Account.Patient_Identifier__pc, 
                 Contact.Account.PersonBirthdate, Contact.Account.PersonMailingStreet, Contact.Account.PersonMailingCity,
                 Contact.Account.PersonMailingState, Contact.Account.PersonMailingPostalCode, Contact.Account.PersonMailingCountry,

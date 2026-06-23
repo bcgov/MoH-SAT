@@ -44,26 +44,74 @@ public with sharing class Step {
     }
 
     public Boolean executable(Case caseRecord, List<Request_Detail__c> requestDetailRecords) {
-        return this.alwaysRun || evaluateCriteria(caseRecord, requestDetailRecords);
+     if(!this.alwaysRun && String.isBlank(this.criteriaLogic)) {
+        return false;
+    }
+    
+    Boolean result = this.alwaysRun || evaluateCriteria(caseRecord, requestDetailRecords);
+    return result;
     }
 
-    public Boolean evaluateCriteria(Case caseRecord, List<Request_Detail__c> requestDetailRecords) {
-        setRecords(caseRecord, requestDetailRecords);
-        
-        Expression logicExpression = Parser.parse(this.criteriaLogic);
-
-        for (Integer criteriaOrder : this.criteriaMap.keySet()) {
-            StepCriteria criteria = this.criteriaMap.get(criteriaOrder);
-
-            String orderStr = String.valueOf(criteriaOrder);
-            Boolean criteriaResult = criteria.evaluate();
-
-            logicExpression.set(orderStr, criteriaResult);
+    public Boolean evaluateCriteria(
+        Case saCase, 
+        List<Request_Detail__c> requestDetails
+    ) {
+        System.debug('### Step.evaluateCriteria - START');
+        System.debug('### Step.evaluateCriteria - Step Title: ' + this.title);
+        System.debug('### Step.evaluateCriteria - Criteria Logic: ' + this.criteriaLogic);
+        System.debug('### Step.evaluateCriteria - Total Criteria: ' + this.criteria.size());
+    
+        // Build criteria map
+        Map<Integer, StepCriteria> criteriaMap = new Map<Integer, StepCriteria>();
+        for (StepCriteria c : this.criteria) {
+            if (criteriaMap.containsKey(c.order)) {
+                System.debug('### Step.evaluateCriteria - !!! DUPLICATE ORDER DETECTED: ' + c.order);
+                System.debug('### Step.evaluateCriteria - Existing: ' + criteriaMap.get(c.order).fieldName);
+                System.debug('### Step.evaluateCriteria - New (will overwrite): ' + c.fieldName);
+            }
+            criteriaMap.put(c.order, c);
+            System.debug('### Step.evaluateCriteria - Added to map - Order: ' + c.order + 
+                         ' | Object: ' + c.sobjectName + 
+                         ' | Field: ' + c.fieldName +
+                         ' | QID: ' + c.questionId);
         }
-
-        this.criteriaResult = logicExpression.evaluate();
-
-        return this.criteriaResult;
+    
+        System.debug('### Step.evaluateCriteria - criteriaMap size: ' + criteriaMap.size());
+        System.debug('### Step.evaluateCriteria - criteriaMap keys: ' + criteriaMap.keySet());
+    
+        // Set records
+        setRecords(saCase, requestDetails);
+    
+        // Parse logic
+        System.debug('### Step.evaluateCriteria - Parsing logic: ' + this.criteriaLogic);
+        Expression logicExpression = Parser.parse(this.criteriaLogic);
+    
+        // Evaluate each criteria
+        for (Integer criteriaOrder : criteriaMap.keySet()) {
+            StepCriteria criteria = criteriaMap.get(criteriaOrder);
+            String orderKey = String.valueOf(criteriaOrder);
+    
+            System.debug('### Step.evaluateCriteria - Evaluating Order: ' + criteriaOrder + 
+                         ' | orderKey: "' + orderKey + '"' +
+                         ' | field: ' + criteria.fieldName +
+                         ' | actualValue null?: ');
+    
+            try {
+                Boolean evalResult = criteria.evaluate();
+                System.debug('### Step.evaluateCriteria - Order: ' + criteriaOrder + 
+                             ' | evalResult: ' + evalResult);
+                logicExpression.set(orderKey, evalResult);
+                System.debug('### Step.evaluateCriteria - Set "' + orderKey + '" = ' + evalResult);
+            } catch (Exception e) {
+                System.debug('### Step.evaluateCriteria - ERROR on Order: ' + criteriaOrder + 
+                             ' | Error: ' + e.getMessage());
+                throw e;
+            }
+        }
+    
+        Boolean result = logicExpression.evaluate();
+        System.debug('### Step.evaluateCriteria - FINAL RESULT: ' + result);
+        return result;
     }
 
     private void setRecords(Case caseRecord, List<Request_Detail__c> requestDetailRecords) {

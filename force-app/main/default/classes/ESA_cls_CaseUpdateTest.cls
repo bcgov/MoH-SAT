@@ -15,4 +15,4 @@ public with sharing class ESA_cls_CaseUpdateTest {
         Assert.areNotEqual('',sar.saCase.Subject, 'Subject on case should not be overwritten with blank');  
         Test.stopTest();      
     } 
-}
+} 

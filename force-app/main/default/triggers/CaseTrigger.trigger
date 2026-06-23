@@ -25,8 +25,9 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
 
                 //Filtering the case based on record type for SA Request
                 if (runEvaluate && saCase.Record_Type_Name__c == 'Special_Authority_Request') {
-                    System.debug('!!!saCase.Id'+ saCase.Id);
                     AdjudicationService.evaluateFuture(saCase.Id, true);
+                   
+                    RxHistoryPatientDrugValidator.validateAndUpdateCase(saCase.Id);
                 }
             }
         }  
@@ -61,7 +62,7 @@ trigger CaseTrigger on Case (before insert, before update, after insert, after u
             if(ESA_cls_caseTriggerHandler.FYOnce){
                 ESA_cls_caseTriggerHandler.forecastDrugCost(trigger.newMap, trigger.oldMap);  
             }
-        }
+        }        
     } 
   
 }

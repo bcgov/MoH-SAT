@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="RX History">
+
+        <template if:true={hasData}>
+            <lightning-datatable
+                key-field="din"
+                data={data}
+                columns={columns}
+                hide-checkbox-column>
+            </lightning-datatable>
+        </template>
+
+        <template if:true={error}>
+            <p class="slds-text-color_error slds-p-around_medium">
+                Error loading data
+            </p>
+        </template>
+
+    </lightning-card>
+</template>

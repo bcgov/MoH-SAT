@@ -430,7 +430,7 @@ public with sharing class ESA_cls_caseTriggerHandler {
 * @description: The purpose of this future method is to update EDRD Provider field on Person Account.
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */    
-    @future
+    @Future
     private static void UpdateProviderAccountsAsync(Set<Id> caseIdSet) {
         Map<Id, Account> accIdVsRecToUpdate = new Map<Id, Account>();
         
@@ -587,8 +587,9 @@ public with sharing class ESA_cls_caseTriggerHandler {
             Database.Insert(cTMToInsert, true);
         }
         public List<User> providerUserList(Map<Id, Id> caseIdVsAccIdToCreateCT,  Map<Id, Id> caseIdVsAccIdToRemoveCT){
-            List<User> providerList = [SELECT Id, AccountId FROM User WHERE Contact.AccountId IN: caseIdVsAccIdToCreateCT.Values() 
-                                           OR Contact.AccountId IN: caseIdVsAccIdToRemoveCT.Values()];
+            // Get Active providerusers Associated with the related case provider accounts.
+            List<User> providerList = [SELECT Id, AccountId FROM User WHERE (Contact.AccountId IN: caseIdVsAccIdToCreateCT.Values() 
+                                           OR Contact.AccountId IN: caseIdVsAccIdToRemoveCT.Values()) AND IsActive = TRUE AND IsPortalEnabled  = TRUE];
             return providerList;
         }
     }
