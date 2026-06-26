@@ -192,7 +192,7 @@ public with sharing class SendEmailUtility {
 
         ContentVersion conVersion = new ContentVersion();
         conVersion.Title = 'PNL_' + caseRec.EDRD_Ref_No__c;
-        conVersion.PathOnClient = 'ApexGeneratedFile.pdf';
+        conVersion.PathOnClient = 'PNL_' + caseRec.EDRD_Ref_No__c +'.pdf';
         conVersion.VersionData = pdfBlob;
         conVersion.IsMajorVersion = true;
         insert conVersion;
