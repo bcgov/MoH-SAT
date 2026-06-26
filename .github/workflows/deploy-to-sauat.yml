@@ -54,5 +54,8 @@ jobs:
     - name: Deploy Source in dev-app-post
       run: sf project deploy start -d dev-app-post -o SAT-SAUAT -w 15 --ignore-conflicts
 
+    - name: Deploy documentGenerationSettings
+      run: sf project deploy start -d documentGenerationSettings -o SAT-SAUAT -w 15 --ignore-conflicts
+
 #    - name: Deploy destructive changes
 #      run: sdfx force:mdapi:deploy --postdestructivechanges destructiveChanges -u SAT-SAUAT -o -g -l RunLocalTests -w 15

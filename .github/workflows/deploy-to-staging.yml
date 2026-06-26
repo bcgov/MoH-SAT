@@ -50,6 +50,9 @@ jobs:
     - name: Deploy Source in dev-app-post
       run: sf project deploy start -d dev-app-post -o SAT-STAGING -w 15 --ignore-conflicts
 
+    - name: Deploy documentGenerationSettings
+      run: sf project deploy start -d documentGenerationSettings -o SAT-STAGING -w 15 --ignore-conflicts
+
     
 
 #    - name: Deploy destructive changes

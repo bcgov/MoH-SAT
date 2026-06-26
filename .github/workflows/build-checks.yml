@@ -87,6 +87,9 @@ jobs:
         
     - name: Run Apex test
       run: sf apex run test -c -r human
+    
+    - name: Deploy documentGenerationSettings
+      run: sf project deploy start -d documentGenerationSettings -o SAT-BUILD -w 15 --ignore-conflicts
 
     - name: Delete scratch org
       if: ${{ always() }}
