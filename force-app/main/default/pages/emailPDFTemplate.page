@@ -112,7 +112,8 @@
             decision regarding your request for the below-noted patient and therapy.
             The request has been
             <strong>
-<apex:outputText value="{!Status}"/></strong>.
+                <apex:outputText value="{!Status}"/>
+            </strong>.
         </div>
 
         <!-- Reference Number -->
@@ -122,36 +123,62 @@
             <apex:outputText value="{!caseRec.EDRD_Ref_No__c}"/>
         </div>
 
-        <!-- Funding Start Date -->
-        <div class="section">
-            <span class="label">Funding Start Date:&nbsp;</span>
+        <!-- Hide Funding Start Date when Status = Denied -->
+        <apex:outputPanel rendered="{!Status != 'Denied'}">
+            <div class="section">
+                <span class="label">Funding Start Date:&nbsp;</span>
 
-            <apex:outputText value="{0,date,yyyy-MM-dd}"
-                             rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHFunding_Start_Date__c))}">
-                <apex:param value="{!caseRec.EDRD_MOHFunding_Start_Date__c}"/>
-            </apex:outputText>
-        </div>
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHFunding_Start_Date__c))}">
+                    <apex:param value="{!caseRec.EDRD_MOHFunding_Start_Date__c}"/>
+                </apex:outputText>
+            </div>
+        </apex:outputPanel>
 
-        <!-- Funding Expiry Date -->
-        <div class="section">
-            <span class="label">Funding Expiry Date:&nbsp;</span>
+        <!-- Hide Funding Expiry Date / Extension End Date when Status = Denied -->
+        <apex:outputPanel rendered="{!Status != 'Denied'}">
+            <div class="section">
 
-            <apex:outputText value="{0,date,yyyy-MM-dd}"
-                             rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHFunding_Expiry_Date__c))}">
-                <apex:param value="{!caseRec.EDRD_MOHFunding_Expiry_Date__c}"/>
-            </apex:outputText>
-        </div>
+                <span class="label">
+                    <apex:outputText value="Extension End Date:"
+                                     rendered="{!Status = 'Extended'}"/>
 
-        <!-- Review Date -->
-        <div class="section">
-            <span class="label">
-                Approximate Upcoming Subcommittee Review Date*:&nbsp;</span>
+                    <apex:outputText value="Funding Expiry Date:"
+                                     rendered="{!Status != 'Extended'}"/>
+                </span>
 
-            <apex:outputText value="{0,date,yyyy-MM-dd}"
-                             rendered="{!NOT(ISBLANK(caseRec.EDRD_Next_SC_Presentation_Date__c))}">
-                <apex:param value="{!caseRec.EDRD_Next_SC_Presentation_Date__c}"/>
-            </apex:outputText>
-        </div>
+                &nbsp;
+
+                <!-- Extension End Date -->
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!AND(Status = 'Extended',
+                                                 NOT(ISBLANK(caseRec.EDRD_MOHFunding_Extension_Date__c)))}">
+                    <apex:param value="{!caseRec.EDRD_MOHFunding_Extension_Date__c}"/>
+                </apex:outputText>
+
+                <!-- Funding Expiry Date -->
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!AND(Status != 'Extended',
+                                                 NOT(ISBLANK(caseRec.EDRD_MOHFunding_Expiry_Date__c)))}">
+                    <apex:param value="{!caseRec.EDRD_MOHFunding_Expiry_Date__c}"/>
+                </apex:outputText>
+
+            </div>
+        </apex:outputPanel>
+
+        <!--Hide Approximate Upcoming Subcommittee Review Date when Status = Denied -->
+        <apex:outputPanel rendered="{!Status != 'Denied'}">
+            <div class="section">
+                <span class="label">
+                    Approximate Upcoming Subcommittee Review Date*:&nbsp;
+                </span>
+
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!NOT(ISBLANK(caseRec.EDRD_Next_SC_Presentation_Date__c))}">
+                    <apex:param value="{!caseRec.EDRD_Next_SC_Presentation_Date__c}"/>
+                </apex:outputText>
+            </div>
+        </apex:outputPanel>
 
         <!-- Drug -->
         <div class="section">
@@ -193,59 +220,35 @@
             </div>
 
         </div>
+
         <apex:outputPanel rendered="{!status != 'Denied'}">
 
-    <!-- Conditions -->
-    <div class="conditions">
+            <!-- Conditions -->
+            <div class="conditions">
 
-        <p>
-            The funding request has been approved with the following conditions:
-        </p>
+                <p>
+                    The funding request has been approved with the following conditions:
+                </p>
 
-        <p>
-            <strong>1) Private Insurance:</strong>
-            It is confirmed that the patient above does not have 100% private
-            insurance coverage for the drug therapy and the Ministry is
-            the payer of last resort.
-        </p>
+                <p>
+                    <strong>1) Private Insurance:</strong>
+                    It is confirmed that the patient above does not have 100% private
+                    insurance coverage for the drug therapy and the Ministry is
+                    the payer of last resort.
+                </p>
 
-        <p>
-            <strong>2) Coverage Term*:</strong>
-            Please note that review dates are subject to change.
-            While some EDRDs are reviewed by a subcommittee, others are not.
-            If the requested medication is reviewed by a subcommittee,
-            we will notify you of the review date approximately
-            4–6 weeks prior to the subcommittee meeting.
-        </p>
+                <p>
+                    <strong>2) Coverage Term*:</strong>
+                    Please note that review dates are subject to change.
+                    While some EDRDs are reviewed by a subcommittee, others are not.
+                    If the requested medication is reviewed by a subcommittee,
+                    we will notify you of the review date approximately
+                    4–6 weeks prior to the subcommittee meeting.
+                </p>
 
-    </div>
+            </div>
 
-</apex:outputPanel>
-
-        <!-- Conditions -->
-       <!-- <div class="conditions">
-
-            <p>
-                The funding request has been approved with the following conditions:
-            </p>
-
-            <p>
-                <strong>1) Private Insurance:</strong>
-                It is confirmed that the patient above does not have private
-                insurance coverage for the drug therapy and the Ministry is
-                the payer of last resort.
-            </p>
-
-            <p>
-                <strong>2) Coverage Term*:</strong>
-                Please note that review dates are subject to change.
-                While some EDRDs are reviewed by a subcommittee, others are not.
-                If the requested medication is reviewed by a subcommittee,
-                we will notify you of the review date approximately
-                4–6 weeks prior to the subcommittee meeting.
-            </p>
-
-        </div> -->
+        </apex:outputPanel>
 
         <!-- Contact -->
         <div class="section">

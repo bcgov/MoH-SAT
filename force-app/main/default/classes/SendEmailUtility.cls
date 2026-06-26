@@ -1,3 +1,10 @@
+/**
+ * -----------------------------------------------------------------------------
+ * Class Name : SendEmailUtility
+ * Purpose    : Generates PDF notification letters and emails them to providers.
+ * Date:      : 2026-06-08
+ * Developer  : Sunny
+ */
 public with sharing class SendEmailUtility {
     public Case record { get; set; }
     public Case caseRec { get; set; }
@@ -41,7 +48,8 @@ public with sharing class SendEmailUtility {
                    EDRD_MOHFunding_Start_Date__c, EDRD_MOHFunding_Expiry_Date__c,
                    EDRD_Next_SC_Presentation_Date__c, EDRD_MOHApproved_Dosage__c,
                    EDRD_MOHApproved_Dosage_Unit__r.Name, EDRD_MOHApproved_Frequency__c,
-                   EDRD_MOHApproved_Frequency_Unit__c, PNL_Comments__c, Status
+                   EDRD_MOHApproved_Frequency_Unit__c, PNL_Comments__c, Status,
+                   EDRD_MOHFunding_Extension_Date__c
             FROM Case
             WHERE Id = :receivedStatuses[0]
             LIMIT 1
@@ -117,7 +125,7 @@ public with sharing class SendEmailUtility {
         }
 
         List<Contact> providers = [
-            SELECT Email
+            SELECT Id, Email
             FROM Contact
             WHERE Id = :caseRec.Provider__c
             WITH USER_MODE
@@ -148,25 +156,40 @@ public with sharing class SendEmailUtility {
         attachment.setFileName('PNL_' + caseRec.EDRD_Ref_No__c + '.pdf');
         attachment.setBody(pdfBlob);
         attachment.setContentType('application/pdf');
-        
+
         List<EmailTemplate> emailTemplate = [
-            SELECT Id, Subject, Description, Body 
-            FROM EmailTemplate 
-            WHERE DeveloperName ='EDRD_Physician_Notification_1780429755402' 
+            SELECT Id, Subject, Description, Body
+            FROM EmailTemplate
+            WHERE DeveloperName = 'EDRD_Physician_Notification_1780429755402'
             LIMIT 1
         ];
+
+        String ccEmail = System.Label.EDRD_Physician_CC_Email;
+        if (String.isBlank(ccEmail)) {
+            throw new AuraHandledException('Custom Label EDRD_Physician_CC_Email is not configured.');
+        }
+
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
         email.setOrgWideEmailAddressId(owea[0].Id);
         email.setTargetObjectId(provider.Id);
         email.setWhatId(caseRec.Id);
-        if(!emailTemplate.isEmpty()){email.setTemplateId(emailTemplate[0].Id);}
+
+        // CHANGED: Add CC from Custom Label
+        email.setCcAddresses(new List<String>{ ccEmail });
+
+        if (!emailTemplate.isEmpty()) {
+            email.setTemplateId(emailTemplate[0].Id);
+        }
+
         email.setFileAttachments(new Messaging.EmailFileAttachment[] { attachment });
+
         Messaging.SendEmailResult[] results =
             Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
+
         if (results == null || results.isEmpty() || !results[0].isSuccess()) {
             return;
-          }
-          
+        }
+
         ContentVersion conVersion = new ContentVersion();
         conVersion.Title = 'PNL_' + caseRec.EDRD_Ref_No__c;
         conVersion.PathOnClient = 'ApexGeneratedFile.pdf';
