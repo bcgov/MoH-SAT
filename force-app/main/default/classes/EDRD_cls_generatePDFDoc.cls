@@ -25,7 +25,7 @@ public with sharing class EDRD_cls_generatePDFDoc {
         String type = 'GenerateAndConvert'; 
         List<DocumentTemplate> docTemplateList = [SELECT Id, Name FROM DocumentTemplate WHERE Name = 'EDRD BC DocGen-Template' LIMIT 1];
         
-        String responseText = JSON.serialize(new Map<String, String>{'TOKENDATA' => keyVsValue.get('TOKENDATA')});
+        String responseText = keyVsValue.get('TOKENDATA');
         String assessmentRecordId = keyVsValue.get('RECORDID');
         
         List<Assessment> assessmentList = [SELECT Id, CaseId FROM Assessment WHERE Id =: assessmentRecordId LIMIT 1];
