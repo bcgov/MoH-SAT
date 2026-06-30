@@ -84,10 +84,13 @@ jobs:
         # sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
         # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
         # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
+    
+    - name: Deploy documentGenerationSettings
+      run: sf project deploy start -d documentGenerationSettings -o ciorg -w 15 --ignore-conflicts
         
     - name: Run Apex test
       run: sf apex run test -c -r human
-
+    
     - name: Delete scratch org
       if: ${{ always() }}
       run: sf org delete scratch -o ciorg -p
