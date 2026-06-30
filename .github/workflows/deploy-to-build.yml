@@ -47,13 +47,13 @@ jobs:
       run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAT-BUILD -w 30 
 
     - name: Deploy Source in dev-app-post
-      run: sf project deploy start -d dev-app-post -o SAT-BUILD -w 15 
+      run: sf project deploy start -d dev-app-post -o SAT-BUILD -w 15
+    
+    - name: Deploy documentGenerationSettings
+      run: sf project deploy start -d documentGenerationSettings -o SAT-BUILD -w 15 --ignore-conflicts 
 
     - name: Run Apex Tests
       run: sf apex run test -o SAT-BUILD -w 15
-
-    - name: Deploy documentGenerationSettings
-      run: sf project deploy start -d documentGenerationSettings -o SAT-BUILD -w 15 --ignore-conflicts
-
+      
 #    - name: Deploy destructive changes
 #      run: sfdx force:mdapi:deploy -d destructiveChanges -u SAT-BUILD -o -g -l RunLocalTests -w 15
