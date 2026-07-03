@@ -211,7 +211,7 @@ public with sharing class SendEmailUtility {
         conDocLink.ContentDocumentId = conDocumentId;
         conDocLink.LinkedEntityId = caseRec.Id;
         conDocLink.ShareType = 'V';
-        conDocLink.Visibility = 'AllUsers';
+        conDocLink.Visibility = 'InternalUsers';
         insert conDocLink;
     }
 

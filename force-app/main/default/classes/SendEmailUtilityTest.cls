@@ -37,6 +37,8 @@ private class SendEmailUtilityTest {
         ApexPages.currentPage().getParameters().put('parameters',String.join(params, ','));
         
         SendEmailUtility emailUtility = new SendEmailUtility(sc);
+        System.assertEquals(testCase.Id, emailUtility.caseRec.Id);
+        System.assertEquals(testCase.Status, emailUtility.Status);
         
         SendEmailUtility.generatePDFParams innerClass = new SendEmailUtility.generatePDFParams();
         innerClass.caseStatus = testCase.Status;
