@@ -1,0 +1,283 @@
+<apex:page standardController="Case"
+           extensions="SendEmailUtility"
+           renderAs="pdf"
+           showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           applyBodyTag="false"
+           applyHtmlTag="false"
+           docType="html-5.0">
+
+<html>
+<head>
+    <meta charset="UTF-8"/>
+
+    <style type="text/css">
+
+        @page {
+            margin: 20px 40px 40px 40px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10pt;
+            color: #000000;
+            line-height: 1.25;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .logo {
+            margin-bottom: 8px;
+        }
+
+        .logo img {
+            max-width: 50px;
+            height: auto;
+        }
+
+        .section {
+            margin-bottom: 14px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .paragraph {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .conditions {
+            margin-top: 18px;
+            margin-bottom: 18px;
+        }
+
+        .conditions p {
+            margin-bottom: 12px;
+        }
+
+        .prewrap {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .footer {
+            margin-top: 28px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Logo -->
+        <div class="logo">
+            <apex:image url="{!URLFOR($Resource.phsaLogo)}"
+                        alt="Company Logo"
+                        width="350"/>
+        </div>
+
+        <!-- Date -->
+        <div class="section">
+            <span class="label">Date:&nbsp;</span>
+
+            <apex:outputText value="{0,date,yyyy-MM-dd}">
+                <apex:param value="{!TODAY()}"/>
+            </apex:outputText>
+        </div>
+
+        <!-- Email -->
+        <div class="section">
+            <span class="label">Via Email:&nbsp;</span>
+
+            <apex:outputText value="{!caseRec.Provider__r.Email}"
+                             rendered="{!NOT(ISBLANK(caseRec.Provider__r.Email))}"/>
+        </div>
+
+        <!-- Greeting -->
+        <div class="section">
+            Dear Dr.
+            <apex:outputText value="{!caseRec.Provider__r.Name}"/>
+        </div>
+
+        <!-- Intro -->
+        <div class="paragraph">
+            This letter is to advise you of the Ministry of Health’s funding
+            decision regarding your request for the below-noted patient and therapy.
+            The request has been
+            <strong>
+                <apex:outputText value="{!Status}"/>
+            </strong>.
+        </div>
+
+        <!-- Reference Number -->
+        <div class="section">
+            <span class="label">EDRD Reference Number:&nbsp;</span>
+
+            <apex:outputText value="{!caseRec.EDRD_Ref_No__c}"/>
+        </div>
+
+        <!-- Hide Funding Start Date when Status = Denied -->
+        <apex:outputPanel rendered="{!Status != 'Denied'}">
+            <div class="section">
+                <span class="label">Funding Start Date:&nbsp;</span>
+
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHFunding_Start_Date__c))}">
+                    <apex:param value="{!caseRec.EDRD_MOHFunding_Start_Date__c}"/>
+                </apex:outputText>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Hide Funding Expiry Date / Extension End Date when Status = Denied -->
+        <apex:outputPanel rendered="{!Status != 'Denied'}">
+            <div class="section">
+
+                <span class="label">
+                    <apex:outputText value="Extension End Date:"
+                                     rendered="{!Status = 'Extended'}"/>
+
+                    <apex:outputText value="Funding Expiry Date:"
+                                     rendered="{!Status != 'Extended'}"/>
+                </span>
+
+                &nbsp;
+
+                <!-- Extension End Date -->
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!AND(Status = 'Extended',
+                                                 NOT(ISBLANK(caseRec.EDRD_MOHFunding_Extension_Date__c)))}">
+                    <apex:param value="{!caseRec.EDRD_MOHFunding_Extension_Date__c}"/>
+                </apex:outputText>
+
+                <!-- Funding Expiry Date -->
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!AND(Status != 'Extended',
+                                                 NOT(ISBLANK(caseRec.EDRD_MOHFunding_Expiry_Date__c)))}">
+                    <apex:param value="{!caseRec.EDRD_MOHFunding_Expiry_Date__c}"/>
+                </apex:outputText>
+
+            </div>
+        </apex:outputPanel>
+
+        <!--Hide Approximate Upcoming Subcommittee Review Date when Status = Denied -->
+        <apex:outputPanel rendered="{!Status != 'Denied'}">
+            <div class="section">
+                <span class="label">
+                    Approximate Upcoming Subcommittee Review Date*:&nbsp;
+                </span>
+
+                <apex:outputText value="{0,date,yyyy-MM-dd}"
+                                 rendered="{!NOT(ISBLANK(caseRec.EDRD_Next_SC_Presentation_Date__c))}">
+                    <apex:param value="{!caseRec.EDRD_Next_SC_Presentation_Date__c}"/>
+                </apex:outputText>
+            </div>
+        </apex:outputPanel>
+
+        <!-- Drug -->
+        <div class="section">
+            <span class="label">Drug:&nbsp;</span>
+
+            <apex:outputText value="{!medicationDisplay}"/>
+        </div>
+
+        <!-- Dosage -->
+        <div class="section">
+
+            <span class="label">Dosage:&nbsp;</span>
+
+            <apex:outputText value="{0,number,#}"
+                             rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHApproved_Dosage__c))}">
+                <apex:param value="{!caseRec.EDRD_MOHApproved_Dosage__c}"/>
+            </apex:outputText>
+
+            <apex:outputText value=" {!caseRec.EDRD_MOHApproved_Dosage_Unit__r.Name}"
+                             rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHApproved_Dosage_Unit__c))}"/>
+
+            <apex:outputText value=" {0,number,#}"
+                             rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHApproved_Frequency__c))}">
+                <apex:param value="{!caseRec.EDRD_MOHApproved_Frequency__c}"/>
+            </apex:outputText>
+
+            <apex:outputText value=" {!caseRec.EDRD_MOHApproved_Frequency_Unit__c}"
+                             rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHApproved_Frequency_Unit__c))}"/>
+
+        </div>
+
+        <!-- PNL Comments -->
+        <div class="section">
+
+            <span class="label">Comments:&nbsp;</span>
+
+            <div class="prewrap">
+                <apex:outputText value="{!TRIM(caseRec.PNL_Comments__c)}"/>
+            </div>
+
+        </div>
+
+        <apex:outputPanel rendered="{!status != 'Denied'}">
+
+            <!-- Conditions -->
+            <div class="conditions">
+
+                <p>
+                    The funding request has been approved with the following conditions:
+                </p>
+
+                <p>
+                    <strong>1) Private Insurance:</strong>
+                    It is confirmed that the patient above does not have 100% private
+                    insurance coverage for the drug therapy and the Ministry is
+                    the payer of last resort.
+                </p>
+
+                <p>
+                    <strong>2) Coverage Term*:</strong>
+                    Please note that review dates are subject to change.
+                    While some EDRDs are reviewed by a subcommittee, others are not.
+                    If the requested medication is reviewed by a subcommittee,
+                    we will notify you of the review date approximately
+                    4–6 weeks prior to the subcommittee meeting.
+                </p>
+
+            </div>
+
+        </apex:outputPanel>
+
+        <!-- Contact -->
+        <div class="section">
+
+            If you have any questions, please contact PHSA at your earliest
+            convenience at
+
+            <a href="mailto:PSP@phsa.ca">
+                PSP@phsa.ca
+            </a>.
+
+        </div>
+
+        <!-- Closing -->
+        <div class="footer">
+
+            <div class="section">
+                Sincerely,
+            </div>
+
+            <div class="section">
+                Expensive Drugs for Rare Diseases (EDRD), Provincial Specialized Programs (PSP)
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+</apex:page>
