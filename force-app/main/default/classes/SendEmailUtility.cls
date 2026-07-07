@@ -107,7 +107,7 @@ public with sharing class SendEmailUtility {
         ];
 
         if (owea == null || owea.isEmpty()) {
-            throw new AuraHandledException(System.Label.Org_wide_email_address_not_found);
+            return;
         }
 
         List<Case> caseRecsList = [
@@ -166,7 +166,7 @@ public with sharing class SendEmailUtility {
 
         String ccEmail = System.Label.EDRD_Physician_CC_Email;
         if (String.isBlank(ccEmail)) {
-            throw new AuraHandledException(System.Label.Physician_CC_Email_not_found);
+            return;
         }
 
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
