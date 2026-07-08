@@ -297,10 +297,9 @@ public with sharing class EmpiIntegration {
                         Map<String, Object> nameMap = (Map<String, Object>) nameObj;
                         String use = (String) nameMap.get(LRA_RESPONSE_USE);
 
-                        // Process only the first matching 'use' value
                         if (use != null && use.equalsIgnoreCase(selectedUse)) {
                             Patient.PersonName personName = new Patient.PersonName();
-                            if (selectedUse == LRA_RESPONSE_USE_OFFICIAL) {
+                            if (selectedUse == LRA_RESPONSE_USE_OFFICIAL || selectedUse == LRA_RESPONSE_USE_USUAL) {
                                 personName.declared = true;
                             }
                             personName.familyName = (String) nameMap.get(LRA_RESPONSE_FAMILY_NAME);
@@ -313,8 +312,7 @@ public with sharing class EmpiIntegration {
                                     }
                                 }
                             }
-
-                            personName.type = use;
+                            personName.type = (use.equalsIgnoreCase(LRA_RESPONSE_USE_OFFICIAL) || use.equalsIgnoreCase(LRA_RESPONSE_USE_USUAL)) ? 'L' : use;
                             personNames.add(personName);
                             break;
                         }
