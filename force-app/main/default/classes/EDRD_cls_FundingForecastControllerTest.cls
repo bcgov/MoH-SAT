@@ -10,7 +10,9 @@ public class EDRD_cls_FundingForecastControllerTest {
     @TestSetUp
     public static void createTestData() {
         Account providerAcnt = TestFactory.newProvider('Provider Test');
+        providerAcnt.PersonEmail = 'provider@test.com';
         insert providerAcnt;
+        Contact providerContact = [SELECT Id FROM Contact WHERE AccountId = :providerAcnt.Id LIMIT 1];
         Account patientAcnt = TestFactory.newPatient('Patient Test');
         insert patientAcnt;
         UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
@@ -26,6 +28,7 @@ public class EDRD_cls_FundingForecastControllerTest {
         caseFYList.get(0).EDRD_MOHApproved_Funding_Duration__c = 1;
         caseFYList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Once';
         caseFYList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(2024, 1, 1);
+        caseFYList.get(0).Provider__c = providerContact.Id;
         insert caseFYList;
         List<Medication> MedicationList = TestFactory.createMedication(1, 'Test Medication');
         insert MedicationList;

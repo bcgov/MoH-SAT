@@ -10,7 +10,9 @@ public class EDRD_cls_IndefiniteBatchTest {
     @TestSetUp
     public static void createTestData() {
         Account prvderAcc = TestFactory.newProvider('Provider Test');
+        prvderAcc.PersonEmail = 'provider@test.com';
         insert prvderAcc;
+        Contact prvderContact = [SELECT Id FROM Contact WHERE AccountId = :prvderAcc.Id LIMIT 1];
         Account patientAcc = TestFactory.newPatient('Patient Test');
         patientAcc.Patient_is_Deceased__pc = false;
         insert patientAcc;
@@ -34,6 +36,7 @@ public class EDRD_cls_IndefiniteBatchTest {
         batchCaseFYList.get(0).EDRD_MOHApproved_Funding_Duration_Unit__c = 'Once';
         batchCaseFYList.get(0).EDRD_MOHFunding_Start_Date__c = Date.newInstance(System.Today().Year()-10, 1, 1);
         batchCaseFYList.get(0).EDRD_MOHIndefinite_Funding__c = true;
+        batchCaseFYList.get(0).Provider__c = prvderContact.Id;
         insert batchCaseFYList;
         List<Medication> MedicList = TestFactory.createMedication(1, 'Test Medication');
         insert MedicList;
