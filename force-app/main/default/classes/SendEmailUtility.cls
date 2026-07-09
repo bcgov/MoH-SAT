@@ -99,120 +99,139 @@ public with sharing class SendEmailUtility {
             return;
         }
 
-        OrgWideEmailAddress[] owea = [
-            SELECT Id
-            FROM OrgWideEmailAddress
-            WHERE Address = :System.Label.owdEmailforCaseStatusUpdateNotification
-            LIMIT 1
-        ];
+        // Enqueue async so getContentAsPDF() runs after the current transaction commits,
+        // ensuring funding dates and all other in-flight field changes are visible in the PDF.
+        System.enqueueJob(new SendEmailJob(caseRecs[0].recordId, caseRecs[0].caseStatus));
+    }
 
-        if (owea == null || owea.isEmpty()) {
-            return;
+    public class SendEmailJob implements Queueable, Database.AllowsCallouts {
+        private String recordId;
+        private String caseStatus;
+
+        public SendEmailJob(String recordId, String caseStatus) {
+            this.recordId = recordId;
+            this.caseStatus = caseStatus;
         }
 
-        List<Case> caseRecsList = [
-            SELECT Id, Provider__c, EDRD_Ref_No__c, Status, EDRD_MOHFunding_Decision__c
-            FROM Case
-            WHERE Id = :caseRecs[0].recordId
-              AND EDRD_MOHFunding_Decision__c = :caseRecs[0].caseStatus
-            WITH USER_MODE
-            LIMIT 1
-        ];
+        public void execute(QueueableContext ctx) {
+            OrgWideEmailAddress[] owea = [
+                SELECT Id
+                FROM OrgWideEmailAddress
+                WHERE Address = :System.Label.owdEmailforCaseStatusUpdateNotification
+                LIMIT 1
+            ];
 
-        Case caseRec = (caseRecsList == null || caseRecsList.isEmpty()) ? null : caseRecsList[0];
-        if (caseRec == null || caseRec.Id == null) {
-            return;
+            if (owea == null || owea.isEmpty()) {
+                return;
+            }
+
+            List<Case> caseRecsList = [
+                SELECT Id, Provider__c, EDRD_Ref_No__c, Status, EDRD_MOHFunding_Decision__c
+                FROM Case
+                WHERE Id = :recordId
+                  AND EDRD_MOHFunding_Decision__c = :caseStatus
+                WITH USER_MODE
+                LIMIT 1
+            ];
+
+            Case caseRec = (caseRecsList == null || caseRecsList.isEmpty()) ? null : caseRecsList[0];
+            if (caseRec == null || caseRec.Id == null) {
+                return;
+            }
+
+            List<Contact> providers = [
+                SELECT Id, Email, OtherEmail__c
+                FROM Contact
+                WHERE Id = :caseRec.Provider__c
+                WITH USER_MODE
+                LIMIT 1
+            ];
+
+            Contact provider = (providers == null || providers.isEmpty()) ? null : providers[0];
+            if (provider == null || String.isBlank(provider.Email)) {
+                return;
+            }
+
+            List<String> params = new List<String>{ String.valueOf(recordId), caseStatus };
+            PageReference vfPage = new PageReference('/apex/emailPDFTemplate');
+            vfPage.getParameters().put('parameters', String.join(params, ','));
+
+            Blob pdfBlob;
+            if (Test.isRunningTest()) {
+                pdfBlob = Blob.valueOf('Unit Test PDF Content');
+            } else {
+                pdfBlob = vfPage.getContentAsPDF();
+            }
+
+            if (pdfBlob == null) {
+                return;
+            }
+
+            Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
+            attachment.setFileName('PNL_' + caseRec.EDRD_Ref_No__c + '.pdf');
+            attachment.setBody(pdfBlob);
+            attachment.setContentType('application/pdf');
+
+            List<EmailTemplate> emailTemplate = [
+                SELECT Id, Subject, Description, Body
+                FROM EmailTemplate
+                WHERE DeveloperName = 'EDRD_Physician_Notification_1780429755402'
+                LIMIT 1
+            ];
+
+            String ccEmail = System.Label.EDRD_Physician_CC_Email;
+            if (String.isBlank(ccEmail)) {
+                return;
+            }
+
+            List<String> ccAddresses = new List<String>{ ccEmail };
+            if (String.isNotBlank(provider.OtherEmail__c)) {
+                ccAddresses.add(provider.OtherEmail__c);
+            }
+
+            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+            email.setOrgWideEmailAddressId(owea[0].Id);
+            email.setTargetObjectId(provider.Id);
+            email.setWhatId(caseRec.Id);
+            email.setCcAddresses(ccAddresses);
+
+            if (!emailTemplate.isEmpty()) {
+                email.setTemplateId(emailTemplate[0].Id);
+            }
+
+            email.setFileAttachments(new Messaging.EmailFileAttachment[] { attachment });
+
+            Messaging.SendEmailResult[] results =
+                Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
+
+            if (results == null || results.isEmpty() || !results[0].isSuccess()) {
+                return;
+            }
+
+            ContentVersion conVersion = new ContentVersion();
+            conVersion.Title = 'PNL_' + caseRec.EDRD_Ref_No__c;
+            conVersion.PathOnClient = 'PNL_' + caseRec.EDRD_Ref_No__c + '.pdf';
+            conVersion.VersionData = pdfBlob;
+            conVersion.IsMajorVersion = true;
+            insert conVersion;
+
+            Id conDocumentId = [
+                SELECT ContentDocumentId
+                FROM ContentVersion
+                WHERE Id = :conVersion.Id
+            ].ContentDocumentId;
+
+            if (conDocumentId == null) {
+                return;
+            }
+
+            ContentDocumentLink conDocLink = new ContentDocumentLink();
+            conDocLink.ContentDocumentId = conDocumentId;
+            conDocLink.LinkedEntityId = caseRec.Id;
+            conDocLink.ShareType = 'V';
+            conDocLink.Visibility = 'InternalUsers';
+            insert conDocLink;
         }
-
-        List<Contact> providers = [
-            SELECT Id, Email
-            FROM Contact
-            WHERE Id = :caseRec.Provider__c
-            WITH USER_MODE
-            LIMIT 1
-        ];
-
-        Contact provider = (providers == null || providers.isEmpty()) ? null : providers[0];
-        if (provider == null || String.isBlank(provider.Email)) {
-            return;
-        }
-
-        List<String> params = new List<String>{ String.valueOf(caseRecs[0].recordId), caseRecs[0].caseStatus };
-        PageReference vfPage = new PageReference('/apex/emailPDFTemplate');
-        vfPage.getParameters().put('parameters', String.join(params, ','));
-
-        Blob pdfBlob;
-        if (Test.isRunningTest()) {
-            pdfBlob = Blob.valueOf('Unit Test PDF Content');
-        } else {
-            pdfBlob = vfPage.getContentAsPDF();
-        }
-
-        if (pdfBlob == null) {
-            return;
-        }
-
-        Messaging.EmailFileAttachment attachment = new Messaging.EmailFileAttachment();
-        attachment.setFileName('PNL_' + caseRec.EDRD_Ref_No__c + '.pdf');
-        attachment.setBody(pdfBlob);
-        attachment.setContentType('application/pdf');
-
-        List<EmailTemplate> emailTemplate = [
-            SELECT Id, Subject, Description, Body
-            FROM EmailTemplate
-            WHERE DeveloperName = 'EDRD_Physician_Notification_1780429755402'
-            LIMIT 1
-        ];
-
-        String ccEmail = System.Label.EDRD_Physician_CC_Email;
-        if (String.isBlank(ccEmail)) {
-            return;
-        }
-
-        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-        email.setOrgWideEmailAddressId(owea[0].Id);
-        email.setTargetObjectId(provider.Id);
-        email.setWhatId(caseRec.Id);
-
-        // CHANGED: Add CC from Custom Label
-        email.setCcAddresses(new List<String>{ ccEmail });
-
-        if (!emailTemplate.isEmpty()) {
-            email.setTemplateId(emailTemplate[0].Id);
-        }
-
-        email.setFileAttachments(new Messaging.EmailFileAttachment[] { attachment });
-
-        Messaging.SendEmailResult[] results =
-            Messaging.sendEmail(new Messaging.SingleEmailMessage[] { email });
-
-        if (results == null || results.isEmpty() || !results[0].isSuccess()) {
-            return;
-        }
-
-        ContentVersion conVersion = new ContentVersion();
-        conVersion.Title = 'PNL_' + caseRec.EDRD_Ref_No__c;
-        conVersion.PathOnClient = 'PNL_' + caseRec.EDRD_Ref_No__c +'.pdf';
-        conVersion.VersionData = pdfBlob;
-        conVersion.IsMajorVersion = true;
-        insert conVersion;
-
-        Id conDocumentId = [
-            SELECT ContentDocumentId
-            FROM ContentVersion
-            WHERE Id = :conVersion.Id
-        ].ContentDocumentId;
-
-        if (conDocumentId == null) {
-            return;
-        }
-
-        ContentDocumentLink conDocLink = new ContentDocumentLink();
-        conDocLink.ContentDocumentId = conDocumentId;
-        conDocLink.LinkedEntityId = caseRec.Id;
-        conDocLink.ShareType = 'V';
-        conDocLink.Visibility = 'InternalUsers';
-        insert conDocLink;
     }
 
     /**
