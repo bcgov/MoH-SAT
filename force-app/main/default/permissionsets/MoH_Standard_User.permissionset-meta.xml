@@ -76,6 +76,10 @@
         <enabled>true</enabled>
         <name>ESA_CMD_Super_Stamps__mdt</name>
     </customMetadataTypeAccesses>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
+        <externalCredentialPrincipal>LRA_OAuth_TokenRequest-Client Credentials</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.AccountSource</field>
@@ -1045,6 +1049,15 @@
         <object>Request_Detail__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>UserExternalCredential</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
     <pageAccesses>
         <apexPage>PDFGenerator</apexPage>
         <enabled>true</enabled>
@@ -1109,8 +1122,4 @@
         <enabled>true</enabled>
         <name>TransferAnyCase</name>
     </userPermissions>
-    <externalCredentialPrincipalAccesses>
-        <enabled>true</enabled>
-        <externalCredentialPrincipal>LRA_OAuth_TokenRequest-Client Credentials</externalCredentialPrincipal>
-    </externalCredentialPrincipalAccesses>
 </PermissionSet>
