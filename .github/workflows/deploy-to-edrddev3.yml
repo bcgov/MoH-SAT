@@ -43,3 +43,6 @@ jobs:
 
     - name: Deploy documentGenerationSettings
       run: sf project deploy start -d documentGenerationSettings -o SAT-EDRDDev3 -w 15 --ignore-conflicts
+
+    - name: Run Apex Tests
+      run: sf apex run test -o SAT-EDRDDev3 -w 15
