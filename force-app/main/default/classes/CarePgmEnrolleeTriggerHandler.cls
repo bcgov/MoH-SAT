@@ -14,15 +14,21 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
     public static void updateEnrolleeName(List<CareProgramEnrollee> carePgmEnrolleeList) {
-    CareProgram careProgram = [SELECT Id FROM CareProgram WHERE Name = 'EDRD' LIMIT 1 FOR UPDATE];
+    List<CareProgram> carePrograms = [SELECT Id FROM CareProgram WHERE Name = 'EDRD' LIMIT 1 FOR UPDATE];
 
-    Id careProgramId = careProgram.Id;
+    if (carePrograms.isEmpty()) {
+        return;
+    }
+
+    Id careProgramId = carePrograms[0].Id;
 
     Integer recordCount = [SELECT COUNT() FROM CareProgramEnrollee WHERE CareProgramId = :careProgramId];
 
     Set<String> usedSequenceNumbers = new Set<String>();
 
-    for (CareProgramEnrollee existingEnrollee : [SELECT Name FROM CareProgramEnrollee WHERE CareProgramId = :careProgramId AND Name != null]) {
+    List<CareProgramEnrollee> existingEnrollees = [SELECT Name FROM CareProgramEnrollee WHERE CareProgramId = :careProgramId AND Name != null];
+
+    for (CareProgramEnrollee existingEnrollee : existingEnrollees) {
         if (existingEnrollee.Name.contains('-')) {
             usedSequenceNumbers.add(existingEnrollee.Name.substringBefore('-'));
         }
