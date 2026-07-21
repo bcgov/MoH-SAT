@@ -13,27 +13,56 @@ public with sharing class CarePgmEnrolleeTriggerHandler {
 * @description: The purpose of this method is update the name based on record count
 * @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
 */ 
-    public static void updateEnrolleeName(List<CareProgramEnrollee> carePgmEnrolleeList){
-        Integer recordCount = [SELECT COUNT() FROM CareProgramEnrollee WHERE CareProgram.Name = 'EDRD'];
-        Id careProgramId = [SELECT Id FROM CareProgram WHERE Name = 'EDRD' LIMIT 1].get(0).Id;
-        Set<Id> accountIds = new Set<Id>();
-        for(CareProgramEnrollee cpe :carePgmEnrolleeList){
+    public static void updateEnrolleeName(List<CareProgramEnrollee> carePgmEnrolleeList) {
+    List<CareProgram> carePrograms = [SELECT Id FROM CareProgram WHERE Name = 'EDRD' LIMIT 1 FOR UPDATE];
+
+    if (carePrograms.isEmpty()) {
+        return;
+    }
+
+    Id careProgramId = carePrograms[0].Id;
+
+    Integer recordCount = [SELECT COUNT() FROM CareProgramEnrollee WHERE CareProgramId = :careProgramId];
+
+    Set<String> usedSequenceNumbers = new Set<String>();
+
+    List<CareProgramEnrollee> existingEnrollees = [SELECT Name FROM CareProgramEnrollee WHERE CareProgramId = :careProgramId AND Name != null];
+
+    for (CareProgramEnrollee existingEnrollee : existingEnrollees) {
+        if (existingEnrollee.Name.contains('-')) {
+            usedSequenceNumbers.add(existingEnrollee.Name.substringBefore('-'));
+        }
+    }
+
+    Set<Id> accountIds = new Set<Id>();
+
+    for (CareProgramEnrollee cpe : carePgmEnrolleeList) {
+        if (cpe.AccountId != null) {
             accountIds.add(cpe.AccountId);
         }
-        Map<Id, Account> accIdVsRec = new Map<Id, Account>([Select Id,FirstName,LastName
-                                                             FROM Account
-                                                             WHERE ID =:accountIds]);
-        String countInString;
-        for(CareProgramEnrollee carePgmEnrollee: carePgmEnrolleeList){
-            if(carePgmEnrollee.CareProgramId == careProgramId){
-                recordCount = recordCount+1;
-                countInString = String.valueOf(recordCount).leftPad(5, '0');
-                String firstName = accIdVsRec?.get(carePgmEnrollee.AccountId)?.FirstName ?? '';
-                String lastName = accIdVsRec?.get(carePgmEnrollee.AccountId)?.LastName ?? '';
-                carePgmEnrollee.Name = countInString +'-'+firstName.LEFT(1)+lastName.LEFT(1);
-            }
-        }        
     }
+
+    Map<Id, Account> accIdVsRec = new Map<Id, Account>([SELECT Id, FirstName, LastName FROM Account WHERE Id IN :accountIds]);
+
+    for (CareProgramEnrollee enrollee : carePgmEnrolleeList) {
+        if (enrollee.CareProgramId == careProgramId) {
+            String countInString;
+
+            do {
+                recordCount++;
+                countInString = String.valueOf(recordCount).leftPad(5, '0');
+            } while (usedSequenceNumbers.contains(countInString));
+
+            usedSequenceNumbers.add(countInString);
+
+            Account account = accIdVsRec.get(enrollee.AccountId);
+            String firstName = account?.FirstName ?? '';
+            String lastName = account?.LastName ?? '';
+
+            enrollee.Name = countInString + '-' + firstName.left(1) + lastName.left(1);
+        }
+    }
+}
     
 /**
 * @author: Deepak
