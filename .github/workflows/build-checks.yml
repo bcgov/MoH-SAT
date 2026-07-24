@@ -26,7 +26,7 @@ jobs:
         sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias devhub --set-default-dev-hub
        # sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
     - name: Define CI org
-      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg -w 15
+      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg -w 15 --duration-days 3
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Installing SF managed packages
@@ -91,7 +91,12 @@ jobs:
     - name: Run Apex test
       run: sf apex run test -c -r human
     
-    - name: Delete scratch org
+    - name: Print Scratch Org Access Details
       if: ${{ always() }}
-      run: sf org delete scratch -o ciorg -p
-      # sfdx force:org:delete -u ciorg -p
+      run: |
+        echo "LOGIN URL (paste in browser, valid ~15 mins)"
+        sf org open -o ciorg --url-only
+       
+        echo "CREDENTIALS (use if URL has expired)"
+        sf org generate password -o ciorg
+        sf org display -o ciorg --verbose
