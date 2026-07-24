@@ -349,6 +349,7 @@ public class ESA_cls_caseTriggerHandlerTest {
     @isTest
     public static void forecastDrugCost_Test(){
         Account physicianAccount = TestFactory.newProvider('Provider Test');
+        physicianAccount.PersonEmail = 'provider@test.com';
         insert physicianAccount;
         Account patntAccount = TestFactory.newPatient('Patient Test');
         insert patntAccount;
@@ -356,6 +357,8 @@ public class ESA_cls_caseTriggerHandlerTest {
         insert UOMRec;        
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         List<Case> casesList = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, physicianAccount.Id);
+        Id providerConId = [SELECT Id FROM Contact WHERE AccountId =: physicianAccount.Id].Id;
+        casesList.get(0).Provider__c = providerConId;
         casesList.get(0).Type = 'New';
         casesList.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
         casesList.get(0).EDRD_MOHApproved_Dosage__c = 300;
@@ -405,11 +408,14 @@ public class ESA_cls_caseTriggerHandlerTest {
         Account pntAccount = TestFactory.newPatient('Patient Test');
         insert pntAccount;
         Account providerAccount = TestFactory.newProvider('Provider Test');
+        providerAccount.PersonEmail = 'provider@test.com';
         insert providerAccount;
         UnitOfMeasure UOMRec = TestFactory.createUnitOfMeasure();
         insert UOMRec;        
         Id recordTypeCaseEDRD = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName().get('EDRD').getRecordTypeId();
         List<Case> caseRec = TestFactory.createEDRDCase(1, recordTypeCaseEDRD, providerAccount.Id);
+        Id providerConId2 = [SELECT Id FROM Contact WHERE AccountId =: providerAccount.Id].Id;
+        caseRec.get(0).Provider__c = providerConId2;
         caseRec.get(0).Type = 'New';
         caseRec.get(0).EDRD_MOHFunding_Decision__c = 'Approved';
         caseRec.get(0).EDRD_MOHApproved_Dosage__c = 300;
