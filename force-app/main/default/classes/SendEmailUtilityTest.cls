@@ -52,9 +52,10 @@ private class SendEmailUtilityTest {
         invocableValues.add(innerClass);
         invocableValues.add(innerClass2);
         
-        Test.startTest();             
-            SendEmailUtility.processCases(invocableValues);        
-            Integer emailInvocations = Limits.getEmailInvocations();       
+        Test.startTest();
+            SendEmailUtility.processCases(invocableValues);
         Test.stopTest();
+
+        Integer emailInvocations = Limits.getEmailInvocations();
     }
 }

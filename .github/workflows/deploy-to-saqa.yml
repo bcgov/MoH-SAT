@@ -56,5 +56,8 @@ jobs:
     - name: Deploy documentGenerationSettings
       run: sf project deploy start -d documentGenerationSettings -o SAQA -w 15 --ignore-conflicts
 
+    - name: Run Apex Tests
+      run: sf apex run test -o SAQA -w 15
+
 #    - name: Deploy destructive changes
 #      run: sdfx force:mdapi:deploy --postdestructivechanges destructiveChanges -u SAQA -o -g -l RunLocalTests -w 15
