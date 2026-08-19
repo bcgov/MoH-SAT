@@ -88,6 +88,9 @@ jobs:
     - name: Deploy documentGenerationSettings
       run: sf project deploy start -d documentGenerationSettings -o ciorg -w 15 --ignore-conflicts
         
+    - name: Run Apex test
+      run: sf apex run test -c -r human
+    
     - name: Print Scratch Org Access Details
       if: ${{ always() }}
       run: |
