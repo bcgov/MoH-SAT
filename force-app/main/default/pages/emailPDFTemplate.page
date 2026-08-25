@@ -192,7 +192,7 @@
 
             <span class="label">Dosage:&nbsp;</span>
 
-            <apex:outputText value="{0,number,#}"
+            <apex:outputText value="{0,number,0.##}"
                              rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHApproved_Dosage__c))}">
                 <apex:param value="{!caseRec.EDRD_MOHApproved_Dosage__c}"/>
             </apex:outputText>
@@ -200,7 +200,7 @@
             <apex:outputText value=" {!caseRec.EDRD_MOHApproved_Dosage_Unit__r.Name}"
                              rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHApproved_Dosage_Unit__c))}"/>
 
-            <apex:outputText value=" {0,number,#}"
+            <apex:outputText value=" {0,number,0.##}"
                              rendered="{!NOT(ISBLANK(caseRec.EDRD_MOHApproved_Frequency__c))}">
                 <apex:param value="{!caseRec.EDRD_MOHApproved_Frequency__c}"/>
             </apex:outputText>
