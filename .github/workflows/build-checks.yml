@@ -33,7 +33,7 @@ jobs:
           sed -i '/LRA_AccessToken_Request.*namedCredential-meta\.xml/d' .forceignore
        
     - name: Define CI org
-      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg --w 15 --duration-days 3
+      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg --wait 15 --duration-days 3
       # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
 
     - name: Installing SF managed packages
