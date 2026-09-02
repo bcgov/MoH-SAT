@@ -1985,7 +1985,7 @@
                 <componentName>runtime_omnistudio:flexcard</componentName>
                 <identifier>runtime_omnistudio_flexcard</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Status}</leftValue>
                         <operator>EQUAL</operator>
@@ -1995,6 +1995,11 @@
                         <leftValue>{!Record.Medication_Name__c}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>elexacaftor/tezacaftor/ivacaftor</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Medication_Name__c}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>vanzacaftor/tezacaftor/deutivacaftor</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
