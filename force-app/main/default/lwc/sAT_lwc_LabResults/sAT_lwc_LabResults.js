@@ -7,8 +7,10 @@ export default class SAT_lwc_LabResults extends LightningElement {
     @track results = [];
     @track loading = false;
     @track error = null;
+    @track hasSearched = false;
     @api recordId;
     @track currentUserLastName = '';
+    currentUserPromise;
 
     get testTypeOptions() {
         return [
@@ -21,7 +23,7 @@ export default class SAT_lwc_LabResults extends LightningElement {
 
     connectedCallback() {
         console.log('Connected callback Record ID:', this.recordId);
-        this.loadCurrentUser();
+        this.currentUserPromise = this.loadCurrentUser();
     }
 
     async loadCurrentUser() {
@@ -29,10 +31,6 @@ export default class SAT_lwc_LabResults extends LightningElement {
             const userLastName = await getCurrentUser();
             this.currentUserLastName = userLastName;
             console.log('Current User Last Name:', this.currentUserLastName);
-            
-            if (this.recordId) {
-                this.fetchResults();
-            }
         } catch (e) {
             console.error('Error loading current user:', e);
             this.error = 'Failed to load user information.';
@@ -44,13 +42,18 @@ export default class SAT_lwc_LabResults extends LightningElement {
     }
 
     get noResults() {
-        return !this.loading && !this.error && (!this.filteredResults || this.filteredResults.length === 0);
+        return this.hasSearched && !this.loading && !this.error && (!this.filteredResults || this.filteredResults.length === 0);
+    }
+
+    get showSearchPrompt() {
+        return !this.hasSearched && !this.loading && !this.error;
     }
 
     get errorMessage() {
         if (!this.error) return '';
         if (typeof this.error === 'string') return this.error;
         if (this.error && this.error.body && this.error.body.message) return this.error.body.message;
+        if (this.error.message) return this.error.message;
         return 'An unexpected error occurred while loading lab results.';
     }
 
@@ -66,6 +69,10 @@ export default class SAT_lwc_LabResults extends LightningElement {
         try {
             if (!this.recordId) {
                 throw new Error('Record ID is missing.');
+            }
+
+            if (!this.currentUserLastName) {
+                await (this.currentUserPromise || this.loadCurrentUser());
             }
 
             if (!this.currentUserLastName) {
@@ -109,7 +116,7 @@ export default class SAT_lwc_LabResults extends LightningElement {
 
         } catch (e) {
             console.error('Error fetching data:', e);
-            this.error = e.message || 'Failed to load lab results.';
+            this.error = e || 'Failed to load lab results.';
             this.results = [];
         } finally {
             this.loading = false;
@@ -118,9 +125,13 @@ export default class SAT_lwc_LabResults extends LightningElement {
 
     handleTestTypeChange(event) {
         this.selectedTestType = event.detail.value;
+        this.results = [];
+        this.error = null;
+        this.hasSearched = false;
     }
 
     handleSearch() {
+        this.hasSearched = true;
         this.fetchResults();
     }
 }
