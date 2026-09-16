@@ -81,6 +81,12 @@
                 </div>
             </template>
 
+            <template if:true={showSearchPrompt}>
+                <div class="slds-m-top_small">
+                    <p class="slds-text-body_regular">Select a test type and click Search to retrieve lab results.</p>
+                </div>
+            </template>
+
             <template if:true={noResults}>
                 <div class="slds-m-top_small">
                     <p class="slds-text-body_regular">No lab results to display.</p>
