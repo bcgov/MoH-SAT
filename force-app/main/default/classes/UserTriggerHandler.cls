@@ -12,13 +12,67 @@
                 02 Jul -  EDRD-1523		    -  Accenture   -  Method is to create Group MemberShip for Allied Staff Role User based on ACR.
 ***********************************************************************************************/
 public with sharing class UserTriggerHandler {
-    public static Id eDRDPrescriberProfileId = [SELECT Id FROM Profile WHERE Name =: ESA_cls_constants.EDRD_PRESCRIBER_COMMUNITY_USER LIMIT 1].Id;
-    public static Id eDRDNurseProfileId = [SELECT Id FROM Profile WHERE Name =: ESA_cls_constants.EDRD_NURSE_COMMUNITY_USER LIMIT 1].Id;
-    public static Id eDRDPharmacistProfileId = [SELECT Id FROM Profile WHERE Name =: ESA_cls_constants.EDRD_PHARMACIST_COMMUNITY_USER LIMIT 1].Id;
-    public static Id recordTypeProvider = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_PROVIDER).getRecordTypeId();
-    public static Id recordTypeEDRDReviewer = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(ESA_cls_constants.EDRD_COMMITTEE_REVIEWER).getRecordTypeId();
     public static Boolean isAssignPSG = true;
-    
+    private static Map<String, Id> profileNameVsProfileId;
+    private static Map<String, Id> devNameVsAccRecordTypeId = new Map<String, Id>();
+
+/**
+* @description: The purpose of this method is to resolve the EDRD community Profile Ids on first use.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    private static Id getEDRDProfileId(String profileName){
+        if(profileNameVsProfileId == null){
+            profileNameVsProfileId = new Map<String, Id>();
+            Set<String> eDRDProfileNames = new Set<String>{ESA_cls_constants.EDRD_PRESCRIBER_COMMUNITY_USER,
+                                                           ESA_cls_constants.EDRD_NURSE_COMMUNITY_USER,
+                                                           ESA_cls_constants.EDRD_PHARMACIST_COMMUNITY_USER};
+            for(Profile profileObj : [SELECT Id, Name FROM Profile WHERE Name IN: eDRDProfileNames]){
+                profileNameVsProfileId.put(profileObj.Name, profileObj.Id);
+            }
+        }
+        return profileNameVsProfileId.get(profileName);
+    }
+
+/**
+* @description: The purpose of this method is to resolve an Account Record Type Id by developer name.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    private static Id getAccountRecordTypeId(String developerName){
+        if(!devNameVsAccRecordTypeId.containsKey(developerName)){
+            Schema.RecordTypeInfo recordTypeInfo = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName().get(developerName);
+            Id recordTypeId = null;
+            if(recordTypeInfo != null){
+                recordTypeId = recordTypeInfo.getRecordTypeId();
+            }
+            devNameVsAccRecordTypeId.put(developerName, recordTypeId);
+        }
+        return devNameVsAccRecordTypeId.get(developerName);
+    }
+
+/**
+* @description: These methods return the EDRD Profile and Account Record Type Ids.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+*/
+    public static Id getEDRDPrescriberProfileId(){
+        return getEDRDProfileId(ESA_cls_constants.EDRD_PRESCRIBER_COMMUNITY_USER);
+    }
+
+    public static Id getEDRDNurseProfileId(){
+        return getEDRDProfileId(ESA_cls_constants.EDRD_NURSE_COMMUNITY_USER);
+    }
+
+    public static Id getEDRDPharmacistProfileId(){
+        return getEDRDProfileId(ESA_cls_constants.EDRD_PHARMACIST_COMMUNITY_USER);
+    }
+
+    public static Id getRecordTypeProvider(){
+        return getAccountRecordTypeId(ESA_cls_constants.EDRD_PROVIDER);
+    }
+
+    public static Id getRecordTypeEDRDReviewer(){
+        return getAccountRecordTypeId(ESA_cls_constants.EDRD_COMMITTEE_REVIEWER);
+    }
+
 /**
 * @author: Deepak
 * @date: 24 Sept 2024
@@ -31,16 +85,18 @@ public with sharing class UserTriggerHandler {
             Set<Id> providerIdSet = new Set<Id>();
             Set<Id> accProviderIdSet = new Set<Id>();
             Map<Id, Contact> contactIdVsContactRec;
-            
+            Id prescriberProfileId = getEDRDPrescriberProfileId();
+            Id recordTypeProvider = getRecordTypeProvider();
+
             for(User userObj: newUserList){
-                if((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled)){
+                if((userObj.ProfileId == prescriberProfileId && userObj.IsPortalEnabled)){
                     providerIdSet.add(userObj.ContactId);
                 }
             }
-            
-            if(!providerIdSet.isEmpty()){ 
-                contactIdVsContactRec = new Map<Id, Contact>([SELECT Id, AccountId FROM Contact 
-                                                              WHERE ID IN: providerIdSet AND 
+
+            if(!providerIdSet.isEmpty()){
+                contactIdVsContactRec = new Map<Id, Contact>([SELECT Id, AccountId FROM Contact
+                                                              WHERE ID IN: providerIdSet AND
                                                               Account.RecordTypeId =: recordTypeProvider]);
                 for(Contact conObj: contactIdVsContactRec.values()){
                     accProviderIdSet.add(conObj.accountId);
@@ -65,9 +121,10 @@ public with sharing class UserTriggerHandler {
 */ 
     public static void handleEDRDPublicGroupMember(List<User> newUserList) {
         Set<Id> userIdSet = new Set<Id>();
-        
+        Id prescriberProfileId = getEDRDPrescriberProfileId();
+
         for (User userObj : newUserList) {
-            if ((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled && userObj.IsActive)) {
+            if ((userObj.ProfileId == prescriberProfileId && userObj.IsPortalEnabled && userObj.IsActive)) {
                 userIdSet.add(userObj.Id);
             }
         }
@@ -91,7 +148,9 @@ public with sharing class UserTriggerHandler {
         Map<Id, List<String>> userIdVsGroupsToBeAdded = new Map<Id, List<String>>();
         List<GroupMember> groupMemberToInsert = new List<GroupMember>();
         List<User> relevantUsers = new List<User>();
-        
+        Id recordTypeProvider = getRecordTypeProvider();
+        Id recordTypeEDRDReviewer = getRecordTypeEDRDReviewer();
+
         relevantUsers = [SELECT Id, ContactId, Contact.AccountId, Contact.Account.Committee__pc, Contact.Account.Committee_Name__pc
                          FROM User WHERE Id IN :userIds
                          AND (Contact.Account.Committee__pc != NULL OR Contact.Account.Committee_Name__pc != NULL)
@@ -181,17 +240,21 @@ public with sharing class UserTriggerHandler {
         Set<Id> alliedStaffIdSet = new Set<Id>();
         Map<Id, Contact> contactIdVsContactRec = new Map<Id, Contact>();
         Map<Id, Set<Id>> contactIdVsAccountIdSet = new Map<Id, Set<Id>>();
-        
+        Id prescriberProfileId = getEDRDPrescriberProfileId();
+        Id pharmacistProfileId = getEDRDPharmacistProfileId();
+        Id nurseProfileId = getEDRDNurseProfileId();
+        Id recordTypeProvider = getRecordTypeProvider();
+
         for(User userObj: newUserList){
-            if((userObj.ProfileId == eDRDPrescriberProfileId && userObj.IsPortalEnabled)){
+            if((userObj.ProfileId == prescriberProfileId && userObj.IsPortalEnabled)){
                 providerIdSet.add(userObj.ContactId);
-            } else if((userObj.ProfileId == eDRDPharmacistProfileId || userObj.ProfileId == eDRDNurseProfileId) && userObj.IsPortalEnabled){
+            } else if((userObj.ProfileId == pharmacistProfileId || userObj.ProfileId == nurseProfileId) && userObj.IsPortalEnabled){
                 alliedStaffIdSet.add(userObj.ContactId);
             }
         }
-        
-        if(!providerIdSet.isEmpty()){ 
-            List<contact> conList = [SELECT Id, AccountId, EDRD_Provider_Public_GroupId__c FROM Contact 
+
+        if(!providerIdSet.isEmpty()){
+            List<contact> conList = [SELECT Id, AccountId, EDRD_Provider_Public_GroupId__c FROM Contact
                                      WHERE ID IN: providerIdSet AND Account.RecordTypeId =: recordTypeProvider];
             for(Contact conObj: conList){
                 accProviderIdSet.add(conObj.accountId);
