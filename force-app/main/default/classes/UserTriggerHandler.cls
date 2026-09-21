@@ -17,8 +17,12 @@ public with sharing class UserTriggerHandler {
     private static Map<String, Id> devNameVsAccRecordTypeId = new Map<String, Id>();
 
 /**
-* @description: The purpose of this method is to resolve the EDRD community Profile Ids on first use.
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @author: Ranadheer
+* @date: 21 Sep 2026
+* @description: The purpose of this method is to resolve the EDRD community Profile Ids on first use
+*               and return null when a Profile does not exist in the org.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     21 Sept -  BCMOHAD-32758		 -  Ranadheer      -  Converted Profile/Record Type static initializers to null-safe getter methods
 */
     private static Id getEDRDProfileId(String profileName){
         if(profileNameVsProfileId == null){
@@ -34,8 +38,12 @@ public with sharing class UserTriggerHandler {
     }
 
 /**
-* @description: The purpose of this method is to resolve an Account Record Type Id by developer name.
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @author: Ranadheer
+* @date: 21 Sep 2026
+* @description: The purpose of this method is to resolve an Account Record Type Id by developer name
+*               and return null when the Record Type does not exist in the org.
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     21 Sept -  BCMOHAD-32758		 -  Ranadheer      -  Converted Profile/Record Type static initializers to null-safe getter methods
 */
     private static Id getAccountRecordTypeId(String developerName){
         if(!devNameVsAccRecordTypeId.containsKey(developerName)){
@@ -50,8 +58,11 @@ public with sharing class UserTriggerHandler {
     }
 
 /**
+* @author: Ranadheer
+* @date: 21 Sep 2026
 * @description: These methods return the EDRD Profile and Account Record Type Ids.
-* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+* @Modification Log: [Date] - [Change Reference] - [Changed By] - [Description]
+                     21 Sept -  BCMOHAD-32758		 -  Ranadheer      -  Converted Profile/Record Type static initializers to null-safe getter methods
 */
     public static Id getEDRDPrescriberProfileId(){
         return getEDRDProfileId(ESA_cls_constants.EDRD_PRESCRIBER_COMMUNITY_USER);
