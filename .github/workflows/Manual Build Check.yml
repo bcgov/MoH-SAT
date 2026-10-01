@@ -91,8 +91,6 @@ jobs:
 
     - name: Print Scratch Org Access Details
       if: ${{ always() }}
-      run: sf org delete scratch -o ciorg -p
-      # sfdx force:org:delete -u ciorg -p
       run: |
         echo "LOGIN URL (paste in browser, valid ~15 mins)"
         sf org open -o ciorg --url-only
