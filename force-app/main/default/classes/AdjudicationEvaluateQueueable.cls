@@ -13,10 +13,21 @@ public class AdjudicationEvaluateQueueable implements Queueable, Database.Allows
         }
         try {
             AdjudicationService.evaluate(caseId, assignOwner);
-        } catch (Exception e) {
-            System.debug(LoggingLevel.ERROR,
-                'AdjudicationEvaluateQueueable failed for Case ' + caseId
-                + ': ' + e.getMessage() + '\n' + e.getStackTraceString());
+        }  
+        catch (CalloutException e) {
+            System.debug(
+                LoggingLevel.ERROR,
+                'Adjudication callout failed for Case ' + caseId
+                + ': ' + e.getMessage()
+                + '\n' + e.getStackTraceString()
+            );
+        } catch (DmlException e) {
+            System.debug(
+                LoggingLevel.ERROR,
+                'Adjudication DML failed for Case ' + caseId
+                + ': ' + e.getMessage()
+                + '\n' + e.getStackTraceString()
+            );
         }
     }
 }

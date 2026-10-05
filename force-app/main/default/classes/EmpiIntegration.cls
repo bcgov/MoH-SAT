@@ -364,7 +364,6 @@ public with sharing class EmpiIntegration {
             // Extract additional Patient resource details (gender, birthDate, active status).
             String gender = patientResource.containsKey(LRA_RESPONSE_GENDER) ? (String) patientResource.get(LRA_RESPONSE_GENDER) : null;
             String birthDate = patientResource.containsKey(LRA_RESPONSE_BIRTH_DATE) ? (String) patientResource.get(LRA_RESPONSE_BIRTH_DATE) : null;
-            Boolean isActive = patientResource.containsKey(LRA_RESPONSE_ACTIVE) ? (Boolean) patientResource.get(LRA_RESPONSE_ACTIVE) : false;
 
         
             patient.gender = gender != null && gender.equalsIgnoreCase(LRA_RESPONSE_GENDER_FEMALE) 

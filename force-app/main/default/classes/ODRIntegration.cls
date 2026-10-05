@@ -79,8 +79,9 @@ public with sharing class ODRIntegration {
                     && p.dob == null
                     && String.isBlank(p.gender)
                 )
-               || p.deceased != false
-               || p.dob != sar.saCase.Patient_Date_of_Birth__c
+                || p.deceased == null
+                || p.deceased
+                || p.dob != sar.saCase.Patient_Date_of_Birth__c
                || !bGivenNamesValid
                || sar.saCase.Contact.Account.LastName.toLowercase() != familyName.toLowercase())
             {
