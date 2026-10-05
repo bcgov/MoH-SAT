@@ -880,6 +880,6 @@ public without sharing class RxHistoryPatientDrugValidator {
         );
         update c;
     
-        AdjudicationService.evaluateDirect(caseId, true);
+        System.enqueueJob(new AdjudicationEvaluateQueueable(caseId, true));
     }
 }
