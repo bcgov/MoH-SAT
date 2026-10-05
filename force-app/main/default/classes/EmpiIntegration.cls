@@ -239,34 +239,40 @@ public with sharing class EmpiIntegration {
         System.debug('Full Response: ' + jsonResponse);
  
         // Extract 'entry' from the response which contains resources.
-        List<Object> entries = (List<Object>) jsonResponse.get('entry');
+        List<Object> entries = jsonResponse.containsKey('entry')? (List<Object>) jsonResponse.get('entry') : null;
         Map<String, Object> patientResource = null;
         Map<String, Object> OutcomeResource = null;
+        List<Object> nameList = null;
+        List<Object> issues = null;
 
         // Iterate over the entries to find resources for Patient and Outcome.
-        for (Object entryObj : entries) {
-            if (entryObj instanceof Map<String, Object>) {
-            Map<String, Object> entry = (Map<String, Object>) entryObj;
-            Map<String, Object> resource = (Map<String, Object>) entry.get(LRA_RESPONSE_RESOURCE);
+        If(entries != null) {
+            for (Object entryObj : entries) {
+                if (entryObj instanceof Map<String, Object>) {
+                Map<String, Object> entry = (Map<String, Object>) entryObj;
+                Map<String, Object> resource = (Map<String, Object>) entry.get(LRA_RESPONSE_RESOURCE);
 
-                if (resource != null) {
-                    String resourceType = (String) resource.get(LRA_RESPONSE_RESOURCE_TYPE);
+                    if (resource != null) {
+                        String resourceType = (String) resource.get(LRA_RESPONSE_RESOURCE_TYPE);
 
-                    // Identify the Patient resource.
-                    if (resourceType != null && resourceType.equalsIgnoreCase(LRA_RESPONSE_RESOURCE_TYPE_PATIENT)) {
-                        patientResource = resource;
-                    }
+                        // Identify the Patient resource.
+                        if (resourceType != null && resourceType.equalsIgnoreCase(LRA_RESPONSE_RESOURCE_TYPE_PATIENT)) {
+                            patientResource = resource;
+                            nameList = (List<Object>) patientResource.get(LRA_RESPONSE_NAME);
+                        }
 
-                    // Identify the Operation Outcome resource.
-                    if (resourceType != null && resourceType.equalsIgnoreCase(LRA_RESPONSE_RESOURCE_TYPE_OPERATION_OUTCOME)) {
-                        OutcomeResource = resource;
+                        // Identify the Operation Outcome resource.
+                        if (resourceType != null && resourceType.equalsIgnoreCase(LRA_RESPONSE_RESOURCE_TYPE_OPERATION_OUTCOME)) {
+                            OutcomeResource = resource;
+                            issues = (List<Object>) OutcomeResource.get(LRA_RESPONSE_ISSUE);
+                        }
                     }
                 }
             }
         }
 
         // Extract and process the name details from the Patient resource.
-        List<Object> nameList = (List<Object>) patientResource.get(LRA_RESPONSE_NAME);
+        // List<Object> nameList = (List<Object>) patientResource.get(LRA_RESPONSE_NAME);
         List<Patient.PersonName> personNames = new List<Patient.PersonName>();
 
         if (nameList != null) {
@@ -324,7 +330,7 @@ public with sharing class EmpiIntegration {
 
        // System.debug(personNames);
         // Extract outcome issues if present in the Outcome resource.
-        List<Object> issues = (List<Object>) OutcomeResource.get(LRA_RESPONSE_ISSUE);
+        //List<Object> issues = (List<Object>) OutcomeResource.get(LRA_RESPONSE_ISSUE);
         if (issues != null) {
             for (Object issueObj : issues) {
                 if (issueObj instanceof Map<String, Object>) {
@@ -353,18 +359,23 @@ public with sharing class EmpiIntegration {
                 }
             }
         } 
-        // Extract additional Patient resource details (gender, birthDate, active status).
-        String gender = (String) patientResource.get(LRA_RESPONSE_GENDER);
-        String birthDate = (String) patientResource.get(LRA_RESPONSE_BIRTH_DATE);
-        Boolean isActive = (Boolean) patientResource.get(LRA_RESPONSE_ACTIVE);
 
-        patient.names = personNames;
+        if(patientResource != null) {
+            // Extract additional Patient resource details (gender, birthDate, active status).
+            String gender = patientResource.containsKey(LRA_RESPONSE_GENDER) ? (String) patientResource.get(LRA_RESPONSE_GENDER) : null;
+            String birthDate = patientResource.containsKey(LRA_RESPONSE_BIRTH_DATE) ? (String) patientResource.get(LRA_RESPONSE_BIRTH_DATE) : null;
+            Boolean isActive = patientResource.containsKey(LRA_RESPONSE_ACTIVE) ? (Boolean) patientResource.get(LRA_RESPONSE_ACTIVE) : false;
+
+        
+            patient.gender = gender != null && gender.equalsIgnoreCase(LRA_RESPONSE_GENDER_FEMALE) 
+                ? LRA_RESPONSE_GENDER_F 
+                : (gender != null && gender.equalsIgnoreCase(LRA_RESPONSE_GENDER_MALE) ? LRA_RESPONSE_GENDER_M : gender);
+            patient.dob = birthDate != null ? Date.valueOf(birthDate) : null;
+            patient.deceased = patientResource.containsKey(LRA_RESPONSE_DECEASED_DATE_TIME) && patientResource.get(LRA_RESPONSE_DECEASED_DATE_TIME) != null;
+             patient.names = personNames;
+        }
+        
         patient.phn = identifier;
-        patient.gender = gender != null && gender.equalsIgnoreCase(LRA_RESPONSE_GENDER_FEMALE) 
-            ? LRA_RESPONSE_GENDER_F 
-            : (gender != null && gender.equalsIgnoreCase(LRA_RESPONSE_GENDER_MALE) ? LRA_RESPONSE_GENDER_M : gender);
-        patient.dob = birthDate != null ? Date.valueOf(birthDate) : null;
-        patient.deceased = patientResource.containsKey(LRA_RESPONSE_DECEASED_DATE_TIME) && patientResource.get(LRA_RESPONSE_DECEASED_DATE_TIME) != null;
       }
 
       else {
