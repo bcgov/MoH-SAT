@@ -73,8 +73,15 @@ public with sharing class ODRIntegration {
             }
 
             // Safety Checks
-            if (p.deceased
-               || !checkValidBirthDate(p.dob, sar.saCase.Patient_Date_of_Birth__c)
+            if (
+                (
+                    (p.names == null || p.names.isEmpty())
+                    && p.dob == null
+                    && String.isBlank(p.gender)
+                )
+                || p.deceased == null
+                || p.deceased
+                || p.dob != sar.saCase.Patient_Date_of_Birth__c
                || !bGivenNamesValid
                || sar.saCase.Contact.Account.LastName.toLowercase() != familyName.toLowercase())
             {
