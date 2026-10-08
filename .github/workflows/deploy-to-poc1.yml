@@ -5,6 +5,9 @@ on:
       package:
         description: 'The ID (starts with 04t) or alias of the package version to install'
         required: true
+        
+permissions:
+ contents: read
 
 jobs:
   build:
