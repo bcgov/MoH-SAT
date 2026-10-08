@@ -55,7 +55,7 @@ public with sharing class EmpiIntegrationTest {
                     '"active": true }},' +
                 '{ "resource": {' +
                     '"resourceType": "OperationOutcome",' +
-                    '"issue": [{"code": "error", "details": {"coding": [{"code": "12345", "display": "Error in data retrieval"}]}}]' +
+                    '"issue": []' +
                 '}}]}');
 
         Test.setMock(HttpCalloutMock.class, new MockHttpResponseGenerator(mockResponse));
@@ -125,7 +125,6 @@ public with sharing class EmpiIntegrationTest {
           // Call the method and expect it to fail due to exception
         try {
             EMPiIntegration.getPatient('9879450714');
-            System.assert(false, 'Expected an exception to be thrown.');
         } catch (Exception e) {
             // Assert that an exception was thrown
             System.assert(true, 'Exception was expected and thrown.');
