@@ -20,83 +20,39 @@ jobs:
           echo "$HOME/sfdx/bin" >> $GITHUB_PATH
           ~/sfdx/bin/sf version
  
-    - name: Authenticate DevHub
+    - name: Authenticate PHCI org
       run: |
-        echo ${{ secrets.SALESFORCE_DEVHUB_AUTH }} > sfdxurl.txt
-        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --alias devhub --set-default-dev-hub
-       # sfdx auth:sfdxurl:store --sfdxurlfile sfdxurl.txt --setalias devhub --setdefaultdevhubusername
-    - name: Define CI org
-      run: sf org create scratch -v devhub --set-default -f config/project-scratch-def.json -a ciorg --wait 15 --duration-days 3
-      # sfdx force:org:create -v devhub -s -f config/project-scratch-def.json -a ciorg -d 1
+        echo ${{ secrets.SALESFORCE_PHCI_AUTH }} > sfdxurl.txt
+        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --target-org PHCI
 
-    - name: Installing SF managed packages
-      run: sf package install --package "04t4W0000038bemQAA" -o ciorg -w 15 --no-prompt  
-
-    - name: Installing Health Cloud managed package
-      run: sf package install --package "04t4W000002V2Ub" -o ciorg -w 15 --no-prompt 
-
-    - name: Installing the IAM package 
-      run: sf package install --package "04tJQ0000014BvZYAU" -o ciorg -w 15 --no-prompt 
-
-    - name: Set deployment user standard security
-      run: |
-          sf org assign permsetlicense -o ciorg -n "OmniStudio"
-          sf org assign permsetlicense -o ciorg -n "OmniStudio User"
-          sf org assign permset -o ciorg -n OmniStudioAdmin
-          sf org assign permset -o ciorg -n OmniStudioExecution
-          sf org assign permsetlicense -o ciorg -n "Health Cloud" || true
-          sf org assign permsetlicense -o ciorg -n "Health Cloud Platform"  || true
-          sf org assign permset -o ciorg -n HealthCloudFoundation || true
-          sf org assign permset -o ciorg -n DocGenDesigner
-          sf org assign permset -o ciorg -n DocGenUser
-          sf org assign permset -o ciorg -n BREDesigner
-          sf org assign permset -o ciorg -n BRERuntime
-          sf org assign permsetlicense -o ciorg -n BREDesigner
-          sf org assign permsetlicense -o ciorg -n BRERuntime
+    - name: Remove auth file
+      run: rm -f ./sfdxurl.txt
 
     - name: Deploy source dev-app-pre
-      run: sf project deploy start -d dev-app-pre -o ciorg 
+      run: sf project deploy start -d dev-app-pre --target-org PHCI -w 15 --ignore-conflicts
  
     - name: Deploy source force-app
-      run: sf project deploy start -d force-app -o ciorg --ignore-conflicts
+      run: sf project deploy start -d force-app --target-org PHCI -w 15 --ignore-conflicts
  
     - name: Deploy source default objects
-      run: sf project deploy start -d force-app/main/default/objects -o ciorg --ignore-conflicts -w 15
+      run: sf project deploy start -d force-app/main/default/objects --target-org PHCI -w 15 --ignore-conflicts
  
     - name: Deploy source default queues
-      run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
+      run:  sf project deploy start -d force-app/main/default/queues --target-org PHCI -w 15 --ignore-conflicts
 
     - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o ciorg -c
+      run: sf project deploy start -d OmniStudio-Components --target-org PHCI -w 60 --ignore-conflicts
 
     - name: Re-Deploy OmniScripts in OmniStudio Folder
-      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o ciorg -c
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts --target-org PHCI -w 60 --ignore-conflicts
 
     - name: Deploy source default dev-app-post
-      run: sf project deploy start -d dev-app-post -o ciorg -c
-      # The changes were made in accordance with Salesforce recommendations to move from sfdx commands to sf-style commands 
-      # sfdx force:source:push -u ciorg
+      run: sf project deploy start -d dev-app-post --target-org PHCI -w 15 --ignore-conflicts
 
-    - name: Set deployment user custom security
-      run: |
-          sf org assign permset -o ciorg -n SA_Administrator
-          sf apex run -o ciorg --file scripts/apex/scratchorg-set-current-user.apex
-        # sf force:apex:execute -o ciorg -f scripts/apex/scratchorg-set-current-user.apex
-        # sfdx force:user:permset:assign -u ciorg -n SA_Administrator
-        # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
-    
     - name: Deploy documentGenerationSettings
-      run: sf project deploy start -d documentGenerationSettings -o ciorg -w 15 --ignore-conflicts
+      run: sf project deploy start -d documentGenerationSettings --target-org PHCI -w 15 --ignore-conflicts
         
-    - name: Print Scratch Org Access Details
-      if: ${{ always() }}
-      run: |
-        echo "LOGIN URL (paste in browser, valid ~15 mins)"
-        sf org open -o ciorg --url-only
-       
-        echo "CREDENTIALS (use if URL has expired)"
-        sf org generate password -o ciorg
-        sf org display -o ciorg --verbose
-        
+    - name: Run Apex test
+      run: sf apex run test --target-org PHCI -w 15
     
   
