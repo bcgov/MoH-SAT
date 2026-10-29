@@ -22,8 +22,8 @@ jobs:
  
     - name: Authenticate PHCI org
       run: |
-        echo ${{ secrets.SALESFORCE_PHCI_AUTH }} > sfdxurl.txt
-        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --target-org PHCI
+        echo "${{ secrets.SALESFORCE_PHCI_AUTH }}" > ./authfile
+        sf org login sfdx-url -f authfile -a PHCI
 
     - name: Remove auth file
       run: rm -f ./sfdxurl.txt
