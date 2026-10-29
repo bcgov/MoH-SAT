@@ -23,37 +23,37 @@ jobs:
     - name: Authenticate PHCI org
       run: |
         echo ${{ secrets.SALESFORCE_PHCI_AUTH }} > sfdxurl.txt
-        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt -o PHCI
+        sf auth:sfdxurl:store --sfdx-url-file sfdxurl.txt --target-org PHCI
 
     - name: Remove auth file
       run: rm -f ./sfdxurl.txt
 
     - name: Deploy source dev-app-pre
-      run: sf project deploy start -d dev-app-pre -o PHCI -w 15 --ignore-conflicts
+      run: sf project deploy start -d dev-app-pre --target-org PHCI -w 15 --ignore-conflicts
  
     - name: Deploy source force-app
-      run: sf project deploy start -d force-app -o PHCI -w 15 --ignore-conflicts
+      run: sf project deploy start -d force-app --target-org PHCI -w 15 --ignore-conflicts
  
     - name: Deploy source default objects
-      run: sf project deploy start -d force-app/main/default/objects -o PHCI -w 15 --ignore-conflicts
+      run: sf project deploy start -d force-app/main/default/objects --target-org PHCI -w 15 --ignore-conflicts
  
     - name: Deploy source default queues
-      run:  sf project deploy start -d force-app/main/default/queues -o PHCI -w 15 --ignore-conflicts
+      run:  sf project deploy start -d force-app/main/default/queues --target-org PHCI -w 15 --ignore-conflicts
 
     - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o PHCI -w 60 --ignore-conflicts
+      run: sf project deploy start -d OmniStudio-Components --target-org PHCI -w 60 --ignore-conflicts
 
     - name: Re-Deploy OmniScripts in OmniStudio Folder
-      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o PHCI -w 60 --ignore-conflicts
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts --target-org PHCI -w 60 --ignore-conflicts
 
     - name: Deploy source default dev-app-post
-      run: sf project deploy start -d dev-app-post -o PHCI -w 15 --ignore-conflicts
+      run: sf project deploy start -d dev-app-post --target-org PHCI -w 15 --ignore-conflicts
 
     - name: Deploy documentGenerationSettings
-      run: sf project deploy start -d documentGenerationSettings -o PHCI -w 15 --ignore-conflicts
+      run: sf project deploy start -d documentGenerationSettings --target-org PHCI -w 15 --ignore-conflicts
         
     - name: Run Apex test
-      run: sf apex run test -o PHCI -w 15
+      run: sf apex run test --target-org PHCI -w 15
     
 
         
