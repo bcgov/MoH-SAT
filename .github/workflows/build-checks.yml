@@ -25,6 +25,7 @@ jobs:
         echo "${{ secrets.SALESFORCE_PHCI_AUTH }}" > ./authfile
         sf org login sfdx-url -f authfile -a PHCI
 
+        
     - name: Remove auth file
       run: rm -f ./authfile
 
