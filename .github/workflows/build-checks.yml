@@ -26,7 +26,7 @@ jobs:
         sf org login sfdx-url -f authfile -a PHCI
 
     - name: Remove auth file
-      run: rm -f ./sfdxurl.txt
+      run: rm -f ./authfile
 
     - name: Deploy source dev-app-pre
       run: sf project deploy start -d dev-app-pre --target-org PHCI -w 15 --ignore-conflicts
