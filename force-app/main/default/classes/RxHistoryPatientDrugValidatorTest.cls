@@ -455,6 +455,8 @@ private class RxHistoryPatientDrugValidatorTest {
 
         Case updatedCase = [SELECT Id, Compliance__c FROM Case WHERE Id = :caseId LIMIT 1];
         Assert.areEqual('True', updatedCase.Compliance__c, 'Compliance should be True');
+        Assert.areEqual(1, [SELECT COUNT() FROM AsyncApexJob WHERE ApexClass.Name = 'AdjudicationEvaluateQueueable'],
+        'validateAndUpdateCase should enqueue the adjudication job');
     }
 
     @isTest
