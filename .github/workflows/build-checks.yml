@@ -58,10 +58,10 @@ jobs:
       run: sf project deploy start -d dev-app-pre -o ciorg 
  
     - name: Deploy source force-app
-      run: sf project deploy start -d force-app -o ciorg --ignore-conflicts
+      run: sf project deploy start -d force-app -o ciorg 
  
     - name: Deploy source default objects
-      run: sf project deploy start -d force-app/main/default/objects -o ciorg --ignore-conflicts -w 15
+      run: sf project deploy start -d force-app/main/default/objects -o ciorg -w 15
  
     - name: Deploy source default queues
       run:  sf project deploy start -d force-app/main/default/queues -o ciorg -w 15
@@ -86,7 +86,7 @@ jobs:
         # sfdx force:apex:execute -u ciorg -f scripts/apex/scratchorg-set-current-user.apex
     
     - name: Deploy documentGenerationSettings
-      run: sf project deploy start -d documentGenerationSettings -o ciorg -w 15 --ignore-conflicts
+      run: sf project deploy start -d documentGenerationSettings -o ciorg -w 15  
         
     - name: Print Scratch Org Access Details
       if: ${{ always() }}

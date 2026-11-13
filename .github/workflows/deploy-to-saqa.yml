@@ -34,28 +34,28 @@ jobs:
       run: rm -f ./authfile
 
     - name: Deploy Source in dev-app-pre
-      run: sf project deploy start -d dev-app-pre -o SAQA -w 15 --ignore-conflicts
+      run: sf project deploy start -d dev-app-pre -o SAQA -w 15  
 
     - name: Deploy metadata
-      run: sf project deploy start -d force-app -o SAQA -w 15 --ignore-conflicts
+      run: sf project deploy start -d force-app -o SAQA -w 15  
 
     - name: Re-deploy default objects
-      run: sf project deploy start -d force-app/main/default/objects -o SAQA -w 15 --ignore-conflicts
+      run: sf project deploy start -d force-app/main/default/objects -o SAQA -w 15  
 
     - name: Re-deploy default queues
-      run: sf project deploy start -d force-app/main/default/queues -o SAQA -w 15 --ignore-conflicts
+      run: sf project deploy start -d force-app/main/default/queues -o SAQA -w 15  
 
     - name: Deploy source default OmniStudio-Components 
-      run: sf project deploy start -d OmniStudio-Components -o SAQA -w 60 --ignore-conflicts
+      run: sf project deploy start -d OmniStudio-Components -o SAQA -w 60  
 
     - name: Re-Deploy OmniScripts in OmniStudio Folder
-      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAQA -w 60 --ignore-conflicts
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAQA -w 60  
 
     - name: Deploy Source in dev-app-post
-      run: sf project deploy start -d dev-app-post -o SAQA -w 15 --ignore-conflicts
+      run: sf project deploy start -d dev-app-post -o SAQA -w 15  
 
     - name: Deploy documentGenerationSettings
-      run: sf project deploy start -d documentGenerationSettings -o SAQA -w 15 --ignore-conflicts
+      run: sf project deploy start -d documentGenerationSettings -o SAQA -w 15  
 
     - name: Run Apex Tests
       run: sf apex run test -o SAQA -w 15
