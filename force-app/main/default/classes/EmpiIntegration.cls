@@ -210,7 +210,7 @@ public with sharing class EmpiIntegration {
             userId = lraApiSettings.UserID__c;
         }
         // Construct the endpoint URL for the HTTP callout, encoding the identifier.
-        String endpoint = 'callout:LRA_AccessToken_Request';
+        String endpoint = 'callout:LRA_AccessToken_Request?identifier=' + EncodingUtil.urlEncode(identifierNamespace + identifier, 'UTF-8');
 
         // Prepare the HTTP request with necessary headers and send request.
         HttpRequest req = new HttpRequest();
