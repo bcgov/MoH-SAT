@@ -2,12 +2,13 @@ name: SAQA - Create and install package version
 on:
   workflow_dispatch:
   # TEMPORARY: lets this run from the feature branch before the file exists on main. Remove before merging.
+  # Runs only when the pushed commit message contains [run-saqa].
   push:
     branches: [BCMOHAD-33040]
-    paths: ['.github/workflows/saqa-package.yaml']
 
 jobs:
   package:
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-saqa]') }}
     runs-on: ubuntu-latest
     environment: SAQA
     env:
