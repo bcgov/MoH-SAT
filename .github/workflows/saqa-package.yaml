@@ -14,6 +14,9 @@ jobs:
     env:
       SALESFORCEAUTHURL: ${{ secrets.SALESFORCEAUTHURL }}
       ENV_AZURE_CLIENT_ID: ${{ secrets.ENV_AZURE_CLIENT_ID }}
+      # Trial build number. Must be a patch HIGHER than the last promoted release (12.0.29 is already released).
+      # Bump this if the Dev Hub says the patch is already promoted. Overrides sfdx-project.json.
+      TRIAL_VERSION_NUMBER: 12.0.30.NEXT
     steps:
     - uses: actions/checkout@master
 
@@ -49,7 +52,7 @@ jobs:
     - name: Create package version
       id: create_package
       run: |
-        OUT=$(sf package version create -p "Special Authority App" --installation-key-bypass -f config/project-scratch-def.json -v devhub -w 60 --json) || {
+        OUT=$(sf package version create -p "Special Authority App" --installation-key-bypass --version-number "$TRIAL_VERSION_NUMBER" --version-name "Version ${TRIAL_VERSION_NUMBER%.NEXT} trial" --tag saqa-trial -f config/project-scratch-def.json -v devhub -w 60 --json) || {
           echo "::error::Package version create failed"
           jq -r '.message // empty' <<<"$OUT" || echo "$OUT"
           exit 1
