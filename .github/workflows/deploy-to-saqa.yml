@@ -14,6 +14,7 @@ jobs:
     environment: SAQA
     env:
         SALESFORCEAUTHURL: ${{ secrets.SALESFORCEAUTHURL }}
+        ENV_AZURE_CLIENT_ID: ${{ secrets.ENV_AZURE_CLIENT_ID }}
     steps:
     - uses: actions/checkout@master
     - name: 'Install Salesforce CLI'
@@ -32,8 +33,11 @@ jobs:
     - name: Remove auth file
       run: rm -f ./authfile
 
+    - name: Verify required environment values
+      run: test -n "$ENV_AZURE_CLIENT_ID" || { echo "::error::ENV_AZURE_CLIENT_ID secret is empty or missing in this environment"; exit 1; }
+
     - name: Deploy Source in dev-app-pre
-      run: sf project deploy start -d dev-app-pre -o SAQA -w 15  
+      run: sf project deploy start -d dev-app-pre -o SAQA -w 15
 
     - name: Deploy metadata
       run: sf project deploy start -d force-app -o SAQA -w 15  
