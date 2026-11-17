@@ -35,7 +35,7 @@ jobs:
       run: sf package install --package "${{ github.event.inputs.package }}" -o SAT-STAGING -b 15 --noprompt --wait 10
 
     - name: Re-deploy default objects
-      run: sf project deploy start -d force-app/main/default/objects -o SAT-STAGING --ignore-conflicts -w 15 
+      run: sf project deploy start -d force-app/main/default/objects -o SAT-STAGING -w 15 
  #     run: sfdx force:source:deploy -p force-app/main/default/objects,force-app/main/default/queues -u SAT-STAGING -w 15
 
     - name: Re-deploy default queues
@@ -45,13 +45,13 @@ jobs:
       run: sf project deploy start -d OmniStudio-Components -o SAT-STAGING -w 60 
 
     - name: Re-Deploy OmniScripts in OmniStudio Folder
-      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAT-STAGING -w 60 --ignore-conflicts
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAT-STAGING -w 60  
 
     - name: Deploy Source in dev-app-post
-      run: sf project deploy start -d dev-app-post -o SAT-STAGING -w 15 --ignore-conflicts
+      run: sf project deploy start -d dev-app-post -o SAT-STAGING -w 15  
 
     - name: Deploy documentGenerationSettings
-      run: sf project deploy start -d documentGenerationSettings -o SAT-STAGING -w 15 --ignore-conflicts
+      run: sf project deploy start -d documentGenerationSettings -o SAT-STAGING -w 15  
 
     - name: Run Apex Tests
       run: sf apex run test -o SAT-STAGING -w 15
