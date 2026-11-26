@@ -1,0 +1,87 @@
+name: SAQA - Create and install package version
+on:
+  workflow_dispatch:
+  # TEMPORARY: lets this run from the feature branch before the file exists on main. Remove before merging.
+  # Runs only when the pushed commit message contains [run-saqa].
+  push:
+    branches: [BCMOHAD-33040]
+
+jobs:
+  package:
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[run-saqa]') }}
+    runs-on: ubuntu-latest
+    environment: SAQA
+    env:
+      SALESFORCEAUTHURL: ${{ secrets.SALESFORCEAUTHURL }}
+      ENV_AZURE_CLIENT_ID: ${{ secrets.ENV_AZURE_CLIENT_ID }}
+      # Trial build number. Must be a patch HIGHER than the last promoted release (12.0.29 is already released).
+      # Bump this if the Dev Hub says the patch is already promoted. Overrides sfdx-project.json.
+      TRIAL_VERSION_NUMBER: 12.0.30.NEXT
+    steps:
+    - uses: actions/checkout@master
+
+    - name: 'Install Salesforce CLI'
+      run: |
+          wget https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
+          mkdir ~/sfdx
+          tar xJf sf-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+          echo "$HOME/sfdx/bin" >> $GITHUB_PATH
+          ~/sfdx/bin/sf version
+
+    # Package versions are created in the Dev Hub, so it must be authenticated too.
+    - name: Authenticate DevHub
+      run: |
+        printf '%s' "${{ secrets.SALESFORCE_DEVHUB_AUTH }}" > ./devhubauth
+        sf org login sfdx-url -f ./devhubauth -a devhub --set-default-dev-hub
+        rm -f ./devhubauth
+
+    - name: Authenticate with SAQA sandbox
+      run: |
+        printf '%s' "$SALESFORCEAUTHURL" > ./authfile
+        sf org login sfdx-url -f ./authfile -a SAQA
+        rm -f ./authfile
+
+    # The value is baked into the package version, so never build with an empty one.
+    - name: Verify required environment values
+      run: test -n "$ENV_AZURE_CLIENT_ID" || { echo "::error::ENV_AZURE_CLIENT_ID secret is empty or missing in this environment"; exit 1; }
+
+    - name: Deploy Source in dev-app-pre
+      run: sf project deploy start -d dev-app-pre -o SAQA -w 15
+
+    # sfdx-project.json "replacements" swaps AZURE_CLIENT_ID for $ENV_AZURE_CLIENT_ID while the package is built.
+    - name: Create package version
+      id: create_package
+      run: |
+        OUT=$(sf package version create -p "Special Authority App" --installation-key-bypass --version-number "$TRIAL_VERSION_NUMBER" --version-name "Version ${TRIAL_VERSION_NUMBER%.NEXT} trial" --tag saqa-trial -f config/project-scratch-def.json -v devhub -w 60 --json) || {
+          echo "::error::Package version create failed"
+          jq -r '.message // empty' <<<"$OUT" || echo "$OUT"
+          exit 1
+        }
+        VERSION_ID=$(jq -r '.result.SubscriberPackageVersionId // empty' <<<"$OUT")
+        [[ "$VERSION_ID" == 04t* ]] || { echo "::error::No 04t package version id in the create output"; exit 1; }
+        echo "version_id=$VERSION_ID" >> "$GITHUB_OUTPUT"
+        echo "Created package version $VERSION_ID"
+
+    - name: Install package version in SAQA
+      run: sf package install --package "${{ steps.create_package.outputs.version_id }}" -o SAQA -b 15 --noprompt --wait 10
+
+    - name: Re-deploy default objects
+      run: sf project deploy start -d force-app/main/default/objects -o SAQA --ignore-conflicts -w 15
+
+    - name: Re-deploy default queues
+      run: sf project deploy start -d force-app/main/default/queues -o SAQA -w 15
+
+    - name: Deploy source default OmniStudio-Components
+      run: sf project deploy start -d OmniStudio-Components -o SAQA -w 60
+
+    - name: Re-Deploy OmniScripts in OmniStudio Folder
+      run: sf project deploy start -d OmniStudio-Components/main/default/omniScripts -o SAQA -w 60 --ignore-conflicts
+
+    - name: Deploy Source in dev-app-post
+      run: sf project deploy start -d dev-app-post -o SAQA -w 15 --ignore-conflicts
+
+    - name: Deploy documentGenerationSettings
+      run: sf project deploy start -d documentGenerationSettings -o SAQA -w 15 --ignore-conflicts
+
+    - name: Run Apex Tests
+      run: sf apex run test -o SAQA -w 15
